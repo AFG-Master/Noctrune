@@ -147,16 +147,15 @@ local function tagPassenger(m)
 	end
 	local persona = tostring(m:GetAttribute("Persona") or ""):lower()
 	local v = verdict[persona]
-	-- before they speak: a monster in disguise has ScareBack set, or a body (Rig) that doesn't match its look (Template)
+	-- before they speak: ScareBack is set on some passengers (being checked: may mean a hidden monster)
 	if not v then
-		local tpl, rig = m:GetAttribute("Template"), m:GetAttribute("Rig")
-		if m:GetAttribute("ScareBack") or (tpl and rig and tpl ~= rig) then v = "m?" end
+		if m:GetAttribute("ScareBack") then v = "m?" end
 	end
-	bb.T.Text = v == "H" and "HUMAN ✅" or v == "M" and "MONSTER ⚠️" or v == "m?" and "LIKELY MONSTER ⚠️" or "HUMAN? ✅"
+	bb.T.Text = v == "H" and "HUMAN ✅" or v == "M" and "MONSTER ⚠️" or v == "m?" and "SUSPICIOUS ⚠️" or "HUMAN? ✅"
 	bb.T.TextColor3 = v == "H" and GRN or (v == "M" or v == "m?") and RED or Color3.fromRGB(150, 210, 160)
 	if v == "m?" and not m:GetAttribute("OPWarned") then
 		m:SetAttribute("OPWarned", true)
-		alert("⚠️ Likely MONSTER waiting: " .. tostring(m:GetAttribute("Persona")) .. " — skip this one", RED, 6)
+		alert("⚠️ Suspicious passenger: " .. tostring(m:GetAttribute("Persona")) .. " — skip this one", RED, 6)
 	end
 end
 
