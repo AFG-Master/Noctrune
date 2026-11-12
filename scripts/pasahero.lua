@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.7"
+local VERSION = "v1.8"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -774,36 +774,35 @@ task.spawn(function()
 							if not ok then
 								if d < 40 then done[m] = true end -- drive past
 							elseif -rel.Z > -4 and -rel.Z < 60 and math.abs(rel.X) < 70 then
-								-- creep up until the tricycle is right next to them (the game wants it close), then board
+								-- the game lets you pick up within 18 studs while slower than 4: creep in at ~3 and press the prompt
 								done[m] = true
 								local n0 = #(jst("Riding") or {})
 								local t0 = tick()
 								AP.hold = "boarding " .. tostring(m:GetAttribute("Persona"))
-								local near = false
-								while G.auto and alive and tick() - t0 < 22 and #(jst("Riding") or {}) <= n0 and m.Parent do
+								while G.auto and alive and tick() - t0 < 24 and #(jst("Riding") or {}) <= n0 and m.Parent do
 									local cf2 = t:GetPivot()
-									local pp = m:GetPivot().Position
+									local pr = promptOf(m) or m:FindFirstChildWhichIsA("ProximityPrompt", true)
+									local anchor = pr and pr.Parent
+									local pp = (anchor and anchor:IsA("BasePart") and anchor.Position) or m:GetPivot().Position
 									local dd = (pp - cf2.Position).Magnitude
 									local rel2 = cf2:PointToObjectSpace(pp)
-									if dd > 6.5 then
-										-- drive straight at them (also reverses if we overshot), slowly
+									local sp = seat.AssemblyLinearVelocity.Magnitude
+									if dd > 13 then
 										local fwd = -rel2.Z > 0
 										local ang = math.atan2(rel2.X, fwd and -rel2.Z or rel2.Z)
 										seat.SteerFloat = math.clamp((fwd and 1 or -1) * ang / 0.6, -1, 1)
-										local sp = seat.AssemblyLinearVelocity.Magnitude
-										seat.ThrottleFloat = fwd and (sp < 6 and 0.8 or 0) or (sp < 4 and -0.8 or 0)
+										seat.ThrottleFloat = fwd and (sp < 3 and 0.55 or sp > 3.6 and -0.5 or 0) or (sp < 3 and -0.55 or sp > 3.6 and 0.5 or 0)
 									else
-										seat.ThrottleFloat = seat.AssemblyLinearVelocity.Magnitude > 1.5 and -1 or 0
 										seat.SteerFloat = 0
-										near = true
+										seat.ThrottleFloat = sp > 0.8 and (sp > 0 and -1 or 1) or 0
 									end
-									if near or dd < 9 then
-										local pr = promptOf(m) or m:FindFirstChildWhichIsA("ProximityPrompt", true)
-										if pr then fire(pr) end
+									if dd < 17 and sp < 3.5 and pr then
+										pcall(function() pr.MaxActivationDistance = 40 end)
+										fire(pr)
 									end
-									task.wait(0.35)
+									task.wait(0.3)
 								end
-								seat.ThrottleFloat = 0
+								seat.ThrottleFloat = 0 seat.SteerFloat = 0
 								AP.hold = nil
 								return
 							elseif -rel.Z > 0 and -rel.Z < 140 then
