@@ -542,7 +542,7 @@ local function driveSeat()
 	if seat and hum and hum.SeatPart == seat then return t, seat end
 end
 local released = true
-on(RunService.Heartbeat, function()
+on(RunService.RenderStepped, function()
 	if not G.auto then
 		if not released then
 			released = true
@@ -574,12 +574,12 @@ on(RunService.Heartbeat, function()
 	local rel = cf:PointToObjectSpace(target)
 	local ang = math.atan2(rel.X, -rel.Z)
 	local steer = math.clamp(ang / 0.5, -1, 1)
-	local speed = t.PrimaryPart and t.PrimaryPart.AssemblyLinearVelocity.Magnitude or 0
+	local speed = seat.AssemblyLinearVelocity.Magnitude
 	local want = (AP.hold and 0) or (G.autoSpeed * (1 - math.min(0.55, math.abs(steer) * 0.6)))
 	local throttle = want <= 0.5 and (speed > 2 and -1 or 0) or speed < want - 2 and 1 or speed > want + 4 and -0.4 or 0.15
 	seat.ThrottleFloat = throttle
 	seat.SteerFloat = steer
-	AP.state = AP.hold and ("holding: " .. tostring(AP.hold)) or string.format("driving %d / %d", speed, want)
+	AP.state = AP.hold and ("holding: " .. tostring(AP.hold)) or string.format("driving %d / %d steer %.2f", speed, want, steer)
 end)
 
 -- ================= main loop =================
