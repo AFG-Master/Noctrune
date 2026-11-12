@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.9"
+local VERSION = "v1.0"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -29,7 +29,7 @@ local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) retu
 
 -- ================= settings =================
 local CFG_FILE = "OPPasahero.json"
-local G = { loot = true, scan = true, monEsp = true, alerts = true, autoAct = true, hud = true, bright = false, noFog = false, noScare = false, open = true }
+local G = { auto = false, autoSpeed = 40, loot = true, scan = true, monEsp = true, alerts = true, autoAct = true, hud = true, bright = false, noFog = false, noScare = false, open = true }
 pcall(function()
 	if isfile and isfile(CFG_FILE) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG_FILE))) do if G[k] ~= nil then G[k] = v end end
@@ -98,6 +98,7 @@ local function switch(key, label, sub)
 		if apply[key] then pcall(apply[key], G[key]) end
 	end)
 end
+switch("auto", "AUTO DRIVE", "drives the road for you (sit in the driver seat)")
 switch("scan", "Passenger scanner", "HUMAN / MONSTER tag on passengers")
 switch("monEsp", "Monster ESP", "outline + distance through fog")
 switch("alerts", "Event alerts", "banner telling you what to do")
@@ -518,6 +519,69 @@ apply.bright = function(v) if not v then visualsOff() end end
 apply.noFog = function(v) if not v then visualsOff() end end
 apply.noScare = function(v) if not v then visualsOff() end end
 
+-- ================= auto drive: follows the road's centre line =================
+local AP = { state = "off" }
+local function roadPath()
+	local segs = {}
+	local rw = workspace:FindFirstChild("RoadWorld")
+	if not rw then return {} end
+	for _, c in ipairs(rw:GetChildren()) do
+		local n = tonumber(c.Name:match("%d+"))
+		local line = n and (c:FindFirstChild("CentreLine") or c:FindFirstChild("Road"))
+		if line and line:IsA("BasePart") then table.insert(segs, { n = n, pos = line.Position }) end
+	end
+	table.sort(segs, function(a, b) return a.n < b.n end)
+	local pts = {}
+	for _, sg in ipairs(segs) do table.insert(pts, sg.pos) end
+	return pts
+end
+local function driveSeat()
+	local t = workspace:FindFirstChild("Tricycles") and workspace.Tricycles:FindFirstChild("RunTricycle")
+	local seat = t and t:FindFirstChild("DriveSeat")
+	local hum = p.Character and p.Character:FindFirstChildOfClass("Humanoid")
+	if seat and hum and hum.SeatPart == seat then return t, seat end
+end
+local released = true
+on(RunService.Heartbeat, function()
+	if not G.auto then
+		if not released then
+			released = true
+			local _, seat = driveSeat()
+			if seat then seat.ThrottleFloat = 0 seat.SteerFloat = 0 end
+		end
+		AP.state = "off"
+		return
+	end
+	local t, seat = driveSeat()
+	if not seat then AP.state = "sit in the driver seat" return end
+	released = false
+	local cf = t:GetPivot()
+	local pts = AP.pts
+	if not pts or tick() - (AP.ptsAt or 0) > 1 then pts = roadPath() AP.pts, AP.ptsAt = pts, tick() end
+	if #pts < 2 then AP.state = "no road" return end
+	-- nearest point, then aim at the first point at least 28 studs ahead and in front of us
+	local best, bd = 1, math.huge
+	for i, q in ipairs(pts) do
+		local d = (q - cf.Position).Magnitude
+		if d < bd then best, bd = i, d end
+	end
+	local target
+	for i = best, math.min(#pts, best + 6) do
+		local rel = cf:PointToObjectSpace(pts[i])
+		if -rel.Z > 10 and (pts[i] - cf.Position).Magnitude > 28 then target = pts[i] break end
+	end
+	target = target or pts[math.min(#pts, best + 1)]
+	local rel = cf:PointToObjectSpace(target)
+	local ang = math.atan2(rel.X, -rel.Z)
+	local steer = math.clamp(ang / 0.5, -1, 1)
+	local speed = t.PrimaryPart and t.PrimaryPart.AssemblyLinearVelocity.Magnitude or 0
+	local want = (AP.hold and 0) or (G.autoSpeed * (1 - math.min(0.55, math.abs(steer) * 0.6)))
+	local throttle = want <= 0.5 and (speed > 2 and -1 or 0) or speed < want - 2 and 1 or speed > want + 4 and -0.4 or 0.15
+	seat.ThrottleFloat = throttle
+	seat.SteerFloat = steer
+	AP.state = AP.hold and ("holding: " .. tostring(AP.hold)) or string.format("driving %d / %d", speed, want)
+end)
+
 -- ================= main loop =================
 task.spawn(function()
 	while alive do
@@ -542,4 +606,4 @@ genv.OPPASA_STOP = function()
 	pcall(restore)
 	pcall(function() gui:Destroy() end)
 end
-genv.OPPASA = { G = G, verdict = verdict, rec = REC, learn = LEARN }
+genv.OPPASA = { G = G, verdict = verdict, rec = REC, learn = LEARN, ap = AP }
