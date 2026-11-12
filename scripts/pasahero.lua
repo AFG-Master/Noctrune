@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.5"
+local VERSION = "v0.6"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -130,6 +130,16 @@ local function readKey(key, name)
 
 end
 local tags, warned = {}, {}
+-- learned tells: what monsters had that humans never had (filled from the recorder, saved across runs)
+local BASE = { AnimScale = 1, Persona = 1, Template = 1, Voice = 1, Rig = 1, Anim = 1, RBX_ReimportId = 1, WaveAt = 1, Floor = 1 }
+local LEARN = { mon = { ArmsLowered = true, ["Anim=Still"] = true }, hum = {} }
+local function tellKeys(attrs)
+	local out = {}
+	for k in pairs(attrs) do if not BASE[k] then table.insert(out, k) end end
+	local anim = attrs.Anim
+	if anim and anim ~= "Idle" and anim ~= "Sit" and anim ~= "Wave" then table.insert(out, "Anim=" .. tostring(anim)) end
+	return out
+end
 local function tagPassenger(m)
 	if not (G.scan and m:IsA("Model")) then return end
 	local root = m:FindFirstChild("HumanoidRootPart") or m.PrimaryPart
@@ -143,18 +153,16 @@ local function tagPassenger(m)
 		bb.Parent = gui
 		tags[m] = bb
 	end
-	-- monsters show "tells" as extra attributes (seen live: Anim=Still + ArmsLowered on a monster; humans: Anim=Idle, nothing extra)
-	local BASE = { AnimScale = 1, Persona = 1, Template = 1, Voice = 1, Rig = 1, Anim = 1, RBX_ReimportId = 1, WaveAt = 1, Floor = 1, OPWarned = 1 }
-	local tells = {}
-	for k, val in pairs(m:GetAttributes()) do
-		if not BASE[k] then table.insert(tells, k) end
+	local tells = tellKeys(m:GetAttributes())
+	local hits, unknown = {}, {}
+	for _, k in ipairs(tells) do
+		if LEARN.mon[k] and not LEARN.hum[k] then table.insert(hits, k)
+		elseif not LEARN.hum[k] and not LEARN.mon[k] then table.insert(unknown, k) end
 	end
-	local anim = m:GetAttribute("Anim")
-	if anim and anim ~= "Idle" and anim ~= "Sit" and anim ~= "Wave" then table.insert(tells, "Anim=" .. tostring(anim)) end
-	local v = (#tells > 0) and "M" or "H"
-	bb.T.Text = v == "M" and ("MONSTER ⚠️ " .. table.concat(tells, ","):sub(1, 30)) or "HUMAN ✅"
-	bb.T.TextColor3 = v == "M" and RED or GRN
-	bb.Size = UDim2.fromOffset(v == "M" and 200 or 110, 26)
+	local v = #hits > 0 and "M" or #unknown > 0 and "?" or "H"
+	bb.T.Text = v == "M" and ("MONSTER ⚠️ " .. table.concat(hits, ","):sub(1, 28)) or v == "?" and ("CHECK ⚠️ " .. table.concat(unknown, ","):sub(1, 28)) or "HUMAN ✅"
+	bb.T.TextColor3 = v == "M" and RED or v == "?" and ACC or GRN
+	bb.Size = UDim2.fromOffset(v == "H" and 110 or 210, 26)
 	if v == "M" and not warned[m] then
 		warned[m] = true
 		alert("⚠️ MONSTER waiting: " .. tostring(m:GetAttribute("Persona")) .. " — don't pick them up", RED, 6)
@@ -231,8 +239,8 @@ local function hudButton()
 end
 on(NE.OnClientEvent, function(kind, data)
 	if type(data) ~= "table" then return end
-	if kind == "Start" then
-		alert(TIPS[data.Kind] or ("⚠️ " .. tostring(data.Kind)), ACC, 5)
+	if kind == "Start" or kind == "Arm" then
+		alert((kind == "Arm" and "🔜 " or "") .. (TIPS[data.Kind] or ("⚠️ " .. tostring(data.Kind))), ACC, 5)
 	elseif kind == "Offer" then
 		if G.autoAct and SAFE_ACT[data.Action] then
 			task.spawn(function()
@@ -270,6 +278,13 @@ pcall(function()
 	end
 end)
 local dirty = false
+local function learnFrom(e)
+	if e.outcome ~= "monster" and e.outcome ~= "human" then return end
+	for _, k in ipairs(tellKeys(e.attrs or {})) do
+		if e.outcome == "monster" then LEARN.mon[k] = true else LEARN.hum[k] = true end
+	end
+end
+for _, e in ipairs(REC.pax) do learnFrom(e) end
 local function rec(kind, data)
 	local ok, s = pcall(function() return type(data) == "table" and HttpService:JSONEncode(data) or tostring(data) end)
 	table.insert(REC.log, { t = os.time(), km = st("HereKm"), k = kind, d = ok and s:sub(1, 400) or "?" })
@@ -326,7 +341,7 @@ on(RE.OnClientEvent, function(kind, data)
 		if e then e.boarded = true e.name = data.Name e.fare = data.Fare dirty = true end
 	elseif kind == "Fare" then
 		local e = findPax(data.Name)
-		if e then e.outcome = "human" dirty = true end
+		if e then e.outcome = "human" learnFrom(e) dirty = true end
 	elseif kind == "Reveal" then
 		-- the monster is the boarded passenger that is no longer riding and never paid
 		task.wait(1)
@@ -334,7 +349,11 @@ on(RE.OnClientEvent, function(kind, data)
 		for _, r in ipairs(jst("Riding") or {}) do riding[tostring(r.Name)] = true end
 		for i = #REC.pax, 1, -1 do
 			local e = REC.pax[i]
-			if e.boarded and e.outcome == "unknown" and not riding[tostring(e.name)] then e.outcome = "monster" dirty = true break end
+			if e.boarded and e.outcome == "unknown" and not riding[tostring(e.name)] then
+				e.outcome = "monster" learnFrom(e) dirty = true
+				alert("📚 Learned new monster tells from " .. tostring(e.name), ACC, 4)
+				break
+			end
 		end
 	end
 end)
@@ -442,4 +461,4 @@ genv.OPPASA_STOP = function()
 	pcall(restore)
 	pcall(function() gui:Destroy() end)
 end
-genv.OPPASA = { G = G, verdict = verdict, rec = REC }
+genv.OPPASA = { G = G, verdict = verdict, rec = REC, learn = LEARN }
