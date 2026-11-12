@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.1"
+local VERSION = "v0.2"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -202,6 +202,23 @@ local TIPS = {
 	Mata = "👁️ Eyes in the trees", Sasakyan = "🚗 Car behind you", Angkas = "🏍️ Someone wants a ride", Station = "⛽ Gas station",
 }
 local SAFE_ACT = { RadioOff = true, Lights = true, Shirt = true, Crank = true, Pagpag = true }
+-- the game's HUD action button handlers (found once in memory)
+local hudPress, hudRelease
+local function hudButton()
+	if hudPress and hudRelease then return hudPress, hudRelease end
+	pcall(function()
+		for _, f in ipairs(getgc()) do
+			if type(f) == "function" and islclosure(f) then
+				local ok, src = pcall(debug.info, f, "s")
+				if ok and src and src:match("Hud$") then
+					local n = debug.info(f, "n")
+					if n == "_press" then hudPress = f elseif n == "_release" then hudRelease = f end
+				end
+			end
+		end
+	end)
+	return hudPress, hudRelease
+end
 on(NE.OnClientEvent, function(kind, data)
 	if type(data) ~= "table" then return end
 	if kind == "Start" then
@@ -210,10 +227,13 @@ on(NE.OnClientEvent, function(kind, data)
 		if G.autoAct and SAFE_ACT[data.Action] then
 			task.spawn(function()
 				task.wait(0.35)
+				-- press the game's own action button (same as your tap: the game sends the right message)
+				local press, release = hudButton()
+				if not (press and release) then alert("👉 Tap: " .. tostring(data.Label or data.Action), ACC, 4) return end
 				local hold = tonumber(data.Hold) or 0
-				pcall(function() NE:FireServer("Act", { Id = data.Id, Action = data.Action, Phase = "Start" }) end)
-				task.wait(hold > 0 and hold + 0.2 or 0.15)
-				pcall(function() NE:FireServer("Act", { Id = data.Id, Action = data.Action, Phase = "End" }) end)
+				pcall(press)
+				task.wait(hold > 0 and hold + 0.3 or 0.12)
+				pcall(release)
 				alert("✅ Auto: " .. tostring(data.Label or data.Action), GRN, 2.5)
 			end)
 		elseif data.Label then
