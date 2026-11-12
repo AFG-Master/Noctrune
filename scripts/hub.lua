@@ -28,7 +28,16 @@ end
 
 -- 1) the game has its own script: start it by itself
 for _, s in ipairs(SCRIPTS) do
-	if s.place and s.place == game.PlaceId then run(s) return end
+	if s.place and s.place == game.PlaceId then
+		-- the farm may already be back by itself (it re-queues itself on rejoin): don't start it twice
+		task.spawn(function()
+			task.wait(s.delay or 0)
+			if not (genv.NPETS_S and genv.NPETS_S.alive and s.place == 920587237) then
+				pcall(function() loadstring(game:HttpGet(s.url))() end)
+			end
+		end)
+		return
+	end
 end
 
 -- 2) otherwise: a small menu (tap a name to load it)
