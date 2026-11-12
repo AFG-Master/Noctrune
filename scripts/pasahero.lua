@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.6"
+local VERSION = "v0.7"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -239,7 +239,13 @@ local function hudButton()
 end
 on(NE.OnClientEvent, function(kind, data)
 	if type(data) ~= "table" then return end
-	if kind == "Start" or kind == "Arm" then
+	if kind == "Rule" and type(data.Card) == "table" and data.Card.Line then
+		alert("📜 " .. tostring(data.Card.Title or "RULE") .. ": " .. tostring(data.Card.Line), RED, 8)
+		return
+	elseif kind == "Beat" and type(data.Data) == "table" and data.Data.Gloss then
+		alert("⚠️ " .. tostring(data.Data.Gloss), RED, 6)
+		return
+	elseif kind == "Start" or kind == "Arm" then
 		alert((kind == "Arm" and "🔜 " or "") .. (TIPS[data.Kind] or ("⚠️ " .. tostring(data.Kind))), ACC, 5)
 	elseif kind == "Offer" then
 		if G.autoAct and SAFE_ACT[data.Action] then
@@ -325,6 +331,19 @@ local function findPax(name)
 		if pr ~= "" and name:find(pr, 1, true) and e.outcome == "unknown" then return e end
 	end
 end
+-- the waiting passenger you are standing next to when someone boards
+local function nearestPax()
+	local c = p.Character
+	if not c then return end
+	local me, best, bd = c:GetPivot().Position, nil, 40
+	for m, e in pairs(paxOf) do
+		if not e.boarded and e.outcome == "unknown" and m.Parent then
+			local ok, pos = pcall(function() return m:GetPivot().Position end)
+			if ok and (pos - me).Magnitude < bd then best, bd = e, (pos - me).Magnitude end
+		end
+	end
+	return best
+end
 do
 	local pf = workspace:FindFirstChild("Passengers")
 	if pf then
@@ -337,10 +356,15 @@ on(RE.OnClientEvent, function(kind, data)
 	rec(kind, data)
 	if type(data) ~= "table" then return end
 	if kind == "Boarded" then
-		local e = findPax(data.Name)
+		local e = findPax(data.Name) or nearestPax()
 		if e then e.boarded = true e.name = data.Name e.fare = data.Fare dirty = true end
 	elseif kind == "Fare" then
-		local e = findPax(data.Name)
+		local e
+		for i = #REC.pax, 1, -1 do
+			local x = REC.pax[i]
+			if x.boarded and x.outcome == "unknown" and x.name == data.Name then e = x break end
+		end
+		e = e or findPax(data.Name)
 		if e then e.outcome = "human" learnFrom(e) dirty = true end
 	elseif kind == "Reveal" then
 		-- the monster is the boarded passenger that is no longer riding and never paid
