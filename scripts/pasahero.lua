@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.3"
+local VERSION = "v0.4"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -127,11 +127,9 @@ local function readKey(key, name)
 	local old = verdict[persona]
 	verdict[persona] = kind
 	if name then verdict[name] = kind end
-	if kind == "M" and old ~= "M" then
-		alert("⚠️ MONSTER: " .. (name or persona) .. " — don't let them ride!", RED, 6)
-	end
+
 end
-local tags = {}
+local tags, warned = {}, {}
 local function tagPassenger(m)
 	if not (G.scan and m:IsA("Model")) then return end
 	local root = m:FindFirstChild("HumanoidRootPart") or m.PrimaryPart
@@ -145,17 +143,21 @@ local function tagPassenger(m)
 		bb.Parent = gui
 		tags[m] = bb
 	end
-	local persona = tostring(m:GetAttribute("Persona") or ""):lower()
-	local v = verdict[persona]
-	-- before they speak: ScareBack is set on some passengers (being checked: may mean a hidden monster)
-	if not v then
-		if m:GetAttribute("ScareBack") then v = "m?" end
+	-- monsters show "tells" as extra attributes (seen live: Anim=Still + ArmsLowered on a monster; humans: Anim=Idle, nothing extra)
+	local BASE = { AnimScale = 1, Persona = 1, Template = 1, Voice = 1, Rig = 1, Anim = 1, RBX_ReimportId = 1, WaveAt = 1, Floor = 1, OPWarned = 1 }
+	local tells = {}
+	for k, val in pairs(m:GetAttributes()) do
+		if not BASE[k] then table.insert(tells, k) end
 	end
-	bb.T.Text = v == "H" and "HUMAN ✅" or v == "M" and "MONSTER ⚠️" or v == "m?" and "SUSPICIOUS ⚠️" or "HUMAN? ✅"
-	bb.T.TextColor3 = v == "H" and GRN or (v == "M" or v == "m?") and RED or Color3.fromRGB(150, 210, 160)
-	if v == "m?" and not m:GetAttribute("OPWarned") then
-		m:SetAttribute("OPWarned", true)
-		alert("⚠️ Suspicious passenger: " .. tostring(m:GetAttribute("Persona")) .. " — skip this one", RED, 6)
+	local anim = m:GetAttribute("Anim")
+	if anim and anim ~= "Idle" and anim ~= "Sit" and anim ~= "Wave" then table.insert(tells, "Anim=" .. tostring(anim)) end
+	local v = (#tells > 0) and "M" or "H"
+	bb.T.Text = v == "M" and ("MONSTER ⚠️ " .. table.concat(tells, ","):sub(1, 30)) or "HUMAN ✅"
+	bb.T.TextColor3 = v == "M" and RED or GRN
+	bb.Size = UDim2.fromOffset(v == "M" and 200 or 110, 26)
+	if v == "M" and not warned[m] then
+		warned[m] = true
+		alert("⚠️ MONSTER waiting: " .. tostring(m:GetAttribute("Persona")) .. " — don't pick them up", RED, 6)
 	end
 end
 
@@ -253,9 +255,8 @@ on(RE.OnClientEvent, function(kind, data)
 	if type(data) ~= "table" then return end
 	if kind == "Speech" then
 		readKey(data.Key, data.Name)
-	elseif kind == "Boarded" then
-		local v = verdict[data.Name]
-		if v == "M" then alert("⚠️ A MONSTER just boarded: " .. tostring(data.Name), RED, 6) end
+	elseif kind == "Reveal" then
+		alert("👹 Monster revealed!", RED, 4)
 	end
 end)
 
