@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.6"
+local VERSION = "v1.7"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -587,6 +587,57 @@ on(RunService.RenderStepped, function()
 	AP.state = AP.hold and ("holding: " .. tostring(AP.hold)) or string.format("driving %d / %d steer %.2f", speed, want, steer)
 end)
 
+local function fire(pr)
+	if fireproximityprompt then pcall(fireproximityprompt, pr) return true end
+end
+-- ================= auto fuel rescue: the spare can on the rack / a gas can in your bag =================
+local function pourCan()
+	-- the game's own "POUR" plate (GasPour screen): tap it while a can is in your bag
+	local pg = p:FindFirstChild("PlayerGui")
+	local gp = pg and pg:FindFirstChild("GasPour")
+	local btn = gp and gp:FindFirstChild("Pour")
+	if not (btn and btn.Visible) then return false end
+	local plate = btn:FindFirstChild("Content") and btn.Content:FindFirstChild("Plate")
+	pcall(function() for _, c in ipairs(getconnections(plate.Activated)) do c:Fire() end end)
+	return true
+end
+local function rescueFuel(t, seat)
+	local items = jst("Items") or {}
+	local gas = items.Gas or {}
+	local hum = p.Character and p.Character:FindFirstChildOfClass("Humanoid")
+	if not hum then return false end
+	local has = items.Spare or (gas.Cans or 0) > 0 or (gas.Bottles or 0) > 0 or (items.Bottles or 0) > 0
+	if not has then return false end
+	AP.hold = "fuel rescue"
+	-- stop and get out (the game needs you off the tricycle to take / pour)
+	seat.ThrottleFloat = -1
+	local t0 = tick()
+	while tick() - t0 < 4 and seat.AssemblyLinearVelocity.Magnitude > 1.5 do task.wait(0.2) end
+	seat.ThrottleFloat = 0 seat.SteerFloat = 0
+	hum.Sit = false pcall(function() hum:ChangeState(Enum.HumanoidStateType.Jumping) end)
+	task.wait(1.2)
+	local rack
+	for _, d in ipairs(t:GetDescendants()) do
+		if d:IsA("ProximityPrompt") and tostring(d.ActionText):find("spare") then rack = d end
+	end
+	if items.Spare and rack then
+		pcall(function() rack.MaxActivationDistance = 30 end)
+		for _ = 1, 3 do fire(rack) task.wait(2.2) end
+	end
+	-- pour everything we carry
+	for _ = 1, 4 do
+		if not pourCan() then break end
+		task.wait(3.2)
+	end
+	-- back into the seat
+	local board = t:FindFirstChild("DriveSeat") and t.DriveSeat:FindFirstChild("BoardAnchor")
+	local bp = board and board:FindFirstChildWhichIsA("ProximityPrompt")
+	if bp then pcall(function() bp.MaxActivationDistance = 30 end) fire(bp) end
+	task.wait(1.5)
+	AP.hold = nil
+	return true
+end
+
 -- ================= auto drive: stops (passengers, drop-offs, gas, drums, "stop" rules) =================
 G.autoCheck = G.autoCheck or false -- also pick up "?" passengers (not learned yet)
 local done, ruleStop, lastFare = {}, {}, {}
@@ -614,9 +665,6 @@ end)
 local function promptOf(m)
 	for _, d in ipairs(m:GetDescendants()) do if d:IsA("ProximityPrompt") and d.Enabled then return d end end
 end
-local function fire(pr)
-	if fireproximityprompt then pcall(fireproximityprompt, pr) return true end
-end
 local function holdFor(reason, secs, untilFn)
 	AP.hold = reason
 	local t0 = tick()
@@ -632,6 +680,14 @@ task.spawn(function()
 				local cf = t:GetPivot()
 				local speed = seat.AssemblyLinearVelocity.Magnitude
 				local here = tonumber(st("HereKm")) or 0
+				-- 0) low fuel and nothing close to refuel at: use any spare can / bottle we have
+				local fuelNow = tonumber(st("Fuel")) or 100
+				local stationNow = tonumber(st("NextStationKm"))
+				if fuelNow < 14 and (not stationNow or stationNow - here > (tonumber(st("FuelRangeKm")) or 0)) and tick() > (AP.rescueAt or 0) then
+					AP.rescueAt = tick() + 25
+					if rescueFuel(t, seat) then alert(string.format("⛽ Fuel rescued: now %d%%", tonumber(st("Fuel")) or 0), GRN, 4) end
+					return
+				end
 				-- 1) "Stop" rules (funeral procession…): stand still until the event ends
 				if next(ruleStop) then holdFor("rule: stop", 40, function() return next(ruleStop) == nil end) return end
 				-- 2) drop-offs: stop at the passenger's destination until the fare is paid
