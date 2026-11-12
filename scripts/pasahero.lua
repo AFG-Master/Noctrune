@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.5"
+local VERSION = "v1.6"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -717,22 +717,25 @@ task.spawn(function()
 							local rel = cf:PointToObjectSpace(pos)
 							if not ok then
 								if d < 40 then done[m] = true end -- drive past
-							elseif -rel.Z > -4 and -rel.Z < 40 and math.abs(rel.X) < 40 then
+							elseif -rel.Z > -4 and -rel.Z < 60 and math.abs(rel.X) < 70 then
 								-- creep up until the tricycle is right next to them (the game wants it close), then board
 								done[m] = true
 								local n0 = #(jst("Riding") or {})
 								local t0 = tick()
 								AP.hold = "boarding " .. tostring(m:GetAttribute("Persona"))
 								local near = false
-								while G.auto and alive and tick() - t0 < 16 and #(jst("Riding") or {}) <= n0 and m.Parent do
+								while G.auto and alive and tick() - t0 < 22 and #(jst("Riding") or {}) <= n0 and m.Parent do
 									local cf2 = t:GetPivot()
 									local pp = m:GetPivot().Position
 									local dd = (pp - cf2.Position).Magnitude
 									local rel2 = cf2:PointToObjectSpace(pp)
-									if dd > 6.5 and -rel2.Z > -3 then
-										-- roll forward slowly towards them
-										seat.SteerFloat = math.clamp(math.atan2(rel2.X, -rel2.Z) / 0.6, -1, 1)
-										seat.ThrottleFloat = seat.AssemblyLinearVelocity.Magnitude < 5 and 0.7 or 0
+									if dd > 6.5 then
+										-- drive straight at them (also reverses if we overshot), slowly
+										local fwd = -rel2.Z > 0
+										local ang = math.atan2(rel2.X, fwd and -rel2.Z or rel2.Z)
+										seat.SteerFloat = math.clamp((fwd and 1 or -1) * ang / 0.6, -1, 1)
+										local sp = seat.AssemblyLinearVelocity.Magnitude
+										seat.ThrottleFloat = fwd and (sp < 6 and 0.8 or 0) or (sp < 4 and -0.8 or 0)
 									else
 										seat.ThrottleFloat = seat.AssemblyLinearVelocity.Magnitude > 1.5 and -1 or 0
 										seat.SteerFloat = 0
