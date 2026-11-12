@@ -3,6 +3,11 @@
 if not game:IsLoaded() then game.Loaded:Wait() end
 local genv = getgenv and getgenv() or _G
 if genv.OPPASA_STOP then pcall(genv.OPPASA_STOP) end
+-- comes back by itself after every teleport (lobby -> run -> lobby) while Roblox stays open
+pcall(function()
+	local q = queue_on_teleport or queueonteleport or (syn and syn.queue_on_teleport)
+	if q then q("pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/AFG-Master/Noctrune/main/scripts/pasahero.lua'))() end)") end
+end)
 
 local Players = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
@@ -12,9 +17,9 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.8"
-local RUN = RS:WaitForChild("Run", 30)
-if not RUN then return end
+local VERSION = "v0.9"
+local RUN = RS:WaitForChild("Run", 60)
+if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
 local REM = RUN:WaitForChild("Remotes")
 local NE, RE = REM:WaitForChild("NightEvent"), REM:WaitForChild("RunEvent")
