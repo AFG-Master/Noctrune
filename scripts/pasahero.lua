@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.9"
+local VERSION = "v2.0"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -588,6 +588,9 @@ on(RunService.RenderStepped, function()
 	AP.state = AP.hold and ("holding: " .. tostring(AP.hold)) or string.format("driving %d / %d steer %.2f", speed, want, steer)
 end)
 
+-- game clock: only counts while the game really runs (iPhone pauses Roblox in the background, tick() would keep going)
+local GC = 0
+on(RunService.RenderStepped, function(dt) GC = GC + math.min(dt, 0.1) end)
 local function fire(pr)
 	if fireproximityprompt then pcall(fireproximityprompt, pr) return true end
 end
@@ -612,8 +615,8 @@ local function rescueFuel(t, seat)
 	AP.hold = "fuel rescue"
 	-- stop and get out (the game needs you off the tricycle to take / pour)
 	seat.ThrottleFloat = -1
-	local t0 = tick()
-	while tick() - t0 < 4 and seat.AssemblyLinearVelocity.Magnitude > 1.5 do task.wait(0.2) end
+	local t0 = GC
+	while GC - t0 < 4 and seat.AssemblyLinearVelocity.Magnitude > 1.5 do task.wait(0.2) end
 	seat.ThrottleFloat = 0 seat.SteerFloat = 0
 	hum.Sit = false pcall(function() hum:ChangeState(Enum.HumanoidStateType.Jumping) end)
 	task.wait(1.2)
@@ -661,15 +664,15 @@ on(NE.OnClientEvent, function(kind, data)
 	if kind == "Stop" then ruleStop[data.Id] = nil end
 end)
 on(RE.OnClientEvent, function(kind, data)
-	if kind == "Fare" and type(data) == "table" then lastFare[tostring(data.Name)] = tick() end
+	if kind == "Fare" and type(data) == "table" then lastFare[tostring(data.Name)] = GC end
 end)
 local function promptOf(m)
 	for _, d in ipairs(m:GetDescendants()) do if d:IsA("ProximityPrompt") and d.Enabled then return d end end
 end
 local function holdFor(reason, secs, untilFn)
 	AP.hold = reason
-	local t0 = tick()
-	while G.auto and alive and tick() - t0 < secs and not (untilFn and untilFn()) do task.wait(0.2) end
+	local t0 = GC
+	while G.auto and alive and GC - t0 < secs and not (untilFn and untilFn()) do task.wait(0.2) end
 	AP.hold = nil
 end
 task.spawn(function()
@@ -685,8 +688,8 @@ task.spawn(function()
 				-- 0) low fuel and nothing close to refuel at: use any spare can / bottle we have
 				local fuelNow = tonumber(st("Fuel")) or 100
 				local stationNow = tonumber(st("NextStationKm"))
-				if fuelNow < 14 and (not stationNow or stationNow - here > (tonumber(st("FuelRangeKm")) or 0)) and tick() > (AP.rescueAt or 0) then
-					AP.rescueAt = tick() + 25
+				if fuelNow < 14 and (not stationNow or stationNow - here > (tonumber(st("FuelRangeKm")) or 0)) and GC > (AP.rescueAt or 0) then
+					AP.rescueAt = GC + 25
 					if rescueFuel(t, seat) then alert(string.format("⛽ Fuel rescued: now %d%%", tonumber(st("Fuel")) or 0), GRN, 4) end
 					return
 				end
@@ -697,7 +700,7 @@ task.spawn(function()
 					local dest = tonumber(r.DestKm)
 					if dest and here >= dest - 0.012 and not done["drop" .. tostring(r.Name) .. dest] then
 						done["drop" .. tostring(r.Name) .. dest] = true
-						holdFor("drop-off " .. tostring(r.Name), 10, function() return (lastFare[tostring(r.Name)] or 0) > tick() - 10 end)
+						holdFor("drop-off " .. tostring(r.Name), 10, function() return (lastFare[tostring(r.Name)] or -99) > GC - 10 end)
 						return
 					end
 				end
@@ -723,8 +726,8 @@ task.spawn(function()
 						AP.hold = "driving to the pump"
 						AP.manual = true
 						-- steer straight to the pump, then park next to it
-						local t0 = tick()
-						while G.auto and alive and tick() - t0 < 20 do
+						local t0 = GC
+						while G.auto and alive and GC - t0 < 20 do
 							local cf2 = t:GetPivot()
 							local d = (pos - cf2.Position).Magnitude
 							if d < 12 then break end
@@ -736,8 +739,8 @@ task.spawn(function()
 						seat.ThrottleFloat = -1 task.wait(1.2) seat.ThrottleFloat = 0 seat.SteerFloat = 0
 						AP.manual = false
 						AP.hold = "refuelling"
-						local t1 = tick()
-						while G.auto and alive and tick() - t1 < 30 and (tonumber(st("Fuel")) or 0) < 97 and (tonumber(st("Money")) or 0) >= 3 do
+						local t1 = GC
+						while G.auto and alive and GC - t1 < 30 and (tonumber(st("Fuel")) or 0) < 97 and (tonumber(st("Money")) or 0) >= 3 do
 							fire(prompt)
 							task.wait(0.8)
 						end
@@ -781,10 +784,10 @@ task.spawn(function()
 								-- the game lets you pick up within 18 studs while slower than 4: creep in at ~3 and press the prompt
 								done[m] = true
 								local n0 = #(jst("Riding") or {})
-								local t0 = tick()
+								local t0 = GC
 								AP.hold = "boarding " .. tostring(m:GetAttribute("Persona"))
 								AP.manual = true
-								while G.auto and alive and tick() - t0 < 30 and #(jst("Riding") or {}) <= n0 and m.Parent do
+								while G.auto and alive and GC - t0 < 30 and #(jst("Riding") or {}) <= n0 and m.Parent do
 									local cf2 = t:GetPivot()
 									local pr = promptOf(m) or m:FindFirstChildWhichIsA("ProximityPrompt", true)
 									local anchor = pr and pr.Parent
