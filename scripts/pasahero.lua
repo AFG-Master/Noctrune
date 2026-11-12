@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.7"
+local VERSION = "v0.8"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -24,7 +24,7 @@ local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) retu
 
 -- ================= settings =================
 local CFG_FILE = "OPPasahero.json"
-local G = { scan = true, monEsp = true, alerts = true, autoAct = true, hud = true, bright = false, noFog = false, noScare = false, open = true }
+local G = { loot = true, scan = true, monEsp = true, alerts = true, autoAct = true, hud = true, bright = false, noFog = false, noScare = false, open = true }
 pcall(function()
 	if isfile and isfile(CFG_FILE) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG_FILE))) do if G[k] ~= nil then G[k] = v end end
@@ -98,6 +98,7 @@ switch("monEsp", "Monster ESP", "outline + distance through fog")
 switch("alerts", "Event alerts", "banner telling you what to do")
 switch("autoAct", "Auto actions", "radio off, lights, shirt, crank, pagpag")
 switch("hud", "Run HUD", "sanity, fuel range, next stop / station")
+switch("loot", "Fuel planner", "drum / gas ESP, tells you when to siphon")
 switch("bright", "Fullbright", "see in the dark")
 switch("noFog", "No fog / rain", "clear view of the road")
 switch("noScare", "No jumpscares", "hide scare flashes and hallucinations")
@@ -392,8 +393,53 @@ task.spawn(function()
 	end
 end)
 
+-- ================= fuel planner: drums / gas loot ESP + siphon reminders =================
+local lootEsp, siphonCapped, lootTick = {}, false, 0
+on(RE.OnClientEvent, function(kind, data)
+	if kind == "Toast" and type(data) == "table" and tostring(data.Text):find("siphoned enough") then siphonCapped = true end
+	if kind == "CanPoured" or kind == "Boarded" then siphonCapped = false end
+end)
+local LOOT_WORDS = { "Siphon", "Take", "Grab", "Pick up gas", "Collect" }
+local function lootPrompt(pr)
+	if not pr.Enabled then return false end
+	local t = tostring(pr.ActionText) .. " " .. tostring(pr.ObjectText)
+	if t:find("pesos") or t:find("Drive") then return false end -- passengers / the tricycle
+	for _, w in ipairs(LOOT_WORDS) do if t:find(w) then return true end end
+	return t:lower():find("gas") ~= nil or t:lower():find("can") ~= nil
+end
+local function scanLoot()
+	local rw = workspace:FindFirstChild("RoadWorld")
+	local found = {}
+	if rw and G.loot then
+		for _, d in ipairs(rw:GetDescendants()) do
+			if d:IsA("ProximityPrompt") and lootPrompt(d) then found[d] = true end
+		end
+	end
+	local me = p.Character and p.Character:GetPivot().Position
+	for pr in pairs(found) do
+		local part = pr.Parent:IsA("BasePart") and pr.Parent or pr.Parent:FindFirstAncestorWhichIsA("BasePart") or pr:FindFirstAncestorWhichIsA("Model")
+		if part and not lootEsp[pr] then
+			local bb = new("BillboardGui", { Size = UDim2.fromOffset(150, 22), StudsOffset = Vector3.new(0, 3, 0), AlwaysOnTop = true, LightInfluence = 0, Adornee = part }, gui)
+			local lbl = new("TextLabel", { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, Font = Enum.Font.GothamBlack, TextSize = 12,
+				TextColor3 = Color3.fromRGB(255, 210, 80), TextStrokeTransparency = 0.3 }, bb)
+			lootEsp[pr] = { bb = bb, lbl = lbl, part = part }
+		end
+		local e = lootEsp[pr]
+		if e and me then
+			local pos = e.part:IsA("Model") and e.part:GetPivot().Position or e.part.Position
+			local d = math.floor((pos - me).Magnitude)
+			e.lbl.Text = "⛽ " .. tostring(pr.ActionText) .. " " .. tostring(pr.ObjectText) .. "  " .. d .. "m"
+			if d < 70 and not e.told and not siphonCapped then
+				e.told = true
+				alert("⛽ " .. tostring(pr.ObjectText) .. " ahead — stop and " .. tostring(pr.ActionText):lower() .. " it!", ACC, 5)
+			end
+		end
+	end
+	for pr, e in pairs(lootEsp) do if not found[pr] then pcall(function() e.bb:Destroy() end) lootEsp[pr] = nil end end
+end
+
 -- ================= run HUD =================
-local hud = new("TextLabel", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -14, 0, 120), Size = UDim2.fromOffset(170, 96), BackgroundColor3 = BG,
+local hud = new("TextLabel", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -14, 0, 120), Size = UDim2.fromOffset(190, 112), BackgroundColor3 = BG,
 	BackgroundTransparency = 0.15, TextColor3 = TXT, Font = Enum.Font.GothamMedium, TextSize = 11, TextXAlignment = Enum.TextXAlignment.Left,
 	TextYAlignment = Enum.TextYAlignment.Top, RichText = true, Text = "" }, gui)
 round(hud, 10)
@@ -411,12 +457,16 @@ local function updateHud()
 	local stop = nextOf(route.Stops, here)
 	local sanity = tonumber(st("Sanity")) or 0
 	local enough = not station or (here + range) >= station
+	local perPct = fuel > 0.5 and range / fuel or nil
+	local needPct = station and perPct and math.max(0, math.ceil((station - here - range) / perPct + 3)) or 0
+	local plan = not station and "" or enough and string.format("\n<font color='#46d278'>⛽ reaches the station (+%.1f km spare)</font>", here + range - station)
+		or string.format("\n<font color='#eb4646'>⛽ need ~%d%% more · siphon %d drum(s)%s</font>", needPct, math.ceil(needPct / 6), siphonCapped and " · siphon limit hit!" or "")
 	local riding = jst("Riding") or {}
 	hud.Text = string.format(
 		"<b>KM %.2f / %s</b>\n🧠 Sanity <font color='%s'>%d</font>\n⛽ Fuel %d%% · range %.1f km\n%s\n🧍 Next stop: %s · riding %d\n💰 %s pesos",
 		here, tostring(st("GoalKm") or "?"), sanity < 25 and "#eb4646" or sanity < 50 and "#ffaa3c" or "#46d278", sanity, fuel, range,
 		station and string.format("<font color='%s'>⛽ Station at KM %.2f%s</font>", enough and "#46d278" or "#eb4646", station, enough and "" or " — WON'T MAKE IT") or "⛽ no station ahead",
-		stop and string.format("KM %.2f", stop) or "-", #riding, tostring(st("Money") or 0))
+		stop and string.format("KM %.2f", stop) or "-", #riding, tostring(st("Money") or 0)) .. (G.loot and plan or "")
 	if not enough and tick() > (genv.OPPASA_FUELWARN or 0) then
 		genv.OPPASA_FUELWARN = tick() + 30
 		alert("⛽ Not enough fuel to reach the next station!", RED, 5)
@@ -471,6 +521,8 @@ task.spawn(function()
 			if pf then for _, m in ipairs(pf:GetChildren()) do tagPassenger(m) end end
 			for m, bb in pairs(tags) do if not m.Parent or not G.scan then bb:Destroy() tags[m] = nil end end
 			scanMonsters()
+			lootTick = (lootTick or 0) + 1
+			if lootTick % 4 == 0 then scanLoot() end -- every 2 s (the road has many parts)
 			updateHud()
 			visuals()
 			if banner.Visible and tick() > bannerUntil then banner.Visible = false end
