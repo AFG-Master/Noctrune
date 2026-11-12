@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.8"
+local VERSION = "v1.9"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -559,6 +559,7 @@ on(RunService.RenderStepped, function()
 	local t, seat = driveSeat()
 	if not seat then AP.state = "sit in the driver seat" return end
 	released = false
+	if AP.manual then return end -- a stop routine (boarding / pump) is driving by itself
 	local cf = t:GetPivot()
 	local pts = AP.pts
 	if not pts or tick() - (AP.ptsAt or 0) > 1 then pts = roadPath() AP.pts, AP.ptsAt = pts, tick() end
@@ -675,6 +676,7 @@ task.spawn(function()
 	while alive do
 		task.wait(0.25)
 		local t, seat = driveSeat()
+		if not G.auto or not seat then AP.manual = false end
 		if G.auto and seat then
 			pcall(function()
 				local cf = t:GetPivot()
@@ -719,6 +721,7 @@ task.spawn(function()
 						done["st" .. station] = true
 						local pos = pump:GetPivot().Position
 						AP.hold = "driving to the pump"
+						AP.manual = true
 						-- steer straight to the pump, then park next to it
 						local t0 = tick()
 						while G.auto and alive and tick() - t0 < 20 do
@@ -731,6 +734,7 @@ task.spawn(function()
 							task.wait()
 						end
 						seat.ThrottleFloat = -1 task.wait(1.2) seat.ThrottleFloat = 0 seat.SteerFloat = 0
+						AP.manual = false
 						AP.hold = "refuelling"
 						local t1 = tick()
 						while G.auto and alive and tick() - t1 < 30 and (tonumber(st("Fuel")) or 0) < 97 and (tonumber(st("Money")) or 0) >= 3 do
@@ -779,7 +783,8 @@ task.spawn(function()
 								local n0 = #(jst("Riding") or {})
 								local t0 = tick()
 								AP.hold = "boarding " .. tostring(m:GetAttribute("Persona"))
-								while G.auto and alive and tick() - t0 < 24 and #(jst("Riding") or {}) <= n0 and m.Parent do
+								AP.manual = true
+								while G.auto and alive and tick() - t0 < 30 and #(jst("Riding") or {}) <= n0 and m.Parent do
 									local cf2 = t:GetPivot()
 									local pr = promptOf(m) or m:FindFirstChildWhichIsA("ProximityPrompt", true)
 									local anchor = pr and pr.Parent
@@ -803,6 +808,7 @@ task.spawn(function()
 									task.wait(0.3)
 								end
 								seat.ThrottleFloat = 0 seat.SteerFloat = 0
+								AP.manual = false
 								AP.hold = nil
 								return
 							elseif -rel.Z > 0 and -rel.Z < 140 then
