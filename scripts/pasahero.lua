@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -147,6 +147,16 @@ local function tellKeys(attrs)
 	if anim and anim ~= "Idle" and anim ~= "Sit" and anim ~= "Wave" then table.insert(out, "Anim=" .. tostring(anim)) end
 	return out
 end
+-- HUMAN "H" / MONSTER "M" / not learned yet "?"
+local function classify(m)
+	local tells = tellKeys(m:GetAttributes())
+	local hits, unknown = {}, {}
+	for _, k in ipairs(tells) do
+		if LEARN.mon[k] and not LEARN.hum[k] then table.insert(hits, k)
+		elseif not LEARN.hum[k] and not LEARN.mon[k] then table.insert(unknown, k) end
+	end
+	return #hits > 0 and "M" or #unknown > 0 and "?" or "H", hits, unknown
+end
 local function tagPassenger(m)
 	if not (G.scan and m:IsA("Model")) then return end
 	local root = m:FindFirstChild("HumanoidRootPart") or m.PrimaryPart
@@ -160,13 +170,7 @@ local function tagPassenger(m)
 		bb.Parent = gui
 		tags[m] = bb
 	end
-	local tells = tellKeys(m:GetAttributes())
-	local hits, unknown = {}, {}
-	for _, k in ipairs(tells) do
-		if LEARN.mon[k] and not LEARN.hum[k] then table.insert(hits, k)
-		elseif not LEARN.hum[k] and not LEARN.mon[k] then table.insert(unknown, k) end
-	end
-	local v = #hits > 0 and "M" or #unknown > 0 and "?" or "H"
+	local v, hits, unknown = classify(m)
 	bb.T.Text = v == "M" and ("MONSTER ⚠️ " .. table.concat(hits, ","):sub(1, 28)) or v == "?" and ("CHECK ⚠️ " .. table.concat(unknown, ","):sub(1, 28)) or "HUMAN ✅"
 	bb.T.TextColor3 = v == "M" and RED or v == "?" and ACC or GRN
 	bb.Size = UDim2.fromOffset(v == "H" and 110 or 210, 26)
@@ -575,11 +579,130 @@ on(RunService.RenderStepped, function()
 	local ang = math.atan2(rel.X, -rel.Z)
 	local steer = math.clamp(ang / 0.5, -1, 1)
 	local speed = seat.AssemblyLinearVelocity.Magnitude
-	local want = (AP.hold and 0) or (G.autoSpeed * (1 - math.min(0.55, math.abs(steer) * 0.6)))
+	local want = (AP.hold and 0) or math.min(AP.slow or 999, G.autoSpeed * (1 - math.min(0.55, math.abs(steer) * 0.6)))
+	if AP.slow and tick() - (AP.slowAt or 0) > 1 then AP.slowAt = tick() AP.slow = nil end
 	local throttle = want <= 0.5 and (speed > 2 and -1 or 0) or speed < want - 2 and 1 or speed > want + 4 and -0.4 or 0.15
 	seat.ThrottleFloat = throttle
 	seat.SteerFloat = steer
 	AP.state = AP.hold and ("holding: " .. tostring(AP.hold)) or string.format("driving %d / %d steer %.2f", speed, want, steer)
+end)
+
+-- ================= auto drive: stops (passengers, drop-offs, gas, drums, "stop" rules) =================
+G.autoCheck = G.autoCheck or false -- also pick up "?" passengers (not learned yet)
+local done, ruleStop, lastFare = {}, {}, {}
+on(NE.OnClientEvent, function(kind, data)
+	if type(data) ~= "table" then return end
+	if kind == "Rule" and type(data.Card) == "table" and tostring(data.Card.Line):find("Stop") then ruleStop[data.Id] = true end
+	if kind == "Rule" and data.Clear then ruleStop[data.Id] = nil end
+	if kind == "Stop" then ruleStop[data.Id] = nil end
+end)
+on(RE.OnClientEvent, function(kind, data)
+	if kind == "Fare" and type(data) == "table" then lastFare[tostring(data.Name)] = tick() end
+end)
+local function promptOf(m)
+	for _, d in ipairs(m:GetDescendants()) do if d:IsA("ProximityPrompt") and d.Enabled then return d end end
+end
+local function fire(pr)
+	if fireproximityprompt then pcall(fireproximityprompt, pr) return true end
+end
+local function holdFor(reason, secs, untilFn)
+	AP.hold = reason
+	local t0 = tick()
+	while G.auto and alive and tick() - t0 < secs and not (untilFn and untilFn()) do task.wait(0.2) end
+	AP.hold = nil
+end
+task.spawn(function()
+	while alive do
+		task.wait(0.25)
+		local t, seat = driveSeat()
+		if G.auto and seat then
+			pcall(function()
+				local cf = t:GetPivot()
+				local speed = seat.AssemblyLinearVelocity.Magnitude
+				local here = tonumber(st("HereKm")) or 0
+				-- 1) "Stop" rules (funeral procession…): stand still until the event ends
+				if next(ruleStop) then holdFor("rule: stop", 40, function() return next(ruleStop) == nil end) return end
+				-- 2) drop-offs: stop at the passenger's destination until the fare is paid
+				for _, r in ipairs(jst("Riding") or {}) do
+					local dest = tonumber(r.DestKm)
+					if dest and here >= dest - 0.012 and not done["drop" .. tostring(r.Name) .. dest] then
+						done["drop" .. tostring(r.Name) .. dest] = true
+						holdFor("drop-off " .. tostring(r.Name), 10, function() return (lastFare[tostring(r.Name)] or 0) > tick() - 10 end)
+						return
+					end
+				end
+				-- 3) gas station: stop and fill up with pesos (the game's own fill button)
+				local station = tonumber(st("NextStationKm"))
+				local fuel = tonumber(st("Fuel")) or 100
+				if station and math.abs(here - station) < 0.025 and fuel < 85 and not done["st" .. station] then
+					done["st" .. station] = true
+					holdFor("gas station", 2.5)
+					local press, release = hudButton()
+					local t0 = tick()
+					AP.hold = "filling the tank"
+					while G.auto and tick() - t0 < 20 and (tonumber(st("Fuel")) or 0) < 97 do
+						if press and release then pcall(press) task.wait(0.15) pcall(release) end
+						-- station pump prompts too, if the game uses them
+						local rw = workspace:FindFirstChild("RoadWorld")
+						if rw then for _, d in ipairs(rw:GetDescendants()) do
+							if d:IsA("ProximityPrompt") and d.Enabled and (tostring(d.ActionText):find("Fill") or tostring(d.ActionText):find("Gas") or tostring(d.ActionText):find("Refuel") or tostring(d.ActionText):find("Buy")) then
+								local pos = d.Parent:IsA("BasePart") and d.Parent.Position
+								if pos and (pos - cf.Position).Magnitude < 60 then fire(d) end
+							end
+						end end
+						task.wait(1.5)
+					end
+					AP.hold = nil
+					return
+				end
+				-- 4) drums: siphon when one is right next to the road
+				if fuel < 94 and not siphonCapped then
+					for pr, e in pairs(lootEsp) do
+						if pr.Parent and tostring(pr.ActionText):find("Siphon") and not done[pr] then
+							local pos = e.part:IsA("Model") and e.part:GetPivot().Position or e.part.Position
+							local rel = cf:PointToObjectSpace(pos)
+							if (pos - cf.Position).Magnitude < 30 then
+								done[pr] = true
+								holdFor("siphon", 2, function() return seat.AssemblyLinearVelocity.Magnitude < 1 end)
+								fire(pr)
+								holdFor("siphoning", (pr.HoldDuration or 3) + 1.5)
+								return
+							elseif -rel.Z > 0 and (pos - cf.Position).Magnitude < 70 then
+								AP.slow = 14
+							end
+						end
+					end
+				end
+				-- 5) passengers: stop for humans (and "?" if allowed), never for monsters
+				local pf = workspace:FindFirstChild("Passengers")
+				if pf then
+					for _, m in ipairs(pf:GetChildren()) do
+						local anim = m:GetAttribute("Anim")
+						if not done[m] and anim ~= "Sit" and m:IsA("Model") then
+							local v = classify(m)
+							local ok = v == "H" or (v == "?" and G.autoCheck)
+							local pos = m:GetPivot().Position
+							local d = (pos - cf.Position).Magnitude
+							local rel = cf:PointToObjectSpace(pos)
+							if not ok then
+								if d < 40 then done[m] = true end -- drive past
+							elseif -rel.Z > -6 and d < 26 then
+								done[m] = true
+								holdFor("stopping for " .. tostring(m:GetAttribute("Persona")), 3, function() return seat.AssemblyLinearVelocity.Magnitude < 1.5 end)
+								local pr = promptOf(m)
+								if pr then fire(pr) end
+								local n0 = #(jst("Riding") or {})
+								holdFor("boarding", 8, function() return #(jst("Riding") or {}) > n0 end)
+								return
+							elseif -rel.Z > 0 and d < 80 then
+								AP.slow = 16
+							end
+						end
+					end
+				end
+			end)
+		end
+	end
 end)
 
 -- ================= main loop =================
