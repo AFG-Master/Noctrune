@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.4"
+local VERSION = "v0.5"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -260,6 +260,95 @@ on(RE.OnClientEvent, function(kind, data)
 	end
 end)
 
+-- ================= recorder: saves everything that happens, so monster tells can be learned =================
+local REC_FILE = "PasaheroLog.json"
+local REC = { pax = {}, log = {} }
+pcall(function()
+	if isfile and isfile(REC_FILE) then
+		local old = HttpService:JSONDecode(readfile(REC_FILE))
+		if type(old) == "table" then REC.pax = old.pax or {} REC.log = old.log or {} end
+	end
+end)
+local dirty = false
+local function rec(kind, data)
+	local ok, s = pcall(function() return type(data) == "table" and HttpService:JSONEncode(data) or tostring(data) end)
+	table.insert(REC.log, { t = os.time(), km = st("HereKm"), k = kind, d = ok and s:sub(1, 400) or "?" })
+	while #REC.log > 600 do table.remove(REC.log, 1) end
+	dirty = true
+end
+local function snapshot(m)
+	local attrs = {}
+	for k, v in pairs(m:GetAttributes()) do attrs[k] = typeof(v) == "number" and math.floor(v * 100) / 100 or tostring(v) end
+	local parts = {}
+	for _, c in ipairs(m:GetChildren()) do table.insert(parts, c.Name .. ":" .. c.ClassName) end
+	return attrs, parts
+end
+local paxOf = {} -- model -> entry
+local function addPax(m)
+	if paxOf[m] or not m:IsA("Model") then return end
+	task.wait(0.6)
+	local attrs, parts = snapshot(m)
+	local e = { t = os.time(), km = st("HereKm"), persona = tostring(m:GetAttribute("Persona")), attrs = attrs, parts = parts, outcome = "unknown" }
+	table.insert(REC.pax, e)
+	while #REC.pax > 300 do table.remove(REC.pax, 1) end
+	paxOf[m] = e
+	dirty = true
+	-- attributes that show up later while still waiting are tells too: keep watching
+	on(m.AttributeChanged, function(k)
+		if e.outcome == "unknown" and not e.boarded then
+			local v = m:GetAttribute(k)
+			e.attrs[k] = typeof(v) == "number" and math.floor(v * 100) / 100 or tostring(v)
+			dirty = true
+		end
+	end)
+end
+local function findPax(name)
+	name = tostring(name or ""):lower()
+	for i = #REC.pax, 1, -1 do
+		local e = REC.pax[i]
+		local pr = tostring(e.persona):lower()
+		if pr ~= "" and name:find(pr, 1, true) and e.outcome == "unknown" then return e end
+	end
+end
+do
+	local pf = workspace:FindFirstChild("Passengers")
+	if pf then
+		for _, m in ipairs(pf:GetChildren()) do task.spawn(addPax, m) end
+		on(pf.ChildAdded, function(m) task.spawn(addPax, m) end)
+	end
+end
+on(RE.OnClientEvent, function(kind, data)
+	if kind == "Speech" and type(data) == "table" and data.Chatter then return end -- small talk: skip
+	rec(kind, data)
+	if type(data) ~= "table" then return end
+	if kind == "Boarded" then
+		local e = findPax(data.Name)
+		if e then e.boarded = true e.name = data.Name e.fare = data.Fare dirty = true end
+	elseif kind == "Fare" then
+		local e = findPax(data.Name)
+		if e then e.outcome = "human" dirty = true end
+	elseif kind == "Reveal" then
+		-- the monster is the boarded passenger that is no longer riding and never paid
+		task.wait(1)
+		local riding = {}
+		for _, r in ipairs(jst("Riding") or {}) do riding[tostring(r.Name)] = true end
+		for i = #REC.pax, 1, -1 do
+			local e = REC.pax[i]
+			if e.boarded and e.outcome == "unknown" and not riding[tostring(e.name)] then e.outcome = "monster" dirty = true break end
+		end
+	end
+end)
+on(NE.OnClientEvent, function(kind, data) rec("NE." .. tostring(kind), data) end)
+task.spawn(function()
+	while alive do
+		task.wait(8)
+		if dirty and writefile then
+			dirty = false
+			pcall(function() writefile(REC_FILE, HttpService:JSONEncode(REC)) end)
+		end
+	end
+end)
+
 -- ================= run HUD =================
 local hud = new("TextLabel", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -14, 0, 120), Size = UDim2.fromOffset(170, 96), BackgroundColor3 = BG,
 	BackgroundTransparency = 0.15, TextColor3 = TXT, Font = Enum.Font.GothamMedium, TextSize = 11, TextXAlignment = Enum.TextXAlignment.Left,
@@ -353,4 +442,4 @@ genv.OPPASA_STOP = function()
 	pcall(restore)
 	pcall(function() gui:Destroy() end)
 end
-genv.OPPASA = { G = G, verdict = verdict }
+genv.OPPASA = { G = G, verdict = verdict, rec = REC }
