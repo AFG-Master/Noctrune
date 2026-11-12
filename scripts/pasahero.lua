@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.2"
+local VERSION = "v1.3"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -631,29 +631,48 @@ task.spawn(function()
 						return
 					end
 				end
-				-- 3) gas station: stop and fill up with pesos (the game's own fill button)
+				-- 3) gas station: drive up to the pump and pay for fuel (3 pesos per 1%)
 				local station = tonumber(st("NextStationKm"))
 				local fuel = tonumber(st("Fuel")) or 100
-				if station and math.abs(here - station) < 0.025 and fuel < 85 and not done["st" .. station] then
-					done["st" .. station] = true
-					holdFor("gas station", 2.5)
-					local press, release = hudButton()
-					local t0 = tick()
-					AP.hold = "filling the tank"
-					while G.auto and tick() - t0 < 20 and (tonumber(st("Fuel")) or 0) < 97 do
-						if press and release then pcall(press) task.wait(0.15) pcall(release) end
-						-- station pump prompts too, if the game uses them
-						local rw = workspace:FindFirstChild("RoadWorld")
-						if rw then for _, d in ipairs(rw:GetDescendants()) do
-							if d:IsA("ProximityPrompt") and d.Enabled and (tostring(d.ActionText):find("Fill") or tostring(d.ActionText):find("Gas") or tostring(d.ActionText):find("Refuel") or tostring(d.ActionText):find("Buy")) then
-								local pos = d.Parent:IsA("BasePart") and d.Parent.Position
-								if pos and (pos - cf.Position).Magnitude < 60 then fire(d) end
+				local money = tonumber(st("Money")) or 0
+				if station and fuel < 90 and money >= 10 and not done["st" .. station] and here >= station - 0.12 and here <= station + 0.2 then
+					local pump, prompt
+					local rw = workspace:FindFirstChild("RoadWorld")
+					if rw then
+						for _, d in ipairs(rw:GetDescendants()) do
+							if d:IsA("Model") and d.Name == "Pump" then
+								local pr = d:FindFirstChildWhichIsA("ProximityPrompt", true)
+								local pos = d:GetPivot().Position
+								if pr and (pos - cf.Position).Magnitude < 250 and (not pump or (pos - cf.Position).Magnitude < (pump:GetPivot().Position - cf.Position).Magnitude) then pump, prompt = d, pr end
 							end
-						end end
-						task.wait(1.5)
+						end
 					end
-					AP.hold = nil
-					return
+					if pump then
+						done["st" .. station] = true
+						local pos = pump:GetPivot().Position
+						AP.hold = "driving to the pump"
+						-- steer straight to the pump, then park next to it
+						local t0 = tick()
+						while G.auto and alive and tick() - t0 < 20 do
+							local cf2 = t:GetPivot()
+							local d = (pos - cf2.Position).Magnitude
+							if d < 12 then break end
+							local rel = cf2:PointToObjectSpace(pos)
+							seat.SteerFloat = math.clamp(math.atan2(rel.X, -rel.Z) / 0.5, -1, 1)
+							seat.ThrottleFloat = d > 16 and (seat.AssemblyLinearVelocity.Magnitude < 14 and 1 or 0) or -1
+							task.wait()
+						end
+						seat.ThrottleFloat = -1 task.wait(1.2) seat.ThrottleFloat = 0 seat.SteerFloat = 0
+						AP.hold = "refuelling"
+						local t1 = tick()
+						while G.auto and alive and tick() - t1 < 30 and (tonumber(st("Fuel")) or 0) < 97 and (tonumber(st("Money")) or 0) >= 3 do
+							fire(prompt)
+							task.wait(0.8)
+						end
+						alert(string.format("⛽ Refuelled to %d%%", tonumber(st("Fuel")) or 0), GRN, 4)
+						AP.hold = nil
+						return
+					end
 				end
 				-- 4) drums: siphon when one is right next to the road
 				if fuel < 94 and not siphonCapped then
