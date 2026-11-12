@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -686,16 +686,22 @@ task.spawn(function()
 							local rel = cf:PointToObjectSpace(pos)
 							if not ok then
 								if d < 40 then done[m] = true end -- drive past
-							elseif -rel.Z > -6 and d < 26 then
+							elseif -rel.Z > -4 and -rel.Z < 24 and math.abs(rel.X) < 40 then
+								-- right next to us: stop, let the pick-up prompt come alive, board them
 								done[m] = true
-								holdFor("stopping for " .. tostring(m:GetAttribute("Persona")), 3, function() return seat.AssemblyLinearVelocity.Magnitude < 1.5 end)
-								local pr = promptOf(m)
-								if pr then fire(pr) end
+								holdFor("stopping for " .. tostring(m:GetAttribute("Persona")), 4, function() return seat.AssemblyLinearVelocity.Magnitude < 1.5 end)
 								local n0 = #(jst("Riding") or {})
-								holdFor("boarding", 8, function() return #(jst("Riding") or {}) > n0 end)
+								local t0 = tick()
+								AP.hold = "boarding " .. tostring(m:GetAttribute("Persona"))
+								while G.auto and tick() - t0 < 9 and #(jst("Riding") or {}) <= n0 do
+									local pr = promptOf(m) or m:FindFirstChildWhichIsA("ProximityPrompt", true)
+									if pr then pcall(function() pr.MaxActivationDistance = 40 end) fire(pr) end
+									task.wait(0.5)
+								end
+								AP.hold = nil
 								return
-							elseif -rel.Z > 0 and d < 80 then
-								AP.slow = 16
+							elseif -rel.Z > 0 and -rel.Z < 140 then
+								AP.slow = math.max(6, math.min(18, (-rel.Z - 20) / 4))
 							end
 						end
 					end
