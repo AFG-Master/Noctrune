@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v0.2"
+local VERSION = "v0.3"
 local RUN = RS:WaitForChild("Run", 30)
 if not RUN then return end
 local STATE = RUN:WaitForChild("State")
@@ -147,8 +147,17 @@ local function tagPassenger(m)
 	end
 	local persona = tostring(m:GetAttribute("Persona") or ""):lower()
 	local v = verdict[persona]
-	bb.T.Text = v == "H" and "HUMAN ✅" or v == "M" and "MONSTER ⚠️" or "? listening…"
-	bb.T.TextColor3 = v == "H" and GRN or v == "M" and RED or SUB
+	-- before they speak: a monster in disguise has ScareBack set, or a body (Rig) that doesn't match its look (Template)
+	if not v then
+		local tpl, rig = m:GetAttribute("Template"), m:GetAttribute("Rig")
+		if m:GetAttribute("ScareBack") or (tpl and rig and tpl ~= rig) then v = "m?" end
+	end
+	bb.T.Text = v == "H" and "HUMAN ✅" or v == "M" and "MONSTER ⚠️" or v == "m?" and "LIKELY MONSTER ⚠️" or "HUMAN? ✅"
+	bb.T.TextColor3 = v == "H" and GRN or (v == "M" or v == "m?") and RED or Color3.fromRGB(150, 210, 160)
+	if v == "m?" and not m:GetAttribute("OPWarned") then
+		m:SetAttribute("OPWarned", true)
+		alert("⚠️ Likely MONSTER waiting: " .. tostring(m:GetAttribute("Persona")) .. " — skip this one", RED, 6)
+	end
 end
 
 -- ================= monster ESP =================
