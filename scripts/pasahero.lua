@@ -17,7 +17,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local p = Players.LocalPlayer
 
-local VERSION = "v1.3"
+local VERSION = "v1.4"
 local RUN = RS:WaitForChild("Run", 60)
 if not RUN then return end -- lobby: nothing to do here (the queued copy runs again in the next place)
 local STATE = RUN:WaitForChild("State")
@@ -138,8 +138,8 @@ local function readKey(key, name)
 end
 local tags, warned = {}, {}
 -- learned tells: what monsters had that humans never had (filled from the recorder, saved across runs)
-local BASE = { AnimScale = 1, Persona = 1, Template = 1, Voice = 1, Rig = 1, Anim = 1, RBX_ReimportId = 1, WaveAt = 1, Floor = 1 }
-local LEARN = { mon = { ArmsLowered = true, ["Anim=Still"] = true }, hum = {} }
+local BASE = { AnimScale = 1, Persona = 1, Template = 1, Voice = 1, Rig = 1, Anim = 1, RBX_ReimportId = 1, WaveAt = 1, Floor = 1, Look = 1, ScareBack = 1, OPWarned = 1 }
+local LEARN = { mon = { ArmsLowered = true, ["Anim=Still"] = true }, hum = { Look = true, WaveAt = true } }
 local function tellKeys(attrs)
 	local out = {}
 	for k in pairs(attrs) do if not BASE[k] then table.insert(out, k) end end
@@ -592,7 +592,19 @@ G.autoCheck = G.autoCheck or false -- also pick up "?" passengers (not learned y
 local done, ruleStop, lastFare = {}, {}, {}
 on(NE.OnClientEvent, function(kind, data)
 	if type(data) ~= "table" then return end
-	if kind == "Rule" and type(data.Card) == "table" and tostring(data.Card.Line):find("Stop") then ruleStop[data.Id] = true end
+	if kind == "Rule" and type(data.Card) == "table" and (tostring(data.Card.Line):find("Stop") or tostring(data.Card.Title):find("PAGPAG")) then
+		ruleStop[data.Id] = true
+		if tostring(data.Card.Title):find("PAGPAG") then
+			-- hold the game's own Pagpag action (the shirt button) for a few seconds
+			task.spawn(function()
+				task.wait(0.8)
+				local press, release = hudButton()
+				if press and release then
+					for _ = 1, 3 do pcall(press) task.wait(1.2) pcall(release) task.wait(0.4) end
+				end
+			end)
+		end
+	end
 	if kind == "Rule" and data.Clear then ruleStop[data.Id] = nil end
 	if kind == "Stop" then ruleStop[data.Id] = nil end
 end)
