@@ -13,7 +13,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -21,7 +21,7 @@ local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) retu
 -- ================= settings =================
 local CFG = "H3008.json"
 local G = { speed = false, jump = false, fly = false, noclip = false, radar = true, guide = true, monsters = true, alerts = true,
-	heal = true, food = true, drink = true, other = false, hud = true, bright = false, noFog = false, noBlur = false }
+	heal = true, food = true, drink = true, other = false, hudMode = "mini", bright = false, noFog = false, noBlur = false }
 pcall(function()
 	if isfile and isfile(CFG) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG))) do if G[k] ~= nil then G[k] = v end end
@@ -81,7 +81,7 @@ local UI = {} -- widgets the logic below talks to
 
 -- ---------- toasts ----------
 do
-	local holder = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 74), Size = UDim2.fromOffset(300, 120), BackgroundTransparency = 1 }, gui)
+	local holder = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 46), Size = UDim2.fromOffset(300, 120), BackgroundTransparency = 1 }, gui)
 	new("UIListLayout", { Padding = UDim.new(0, 6), HorizontalAlignment = Enum.HorizontalAlignment.Center, SortOrder = Enum.SortOrder.LayoutOrder }, holder)
 	new("UIScale", { Scale = viewScale() }, holder)
 	local active, seq = {}, 0
@@ -124,17 +124,17 @@ local apply = {}
 local PAGES, TABS = {}, {}
 do
 	-- orb (open / close)
-	local orb = new("TextButton", { Text = "", AutoButtonColor = false, Position = UDim2.fromOffset(14, 62), Size = UDim2.fromOffset(46, 46), BackgroundColor3 = T.glass, ZIndex = 5 }, gui)
+	local orb = new("TextButton", { Text = "", AutoButtonColor = false, Position = UDim2.fromOffset(14, 62), Size = UDim2.fromOffset(36, 36), BackgroundColor3 = T.glass, BackgroundTransparency = 0.2, ZIndex = 5 }, gui)
 	round(orb, "full")
 	local orbStroke = stroke(orb, T.a1, 2, 0)
 	grad(orbStroke, T.a1, T.a2, 40)
-	local core = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(30, 30), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 6 }, orb)
+	local core = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(24, 24), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 6 }, orb)
 	round(core, "full") grad(core, T.a1, T.a2, 45)
-	label(core, { Text = "3K", Font = Enum.Font.GothamBlack, TextSize = 12, TextColor3 = Color3.new(1, 1, 1), Size = UDim2.fromScale(1, 1), ZIndex = 7 })
+	label(core, { Text = "3K", Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = Color3.new(1, 1, 1), Size = UDim2.fromScale(1, 1), ZIndex = 7 })
 	new("UIScale", { Scale = viewScale() }, orb)
 	function UI.pulse()
-		tw(orb, 0.12, { Size = UDim2.fromOffset(54, 54) })
-		task.delay(0.15, function() tw(orb, 0.3, { Size = UDim2.fromOffset(46, 46) }) end)
+		tw(orb, 0.12, { Size = UDim2.fromOffset(44, 44) })
+		task.delay(0.15, function() tw(orb, 0.3, { Size = UDim2.fromOffset(36, 36) }) end)
 	end
 	task.spawn(function()
 		local t = 0
@@ -354,7 +354,10 @@ do
 	note(tel, "The game can snap you back after a teleport. Hold E on the item once you land.", T.sub)
 
 	header(more, "SCREEN")
-	switch(more, "hud", "Status HUD", "health bar, timer, chips")
+	do
+		local idx = G.hudMode == "off" and 1 or G.hudMode == "full" and 3 or 2
+		segmented(more, "Status HUD (top right)", { "Off", "Mini", "Full" }, idx, function(i) G.hudMode = ({ "off", "mini", "full" })[i] save() end)
+	end
 	switch(more, "bright", "Brighter view", "see better in the dark")
 	switch(more, "noFog", "No fog / blur", "clearer screen")
 	header(more, "SCRIPT")
@@ -410,27 +413,29 @@ do
 	arrowTxt = label(pill, { Text = "", Font = Enum.Font.GothamBlack, TextSize = 11, Size = UDim2.fromScale(1, 1) })
 end
 
--- ---------- status HUD ----------
-local hud, hpFill, hpTxt, timeTxt, threatChip, medChip, invTxt
+-- ---------- status HUD (small, top-right) ----------
+local hud, hpFill, hpTxt, timeTxt, threatChip, medChip, invTxt, threatMini, row2
 do
-	hud = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 8), Size = UDim2.fromOffset(320, 58), BackgroundColor3 = T.glass, BackgroundTransparency = 0.1 }, gui)
-	round(hud, 16)
-	local hs = stroke(hud, T.a1, 1.2, 0.5) grad(hs, T.a1, T.a2, 20)
-	new("UIScale", { Scale = viewScale() }, hud)
-	local barBg = new("Frame", { Position = UDim2.fromOffset(12, 9), Size = UDim2.fromOffset(170, 20), BackgroundColor3 = T.card }, hud)
+	hud = new("Frame", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -10, 0, 6), Size = UDim2.fromOffset(226, 32), BackgroundColor3 = T.glass, BackgroundTransparency = 0.32 }, gui)
+	round(hud, 12)
+	local hs = stroke(hud, T.a1, 1, 0.55) grad(hs, T.a1, T.a2, 20)
+	new("UIScale", { Scale = math.min(viewScale(), 0.95) }, hud)
+	local barBg = new("Frame", { Position = UDim2.fromOffset(8, 8), Size = UDim2.fromOffset(96, 16), BackgroundColor3 = T.card }, hud)
 	round(barBg, "full")
 	hpFill = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = T.green }, barBg)
 	round(hpFill, "full")
-	hpTxt = label(barBg, { Text = "HP", Font = Enum.Font.GothamBlack, TextSize = 11, Size = UDim2.fromScale(1, 1), ZIndex = 3 })
-	timeTxt = label(hud, { Text = "⏱ -", Font = Enum.Font.GothamBlack, TextSize = 13, Position = UDim2.fromOffset(190, 9), Size = UDim2.fromOffset(62, 20), TextXAlignment = Enum.TextXAlignment.Left })
-	invTxt = label(hud, { Text = "▣ 0/16", TextSize = 11, TextColor3 = T.sub, Position = UDim2.fromOffset(250, 9), Size = UDim2.fromOffset(62, 20), TextXAlignment = Enum.TextXAlignment.Left })
+	hpTxt = label(barBg, { Text = "HP", Font = Enum.Font.GothamBlack, TextSize = 10, Size = UDim2.fromScale(1, 1), ZIndex = 3 })
+	timeTxt = label(hud, { Text = "⏱ -", Font = Enum.Font.GothamBlack, TextSize = 11, Position = UDim2.fromOffset(110, 8), Size = UDim2.fromOffset(48, 16), TextXAlignment = Enum.TextXAlignment.Left })
+	threatMini = label(hud, { Text = "", Font = Enum.Font.GothamBlack, TextSize = 10, Position = UDim2.fromOffset(160, 8), Size = UDim2.fromOffset(60, 16), TextXAlignment = Enum.TextXAlignment.Left })
+	invTxt = label(hud, { Text = "", TextSize = 10, TextColor3 = T.sub, Position = UDim2.fromOffset(160, 8), Size = UDim2.fromOffset(60, 16), TextXAlignment = Enum.TextXAlignment.Left, Visible = false })
+	row2 = new("Frame", { Position = UDim2.fromOffset(0, 30), Size = UDim2.new(1, 0, 0, 22), BackgroundTransparency = 1, Visible = false }, hud)
 	local function chip(x, w)
-		local c = new("Frame", { Position = UDim2.fromOffset(x, 33), Size = UDim2.fromOffset(w, 18), BackgroundColor3 = T.card }, hud)
+		local c = new("Frame", { Position = UDim2.fromOffset(x, 0), Size = UDim2.fromOffset(w, 18), BackgroundColor3 = T.card }, row2)
 		round(c, "full")
-		return label(c, { Text = "", TextSize = 10, Size = UDim2.fromScale(1, 1) })
+		return label(c, { Text = "", TextSize = 9, Size = UDim2.fromScale(1, 1) })
 	end
-	threatChip = chip(12, 150)
-	medChip = chip(168, 140)
+	threatChip = chip(8, 104)
+	medChip = chip(116, 102)
 end
 
 -- ================= monsters =================
@@ -639,29 +644,38 @@ end
 
 -- ================= HUD update =================
 local function updateHud()
-	hud.Visible = G.hud
-	if not G.hud then return end
+	local mode = G.hudMode or "mini"
+	hud.Visible = mode ~= "off"
+	if mode == "off" then return end
+	local full = mode == "full"
+	hud.Size = UDim2.fromOffset(226, full and 54 or 32)
+	row2.Visible = full
+	invTxt.Visible = full
+	threatMini.Visible = not full
 	local h = hum()
 	local hp, mx = h and h.Health or 0, h and h.MaxHealth or 100
 	local ratio = math.clamp(hp / math.max(mx, 1), 0, 1)
 	tw(hpFill, 0.25, { Size = UDim2.fromScale(math.max(ratio, 0.04), 1), BackgroundColor3 = ratio < 0.35 and T.red or ratio < 0.7 and T.amber or T.green })
-	hpTxt.Text = string.format("%d / %d", hp, mx)
+	hpTxt.Text = string.format("%d", hp)
 	local tl
 	pcall(function() tl = RS.ServerSettings.TimeSettings.TimeLeft.Value end)
 	timeTxt.Text = tl and string.format("⏱ %d:%02d", math.floor(tl / 60), tl % 60) or "⏱ -"
 	invTxt.Text = string.format("▣ %d/%s", #p.Backpack:GetChildren(), tostring(p:GetAttribute("MaxInventorySpace") or "?"))
 	local r = root()
 	if nearestThreat then
-		threatChip.Text = string.format("● %s  %dm", nearestThreat.m.Name, nearestThreat.d)
-		threatChip.TextColor3 = nearestThreat.d < 70 and T.red or T.amber
+		local col = nearestThreat.d < 70 and T.red or nearestThreat.d < 140 and T.amber or T.green
+		threatMini.Text = "● " .. math.floor(nearestThreat.d) .. "m" threatMini.TextColor3 = col
+		threatChip.Text = string.format("● %s %dm", nearestThreat.m.Name:gsub(" Employee", ""), nearestThreat.d)
+		threatChip.TextColor3 = col
 	else
-		threatChip.Text = "● nothing near" threatChip.TextColor3 = T.green
+		threatMini.Text = "● clear" threatMini.TextColor3 = T.green
+		threatChip.Text = "● clear" threatChip.TextColor3 = T.green
 	end
 	if nearestMed and r then
-		medChip.Text = string.format("✚ Medkit %dm %s", nearestMed.d, compass(r.Position, nearestMed.pos))
+		medChip.Text = string.format("✚ %dm %s", nearestMed.d, compass(r.Position, nearestMed.pos))
 		medChip.TextColor3 = T.green
 	else
-		medChip.Text = "✚ no medkit near" medChip.TextColor3 = T.sub
+		medChip.Text = "✚ none near" medChip.TextColor3 = T.sub
 	end
 end
 
