@@ -13,7 +13,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.2"
+local VERSION = "v1.3"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -21,7 +21,7 @@ local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) retu
 -- ================= settings =================
 local CFG = "H3008.json"
 local G = { speed = false, jump = false, fly = false, noclip = false, radar = true, guide = true, monsters = true, alerts = true,
-	heal = true, food = true, drink = true, other = false, hudMode = "mini", bright = false, noFog = false, noBlur = false }
+	heal = true, food = true, drink = true, other = false, hudMode = "mini", afk = true, bright = false, noFog = false, noBlur = false }
 pcall(function()
 	if isfile and isfile(CFG) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG))) do if G[k] ~= nil then G[k] = v end end
@@ -141,7 +141,7 @@ do
 		while alive do t = t + 0.05 orbStroke.Thickness = 2 + math.sin(t * 2) * 0.8 task.wait(0.05) end
 	end)
 
-	local win = new("Frame", { Position = UDim2.fromOffset(72, 58), Size = UDim2.fromOffset(356, 244), BackgroundColor3 = T.glass, BackgroundTransparency = 0.05, Visible = false }, gui)
+	local win = new("Frame", { Position = UDim2.fromOffset(72, 58), Size = UDim2.fromOffset(356, 264), BackgroundColor3 = T.glass, BackgroundTransparency = 0.05, Visible = false }, gui)
 	round(win, 18)
 	local ws = stroke(win, T.a1, 1.5, 0.35) grad(ws, T.a1, T.a2, 60)
 	local winScale = new("UIScale", { Scale = viewScale() * 0.9 }, win)
@@ -198,11 +198,11 @@ do
 	end
 
 	-- tab rail
-	local rail = new("Frame", { Position = UDim2.fromOffset(10, 46), Size = UDim2.fromOffset(64, 188), BackgroundColor3 = T.bg, BackgroundTransparency = 0.35 }, win)
+	local rail = new("Frame", { Position = UDim2.fromOffset(10, 46), Size = UDim2.fromOffset(64, 208), BackgroundColor3 = T.bg, BackgroundTransparency = 0.35 }, win)
 	round(rail, 14)
-	new("UIListLayout", { Padding = UDim.new(0, 4), HorizontalAlignment = Enum.HorizontalAlignment.Center }, rail)
+	new("UIListLayout", { Padding = UDim.new(0, 3), HorizontalAlignment = Enum.HorizontalAlignment.Center }, rail)
 	new("UIPadding", { PaddingTop = UDim.new(0, 6) }, rail)
-	local content = new("Frame", { Position = UDim2.fromOffset(82, 46), Size = UDim2.fromOffset(264, 188), BackgroundTransparency = 1, ClipsDescendants = true }, win)
+	local content = new("Frame", { Position = UDim2.fromOffset(82, 46), Size = UDim2.fromOffset(264, 208), BackgroundTransparency = 1, ClipsDescendants = true }, win)
 
 	local function selectTab(name)
 		for n, pg in pairs(PAGES) do
@@ -215,11 +215,11 @@ do
 		end
 	end
 	local function addTab(name, icon)
-		local b = new("TextButton", { Text = "", AutoButtonColor = false, Size = UDim2.fromOffset(54, 42), BackgroundTransparency = 1 }, rail)
+		local b = new("TextButton", { Text = "", AutoButtonColor = false, Size = UDim2.fromOffset(54, 36), BackgroundTransparency = 1 }, rail)
 		local bg = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1), BackgroundTransparency = 1 }, b)
 		round(bg, 11) grad(bg, T.a1, T.a2, 35)
-		local ico = label(b, { Text = icon, Font = Enum.Font.GothamBlack, TextSize = 17, TextColor3 = T.sub, Position = UDim2.fromOffset(0, 3), Size = UDim2.new(1, 0, 0, 22) })
-		local txt = label(b, { Text = name, Font = Enum.Font.GothamBold, TextSize = 8, TextColor3 = T.sub, Position = UDim2.fromOffset(0, 26), Size = UDim2.new(1, 0, 0, 12) })
+		local ico = label(b, { Text = icon, Font = Enum.Font.GothamBlack, TextSize = 15, TextColor3 = T.sub, Position = UDim2.fromOffset(0, 2), Size = UDim2.new(1, 0, 0, 18) })
+		local txt = label(b, { Text = name, Font = Enum.Font.GothamBold, TextSize = 8, TextColor3 = T.sub, Position = UDim2.fromOffset(0, 21), Size = UDim2.new(1, 0, 0, 12) })
 		TABS[name] = { bg = bg, ico = ico, txt = txt }
 		local pg = new("ScrollingFrame", { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, BorderSizePixel = 0, ScrollBarThickness = 3, ScrollBarImageColor3 = T.a1,
 			CanvasSize = UDim2.new(), AutomaticCanvasSize = Enum.AutomaticSize.Y, Visible = false }, content)
@@ -319,9 +319,18 @@ local tpMed, tpFood, tpSafe
 local tpSubs = {}
 local friendsBox
 local friendRows = {}
+local itemCat = "food"
+local FOVS = { "Off", 85, 100, 120 }
+local fovIdx = 1
+local savedSpot
+local tpNext, tpName, tpSaveSpot, tpGoSpot
+local nameSubs, loot = {}, { food = 0, drink = 0, heal = 0 }
+local lootLabel, spotSubs, perfLabel = nil, {}, nil
+local NEAR_NAMES = { "Water", "Dr. Bub Soda", "Bloxy Soda", "2 Litre Dr. Bub", "Burger", "Pizza", "Hotdog", "Medkit" }
 do
 	local see = UI.addTab("SEE", "◉")
 	local mov = UI.addTab("MOVE", "➤")
+	local itm = UI.addTab("ITEMS", "▣")
 	local tel = UI.addTab("TELEPORT", "⌖")
 	local more = UI.addTab("MORE", "☰")
 
@@ -339,11 +348,27 @@ do
 	header(mov, "YOUR CHARACTER")
 	switch(mov, "speed", "Speed", "run faster")
 	segmented(mov, "Speed level", SPEEDS, speedIdx, function(i) speedIdx = i end)
+	segmented(mov, "Field of view", FOVS, fovIdx, function(i) fovIdx = i end)
 	switch(mov, "jump", "High jump", "jump much higher")
 	switch(mov, "fly", "Fly", "use the ▲ ▼ buttons for up and down")
 	switch(mov, "noclip", "Noclip", "walk through walls")
 	note(mov, "Movement tools can get you kicked or banned. Try them on your alt first.")
 
+	header(itm, "FIND AND GO")
+	segmented(itm, "What are you after?", { "Food", "Drink", "Medkit" }, 1, function(i) itemCat = ({ "food", "drink", "heal" })[i] end)
+	action(itm, "Next nearest", "tap again for the next one", function() if tpNext then tpNext() end end)
+	do
+		local c = card(itm, 34)
+		lootLabel = label(c, { Text = "loot near you: -", Font = Enum.Font.GothamBold, TextSize = 11, TextColor3 = T.sub, Position = UDim2.fromOffset(12, 0), Size = UDim2.new(1, -24, 1, 0), TextXAlignment = Enum.TextXAlignment.Left })
+	end
+	header(itm, "NEAREST OF EACH")
+	for _, nm in ipairs(NEAR_NAMES) do
+		nameSubs[nm] = action(itm, nm, "-", function() if tpName then tpName(nm) end end)
+	end
+
+	header(tel, "YOUR SPOT")
+	spotSubs.save = action(tel, "Save my spot", "remember where you are right now", function() if tpSaveSpot then tpSaveSpot() end end)
+	spotSubs.go = action(tel, "Go to saved spot", "no spot saved yet", function() if tpGoSpot then tpGoSpot() end end)
 	header(tel, "JUMP TO")
 	tpSubs.med = action(tel, "Nearest medkit", "-", function() if tpMed then tpMed() end end)
 	tpSubs.food = action(tel, "Nearest food", "-", function() if tpFood then tpFood() end end)
@@ -360,6 +385,15 @@ do
 	end
 	switch(more, "bright", "Brighter view", "see better in the dark")
 	switch(more, "noFog", "No fog / blur", "clearer screen")
+	header(more, "SESSION")
+	switch(more, "afk", "Anti-AFK", "stops the idle kick")
+	do
+		local c = card(more, 34)
+		perfLabel = label(c, { Text = "performance: -", Font = Enum.Font.GothamBold, TextSize = 11, TextColor3 = T.sub, Position = UDim2.fromOffset(12, 0), Size = UDim2.new(1, -24, 1, 0), TextXAlignment = Enum.TextXAlignment.Left })
+	end
+	action(more, "Rejoin this server", "reconnect to the same server", function()
+		pcall(function() game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p) end)
+	end)
 	header(more, "SCRIPT")
 	action(more, "Unload helper", "remove everything and reset your speed", function() if genv.H3008_STOP then genv.H3008_STOP() end end)
 	UI.selectTab("SEE")
@@ -527,12 +561,15 @@ local function category(name)
 	return "other"
 end
 local itemPool, nearestMed, nearestFood, allPos = {}, nil, nil, {}
+local allItems, nearestByName = {}, {}
 local MAXTAGS = 16
 local function updateItems()
 	local r = root()
 	if not r then return end
 	local cands = {}
 	nearestMed, nearestFood, allPos = nil, nil, {}
+	allItems, nearestByName = {}, {}
+	loot = { food = 0, drink = 0, heal = 0 }
 	for _, it in ipairs(ITEMS:GetChildren()) do
 		if it:IsA("Model") and it:GetAttribute("Busy") ~= true then
 			local pos = posOf(it)
@@ -540,6 +577,10 @@ local function updateItems()
 				local cat = category(it.Name)
 				local d = (pos - r.Position).Magnitude
 				table.insert(allPos, pos)
+				table.insert(allItems, { name = it.Name, cat = cat, d = d, pos = pos })
+				if loot[cat] and d < 250 then loot[cat] = loot[cat] + 1 end
+				local nb = nearestByName[it.Name]
+				if not nb or d < nb.d then nearestByName[it.Name] = { d = d, pos = pos } end
 				if cat == "heal" and (not nearestMed or d < nearestMed.d) then nearestMed = { d = d, pos = pos } end
 				if (cat == "food" or cat == "drink") and (not nearestFood or d < nearestFood.d) then nearestFood = { d = d, pos = pos } end
 				if G[cat] and d < 200 then table.insert(cands, { m = it, d = d, pos = pos, cat = cat }) end
@@ -709,7 +750,7 @@ local function applyMove()
 end
 apply.speed = function(v) local h = hum() if h and not v and orig.ws then h.WalkSpeed = orig.ws end end
 apply.jump = function(v) local h = hum() if h and not v and orig.jp then h.UseJumpPower = orig.ujp h.JumpPower = orig.jp end end
-on(p.CharacterAdded, function() orig = {} end)
+on(p.CharacterAdded, function() local f = orig.fov orig = {} orig.fov = f end)
 
 local flyUp, flyDown, flyBV = false, false, nil
 local function flyButton(txt, ypos, setter)
@@ -727,6 +768,15 @@ apply.fly = function(v) btnUp.Visible = v btnDown.Visible = v end
 on(RunService.RenderStepped, function()
 	pcall(applyMove)
 	pcall(function() sweepHolder.Rotation = (tick() * 150) % 360 end)
+	pcall(function()
+		local cam = workspace.CurrentCamera
+		if fovIdx > 1 then
+			if not orig.fov then orig.fov = cam.FieldOfView end
+			cam.FieldOfView = FOVS[fovIdx]
+		elseif orig.fov then
+			cam.FieldOfView = orig.fov orig.fov = nil
+		end
+	end)
 	local h, r = hum(), root()
 	if G.fly and h and r then
 		if not flyBV or flyBV.Parent ~= r then
@@ -781,6 +831,41 @@ tpSafe = function()
 	if best then tpTo(best + Vector3.new(2, 0, 0), "Safest spot found") else alert("No safe spot loaded nearby", T.red, 2.5) end
 end
 
+-- items / spots
+local visited = {}
+tpNext = function()
+	local r = root()
+	if not r then return end
+	local list = {}
+	for _, it in ipairs(allItems) do if it.cat == itemCat then table.insert(list, it) end end
+	table.sort(list, function(a, b) return a.d < b.d end)
+	local now = tick()
+	local pick
+	for _, it in ipairs(list) do
+		local key = math.floor(it.pos.X) .. "," .. math.floor(it.pos.Z)
+		if not visited[key] or now - visited[key] > 60 then pick = it visited[key] = now break end
+	end
+	if not pick and list[1] then
+		visited = {}
+		pick = list[1]
+		visited[math.floor(pick.pos.X) .. "," .. math.floor(pick.pos.Z)] = now
+	end
+	if pick then tpTo(pick.pos + Vector3.new(3, 0, 0), pick.name .. "  ·  hold E on it") else alert("None of that type loaded near you yet", T.amber, 2.5) end
+end
+tpName = function(nm)
+	local nb = nearestByName[nm]
+	if nb then tpTo(nb.pos + Vector3.new(3, 0, 0), nm .. "  ·  hold E on it") else alert(nm .. " isn't loaded near you yet", T.amber, 2.5) end
+end
+tpSaveSpot = function()
+	local r = root()
+	if not r then return end
+	savedSpot = r.Position
+	alert("✓  Spot saved", T.green, 2)
+end
+tpGoSpot = function()
+	if savedSpot then tpTo(savedSpot, "Back at your saved spot") else alert("Save a spot first", T.amber, 2.5) end
+end
+
 -- friends: only people on YOUR Roblox friends list (so you can find your group), never random players
 local friendCache, friendKey = {}, ""
 local function checkFriend(pl)
@@ -833,6 +918,17 @@ local function updateFriends(n)
 	end
 end
 
+-- anti-AFK
+pcall(function()
+	local VU = game:GetService("VirtualUser")
+	on(p.Idled, function()
+		if G.afk then pcall(function() VU:CaptureController() VU:ClickButton2(Vector2.new()) end) end
+	end)
+end)
+-- fps for the performance readout
+local fpsSmooth = 60
+on(RunService.RenderStepped, function(dt) fpsSmooth = fpsSmooth * 0.95 + (1 / math.max(dt, 0.001)) * 0.05 end)
+
 -- ================= loop =================
 local lastCands = {}
 task.spawn(function()
@@ -852,6 +948,17 @@ task.spawn(function()
 				tpSubs.med.Text = nearestMed and string.format("%d m  %s", nearestMed.d, compass(r.Position, nearestMed.pos)) or "none loaded near you"
 				tpSubs.food.Text = nearestFood and string.format("%d m  %s", nearestFood.d, compass(r.Position, nearestFood.pos)) or "none loaded near you"
 				tpSubs.safe.Text = "farthest spot from every monster"
+				for nm, subL in pairs(nameSubs) do
+					local nb = nearestByName[nm]
+					subL.Text = nb and string.format("%d m  %s  ·  tap to go", nb.d, compass(r.Position, nb.pos)) or "not loaded near you"
+				end
+				lootLabel.Text = string.format("near you:  food %d  ·  drinks %d  ·  medkits %d", loot.food, loot.drink, loot.heal)
+				spotSubs.go.Text = savedSpot and string.format("%d m away  ·  tap to go back", (savedSpot - r.Position).Magnitude) or "no spot saved yet"
+			end
+			if perfLabel then
+				local ping = 0
+				pcall(function() ping = p:GetNetworkPing() * 1000 end)
+				perfLabel.Text = string.format("%d FPS  ·  %d ms ping", fpsSmooth, ping)
 			end
 		end)
 		task.wait(0.3)
