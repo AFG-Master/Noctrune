@@ -13,7 +13,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.3"
+local VERSION = "v1.4"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -21,7 +21,7 @@ local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) retu
 -- ================= settings =================
 local CFG = "H3008.json"
 local G = { speed = false, jump = false, fly = false, noclip = false, radar = true, guide = true, monsters = true, alerts = true,
-	heal = true, food = true, drink = true, other = false, hudMode = "mini", afk = true, bright = false, noFog = false, noBlur = false }
+	heal = true, food = true, drink = true, other = false, hudMode = "mini", hudSide = "right", radarIdx = 2, alertIdx = 2, perf = false, afk = true, bright = false, noFog = false, noBlur = false }
 pcall(function()
 	if isfile and isfile(CFG) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG))) do if G[k] ~= nil then G[k] = v end end
@@ -234,6 +234,7 @@ end
 
 -- ---------- row builders ----------
 local rowOrder = 0
+local repaint = {}
 local function nextOrder() rowOrder = rowOrder + 1 return rowOrder end
 local function header(pg, txt)
 	return label(pg, { Text = txt, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = T.a1, TextXAlignment = Enum.TextXAlignment.Left, Size = UDim2.new(1, 0, 0, 16), LayoutOrder = nextOrder() })
@@ -260,6 +261,7 @@ local function switch(pg, key, title, sub)
 		if anim then tw(knob, 0.18, { Position = goal }, Enum.EasingStyle.Back) else knob.Position = goal end
 	end
 	paint(false)
+	repaint[key] = function() paint(true) end
 	hit.MouseButton1Click:Connect(function()
 		G[key] = not G[key]
 		paint(true) save()
@@ -290,6 +292,7 @@ local function segmented(pg, title, options, start, onPick)
 		b.MouseButton1Click:Connect(function() sel = i paint() onPick(i, v) end)
 	end
 	paint()
+	return { set = function(i) sel = i paint() end }
 end
 local function action(pg, title, sub, fn)
 	local c = card(pg, 48)
@@ -323,7 +326,10 @@ local itemCat = "food"
 local FOVS = { "Off", 85, 100, 120 }
 local fovIdx = 1
 local savedSpot
-local tpNext, tpName, tpSaveSpot, tpGoSpot
+local tpNext, tpName, tpSaveSpot, tpGoSpot, tpUndo, tpUnstuck
+local hudSeg, radarSeg, alertSeg
+local RADARS, ALERTS = { 80, 130, 200 }, { 0.7, 1, 1.5 }
+local applyPreset
 local nameSubs, loot = {}, { food = 0, drink = 0, heal = 0 }
 local lootLabel, spotSubs, perfLabel = nil, {}, nil
 local NEAR_NAMES = { "Water", "Dr. Bub Soda", "Bloxy Soda", "2 Litre Dr. Bub", "Burger", "Pizza", "Hotdog", "Medkit" }
@@ -334,7 +340,11 @@ do
 	local tel = UI.addTab("TELEPORT", "⌖")
 	local more = UI.addTab("MORE", "☰")
 
+	header(see, "QUICK SETUP")
+	segmented(see, "Preset", { "Clean", "Survive", "Scavenge" }, 0, function(i) if applyPreset then applyPreset(i) end end)
 	header(see, "RADAR + WARNINGS")
+	radarSeg = segmented(see, "Radar range (studs)", RADARS, G.radarIdx or 2, function(i) G.radarIdx = i save() end)
+	alertSeg = segmented(see, "Alert distance", { "Close", "Normal", "Far" }, G.alertIdx or 2, function(i) G.alertIdx = i save() end)
 	switch(see, "radar", "Radar", "monsters and medkits around you")
 	switch(see, "guide", "Run / medkit arrow", "points away from danger or to a medkit")
 	switch(see, "monsters", "Monster finder", "names + distance of employees")
@@ -366,6 +376,9 @@ do
 		nameSubs[nm] = action(itm, nm, "-", function() if tpName then tpName(nm) end end)
 	end
 
+	header(tel, "OOPS")
+	action(tel, "Undo last teleport", "go back to where you were", function() if tpUndo then tpUndo() end end)
+	action(tel, "Unstuck", "lift yourself up a little", function() if tpUnstuck then tpUnstuck() end end)
 	header(tel, "YOUR SPOT")
 	spotSubs.save = action(tel, "Save my spot", "remember where you are right now", function() if tpSaveSpot then tpSaveSpot() end end)
 	spotSubs.go = action(tel, "Go to saved spot", "no spot saved yet", function() if tpGoSpot then tpGoSpot() end end)
@@ -381,8 +394,10 @@ do
 	header(more, "SCREEN")
 	do
 		local idx = G.hudMode == "off" and 1 or G.hudMode == "full" and 3 or 2
-		segmented(more, "Status HUD (top right)", { "Off", "Mini", "Full" }, idx, function(i) G.hudMode = ({ "off", "mini", "full" })[i] save() end)
+		hudSeg = segmented(more, "Status HUD", { "Off", "Mini", "Full" }, idx, function(i) G.hudMode = ({ "off", "mini", "full" })[i] save() end)
+		segmented(more, "HUD corner", { "Right", "Left" }, G.hudSide == "left" and 2 or 1, function(i) G.hudSide = i == 2 and "left" or "right" save() end)
 	end
+	switch(more, "perf", "Performance mode", "fewer effects, smoother on a phone")
 	switch(more, "bright", "Brighter view", "see better in the dark")
 	switch(more, "noFog", "No fog / blur", "clearer screen")
 	header(more, "SESSION")
@@ -513,7 +528,7 @@ local function updateMonsters()
 		local prev = lastDist[m]
 		if prev and now > prev.t then
 			closing[m] = (prev.d - d) / (now - prev.t)
-			if closing[m] > 9 and d < 110 and now > (genv.H3008_FAST or 0) then
+			if closing[m] > 9 and d < 110 * (ALERTS[G.alertIdx or 2] or 1) and now > (genv.H3008_FAST or 0) then
 				genv.H3008_FAST = now + 4
 				alert(string.format("⚠  %s closing in fast  ·  %dm", m.Name, d), T.red, 3)
 			end
@@ -540,7 +555,7 @@ local function updateMonsters()
 	if nearestThreat and r then
 		local d = nearestThreat.d
 		local dang = dangerOf(nearestThreat.m.Name)
-		if d < (dang == 2 and 70 or 45) and now > (genv.H3008_ALERT or 0) then
+		if d < (dang == 2 and 70 or 45) * (ALERTS[G.alertIdx or 2] or 1) and now > (genv.H3008_ALERT or 0) then
 			genv.H3008_ALERT = now + 3
 			alert(string.format("⚠  %s  ·  %dm %s", nearestThreat.m.Name, d, compass(r.Position, nearestThreat.pos)), dang == 2 and T.red or T.amber, 3)
 		end
@@ -622,6 +637,7 @@ local function camYaw()
 end
 local function relAngle(dx, dz) return math.deg(math.atan2(dx, -dz) - camYaw()) end
 local function updateRadar(items)
+	RADAR_R = RADARS[G.radarIdx or 2] or 130
 	local r = root()
 	for _, d in pairs(radarDots) do d.Visible = false end
 	if not (G.radar and r) then radar.Visible = false return end
@@ -686,6 +702,8 @@ end
 -- ================= HUD update =================
 local function updateHud()
 	local mode = G.hudMode or "mini"
+	if G.hudSide == "left" then hud.AnchorPoint = Vector2.new(0, 0) hud.Position = UDim2.new(0, 62, 0, 66)
+	else hud.AnchorPoint = Vector2.new(1, 0) hud.Position = UDim2.new(1, -10, 0, 6) end
 	hud.Visible = mode ~= "off"
 	if mode == "off" then return end
 	local full = mode == "full"
@@ -804,9 +822,11 @@ on(RunService.Stepped, function()
 end)
 
 -- teleports
+local lastPos
 local function tpTo(pos, text)
 	local r = root()
 	if not r then return end
+	lastPos = r.CFrame
 	r.CFrame = CFrame.new(pos + Vector3.new(0, 3, 0))
 	alert("✓  " .. text, T.green, 2.5)
 end
@@ -831,6 +851,14 @@ tpSafe = function()
 	if best then tpTo(best + Vector3.new(2, 0, 0), "Safest spot found") else alert("No safe spot loaded nearby", T.red, 2.5) end
 end
 
+tpUndo = function()
+	local r = root()
+	if r and lastPos then local here = r.CFrame r.CFrame = lastPos lastPos = here alert("✓  Back where you were", T.green, 2) else alert("Nothing to undo yet", T.amber, 2) end
+end
+tpUnstuck = function()
+	local r = root()
+	if r then lastPos = r.CFrame r.CFrame = r.CFrame + Vector3.new(0, 10, 0) alert("✓  Lifted up", T.green, 2) end
+end
 -- items / spots
 local visited = {}
 tpNext = function()
@@ -928,6 +956,41 @@ end)
 -- fps for the performance readout
 local fpsSmooth = 60
 on(RunService.RenderStepped, function(dt) fpsSmooth = fpsSmooth * 0.95 + (1 / math.max(dt, 0.001)) * 0.05 end)
+
+-- presets
+applyPreset = function(i)
+	local P = {
+		{ radar = false, guide = false, monsters = false, alerts = true, heal = false, food = false, drink = false, other = false, hudMode = "mini" },
+		{ radar = true, guide = true, monsters = true, alerts = true, heal = true, food = false, drink = false, other = false, hudMode = "mini" },
+		{ radar = true, guide = true, monsters = true, alerts = true, heal = true, food = true, drink = true, other = false, hudMode = "full" },
+	}
+	local set = P[i]
+	if not set then return end
+	for k, v in pairs(set) do G[k] = v end
+	for k in pairs(set) do if repaint[k] then repaint[k]() end end
+	if hudSeg then hudSeg.set(set.hudMode == "off" and 1 or set.hudMode == "full" and 3 or 2) end
+	save()
+	alert("✓  Preset: " .. ({ "Clean", "Survive", "Scavenge" })[i], T.green, 2)
+end
+
+-- performance mode (own screen): fewer effects
+apply.perf = function(v)
+	if v then
+		remember(Lighting, "GlobalShadows") Lighting.GlobalShadows = false
+		task.spawn(function()
+			local n = 0
+			for _, d in ipairs(workspace:GetDescendants()) do
+				if d:IsA("ParticleEmitter") or d:IsA("Trail") or d:IsA("Smoke") or d:IsA("Fire") or d:IsA("Sparkles") then remember(d, "Enabled") d.Enabled = false end
+				n = n + 1
+				if n % 400 == 0 then task.wait() end
+			end
+			pcall(function() settings().Rendering.QualityLevel = Enum.QualityLevel.Level01 end)
+		end)
+	else
+		restore()
+	end
+end
+if G.perf then task.delay(2, function() apply.perf(true) end) end
 
 -- ================= loop =================
 local lastCands = {}
