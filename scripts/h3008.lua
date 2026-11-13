@@ -11,14 +11,14 @@ local RunService = game:GetService("RunService")
 local Lighting = game:GetService("Lighting")
 local HttpService = game:GetService("HttpService")
 local p = Players.LocalPlayer
-local VERSION = "v0.1"
+local VERSION = "v0.2"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
 
 -- ================= settings =================
 local CFG = "H3008.json"
-local G = { monsters = true, alerts = true, heal = true, food = true, drink = true, other = false, hud = true, bright = false, noFog = false, noBlur = false, open = true }
+local G = { radar = true, guide = true, monsters = true, alerts = true, heal = true, food = true, drink = true, other = false, hud = true, bright = false, noFog = false, noBlur = false, open = true }
 pcall(function()
 	if isfile and isfile(CFG) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG))) do if G[k] ~= nil then G[k] = v end end
@@ -66,7 +66,7 @@ local function round(o, r) new("UICorner", { CornerRadius = UDim.new(0, r) }, o)
 local tog = new("TextButton", { Text = "3K", Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = BG, BackgroundColor3 = ACC,
 	Size = UDim2.fromOffset(40, 40), Position = UDim2.new(0, 14, 0, 70) }, gui)
 round(tog, 20)
-local panel = new("Frame", { BackgroundColor3 = BG, BackgroundTransparency = 0.08, Size = UDim2.fromOffset(250, 330), Position = UDim2.new(0, 62, 0, 70), Visible = G.open }, gui)
+local panel = new("Frame", { BackgroundColor3 = BG, BackgroundTransparency = 0.08, Size = UDim2.fromOffset(250, 360), Position = UDim2.new(0, 62, 0, 70), Visible = G.open }, gui)
 round(panel, 14)
 new("UIStroke", { Color = Color3.new(1, 1, 1), Transparency = 0.88 }, panel)
 new("TextLabel", { BackgroundTransparency = 1, Text = "3008 HELPER  " .. VERSION, Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = ACC,
@@ -100,6 +100,8 @@ local function switch(key, label, sub)
 		if apply[key] then pcall(apply[key], G[key]) end
 	end)
 end
+switch("radar", "Radar", "monsters and medkits around you")
+switch("guide", "Run / medkit arrow", "points away from danger, or to a medkit")
 switch("monsters", "Monster finder", "names + distance of employees")
 switch("alerts", "Danger alerts", "banner when one gets close")
 switch("heal", "Medkits", "show the nearest medkits")
@@ -127,6 +129,7 @@ local function dangerOf(name)
 	return 1
 end
 local monTags = {}
+local lastDist, closing = {}, {}
 local function monTag(m)
 	local e = monTags[m]
 	if e then return e end
@@ -153,6 +156,18 @@ local function updateMonsters()
 			end
 		end
 	end
+	local now = tick()
+	for m, d in pairs(found) do
+		local prev = lastDist[m]
+		if prev and now > prev.t then
+			closing[m] = (prev.d - d) / (now - prev.t)
+			if closing[m] > 9 and d < 110 and now > (genv.H3008_FAST or 0) then
+				genv.H3008_FAST = now + 4
+				alert(string.format("🏃 %s is closing in fast (%dm)", m.Name, d), RED, 3)
+			end
+		end
+		lastDist[m] = { d = d, t = now }
+	end
 	for m, d in pairs(found) do
 		if G.monsters and d < 260 then
 			local e = monTag(m)
@@ -167,7 +182,7 @@ local function updateMonsters()
 		end
 	end
 	for m, e in pairs(monTags) do
-		if not m.Parent or not found[m] then pcall(function() e.bb:Destroy() end) monTags[m] = nil end
+		if not m.Parent or not found[m] then pcall(function() e.bb:Destroy() end) monTags[m] = nil lastDist[m] = nil closing[m] = nil end
 	end
 	if nearestThreat and r then
 		local d = nearestThreat.d
@@ -229,6 +244,107 @@ local function updateItems()
 			slot.bb.Enabled = false
 		end
 	end
+	return cands
+end
+
+-- ================= radar + guide arrow =================
+local RADAR_R = 130 -- studs shown
+local radar = new("Frame", { AnchorPoint = Vector2.new(0, 1), Position = UDim2.new(0, 14, 1, -110), Size = UDim2.fromOffset(120, 120), BackgroundColor3 = BG, BackgroundTransparency = 0.25 }, gui)
+round(radar, 60)
+new("UIStroke", { Color = Color3.new(1, 1, 1), Transparency = 0.8 }, radar)
+new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(6, 6), BackgroundColor3 = Color3.new(1, 1, 1), BorderSizePixel = 0 }, radar)
+new("TextLabel", { BackgroundTransparency = 1, Text = "▲", Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = SUB, Position = UDim2.new(0.5, -6, 0, 0), Size = UDim2.fromOffset(12, 12) }, radar)
+local dots = {}
+local function dot(i, color, size)
+	local d = dots[i]
+	if not d then
+		d = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), BorderSizePixel = 0 }, radar)
+		round(d, 6)
+		dots[i] = d
+	end
+	d.BackgroundColor3 = color d.Size = UDim2.fromOffset(size, size) d.Visible = true
+	return d
+end
+local arrow = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(0.5, 0, 0.62, 0), Size = UDim2.fromOffset(150, 70), BackgroundTransparency = 1, Visible = false }, gui)
+local arrowSym = new("TextLabel", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 0), Size = UDim2.fromOffset(50, 50), BackgroundTransparency = 1, Text = "▲",
+	Font = Enum.Font.GothamBlack, TextSize = 44, TextColor3 = RED, TextStrokeTransparency = 0.3 }, arrow)
+local arrowTxt = new("TextLabel", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 52), Size = UDim2.fromOffset(150, 18), BackgroundTransparency = 1, Text = "",
+	Font = Enum.Font.GothamBlack, TextSize = 12, TextColor3 = TXT, TextStrokeTransparency = 0.3 }, arrow)
+local function camYaw()
+	local cam = workspace.CurrentCamera
+	if not cam then return 0 end
+	local look = cam.CFrame.LookVector
+	return math.atan2(look.X, -look.Z)
+end
+-- screen angle (degrees, 0 = straight ahead) of a world direction
+local function relAngle(dx, dz)
+	return math.deg(math.atan2(dx, -dz) - camYaw())
+end
+
+local function updateRadar(items)
+	local r = root()
+	local used = 0
+	for _, d in pairs(dots) do d.Visible = false end
+	if not (G.radar and r) then radar.Visible = false return end
+	radar.Visible = true
+	local yaw = camYaw()
+	local function plot(pos, color, size)
+		local dx, dz = pos.X - r.Position.X, pos.Z - r.Position.Z
+		local dist = math.sqrt(dx * dx + dz * dz)
+		if dist > RADAR_R then dist = RADAR_R end
+		local ang = math.atan2(dx, -dz) - yaw
+		local rr = (dist / RADAR_R) * 54
+		used = used + 1
+		local d = dot(used, color, size)
+		d.Position = UDim2.new(0.5, math.sin(ang) * rr, 0.5, -math.cos(ang) * rr)
+	end
+	for m in pairs(monTags) do
+		local part = m.PrimaryPart or m:FindFirstChildWhichIsA("BasePart", true)
+		if part then plot(part.Position, dangerOf(m.Name) == 2 and RED or ACC, 8) end
+	end
+	for _, it in ipairs(items or {}) do
+		if it.cat == "heal" and it.d < RADAR_R then plot(it.pos, GRN, 6) end
+	end
+end
+
+local lastCands = {}
+local function updateGuide()
+	local r = root()
+	local hum = p.Character and p.Character:FindFirstChildOfClass("Humanoid")
+	if not (G.guide and r and hum) then arrow.Visible = false return end
+	-- 1) run away: monsters close to you
+	local fx, fz, threats = 0, 0, 0
+	for m in pairs(monTags) do
+		local part = m.PrimaryPart or m:FindFirstChildWhichIsA("BasePart", true)
+		if part then
+			local dx, dz = r.Position.X - part.Position.X, r.Position.Z - part.Position.Z
+			local d = math.sqrt(dx * dx + dz * dz)
+			local limit = dangerOf(m.Name) == 2 and 90 or 55
+			if d < limit and d > 0.1 then
+				local w = (dangerOf(m.Name) == 2 and 2 or 1) / (d * d)
+				fx, fz = fx + dx / d * w, fz + dz / d * w
+				threats = threats + 1
+			end
+		end
+	end
+	if threats > 0 or p:GetAttribute("BeingChased") then
+		if threats > 0 then
+			arrow.Visible = true
+			arrowSym.TextColor3 = RED
+			arrowSym.Rotation = relAngle(fx, fz)
+			arrowTxt.Text = "RUN " .. compass(r.Position, r.Position + Vector3.new(fx, 0, fz) * 100)
+			return
+		end
+	end
+	-- 2) low health: point at the nearest medkit
+	if hum.Health < 60 and nearestMed then
+		arrow.Visible = true
+		arrowSym.TextColor3 = GRN
+		arrowSym.Rotation = relAngle(nearestMed.pos.X - r.Position.X, nearestMed.pos.Z - r.Position.Z)
+		arrowTxt.Text = string.format("🩹 Medkit %dm", nearestMed.d)
+		return
+	end
+	arrow.Visible = false
 end
 
 -- ================= HUD =================
@@ -278,12 +394,14 @@ task.spawn(function()
 		pcall(function()
 			n = n + 1
 			updateMonsters()
-			if n % 2 == 0 then updateItems() end
+			if n % 2 == 0 then lastCands = updateItems() or lastCands end
+			updateRadar(lastCands)
+			updateGuide()
 			updateHud()
 			visuals()
 			if banner.Visible and tick() > bannerUntil then banner.Visible = false end
 		end)
-		task.wait(0.4)
+		task.wait(0.3)
 	end
 end)
 
