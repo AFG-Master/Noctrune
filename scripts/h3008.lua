@@ -11,7 +11,7 @@ local RunService = game:GetService("RunService")
 local Lighting = game:GetService("Lighting")
 local HttpService = game:GetService("HttpService")
 local p = Players.LocalPlayer
-local VERSION = "v0.3"
+local VERSION = "v0.3b"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -112,8 +112,8 @@ local function button(label, sub, fn)
 	row.MouseButton1Click:Connect(function() pcall(fn, t1, t2) end)
 	return t1, t2
 end
-local SPEEDS = { 16, 20, 26, 34 }
-local speedIdx = 2
+local SPEEDS = { 24, 30, 38, 48 }
+local speedIdx = 1
 local function sectionLabel(txt)
 	order = order + 1
 	new("TextLabel", { BackgroundTransparency = 1, Text = txt, Font = Enum.Font.GothamBlack, TextSize = 11, TextColor3 = ACC, TextXAlignment = Enum.TextXAlignment.Left,
@@ -121,7 +121,7 @@ local function sectionLabel(txt)
 end
 sectionLabel("MOVEMENT (your character only)")
 switch("speed", "Speed", "faster running")
-button("Speed level", "tap to change: 16 / 20 / 26 / 34", function(t1, t2)
+button("Speed level", "tap to change: 24 / 30 / 38 / 48", function(t1, t2)
 	speedIdx = speedIdx % #SPEEDS + 1
 	t2.Text = "now " .. SPEEDS[speedIdx]
 end)
