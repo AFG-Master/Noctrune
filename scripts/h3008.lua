@@ -13,7 +13,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -317,6 +317,8 @@ local SPEEDS = { 24, 30, 38, 48 }
 local speedIdx = 1
 local tpMed, tpFood, tpSafe
 local tpSubs = {}
+local friendsBox
+local friendRows = {}
 do
 	local see = UI.addTab("SEE", "◉")
 	local mov = UI.addTab("MOVE", "➤")
@@ -346,6 +348,9 @@ do
 	tpSubs.med = action(tel, "Nearest medkit", "-", function() if tpMed then tpMed() end end)
 	tpSubs.food = action(tel, "Nearest food", "-", function() if tpFood then tpFood() end end)
 	tpSubs.safe = action(tel, "Safest spot", "-", function() if tpSafe then tpSafe() end end)
+	header(tel, "YOUR FRIENDS IN THIS SERVER")
+	friendsBox = new("Frame", { Size = UDim2.new(1, 0, 0, 0), AutomaticSize = Enum.AutomaticSize.Y, BackgroundTransparency = 1, LayoutOrder = nextOrder() }, tel)
+	new("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, friendsBox)
 	note(tel, "The game can snap you back after a teleport. Hold E on the item once you land.", T.sub)
 
 	header(more, "SCREEN")
@@ -593,6 +598,10 @@ local function updateRadar(items)
 	for _, it in ipairs(items or {}) do
 		if it.cat == "heal" and it.d < RADAR_R then plot(it.pos, T.green, 6) end
 	end
+	for pl in pairs(friendRows) do
+		local hr = pl.Character and pl.Character:FindFirstChild("HumanoidRootPart")
+		if hr then plot(hr.Position, T.blue, 8) end
+	end
 end
 local function updateGuide()
 	local r, h = root(), hum()
@@ -758,6 +767,58 @@ tpSafe = function()
 	if best then tpTo(best + Vector3.new(2, 0, 0), "Safest spot found") else alert("No safe spot loaded nearby", T.red, 2.5) end
 end
 
+-- friends: only people on YOUR Roblox friends list (so you can find your group), never random players
+local friendCache, friendKey = {}, ""
+local function checkFriend(pl)
+	if friendCache[pl.UserId] ~= nil then return end
+	friendCache[pl.UserId] = false
+	task.spawn(function()
+		local ok, res = pcall(function() return p:IsFriendsWith(pl.UserId) end)
+		friendCache[pl.UserId] = ok and res == true
+	end)
+end
+local function friendList()
+	local out = {}
+	for _, pl in ipairs(Players:GetPlayers()) do
+		if pl ~= p then
+			checkFriend(pl)
+			if friendCache[pl.UserId] then table.insert(out, pl) end
+		end
+	end
+	table.sort(out, function(a, b) return a.Name < b.Name end)
+	return out
+end
+local function tpFriend(pl)
+	local c = pl.Character
+	local hr = c and c:FindFirstChild("HumanoidRootPart")
+	if not hr then alert(pl.DisplayName .. " isn't loaded near you yet", T.amber, 2.5) return end
+	tpTo(hr.Position + Vector3.new(4, 0, 0), "Next to " .. pl.DisplayName)
+end
+local function rebuildFriends(list)
+	for _, c in ipairs(friendsBox:GetChildren()) do if c:IsA("Frame") then c:Destroy() end end
+	friendRows = {}
+	if #list == 0 then note(friendsBox, "None of your Roblox friends are in this server right now.", T.sub) return end
+	for _, pl in ipairs(list) do
+		friendRows[pl] = action(friendsBox, pl.DisplayName, "...", function() tpFriend(pl) end)
+	end
+end
+local function updateFriends(n)
+	if n % 6 == 0 then
+		local list = friendList()
+		local ids = {}
+		for _, pl in ipairs(list) do table.insert(ids, pl.UserId) end
+		local key = table.concat(ids, ",")
+		if key ~= friendKey then friendKey = key rebuildFriends(list) end
+	end
+	local r = root()
+	if not r then return end
+	for pl, subL in pairs(friendRows) do
+		local hr = pl.Character and pl.Character:FindFirstChild("HumanoidRootPart")
+		if hr then subL.Text = string.format("%d m  %s   ·  tap to teleport", (hr.Position - r.Position).Magnitude, compass(r.Position, hr.Position))
+		else subL.Text = "not loaded near you yet" end
+	end
+end
+
 -- ================= loop =================
 local lastCands = {}
 task.spawn(function()
@@ -767,6 +828,7 @@ task.spawn(function()
 			n = n + 1
 			updateMonsters()
 			if n % 2 == 0 then lastCands = updateItems() or lastCands end
+			updateFriends(n)
 			updateRadar(lastCands)
 			updateGuide()
 			updateHud()
