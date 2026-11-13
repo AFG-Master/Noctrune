@@ -11,19 +11,20 @@ local RunService = game:GetService("RunService")
 local Lighting = game:GetService("Lighting")
 local HttpService = game:GetService("HttpService")
 local p = Players.LocalPlayer
-local VERSION = "v0.2"
+local VERSION = "v0.3"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
 
 -- ================= settings =================
 local CFG = "H3008.json"
-local G = { radar = true, guide = true, monsters = true, alerts = true, heal = true, food = true, drink = true, other = false, hud = true, bright = false, noFog = false, noBlur = false, open = true }
+local G = { speed = false, jump = false, fly = false, noclip = false, radar = true, guide = true, monsters = true, alerts = true, heal = true, food = true, drink = true, other = false, hud = true, bright = false, noFog = false, noBlur = false, open = true }
 pcall(function()
 	if isfile and isfile(CFG) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG))) do if G[k] ~= nil then G[k] = v end end
 	end
 end)
+G.speed, G.jump, G.fly, G.noclip = false, false, false, false -- movement tools always start off
 local function save() pcall(function() if writefile then writefile(CFG, HttpService:JSONEncode(G)) end end) end
 
 -- ================= helpers =================
@@ -66,7 +67,7 @@ local function round(o, r) new("UICorner", { CornerRadius = UDim.new(0, r) }, o)
 local tog = new("TextButton", { Text = "3K", Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = BG, BackgroundColor3 = ACC,
 	Size = UDim2.fromOffset(40, 40), Position = UDim2.new(0, 14, 0, 70) }, gui)
 round(tog, 20)
-local panel = new("Frame", { BackgroundColor3 = BG, BackgroundTransparency = 0.08, Size = UDim2.fromOffset(250, 360), Position = UDim2.new(0, 62, 0, 70), Visible = G.open }, gui)
+local panel = new("Frame", { BackgroundColor3 = BG, BackgroundTransparency = 0.08, Size = UDim2.fromOffset(250, 420), Position = UDim2.new(0, 62, 0, 70), Visible = G.open }, gui)
 round(panel, 14)
 new("UIStroke", { Color = Color3.new(1, 1, 1), Transparency = 0.88 }, panel)
 new("TextLabel", { BackgroundTransparency = 1, Text = "3008 HELPER  " .. VERSION, Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = ACC,
@@ -100,6 +101,39 @@ local function switch(key, label, sub)
 		if apply[key] then pcall(apply[key], G[key]) end
 	end)
 end
+local function button(label, sub, fn)
+	order = order + 1
+	local row = new("TextButton", { Text = "", AutoButtonColor = true, BackgroundColor3 = CARD, Size = UDim2.new(1, -4, 0, 40), LayoutOrder = order }, list)
+	round(row, 10)
+	local t1 = new("TextLabel", { BackgroundTransparency = 1, Text = label, Font = Enum.Font.GothamBold, TextSize = 12, TextColor3 = TXT, TextXAlignment = Enum.TextXAlignment.Left,
+		Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 0, 18) }, row)
+	local t2 = new("TextLabel", { BackgroundTransparency = 1, Text = sub, Font = Enum.Font.Gotham, TextSize = 10, TextColor3 = SUB, TextXAlignment = Enum.TextXAlignment.Left,
+		Position = UDim2.fromOffset(10, 21), Size = UDim2.new(1, -20, 0, 14), TextTruncate = Enum.TextTruncate.AtEnd }, row)
+	row.MouseButton1Click:Connect(function() pcall(fn, t1, t2) end)
+	return t1, t2
+end
+local SPEEDS = { 16, 20, 26, 34 }
+local speedIdx = 2
+local function sectionLabel(txt)
+	order = order + 1
+	new("TextLabel", { BackgroundTransparency = 1, Text = txt, Font = Enum.Font.GothamBlack, TextSize = 11, TextColor3 = ACC, TextXAlignment = Enum.TextXAlignment.Left,
+		Size = UDim2.new(1, -4, 0, 18), LayoutOrder = order }, list)
+end
+sectionLabel("MOVEMENT (your character only)")
+switch("speed", "Speed", "faster running")
+button("Speed level", "tap to change: 16 / 20 / 26 / 34", function(t1, t2)
+	speedIdx = speedIdx % #SPEEDS + 1
+	t2.Text = "now " .. SPEEDS[speedIdx]
+end)
+switch("jump", "High jump", "jump much higher")
+switch("fly", "Fly", "use the ▲ ▼ buttons for up / down")
+switch("noclip", "Noclip", "walk through walls")
+sectionLabel("TELEPORTS")
+local tpMed, tpFood, tpSafe -- set below
+button("TP to nearest medkit", "teleports next to it", function() if tpMed then tpMed() end end)
+button("TP to nearest food", "teleports next to it", function() if tpFood then tpFood() end end)
+button("TP to safest spot", "the spot farthest from monsters", function() if tpSafe then tpSafe() end end)
+sectionLabel("SEE")
 switch("radar", "Radar", "monsters and medkits around you")
 switch("guide", "Run / medkit arrow", "points away from danger, or to a medkit")
 switch("monsters", "Monster finder", "names + distance of employees")
@@ -207,20 +241,22 @@ local function category(name)
 	if FOOD[name] then return "food" end
 	return "other"
 end
-local itemPool, nearestMed = {}, nil
+local itemPool, nearestMed, nearestFood, allPos = {}, nil, nil, {}
 local MAXTAGS = 18
 local function updateItems()
 	local r = root()
 	if not r then return end
 	local cands = {}
-	nearestMed = nil
+	nearestMed, nearestFood, allPos = nil, nil, {}
 	for _, it in ipairs(ITEMS:GetChildren()) do
 		if it:IsA("Model") and it:GetAttribute("Busy") ~= true then
 			local pos = posOf(it)
 			if pos then
 				local cat = category(it.Name)
 				local d = (pos - r.Position).Magnitude
+				table.insert(allPos, pos)
 				if cat == "heal" and (not nearestMed or d < nearestMed.d) then nearestMed = { d = d, pos = pos } end
+				if (cat == "food" or cat == "drink") and (not nearestFood or d < nearestFood.d) then nearestFood = { d = d, pos = pos } end
 				if G[cat] and d < 200 then table.insert(cands, { m = it, d = d, pos = pos, cat = cat }) end
 			end
 		end
@@ -387,6 +423,95 @@ end
 apply.bright = function(v) if not v then restore() end end
 apply.noFog = function(v) if not v then restore() end end
 
+-- ================= movement tools (own character) =================
+local orig = {}
+local function hum() return p.Character and p.Character:FindFirstChildOfClass("Humanoid") end
+local function applyMove()
+	local h = hum()
+	if not h then return end
+	if orig.ws == nil then orig.ws, orig.jp, orig.ujp, orig.jh = h.WalkSpeed, h.JumpPower, h.UseJumpPower, h.JumpHeight end
+	if G.speed then h.WalkSpeed = SPEEDS[speedIdx] end
+	if G.jump then h.UseJumpPower = true h.JumpPower = 75 end
+end
+apply.speed = function(v) local h = hum() if h and not v and orig.ws then h.WalkSpeed = orig.ws end end
+apply.jump = function(v) local h = hum() if h and not v and orig.jp then h.UseJumpPower = orig.ujp h.JumpPower = orig.jp end end
+on(p.CharacterAdded, function() orig = {} end)
+
+-- fly: velocity from the move stick, ▲ ▼ buttons for height
+local flyUp, flyDown = false, false
+local flyBV
+local function flyButton(txt, ypos, setter)
+	local b = new("TextButton", { Text = txt, Font = Enum.Font.GothamBlack, TextSize = 22, TextColor3 = BG, BackgroundColor3 = ACC, Visible = false,
+		AnchorPoint = Vector2.new(1, 0.5), Position = UDim2.new(1, -20, 0.5, ypos), Size = UDim2.fromOffset(54, 54) }, gui)
+	round(b, 27)
+	b.MouseButton1Down:Connect(function() setter(true) end)
+	b.MouseButton1Up:Connect(function() setter(false) end)
+	b.MouseLeave:Connect(function() setter(false) end)
+	return b
+end
+local btnUp = flyButton("▲", -34, function(v) flyUp = v end)
+local btnDown = flyButton("▼", 34, function(v) flyDown = v end)
+apply.fly = function(v) btnUp.Visible = v btnDown.Visible = v end
+on(RunService.RenderStepped, function()
+	pcall(applyMove)
+	local h, r = hum(), root()
+	if G.fly and h and r then
+		if not flyBV or flyBV.Parent ~= r then
+			if flyBV then flyBV:Destroy() end
+			flyBV = Instance.new("BodyVelocity")
+			flyBV.MaxForce = Vector3.new(1e6, 1e6, 1e6)
+			flyBV.P = 1e4
+			flyBV.Parent = r
+		end
+		local sp = SPEEDS[speedIdx] * 1.6
+		local v = h.MoveDirection * sp
+		if flyUp then v = v + Vector3.new(0, sp, 0) elseif flyDown then v = v - Vector3.new(0, sp, 0) end
+		flyBV.Velocity = v
+	elseif flyBV then
+		flyBV:Destroy() flyBV = nil
+	end
+end)
+-- noclip: cached part list, refreshed once a second
+local ncParts, ncAt = {}, 0
+on(RunService.Stepped, function()
+	if not G.noclip then return end
+	local c = p.Character
+	if not c then return end
+	if tick() - ncAt > 1 then
+		ncAt = tick() ncParts = {}
+		for _, d in ipairs(c:GetDescendants()) do if d:IsA("BasePart") then table.insert(ncParts, d) end end
+	end
+	for _, d in ipairs(ncParts) do d.CanCollide = false end
+end)
+
+-- teleports (the game decides if they stick: some servers snap you back)
+local function tpTo(pos, label)
+	local r = root()
+	if not r then return end
+	r.CFrame = CFrame.new(pos + Vector3.new(0, 3, 0))
+	alert("📍 " .. label, GRN, 2.5)
+end
+tpMed = function() if nearestMed then tpTo(nearestMed.pos + Vector3.new(3, 0, 0), "At the medkit — hold E on it") else alert("No medkit loaded near you yet", ACC, 2.5) end end
+tpFood = function() if nearestFood then tpTo(nearestFood.pos + Vector3.new(3, 0, 0), "At the food") else alert("No food loaded near you yet", ACC, 2.5) end end
+tpSafe = function()
+	local r = root()
+	if not r or #allPos == 0 then alert("Nothing loaded to teleport to yet", ACC, 2.5) return end
+	local best, bestScore
+	for _, pos in ipairs(allPos) do
+		local away = math.huge
+		for m in pairs(monTags) do
+			local part = m.PrimaryPart or m:FindFirstChildWhichIsA("BasePart", true)
+			if part then away = math.min(away, (part.Position - pos).Magnitude) end
+		end
+		local travel = (pos - r.Position).Magnitude
+		if away > 60 and travel < 400 then
+			local score = math.min(away, 250) - travel * 0.15
+			if not bestScore or score > bestScore then best, bestScore = pos, score end
+		end
+	end
+	if best then tpTo(best + Vector3.new(2, 0, 0), "Safest spot found") else alert("No safe spot loaded nearby", RED, 2.5) end
+end
+
 -- ================= loop =================
 task.spawn(function()
 	local n = 0
@@ -407,6 +532,8 @@ end)
 
 genv.H3008_STOP = function()
 	alive = false
+	pcall(function() local h = hum() if h and orig.ws then h.WalkSpeed = orig.ws h.JumpPower = orig.jp h.UseJumpPower = orig.ujp end end)
+	pcall(function() if flyBV then flyBV:Destroy() end end)
 	for _, c in ipairs(conns) do pcall(function() c:Disconnect() end) end
 	pcall(restore)
 	pcall(function() gui:Destroy() end)
