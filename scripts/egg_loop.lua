@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.2"
+local VERSION = "v1.3"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -63,6 +63,17 @@ local function mmss(sec)
 	return string.format("%d:%02d", math.floor(sec / 60), sec % 60)
 end
 local RAR = { "COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY", "MYTHIC", "COSMIC" }
+pcall(function()
+	local all = require(RS.Shared.Configs.RarityConfig).GetAll()
+	if type(all) == "table" then
+		local t = {}
+		for _, x in ipairs(all) do
+			local nm = type(x) == "table" and x.Name or x
+			if type(nm) == "string" and nm ~= "Special" then table.insert(t, nm:upper()) end
+		end
+		if #t >= 7 then RAR = t end
+	end
+end)
 local function rarIndex(name)
 	name = tostring(name or ""):upper()
 	for i, r in ipairs(RAR) do if r == name then return i end end
@@ -686,6 +697,7 @@ end
 W.runEvolve = function(manual)
 	if busy then if manual then UI.toast("Busy, try again in a moment", T.amber, 2) end return end
 	busy = true
+	local tEvo = tick()
 	local ok, err = pcall(function()
 		local win = openWindow("EVOLVE", "Evolve")
 		if not win then logf("evolve: window did not open") return end
@@ -732,6 +744,7 @@ W.runEvolve = function(manual)
 		end
 		nextEvoSoon = true
 		if win.Visible then closeWindow(win) end
+		logf(string.format("evolve cycle took %.1fs", tick() - tEvo))
 	end)
 	if not ok then logf("evolve error: " .. tostring(err)) end
 	busy = false
@@ -824,9 +837,22 @@ W.runSlot = function(manual)
 end
 
 local nextEvo, nextReb, nextSlot = 0, 0, 0
+local primed = false
 local function engine()
 	if busy or anyWindowOpen() then return end
 	local now = tick()
+	if not primed and not PEN.slotCost and now - S.t0 > 8 then
+		primed = true
+		busy = true
+		task.spawn(function()
+			pcall(function()
+				local win = openWindow("PETS", "Pets")
+				if win then PEN.slotCost = readSlotCost() closeWindow(win) end
+			end)
+			busy = false
+		end)
+		return
+	end
 	if G.autoEvolve and now > nextEvo then nextEvo = now + (nextEvoSoon and 6 or 25) nextEvoSoon = false task.spawn(W.runEvolve, false) return end
 	if G.autoRebirth and now > nextReb then nextReb = now + 45 task.spawn(W.runRebirth, false) return end
 	if G.autoSlots and now > nextSlot then nextSlot = now + 40 task.spawn(W.runSlot, false) return end
