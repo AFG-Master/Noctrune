@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.3"
+local VERSION = "v1.4"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -500,22 +500,38 @@ local function scanPets()
 	end
 	table.sort(evolveRows, function(a, b) return (a.gain or 0) > (b.gain or 0) end)
 end
-local function readSlotCost()
-	local sh = sheets()
-	local win = sh and sh:FindFirstChild("Pets")
-	if not win then return nil end
+-- the money slot button: a button inside the frame called " Pen" (the Robux one is "PenNow")
+local function slotButton(win)
 	for _, d in ipairs(win:GetDescendants()) do
-		if d:IsA("ImageButton") and d.Name:find("Pen") and not d.Name:find("PenNow") then
-			local texts = {}
-			for _, x in ipairs(d:GetDescendants()) do if x:IsA("TextLabel") and x.Text ~= "" then table.insert(texts, x.Text) end end
-			if table.concat(texts, " "):find("SLOT") then
-				for _, t in ipairs(texts) do
-					local num = t:match("^%$([%d%.]+%a?)$")
-					if num then return parseAmount(num) end
+		if d:IsA("ImageButton") then
+			local a, isPen, isNow = d, false, false
+			while a and a ~= win do
+				if a.Name:match("^%s*Pen$") then isPen = true end
+				if a.Name:find("PenNow") then isNow = true end
+				a = a.Parent
+			end
+			if isPen and not isNow then
+				local texts = textsOf(d)
+				if table.concat(texts, " "):find("SLOT") then
+					local cost
+					for _, t in ipairs(texts) do
+						local num = t:match("^%$([%d%.]+%a?)$")
+						if num then cost = parseAmount(num) end
+					end
+					local n = 0
+					pcall(function() n = #getconnections(d.Activated) end)
+					if cost and n > 0 then return d, cost end
 				end
 			end
 		end
 	end
+end
+local function readSlotCost()
+	local sh = sheets()
+	local win = sh and sh:FindFirstChild("Pets")
+	if not win then return nil end
+	local _, cost = slotButton(win)
+	return cost
 end
 
 -- ================= PAGES =================
@@ -794,21 +810,7 @@ W.runSlot = function(manual)
 	local ok, err = pcall(function()
 		local win = openWindow("PETS", "Pets")
 		if not win then logf("slot: pets window did not open") return end
-		local btn, cost
-		for _, d in ipairs(win:GetDescendants()) do
-			if d:IsA("ImageButton") and d.Name:find("Pen") and not d.Name:find("PenNow") then
-				local texts = textsOf(d)
-				local joined = table.concat(texts, " ")
-				if joined:find("SLOT") then
-					for _, t in ipairs(texts) do
-						local num = t:match("^%$([%d%.]+%a?)$")
-						if num then cost = parseAmount(num) end
-					end
-					local n = 0 pcall(function() n = #getconnections(d.Activated) end)
-					if cost and n > 0 then btn = d break end
-				end
-			end
-		end
+		local btn, cost = slotButton(win)
 		if not btn then logf("slot: no money slot button found") closeWindow(win) return end
 		local money = moneyNow()
 		local slotGain = (PEN.bestRestIncome or 0) * PEN.mult
