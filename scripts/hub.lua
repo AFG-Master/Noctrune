@@ -13,6 +13,7 @@ local SCRIPTS = {
 	{ name = "Math Glass Bridge", place = 106251887264209, url = BASE .. "Noctrune/main/scripts/math_glass_bridge.lua" },
 	{ name = "Driving Empire Spookfest", place = 3351674303, url = BASE .. "Noctrune/main/scripts/spookfest.lua" },
 	{ name = "3008 Helper", place = 2768379856, url = BASE .. "Noctrune/main/scripts/h3008.lua" },
+	{ name = "Egg Loop Helper", place = 125177095586059, url = BASE .. "Noctrune/main/scripts/egg_loop.lua" },
 	{ name = "OP Pasahero", place = 78175233789962, url = BASE .. "Noctrune/main/scripts/pasahero.lua" },
 	{ name = "Timber Hub Fusion (Chop A Forest)", url = BASE .. "Noctrune/main/scripts/gem_hub.lua" },
 	{ name = "Chop A Forest", url = BASE .. "Noctrune/main/scripts/chop_a_forest.lua" },
