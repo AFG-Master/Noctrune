@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -740,6 +740,7 @@ local function opponents()
 	return real, bots
 end
 local lastNotice = {}
+local announcedEgg = {}
 local function scanNotices()
 	local g = gameUI()
 	local pl = g and g:FindFirstChild("Play")
@@ -835,6 +836,13 @@ local function status()
 		end
 	end
 	local nextEgg = eggs[1]
+	for _, e in ipairs(eggs) do
+		local key = e.name .. math.floor(e.left > 0 and 1 or 0)
+		if e.left <= 0 and not announcedEgg[e.name] then
+			announcedEgg[e.name] = true
+			if tick() - S.t0 > 6 then alert("Egg ready: " .. e.name .. "  ·  tap HATCH ALL", T.green, 4) end
+		elseif e.left > 0 then announcedEgg[e.name] = nil end
+	end
 
 	local ev = eventText()
 	W.event.Text = ev and ("Round timer   " .. ev) or "Round timer   -"
@@ -849,7 +857,7 @@ local function status()
 		for _, r in ipairs(petRows) do local k = tostring(r.rarity or "?") byR[k] = (byR[k] or 0) + 1 end
 		local parts = {}
 		for _, nm in ipairs({ "Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythic", "Cosmic" }) do if byR[nm] then table.insert(parts, nm:sub(1, 3) .. " " .. byR[nm]) end end
-		local slots = "?"
+		local slots = d and d.PedestalCount and tostring(d.PedestalCount) or "?"
 		pcall(function()
 			for _, t in ipairs(textsOf(sheets().Pets)) do local u, m = t:match("(%d+)/(%d+) SLOTS") if u then slots = u .. "/" .. m break end end
 		end)
