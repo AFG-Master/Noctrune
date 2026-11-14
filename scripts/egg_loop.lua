@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.4"
+local VERSION = "v2.0"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -489,16 +489,66 @@ local function scanPets()
 	for _, r in ipairs(petRows) do
 		if not PEN.ids[r.id] then PEN.bestRest, PEN.bestRestIncome = r, r.income or 0 break end
 	end
-	-- evolve value: what the next rarity is worth for this pet's size, minus what it earns now
+	-- BRAIN model: net change of the pen if pet r ranks up (new pet in, partner consumed)
+	local partners = {}
+	do
+		local anyPet = petRows[1] and petRows[1].pet
+		if anyPet then
+			local okP, map = pcall(PC.FindRankUpPartners, d.Pets, anyPet)
+			if okP and type(map) == "table" then partners = map end
+		end
+	end
+	local N = d.PedestalCount or 15
+	local function penSum(skipA, skipB, extra)
+		local list = {}
+		for _, r in ipairs(petRows) do
+			if r.id ~= skipA and r.id ~= skipB then list[#list + 1] = r.income or 0 end
+		end
+		if extra then list[#list + 1] = extra end
+		table.sort(list, function(a, b) return a > b end)
+		local t = 0
+		for i = 1, math.min(N, #list) do t = t + list[i] end
+		return t
+	end
+	local cands = {}
 	for _, r in ipairs(petRows) do
 		local newInc = expectedNewIncome(r.pet, r.nextR)
 		if newInc and r.income then
-			r.gain = (newInc - r.income) * PEN.mult
 			r.newInc = newInc
-			if PEN.ids[r.id] and r.gain > 0 then table.insert(evolveRows, r) end
+			r.gain = (newInc - r.income) * PEN.mult
+			if newInc > PEN.cutoff then cands[#cands + 1] = r end
 		end
 	end
-	table.sort(evolveRows, function(a, b) return (a.gain or 0) > (b.gain or 0) end)
+	table.sort(cands, function(a, b) return (a.gain or 0) > (b.gain or 0) end)
+	for i = #cands, 9, -1 do cands[i] = nil end
+	for _, r in ipairs(cands) do
+		local partner = partners[r.id]
+		if partner == r.id then partner = nil end
+		r.partner = partner
+		r.delta = (penSum(r.id, partner, r.newInc) - PEN.base) * PEN.mult
+	end
+	for _, r in ipairs(cands) do if (r.delta or 0) > 0 then table.insert(evolveRows, r) end end
+	table.sort(evolveRows, function(a, b) return (a.delta or 0) > (b.delta or 0) end)
+end
+
+-- ================= BRAIN: offers probed through the game's own evolve screen =================
+local BR = { offers = {}, scanAt = 0, nextCheck = 0, history = {}, status = "no scan yet" }
+local function gridOf(win)
+	local n = win
+	for _, k in ipairs({ "Base", "Body", "Content", "Screen", "Grid", "Grid", "Scroller" }) do
+		n = n and n:FindFirstChild(k)
+	end
+	return n
+end
+local function chooseOffer(money, onlyAffordable)
+	local best, bestAny
+	for _, o in ipairs(BR.offers) do
+		if o.prize >= minPrize() and o.delta > 0 and o.payback <= paybackLimit() then
+			if not bestAny or o.payback < bestAny.payback then bestAny = o end
+			if o.cost <= money - reserveValue() and (not best or o.payback < best.payback) then best = o end
+		end
+	end
+	return best, bestAny
 end
 -- the money slot button: a button inside the frame called " Pen" (the Robux one is "PenNow")
 local function slotButton(win)
@@ -544,6 +594,8 @@ do
 	local more = UI.addTab("MORE", "☰")
 
 	-- DASH
+	header(dash, "BEST NEXT MOVE")
+	W.best = info(dash, 58, T.amber)
 	header(dash, "ACCOUNT")
 	W.money = info(dash, 30)
 	W.income = info(dash, 30)
@@ -562,10 +614,12 @@ do
 	W.pen = info(pets, 78)
 	header(pets, "COLLECTION")
 	W.petSummary = info(pets, 52)
-	header(pets, "BEST EVOLVES (BY INCOME GAIN)")
+	header(pets, "BEST DEALS (CHECKED IN THE EVOLVE SCREEN)")
 	W.evo = {}
-	for i = 1, 5 do W.evo[i] = info(pets, 42, T.amber) end
+	for i = 1, 5 do W.evo[i] = info(pets, 44, T.amber) end
 	W.evoNone = info(pets, 30, T.sub)
+	header(pets, "PLAN  (next purchases in order)")
+	W.plan = info(pets, 78)
 	header(pets, "TOP EARNERS")
 	W.top = {}
 	for i = 1, 5 do W.top[i] = info(pets, 26) end
@@ -588,7 +642,8 @@ do
 	segmented(auto, "Only evolve into at least", { "Any", "Epic", "Legend", "Mythic" }, G.minIdx, function(i) G.minIdx = i save() end)
 	segmented(auto, "Only if it pays back within", { "15m", "1h", "6h", "Any" }, G.paybackIdx, function(i) G.paybackIdx = i save() end)
 	header(auto, "DO IT NOW (acts for real)")
-	W.doEvolve = action(auto, "Evolve now", "the game's recommended pair", function() if W.runEvolve then W.runEvolve(true) end end)
+	W.doEvolve = action(auto, "Do best deal now", "buys the best affordable evolve", function() if W.runEvolve then W.runEvolve(true) end end)
+	action(auto, "Scan deals now", "probes your top evolves", function() if W.scanDeals then W.scanDeals(true) end end)
 	W.doRebirth = action(auto, "Rebirth now", "free path, only if ready", function() if W.runRebirth then W.runRebirth(true) end end)
 	W.doSlot = action(auto, "Buy a slot now", "money slot, if you can afford it", function() if W.runSlot then W.runSlot(true) end end)
 	header(auto, "WHAT IT DID")
@@ -710,55 +765,126 @@ local function readEvolve(win)
 	return out
 end
 
+local function snapshotIds()
+	local t = {}
+	local d0 = data()
+	if d0 and d0.Pets then for id in pairs(d0.Pets) do t[id] = true end end
+	return t
+end
+
+-- open the evolve screen once, click each candidate's tile, read prize + cost the game shows
+W.scanDeals = function(manual)
+	if busy then if manual then UI.toast("Busy, try again in a moment", T.amber, 2) end return end
+	busy = true
+	local ok, err = pcall(function()
+		scanPets()
+		local win = openWindow("EVOLVE", "Evolve")
+		if not win then logf("scan: evolve window did not open") return end
+		task.wait(0.4)
+		local grid = gridOf(win)
+		local offers = {}
+		for _, r in ipairs(evolveRows) do
+			if #offers >= 6 then break end
+			local tile = grid and grid:FindFirstChild(r.id) or win:FindFirstChild(r.id, true)
+			if tile and tile:IsA("GuiButton") then
+				fire(tile)
+				task.wait(0.8)
+				local e = readEvolve(win)
+				if e and e.cost and e.prize and e.prize == rarIndex(r.nextR) then
+					local gain = r.delta
+					offers[#offers + 1] = { id = r.id, name = r.name, mut = r.mut, stars = r.stars, from = r.rarity, prize = e.prize, cost = e.cost,
+						delta = gain, payback = gain > 0 and e.cost / gain or math.huge, partner = r.partner }
+				end
+			end
+		end
+		table.sort(offers, function(a, b) return a.payback < b.payback end)
+		BR.offers, BR.scanAt = offers, tick()
+		BR.status = string.format("scan: %d deals", #offers)
+		logf(string.format("scan: %d deals found%s", #offers, offers[1] and (", best " .. offers[1].name .. " pays back in " .. mm(offers[1].payback)) or ""))
+		if manual then UI.toast("Found " .. #offers .. " deals", T.green, 3) end
+		if win.Visible then closeWindow(win) end
+	end)
+	if not ok then logf("scan error: " .. tostring(err)) end
+	busy = false
+end
+
 W.runEvolve = function(manual)
 	if busy then if manual then UI.toast("Busy, try again in a moment", T.amber, 2) end return end
+	-- stale or empty offers: rescan first (that opens the window itself)
+	if #BR.offers == 0 or tick() - BR.scanAt > 600 then
+		W.scanDeals(false)
+		if #BR.offers == 0 then BR.nextCheck = tick() + 90 return end
+	end
+	local money = moneyNow()
+	local best, bestAny = chooseOffer(money)
+	if not best then
+		local inc = math.max(stat("MONEY/S"), 1)
+		local target = bestAny
+		if target then
+			local eta = math.max(0, (target.cost + reserveValue() - money) / inc)
+			BR.status = string.format("saving for %s (%s)", target.name, mm(eta))
+			BR.nextCheck = tick() + math.max(30, math.min(eta, 300))
+			if manual then UI.toast("Nothing affordable yet: " .. BR.status, T.amber, 3) end
+		else
+			BR.status = "no deal meets your rules"
+			BR.nextCheck = tick() + 120
+			if manual then UI.toast("No deal meets your rules", T.amber, 3) end
+		end
+		return
+	end
+	-- if the best-value deal is nearly affordable, keep saving for it instead of a worse one
+	if bestAny and bestAny ~= best and bestAny.payback * 1.5 < best.payback then
+		local eta = (bestAny.cost + reserveValue() - money) / math.max(stat("MONEY/S"), 1)
+		if eta < 240 then
+			BR.status = string.format("saving for %s (%s)", bestAny.name, mm(eta))
+			BR.nextCheck = tick() + math.max(20, eta)
+			return
+		end
+	end
+	if G.preview and not manual then
+		logf(string.format("[preview] would evolve %s (%s -> %s) for $%s, +$%s/s, pays back %s", best.name, tostring(best.from), RAR[best.prize] or "?", fmt(best.cost), fmt(best.delta), mm(best.payback)))
+		BR.status = "preview: would buy " .. best.name
+		BR.nextCheck = tick() + 60
+		return
+	end
 	busy = true
 	local tEvo = tick()
 	local ok, err = pcall(function()
 		local win = openWindow("EVOLVE", "Evolve")
 		if not win then logf("evolve: window did not open") return end
+		task.wait(0.4)
+		local grid = gridOf(win)
+		local tile = grid and grid:FindFirstChild(best.id) or win:FindFirstChild(best.id, true)
+		if not (tile and tile:IsA("GuiButton")) then logf("evolve: tile for " .. best.name .. " not found") BR.offers = {} closeWindow(win) return end
+		fire(tile)
+		task.wait(0.8)
 		local e = readEvolve(win)
-		if not (e and e.cost and e.button) then logf("evolve: nothing ready") closeWindow(win) return end
-		local money = moneyNow()
-		local prize = e.prize or 0
-		local reason
-		-- estimated payback: best pen pet that would become this rarity, at the game's own income formulas
-		local gain
-		for _, r in ipairs(evolveRows) do
-			if rarIndex(r.nextR) == prize and (not gain or r.gain > gain) then gain = r.gain end
+		if not (e and e.cost and e.button and e.prize == best.prize) then
+			logf("evolve: offer changed, rescanning") BR.offers = {} closeWindow(win) return
 		end
-		local payback = (gain and gain > 0) and (e.cost / gain) or nil
-		if e.cost > money - reserveValue() then reason = "not enough money (keeps " .. fmt(reserveValue()) .. ")"
-		elseif prize < minPrize() then reason = "prize " .. (RAR[prize] or "?") .. " is below your minimum"
-		elseif payback and payback > paybackLimit() then reason = "pays back in " .. mm(payback) .. " (limit " .. mm(paybackLimit()) .. ")" end
-		if reason then
-			logf(string.format("evolve skipped: %s for $%s, %s", RAR[prize] or "?", fmt(e.cost), reason))
-			if manual then UI.toast("Evolve skipped: " .. reason, T.amber, 3) end
-			closeWindow(win) return
-		end
-		if G.preview and not manual then
-			logf(string.format("[preview] would evolve into %s for $%s", RAR[prize] or "?", fmt(e.cost)))
-			closeWindow(win) return
-		end
-		local before = {}
-		do local d0 = data() if d0 and d0.Pets then for id in pairs(d0.Pets) do before[id] = true end end end
-		local n = fire(e.button)
-		logf(string.format("EVOLVE sent: %s for $%s%s", RAR[prize] or "?", fmt(e.cost), payback and (" (pays back ~" .. mm(payback) .. ")") or ""))
-		UI.toast("Evolving into " .. (RAR[prize] or "?") .. " for $" .. fmt(e.cost), T.green, 4)
+		if e.cost > moneyNow() - reserveValue() then logf("evolve: cost moved to $" .. fmt(e.cost) .. ", waiting") BR.offers = {} closeWindow(win) return end
+		local before = snapshotIds()
+		fire(e.button)
+		logf(string.format("EVOLVE sent: %s -> %s for $%s (+$%s/s, pays back ~%s)", best.name, RAR[best.prize] or "?", fmt(e.cost), fmt(best.delta), mm(best.payback)))
+		UI.toast("Evolving " .. best.name .. " for $" .. fmt(e.cost), T.green, 4)
 		task.wait(2.5)
-		-- what did we get?
 		local d1 = data()
+		local lost = {}
 		if d1 and d1.Pets and PC then
+			for id in pairs(before) do if not d1.Pets[id] then lost[#lost + 1] = id end end
 			for id, pet in pairs(d1.Pets) do
 				if not before[id] then
 					local okI, inc = pcall(PC.GetPetIncome, pet)
 					local okR, rar = pcall(PC.GetPetRarityName, pet)
-					logf(string.format("GOT %s (%s) earning %s/s base", tostring(pet.Name), okR and rar or "?", okI and fmt(inc) or "?"))
+					logf(string.format("GOT %s (%s) earning %s/s base, pets lost: %d", tostring(pet.Name), okR and rar or "?", okI and fmt(inc) or "?", #lost))
 					UI.toast("Got " .. tostring(pet.Name) .. " (" .. (okR and rar or "?") .. ")", T.green, 4)
+					table.insert(BR.history, 1, string.format("%s -> %s  $%s", best.name, tostring(pet.Name), fmt(e.cost)))
+					if #BR.history > 5 then table.remove(BR.history) end
 				end
 			end
 		end
-		nextEvoSoon = true
+		BR.offers = {}
+		BR.nextCheck = tick() + 6
 		if win.Visible then closeWindow(win) end
 		logf(string.format("evolve cycle took %.1fs", tick() - tEvo))
 	end)
@@ -819,6 +945,11 @@ W.runSlot = function(manual)
 			logf(string.format("slot skipped: +$%s/s for $%s pays back in %s (limit %s)", fmt(slotGain), fmt(cost), mm(slotPay), mm(paybackLimit())))
 			closeWindow(win) return
 		end
+		local _, bestEvo = chooseOffer(money)
+		if bestEvo and not manual and bestEvo.payback * 3 < slotPay and bestEvo.cost > money - reserveValue() then
+			logf(string.format("slot skipped: saving for %s evolve (pays back %s vs slot %s)", bestEvo.name, mm(bestEvo.payback), mm(slotPay)))
+			closeWindow(win) return
+		end
 		if cost > money - reserveValue() then
 			logf(string.format("slot skipped: costs $%s (you keep %s)", fmt(cost), fmt(reserveValue())))
 			if manual then UI.toast("Slot costs $" .. fmt(cost) .. ", not enough yet", T.amber, 3) end
@@ -855,7 +986,7 @@ local function engine()
 		end)
 		return
 	end
-	if G.autoEvolve and now > nextEvo then nextEvo = now + (nextEvoSoon and 6 or 25) nextEvoSoon = false task.spawn(W.runEvolve, false) return end
+	if G.autoEvolve and now > nextEvo and tick() > BR.nextCheck then nextEvo = now + 8 task.spawn(W.runEvolve, false) return end
 	if G.autoRebirth and now > nextReb then nextReb = now + 45 task.spawn(W.runRebirth, false) return end
 	if G.autoSlots and now > nextSlot then nextSlot = now + 40 task.spawn(W.runSlot, false) return end
 end
@@ -1007,16 +1138,44 @@ local function status()
 			if r then W.top[i].Text = string.format("%d  %s%s   $%s/s   %s", i, r.name, r.mut and (" (" .. r.mut .. ")") or "", fmt((r.income or 0) * PEN.mult), r.rarity or "") W.top[i].Parent.Visible = true
 			else W.top[i].Parent.Visible = false end
 		end
+		local money = moneyNow()
+		local inc = math.max(stat("MONEY/S"), 1)
 		for i = 1, #W.evo do
-			local r = evolveRows[i]
-			if r then
-				local costTxt = r.cost and (string.format("   ·   $%s (%s)", fmt(r.cost), mm(r.cost / math.max(r.gain, 1))) ) or ""
-				W.evo[i].Text = string.format("%s%s%s\n%s -> %s   +$%s/s%s", r.name, r.mut and (" (" .. r.mut .. ")") or "", r.stars > 0 and (" " .. r.stars .. "★") or "", tostring(r.rarity), tostring(r.nextR), fmt(r.gain), costTxt)
+			local o = BR.offers[i]
+			if o then
+				local eta = math.max(0, (o.cost + reserveValue() - money) / inc)
+				W.evo[i].Text = string.format("%s%s%s  %s -> %s\n+$%s/s for $%s  ·  pays back %s  ·  %s", o.name, o.mut and (" (" .. o.mut .. ")") or "", o.stars > 0 and (" " .. o.stars .. "★") or "", tostring(o.from), RAR[o.prize] or "?", fmt(o.delta), fmt(o.cost), mm(o.payback), eta <= 0 and "affordable" or ("in " .. mm(eta)))
 				W.evo[i].Parent.Visible = true
 			else W.evo[i].Parent.Visible = false end
 		end
-		W.evoNone.Parent.Visible = #evolveRows == 0
-		W.evoNone.Text = "nothing in your pen can move up a rarity right now."
+		W.evoNone.Parent.Visible = #BR.offers == 0
+		W.evoNone.Text = #evolveRows == 0 and "nothing in your pen can move up a rarity right now." or ("no scan yet: " .. #evolveRows .. " candidates. Press AUTO > Scan deals now.")
+		-- plan: simulate the next purchases in order of payback
+		do
+			local lines, m, rate, tt = {}, money, inc, 0
+			local sorted = {}
+			for _, o in ipairs(BR.offers) do if o.delta > 0 then sorted[#sorted + 1] = o end end
+			table.sort(sorted, function(a, b) return a.payback < b.payback end)
+			for i = 1, math.min(4, #sorted) do
+				local o = sorted[i]
+				local wait_ = math.max(0, (o.cost + reserveValue() - m) / rate)
+				tt = tt + wait_
+				m = m + rate * wait_ - o.cost
+				rate = rate + o.delta
+				lines[#lines + 1] = string.format("%d. %s  at +%s  ->  $%s/s", i, o.name, mm(tt), fmt(rate))
+			end
+			W.plan.Text = #lines > 0 and table.concat(lines, "\n") or "scan deals to build a plan"
+		end
+		do
+			local best, bestAny = chooseOffer(money)
+			local o = best or bestAny
+			if o then
+				local eta = math.max(0, (o.cost + reserveValue() - money) / inc)
+				W.best.Text = string.format("%s  %s -> %s\n+$%s/s for $%s  (pays back %s)\n%s", o.name, tostring(o.from), RAR[o.prize] or "?", fmt(o.delta), fmt(o.cost), mm(o.payback), eta <= 0 and "affordable now" or ("affordable in " .. mm(eta)))
+			else
+				W.best.Text = BR.status .. "\n" .. (#BR.history > 0 and ("last: " .. BR.history[1]) or "no purchases yet")
+			end
+		end
 		W.log.Text = #logLines > 0 and table.concat(logLines, "\n") or "nothing yet"
 	end
 	if W.perf then
