@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v2.0"
+local VERSION = "v2.1"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -512,7 +512,21 @@ local function scanPets()
 	end
 	local cands = {}
 	for _, r in ipairs(petRows) do
-		local newInc = expectedNewIncome(r.pet, r.nextR)
+		local maxS = 5
+		pcall(function() local m = PC.GetMaxStars(r.pet) if type(m) == "number" then maxS = m end end)
+		r.maxStars = maxS
+		r.isRank = r.stars >= maxS
+		local newInc
+		if r.isRank then
+			newInc = expectedNewIncome(r.pet, r.nextR)
+		else
+			-- below max stars one press = +1 star (money only, nothing consumed)
+			local copy = {}
+			for k, v in pairs(r.pet) do copy[k] = v end
+			copy.Stars = r.stars + 1
+			local okS, inc = pcall(PC.GetPetIncome, copy)
+			newInc = okS and inc or nil
+		end
 		if newInc and r.income then
 			r.newInc = newInc
 			r.gain = (newInc - r.income) * PEN.mult
@@ -522,7 +536,7 @@ local function scanPets()
 	table.sort(cands, function(a, b) return (a.gain or 0) > (b.gain or 0) end)
 	for i = #cands, 9, -1 do cands[i] = nil end
 	for _, r in ipairs(cands) do
-		local partner = partners[r.id]
+		local partner = r.isRank and partners[r.id] or nil
 		if partner == r.id then partner = nil end
 		r.partner = partner
 		r.delta = (penSum(r.id, partner, r.newInc) - PEN.base) * PEN.mult
@@ -543,7 +557,7 @@ end
 local function chooseOffer(money, onlyAffordable)
 	local best, bestAny
 	for _, o in ipairs(BR.offers) do
-		if o.prize >= minPrize() and o.delta > 0 and o.payback <= paybackLimit() then
+		if (not o.isRank or o.prize >= minPrize()) and o.delta > 0 and o.payback <= paybackLimit() then
 			if not bestAny or o.payback < bestAny.payback then bestAny = o end
 			if o.cost <= money - reserveValue() and (not best or o.payback < best.payback) then best = o end
 		end
@@ -790,9 +804,9 @@ W.scanDeals = function(manual)
 				fire(tile)
 				task.wait(0.8)
 				local e = readEvolve(win)
-				if e and e.cost and e.prize and e.prize == rarIndex(r.nextR) then
+				if e and e.cost and (not r.isRank or e.prize == rarIndex(r.nextR)) then
 					local gain = r.delta
-					offers[#offers + 1] = { id = r.id, name = r.name, mut = r.mut, stars = r.stars, from = r.rarity, prize = e.prize, cost = e.cost,
+					offers[#offers + 1] = { id = r.id, name = r.name, mut = r.mut, stars = r.stars, from = r.rarity, prize = e.prize or 0, cost = e.cost, isRank = r.isRank,
 						delta = gain, payback = gain > 0 and e.cost / gain or math.huge, partner = r.partner }
 				end
 			end
@@ -842,7 +856,7 @@ W.runEvolve = function(manual)
 		end
 	end
 	if G.preview and not manual then
-		logf(string.format("[preview] would evolve %s (%s -> %s) for $%s, +$%s/s, pays back %s", best.name, tostring(best.from), RAR[best.prize] or "?", fmt(best.cost), fmt(best.delta), mm(best.payback)))
+		logf(string.format("[preview] would %s %s for $%s, +$%s/s, pays back %s", best.isRank and "RANK UP" or "star up", best.name, fmt(best.cost), fmt(best.delta), mm(best.payback)))
 		BR.status = "preview: would buy " .. best.name
 		BR.nextCheck = tick() + 60
 		return
@@ -859,13 +873,13 @@ W.runEvolve = function(manual)
 		fire(tile)
 		task.wait(0.8)
 		local e = readEvolve(win)
-		if not (e and e.cost and e.button and e.prize == best.prize) then
+		if not (e and e.cost and e.button and (not best.isRank or e.prize == best.prize)) then
 			logf("evolve: offer changed, rescanning") BR.offers = {} closeWindow(win) return
 		end
 		if e.cost > moneyNow() - reserveValue() then logf("evolve: cost moved to $" .. fmt(e.cost) .. ", waiting") BR.offers = {} closeWindow(win) return end
 		local before = snapshotIds()
 		fire(e.button)
-		logf(string.format("EVOLVE sent: %s -> %s for $%s (+$%s/s, pays back ~%s)", best.name, RAR[best.prize] or "?", fmt(e.cost), fmt(best.delta), mm(best.payback)))
+		logf(string.format("%s sent: %s%s for $%s (+$%s/s, pays back ~%s)", best.isRank and "RANK UP" or "STAR UP", best.name, best.isRank and (" -> " .. (RAR[best.prize] or "?")) or (" " .. best.stars .. "->" .. (best.stars + 1) .. "*"), fmt(e.cost), fmt(best.delta), mm(best.payback)))
 		UI.toast("Evolving " .. best.name .. " for $" .. fmt(e.cost), T.green, 4)
 		task.wait(2.5)
 		local d1 = data()
@@ -882,6 +896,11 @@ W.runEvolve = function(manual)
 					if #BR.history > 5 then table.remove(BR.history) end
 				end
 			end
+		end
+		if d1 and d1.Pets and d1.Pets[best.id] and not best.isRank then
+			logf(string.format("%s now %s*", best.name, tostring(d1.Pets[best.id].Stars)))
+			table.insert(BR.history, 1, string.format("%s %d->%d*  $%s", best.name, best.stars, d1.Pets[best.id].Stars or 0, fmt(e.cost)))
+			if #BR.history > 5 then table.remove(BR.history) end
 		end
 		BR.offers = {}
 		BR.nextCheck = tick() + 6
@@ -1144,7 +1163,7 @@ local function status()
 			local o = BR.offers[i]
 			if o then
 				local eta = math.max(0, (o.cost + reserveValue() - money) / inc)
-				W.evo[i].Text = string.format("%s%s%s  %s -> %s\n+$%s/s for $%s  ·  pays back %s  ·  %s", o.name, o.mut and (" (" .. o.mut .. ")") or "", o.stars > 0 and (" " .. o.stars .. "★") or "", tostring(o.from), RAR[o.prize] or "?", fmt(o.delta), fmt(o.cost), mm(o.payback), eta <= 0 and "affordable" or ("in " .. mm(eta)))
+				W.evo[i].Text = string.format("%s%s%s  %s -> %s\n+$%s/s for $%s  ·  pays back %s  ·  %s", o.name, o.mut and (" (" .. o.mut .. ")") or "", o.stars > 0 and (" " .. o.stars .. "★") or "", o.isRank and tostring(o.from) or ("star " .. (o.stars + 1)), o.isRank and (RAR[o.prize] or "?") or "up", fmt(o.delta), fmt(o.cost), mm(o.payback), eta <= 0 and "affordable" or ("in " .. mm(eta)))
 				W.evo[i].Parent.Visible = true
 			else W.evo[i].Parent.Visible = false end
 		end
@@ -1171,7 +1190,7 @@ local function status()
 			local o = best or bestAny
 			if o then
 				local eta = math.max(0, (o.cost + reserveValue() - money) / inc)
-				W.best.Text = string.format("%s  %s -> %s\n+$%s/s for $%s  (pays back %s)\n%s", o.name, tostring(o.from), RAR[o.prize] or "?", fmt(o.delta), fmt(o.cost), mm(o.payback), eta <= 0 and "affordable now" or ("affordable in " .. mm(eta)))
+				W.best.Text = string.format("%s  %s\n+$%s/s for $%s  (pays back %s)\n%s", o.name, o.isRank and ("RANK UP -> " .. (RAR[o.prize] or "?")) or ("STAR " .. o.stars .. " -> " .. (o.stars + 1)), fmt(o.delta), fmt(o.cost), mm(o.payback), eta <= 0 and "affordable now" or ("affordable in " .. mm(eta)))
 			else
 				W.best.Text = BR.status .. "\n" .. (#BR.history > 0 and ("last: " .. BR.history[1]) or "no purchases yet")
 			end
