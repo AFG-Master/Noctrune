@@ -12,7 +12,7 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local p = Players.LocalPlayer
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 
 local conns, alive = {}, true
 local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) return c end
@@ -20,7 +20,7 @@ local function on(sig, fn) local c = sig:Connect(fn) table.insert(conns, c) retu
 -- ================= settings =================
 local CFG = "EggLoopHelper.json"
 local G = { preview = true, autoEvolve = false, autoRebirth = false, autoSlots = false, reserveIdx = 3, minIdx = 1,
-	espMystery = true, espEggs = true, espMole = true, alerts = true, hudMode = "mini", hudSide = "right", afk = true, perf = false }
+	espMystery = true, espEggs = true, espMole = true, alerts = true, hudMode = "mini", hudSide = "right", paybackIdx = 3, afk = true, perf = false }
 pcall(function()
 	if isfile and isfile(CFG) then
 		for k, v in pairs(HttpService:JSONDecode(readfile(CFG))) do if G[k] ~= nil then G[k] = v end end
@@ -345,6 +345,10 @@ local function sheets()
 end
 local function fire(b)
 	local n = 0
+	if firesignal then
+		local ok = pcall(function() firesignal(b.Activated) end)
+		if ok then return 1 end
+	end
 	pcall(function() for _, c in ipairs(getconnections(b.Activated)) do c:Fire() n = n + 1 end end)
 	return n
 end
@@ -412,8 +416,35 @@ end
 local function reserveValue() return ({ 1e6, 5e6, 1e7, 2.5e7 })[G.reserveIdx] or 1e7 end
 local function minPrize() return ({ 1, 4, 5, 6 })[G.minIdx] or 1 end
 
--- pets: income, rarity, evolve candidates
+-- pets: income, rarity, evolve value, pen analysis (all from the game's own formulas)
 local petRows, evolveRows = {}, {}
+local PEN = { mult = 6.4, base = 0, cutoff = 0, bestRest = nil, bestRestIncome = 0, slotCost = nil, ids = {} }
+local PAYBACKS = { 900, 3600, 21600, math.huge }
+local function paybackLimit() return PAYBACKS[G.paybackIdx] or 21600 end
+local function mm(sec)
+	if sec == math.huge or sec ~= sec then return "never" end
+	if sec < 90 then return math.floor(sec) .. "s" end
+	if sec < 5400 then return math.floor(sec / 60 + 0.5) .. "m" end
+	if sec < 172800 then return string.format("%.1fh", sec / 3600) end
+	return string.format("%.0fd", sec / 86400)
+end
+local speciesCache = {}
+local function expectedNewIncome(pet, nextR)
+	if not nextR then return nil end
+	local names = speciesCache[nextR]
+	if names == nil then
+		local ok, res = pcall(PC.GetNamesOfRarity, nextR)
+		names = ok and type(res) == "table" and res or false
+		speciesCache[nextR] = names
+	end
+	if not names then return nil end
+	local tot, n = 0, 0
+	for _, nm in pairs(names) do
+		local ok, inc = pcall(PC.GetPetIncome, { Name = nm, Size = pet.Size, MutationName = pet.MutationName })
+		if ok and inc then tot = tot + inc n = n + 1 end
+	end
+	return n > 0 and tot / n or nil
+end
 local function scanPets()
 	local d = data()
 	petRows, evolveRows = {}, {}
@@ -423,17 +454,57 @@ local function scanPets()
 		pcall(function() row.income = PC.GetPetIncome(pet) end)
 		pcall(function() row.rarity = PC.GetPetRarityName(pet) end)
 		pcall(function() row.nextR = PC.GetRankUpRarityName(pet) end)
-		pcall(function() row.maxStars = PC.GetMaxStars(pet) end)
 		pcall(function() row.cost = PC.GetRankUpCost(pet) end)
+		row.pet = pet
 		table.insert(petRows, row)
-		if row.cost and row.cost > 0 then table.insert(evolveRows, row) end
 	end
 	table.sort(petRows, function(a, b) return (a.income or 0) > (b.income or 0) end)
-	table.sort(evolveRows, function(a, b)
-		local ra, rb = rarIndex(a.nextR), rarIndex(b.nextR)
-		if ra ~= rb then return ra > rb end
-		return (a.cost or 0) < (b.cost or 0)
-	end)
+	-- pen = the game's own top earners; the multiplier turns base income into real money per second
+	local ok, pen = pcall(PC.GetPedestalPets, d.Pets, d.PedestalCount)
+	PEN.ids = {}
+	local base, cutoff = 0, math.huge
+	if ok and type(pen) == "table" then
+		for _, id in ipairs(pen) do
+			PEN.ids[id] = true
+			local pet = d.Pets[id]
+			local okI, inc = pcall(PC.GetPetIncome, pet)
+			if okI and inc then base = base + inc cutoff = math.min(cutoff, inc) end
+		end
+	end
+	PEN.base, PEN.cutoff = base, cutoff == math.huge and 0 or cutoff
+	local perSec = stat("MONEY/S")
+	if base > 0 and perSec > 0 then PEN.mult = perSec / base end
+	PEN.bestRest, PEN.bestRestIncome = nil, 0
+	for _, r in ipairs(petRows) do
+		if not PEN.ids[r.id] then PEN.bestRest, PEN.bestRestIncome = r, r.income or 0 break end
+	end
+	-- evolve value: what the next rarity is worth for this pet's size, minus what it earns now
+	for _, r in ipairs(petRows) do
+		local newInc = expectedNewIncome(r.pet, r.nextR)
+		if newInc and r.income then
+			r.gain = (newInc - r.income) * PEN.mult
+			r.newInc = newInc
+			if PEN.ids[r.id] and r.gain > 0 then table.insert(evolveRows, r) end
+		end
+	end
+	table.sort(evolveRows, function(a, b) return (a.gain or 0) > (b.gain or 0) end)
+end
+local function readSlotCost()
+	local sh = sheets()
+	local win = sh and sh:FindFirstChild("Pets")
+	if not win then return nil end
+	for _, d in ipairs(win:GetDescendants()) do
+		if d:IsA("ImageButton") and d.Name:find("Pen") and not d.Name:find("PenNow") then
+			local texts = {}
+			for _, x in ipairs(d:GetDescendants()) do if x:IsA("TextLabel") and x.Text ~= "" then table.insert(texts, x.Text) end end
+			if table.concat(texts, " "):find("SLOT") then
+				for _, t in ipairs(texts) do
+					local num = t:match("^%$([%d%.]+%a?)$")
+					if num then return parseAmount(num) end
+				end
+			end
+		end
+	end
 end
 
 -- ================= PAGES =================
@@ -460,15 +531,17 @@ do
 	W.match = info(dash, 44)
 
 	-- PETS
+	header(pets, "PEN ANALYZER")
+	W.pen = info(pets, 78)
 	header(pets, "COLLECTION")
 	W.petSummary = info(pets, 52)
+	header(pets, "BEST EVOLVES (BY INCOME GAIN)")
+	W.evo = {}
+	for i = 1, 5 do W.evo[i] = info(pets, 42, T.amber) end
+	W.evoNone = info(pets, 30, T.sub)
 	header(pets, "TOP EARNERS")
 	W.top = {}
 	for i = 1, 5 do W.top[i] = info(pets, 26) end
-	header(pets, "READY TO RANK UP (EVOLVE)")
-	W.evo = {}
-	for i = 1, 5 do W.evo[i] = info(pets, 30, T.amber) end
-	W.evoNone = info(pets, 30, T.sub)
 	action(pets, "Open the evolve window", "the game's own screen", function()
 		openWindow("EVOLVE", "Evolve")
 	end)
@@ -486,6 +559,7 @@ do
 	header(auto, "RULES")
 	segmented(auto, "Keep this much money", { "$1M", "$5M", "$10M", "$25M" }, G.reserveIdx, function(i) G.reserveIdx = i save() end)
 	segmented(auto, "Only evolve into at least", { "Any", "Epic", "Legend", "Mythic" }, G.minIdx, function(i) G.minIdx = i save() end)
+	segmented(auto, "Only if it pays back within", { "15m", "1h", "6h", "Any" }, G.paybackIdx, function(i) G.paybackIdx = i save() end)
 	header(auto, "DO IT NOW (acts for real)")
 	W.doEvolve = action(auto, "Evolve now", "the game's recommended pair", function() if W.runEvolve then W.runEvolve(true) end end)
 	W.doRebirth = action(auto, "Rebirth now", "free path, only if ready", function() if W.runRebirth then W.runRebirth(true) end end)
@@ -583,6 +657,7 @@ end
 
 -- ================= automation (your own menu buttons) =================
 local busy = false
+local nextEvoSoon = false
 local function moneyNow() local _, m = totals() return m end
 
 local function readEvolve(win)
@@ -619,8 +694,15 @@ W.runEvolve = function(manual)
 		local money = moneyNow()
 		local prize = e.prize or 0
 		local reason
+		-- estimated payback: best pen pet that would become this rarity, at the game's own income formulas
+		local gain
+		for _, r in ipairs(evolveRows) do
+			if rarIndex(r.nextR) == prize and (not gain or r.gain > gain) then gain = r.gain end
+		end
+		local payback = (gain and gain > 0) and (e.cost / gain) or nil
 		if e.cost > money - reserveValue() then reason = "not enough money (keeps " .. fmt(reserveValue()) .. ")"
-		elseif prize < minPrize() then reason = "prize " .. (RAR[prize] or "?") .. " is below your minimum" end
+		elseif prize < minPrize() then reason = "prize " .. (RAR[prize] or "?") .. " is below your minimum"
+		elseif payback and payback > paybackLimit() then reason = "pays back in " .. mm(payback) .. " (limit " .. mm(paybackLimit()) .. ")" end
 		if reason then
 			logf(string.format("evolve skipped: %s for $%s, %s", RAR[prize] or "?", fmt(e.cost), reason))
 			if manual then UI.toast("Evolve skipped: " .. reason, T.amber, 3) end
@@ -630,10 +712,25 @@ W.runEvolve = function(manual)
 			logf(string.format("[preview] would evolve into %s for $%s", RAR[prize] or "?", fmt(e.cost)))
 			closeWindow(win) return
 		end
+		local before = {}
+		do local d0 = data() if d0 and d0.Pets then for id in pairs(d0.Pets) do before[id] = true end end end
 		local n = fire(e.button)
-		logf(string.format("EVOLVE sent: %s for $%s (%d)", RAR[prize] or "?", fmt(e.cost), n))
+		logf(string.format("EVOLVE sent: %s for $%s%s", RAR[prize] or "?", fmt(e.cost), payback and (" (pays back ~" .. mm(payback) .. ")") or ""))
 		UI.toast("Evolving into " .. (RAR[prize] or "?") .. " for $" .. fmt(e.cost), T.green, 4)
-		task.wait(3)
+		task.wait(2.5)
+		-- what did we get?
+		local d1 = data()
+		if d1 and d1.Pets and PC then
+			for id, pet in pairs(d1.Pets) do
+				if not before[id] then
+					local okI, inc = pcall(PC.GetPetIncome, pet)
+					local okR, rar = pcall(PC.GetPetRarityName, pet)
+					logf(string.format("GOT %s (%s) earning %s/s base", tostring(pet.Name), okR and rar or "?", okI and fmt(inc) or "?"))
+					UI.toast("Got " .. tostring(pet.Name) .. " (" .. (okR and rar or "?") .. ")", T.green, 4)
+				end
+			end
+		end
+		nextEvoSoon = true
 		if win.Visible then closeWindow(win) end
 	end)
 	if not ok then logf("evolve error: " .. tostring(err)) end
@@ -701,6 +798,12 @@ W.runSlot = function(manual)
 		end
 		if not btn then logf("slot: no money slot button found") closeWindow(win) return end
 		local money = moneyNow()
+		local slotGain = (PEN.bestRestIncome or 0) * PEN.mult
+		local slotPay = slotGain > 0 and (cost / slotGain) or math.huge
+		if slotPay > paybackLimit() and not manual then
+			logf(string.format("slot skipped: +$%s/s for $%s pays back in %s (limit %s)", fmt(slotGain), fmt(cost), mm(slotPay), mm(paybackLimit())))
+			closeWindow(win) return
+		end
 		if cost > money - reserveValue() then
 			logf(string.format("slot skipped: costs $%s (you keep %s)", fmt(cost), fmt(reserveValue())))
 			if manual then UI.toast("Slot costs $" .. fmt(cost) .. ", not enough yet", T.amber, 3) end
@@ -724,7 +827,7 @@ local nextEvo, nextReb, nextSlot = 0, 0, 0
 local function engine()
 	if busy or anyWindowOpen() then return end
 	local now = tick()
-	if G.autoEvolve and now > nextEvo then nextEvo = now + 25 task.spawn(W.runEvolve, false) return end
+	if G.autoEvolve and now > nextEvo then nextEvo = now + (nextEvoSoon and 6 or 25) nextEvoSoon = false task.spawn(W.runEvolve, false) return end
 	if G.autoRebirth and now > nextReb then nextReb = now + 45 task.spawn(W.runRebirth, false) return end
 	if G.autoSlots and now > nextSlot then nextSlot = now + 40 task.spawn(W.runSlot, false) return end
 end
@@ -862,18 +965,30 @@ local function status()
 			for _, t in ipairs(textsOf(sheets().Pets)) do local u, m = t:match("(%d+)/(%d+) SLOTS") if u then slots = u .. "/" .. m break end end
 		end)
 		W.petSummary.Text = string.format("%d pets   ·   slots %s\n%s", #petRows, slots, table.concat(parts, "  ·  "))
+		local sc = readSlotCost()
+		if sc then PEN.slotCost = sc end
+		local restTxt = PEN.bestRest and string.format("next best outside: %s ($%s/s)", PEN.bestRest.name, fmt(PEN.bestRestIncome * PEN.mult)) or "no pets outside the pen"
+		local slotTxt = "next slot: cost unknown yet (open PETS once)"
+		if PEN.slotCost and PEN.bestRest then
+			local g = PEN.bestRestIncome * PEN.mult
+			slotTxt = string.format("next slot: +$%s/s for $%s, pays back in %s", fmt(g), fmt(PEN.slotCost), mm(g > 0 and PEN.slotCost / g or math.huge))
+		end
+		W.pen.Text = string.format("Pen $%s/s  (base %s x%.2f)\nweakest in pen: $%s/s\n%s\n%s", fmt(PEN.base * PEN.mult), fmt(PEN.base), PEN.mult, fmt(PEN.cutoff * PEN.mult), restTxt, slotTxt)
 		for i = 1, #W.top do
 			local r = petRows[i]
-			if r then W.top[i].Text = string.format("%d  %s%s   $%s/s   %s", i, r.name, r.mut and (" (" .. r.mut .. ")") or "", fmt(r.income or 0), r.rarity or "") W.top[i].Parent.Visible = true
+			if r then W.top[i].Text = string.format("%d  %s%s   $%s/s   %s", i, r.name, r.mut and (" (" .. r.mut .. ")") or "", fmt((r.income or 0) * PEN.mult), r.rarity or "") W.top[i].Parent.Visible = true
 			else W.top[i].Parent.Visible = false end
 		end
 		for i = 1, #W.evo do
 			local r = evolveRows[i]
-			if r then W.evo[i].Text = string.format("%s  %d★   ->  %s   $%s", r.name, r.stars, tostring(r.nextR or "?"), fmt(r.cost)) W.evo[i].Parent.Visible = true
+			if r then
+				local costTxt = r.cost and (string.format("   ·   $%s (%s)", fmt(r.cost), mm(r.cost / math.max(r.gain, 1))) ) or ""
+				W.evo[i].Text = string.format("%s%s%s\n%s -> %s   +$%s/s%s", r.name, r.mut and (" (" .. r.mut .. ")") or "", r.stars > 0 and (" " .. r.stars .. "★") or "", tostring(r.rarity), tostring(r.nextR), fmt(r.gain), costTxt)
+				W.evo[i].Parent.Visible = true
 			else W.evo[i].Parent.Visible = false end
 		end
 		W.evoNone.Parent.Visible = #evolveRows == 0
-		W.evoNone.Text = "none at max stars yet. Pets need all their stars before a money rank-up."
+		W.evoNone.Text = "nothing in your pen can move up a rarity right now."
 		W.log.Text = #logLines > 0 and table.concat(logLines, "\n") or "nothing yet"
 	end
 	if W.perf then
