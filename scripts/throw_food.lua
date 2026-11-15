@@ -1,7 +1,7 @@
 -- Throw Food Helper · auto farm for "Throw Food For Animals"
 -- Plays the game through its own controls: real meter taps at PERFECT, walks to your own
 -- pull-up bar to train, taps the training bonus targets, and buys with in-game money only.
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 local genv = (getgenv and getgenv()) or _G
 if genv.TFH_STOP then pcall(genv.TFH_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -26,6 +26,7 @@ local DIR = "AFGThrowFood"
 local S = {
 	farm = false, mode = "cycle", cycleThrows = 3, cycleTrain = 60, autoEquip = true, tapBonus = true,
 	autoFood = true, autoStand = true, autoOffline = true, reserve = 0, antiAfk = true, target = 0.955,
+	autoFence = true, autoClaims = true, fastReveal = true, sellExtras = false, keepSpare = 4,
 }
 pcall(function()
 	if isfile and isfile(DIR .. "/settings.json") then
@@ -332,6 +333,9 @@ local CS = req(Ctl.ClientState)
 local DC = req(Ctl.DataController)
 local FC = req(RS.Config.FoodsConfig)
 local SC = req(RS.Config.StandsConfig)
+local FenceC = req(RS.Config.FenceConfig)
+local AE = req(RS.Config.AnimalEconomy)
+local IRC = req(RS.Config.IndexRewardsConfig)
 local function D() local ok, d = pcall(DC.GetData) return ok and d or nil end
 local function invoke(name, ...) local ok, r = pcall(Rm.Invoke, name, ...) if ok then return r end return nil end
 local function stat(name)
@@ -378,7 +382,7 @@ local function tapCenter()
 end
 
 -- ================= session state =================
-local ST = { phase = "idle", throws = 0, perfect = 0, lastRating = 0, catches = {}, log = {}, t0 = os.clock(), money0 = nil, lv0 = nil, bonus = 0, buys = 0 }
+local ST = { phase = "idle", throws = 0, perfect = 0, lastRating = 0, catches = {}, log = {}, t0 = os.clock(), money0 = nil, lv0 = nil, bonus = 0, buys = 0, caught = 0, best = nil, bestInc = 0, sold = 0, soldMoney = 0 }
 local function logf(msg)
 	table.insert(ST.log, 1, os.date("%H:%M:%S") .. "  " .. msg)
 	if #ST.log > 8 then table.remove(ST.log) end
@@ -393,6 +397,12 @@ if TC and TC.Finished then
 		if res.Mutation then extra[#extra + 1] = tostring(res.Mutation) end
 		if res.Size and tonumber(res.Size) and tonumber(res.Size) > 1 then extra[#extra + 1] = "x" .. tostring(res.Size) end
 		local txt = name .. (#extra > 0 and (" (" .. table.concat(extra, ", ") .. ")") or "")
+		ST.caught = ST.caught + 1
+		local inc = 0
+		pcall(function() inc = (AE.Get(name).Income or 0) * (tonumber(res.Size) or 1) end)
+		if res.Mutation then inc = inc * 2 end
+		if inc > ST.bestInc then ST.bestInc, ST.best = inc, txt end
+		if inc > 0 then txt = txt .. "  ~$" .. fmt(inc) .. "/s" end
 		table.insert(ST.catches, 1, os.date("%H:%M") .. "  " .. txt)
 		if #ST.catches > 6 then table.remove(ST.catches) end
 	end)
@@ -440,7 +450,7 @@ local function doThrow()
 	t = os.clock()
 	while alive and os.clock() - t < 6 do
 		local v = 1 - marker.Position.Y.Scale
-		if v >= S.target and v >= prev then tapCenter() tapped = v break end
+		if v >= 0.985 or (prev >= S.target and v < prev) then tapCenter() tapped = math.max(v, prev) break end
 		prev = v
 		RunService.RenderStepped:Wait()
 	end
@@ -591,12 +601,68 @@ task.spawn(function()
 		task.wait(4)
 		if busy() ~= "Throw" then
 			local d = D()
+			if d and S.autoEquip and os.clock() - (ST.lastEq or 0) > 30 then ST.lastEq = os.clock() invoke("Plot_EquipBest") end
 			if d then
 				if S.autoFood then pcall(buyFood, false) end
 				if S.autoStand then pcall(buyStand, false) end
 				-- always hold the best food you own
 				local best = bestOwnedFood(d)
 				if S.autoFood and best > 0 and (d.EquippedFood or 0) < best then invoke("Shop_Equip", best) end
+				if S.autoFence and FenceC then pcall(function()
+					local nx = FenceC.Get((d.FenceLevel or 0) + 1)
+					if nx and type(nx.Price) == "number" and (d.Money or 0) - reserve() >= nx.Price then
+						local r = invoke("Plot_UpgradeFence")
+						if r and r.Ok then logf("fence upgraded: " .. tostring(nx.Slots) .. " slots ($" .. fmt(nx.Price) .. ")") toast("Fence: " .. tostring(nx.Slots) .. " slots", C.green) invoke("Plot_EquipBest") end
+					end
+				end) end
+				if S.autoClaims then
+					if d.FreeAnimalClaimed == false then
+						local r = invoke("Shop_ClaimFree")
+						if r and r.Ok then logf("claimed the free shop animal") invoke("Plot_EquipBest") end
+					end
+					if IRC and os.clock() - (ST.lastIdx or -999) > 60 then
+						ST.lastIdx = os.clock()
+						for _, col in ipairs(IRC.Collections or {}) do
+							local claimed = type(d.IndexClaimed) == "table" and d.IndexClaimed[col.Key]
+							if not claimed then
+								local r = invoke("IndexRewards_Claim", col.Key)
+								if r and r.Ok then
+									logf("index reward: " .. tostring(col.Trail) .. " trail")
+									if not (d.Trails and d.Trails.Equipped and d.Trails.Equipped ~= "") then invoke("IndexRewards_Equip", col.Trail) end
+								end
+							end
+						end
+					end
+				end
+				if S.fastReveal and d.Settings and d.Settings.AutoSkip ~= true and os.clock() - (ST.lastSkipSet or -999) > 30 then
+					ST.lastSkipSet = os.clock()
+					invoke("Player_SetSetting", "AutoSkip", true)
+				end
+				if S.sellExtras then pcall(function()
+					-- sell spare animals sitting in your inventory that are weaker than your plot (never mutated ones)
+					local weakest, spare = math.huge, {}
+					for id, a in pairs(d.Animals or {}) do
+						local inc = 0
+						pcall(function() inc = (AE.Get(a.ModelName).Income or 0) * (tonumber(a.Size) or 1) end)
+						if a.Placed then weakest = math.min(weakest, inc)
+						elseif not a.Mutation then spare[#spare + 1] = { id = id, inc = inc, name = a.ModelName } end
+					end
+					table.sort(spare, function(x, y) return x.inc > y.inc end)
+					for k = S.keepSpare + 1, #spare do
+						local a = spare[k]
+						if a.inc < weakest then
+							local m0 = d.Money or 0
+							local r = invoke("Plot_SellAnimal", a.id)
+							if r and r.Ok then
+								ST.sold = ST.sold + 1
+								local d2 = D()
+								local gain = d2 and (d2.Money or 0) - m0 or 0
+								if gain > 0 then ST.soldMoney = ST.soldMoney + gain end
+								logf("sold spare " .. tostring(a.name))
+							end
+						end
+					end
+				end) end
 				if S.autoOffline and d.OfflinePending and (d.OfflinePending.Base or 0) > 0 then
 					local r = invoke("Offline_Claim")
 					if r then logf("claimed offline money") end
@@ -635,6 +701,7 @@ chips(farmPg, "What to do", { { "Throw", "throw" }, { "Train", "train" }, { "Bot
 chips(farmPg, "Cycle: throws before training", { { "1", 1 }, { "3", 3 }, { "5", 5 }, { "10", 10 } }, function() return S.cycleThrows end, function(v) S.cycleThrows = v end)
 chips(farmPg, "Cycle: training time", { { "30s", 30 }, { "1m", 60 }, { "3m", 180 }, { "10m", 600 } }, function() return S.cycleTrain end, function(v) S.cycleTrain = v end)
 toggle(farmPg, "Equip best after each catch", "your strongest animals always earn", function() return S.autoEquip end, function(v) S.autoEquip = v end)
+toggle(farmPg, "Fast reveal", "uses the game's own auto-skip setting", function() return S.fastReveal end, function(v) S.fastReveal = v if not v then invoke("Player_SetSetting", "AutoSkip", false) end end)
 toggle(farmPg, "Tap training bonuses", "extra reps from the purple targets", function() return S.tapBonus end, function(v) S.tapBonus = v end)
 do
 	local qc = card(farmPg, 36)
@@ -654,6 +721,8 @@ title(shopPg, "AUTO BUY  (in-game money only)")
 toggle(shopPg, "Buy next food", "better food = rarer animals", function() return S.autoFood end, function(v) S.autoFood = v end)
 toggle(shopPg, "Upgrade pull-up bar", "more power per rep", function() return S.autoStand end, function(v) S.autoStand = v end)
 toggle(shopPg, "Claim offline money", "the free claim, never the Robux double", function() return S.autoOffline end, function(v) S.autoOffline = v end)
+toggle(shopPg, "Upgrade fence", "more plot slots = more animals earning", function() return S.autoFence end, function(v) S.autoFence = v end)
+toggle(shopPg, "Claim free rewards", "free shop animal + index trail rewards", function() return S.autoClaims end, function(v) S.autoClaims = v end)
 chips(shopPg, "Always keep at least", { { "$0", 0 }, { "100K", 1 }, { "1M", 2 }, { "10M", 3 }, { "100M", 4 } }, function() return S.reserve end, function(v) S.reserve = v end)
 title(shopPg, "NEXT PURCHASES")
 local nextL = label(card(shopPg, 62), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
@@ -674,6 +743,9 @@ title(statPg, "LOG")
 local logL = label(card(statPg, 112), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextColor3 = C.sub, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
 
 -- MORE
+title(morePg, "SPARE ANIMALS")
+toggle(morePg, "Sell weak spares", "inventory animals weaker than your plot; never mutated", function() return S.sellExtras end, function(v) S.sellExtras = v end)
+chips(morePg, "Always keep this many spares", { { "2", 2 }, { "4", 4 }, { "6", 6 }, { "8", 8 } }, function() return S.keepSpare end, function(v) S.keepSpare = v end)
 title(morePg, "OPTIONS")
 toggle(morePg, "Anti-AFK", "no idle kick while farming", function() return S.antiAfk end, function(v) S.antiAfk = v end)
 chips(morePg, "Throw timing (meter %)", { { "93", 0.93 }, { "95", 0.955 }, { "97", 0.97 } }, function() return S.target end, function(v) S.target = v end)
@@ -747,7 +819,7 @@ task.spawn(function()
 			lines[#lines + 1] = string.format("Holding food #%s  ·  bar #%s", tostring(d.EquippedFood or "?"), tostring(d.Stand or "?"))
 			nextL.Text = table.concat(lines, "\n")
 			local earned = money - (ST.money0 or money)
-			sessL.Text = string.format("Time %s\nEarned $%s  (%s / hour)\nThrows %d  ·  perfect %d  ·  last tap %d%%\nLevels +%d  ·  bonus taps %d  ·  buys %d", mmss(el), fmt(math.max(0, earned)), fmt(el > 30 and math.max(0, earned) / el * 3600 or 0), ST.throws, ST.perfect, math.floor(ST.lastRating * 100), (d.Level or 0) - (ST.lv0 or d.Level or 0), ST.bonus, ST.buys)
+			sessL.Text = string.format("Time %s  ·  earned $%s (%s/h)\nThrows %d  ·  perfect %d  ·  last tap %d%%\nCaught %d  ·  best: %s\nLevels +%d  ·  bonus taps %d  ·  buys %d  ·  sold %d", mmss(el), fmt(math.max(0, earned)), fmt(el > 30 and math.max(0, earned) / el * 3600 or 0), ST.throws, ST.perfect, math.floor(ST.lastRating * 100), ST.caught, ST.best and (ST.best .. " $" .. fmt(ST.bestInc) .. "/s") or "—", (d.Level or 0) - (ST.lv0 or d.Level or 0), ST.bonus, ST.buys, ST.sold)
 		end
 		catchL.Text = #ST.catches > 0 and table.concat(ST.catches, "\n") or "nothing caught yet this session"
 		logL.Text = #ST.log > 0 and table.concat(ST.log, "\n") or "—"
