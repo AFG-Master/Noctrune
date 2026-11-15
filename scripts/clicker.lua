@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -24,7 +24,7 @@ local DIR = "AFGClicker"
 local S = {
 	cps = 25, method = "Auto", mode = "Cycle", jitterPx = 0, jitterPct = 0,
 	stopClicks = 0, stopSecs = 0, hold = false, hidePanel = true, antiAfk = true,
-	macroSpeed = 1, macroLoops = 0, loopDelay = 0, slot = 1, offY = 0, calibrated = false,
+	macroSpeed = 1, macroLoops = 0, loopDelay = 0, slot = 1, fps = 0,
 	points = {},
 }
 local function hasFiles() return writefile and readfile and isfile end
@@ -71,6 +71,7 @@ local function label(parent, props)
 end
 
 local gui = new("ScreenGui", { Name = "AFGClicker", ResetOnSpawn = false, IgnoreGuiInset = true, DisplayOrder = 999, ZIndexBehavior = Enum.ZIndexBehavior.Sibling })
+pcall(function() gui.ScreenInsets = Enum.ScreenInsets.None end)
 pcall(function() gui.Parent = (gethui and gethui()) or game:GetService("CoreGui") end)
 if not gui.Parent then gui.Parent = lp:WaitForChild("PlayerGui") end
 
@@ -227,60 +228,56 @@ local function toggle(pg, txt, sub, get, set)
 end
 
 -- ================= click engine =================
+-- Points live in the same space as touch positions (= this gui's AbsolutePosition).
+-- Each injected method has its own screen offset (notch / top bar), measured live by echo.
+local OFF = { VIM = { 0, 0 }, Touch = { 0, 0 }, Exec = { 0, 0 } }
 local inputs = {}
-local function vimClick(x, y, down)
-	VIM:SendMouseButtonEvent(x, y + S.offY, 0, down, game, 1)
-end
 local touchId = 7
-local function guiTargetsAt(x, y)
-	local out = {}
-	local ok, objs = pcall(function() return lp.PlayerGui:GetGuiObjectsAtPosition(x, y - insetY()) end)
-	if ok then
-		for _, o in ipairs(objs) do
-			if o:IsA("GuiButton") and o.Visible and not o:IsDescendantOf(gui) then out[#out + 1] = o break end
-		end
-	end
-	return out
-end
-local uiCache = {}
-local function uiClick(x, y)
-	local key = math.floor(x) .. ":" .. math.floor(y)
-	local c = uiCache[key]
-	if not c or os.clock() - c.t > 1 then c = { t = os.clock(), btns = guiTargetsAt(x, y) } uiCache[key] = c end
-	for _, b in ipairs(c.btns) do
-		if firesignal then
-			pcall(firesignal, b.MouseButton1Down, x, y)
-			pcall(firesignal, b.Activated)
-			pcall(firesignal, b.MouseButton1Click)
-			pcall(firesignal, b.MouseButton1Up, x, y)
-		end
-	end
-	return #c.btns > 0
-end
--- each method: press(x, y, down) ; click(x, y)
 inputs.VIM = {
-	ok = function() return VIM ~= nil end,
-	press = function(x, y, down) vimClick(x, y, down) end,
+	ok = function() return VIM ~= nil end, perFrame = 1,
+	press = function(x, y, down) VIM:SendMouseButtonEvent(x + OFF.VIM[1], y + OFF.VIM[2], 0, down, game, 1) end,
+	move = function(x, y) VIM:SendMouseMoveEvent(x + OFF.VIM[1], y + OFF.VIM[2], game) end,
 }
 inputs.Touch = {
-	ok = function() return VIM ~= nil end,
-	press = function(x, y, down) VIM:SendTouchEvent(touchId, down and 0 or 2, x, y + S.offY) end,
-	move = function(x, y) VIM:SendTouchEvent(touchId, 1, x, y + S.offY) end,
+	ok = function() return VIM ~= nil end, perFrame = 40,
+	press = function(x, y, down) VIM:SendTouchEvent(touchId, down and 0 or 2, x + OFF.Touch[1], y + OFF.Touch[2]) end,
+	move = function(x, y) VIM:SendTouchEvent(touchId, 1, x + OFF.Touch[1], y + OFF.Touch[2]) end,
 }
 inputs.Exec = {
-	ok = function() return mouse1press ~= nil and mouse1release ~= nil end,
+	ok = function() return mouse1press ~= nil and mouse1release ~= nil and mousemoveabs ~= nil end, perFrame = 1,
 	press = function(x, y, down)
-		if mousemoveabs then mousemoveabs(x, y + S.offY) end
+		mousemoveabs(x + OFF.Exec[1], y + OFF.Exec[2])
 		if down then mouse1press() else mouse1release() end
 	end,
-	move = function(x, y) if mousemoveabs then mousemoveabs(x, y + S.offY) end end,
+	move = function(x, y) mousemoveabs(x + OFF.Exec[1], y + OFF.Exec[2]) end,
 }
+-- UI: press the game's own button under the point directly (no screen input at all: fastest)
+local uiCache = {}
+local function buttonAt(x, y)
+	local key = math.floor(x) .. ":" .. math.floor(y)
+	local c = uiCache[key]
+	if c and os.clock() - c.t < 1 then return c.b end
+	local found = false
+	pcall(function()
+		for _, o in ipairs(lp.PlayerGui:GetGuiObjectsAtPosition(x, y)) do
+			if o:IsA("GuiButton") and o.Visible and not o:IsDescendantOf(gui) then found = o break end
+		end
+	end)
+	uiCache[key] = { t = os.clock(), b = found }
+	return found
+end
+local function fireButton(b, x, y)
+	pcall(firesignal, b.MouseButton1Down, x, y)
+	pcall(firesignal, b.Activated)
+	pcall(firesignal, b.MouseButton1Click)
+	pcall(firesignal, b.MouseButton1Up, x, y)
+end
 inputs.UI = {
-	ok = function() return firesignal ~= nil end,
-	press = function(x, y, down) if down then uiClick(x, y) end end,
+	ok = function() return firesignal ~= nil end, perFrame = 80,
+	press = function(x, y, down) if down then local b = buttonAt(x, y) if b then fireButton(b, x, y) end end end,
 }
 inputs.Tool = {
-	ok = function() return true end,
+	ok = function() return true end, perFrame = 80,
 	press = function(_, _, down)
 		if not down then return end
 		local ch = lp.Character
@@ -288,23 +285,47 @@ inputs.Tool = {
 		if tool then tool:Activate() end
 	end,
 }
-inputs.VIM.move = function(x, y) VIM:SendMouseMoveEvent(x, y + S.offY, game) end
-local METHODS = { "Auto", "VIM", "Touch", "Exec", "UI", "Tool" }
-local autoPick
-local function method()
-	if S.method ~= "Auto" and inputs[S.method] and inputs[S.method].ok() then return inputs[S.method] end
-	if autoPick then return inputs[autoPick] end
-	for _, n in ipairs({ "VIM", "Exec", "UI" }) do if inputs[n].ok() then return inputs[n] end end
-	return inputs.Tool
+local METHODS = { "Auto", "Touch", "VIM", "Exec", "UI", "Tool" }
+-- Auto: a game button under the point -> UI (unlimited speed), otherwise touch taps (many per frame)
+local function method(x, y)
+	if S.method ~= "Auto" and inputs[S.method] and inputs[S.method].ok() then return inputs[S.method], S.method end
+	if x and inputs.UI.ok() and buttonAt(x, y) then return inputs.UI, "UI" end
+	if inputs.Touch.ok() then return inputs.Touch, "Touch" end
+	if inputs.Exec.ok() then return inputs.Exec, "Exec" end
+	return inputs.Tool, "Tool"
 end
+local lastMethod = "?"
 local function clickAt(x, y)
-	local m = method()
 	if S.jitterPx > 0 then
 		x = x + math.random(-S.jitterPx, S.jitterPx)
 		y = y + math.random(-S.jitterPx, S.jitterPx)
 	end
+	local m, name = method(x, y)
+	lastMethod = name
 	pcall(m.press, x, y, true)
 	pcall(m.press, x, y, false)
+	return m
+end
+-- measure each method's offset: send at (x, y), see where the game says it landed
+local function calibrate()
+	local results = {}
+	for _, name in ipairs({ "VIM", "Touch", "Exec" }) do
+		local m = inputs[name]
+		if m.ok() then
+			local u
+			local c = UIS.InputBegan:Connect(function(i) if not u and (i.UserInputType == MB1 or i.UserInputType == TOUCH) then u = i.Position end end)
+			local saved = OFF[name]
+			OFF[name] = { 0, 0 }
+			pcall(m.press, 300, 150, true)
+			pcall(m.press, 300, 150, false)
+			local t = os.clock()
+			while not u and os.clock() - t < 0.4 do RunService.Heartbeat:Wait() end
+			c:Disconnect()
+			if u then OFF[name] = { 300 - u.X, 150 - u.Y } results[name] = true
+			else OFF[name] = saved results[name] = false end
+		end
+	end
+	return results
 end
 
 -- ================= points =================
@@ -312,12 +333,13 @@ local markers = {}
 local refreshPoints
 local function makeMarker(i)
 	local p = S.points[i]
-	local m = new("TextButton", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(p[1], p[2]), Size = UDim2.fromOffset(40, 40), BackgroundColor3 = C.a1, BackgroundTransparency = 0.75, Text = tostring(i), Font = Enum.Font.GothamBlack, TextSize = 14, TextColor3 = C.text, AutoButtonColor = false, ZIndex = 15 }, gui)
+	local o0 = gui.AbsolutePosition
+	local m = new("TextButton", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(p[1] - o0.X, p[2] - o0.Y), Size = UDim2.fromOffset(40, 40), BackgroundColor3 = C.a1, BackgroundTransparency = 0.75, Text = tostring(i), Font = Enum.Font.GothamBlack, TextSize = 14, TextColor3 = C.text, AutoButtonColor = false, ZIndex = 15 }, gui)
 	round(m, 20)
 	stroke(m, C.a1, 0, 2)
 	new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(4, 4), BackgroundColor3 = C.red, ZIndex = 16 }, m)
 	draggable(m, m, function()
-		S.points[i] = { m.Position.X.Offset, m.Position.Y.Offset }
+		S.points[i] = { math.floor(m.AbsolutePosition.X + m.AbsoluteSize.X / 2), math.floor(m.AbsolutePosition.Y + m.AbsoluteSize.Y / 2) }
 		save()
 	end)
 	return m
@@ -347,7 +369,7 @@ local function stopClicker(reason)
 	R.running = false
 	if R.holding then
 		local p = S.points[1]
-		if p then pcall(method().press, p[1], p[2], false) end
+		if p then pcall(method(p[1], p[2]).press, p[1], p[2], false) end
 		R.holding = false
 	end
 	setMarkersVisible(true)
@@ -363,7 +385,7 @@ local function startClicker()
 	if S.hidePanel then panel.Visible = false end
 	if S.hold then
 		local p = S.points[1]
-		pcall(method().press, p[1], p[2], true)
+		pcall(method(p[1], p[2]).press, p[1], p[2], true)
 		R.holding = true
 	end
 	if refreshMain then refreshMain() end
@@ -378,8 +400,13 @@ on(RunService.Heartbeat, function(dt)
 	local n = math.floor(R.acc)
 	if n <= 0 then return end
 	R.acc = R.acc - n
-	if n > 80 then n = 80 R.acc = 0 end -- per-frame cap: never build up a backlog
 	local pts = S.points
+	-- per-frame cap: what this method can really deliver in one frame (extra would be lost)
+	local p1 = pts[1]
+	local m0 = method(p1[1], p1[2])
+	local cap = math.max(1, math.floor(m0.perFrame / (S.mode == "All" and #pts or 1)))
+	if S.mode ~= "All" and m0.perFrame == 1 then cap = 1 end
+	if n > cap then n = cap R.acc = 0 end
 	for _ = 1, n do
 		if S.mode == "All" then
 			for _, p in ipairs(pts) do clickAt(p[1], p[2]) end
@@ -465,7 +492,7 @@ local function playMacro()
 				MC.stepN = i
 				waitFor((st.d or 0) / S.macroSpeed)
 				if not MC.playing then break end
-				local m = method()
+				local m = method(st.x, st.y)
 				pcall(function()
 					if st.k == "down" then m.press(st.x, st.y, true)
 					elseif st.k == "up" then m.press(st.x, st.y, false)
@@ -508,7 +535,7 @@ on(UIS.InputBegan, function(i, gp)
 		return
 	end
 	if t ~= MB1 and t ~= TOUCH then return end
-	local x, y = i.Position.X, i.Position.Y + insetY()
+	local x, y = i.Position.X, i.Position.Y
 	if overOurs(x, y) then return end
 	if picking then
 		picking = false
@@ -530,7 +557,7 @@ on(UIS.InputChanged, function(i)
 	end
 	if last and os.clock() - last > 1 / 30 then
 		trackMove[i] = os.clock()
-		addStep({ k = "move", x = math.floor(i.Position.X), y = math.floor(i.Position.Y + insetY()) })
+		addStep({ k = "move", x = math.floor(i.Position.X), y = math.floor(i.Position.Y) })
 	end
 end)
 on(UIS.InputEnded, function(i)
@@ -541,51 +568,39 @@ on(UIS.InputEnded, function(i)
 	end
 	if (t == MB1 or t == TOUCH) and trackMove[i] then
 		trackMove[i] = nil
-		if MC.recording then addStep({ k = "up", x = math.floor(i.Position.X), y = math.floor(i.Position.Y + insetY()) }) end
+		if MC.recording then addStep({ k = "up", x = math.floor(i.Position.X), y = math.floor(i.Position.Y) }) end
 	end
 end)
 
--- ================= self test: which click method works in this game / device =================
+-- ================= self test: calibrate offsets, then check which methods really hit =================
 local function selfTest()
 	if R.running or MC.playing then toast("Stop first", C.amber) return end
-	local tgt = new("TextButton", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.35), Size = UDim2.fromOffset(120, 60), BackgroundColor3 = C.amber, Text = "TEST", Font = Enum.Font.GothamBlack, TextSize = 18, ZIndex = 40 }, gui)
+	local wasVis = panel.Visible
+	panel.Visible = false
+	calibrate()
+	local tgt = new("TextButton", { Position = UDim2.fromOffset(300, 120), Size = UDim2.fromOffset(120, 60), BackgroundColor3 = C.amber, Text = "TEST", Font = Enum.Font.GothamBlack, TextSize = 18, ZIndex = 40 }, gui)
 	round(tgt, 12)
 	local hits = 0
 	local c = tgt.MouseButton1Down:Connect(function() hits = hits + 1 end)
-	local wasVis = panel.Visible
-	panel.Visible = false
-	task.wait(0.3)
-	local cx = tgt.AbsolutePosition.X + tgt.AbsoluteSize.X / 2
-	local cy = tgt.AbsolutePosition.Y + tgt.AbsoluteSize.Y / 2
-	local results, best, bestOff = {}, nil, 0
-	local saveOff = S.offY
-	for _, name in ipairs({ "VIM", "Touch", "Exec" }) do
+	task.wait(0.2)
+	local cx = tgt.AbsolutePosition.X + 60
+	local cy = tgt.AbsolutePosition.Y + 30
+	local results, best = {}, nil
+	for _, name in ipairs({ "Touch", "VIM", "Exec" }) do
 		local m = inputs[name]
-		local got = false
+		hits = 0
 		if m.ok() then
-			for _, off in ipairs({ 0, -insetY(), insetY() }) do
-				if not got then
-					S.offY = off
-					hits = 0
-					for _ = 1, 3 do pcall(m.press, cx, cy, true) pcall(m.press, cx, cy, false) task.wait(0.05) end
-					task.wait(0.15)
-					if hits > 0 then got = true results[#results + 1] = name .. " ✓" if not best then best, bestOff = name, off end end
-				end
-			end
+			for _ = 1, 3 do pcall(m.press, cx, cy, true) pcall(m.press, cx, cy, false) RunService.Heartbeat:Wait() end
+			task.wait(0.15)
 		end
-		if not got then results[#results + 1] = name .. " ✗" end
+		results[#results + 1] = name .. (hits > 0 and " ✓" or " ✗")
+		if hits > 0 and not best then best = name end
 	end
-	S.offY = saveOff
 	c:Disconnect()
 	tgt:Destroy()
 	panel.Visible = wasVis
-	if best then
-		autoPick, S.offY, S.calibrated = best, bestOff, true
-		save()
-		toast("Auto uses " .. best .. "  (" .. table.concat(results, "  ") .. ")", C.green, 5)
-	else
-		toast("No screen method worked here: use UI or Tool", C.red, 5)
-	end
+	results[#results + 1] = "UI " .. (inputs.UI.ok() and "✓" or "✗")
+	toast(best and ("Ready: " .. table.concat(results, "  ")) or "Screen taps blocked here: use UI or Tool", best and C.green or C.red, 4)
 	return best, results
 end
 
@@ -721,11 +736,19 @@ chips(morePg, "Random speed variation", { { "off", 0 }, { "10%", 10 }, { "25%", 
 title(morePg, "AUTO STOP")
 chips(morePg, "After this many clicks", { { "never", 0 }, { "100", 100 }, { "1K", 1000 }, { "10K", 10000 }, { "100K", 100000 } }, function() return S.stopClicks end, function(v) S.stopClicks = v end)
 chips(morePg, "After this long", { { "never", 0 }, { "10s", 10 }, { "1m", 60 }, { "10m", 600 }, { "1h", 3600 } }, function() return S.stopSecs end, function(v) S.stopSecs = v end)
+if setfpscap then
+	title(morePg, "FPS (screen taps per frame are limited, more FPS = more taps)")
+	chips(morePg, "FPS cap", { { "game", 0 }, { "60", 60 }, { "120", 120 }, { "240", 240 } }, function() return S.fps end, function(v)
+		S.fps = v
+		pcall(setfpscap, v > 0 and v or 60)
+	end)
+	if S.fps > 0 then pcall(setfpscap, S.fps) end
+end
 title(morePg, "OPTIONS")
 toggle(morePg, "Hide panel while running", "so clicks never land on it", function() return S.hidePanel end, function(v) S.hidePanel = v end)
 toggle(morePg, "Anti-AFK", "no 20 minute idle kick", function() return S.antiAfk end, function(v) S.antiAfk = v end)
 local testCard = card(morePg, 64)
-local testL = label(testCard, { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 0, 26), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4, Text = "Self test: finds which click method works on this device and fixes the screen offset." })
+local testL = label(testCard, { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 0, 26), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4, Text = "Self test: measures the screen offset (notch / top bar) and checks which tap method works here." })
 local bTest = btn(testCard, "Run self test", 6, 32, 296, 26, C.a2)
 on(bTest.MouseButton1Click, function()
 	task.spawn(function()
@@ -777,7 +800,7 @@ task.spawn(function()
 		R.hist = keep
 		R.cps = R.running and sum or 0
 		local el = R.running and (now - R.t0) or 0
-		statL.Text = string.format("%s\n%d clicks  ·  %d CPS live\n%d:%02d  ·  %s", R.running and (R.holding and "HOLDING" or "CLICKING") or "stopped", R.clicks, R.cps, math.floor(el / 60), math.floor(el % 60), (S.method == "Auto" and ("Auto→" .. (autoPick or "VIM")) or S.method))
+		statL.Text = string.format("%s\n%d clicks  ·  %d CPS live\n%d:%02d  ·  %s", R.running and (R.holding and "HOLDING" or "CLICKING") or "stopped", R.clicks, R.cps, math.floor(el / 60), math.floor(el % 60), (R.running and lastMethod or S.method))
 		if R.running then pill.Text = R.holding and "HOLD" or (R.cps .. " CPS") pill.TextColor3 = C.green
 		elseif MC.playing then pill.Text = "MACRO" pill.TextColor3 = C.a1
 		elseif MC.recording then pill.Text = "● REC" pill.TextColor3 = C.red
@@ -796,7 +819,7 @@ rebuildMarkers()
 refreshPoints()
 showTab("CLICK")
 refreshMain()
-if not S.calibrated then task.delay(1, function() if alive then task.spawn(selfTest) end end) end
+task.delay(0.5, function() if alive then calibrate() end end)
 
 genv.AFGC = { S = S, R = R, MC = MC, start = startClicker, stop = stopClicker, selfTest = selfTest, play = playMacro, stopMacro = stopMacro, inputs = inputs }
 genv.AFGC_STOP = function()
