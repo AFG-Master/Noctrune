@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.3"
+local VERSION = "v1.4"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -24,7 +24,7 @@ local DIR = "AFGClicker"
 local S = {
 	cps = 25, method = "Auto", mode = "Cycle", jitterPx = 0, jitterPct = 0,
 	stopClicks = 0, stopSecs = 0, hold = false, hidePanel = true, antiAfk = true,
-	macroSpeed = 1, macroLoops = 0, loopDelay = 0, slot = 1, fps = 0,
+	macroSpeed = 1, macroLoops = 0, loopDelay = 0, slot = 1, fps = 0, smooth = true,
 	points = {},
 }
 local function hasFiles() return writefile and readfile and isfile end
@@ -639,18 +639,19 @@ local function releaseAll()
 		PB[f] = nil
 	end
 end
-local function runStep(st)
+local function runStep(st, idx)
 	local f = st.f or 1
 	if st.k == "down" then
 		local m = pbMethod(st)
 		if PB[f] then pcall(PB[f].m.press, PB[f].x, PB[f].y, false, 20 + f) end
-		PB[f] = { m = m, x = st.x, y = st.y }
+		PB[f] = { m = m, x = st.x, y = st.y, i = idx }
 		m.press(st.x, st.y, true, 20 + f)
 	elseif st.k == "move" then
 		local p = PB[f]
 		if p then
+			p.i = idx
+			if (p.x ~= st.x or p.y ~= st.y) and p.m.move then p.m.move(st.x, st.y, 20 + f) end
 			p.x, p.y = st.x, st.y
-			if p.m.move then p.m.move(st.x, st.y, 20 + f) end
 		end
 	elseif st.k == "up" then
 		local p = PB[f]
@@ -672,16 +673,49 @@ local function playMacro()
 		wakeTouch()
 		while alive and MC.playing do
 			MC.loopN = MC.loopN + 1
-			-- precise timing: each step is scheduled from the loop start, so small delays never add up
-			local t0, at = os.clock(), 0
-			for i, st in ipairs(MC.steps) do
-				if not MC.playing then break end
-				MC.stepN = i
-				at = at + (st.d or 0) / S.macroSpeed
-				local wait = t0 + at - os.clock()
-				if wait > 0 then waitFor(wait) end
-				if not MC.playing then break end
-				pcall(runStep, st)
+			-- frame-driven playback: steps fire on their exact recorded time, and every finger
+			-- that is moving glides between its recorded points on every frame (no steps / jitter)
+			local steps = MC.steps
+			local n = #steps
+			local times, nxt, lastOf = {}, {}, {}
+			local acc = 0
+			for k, st in ipairs(steps) do
+				acc = acc + (st.d or 0)
+				times[k] = acc
+				local f = st.f or 1
+				if st.k == "down" or st.k == "move" or st.k == "up" then
+					if lastOf[f] then nxt[lastOf[f]] = k end
+					lastOf[f] = k
+				end
+			end
+			local t0, k = os.clock(), 1
+			while alive and MC.playing and k <= n do
+				local now = (os.clock() - t0) * S.macroSpeed
+				while k <= n and times[k] <= now do
+					MC.stepN = k
+					pcall(runStep, steps[k], k)
+					k = k + 1
+				end
+				if S.smooth then
+					for f, pb in pairs(PB) do
+						local j = pb.i and nxt[pb.i]
+						local sj = j and steps[j]
+						if sj and sj.k ~= "down" and pb.m.move then
+							local ta, tb = times[pb.i], times[j]
+							local a = tb > ta and (now - ta) / (tb - ta) or 1
+							if a > 0 and a < 1 then
+								local sa = steps[pb.i]
+								local x = sa.x + (sj.x - sa.x) * a
+								local y = sa.y + (sj.y - sa.y) * a
+								if math.abs(x - pb.x) + math.abs(y - pb.y) >= 0.5 then
+									pcall(pb.m.move, x, y, 20 + f)
+									pb.x, pb.y = x, y
+								end
+							end
+						end
+					end
+				end
+				if k <= n then RunService.RenderStepped:Wait() end
 			end
 			releaseAll()
 			if S.macroLoops > 0 and MC.loopN >= S.macroLoops then break end
@@ -753,7 +787,7 @@ on(UIS.InputChanged, function(i)
 	if not f then return end
 	local l = REC.last[f]
 	local x, y = math.floor(i.Position.X), math.floor(i.Position.Y)
-	if l and os.clock() - l[3] < 1 / 30 then return end
+	if l and os.clock() - l[3] < 1 / 120 then return end
 	if l and l[1] == x and l[2] == y then return end
 	REC.last[f] = { x, y, os.clock() }
 	addStep({ k = "move", f = f, x = x, y = y })
@@ -925,6 +959,7 @@ slotRefresh = chips(macroPg, "Macro slot (saved on your device)", { { "1", 1 }, 
 	S.slot = v loadMacro(v)
 	if refreshMacro then refreshMacro() end
 end)
+toggle(macroPg, "Ultra smooth playback", "glides fingers between recorded points every frame", function() return S.smooth end, function(v) S.smooth = v end)
 local edCard = card(macroPg, 36)
 local bUndo = btn(edCard, "Remove last step", 6, 4, 140, 28)
 local bClear = btn(edCard, "Clear slot", 150, 4, 148, 28, Color3.fromRGB(70, 30, 45))
