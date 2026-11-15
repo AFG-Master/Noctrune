@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.5"
+local VERSION = "v1.6"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -28,7 +28,7 @@ local S = {
 	points = {},
 	perGame = true, games = {}, countdown = 0, burst = "off", flash = true,
 	autoBtn = false, btnWords = "claim, collect, continue, ok, skip, close", btnEvery = 1,
-	total = 0, bestCps = 0,
+	total = 0, bestCps = 0, muteSfx = true, noVibe = true,
 }
 local function hasFiles() return writefile and readfile and isfile end
 pcall(function()
@@ -519,6 +519,58 @@ pcall(function() cdLabel.Interactable = false end)
 new("UIGradient", { Color = NEON }, cdLabel)
 new("UIStroke", { Color = C.bg, Thickness = 3, Transparency = 0.2 }, cdLabel)
 
+-- ================= quiet mode: no game click sounds / vibration while running =================
+-- Many games play a sound and buzz the phone on every button press. At hundreds of clicks per
+-- second that heats the phone and lags. While the clicker or a macro runs we swallow those calls.
+local QUIET = { active = false, installed = false }
+local function installQuiet()
+	if QUIET.installed then return true end
+	if not (hookmetamethod and newcclosure and getnamecallmethod and checkcaller) then return false end
+	QUIET.installed = true
+	local function blocked(self)
+		if typeof(self) ~= "Instance" then return false end
+		local cn = self.ClassName
+		return (cn == "Sound" and S.muteSfx) or (cn == "HapticEffect" and S.noVibe)
+	end
+	local old
+	old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+		if QUIET.active then
+			local m = getnamecallmethod()
+			if m == "Play" or m == "PlayLocalSound" or m == "SetMotor" then
+				if not checkcaller() then
+					if m == "SetMotor" then if S.noVibe then return end
+					elseif m == "PlayLocalSound" then if S.muteSfx then return end
+					elseif blocked(self) then return end
+				end
+			end
+		end
+		return old(self, ...)
+	end))
+	-- games that call  sound.Play(sound)  /  effect.Play(effect)  directly skip __namecall
+	if hookfunction then
+		for _, cls in ipairs({ "Sound", "HapticEffect" }) do
+			pcall(function()
+				local inst = Instance.new(cls)
+				local fn = inst.Play
+				inst:Destroy()
+				local orig
+				orig = hookfunction(fn, newcclosure(function(self, ...)
+					if QUIET.active and not checkcaller() and blocked(self) then return end
+					return orig(self, ...)
+				end))
+			end)
+		end
+	end
+	return true
+end
+local function quiet(on)
+	if on and (S.muteSfx or S.noVibe) then
+		if installQuiet() then QUIET.active = true end
+	else
+		QUIET.active = false
+	end
+end
+
 -- ================= runtime state =================
 local R = { running = false, acc = 0, clicks = 0, t0 = 0, idx = 1, hist = {}, cps = 0, holding = false }
 local MC = { steps = {}, recording = false, playing = false, lastT = 0, loopN = 0, stepN = 0 }
@@ -528,6 +580,7 @@ local refreshMain
 local function stopClicker(reason)
 	if not R.running then return end
 	R.running = false
+	if not MC.playing then quiet(false) end
 	save()
 	if R.holding then
 		local p = S.points[1]
@@ -544,6 +597,7 @@ local function startNow()
 	if MC.playing or MC.recording then toast("Stop the macro first", C.amber) return end
 	if #S.points == 0 then addPoint() end
 	R.running, R.acc, R.clicks, R.t0, R.idx = true, 0, 0, os.clock(), 1
+	quiet(true)
 	task.spawn(wakeTouch)
 	setMarkersVisible(false) -- markers are buttons: hide them so clicks reach the game
 	R.reopen = S.hidePanel and panelOpen
@@ -743,6 +797,7 @@ local function playMacro()
 	if S.hidePanel then setPanel(false) end
 	setMarkersVisible(false)
 	if refreshMacro then refreshMacro() end
+	quiet(true)
 	task.spawn(function()
 		wakeTouch()
 		while alive and MC.playing do
@@ -797,6 +852,7 @@ local function playMacro()
 		end
 		releaseAll()
 		MC.playing = false
+		if not R.running then quiet(false) end
 		setMarkersVisible(true)
 		if MC.reopen then MC.reopen = false setPanel(true) end
 		if refreshMacro then refreshMacro() end
@@ -1111,6 +1167,8 @@ if setfpscap then
 	if S.fps > 0 then pcall(setfpscap, S.fps) end
 end
 title(morePg, "OPTIONS")
+toggle(morePg, "Mute game click sounds", "silences the game's sounds while clicking", function() return S.muteSfx end, function(v) S.muteSfx = v end)
+toggle(morePg, "No vibration", "stops the game buzzing your phone while clicking", function() return S.noVibe end, function(v) S.noVibe = v end)
 toggle(morePg, "Hide panel while running", "so clicks never land on it", function() return S.hidePanel end, function(v) S.hidePanel = v end)
 toggle(morePg, "Anti-AFK", "no 20 minute idle kick", function() return S.antiAfk end, function(v) S.antiAfk = v end)
 do
@@ -1154,6 +1212,11 @@ end)
 -- auto-press: scans your game UI for visible buttons with matching text (never Robux / buy buttons)
 local BLOCK = { "robux", "r%$", "buy", "purchase", "premium", "gift", "trade", "delete", "sell", "leave", "kick", "report", "block" }
 local pressedN, lastPress, btnCool = 0, "", {}
+-- live set of the game's buttons (updated by events, so a check never walks the whole UI)
+local btnSet = setmetatable({}, { __mode = "k" })
+for _, d in ipairs(lp.PlayerGui:GetDescendants()) do if d:IsA("GuiButton") then btnSet[d] = true end end
+on(lp.PlayerGui.DescendantAdded, function(d) if d:IsA("GuiButton") then btnSet[d] = true end end)
+on(lp.PlayerGui.DescendantRemoving, function(d) btnSet[d] = nil end)
 local function shown(o)
 	local x = o
 	while x and x ~= lp.PlayerGui do
@@ -1181,8 +1244,8 @@ local function scanButtons()
 	end
 	if #words == 0 then return end
 	local now = os.clock()
-	for _, b in ipairs(lp.PlayerGui:GetDescendants()) do
-		if b:IsA("GuiButton") and not b:FindFirstAncestor("TouchGui") and (not btnCool[b] or now - btnCool[b] > 1.5) and shown(b) then
+	for b in pairs(btnSet) do
+		if b.Parent and not b:FindFirstAncestor("TouchGui") and (not btnCool[b] or now - btnCool[b] > 1.5) and shown(b) then
 			local t = textOf(b)
 			if #t > 0 then
 				local hit
@@ -1340,6 +1403,7 @@ task.delay(0.5, function() if alive then calibrate() end end)
 genv.AFGC = { S = S, R = R, MC = MC, start = startClicker, stop = stopClicker, selfTest = selfTest, play = playMacro, stopMacro = stopMacro, inputs = inputs }
 genv.AFGC_STOP = function()
 	alive = false
+	QUIET.active = false
 	R.running, MC.playing, MC.recording = false, false, false
 	flush()
 	for _, c in ipairs(conns) do pcall(function() c:Disconnect() end) end
