@@ -412,10 +412,16 @@ local function waitIdle(sec)
 end
 local function doThrow()
 	if not (TC and TC.Start) then return false end
-	if training() then pcall(TR.Stop) waitIdle(6) end
-	if busy() then return false end
+	if training() then pcall(TR.Stop) waitIdle(6) task.wait(1) end
+	if busy() ~= "Throw" then
+		if busy() then return false end
+		task.spawn(TC.Start)
+		local t0 = os.clock()
+		while alive and busy() ~= "Throw" and os.clock() - t0 < 4 do task.wait(0.1) end
+		if busy() ~= "Throw" then logf("throw refused, retrying") return false end
+	end
+	-- (if a throw is already running we just take over its meter)
 	ST.phase = "throwing"
-	task.spawn(TC.Start)
 	-- 1) wait for the power meter
 	local marker
 	local t = os.clock()
