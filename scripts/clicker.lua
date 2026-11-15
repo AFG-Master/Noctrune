@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -47,13 +47,15 @@ end
 
 local function insetY() local ok, a = pcall(function() return GuiService:GetGuiInset() end) return ok and a.Y or 0 end
 
--- ================= GUI kit =================
+-- ================= GUI kit (neon glass) =================
 local C = {
-	bg = Color3.fromRGB(12, 13, 20), card = Color3.fromRGB(22, 24, 36), card2 = Color3.fromRGB(30, 33, 50),
-	text = Color3.fromRGB(240, 242, 255), sub = Color3.fromRGB(140, 146, 175),
-	a1 = Color3.fromRGB(0, 224, 255), a2 = Color3.fromRGB(170, 90, 255),
-	green = Color3.fromRGB(40, 230, 140), red = Color3.fromRGB(255, 70, 100), amber = Color3.fromRGB(255, 190, 60),
+	bg = Color3.fromRGB(9, 10, 18), glass = Color3.fromRGB(14, 16, 28), card = Color3.fromRGB(20, 23, 40), card2 = Color3.fromRGB(30, 34, 58),
+	line = Color3.fromRGB(48, 54, 90), text = Color3.fromRGB(244, 246, 255), sub = Color3.fromRGB(132, 140, 182),
+	a1 = Color3.fromRGB(0, 230, 255), a2 = Color3.fromRGB(150, 90, 255), a3 = Color3.fromRGB(255, 70, 200),
+	green = Color3.fromRGB(30, 240, 150), red = Color3.fromRGB(255, 64, 104), amber = Color3.fromRGB(255, 196, 64),
 }
+local NEON = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.a1), ColorSequenceKeypoint.new(0.5, C.a2), ColorSequenceKeypoint.new(1, C.a3) })
+local NEON_LOOP = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.a1), ColorSequenceKeypoint.new(0.33, C.a2), ColorSequenceKeypoint.new(0.66, C.a3), ColorSequenceKeypoint.new(1, C.a1) })
 local function new(cls, props, parent)
 	local o = Instance.new(cls)
 	for k, v in pairs(props or {}) do o[k] = v end
@@ -63,27 +65,41 @@ end
 local function round(o, r) new("UICorner", { CornerRadius = UDim.new(0, r or 10) }, o) return o end
 local function stroke(o, col, tr, th) return new("UIStroke", { Color = col or C.a1, Transparency = tr or 0.6, Thickness = th or 1, ApplyStrokeMode = Enum.ApplyStrokeMode.Border }, o) end
 local function grad(o, a, b, rot) return new("UIGradient", { Color = ColorSequence.new(a, b), Rotation = rot or 0 }, o) end
-local function tw(o, t, props) local x = TweenService:Create(o, TweenInfo.new(t, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), props) x:Play() return x end
+local function neon(o, rot) return new("UIGradient", { Color = NEON, Rotation = rot or 0 }, o) end
+local function tw(o, t, props, style, dir) local x = TweenService:Create(o, TweenInfo.new(t, style or Enum.EasingStyle.Quint, dir or Enum.EasingDirection.Out), props) x:Play() return x end
 local function label(parent, props)
 	local l = new("TextLabel", { BackgroundTransparency = 1, Font = Enum.Font.GothamMedium, TextSize = 12, TextColor3 = C.text, TextXAlignment = Enum.TextXAlignment.Left }, parent)
 	for k, v in pairs(props or {}) do l[k] = v end
 	return l
 end
+-- spinning gradients (borders, rings): one RenderStepped for all of them
+local spinners = {}
+local function spin(g, speed, onlyWhen) spinners[#spinners + 1] = { g = g, s = speed, w = onlyWhen } return g end
 
 local gui = new("ScreenGui", { Name = "AFGClicker", ResetOnSpawn = false, IgnoreGuiInset = true, DisplayOrder = 999, ZIndexBehavior = Enum.ZIndexBehavior.Sibling })
 pcall(function() gui.ScreenInsets = Enum.ScreenInsets.None end)
 pcall(function() gui.Parent = (gethui and gethui()) or game:GetService("CoreGui") end)
 if not gui.Parent then gui.Parent = lp:WaitForChild("PlayerGui") end
 
--- toast
-local toastLbl = label(gui, { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 8), Size = UDim2.fromOffset(300, 30), BackgroundTransparency = 0.1, BackgroundColor3 = C.bg, TextXAlignment = Enum.TextXAlignment.Center, Font = Enum.Font.GothamBold, TextSize = 12, Visible = false, ZIndex = 50 })
-round(toastLbl, 15) stroke(toastLbl, C.a1, 0.4)
+-- toast: slides in from the top with an accent bar
+local toastF = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, -50), Size = UDim2.fromOffset(320, 34), BackgroundColor3 = C.glass, BackgroundTransparency = 0.05, ZIndex = 60, Visible = false }, gui)
+round(toastF, 17)
+spin(neon(stroke(toastF, C.a1, 0.1, 1.5)), 120)
+local toastBar = new("Frame", { Position = UDim2.fromOffset(8, 9), Size = UDim2.fromOffset(4, 16), BackgroundColor3 = C.a1, ZIndex = 61 }, toastF)
+round(toastBar, 2)
+local toastLbl = label(toastF, { Position = UDim2.fromOffset(20, 0), Size = UDim2.new(1, -28, 1, 0), Font = Enum.Font.GothamBold, TextSize = 12, ZIndex = 61, TextTruncate = Enum.TextTruncate.AtEnd })
 local toastId = 0
 local function toast(msg, col, secs)
 	toastId = toastId + 1
 	local my = toastId
-	toastLbl.Text = msg toastLbl.TextColor3 = col or C.text toastLbl.Visible = true
-	task.delay(secs or 2, function() if toastId == my then toastLbl.Visible = false end end)
+	toastLbl.Text = msg toastBar.BackgroundColor3 = col or C.a1
+	toastF.Visible = true
+	tw(toastF, 0.35, { Position = UDim2.new(0.5, 0, 0, 10) }, Enum.EasingStyle.Back)
+	task.delay(secs or 2, function()
+		if toastId ~= my then return end
+		tw(toastF, 0.3, { Position = UDim2.new(0.5, 0, 0, -50) }, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
+		task.delay(0.32, function() if toastId == my then toastF.Visible = false end end)
+	end)
 end
 
 -- dragging that works for mouse and touch
@@ -111,61 +127,129 @@ local function draggable(handle, target, onEnd)
 	return st
 end
 
--- ================= floating buttons =================
-local fab = new("TextButton", { Name = "Fab", AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(0, 46, 0.5, -30), Size = UDim2.fromOffset(52, 52), BackgroundColor3 = C.bg, Text = "", AutoButtonColor = false, ZIndex = 20 }, gui)
-round(fab, 26)
-local fabRing = stroke(fab, C.a1, 0, 2)
-new("UIGradient", { Color = ColorSequence.new(C.a1, C.a2), Rotation = 45 }, fabRing)
-label(fab, { Size = UDim2.fromScale(1, 1), Text = "AC", Font = Enum.Font.GothamBlack, TextSize = 16, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 21 })
-local play = new("TextButton", { Name = "Play", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 1, 6), Size = UDim2.fromOffset(44, 26), BackgroundColor3 = C.green, Text = "▶", Font = Enum.Font.GothamBlack, TextSize = 14, TextColor3 = C.bg, AutoButtonColor = false, ZIndex = 21 }, fab)
-round(play, 13)
+-- ripple on press (clipped inside the button)
+local function ripple(b, i)
+	local p = i and i.Position or (b.AbsolutePosition + b.AbsoluteSize / 2)
+	local r = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(p.X - b.AbsolutePosition.X, p.Y - b.AbsolutePosition.Y), Size = UDim2.fromOffset(0, 0), BackgroundColor3 = Color3.new(1, 1, 1), BackgroundTransparency = 0.7, ZIndex = b.ZIndex + 1 }, b)
+	round(r, 999)
+	local s = math.max(b.AbsoluteSize.X, b.AbsoluteSize.Y) * 2.2
+	tw(r, 0.45, { Size = UDim2.fromOffset(s, s), BackgroundTransparency = 1 })
+	task.delay(0.5, function() r:Destroy() end)
+end
+
+-- ================= floating orb =================
+local fab = new("TextButton", { Name = "Fab", AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(0, 50, 0.5, -30), Size = UDim2.fromOffset(58, 58), BackgroundColor3 = C.a1, Text = "", AutoButtonColor = false, ZIndex = 20 }, gui)
+round(fab, 29)
+local fabGrad = spin(new("UIGradient", { Color = NEON_LOOP }, fab), 90)
+local fabPulse = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, ZIndex = 19 }, fab)
+round(fabPulse, 999)
+local fabPulseS = stroke(fabPulse, C.a1, 1, 2)
+local fabCore = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -6, 1, -6), BackgroundColor3 = C.bg, ZIndex = 21 }, fab)
+round(fabCore, 999)
+local fabIcon = label(fabCore, { Size = UDim2.new(1, 0, 0.62, 0), Position = UDim2.fromScale(0, 0.06), Text = "⚡", Font = Enum.Font.GothamBlack, TextSize = 20, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 22 })
+local fabSub = label(fabCore, { Size = UDim2.new(1, 0, 0.3, 0), Position = UDim2.fromScale(0, 0.62), Text = "AFG", Font = Enum.Font.GothamBlack, TextSize = 9, TextColor3 = C.sub, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 22 })
+local fabRing = fabPulseS
+local play = new("TextButton", { Name = "Play", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 1, 7), Size = UDim2.fromOffset(46, 24), BackgroundColor3 = C.green, Text = "▶", Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = C.bg, AutoButtonColor = false, ZIndex = 21 }, fab)
+round(play, 12)
+stroke(play, Color3.new(1, 1, 1), 0.7, 1)
 local fabDrag = draggable(fab, fab)
 
 -- ================= panel =================
 local holder = new("Frame", { BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), ZIndex = 1 }, gui)
 local uiScale = new("UIScale", {}, holder)
-local panel = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(330, 286), BackgroundColor3 = C.bg, BackgroundTransparency = 0.04, Visible = true, ZIndex = 2 }, holder)
-round(panel, 16)
-local pst = stroke(panel, C.a1, 0.2, 1.5)
-new("UIGradient", { Color = ColorSequence.new(C.a1, C.a2), Rotation = 30 }, pst)
+local W, H = 340, 300
+local panel = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(W, H), BackgroundColor3 = C.glass, BackgroundTransparency = 1, Visible = true, ZIndex = 2 }, holder)
+round(panel, 20)
+local popScale = new("UIScale", { Scale = 1 }, panel)
+-- glow halo (stacked soft frames, cheap)
+for k, t in ipairs({ 0.86, 0.92, 0.96 }) do
+	local g = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, k * 10, 1, k * 10), BackgroundColor3 = C.a2, BackgroundTransparency = t, ZIndex = 1 }, panel)
+	round(g, 20 + k * 5)
+	neon(g, 45)
+end
+local bodyBg = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.glass, BackgroundTransparency = 0.02, ZIndex = 2 }, panel)
+round(bodyBg, 20)
+-- inner sheen
+local sheen = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1), BackgroundTransparency = 0.96, ZIndex = 2 }, panel)
+round(sheen, 20)
+new("UIGradient", { Rotation = 90, Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.4, 0.9), NumberSequenceKeypoint.new(1, 1) }) }, sheen)
+local panelBorder = stroke(panel, C.a1, 0, 1.6)
+spin(new("UIGradient", { Color = NEON_LOOP }, panelBorder), 60)
 local function rescale()
 	local vp = workspace.CurrentCamera.ViewportSize
-	uiScale.Scale = math.clamp(math.min(vp.Y / 330, vp.X / 380), 0.7, 1.25)
+	uiScale.Scale = math.clamp(math.min(vp.Y / 340, vp.X / 390), 0.7, 1.25)
 end
 rescale()
 on(workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"), rescale)
 
-local head = new("TextButton", { Size = UDim2.new(1, 0, 0, 40), BackgroundTransparency = 1, Text = "", AutoButtonColor = false, ZIndex = 3 }, panel)
-local titleL = label(head, { Position = UDim2.fromOffset(14, 4), Size = UDim2.fromOffset(160, 20), Text = "AFG CLICKER", Font = Enum.Font.GothamBlack, TextSize = 15, ZIndex = 3 })
-grad(titleL, C.a1, C.a2)
-label(head, { Position = UDim2.fromOffset(14, 22), Size = UDim2.fromOffset(160, 14), Text = VERSION .. "  ·  auto clicker + macro", TextSize = 10, TextColor3 = C.sub, ZIndex = 3 })
-local pill = label(head, { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -70, 0, 9), Size = UDim2.fromOffset(78, 22), BackgroundTransparency = 0, BackgroundColor3 = C.card, TextXAlignment = Enum.TextXAlignment.Center, Font = Enum.Font.GothamBold, TextSize = 11, Text = "IDLE", TextColor3 = C.sub, ZIndex = 3 })
-round(pill, 11)
-local function headBtn(txt, x, col)
-	local b = new("TextButton", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, x, 0, 9), Size = UDim2.fromOffset(24, 22), BackgroundColor3 = C.card, Text = txt, Font = Enum.Font.GothamBold, TextSize = 13, TextColor3 = col, AutoButtonColor = false, ZIndex = 3 }, head)
-	round(b, 8)
-	return b
-end
-local minB = headBtn("–", -38, C.text)
-local closeB = headBtn("×", -10, C.red)
-draggable(head, panel)
-
--- tabs
-local tabBar = new("Frame", { Position = UDim2.fromOffset(10, 42), Size = UDim2.new(1, -20, 0, 28), BackgroundColor3 = C.card, ZIndex = 3 }, panel)
-round(tabBar, 10)
-new("UIListLayout", { FillDirection = Enum.FillDirection.Horizontal, Padding = UDim.new(0, 4), HorizontalAlignment = Enum.HorizontalAlignment.Center, VerticalAlignment = Enum.VerticalAlignment.Center }, tabBar)
-local pages, tabBtns = {}, {}
-local function showTab(name)
-	for n, pg in pairs(pages) do pg.Visible = n == name end
-	for n, b in pairs(tabBtns) do
-		tw(b, 0.2, { BackgroundTransparency = n == name and 0 or 1, TextColor3 = n == name and C.bg or C.sub })
+local panelOpen = true
+local function setPanel(v, instant)
+	panelOpen = v
+	if instant then panel.Visible = v popScale.Scale = 1 return end
+	if v then
+		setPanel(true)
+		popScale.Scale = 0.86
+		tw(popScale, 0.35, { Scale = 1 }, Enum.EasingStyle.Back)
+	else
+		tw(popScale, 0.18, { Scale = 0.86 }, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
+		task.delay(0.18, function() if not panelOpen then setPanel(false) end end)
 	end
 end
-local function addTab(name)
-	local b = new("TextButton", { Size = UDim2.fromOffset(98, 22), BackgroundColor3 = C.a1, BackgroundTransparency = 1, Text = name, Font = Enum.Font.GothamBlack, TextSize = 11, TextColor3 = C.sub, AutoButtonColor = false, ZIndex = 4 }, tabBar)
-	round(b, 8)
-	local pg = new("ScrollingFrame", { Position = UDim2.fromOffset(10, 76), Size = UDim2.new(1, -20, 1, -84), BackgroundTransparency = 1, ScrollBarThickness = 3, ScrollBarImageColor3 = C.a1, CanvasSize = UDim2.new(), AutomaticCanvasSize = Enum.AutomaticSize.Y, BorderSizePixel = 0, Visible = false, ZIndex = 3 }, panel)
-	new("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, pg)
+
+-- header
+local head = new("TextButton", { Size = UDim2.new(1, 0, 0, 48), BackgroundTransparency = 1, Text = "", AutoButtonColor = false, ZIndex = 3 }, panel)
+local logo = new("Frame", { Position = UDim2.fromOffset(12, 9), Size = UDim2.fromOffset(32, 32), BackgroundColor3 = C.a1, ZIndex = 4 }, head)
+round(logo, 10)
+spin(new("UIGradient", { Color = NEON_LOOP }, logo), 80)
+local logoIn = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -4, 1, -4), BackgroundColor3 = C.bg, ZIndex = 5 }, logo)
+round(logoIn, 8)
+label(logoIn, { Size = UDim2.fromScale(1, 1), Text = "⚡", Font = Enum.Font.GothamBlack, TextSize = 16, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
+local titleL = label(head, { Position = UDim2.fromOffset(52, 8), Size = UDim2.fromOffset(170, 20), Text = "AFG CLICKER", Font = Enum.Font.GothamBlack, TextSize = 16, ZIndex = 4 })
+local titleG = new("UIGradient", { Color = NEON_LOOP }, titleL)
+label(head, { Position = UDim2.fromOffset(52, 27), Size = UDim2.fromOffset(170, 14), Text = "PRO  ·  " .. VERSION .. "  ·  clicker + macro", TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
+local pill = label(head, { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -76, 0, 13), Size = UDim2.fromOffset(74, 22), BackgroundTransparency = 0, BackgroundColor3 = C.card, TextXAlignment = Enum.TextXAlignment.Center, Font = Enum.Font.GothamBlack, TextSize = 10, Text = "IDLE", TextColor3 = C.sub, ZIndex = 4 })
+round(pill, 11)
+local pillStroke = stroke(pill, C.sub, 0.6, 1)
+local function headBtn(txt, x, col)
+	local b = new("TextButton", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, x, 0, 13), Size = UDim2.fromOffset(26, 22), BackgroundColor3 = C.card, Text = txt, Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = col, AutoButtonColor = false, ZIndex = 4 }, head)
+	round(b, 11)
+	stroke(b, col, 0.7, 1)
+	return b
+end
+local minB = headBtn("–", -42, C.text)
+local closeB = headBtn("×", -12, C.red)
+draggable(head, panel)
+new("Frame", { Position = UDim2.new(0, 14, 0, 48), Size = UDim2.new(1, -28, 0, 1), BackgroundColor3 = C.line, BackgroundTransparency = 0.3, BorderSizePixel = 0, ZIndex = 3 }, panel)
+
+-- tabs with a sliding neon indicator
+local tabBar = new("Frame", { Position = UDim2.fromOffset(12, 56), Size = UDim2.new(1, -24, 0, 30), BackgroundColor3 = C.card, ZIndex = 3 }, panel)
+round(tabBar, 15)
+stroke(tabBar, C.line, 0.4, 1)
+local indicator = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(100, 24), BackgroundColor3 = C.a1, ZIndex = 4 }, tabBar)
+round(indicator, 12)
+neon(indicator, 0)
+local pages, tabBtns, tabCount, current = {}, {}, 0, nil
+local function showTab(name)
+	local first = current == nil
+	current = name
+	for n, pg in pairs(pages) do
+		if n == name then
+			pg.Visible = true
+			if not first then pg.Position = UDim2.fromOffset(22, 94) tw(pg, 0.3, { Position = UDim2.fromOffset(12, 94) }) end
+		else pg.Visible = false end
+	end
+	for n, b in pairs(tabBtns) do
+		local sel = n == name
+		tw(b, 0.2, { TextColor3 = sel and C.bg or C.sub })
+		if sel then tw(indicator, 0.35, { Position = UDim2.fromOffset(b.Position.X.Offset, 3) }, Enum.EasingStyle.Back) end
+	end
+end
+local function addTab(name, icon)
+	local b = new("TextButton", { Position = UDim2.fromOffset(3 + tabCount * 103, 3), Size = UDim2.fromOffset(100, 24), BackgroundTransparency = 1, Text = icon .. "  " .. name, Font = Enum.Font.GothamBlack, TextSize = 11, TextColor3 = C.sub, AutoButtonColor = false, ZIndex = 5 }, tabBar)
+	tabCount = tabCount + 1
+	local pg = new("ScrollingFrame", { Position = UDim2.fromOffset(12, 94), Size = UDim2.new(1, -24, 1, -102), BackgroundTransparency = 1, ScrollBarThickness = 2, ScrollBarImageColor3 = C.a2, CanvasSize = UDim2.new(), AutomaticCanvasSize = Enum.AutomaticSize.Y, BorderSizePixel = 0, Visible = false, ZIndex = 3 }, panel)
+	new("UIListLayout", { Padding = UDim.new(0, 7), SortOrder = Enum.SortOrder.LayoutOrder }, pg)
+	new("UIPadding", { PaddingBottom = UDim.new(0, 6) }, pg)
 	pages[name], tabBtns[name] = pg, b
 	on(b.MouseButton1Click, function() showTab(name) end)
 	return pg
@@ -175,52 +259,63 @@ local order = 0
 local function card(pg, h)
 	order = order + 1
 	local f = new("Frame", { Size = UDim2.new(1, -4, 0, h), BackgroundColor3 = C.card, LayoutOrder = order, ZIndex = 3 }, pg)
-	round(f, 10)
+	round(f, 12)
+	stroke(f, C.line, 0.55, 1)
 	return f
 end
 local function title(pg, txt)
 	order = order + 1
-	return label(pg, { Size = UDim2.new(1, 0, 0, 14), Text = txt, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = C.sub, LayoutOrder = order, ZIndex = 3 })
+	local f = new("Frame", { Size = UDim2.new(1, 0, 0, 16), BackgroundTransparency = 1, LayoutOrder = order, ZIndex = 3 }, pg)
+	local bar = new("Frame", { Position = UDim2.fromOffset(2, 3), Size = UDim2.fromOffset(3, 10), BackgroundColor3 = C.a1, ZIndex = 3 }, f)
+	round(bar, 2) neon(bar, 90)
+	return label(f, { Position = UDim2.fromOffset(10, 0), Size = UDim2.new(1, -10, 1, 0), Text = txt, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = C.sub, ZIndex = 3 })
 end
 local function btn(parent, txt, x, y, w, h, col)
-	local b = new("TextButton", { Position = UDim2.fromOffset(x, y), Size = UDim2.fromOffset(w, h), BackgroundColor3 = col or C.card2, Text = txt, Font = Enum.Font.GothamBold, TextSize = 11, TextColor3 = C.text, AutoButtonColor = false, ZIndex = 4 }, parent)
-	round(b, 8)
-	on(b.MouseButton1Down, function() tw(b, 0.08, { BackgroundTransparency = 0.3 }) end)
-	on(b.MouseButton1Up, function() tw(b, 0.2, { BackgroundTransparency = 0 }) end)
+	local b = new("TextButton", { Position = UDim2.fromOffset(x, y), Size = UDim2.fromOffset(w, h), BackgroundColor3 = col or C.card2, Text = txt, Font = Enum.Font.GothamBold, TextSize = 11, TextColor3 = C.text, AutoButtonColor = false, ClipsDescendants = true, ZIndex = 4 }, parent)
+	round(b, 9)
+	if not col then stroke(b, C.line, 0.4, 1) end
+	local sc = new("UIScale", {}, b)
+	on(b.InputBegan, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then ripple(b, i) tw(sc, 0.08, { Scale = 0.95 }) end end)
+	on(b.InputEnded, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then tw(sc, 0.25, { Scale = 1 }, Enum.EasingStyle.Back) end end)
 	return b
 end
 -- a row of chips; getter returns current value, setter applies a choice
 local function chips(pg, labelTxt, opts, get, set)
-	local f = card(pg, 50)
-	label(f, { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 0, 16), Text = labelTxt, TextSize = 11, TextColor3 = C.sub, ZIndex = 4 })
-	local w = math.floor((302 - 8 - (#opts - 1) * 4) / #opts)
-	local bs = {}
+	local f = card(pg, 54)
+	label(f, { Position = UDim2.fromOffset(12, 5), Size = UDim2.new(1, -24, 0, 16), Text = labelTxt, TextSize = 11, TextColor3 = C.sub, ZIndex = 4 })
+	local w = math.floor((W - 24 - 4 - 12 - (#opts - 1) * 5) / #opts)
+	local bs, gs = {}, {}
 	local function refresh()
 		for i, o in ipairs(opts) do
 			local sel = get() == o[2]
-			bs[i].BackgroundColor3 = sel and C.a1 or C.card2
+			bs[i].BackgroundColor3 = sel and Color3.new(1, 1, 1) or C.card2
+			gs[i].Enabled = sel
 			bs[i].TextColor3 = sel and C.bg or C.text
+			bs[i].Font = sel and Enum.Font.GothamBlack or Enum.Font.GothamBold
 		end
 	end
 	for i, o in ipairs(opts) do
-		bs[i] = btn(f, o[1], 4 + (i - 1) * (w + 4), 22, w, 24)
+		bs[i] = btn(f, o[1], 6 + (i - 1) * (w + 5), 24, w, 24)
+		gs[i] = neon(bs[i], 0)
 		on(bs[i].MouseButton1Click, function() set(o[2]) refresh() save() end)
 	end
 	refresh()
 	return refresh
 end
 local function toggle(pg, txt, sub, get, set)
-	local f = card(pg, 40)
-	label(f, { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -70, 0, 16), Text = txt, Font = Enum.Font.GothamBold, ZIndex = 4 })
-	label(f, { Position = UDim2.fromOffset(10, 20), Size = UDim2.new(1, -70, 0, 14), Text = sub, TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
-	local sw = new("TextButton", { AnchorPoint = Vector2.new(1, 0.5), Position = UDim2.new(1, -10, 0.5, 0), Size = UDim2.fromOffset(42, 22), BackgroundColor3 = C.card2, Text = "", AutoButtonColor = false, ZIndex = 4 }, f)
-	round(sw, 11)
-	local knob = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(16, 16), BackgroundColor3 = C.text, ZIndex = 5 }, sw)
-	round(knob, 8)
+	local f = card(pg, 44)
+	label(f, { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -80, 0, 16), Text = txt, Font = Enum.Font.GothamBold, ZIndex = 4 })
+	label(f, { Position = UDim2.fromOffset(12, 22), Size = UDim2.new(1, -80, 0, 14), Text = sub, TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
+	local sw = new("TextButton", { AnchorPoint = Vector2.new(1, 0.5), Position = UDim2.new(1, -12, 0.5, 0), Size = UDim2.fromOffset(46, 24), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 4 }, f)
+	round(sw, 12)
+	local g = neon(sw, 0)
+	local knob = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(18, 18), BackgroundColor3 = C.text, ZIndex = 5 }, sw)
+	round(knob, 9)
 	local function refresh()
 		local v = get()
-		tw(sw, 0.2, { BackgroundColor3 = v and C.green or C.card2 })
-		tw(knob, 0.2, { Position = UDim2.fromOffset(v and 23 or 3, 3) })
+		g.Enabled = v
+		tw(sw, 0.2, { BackgroundColor3 = v and Color3.new(1, 1, 1) or C.card2 })
+		tw(knob, 0.3, { Position = UDim2.fromOffset(v and 25 or 3, 3) }, Enum.EasingStyle.Back)
 	end
 	on(sw.MouseButton1Click, function() set(not get()) refresh() save() end)
 	refresh()
@@ -334,10 +429,18 @@ local refreshPoints
 local function makeMarker(i)
 	local p = S.points[i]
 	local o0 = gui.AbsolutePosition
-	local m = new("TextButton", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(p[1] - o0.X, p[2] - o0.Y), Size = UDim2.fromOffset(40, 40), BackgroundColor3 = C.a1, BackgroundTransparency = 0.75, Text = tostring(i), Font = Enum.Font.GothamBlack, TextSize = 14, TextColor3 = C.text, AutoButtonColor = false, ZIndex = 15 }, gui)
-	round(m, 20)
-	stroke(m, C.a1, 0, 2)
-	new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(4, 4), BackgroundColor3 = C.red, ZIndex = 16 }, m)
+	local m = new("TextButton", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(p[1] - o0.X, p[2] - o0.Y), Size = UDim2.fromOffset(46, 46), BackgroundTransparency = 1, Text = "", AutoButtonColor = false, ZIndex = 15 }, gui)
+	local ring = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(38, 38), BackgroundColor3 = C.a1, BackgroundTransparency = 0.85, ZIndex = 15 }, m)
+	round(ring, 999)
+	spin(new("UIGradient", { Color = NEON_LOOP }, stroke(ring, C.a1, 0, 2)), 120)
+	for _, sz in ipairs({ { 2, 14 }, { 14, 2 } }) do
+		new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(sz[1], sz[2]), BackgroundColor3 = C.text, BorderSizePixel = 0, ZIndex = 16 }, m)
+	end
+	local dot = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(4, 4), BackgroundColor3 = C.red, ZIndex = 17 }, m)
+	round(dot, 2)
+	local badge = label(m, { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(1, -4, 0, 4), Size = UDim2.fromOffset(18, 18), BackgroundTransparency = 0, BackgroundColor3 = C.bg, Text = tostring(i), Font = Enum.Font.GothamBlack, TextSize = 10, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 18 })
+	round(badge, 9)
+	neon(stroke(badge, C.a1, 0, 1.5))
 	draggable(m, m, function()
 		S.points[i] = { math.floor(m.AbsolutePosition.X + m.AbsoluteSize.X / 2), math.floor(m.AbsolutePosition.Y + m.AbsoluteSize.Y / 2) }
 		save()
@@ -382,7 +485,7 @@ local function startClicker()
 	if #S.points == 0 then addPoint() end
 	R.running, R.acc, R.clicks, R.t0, R.idx = true, 0, 0, os.clock(), 1
 	setMarkersVisible(false) -- markers are buttons: hide them so clicks reach the game
-	if S.hidePanel then panel.Visible = false end
+	if S.hidePanel then setPanel(false) end
 	if S.hold then
 		local p = S.points[1]
 		pcall(method(p[1], p[2]).press, p[1], p[2], true)
@@ -455,7 +558,7 @@ local function startRecord()
 	if R.running then stopClicker() end
 	if MC.playing then return end
 	MC.steps, MC.recording, MC.lastT = {}, true, os.clock()
-	panel.Visible = false
+	setPanel(false)
 	toast("● REC  tap / swipe / type. Tap ■ to stop", C.red, 3)
 	if refreshMacro then refreshMacro() end
 end
@@ -464,7 +567,7 @@ local function stopRecord()
 	MC.recording = false
 	-- drop a trailing tap on our own stop button and keep the file
 	saveMacro()
-	panel.Visible = true
+	setPanel(true)
 	toast(string.format("Saved %d steps (%.1fs) to slot %d", #MC.steps, macroLen(), S.slot), C.green, 3)
 	if refreshMacro then refreshMacro() end
 end
@@ -481,7 +584,7 @@ local function playMacro()
 	if #MC.steps == 0 then toast("Slot " .. S.slot .. " is empty: record first", C.amber) return end
 	if R.running then stopClicker() end
 	MC.playing, MC.loopN = true, 0
-	if S.hidePanel then panel.Visible = false end
+	if S.hidePanel then setPanel(false) end
 	setMarkersVisible(false)
 	if refreshMacro then refreshMacro() end
 	task.spawn(function()
@@ -540,7 +643,7 @@ on(UIS.InputBegan, function(i, gp)
 	if picking then
 		picking = false
 		addPoint(x, y)
-		panel.Visible = true
+		setPanel(true)
 		toast("Point " .. #S.points .. " placed", C.green)
 		return
 	end
@@ -575,8 +678,8 @@ end)
 -- ================= self test: calibrate offsets, then check which methods really hit =================
 local function selfTest()
 	if R.running or MC.playing then toast("Stop first", C.amber) return end
-	local wasVis = panel.Visible
-	panel.Visible = false
+	local wasVis = panelOpen
+	setPanel(false, true)
 	calibrate()
 	local tgt = new("TextButton", { Position = UDim2.fromOffset(300, 120), Size = UDim2.fromOffset(120, 60), BackgroundColor3 = C.amber, Text = "TEST", Font = Enum.Font.GothamBlack, TextSize = 18, ZIndex = 40 }, gui)
 	round(tgt, 12)
@@ -598,23 +701,53 @@ local function selfTest()
 	end
 	c:Disconnect()
 	tgt:Destroy()
-	panel.Visible = wasVis
+	setPanel(wasVis)
 	results[#results + 1] = "UI " .. (inputs.UI.ok() and "✓" or "✗")
 	toast(best and ("Ready: " .. table.concat(results, "  ")) or "Screen taps blocked here: use UI or Tool", best and C.green or C.red, 4)
 	return best, results
 end
 
 -- ================= pages =================
-local clickPg = addTab("CLICK")
-local macroPg = addTab("MACRO")
-local morePg = addTab("MORE")
+local clickPg = addTab("CLICK", "⚡")
+local macroPg = addTab("MACRO", "⏺")
+local morePg = addTab("MORE", "⚙")
 
--- CLICK
-local mainCard = card(clickPg, 70)
-local bigBtn = btn(mainCard, "START", 8, 8, 120, 54, C.green)
-bigBtn.Font = Enum.Font.GothamBlack bigBtn.TextSize = 18 bigBtn.TextColor3 = C.bg
-local statL = label(mainCard, { Position = UDim2.fromOffset(138, 8), Size = UDim2.new(1, -146, 0, 54), Text = "", TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4 })
-on(bigBtn.MouseButton1Click, toggleClicker)
+-- CLICK: hero card = power button + live stats + speed graph
+local hero = card(clickPg, 118)
+local power = new("TextButton", { Position = UDim2.fromOffset(10, 12), Size = UDim2.fromOffset(92, 92), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 4 }, hero)
+round(power, 999)
+local powerG = spin(new("UIGradient", { Color = ColorSequence.new(C.green, Color3.fromRGB(0, 200, 255)) }, power), 140, function() return R.running end)
+local powerCore = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -8, 1, -8), BackgroundColor3 = C.bg, ZIndex = 5 }, power)
+round(powerCore, 999)
+local powerIcon = label(powerCore, { Position = UDim2.fromScale(0, 0.14), Size = UDim2.new(1, 0, 0.45, 0), Text = "⏻", Font = Enum.Font.GothamBlack, TextSize = 30, TextColor3 = C.green, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
+local powerTxt = label(powerCore, { Position = UDim2.fromScale(0, 0.6), Size = UDim2.new(1, 0, 0.2, 0), Text = "START", Font = Enum.Font.GothamBlack, TextSize = 12, TextColor3 = C.text, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
+local powerScale = new("UIScale", {}, power)
+on(power.InputBegan, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then tw(powerScale, 0.08, { Scale = 0.92 }) end end)
+on(power.InputEnded, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then tw(powerScale, 0.35, { Scale = 1 }, Enum.EasingStyle.Back) end end)
+on(power.MouseButton1Click, toggleClicker)
+local bigBtn = power
+local function tile(x, w, cap)
+	local t = new("Frame", { Position = UDim2.fromOffset(x, 12), Size = UDim2.fromOffset(w, 40), BackgroundColor3 = C.card2, ZIndex = 4 }, hero)
+	round(t, 10)
+	label(t, { Position = UDim2.fromOffset(8, 3), Size = UDim2.new(1, -10, 0, 12), Text = cap, Font = Enum.Font.GothamBlack, TextSize = 8, TextColor3 = C.sub, ZIndex = 5 })
+	return label(t, { Position = UDim2.fromOffset(8, 15), Size = UDim2.new(1, -10, 0, 22), Text = "0", Font = Enum.Font.GothamBlack, TextSize = 18, ZIndex = 5 })
+end
+local tCps = tile(112, 92, "LIVE CPS")
+neon(tCps, 0)
+local tClicks = tile(210, 96, "CLICKS")
+local graph = new("Frame", { Position = UDim2.fromOffset(112, 58), Size = UDim2.fromOffset(194, 34), BackgroundColor3 = C.card2, ClipsDescendants = true, ZIndex = 4 }, hero)
+round(graph, 8)
+local BARS = 32
+local bars = {}
+for k = 1, BARS do
+	local b = new("Frame", { AnchorPoint = Vector2.new(0, 1), Position = UDim2.new(0, 3 + (k - 1) * 6, 1, -3), Size = UDim2.fromOffset(4, 1), BackgroundColor3 = Color3.new(1, 1, 1), BorderSizePixel = 0, ZIndex = 5 }, graph)
+	round(b, 2)
+	grad(b, C.a2, C.a1, -90)
+	bars[k] = b
+end
+local graphHist = {}
+for k = 1, BARS do graphHist[k] = 0 end
+local statL = label(hero, { Position = UDim2.fromOffset(112, 96), Size = UDim2.fromOffset(194, 14), Text = "", TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
 
 title(clickPg, "SPEED  (clicks per second)")
 local spd = card(clickPg, 62)
@@ -663,7 +796,7 @@ refreshPoints = function()
 	ptL.Text = string.format("%d point%s · drag the circles to move them", #S.points, #S.points == 1 and "" or "s")
 end
 on(bAdd.MouseButton1Click, function() addPoint() end)
-on(bPick.MouseButton1Click, function() picking = true panel.Visible = false toast("Tap where you want the point", C.a1, 3) end)
+on(bPick.MouseButton1Click, function() picking = true setPanel(false) toast("Tap where you want the point", C.a1, 3) end)
 on(bDel.MouseButton1Click, function() S.points[#S.points] = nil rebuildMarkers() refreshPoints() save() end)
 on(bClr.MouseButton1Click, function() S.points = {} rebuildMarkers() refreshPoints() save() end)
 chips(clickPg, "With several points", { { "One by one", "Cycle" }, { "All at once", "All" } }, function() return S.mode end, function(v) S.mode = v end)
@@ -759,11 +892,11 @@ end)
 label(card(morePg, 40), { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 1, -8), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, ZIndex = 4, Text = "PC keys:  F6 clicker on/off  ·  F7 play/stop macro  ·  F8 record/stop" })
 
 -- ================= panel / fab behaviour =================
-on(minB.MouseButton1Click, function() panel.Visible = false end)
+on(minB.MouseButton1Click, function() setPanel(false) end)
 on(fab.MouseButton1Click, function()
 	if fabDrag.moved then return end
 	if MC.recording then stopRecord() return end
-	panel.Visible = not panel.Visible
+	setPanel(not panelOpen)
 end)
 on(play.MouseButton1Click, function()
 	if MC.recording then stopRecord() return end
@@ -773,8 +906,9 @@ end)
 
 refreshMain = function()
 	local busyRun = R.running or MC.playing
-	bigBtn.Text = R.running and "STOP" or "START"
-	bigBtn.BackgroundColor3 = R.running and C.red or C.green
+	powerTxt.Text = R.running and "STOP" or "START"
+	powerIcon.TextColor3 = R.running and C.red or C.green
+	powerG.Color = R.running and ColorSequence.new(C.red, C.a3) or ColorSequence.new(C.green, Color3.fromRGB(0, 200, 255))
 	play.Text = (busyRun or MC.recording) and "■" or "▶"
 	play.BackgroundColor3 = (busyRun or MC.recording) and C.red or C.green
 end
@@ -789,24 +923,70 @@ on(lp.Idled, function()
 	end)
 end)
 
+-- animations: spinning neon gradients + title shimmer (one cheap loop)
+on(RunService.RenderStepped, function(dt)
+	local open = panel.Visible
+	for k = #spinners, 1, -1 do
+		if not spinners[k].g.Parent then table.remove(spinners, k) end
+	end
+	for _, sp in ipairs(spinners) do
+		if (not sp.w) or sp.w() then
+			if open or sp.g:IsDescendantOf(fab) or sp.g:IsDescendantOf(toastF) then sp.g.Rotation = (sp.g.Rotation + sp.s * dt) % 360 end
+		end
+	end
+	if open then titleG.Offset = Vector2.new(math.sin(os.clock() * 1.4) * 0.35, 0) end
+end)
+
+local function short(n)
+	if n >= 1e6 then return string.format("%.1fM", n / 1e6) end
+	if n >= 1e4 then return string.format("%.1fK", n / 1e3) end
+	return tostring(n)
+end
+
 -- ================= status loop (4x a second, cheap) =================
 task.spawn(function()
 	local pulse = 0
 	while alive do
-		-- live CPS from the last second
 		local now, h, sum = os.clock(), R.hist, 0
 		local keep = {}
 		for _, e in ipairs(h) do if now - e[1] <= 1 then keep[#keep + 1] = e sum = sum + e[2] end end
 		R.hist = keep
 		R.cps = R.running and sum or 0
 		local el = R.running and (now - R.t0) or 0
-		statL.Text = string.format("%s\n%d clicks  ·  %d CPS live\n%d:%02d  ·  %s", R.running and (R.holding and "HOLDING" or "CLICKING") or "stopped", R.clicks, R.cps, math.floor(el / 60), math.floor(el % 60), (R.running and lastMethod or S.method))
-		if R.running then pill.Text = R.holding and "HOLD" or (R.cps .. " CPS") pill.TextColor3 = C.green
-		elseif MC.playing then pill.Text = "MACRO" pill.TextColor3 = C.a1
-		elseif MC.recording then pill.Text = "● REC" pill.TextColor3 = C.red
-		else pill.Text = "IDLE" pill.TextColor3 = C.sub end
+		tCps.Text = R.holding and "HOLD" or short(R.cps)
+		tClicks.Text = short(R.clicks)
+		statL.Text = string.format("%d:%02d  ·  %s  ·  target %d/s", math.floor(el / 60), math.floor(el % 60), R.running and lastMethod or S.method, S.cps)
+		-- graph
+		table.remove(graphHist, 1)
+		graphHist[BARS] = R.cps
+		local top = math.max(10, S.cps)
+		for k = 1, BARS do
+			local v = graphHist[k]
+			bars[k].Size = UDim2.fromOffset(4, math.max(1, math.floor(math.min(v / top, 1) * 28)))
+			bars[k].BackgroundTransparency = v > 0 and 0 or 0.7
+		end
+		local col, txt
+		if R.running then txt, col = R.holding and "● HOLD" or ("● " .. short(R.cps) .. "/s"), C.green
+		elseif MC.playing then txt, col = "▶ MACRO", C.a1
+		elseif MC.recording then txt, col = "● REC", C.red
+		elseif picking then txt, col = "◎ PLACE", C.amber
+		else txt, col = "IDLE", C.sub end
+		pill.Text, pill.TextColor3, pillStroke.Color = txt, col, col
 		pulse = pulse + 1
-		fabRing.Thickness = (R.running or MC.playing or MC.recording) and (pulse % 2 == 0 and 3 or 2) or 2
+		local active = R.running or MC.playing or MC.recording
+		if active then
+			fabPulse.Size = UDim2.fromScale(1, 1)
+			fabPulseS.Transparency = 0.1
+			fabPulseS.Color = col
+			tw(fabPulse, 0.24, { Size = UDim2.fromScale(1.45, 1.45) })
+			tw(fabPulseS, 0.24, { Transparency = 1 })
+			fabIcon.Text = R.running and short(R.cps) or (MC.recording and "●" or "▶")
+			fabIcon.TextSize = R.running and 15 or 20
+			fabIcon.TextColor3 = col
+			fabSub.Text = R.running and "CPS" or (MC.recording and "REC" or "MACRO")
+		else
+			fabIcon.Text, fabIcon.TextSize, fabIcon.TextColor3, fabSub.Text = "⚡", 20, C.text, "AFG"
+		end
 		if MC.playing then refreshMacro() end
 		refreshMain()
 		if pulse % 8 == 0 then flush() end
