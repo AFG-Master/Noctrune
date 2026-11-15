@@ -441,6 +441,19 @@ local function doThrow()
 	if training() then pcall(TR.Stop) waitIdle(6) task.wait(1) end
 	if busy() ~= "Throw" then
 		if busy() then return false end
+		-- the game only lets you throw from the start area: walk back there first (after training)
+		local start = workspace:FindFirstChild("StarterArea")
+		local ch = lp.Character
+		local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+		local hrp = ch and ch:FindFirstChild("HumanoidRootPart")
+		if start and hum and hrp and (hrp.Position - start.Position).Magnitude > 14 then
+			ST.phase = "walking to start"
+			hum:MoveTo(start.Position)
+			local t0 = os.clock()
+			while alive and (hrp.Position - start.Position).Magnitude > 10 and os.clock() - t0 < 6 do task.wait(0.1) end
+			if (hrp.Position - start.Position).Magnitude > 14 then hrp.CFrame = start.CFrame + Vector3.new(0, 4, 0) task.wait(0.3) end
+		end
+		if busy() then return false end
 		task.spawn(TC.Start)
 		local t0 = os.clock()
 		while alive and busy() ~= "Throw" and os.clock() - t0 < 4 do task.wait(0.1) end
@@ -534,9 +547,8 @@ local function bonusButton()
 	end
 end
 local function pressGui(b)
-	local ok = false
-	if firesignal then ok = pcall(firesignal, b.Activated) end
-	if not ok and VIM then
+	-- a real touch on the button, so the game's own code runs in the game's own thread
+	if VIM then
 		local c = b.AbsolutePosition + b.AbsoluteSize / 2
 		pcall(function()
 			VIM:SendTouchEvent(42, 0, c.X + OFF[1], c.Y + OFF[2])
