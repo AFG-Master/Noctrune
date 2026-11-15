@@ -522,7 +522,7 @@ new("UIStroke", { Color = C.bg, Thickness = 3, Transparency = 0.2 }, cdLabel)
 -- ================= quiet mode: no game click sounds / vibration while running =================
 -- Many games play a sound and buzz the phone on every button press. At hundreds of clicks per
 -- second that heats the phone and lags. While the clicker or a macro runs we swallow those calls.
-local QUIET = { active = false, installed = false }
+local QUIET = { active = false, installed = false, sfx = 0, vibe = 0 }
 local function installQuiet()
 	if QUIET.installed then return true end
 	if not (hookmetamethod and newcclosure and getnamecallmethod and checkcaller) then return false end
@@ -530,7 +530,9 @@ local function installQuiet()
 	local function blocked(self)
 		if typeof(self) ~= "Instance" then return false end
 		local cn = self.ClassName
-		return (cn == "Sound" and S.muteSfx) or (cn == "HapticEffect" and S.noVibe)
+		if cn == "Sound" and S.muteSfx then QUIET.sfx = QUIET.sfx + 1 return true end
+		if cn == "HapticEffect" and S.noVibe then QUIET.vibe = QUIET.vibe + 1 return true end
+		return false
 	end
 	local old
 	old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
@@ -538,7 +540,7 @@ local function installQuiet()
 			local m = getnamecallmethod()
 			if m == "Play" or m == "PlayLocalSound" or m == "SetMotor" then
 				if not checkcaller() then
-					if m == "SetMotor" then if S.noVibe then return end
+					if m == "SetMotor" then if S.noVibe then QUIET.vibe = QUIET.vibe + 1 return end
 					elseif m == "PlayLocalSound" then if S.muteSfx then return end
 					elseif blocked(self) then return end
 				end
@@ -1400,7 +1402,7 @@ showTab("CLICK")
 refreshMain()
 task.delay(0.5, function() if alive then calibrate() end end)
 
-genv.AFGC = { S = S, R = R, MC = MC, start = startClicker, stop = stopClicker, selfTest = selfTest, play = playMacro, stopMacro = stopMacro, inputs = inputs }
+genv.AFGC = { S = S, R = R, MC = MC, Q = QUIET, start = startClicker, stop = stopClicker, selfTest = selfTest, play = playMacro, stopMacro = stopMacro, inputs = inputs }
 genv.AFGC_STOP = function()
 	alive = false
 	QUIET.active = false
