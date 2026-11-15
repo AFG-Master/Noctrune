@@ -15,6 +15,7 @@ local SCRIPTS = {
 	{ name = "3008 Helper", place = 2768379856, url = BASE .. "Noctrune/main/scripts/h3008.lua" },
 	{ name = "Egg Loop Helper", place = 125177095586059, url = BASE .. "Noctrune/main/scripts/egg_loop.lua" },
 	{ name = "OP Pasahero", place = 78175233789962, url = BASE .. "Noctrune/main/scripts/pasahero.lua" },
+	{ name = "AFG Clicker (any game)", url = BASE .. "Noctrune/main/scripts/clicker.lua" },
 	{ name = "Timber Hub Fusion (Chop A Forest)", url = BASE .. "Noctrune/main/scripts/gem_hub.lua" },
 	{ name = "Chop A Forest", url = BASE .. "Noctrune/main/scripts/chop_a_forest.lua" },
 	{ name = "Don't Splash", url = BASE .. "Noctrune/main/scripts/dont_splash.lua" },
