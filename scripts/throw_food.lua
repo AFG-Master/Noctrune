@@ -1,7 +1,7 @@
 -- Throw Food Helper · auto farm for "Throw Food For Animals"
 -- Plays the game through its own controls: real meter taps at PERFECT, walks to your own
 -- pull-up bar to train, taps the training bonus targets, and buys with in-game money only.
-local VERSION = "v1.2"
+local VERSION = "v2.0"
 local genv = (getgenv and getgenv()) or _G
 if genv.TFH_STOP then pcall(genv.TFH_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -24,7 +24,7 @@ local MB1, TOUCH, MOVE = Enum.UserInputType.MouseButton1, Enum.UserInputType.Tou
 -- ================= settings =================
 local DIR = "AFGThrowFood"
 local S = {
-	farm = false, mode = "cycle", cycleThrows = 3, cycleTrain = 60, autoEquip = true, tapBonus = true,
+	farm = false, mode = "smart", hunt = false, smartLevels = 25, cycleThrows = 3, cycleTrain = 60, autoEquip = true, tapBonus = true,
 	autoFood = true, autoStand = true, autoOffline = true, reserve = 0, antiAfk = true, target = 0.955,
 	autoFence = true, autoClaims = true, fastReveal = true, sellExtras = false, keepSpare = 4,
 }
@@ -45,15 +45,15 @@ local function flush()
 	end)
 end
 
--- ================= GUI kit (neon glass) =================
+-- ================= GUI kit v2: sunset glass with a side rail =================
 local C = {
-	bg = Color3.fromRGB(9, 10, 18), glass = Color3.fromRGB(14, 16, 28), card = Color3.fromRGB(20, 23, 40), card2 = Color3.fromRGB(30, 34, 58),
-	line = Color3.fromRGB(48, 54, 90), text = Color3.fromRGB(244, 246, 255), sub = Color3.fromRGB(132, 140, 182),
-	a1 = Color3.fromRGB(0, 230, 255), a2 = Color3.fromRGB(150, 90, 255), a3 = Color3.fromRGB(255, 70, 200),
-	green = Color3.fromRGB(30, 240, 150), red = Color3.fromRGB(255, 64, 104), amber = Color3.fromRGB(255, 196, 64),
+	bg = Color3.fromRGB(14, 12, 20), glass = Color3.fromRGB(20, 17, 28), card = Color3.fromRGB(30, 25, 40), card2 = Color3.fromRGB(42, 35, 56),
+	line = Color3.fromRGB(70, 58, 90), text = Color3.fromRGB(255, 248, 240), sub = Color3.fromRGB(176, 160, 190),
+	a1 = Color3.fromRGB(255, 166, 64), a2 = Color3.fromRGB(255, 84, 132), a3 = Color3.fromRGB(255, 222, 96),
+	green = Color3.fromRGB(70, 236, 140), red = Color3.fromRGB(255, 72, 100), amber = Color3.fromRGB(255, 196, 64), blue = Color3.fromRGB(90, 200, 255),
 }
-local NEON = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.a1), ColorSequenceKeypoint.new(0.5, C.a2), ColorSequenceKeypoint.new(1, C.a3) })
-local NEON_LOOP = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.a1), ColorSequenceKeypoint.new(0.33, C.a2), ColorSequenceKeypoint.new(0.66, C.a3), ColorSequenceKeypoint.new(1, C.a1) })
+local NEON = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.a3), ColorSequenceKeypoint.new(0.5, C.a1), ColorSequenceKeypoint.new(1, C.a2) })
+local NEON_LOOP = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.a3), ColorSequenceKeypoint.new(0.33, C.a1), ColorSequenceKeypoint.new(0.66, C.a2), ColorSequenceKeypoint.new(1, C.a3) })
 local function new(cls, props, parent)
 	local o = Instance.new(cls)
 	for k, v in pairs(props or {}) do o[k] = v end
@@ -70,7 +70,6 @@ local function label(parent, props)
 	for k, v in pairs(props or {}) do l[k] = v end
 	return l
 end
--- spinning gradients (borders, rings): one RenderStepped for all of them
 local spinners = {}
 local function spin(g, speed, onlyWhen) spinners[#spinners + 1] = { g = g, s = speed, w = onlyWhen } return g end
 
@@ -79,18 +78,18 @@ pcall(function() gui.ScreenInsets = Enum.ScreenInsets.None end)
 pcall(function() gui.Parent = (gethui and gethui()) or game:GetService("CoreGui") end)
 if not gui.Parent then gui.Parent = lp:WaitForChild("PlayerGui") end
 
--- toast: slides in from the top with an accent bar
-local toastF = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, -50), Size = UDim2.fromOffset(320, 34), BackgroundColor3 = C.glass, BackgroundTransparency = 0.05, ZIndex = 60, Visible = false }, gui)
+-- toast: a pill that drops from the top
+local toastF = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, -50), Size = UDim2.fromOffset(300, 34), BackgroundColor3 = C.glass, ZIndex = 60, Visible = false }, gui)
 round(toastF, 17)
-spin(neon(stroke(toastF, C.a1, 0.1, 1.5)), 120)
-local toastBar = new("Frame", { Position = UDim2.fromOffset(8, 9), Size = UDim2.fromOffset(4, 16), BackgroundColor3 = C.a1, ZIndex = 61 }, toastF)
-round(toastBar, 2)
-local toastLbl = label(toastF, { Position = UDim2.fromOffset(20, 0), Size = UDim2.new(1, -28, 1, 0), Font = Enum.Font.GothamBold, TextSize = 12, ZIndex = 61, TextTruncate = Enum.TextTruncate.AtEnd })
+spin(neon(stroke(toastF, C.a1, 0.05, 1.5)), 120)
+local toastIco = label(toastF, { Position = UDim2.fromOffset(8, 0), Size = UDim2.fromOffset(24, 34), Text = "🍖", TextSize = 16, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 61 })
+local toastLbl = label(toastF, { Position = UDim2.fromOffset(34, 0), Size = UDim2.new(1, -42, 1, 0), Font = Enum.Font.GothamBold, TextSize = 12, ZIndex = 61, TextTruncate = Enum.TextTruncate.AtEnd })
 local toastId = 0
 local function toast(msg, col, secs)
 	toastId = toastId + 1
 	local my = toastId
-	toastLbl.Text = msg toastBar.BackgroundColor3 = col or C.a1
+	toastLbl.Text = msg
+	toastLbl.TextColor3 = col or C.text
 	toastF.Visible = true
 	tw(toastF, 0.35, { Position = UDim2.new(0.5, 0, 0, 10) }, Enum.EasingStyle.Back)
 	task.delay(secs or 2, function()
@@ -99,8 +98,6 @@ local function toast(msg, col, secs)
 		task.delay(0.32, function() if toastId == my then toastF.Visible = false end end)
 	end)
 end
-
--- dragging that works for mouse and touch
 local function draggable(handle, target, onEnd)
 	local st = { input = nil, moved = false }
 	on(handle.InputBegan, function(i)
@@ -124,8 +121,6 @@ local function draggable(handle, target, onEnd)
 	end)
 	return st
 end
-
--- ripple on press (clipped inside the button)
 local function ripple(b, i)
 	local p = i and i.Position or (b.AbsolutePosition + b.AbsoluteSize / 2)
 	local r = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(p.X - b.AbsolutePosition.X, p.Y - b.AbsolutePosition.Y), Size = UDim2.fromOffset(0, 0), BackgroundColor3 = Color3.new(1, 1, 1), BackgroundTransparency = 0.7, ZIndex = b.ZIndex + 1 }, b)
@@ -135,53 +130,72 @@ local function ripple(b, i)
 	task.delay(0.5, function() r:Destroy() end)
 end
 
--- ================= floating orb =================
-local fab = new("TextButton", { Name = "Fab", AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(0, 50, 0.5, -30), Size = UDim2.fromOffset(58, 58), BackgroundColor3 = C.a1, Text = "", AutoButtonColor = false, ZIndex = 20 }, gui)
-round(fab, 29)
-local fabGrad = spin(new("UIGradient", { Color = NEON_LOOP }, fab), 90)
-local fabPulse = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, ZIndex = 19 }, fab)
-round(fabPulse, 999)
-local fabPulseS = stroke(fabPulse, C.a1, 1, 2)
-local fabCore = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -6, 1, -6), BackgroundColor3 = C.bg, ZIndex = 21 }, fab)
-round(fabCore, 999)
-local fabIcon = label(fabCore, { Size = UDim2.new(1, 0, 0.62, 0), Position = UDim2.fromScale(0, 0.06), Text = "🍖", Font = Enum.Font.GothamBlack, TextSize = 20, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 22 })
-local fabSub = label(fabCore, { Size = UDim2.new(1, 0, 0.3, 0), Position = UDim2.fromScale(0, 0.62), Text = "FOOD", Font = Enum.Font.GothamBlack, TextSize = 9, TextColor3 = C.sub, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 22 })
-local fabRing = fabPulseS
-local play = new("TextButton", { Name = "Play", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 1, 7), Size = UDim2.fromOffset(46, 24), BackgroundColor3 = C.green, Text = "▶", Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = C.bg, AutoButtonColor = false, ZIndex = 21 }, fab)
+-- ================= floating orb (rounded square) =================
+local fab = new("TextButton", { Name = "Fab", AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(0, 48, 0.5, -36), Size = UDim2.fromOffset(56, 56), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 20 }, gui)
+round(fab, 18)
+spin(new("UIGradient", { Color = NEON_LOOP }, fab), 80)
+local fabCore = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -5, 1, -5), BackgroundColor3 = C.bg, ZIndex = 21 }, fab)
+round(fabCore, 15)
+local fabIcon = label(fabCore, { Size = UDim2.new(1, 0, 0.66, 0), Position = UDim2.fromScale(0, 0.04), Text = "🍖", TextSize = 22, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 22 })
+local fabSub = label(fabCore, { Size = UDim2.new(1, 0, 0.3, 0), Position = UDim2.fromScale(0, 0.64), Text = "FOOD", Font = Enum.Font.GothamBlack, TextSize = 9, TextColor3 = C.sub, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 22 })
+local fabDot = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.new(1, -4, 0, 4), Size = UDim2.fromOffset(12, 12), BackgroundColor3 = C.sub, ZIndex = 23 }, fab)
+round(fabDot, 6)
+stroke(fabDot, C.bg, 0, 2)
+local play = new("TextButton", { Name = "Play", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 1, 7), Size = UDim2.fromOffset(50, 24), BackgroundColor3 = C.green, Text = "▶", Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = C.bg, AutoButtonColor = false, ZIndex = 21 }, fab)
 round(play, 12)
-stroke(play, Color3.new(1, 1, 1), 0.7, 1)
 local fabDrag = draggable(fab, fab)
 
--- ================= panel =================
+-- ================= panel: side rail + content =================
 local holder = new("Frame", { BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), ZIndex = 1 }, gui)
 local uiScale = new("UIScale", {}, holder)
-local W, H = 340, 300
-local panel = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(W, H), BackgroundColor3 = C.glass, BackgroundTransparency = 1, Visible = true, ZIndex = 2 }, holder)
-round(panel, 20)
+local W, H = 392, 268
+local RAIL = 62
+local panel = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromOffset(W, H), BackgroundTransparency = 1, ZIndex = 2 }, holder)
 local popScale = new("UIScale", { Scale = 1 }, panel)
--- glow halo (stacked soft frames, cheap)
-for k, t in ipairs({ 0.86, 0.92, 0.96 }) do
-	local g = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, k * 10, 1, k * 10), BackgroundColor3 = C.a2, BackgroundTransparency = t, ZIndex = 1 }, panel)
-	round(g, 20 + k * 5)
-	neon(g, 45)
+for k, t in ipairs({ 0.88, 0.94 }) do
+	local g = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, k * 12, 1, k * 12), BackgroundColor3 = C.a2, BackgroundTransparency = t, ZIndex = 1 }, panel)
+	round(g, 22 + k * 6)
+	neon(g, 30)
 end
-local bodyBg = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.glass, BackgroundTransparency = 0.02, ZIndex = 2 }, panel)
-round(bodyBg, 20)
--- inner sheen
-local sheen = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1), BackgroundTransparency = 0.96, ZIndex = 2 }, panel)
-round(sheen, 20)
-new("UIGradient", { Rotation = 90, Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.4, 0.9), NumberSequenceKeypoint.new(1, 1) }) }, sheen)
-local panelBorder = stroke(panel, C.a1, 0, 1.6)
-spin(new("UIGradient", { Color = NEON_LOOP }, panelBorder), 60)
+local bodyBg = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.glass, ZIndex = 2 }, panel)
+round(bodyBg, 22)
+new("UIGradient", { Rotation = 90, Color = ColorSequence.new(Color3.fromRGB(34, 26, 40), C.glass) }, bodyBg)
+spin(new("UIGradient", { Color = NEON_LOOP }, stroke(panel, C.a1, 0, 1.6)), 50)
+-- rail
+local rail = new("Frame", { Size = UDim2.new(0, RAIL, 1, 0), BackgroundColor3 = C.bg, BackgroundTransparency = 0.15, ZIndex = 3 }, panel)
+round(rail, 22)
+new("Frame", { Position = UDim2.new(1, -12, 0, 0), Size = UDim2.new(0, 12, 1, 0), BackgroundColor3 = C.bg, BackgroundTransparency = 0.15, BorderSizePixel = 0, ZIndex = 3 }, rail)
+local logo = new("Frame", { AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 10), Size = UDim2.fromOffset(40, 40), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 4 }, rail)
+round(logo, 13)
+spin(new("UIGradient", { Color = NEON_LOOP }, logo), 70)
+local logoIn = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -4, 1, -4), BackgroundColor3 = C.bg, ZIndex = 5 }, logo)
+round(logoIn, 11)
+label(logoIn, { Size = UDim2.fromScale(1, 1), Text = "🍖", TextSize = 20, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
+local railInd = new("Frame", { Position = UDim2.fromOffset(4, 62), Size = UDim2.fromOffset(4, 30), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 6 }, rail)
+round(railInd, 2) neon(railInd, 90)
+local railGlow = new("Frame", { Position = UDim2.fromOffset(10, 60), Size = UDim2.fromOffset(42, 34), BackgroundColor3 = C.a1, BackgroundTransparency = 0.82, ZIndex = 4 }, rail)
+round(railGlow, 10)
+local closeB = new("TextButton", { AnchorPoint = Vector2.new(0.5, 1), Position = UDim2.new(0.5, 0, 1, -10), Size = UDim2.fromOffset(34, 26), BackgroundColor3 = C.card, Text = "✕", Font = Enum.Font.GothamBlack, TextSize = 12, TextColor3 = C.red, AutoButtonColor = false, ZIndex = 5 }, rail)
+round(closeB, 9)
+-- header
+local head = new("TextButton", { Position = UDim2.fromOffset(RAIL, 0), Size = UDim2.new(1, -RAIL, 0, 46), BackgroundTransparency = 1, Text = "", AutoButtonColor = false, ZIndex = 3 }, panel)
+local pageTitle = label(head, { Position = UDim2.fromOffset(14, 6), Size = UDim2.fromOffset(170, 20), Text = "HOME", Font = Enum.Font.GothamBlack, TextSize = 17, ZIndex = 4 })
+local titleG = new("UIGradient", { Color = NEON_LOOP }, pageTitle)
+label(head, { Position = UDim2.fromOffset(14, 26), Size = UDim2.fromOffset(200, 14), Text = "Throw Food Helper  ·  " .. VERSION, TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
+local pill = label(head, { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -44, 0, 12), Size = UDim2.fromOffset(96, 22), BackgroundTransparency = 0, BackgroundColor3 = C.card, TextXAlignment = Enum.TextXAlignment.Center, Font = Enum.Font.GothamBlack, TextSize = 10, Text = "IDLE", TextColor3 = C.sub, ZIndex = 4 })
+round(pill, 11)
+local pillStroke = stroke(pill, C.sub, 0.5, 1)
+local minB = new("TextButton", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -12, 0, 12), Size = UDim2.fromOffset(26, 22), BackgroundColor3 = C.card, Text = "–", Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = C.text, AutoButtonColor = false, ZIndex = 4 }, head)
+round(minB, 9)
+draggable(head, panel)
+draggable(logo, panel)
 local function rescale()
 	local vp = workspace.CurrentCamera.ViewportSize
-	uiScale.Scale = math.clamp(math.min(vp.Y / 340, vp.X / 390), 0.7, 1.25)
+	uiScale.Scale = math.clamp(math.min(vp.Y / 300, vp.X / 430), 0.7, 1.25)
 end
 rescale()
 on(workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"), rescale)
-
-local panelOpen = true
-local panelTok = 0
+local panelOpen, panelTok = true, 0
 local function setPanel(v, instant)
 	panelOpen = v
 	panelTok = panelTok + 1
@@ -197,61 +211,36 @@ local function setPanel(v, instant)
 	end
 end
 
--- header
-local head = new("TextButton", { Size = UDim2.new(1, 0, 0, 48), BackgroundTransparency = 1, Text = "", AutoButtonColor = false, ZIndex = 3 }, panel)
-local logo = new("Frame", { Position = UDim2.fromOffset(12, 9), Size = UDim2.fromOffset(32, 32), BackgroundColor3 = C.a1, ZIndex = 4 }, head)
-round(logo, 10)
-spin(new("UIGradient", { Color = NEON_LOOP }, logo), 80)
-local logoIn = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -4, 1, -4), BackgroundColor3 = C.bg, ZIndex = 5 }, logo)
-round(logoIn, 8)
-label(logoIn, { Size = UDim2.fromScale(1, 1), Text = "⚡", Font = Enum.Font.GothamBlack, TextSize = 16, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
-local titleL = label(head, { Position = UDim2.fromOffset(52, 8), Size = UDim2.fromOffset(170, 20), Text = "THROW FOOD", Font = Enum.Font.GothamBlack, TextSize = 16, ZIndex = 4 })
-local titleG = new("UIGradient", { Color = NEON_LOOP }, titleL)
-label(head, { Position = UDim2.fromOffset(52, 27), Size = UDim2.fromOffset(170, 14), Text = "AFG  ·  " .. VERSION .. "  ·  auto farm", TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
-local pill = label(head, { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -76, 0, 13), Size = UDim2.fromOffset(74, 22), BackgroundTransparency = 0, BackgroundColor3 = C.card, TextXAlignment = Enum.TextXAlignment.Center, Font = Enum.Font.GothamBlack, TextSize = 10, Text = "IDLE", TextColor3 = C.sub, ZIndex = 4 })
-round(pill, 11)
-local pillStroke = stroke(pill, C.sub, 0.6, 1)
-local function headBtn(txt, x, col)
-	local b = new("TextButton", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, x, 0, 13), Size = UDim2.fromOffset(26, 22), BackgroundColor3 = C.card, Text = txt, Font = Enum.Font.GothamBlack, TextSize = 13, TextColor3 = col, AutoButtonColor = false, ZIndex = 4 }, head)
-	round(b, 11)
-	stroke(b, col, 0.7, 1)
-	return b
-end
-local minB = headBtn("–", -42, C.text)
-local closeB = headBtn("×", -12, C.red)
-draggable(head, panel)
-new("Frame", { Position = UDim2.new(0, 14, 0, 48), Size = UDim2.new(1, -28, 0, 1), BackgroundColor3 = C.line, BackgroundTransparency = 0.3, BorderSizePixel = 0, ZIndex = 3 }, panel)
-
--- tabs with a sliding neon indicator
-local tabBar = new("Frame", { Position = UDim2.fromOffset(12, 56), Size = UDim2.new(1, -24, 0, 30), BackgroundColor3 = C.card, ZIndex = 3 }, panel)
-round(tabBar, 15)
-stroke(tabBar, C.line, 0.4, 1)
-local indicator = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(76, 24), BackgroundColor3 = C.a1, ZIndex = 4 }, tabBar)
-round(indicator, 12)
-neon(indicator, 0)
-local pages, tabBtns, tabCount, current = {}, {}, 0, nil
+-- pages (one rail icon each)
+local pages, railBtns, tabCount, current = {}, {}, 0, nil
+local CW = W - RAIL - 24 -- content width
 local function showTab(name)
 	local first = current == nil
 	current = name
 	for n, pg in pairs(pages) do
 		if n == name then
 			pg.Visible = true
-			if not first then pg.Position = UDim2.fromOffset(22, 94) tw(pg, 0.3, { Position = UDim2.fromOffset(12, 94) }) end
+			if not first then pg.Position = UDim2.fromOffset(RAIL + 12, 58) tw(pg, 0.3, { Position = UDim2.fromOffset(RAIL + 12, 48) }) end
 		else pg.Visible = false end
 	end
-	for n, b in pairs(tabBtns) do
+	for n, b in pairs(railBtns) do
 		local sel = n == name
-		tw(b, 0.2, { TextColor3 = sel and C.bg or C.sub })
-		if sel then tw(indicator, 0.35, { Position = UDim2.fromOffset(b.Position.X.Offset, 3) }, Enum.EasingStyle.Back) end
+		tw(b, 0.2, { TextTransparency = sel and 0 or 0.45 })
+		if sel then
+			tw(railInd, 0.35, { Position = UDim2.fromOffset(4, b.Position.Y.Offset + 4) }, Enum.EasingStyle.Back)
+			tw(railGlow, 0.35, { Position = UDim2.fromOffset(10, b.Position.Y.Offset + 2) }, Enum.EasingStyle.Back)
+		end
 	end
+	pageTitle.Text = string.upper(name)
 end
 local function addTab(name, icon)
-	local b = new("TextButton", { Position = UDim2.fromOffset(3 + tabCount * 78, 3), Size = UDim2.fromOffset(76, 24), BackgroundTransparency = 1, Text = icon .. " " .. name, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = C.sub, AutoButtonColor = false, ZIndex = 5 }, tabBar)
+	local y = 58 + tabCount * 40
+	local b = new("TextButton", { Position = UDim2.fromOffset(10, y), Size = UDim2.fromOffset(42, 38), BackgroundTransparency = 1, Text = icon, TextSize = 19, TextTransparency = 0.45, Font = Enum.Font.GothamBlack, TextColor3 = C.text, AutoButtonColor = false, ZIndex = 6 }, rail)
 	tabCount = tabCount + 1
-	local pg = new("ScrollingFrame", { Position = UDim2.fromOffset(12, 94), Size = UDim2.new(1, -24, 1, -102), BackgroundTransparency = 1, ScrollBarThickness = 2, ScrollBarImageColor3 = C.a2, CanvasSize = UDim2.new(), AutomaticCanvasSize = Enum.AutomaticSize.Y, BorderSizePixel = 0, Visible = false, ZIndex = 3 }, panel)
+	local pg = new("ScrollingFrame", { Position = UDim2.fromOffset(RAIL + 12, 48), Size = UDim2.new(1, -RAIL - 20, 1, -56), BackgroundTransparency = 1, ScrollBarThickness = 2, ScrollBarImageColor3 = C.a1, CanvasSize = UDim2.new(), AutomaticCanvasSize = Enum.AutomaticSize.Y, BorderSizePixel = 0, Visible = false, ZIndex = 3 }, panel)
 	new("UIListLayout", { Padding = UDim.new(0, 7), SortOrder = Enum.SortOrder.LayoutOrder }, pg)
-	new("UIPadding", { PaddingBottom = UDim.new(0, 6) }, pg)
-	pages[name], tabBtns[name] = pg, b
+	new("UIPadding", { PaddingBottom = UDim.new(0, 6), PaddingRight = UDim.new(0, 4) }, pg)
+	pages[name], railBtns[name] = pg, b
 	on(b.MouseButton1Click, function() showTab(name) end)
 	return pg
 end
@@ -259,32 +248,31 @@ end
 local order = 0
 local function card(pg, h)
 	order = order + 1
-	local f = new("Frame", { Size = UDim2.new(1, -4, 0, h), BackgroundColor3 = C.card, LayoutOrder = order, ZIndex = 3 }, pg)
-	round(f, 12)
+	local f = new("Frame", { Size = UDim2.new(1, 0, 0, h), BackgroundColor3 = C.card, LayoutOrder = order, ZIndex = 3 }, pg)
+	round(f, 13)
 	stroke(f, C.line, 0.55, 1)
 	return f
 end
 local function title(pg, txt)
 	order = order + 1
 	local f = new("Frame", { Size = UDim2.new(1, 0, 0, 16), BackgroundTransparency = 1, LayoutOrder = order, ZIndex = 3 }, pg)
-	local bar = new("Frame", { Position = UDim2.fromOffset(2, 3), Size = UDim2.fromOffset(3, 10), BackgroundColor3 = C.a1, ZIndex = 3 }, f)
-	round(bar, 2) neon(bar, 90)
-	return label(f, { Position = UDim2.fromOffset(10, 0), Size = UDim2.new(1, -10, 1, 0), Text = txt, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = C.sub, ZIndex = 3 })
+	local dot = new("Frame", { Position = UDim2.fromOffset(2, 4), Size = UDim2.fromOffset(8, 8), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 3 }, f)
+	round(dot, 4) neon(dot, 45)
+	return label(f, { Position = UDim2.fromOffset(16, 0), Size = UDim2.new(1, -16, 1, 0), Text = txt, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = C.sub, ZIndex = 3 })
 end
 local function btn(parent, txt, x, y, w, h, col)
 	local b = new("TextButton", { Position = UDim2.fromOffset(x, y), Size = UDim2.fromOffset(w, h), BackgroundColor3 = col or C.card2, Text = txt, Font = Enum.Font.GothamBold, TextSize = 11, TextColor3 = C.text, AutoButtonColor = false, ClipsDescendants = true, ZIndex = 4 }, parent)
-	round(b, 9)
+	round(b, 10)
 	if not col then stroke(b, C.line, 0.4, 1) end
 	local sc = new("UIScale", {}, b)
 	on(b.InputBegan, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then ripple(b, i) tw(sc, 0.08, { Scale = 0.95 }) end end)
 	on(b.InputEnded, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then tw(sc, 0.25, { Scale = 1 }, Enum.EasingStyle.Back) end end)
 	return b
 end
--- a row of chips; getter returns current value, setter applies a choice
 local function chips(pg, labelTxt, opts, get, set)
 	local f = card(pg, 54)
 	label(f, { Position = UDim2.fromOffset(12, 5), Size = UDim2.new(1, -24, 0, 16), Text = labelTxt, TextSize = 11, TextColor3 = C.sub, ZIndex = 4 })
-	local w = math.floor((W - 24 - 4 - 12 - (#opts - 1) * 5) / #opts)
+	local w = math.floor((CW - 12 - (#opts - 1) * 5) / #opts)
 	local bs, gs = {}, {}
 	local function refresh()
 		for i, o in ipairs(opts) do
@@ -303,11 +291,18 @@ local function chips(pg, labelTxt, opts, get, set)
 	refresh()
 	return refresh
 end
-local function toggle(pg, txt, sub, get, set)
-	local f = card(pg, 44)
-	label(f, { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -80, 0, 16), Text = txt, Font = Enum.Font.GothamBold, ZIndex = 4 })
-	label(f, { Position = UDim2.fromOffset(12, 22), Size = UDim2.new(1, -80, 0, 14), Text = sub, TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
-	local sw = new("TextButton", { AnchorPoint = Vector2.new(1, 0.5), Position = UDim2.new(1, -12, 0.5, 0), Size = UDim2.fromOffset(46, 24), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 4 }, f)
+local function toggle(pg, txt, sub, get, set, icon)
+	local f = card(pg, 46)
+	local ix = 12
+	if icon then
+		local ib = new("Frame", { Position = UDim2.fromOffset(8, 8), Size = UDim2.fromOffset(30, 30), BackgroundColor3 = C.card2, ZIndex = 4 }, f)
+		round(ib, 9)
+		label(ib, { Size = UDim2.fromScale(1, 1), Text = icon, TextSize = 15, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 5 })
+		ix = 46
+	end
+	label(f, { Position = UDim2.fromOffset(ix, 7), Size = UDim2.new(1, -ix - 64, 0, 16), Text = txt, Font = Enum.Font.GothamBold, ZIndex = 4 })
+	label(f, { Position = UDim2.fromOffset(ix, 23), Size = UDim2.new(1, -ix - 64, 0, 14), Text = sub, TextSize = 10, TextColor3 = C.sub, TextTruncate = Enum.TextTruncate.AtEnd, ZIndex = 4 })
+	local sw = new("TextButton", { AnchorPoint = Vector2.new(1, 0.5), Position = UDim2.new(1, -10, 0.5, 0), Size = UDim2.fromOffset(46, 24), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 4 }, f)
 	round(sw, 12)
 	local g = neon(sw, 0)
 	local knob = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(18, 18), BackgroundColor3 = C.text, ZIndex = 5 }, sw)
@@ -321,6 +316,24 @@ local function toggle(pg, txt, sub, get, set)
 	on(sw.MouseButton1Click, function() set(not get()) refresh() save() end)
 	refresh()
 	return refresh
+end
+-- stat tile (icon + caption + big value)
+local function tile(parent, x, y, w, icon, cap, col)
+	local t = new("Frame", { Position = UDim2.fromOffset(x, y), Size = UDim2.fromOffset(w, 46), BackgroundColor3 = C.card2, ZIndex = 4 }, parent)
+	round(t, 11)
+	local ib = new("Frame", { Position = UDim2.fromOffset(6, 8), Size = UDim2.fromOffset(30, 30), BackgroundColor3 = col, BackgroundTransparency = 0.75, ZIndex = 5 }, t)
+	round(ib, 9)
+	label(ib, { Size = UDim2.fromScale(1, 1), Text = icon, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
+	label(t, { Position = UDim2.fromOffset(42, 6), Size = UDim2.new(1, -46, 0, 12), Text = cap, Font = Enum.Font.GothamBlack, TextSize = 8, TextColor3 = C.sub, ZIndex = 5 })
+	return label(t, { Position = UDim2.fromOffset(42, 18), Size = UDim2.new(1, -46, 0, 22), Text = "—", Font = Enum.Font.GothamBlack, TextSize = 15, TextColor3 = C.text, TextTruncate = Enum.TextTruncate.AtEnd, ZIndex = 5 })
+end
+-- progress bar
+local function bar(parent, x, y, w)
+	local track = new("Frame", { Position = UDim2.fromOffset(x, y), Size = UDim2.fromOffset(w, 8), BackgroundColor3 = C.card2, ZIndex = 4 }, parent)
+	round(track, 4)
+	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 5 }, track)
+	round(fill, 4) neon(fill, 0)
+	return function(a) fill.Size = UDim2.fromScale(math.clamp(a or 0, 0, 1), 1) end
 end
 
 -- ================= game access =================
@@ -336,6 +349,9 @@ local SC = req(RS.Config.StandsConfig)
 local FenceC = req(RS.Config.FenceConfig)
 local AE = req(RS.Config.AnimalEconomy)
 local IRC = req(RS.Config.IndexRewardsConfig)
+local AC = req(RS.Config.AreasConfig)
+local AU = req(RS.Shared.AreaUtil)
+local LC = req(RS.Config.LevelConfig)
 local function D() local ok, d = pcall(DC.GetData) return ok and d or nil end
 local function invoke(name, ...) local ok, r = pcall(Rm.Invoke, name, ...) if ok then return r end return nil end
 local function stat(name)
@@ -506,16 +522,112 @@ local function startTrain()
 	if training() then ST.phase = "training" end
 	return training()
 end
+-- the purple "x2" target: press the game's own button (fallback: claim it directly)
+local function bonusButton()
+	for _, g in ipairs(lp.PlayerGui:GetChildren()) do
+		local layer = g:FindFirstChild("TapBonusLayer", true)
+		if layer then
+			for _, b in ipairs(layer:GetChildren()) do
+				if b:IsA("GuiButton") and b.Active and b.Visible then return b end
+			end
+		end
+	end
+end
+local function pressGui(b)
+	local ok = false
+	if firesignal then ok = pcall(firesignal, b.Activated) end
+	if not ok and VIM then
+		local c = b.AbsolutePosition + b.AbsoluteSize / 2
+		pcall(function()
+			VIM:SendTouchEvent(42, 0, c.X + OFF[1], c.Y + OFF[2])
+			task.wait(0.06)
+			VIM:SendTouchEvent(42, 2, c.X + OFF[1], c.Y + OFF[2])
+		end)
+	end
+end
 if Rm then
 	pcall(function()
 		on(Rm.Event("Training_Bonus").OnClientEvent, function(id)
 			if not (S.tapBonus and training()) then return end
-			task.delay(0.35 + math.random() * 0.5, function()
+			task.spawn(function()
+				task.wait(0.45 + math.random() * 0.4)
+				for _ = 1, 10 do
+					local b = bonusButton()
+					if b then
+						pressGui(b)
+						task.wait(0.25)
+						if not (b.Parent and b.Active) then ST.bonus = ST.bonus + 1 return end
+					end
+					task.wait(0.15)
+				end
 				local r = invoke("Training_TapBonus", id)
-				if r ~= nil then ST.bonus = ST.bonus + 1 end
+				if r and r.Ok then ST.bonus = ST.bonus + 1 end
 			end)
 		end)
 	end)
+end
+
+-- ================= areas: which power reaches which area =================
+local AREA_T = {} -- AREA_T[i] = lowest throw power that reaches area i
+do
+	pcall(function()
+		local hi = LC.ThrowPowerForLevel(LC.MaxLevel or 2284)
+		for i = 1, AC.Count() do
+			local lo, top = LC.MinThrowPower or 18, hi
+			if AU.MaxReachableArea(top) < i then break end
+			while lo < top do
+				local mid = math.floor((lo + top) / 2)
+				if AU.MaxReachableArea(mid) >= i then top = mid else lo = mid + 1 end
+			end
+			AREA_T[i] = lo
+		end
+	end)
+end
+local function powerOf(d) local ok, p = pcall(LC.ThrowPowerForLevel, d and d.Level or 1) return ok and p or 0 end
+local function areaOf(p) local ok, a = pcall(AU.MaxReachableArea, p) return ok and a or 1 end
+local function areaName(i) local ok, a = pcall(AC.Get, i) return ok and a and a.Name or ("Area " .. tostring(i)) end
+local function levelForPower(p) return math.ceil((p - (LC.BaseThrowPower or 18)) / (LC.PowerPerLevel or 5)) end
+-- index: species you still miss per area
+local function missingIn(d, i)
+	local miss, total = 0, 0
+	pcall(function()
+		local ar = AC.Get(i)
+		for _, a in ipairs(AE.GetAreaAnimals(ar.Key)) do
+			local n = type(a) == "table" and (a.Name or a.ModelName) or tostring(a)
+			total = total + 1
+			if not (d.Index and d.Index[n]) then miss = miss + 1 end
+		end
+	end)
+	return miss, total
+end
+-- index hunter: aim at the first reachable area that still has missing animals
+local HUNT = { area = nil, set = nil }
+local function aimPower(target)
+	if HUNT.set == target then return end
+	local r = invoke("Player_SetThrowPower", target)
+	if r and r.Ok then HUNT.set = target end
+end
+local function updateHunt()
+	local d = D()
+	if not d then return end
+	if not S.hunt then
+		HUNT.area = nil
+		if HUNT.set ~= 0 and (d.ThrowPower or 0) ~= 0 then aimPower(0) end
+		return
+	end
+	local maxA = areaOf(powerOf(d))
+	local pick
+	for i = 1, maxA do
+		local miss = missingIn(d, i)
+		if miss > 0 then pick = i break end
+	end
+	HUNT.area = pick
+	if pick and pick < maxA and AREA_T[pick] and AREA_T[pick + 1] then
+		-- 3/4 into the area: deeper parts roll rarer animals
+		aimPower(math.floor(AREA_T[pick] + (AREA_T[pick + 1] - AREA_T[pick]) * 0.75))
+	else
+		aimPower(0)
+	end
 end
 
 local shopTick
@@ -523,7 +635,45 @@ local shopTick
 task.spawn(function()
 	while alive do
 		if S.farm then
-			if S.mode == "throw" then
+			if S.hunt or HUNT.set ~= nil then pcall(updateHunt) end
+			if S.mode == "smart" then
+				-- train exactly until the next area unlocks (when it is close), otherwise throw + train cycles
+				local d = D()
+				local p = powerOf(d)
+				local cur = areaOf(p)
+				local nextP = AREA_T[cur + 1]
+				local needLv = nextP and (levelForPower(nextP) - (d and d.Level or 0)) or nil
+				if needLv and needLv > 0 and needLv <= S.smartLevels then
+					ST.goal = string.format("training to %s (+%d lv)", areaName(cur + 1), needLv)
+					startTrain()
+					local t = os.clock()
+					while alive and S.farm and S.mode == "smart" and os.clock() - t < 900 do
+						task.wait(1)
+						local d2 = D()
+						if d2 and powerOf(d2) >= nextP then logf("unlocked " .. areaName(cur + 1) .. "!") toast("Reached " .. areaName(cur + 1) .. "!", C.green, 3) break end
+						if not training() and not busy() then startTrain() end
+					end
+					if training() then pcall(TR.Stop) waitIdle(6) end
+				else
+					ST.goal = nextP and string.format("%s needs +%d lv: farming", areaName(cur + 1), needLv or 0) or "last area: farming"
+					for _ = 1, S.cycleThrows do
+						if not (alive and S.farm and S.mode == "smart") then break end
+						if S.hunt then pcall(updateHunt) end
+						if not doThrow() then task.wait(1) end
+						if shopTick then pcall(shopTick) end
+						task.wait(1.2)
+					end
+					if alive and S.farm and S.mode == "smart" then
+						startTrain()
+						local t = os.clock()
+						while alive and S.farm and S.mode == "smart" and os.clock() - t < S.cycleTrain do
+							task.wait(1)
+							if not training() and not busy() then startTrain() end
+						end
+						if training() then pcall(TR.Stop) waitIdle(6) end
+					end
+				end
+			elseif S.mode == "throw" then
 				if not doThrow() then task.wait(1) end
 				if shopTick then pcall(shopTick) end
 				task.wait(1.2)
@@ -678,21 +828,27 @@ task.spawn(function()
 end)
 
 -- ================= pages =================
-local farmPg = addTab("FARM", "🍖")
+local homePg = addTab("HOME", "🏠")
+local farmPg = addTab("FARM", "🎯")
 local shopPg = addTab("SHOP", "🛒")
-local statPg = addTab("STATS", "📊")
-local morePg = addTab("MORE", "⚙")
+local logPg = addTab("MORE", "📜")
 
--- FARM: big switch + live state
-local hero = card(farmPg, 104)
-local power = new("TextButton", { Position = UDim2.fromOffset(10, 10), Size = UDim2.fromOffset(84, 84), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 4 }, hero)
+-- HOME: power button + 4 tiles
+local hero = card(homePg, 106)
+local power = new("TextButton", { Position = UDim2.fromOffset(8, 7), Size = UDim2.fromOffset(92, 92), BackgroundColor3 = Color3.new(1, 1, 1), Text = "", AutoButtonColor = false, ZIndex = 4 }, hero)
 round(power, 999)
-local powerG = spin(new("UIGradient", { Color = ColorSequence.new(C.green, Color3.fromRGB(0, 200, 255)) }, power), 140, function() return S.farm end)
+local powerG = spin(new("UIGradient", { Color = ColorSequence.new(C.green, C.blue) }, power), 150, function() return S.farm end)
 local core = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.new(1, -8, 1, -8), BackgroundColor3 = C.bg, ZIndex = 5 }, power)
 round(core, 999)
-local pIcon = label(core, { Position = UDim2.fromScale(0, 0.14), Size = UDim2.new(1, 0, 0.45, 0), Text = "⏻", Font = Enum.Font.GothamBlack, TextSize = 28, TextColor3 = C.green, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
+local pIcon = label(core, { Position = UDim2.fromScale(0, 0.12), Size = UDim2.new(1, 0, 0.46, 0), Text = "⏻", Font = Enum.Font.GothamBlack, TextSize = 30, TextColor3 = C.green, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
 local pTxt = label(core, { Position = UDim2.fromScale(0, 0.6), Size = UDim2.new(1, 0, 0.2, 0), Text = "START", Font = Enum.Font.GothamBlack, TextSize = 11, TextXAlignment = Enum.TextXAlignment.Center, ZIndex = 6 })
-local liveL = label(hero, { Position = UDim2.fromOffset(104, 10), Size = UDim2.new(1, -112, 0, 84), Text = "", TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
+local pScale = new("UIScale", {}, power)
+on(power.InputBegan, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then tw(pScale, 0.08, { Scale = 0.92 }) end end)
+on(power.InputEnded, function(i) if i.UserInputType == MB1 or i.UserInputType == TOUCH then tw(pScale, 0.35, { Scale = 1 }, Enum.EasingStyle.Back) end end)
+local tMoney = tile(hero, 108, 7, 94, "💰", "MONEY", C.amber)
+local tIncome = tile(hero, 206, 7, 92, "📈", "PER SECOND", C.green)
+local tPower = tile(hero, 108, 55, 94, "💪", "THROW POWER", C.a2)
+local tLevel = tile(hero, 206, 55, 92, "⭐", "LEVEL", C.blue)
 local function setFarm(v)
 	S.farm = v
 	save()
@@ -701,17 +857,31 @@ local function setFarm(v)
 end
 on(power.MouseButton1Click, function() setFarm(not S.farm) end)
 on(play.MouseButton1Click, function() setFarm(not S.farm) end)
-chips(farmPg, "What to do", { { "Throw", "throw" }, { "Train", "train" }, { "Both (cycle)", "cycle" } }, function() return S.mode end, function(v) S.mode = v end)
-chips(farmPg, "Cycle: throws before training", { { "1", 1 }, { "3", 3 }, { "5", 5 }, { "10", 10 } }, function() return S.cycleThrows end, function(v) S.cycleThrows = v end)
-chips(farmPg, "Cycle: training time", { { "30s", 30 }, { "1m", 60 }, { "3m", 180 }, { "10m", 600 } }, function() return S.cycleTrain end, function(v) S.cycleTrain = v end)
-toggle(farmPg, "Equip best after each catch", "your strongest animals always earn", function() return S.autoEquip end, function(v) S.autoEquip = v end)
-toggle(farmPg, "Fast reveal", "uses the game's own auto-skip setting", function() return S.fastReveal end, function(v) S.fastReveal = v if not v then invoke("Player_SetSetting", "AutoSkip", false) end end)
-toggle(farmPg, "Tap training bonuses", "extra reps from the purple targets", function() return S.tapBonus end, function(v) S.tapBonus = v end)
+-- area progress
+local areaCard = card(homePg, 70)
+local areaL = label(areaCard, { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 0, 16), Text = "", Font = Enum.Font.GothamBold, TextSize = 12, ZIndex = 4 })
+local setAreaBar = bar(areaCard, 12, 28, CW - 24)
+local areaSub = label(areaCard, { Position = UDim2.fromOffset(12, 40), Size = UDim2.new(1, -24, 0, 26), Text = "", TextSize = 10, TextColor3 = C.sub, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4 })
+chips(homePg, "Mode", { { "🧠 Smart", "smart" }, { "Throw", "throw" }, { "Train", "train" }, { "Cycle", "cycle" } }, function() return S.mode end, function(v) S.mode = v end)
+local liveCard = card(homePg, 44)
+local liveL = label(liveCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2.new(1, -24, 1, -8), Text = "", TextSize = 11, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Center, ZIndex = 4 })
+
+-- FARM
+title(farmPg, "AUTOMATION")
+toggle(farmPg, "Equip best", "after each catch + every 30 s", function() return S.autoEquip end, function(v) S.autoEquip = v end, "🐾")
+toggle(farmPg, "Tap the x2 training targets", "presses the game's own purple x2 button", function() return S.tapBonus end, function(v) S.tapBonus = v end, "✨")
+toggle(farmPg, "Fast reveal", "the game's own auto-skip setting", function() return S.fastReveal end, function(v) S.fastReveal = v if not v then invoke("Player_SetSetting", "AutoSkip", false) end end, "⏩")
+toggle(farmPg, "Index hunter", "aims at areas with animals you miss (trail rewards)", function() return S.hunt end, function(v) S.hunt = v task.spawn(updateHunt) end, "📖")
+title(farmPg, "SMART + CYCLE")
+chips(farmPg, "Smart: train for the next area if it is within", { { "10 lv", 10 }, { "25 lv", 25 }, { "50 lv", 50 }, { "100 lv", 100 } }, function() return S.smartLevels end, function(v) S.smartLevels = v end)
+chips(farmPg, "Throws per round", { { "1", 1 }, { "3", 3 }, { "5", 5 }, { "10", 10 } }, function() return S.cycleThrows end, function(v) S.cycleThrows = v end)
+chips(farmPg, "Training per round", { { "30s", 30 }, { "1m", 60 }, { "3m", 180 }, { "10m", 600 } }, function() return S.cycleTrain end, function(v) S.cycleTrain = v end)
 do
-	local qc = card(farmPg, 36)
-	local b1 = btn(qc, "Throw once", 6, 4, 98, 28)
-	local b2 = btn(qc, "Train now", 108, 4, 98, 28)
-	local b3 = btn(qc, "Equip best", 210, 4, 96, 28)
+	local qc = card(farmPg, 40)
+	local w = math.floor((CW - 20) / 3)
+	local b1 = btn(qc, "🍖 Throw", 6, 6, w, 28)
+	local b2 = btn(qc, "💪 Train", 10 + w, 6, w, 28)
+	local b3 = btn(qc, "🐾 Equip", 14 + w * 2, 6, w, 28)
 	on(b1.MouseButton1Click, function() task.spawn(doThrow) end)
 	on(b2.MouseButton1Click, function() task.spawn(startTrain) end)
 	on(b3.MouseButton1Click, function()
@@ -721,40 +891,45 @@ do
 end
 
 -- SHOP
-title(shopPg, "AUTO BUY  (in-game money only)")
-toggle(shopPg, "Buy next food", "better food = rarer animals", function() return S.autoFood end, function(v) S.autoFood = v end)
-toggle(shopPg, "Upgrade pull-up bar", "more power per rep", function() return S.autoStand end, function(v) S.autoStand = v end)
-toggle(shopPg, "Claim offline money", "the free claim, never the Robux double", function() return S.autoOffline end, function(v) S.autoOffline = v end)
-toggle(shopPg, "Upgrade fence", "more plot slots = more animals earning", function() return S.autoFence end, function(v) S.autoFence = v end)
-toggle(shopPg, "Claim free rewards", "free shop animal + index trail rewards", function() return S.autoClaims end, function(v) S.autoClaims = v end)
+title(shopPg, "AUTO BUY  (game money only)")
+toggle(shopPg, "Next food", "better food = rarer animals", function() return S.autoFood end, function(v) S.autoFood = v end, "🍉")
+toggle(shopPg, "Pull-up bar", "more XP per rep", function() return S.autoStand end, function(v) S.autoStand = v end, "🏋")
+toggle(shopPg, "Fence", "more plot slots", function() return S.autoFence end, function(v) S.autoFence = v end, "🧱")
+toggle(shopPg, "Free rewards", "free shop animal + index trails", function() return S.autoClaims end, function(v) S.autoClaims = v end, "🎁")
+toggle(shopPg, "Offline money", "free claim, never the Robux double", function() return S.autoOffline end, function(v) S.autoOffline = v end, "🌙")
 chips(shopPg, "Always keep at least", { { "$0", 0 }, { "100K", 1 }, { "1M", 2 }, { "10M", 3 }, { "100M", 4 } }, function() return S.reserve end, function(v) S.reserve = v end)
 title(shopPg, "NEXT PURCHASES")
-local nextL = label(card(shopPg, 62), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
+local nextCard = card(shopPg, 96)
+local nextRows = {}
+for k = 1, 3 do
+	nextRows[k] = {
+		l = label(nextCard, { Position = UDim2.fromOffset(12, 6 + (k - 1) * 30), Size = UDim2.new(1, -24, 0, 14), Text = "", TextSize = 11, ZIndex = 4 }),
+		b = bar(nextCard, 12, 22 + (k - 1) * 30, CW - 24),
+	}
+end
 do
-	local qc = card(shopPg, 36)
-	local b1 = btn(qc, "Buy food now", 6, 4, 148, 28)
-	local b2 = btn(qc, "Upgrade bar now", 158, 4, 148, 28)
+	local qc = card(shopPg, 40)
+	local w = math.floor((CW - 16) / 2)
+	local b1 = btn(qc, "Buy food now", 6, 6, w, 28)
+	local b2 = btn(qc, "Upgrade bar now", 10 + w, 6, w, 28)
 	on(b1.MouseButton1Click, function() buyFood(true) end)
 	on(b2.MouseButton1Click, function() buyStand(true) end)
 end
 
--- STATS
-title(statPg, "SESSION")
-local sessL = label(card(statPg, 92), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4 })
-title(statPg, "LAST CATCHES")
-local catchL = label(card(statPg, 92), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4 })
-title(statPg, "LOG")
-local logL = label(card(statPg, 112), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextColor3 = C.sub, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
-
--- MORE
-title(morePg, "SPARE ANIMALS")
-toggle(morePg, "Sell weak spares", "inventory animals weaker than your plot; never mutated", function() return S.sellExtras end, function(v) S.sellExtras = v end)
-chips(morePg, "Always keep this many spares", { { "2", 2 }, { "4", 4 }, { "6", 6 }, { "8", 8 } }, function() return S.keepSpare end, function(v) S.keepSpare = v end)
-title(morePg, "OPTIONS")
-toggle(morePg, "Anti-AFK", "no idle kick while farming", function() return S.antiAfk end, function(v) S.antiAfk = v end)
-chips(morePg, "Throw timing (meter %)", { { "93", 0.93 }, { "95", 0.955 }, { "97", 0.97 } }, function() return S.target end, function(v) S.target = v end)
-label(card(morePg, 64), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4,
-	Text = "Plays through the game's own controls: it taps the meter at the top, walks to your own bar, taps bonus targets and buys with game money. It never sells animals and never touches Robux buttons." })
+-- MORE: session, catches, log, options
+title(logPg, "SESSION")
+local sessL = label(card(logPg, 78), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
+title(logPg, "LAST CATCHES")
+local catchL = label(card(logPg, 92), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 11, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4 })
+title(logPg, "INDEX")
+local idxL = label(card(logPg, 62), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
+title(logPg, "LOG")
+local logL = label(card(logPg, 112), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextColor3 = C.sub, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
+title(logPg, "OPTIONS")
+toggle(logPg, "Anti-AFK", "no idle kick while farming", function() return S.antiAfk end, function(v) S.antiAfk = v end, "🛡")
+toggle(logPg, "Sell weak spares", "inventory animals weaker than your plot; never mutated", function() return S.sellExtras end, function(v) S.sellExtras = v end, "💸")
+chips(logPg, "Spares to always keep", { { "2", 2 }, { "4", 4 }, { "6", 6 }, { "8", 8 } }, function() return S.keepSpare end, function(v) S.keepSpare = v end)
+chips(logPg, "Meter tap (minimum)", { { "93%", 0.93 }, { "95%", 0.955 }, { "97%", 0.97 } }, function() return S.target end, function(v) S.target = v end)
 
 -- ================= behaviour =================
 on(minB.MouseButton1Click, function() setPanel(false) end)
@@ -781,49 +956,80 @@ on(RunService.RenderStepped, function(dt)
 	if open then titleG.Offset = Vector2.new(math.sin(os.clock() * 1.4) * 0.35, 0) end
 end)
 
+local function parseRate(v)
+	local s = tostring(v or ""):gsub("[%$,/s]", "")
+	local num, suf = s:match("([%d%.]+)(%a?)")
+	return (tonumber(num) or 0) * (({ K = 1e3, M = 1e6, B = 1e9, T = 1e12, Q = 1e15 })[suf or ""] or 1)
+end
+
 -- ================= status loop =================
 task.spawn(function()
+	local tick_n = 0
 	while alive do
+		tick_n = tick_n + 1
 		local d = D()
 		local money = d and d.Money or 0
-		local perSec = stat("Money/s") or "?"
+		local rate = parseRate(stat("Money/s"))
 		if d and not ST.money0 then ST.money0, ST.lv0 = money, d.Level end
 		local el = os.clock() - ST.t0
 		pTxt.Text = S.farm and "STOP" or "START"
 		pIcon.TextColor3 = S.farm and C.red or C.green
-		powerG.Color = S.farm and ColorSequence.new(C.red, C.a3) or ColorSequence.new(C.green, Color3.fromRGB(0, 200, 255))
+		powerG.Color = S.farm and ColorSequence.new(C.red, C.a2) or ColorSequence.new(C.green, C.blue)
 		play.Text = S.farm and "■" or "▶"
 		play.BackgroundColor3 = S.farm and C.red or C.green
 		local ph = training() and "training" or (busy() == "Throw" and ST.phase ~= "idle" and ST.phase or (busy() and string.lower(tostring(busy())) or ST.phase))
-		liveL.Text = string.format("%s\nMoney $%s   ·   %s\nPower %s   ·   Level %s\nThrows %d  (%d perfect)  ·  bonus %d", S.farm and ("● " .. string.upper(ph)) or "stopped", fmt(money), tostring(perSec), tostring(stat("Throw Power") or "?"), tostring(d and d.Level or "?"), ST.throws, ST.perfect, ST.bonus)
-		local txt, col
-		if S.farm then txt, col = "● " .. string.upper(ph):sub(1, 9), C.green else txt, col = "IDLE", C.sub end
-		pill.Text, pill.TextColor3, pillStroke.Color = txt, col, col
-		fabIcon.Text = S.farm and "●" or "🍖"
-		fabIcon.TextColor3 = S.farm and C.green or C.text
+		local col = S.farm and C.green or C.sub
+		pill.Text = S.farm and ("● " .. string.upper(ph)):sub(1, 14) or "IDLE"
+		pill.TextColor3, pillStroke.Color = col, col
+		fabDot.BackgroundColor3 = S.farm and (training() and C.blue or C.green) or C.sub
+		fabSub.Text = S.farm and (training() and "TRAIN" or "FARM") or "FOOD"
 		if d then
-			local inc = 0
-			pcall(function()
-				local s = tostring(perSec):gsub("[%$,/s]", "")
-				local num, suf = s:match("([%d%.]+)(%a?)")
-				local mult = ({ K = 1e3, M = 1e6, B = 1e9, T = 1e12 })[suf or ""] or 1
-				inc = (tonumber(num) or 0) * mult
-			end)
-			local lines = {}
+			local p = powerOf(d)
+			tMoney.Text = "$" .. fmt(money)
+			tIncome.Text = "$" .. fmt(rate)
+			tPower.Text = tostring(p)
+			tLevel.Text = tostring(d.Level or "?")
+			local cur = areaOf(p)
+			local lo, hi = AREA_T[cur], AREA_T[cur + 1]
+			if hi then
+				areaL.Text = string.format("%s  →  %s", areaName(cur), areaName(cur + 1))
+				setAreaBar((p - (lo or 0)) / math.max(1, hi - (lo or 0)))
+				areaSub.Text = string.format("power %d / %d  ·  +%d levels  ·  %s", p, hi, math.max(0, levelForPower(hi) - (d.Level or 0)), ST.goal or (S.hunt and HUNT.area and ("hunting " .. areaName(HUNT.area)) or "max distance"))
+			else
+				areaL.Text = areaName(cur) .. "  ·  furthest area"
+				setAreaBar(1)
+				areaSub.Text = ST.goal or "you reach the last area"
+			end
+			liveL.Text = string.format("%s  ·  throws %d (%d perfect)  ·  x2 taps %d\nbest: %s", S.farm and string.upper(ph) or "stopped", ST.throws, ST.perfect, ST.bonus, ST.best and (ST.best .. "  $" .. fmt(ST.bestInc) .. "/s") or "—")
+			-- shop rows
+			local rows = {}
 			local fn, f = nextFood(d)
-			if fn then
-				local need = f.Price + reserve() - money
-				lines[#lines + 1] = string.format("Food: %s  $%s  %s", f.Name, fmt(f.Price), need <= 0 and "· affordable" or ("· in " .. mmss(inc > 0 and need / inc or math.huge)))
-			else lines[#lines + 1] = "Food: all owned" end
+			rows[1] = fn and { "🍉 " .. f.Name, f.Price } or { "🍉 all food owned", nil }
 			local sn, s = nextStand(d)
-			if sn then
-				local need = s.Price + reserve() - money
-				lines[#lines + 1] = string.format("Bar: %s  $%s  %s", s.Name, fmt(s.Price), need <= 0 and "· affordable" or ("· in " .. mmss(inc > 0 and need / inc or math.huge)))
-			else lines[#lines + 1] = "Bar: best one" end
-			lines[#lines + 1] = string.format("Holding food #%s  ·  bar #%s", tostring(d.EquippedFood or "?"), tostring(d.Stand or "?"))
-			nextL.Text = table.concat(lines, "\n")
-			local earned = money - (ST.money0 or money)
-			sessL.Text = string.format("Time %s  ·  earned $%s (%s/h)\nThrows %d  ·  perfect %d  ·  last tap %d%%\nCaught %d  ·  best: %s\nLevels +%d  ·  bonus taps %d  ·  buys %d  ·  sold %d", mmss(el), fmt(math.max(0, earned)), fmt(el > 30 and math.max(0, earned) / el * 3600 or 0), ST.throws, ST.perfect, math.floor(ST.lastRating * 100), ST.caught, ST.best and (ST.best .. " $" .. fmt(ST.bestInc) .. "/s") or "—", (d.Level or 0) - (ST.lv0 or d.Level or 0), ST.bonus, ST.buys, ST.sold)
+			rows[2] = sn and { "🏋 " .. s.Name, s.Price } or { "🏋 best bar", nil }
+			local fx = FenceC and FenceC.Get((d.FenceLevel or 0) + 1)
+			rows[3] = fx and { "🧱 Fence: " .. tostring(fx.Slots) .. " slots", fx.Price } or { "🧱 fence maxed", nil }
+			for k = 1, 3 do
+				local r = rows[k]
+				if r[2] then
+					local need = r[2] + reserve() - money
+					nextRows[k].l.Text = string.format("%s  ·  $%s  ·  %s", r[1], fmt(r[2]), need <= 0 and "ready" or ("in " .. mmss(rate > 0 and need / rate or math.huge)))
+					nextRows[k].b(money / r[2])
+				else
+					nextRows[k].l.Text = r[1]
+					nextRows[k].b(1)
+				end
+			end
+			local earned = math.max(0, money - (ST.money0 or money))
+			sessL.Text = string.format("Time %s  ·  earned $%s  (%s / hour)\nThrows %d  ·  perfect %d  ·  last tap %d%%\nCaught %d  ·  levels +%d  ·  x2 taps %d\nBuys %d  ·  sold %d", mmss(el), fmt(earned), fmt(el > 30 and earned / el * 3600 or 0), ST.throws, ST.perfect, math.floor(ST.lastRating * 100), ST.caught, (d.Level or 0) - (ST.lv0 or d.Level or 0), ST.bonus, ST.buys, ST.sold)
+			if tick_n % 6 == 1 then
+				local parts = {}
+				for i = 1, math.min(cur, 12) do
+					local miss, total = missingIn(d, i)
+					parts[#parts + 1] = string.format("%s %d/%d", areaName(i):sub(1, 9), total - miss, total)
+				end
+				idxL.Text = table.concat(parts, "  ·  ")
+			end
 		end
 		catchL.Text = #ST.catches > 0 and table.concat(ST.catches, "\n") or "nothing caught yet this session"
 		logL.Text = #ST.log > 0 and table.concat(ST.log, "\n") or "—"
@@ -832,9 +1038,9 @@ task.spawn(function()
 end)
 
 -- ================= start =================
-showTab("FARM")
+showTab("HOME")
 task.delay(0.5, calibrate)
-genv.TFH = { S = S, ST = ST, throw = doThrow, train = startTrain, buyFood = buyFood, buyStand = buyStand, setFarm = setFarm }
+genv.TFH = { S = S, ST = ST, throw = doThrow, train = startTrain, buyFood = buyFood, buyStand = buyStand, setFarm = setFarm, hunt = updateHunt, HUNT = HUNT, AREA_T = AREA_T }
 genv.TFH_STOP = function()
 	alive = false
 	S.farm = false
