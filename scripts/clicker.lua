@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.2.1"
+local VERSION = "v1.3"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -338,8 +338,8 @@ inputs.VIM = {
 }
 inputs.Touch = {
 	ok = function() return VIM ~= nil end, perFrame = 40,
-	press = function(x, y, down) VIM:SendTouchEvent(touchId, down and 0 or 2, x + OFF.Touch[1], y + OFF.Touch[2]) end,
-	move = function(x, y) VIM:SendTouchEvent(touchId, 1, x + OFF.Touch[1], y + OFF.Touch[2]) end,
+	press = function(x, y, down, id) VIM:SendTouchEvent(id or touchId, down and 0 or 2, x + OFF.Touch[1], y + OFF.Touch[2]) end,
+	move = function(x, y, id) VIM:SendTouchEvent(id or touchId, 1, x + OFF.Touch[1], y + OFF.Touch[2]) end,
 }
 inputs.Exec = {
 	ok = function() return mouse1press ~= nil and mouse1release ~= nil and mousemoveabs ~= nil end, perFrame = 1,
@@ -358,7 +358,7 @@ local function buttonAt(x, y)
 	local found = false
 	pcall(function()
 		for _, o in ipairs(lp.PlayerGui:GetGuiObjectsAtPosition(x, y)) do
-			if o:IsA("GuiButton") and o.Visible and not o:IsDescendantOf(gui) then found = o break end
+			if o:IsA("GuiButton") and o.Visible and not o:IsDescendantOf(gui) and not o:FindFirstAncestor("TouchGui") then found = o break end
 		end
 	end)
 	uiCache[key] = { t = os.clock(), b = found }
@@ -559,18 +559,34 @@ local function addStep(st)
 	MC.steps[#MC.steps + 1] = st
 	if refreshMacro then refreshMacro() end
 end
+-- fingers: every touch gets its own id while recording, and its own touch id when replayed
+local REC = { fingers = {}, nextId = 0, last = {} }
+local function fingerOf(i)
+	local f = REC.fingers[i]
+	if f then return f end
+	REC.nextId = REC.nextId % 9 + 1
+	f = REC.nextId
+	REC.fingers[i] = f
+	return f
+end
 local function startRecord()
 	if R.running then stopClicker() end
 	if MC.playing then return end
 	MC.steps, MC.recording, MC.lastT = {}, true, os.clock()
+	REC.fingers, REC.nextId, REC.last = {}, 0, {}
 	setPanel(false)
-	toast("● REC  tap / swipe / type. Tap ■ to stop", C.red, 3)
+	toast("● REC  joystick, camera, taps, swipes, keys. Tap ⚡ to stop", C.red, 3)
 	if refreshMacro then refreshMacro() end
 end
 local function stopRecord()
 	if not MC.recording then return end
+	-- fingers still on the screen get lifted, so playback never leaves one stuck
+	for i, f in pairs(REC.fingers) do
+		local l = REC.last[f]
+		if l then MC.steps[#MC.steps + 1] = { k = "up", f = f, x = l[1], y = l[2], d = 0 } end
+		REC.fingers[i] = nil
+	end
 	MC.recording = false
-	-- drop a trailing tap on our own stop button and keep the file
 	saveMacro()
 	setPanel(true)
 	toast(string.format("Saved %d steps (%.1fs) to slot %d", #MC.steps, macroLen(), S.slot), C.green, 3)
@@ -584,6 +600,41 @@ local function stopMacro()
 	MC.playing = false
 	if refreshMacro then refreshMacro() end
 end
+-- playback: each finger keeps the method chosen when it went down
+local PB = {}
+local function pbMethod(st)
+	if S.method == "Auto" then
+		if (st.f or 0) > 0 and inputs.Touch.ok() then return inputs.Touch, "Touch" end
+		return method(st.x, st.y)
+	end
+	return method(st.x, st.y)
+end
+local function releaseAll()
+	for f, p in pairs(PB) do
+		pcall(p.m.press, p.x, p.y, false, 20 + f)
+		PB[f] = nil
+	end
+end
+local function runStep(st)
+	local f = st.f or 1
+	if st.k == "down" then
+		local m = pbMethod(st)
+		if PB[f] then pcall(PB[f].m.press, PB[f].x, PB[f].y, false, 20 + f) end
+		PB[f] = { m = m, x = st.x, y = st.y }
+		m.press(st.x, st.y, true, 20 + f)
+	elseif st.k == "move" then
+		local p = PB[f]
+		if p then
+			p.x, p.y = st.x, st.y
+			if p.m.move then p.m.move(st.x, st.y, 20 + f) end
+		end
+	elseif st.k == "up" then
+		local p = PB[f]
+		if p then p.m.press(st.x, st.y, false, 20 + f) PB[f] = nil end
+	elseif st.k == "kd" and VIM then VIM:SendKeyEvent(true, Enum.KeyCode[st.key], false, game)
+	elseif st.k == "ku" and VIM then VIM:SendKeyEvent(false, Enum.KeyCode[st.key], false, game)
+	elseif st.k == "tap" then local m = pbMethod(st) m.press(st.x, st.y, true, 20 + f) m.press(st.x, st.y, false, 20 + f) end
+end
 local function playMacro()
 	if MC.playing or MC.recording then return end
 	if #MC.steps == 0 then toast("Slot " .. S.slot .. " is empty: record first", C.amber) return end
@@ -596,24 +647,22 @@ local function playMacro()
 	task.spawn(function()
 		while alive and MC.playing do
 			MC.loopN = MC.loopN + 1
+			-- precise timing: each step is scheduled from the loop start, so small delays never add up
+			local t0, at = os.clock(), 0
 			for i, st in ipairs(MC.steps) do
 				if not MC.playing then break end
 				MC.stepN = i
-				waitFor((st.d or 0) / S.macroSpeed)
+				at = at + (st.d or 0) / S.macroSpeed
+				local wait = t0 + at - os.clock()
+				if wait > 0 then waitFor(wait) end
 				if not MC.playing then break end
-				local m = method(st.x, st.y)
-				pcall(function()
-					if st.k == "down" then m.press(st.x, st.y, true)
-					elseif st.k == "up" then m.press(st.x, st.y, false)
-					elseif st.k == "move" then if m.move then m.move(st.x, st.y) end
-					elseif st.k == "kd" and VIM then VIM:SendKeyEvent(true, Enum.KeyCode[st.key], false, game)
-					elseif st.k == "ku" and VIM then VIM:SendKeyEvent(false, Enum.KeyCode[st.key], false, game)
-					elseif st.k == "tap" then m.press(st.x, st.y, true) m.press(st.x, st.y, false) end
-				end)
+				pcall(runStep, st)
 			end
+			releaseAll()
 			if S.macroLoops > 0 and MC.loopN >= S.macroLoops then break end
 			waitFor(S.loopDelay)
 		end
+		releaseAll()
 		MC.playing = false
 		setMarkersVisible(true)
 		if MC.reopen then MC.reopen = false setPanel(true) end
@@ -634,7 +683,6 @@ overOurs = function(x, y)
 	for _, m in ipairs(markers) do if rectHas(m, x, y) then return true end end
 	return false
 end
-local trackMove = {}
 on(UIS.InputBegan, function(i, gp)
 	local t = i.UserInputType
 	if t == Enum.UserInputType.Keyboard then
@@ -655,20 +703,35 @@ on(UIS.InputBegan, function(i, gp)
 		return
 	end
 	if MC.recording then
-		addStep({ k = "down", x = math.floor(x), y = math.floor(y) })
-		trackMove[i] = os.clock()
+		local f = fingerOf(i)
+		REC.last[f] = { math.floor(x), math.floor(y), os.clock() }
+		addStep({ k = "down", f = f, x = math.floor(x), y = math.floor(y) })
 	end
 end)
 on(UIS.InputChanged, function(i)
 	if not MC.recording then return end
-	local last = trackMove[i]
-	if not last and i.UserInputType == MOVE then
-		for k, v in pairs(trackMove) do if k.UserInputType == MB1 then last = v end end
+	local t = i.UserInputType
+	local f
+	if t == TOUCH then
+		f = REC.fingers[i]
+		if not f then
+			-- a finger that was already down when recording started (joystick / camera): start it here
+			local x, y = i.Position.X, i.Position.Y
+			if overOurs(x, y) then return end
+			f = fingerOf(i)
+			REC.last[f] = { math.floor(x), math.floor(y), 0 }
+			addStep({ k = "down", f = f, x = math.floor(x), y = math.floor(y) })
+		end
+	elseif t == MOVE then
+		for k, v in pairs(REC.fingers) do if k.UserInputType == MB1 then f = v end end
 	end
-	if last and os.clock() - last > 1 / 30 then
-		trackMove[i] = os.clock()
-		addStep({ k = "move", x = math.floor(i.Position.X), y = math.floor(i.Position.Y) })
-	end
+	if not f then return end
+	local l = REC.last[f]
+	local x, y = math.floor(i.Position.X), math.floor(i.Position.Y)
+	if l and os.clock() - l[3] < 1 / 30 then return end
+	if l and l[1] == x and l[2] == y then return end
+	REC.last[f] = { x, y, os.clock() }
+	addStep({ k = "move", f = f, x = x, y = y })
 end)
 on(UIS.InputEnded, function(i)
 	local t = i.UserInputType
@@ -676,9 +739,10 @@ on(UIS.InputEnded, function(i)
 		if MC.recording and i.KeyCode ~= Enum.KeyCode.F8 and i.KeyCode ~= Enum.KeyCode.F6 and i.KeyCode ~= Enum.KeyCode.F7 then addStep({ k = "ku", key = i.KeyCode.Name }) end
 		return
 	end
-	if (t == MB1 or t == TOUCH) and trackMove[i] then
-		trackMove[i] = nil
-		if MC.recording then addStep({ k = "up", x = math.floor(i.Position.X), y = math.floor(i.Position.Y) }) end
+	if (t == MB1 or t == TOUCH) and REC.fingers[i] then
+		local f = REC.fingers[i]
+		REC.fingers[i] = nil
+		if MC.recording then addStep({ k = "up", f = f, x = math.floor(i.Position.X), y = math.floor(i.Position.Y) }) end
 	end
 end)
 
@@ -848,12 +912,15 @@ on(bClear.MouseButton1Click, function() if MC.recording or MC.playing then retur
 title(macroPg, "STEPS")
 local stepsL = label(card(macroPg, 120), { Position = UDim2.fromOffset(10, 6), Size = UDim2.new(1, -20, 1, -12), TextSize = 10, TextYAlignment = Enum.TextYAlignment.Top, TextColor3 = C.sub, Font = Enum.Font.Code, TextWrapped = true, ZIndex = 4 })
 refreshMacro = function()
-	local taps, keys = 0, 0
+	local taps, keys, fingers = 0, 0, {}
 	for _, s in ipairs(MC.steps) do
 		if s.k == "down" or s.k == "tap" then taps = taps + 1 elseif s.k == "kd" then keys = keys + 1 end
+		if s.f then fingers[s.f] = true end
 	end
+	local nf = 0
+	for _ in pairs(fingers) do nf = nf + 1 end
 	local state = MC.recording and "● RECORDING" or (MC.playing and string.format("▶ PLAYING  loop %d%s · step %d/%d", MC.loopN, S.macroLoops > 0 and ("/" .. S.macroLoops) or "", MC.stepN, #MC.steps) or "ready")
-	mStat.Text = string.format("Slot %d · %d taps · %d keys · %.1fs\n%s", S.slot, taps, keys, macroLen(), state)
+	mStat.Text = string.format("Slot %d · %d touches · %d fingers · %d keys · %.1fs\n%s", S.slot, taps, nf, keys, macroLen(), state)
 	local lines = {}
 	local from = math.max(1, #MC.steps - 11)
 	for i = from, #MC.steps do
@@ -861,7 +928,7 @@ refreshMacro = function()
 		if s.k == "kd" or s.k == "ku" then
 			lines[#lines + 1] = string.format("%3d  +%.2fs  key %s %s", i, s.d or 0, s.key, s.k == "kd" and "down" or "up")
 		else
-			lines[#lines + 1] = string.format("%3d  +%.2fs  %-4s %d,%d", i, s.d or 0, s.k, s.x or 0, s.y or 0)
+			lines[#lines + 1] = string.format("%3d  +%.2fs  F%d %-4s %d,%d", i, s.d or 0, s.f or 1, s.k, s.x or 0, s.y or 0)
 		end
 	end
 	stepsL.Text = #lines > 0 and table.concat(lines, "\n") or "empty. Press ● REC, then do what you want repeated, then ■ STOP."
