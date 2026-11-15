@@ -1035,6 +1035,7 @@ slotRefresh = chips(macroPg, "Macro slot (saved on your device)", { { "1", 1 }, 
 	if refreshMacro then refreshMacro() end
 end)
 toggle(macroPg, "Ultra smooth playback", "glides fingers between recorded points every frame", function() return S.smooth end, function(v) S.smooth = v end)
+do
 local edCard = card(macroPg, 70)
 local bUndo = btn(edCard, "Remove last step", 6, 4, 148, 28)
 local bClear = btn(edCard, "Clear slot", 158, 4, 148, 28, Color3.fromRGB(70, 30, 45))
@@ -1064,6 +1065,7 @@ on(bUndo.MouseButton1Click, function()
 	saveMacro() refreshMacro()
 end)
 on(bClear.MouseButton1Click, function() if MC.recording or MC.playing then return end MC.steps = {} saveMacro() refreshMacro() end)
+end
 title(macroPg, "STEPS")
 local stepsL = label(card(macroPg, 120), { Position = UDim2.fromOffset(10, 6), Size = UDim2.new(1, -20, 1, -12), TextSize = 10, TextYAlignment = Enum.TextYAlignment.Top, TextColor3 = C.sub, Font = Enum.Font.Code, TextWrapped = true, ZIndex = 4 })
 refreshMacro = function()
@@ -1123,6 +1125,7 @@ local statsCard = card(morePg, 40)
 local statsL = label(statsCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2.new(1, -24, 1, -8), TextSize = 11, ZIndex = 4 })
 label(card(morePg, 40), { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 1, -8), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, ZIndex = 4, Text = "PC keys:  F6 clicker on/off  ·  F7 play/stop macro  ·  F8 record/stop" })
 
+do
 -- SMART
 title(smartPg, "AUTO-PRESS GAME BUTTONS")
 toggle(smartPg, "Auto-press buttons", "presses game buttons whose text has your words", function() return S.autoBtn end, function(v) S.autoBtn = v end)
@@ -1201,6 +1204,8 @@ task.spawn(function()
 		task.wait(math.max(0.25, S.btnEvery or 1))
 	end
 end)
+
+end
 
 -- ================= panel / fab behaviour =================
 on(minB.MouseButton1Click, function() setPanel(false) end)
