@@ -959,6 +959,7 @@ local graphHist = {}
 for k = 1, BARS do graphHist[k] = 0 end
 local statL = label(hero, { Position = UDim2.fromOffset(112, 96), Size = UDim2.fromOffset(194, 14), Text = "", TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
 
+do
 title(clickPg, "SPEED  (clicks per second)")
 local spd = card(clickPg, 62)
 local cpsBox = new("TextBox", { Position = UDim2.fromOffset(8, 6), Size = UDim2.fromOffset(70, 24), BackgroundColor3 = C.card2, Text = tostring(S.cps), Font = Enum.Font.GothamBlack, TextSize = 14, TextColor3 = C.a1, ClearTextOnFocus = false, ZIndex = 4 }, spd)
@@ -1009,6 +1010,7 @@ on(bAdd.MouseButton1Click, function() addPoint() end)
 on(bPick.MouseButton1Click, function() picking = true setPanel(false) toast("Tap where you want the point", C.a1, 3) end)
 on(bDel.MouseButton1Click, function() S.points[#S.points] = nil rebuildMarkers() refreshPoints() save() end)
 on(bClr.MouseButton1Click, function() S.points = {} rebuildMarkers() refreshPoints() save() end)
+end
 chips(clickPg, "With several points", { { "One by one", "Cycle" }, { "All at once", "All" } }, function() return S.mode end, function(v) S.mode = v end)
 local mOpts = {}
 for _, n in ipairs(METHODS) do mOpts[#mOpts + 1] = { n, n } end
@@ -1111,6 +1113,7 @@ end
 title(morePg, "OPTIONS")
 toggle(morePg, "Hide panel while running", "so clicks never land on it", function() return S.hidePanel end, function(v) S.hidePanel = v end)
 toggle(morePg, "Anti-AFK", "no 20 minute idle kick", function() return S.antiAfk end, function(v) S.antiAfk = v end)
+do
 local testCard = card(morePg, 64)
 local testL = label(testCard, { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 0, 26), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4, Text = "Self test: measures the screen offset (notch / top bar) and checks which tap method works here." })
 local bTest = btn(testCard, "Run self test", 6, 32, 296, 26, C.a2)
@@ -1120,6 +1123,7 @@ on(bTest.MouseButton1Click, function()
 		testL.Text = (best and ("Auto uses " .. best .. " · ") or "") .. table.concat(res or {}, "  ")
 	end)
 end)
+end
 title(morePg, "LIFETIME")
 local statsCard = card(morePg, 40)
 local statsL = label(statsCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2.new(1, -24, 1, -8), TextSize = 11, ZIndex = 4 })
