@@ -1,7 +1,7 @@
 -- Throw Food Helper · auto farm for "Throw Food For Animals"
 -- Plays the game through its own controls: real meter taps at PERFECT, walks to your own
 -- pull-up bar to train, taps the training bonus targets, and buys with in-game money only.
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 local genv = (getgenv and getgenv()) or _G
 if genv.TFH_STOP then pcall(genv.TFH_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -518,13 +518,15 @@ if Rm then
 	end)
 end
 
+local shopTick
 -- ================= farm loop =================
 task.spawn(function()
 	while alive do
 		if S.farm then
 			if S.mode == "throw" then
 				if not doThrow() then task.wait(1) end
-				task.wait(1.7)
+				if shopTick then pcall(shopTick) end
+				task.wait(1.2)
 			elseif S.mode == "train" then
 				if not training() then startTrain() end
 				task.wait(2)
@@ -532,7 +534,8 @@ task.spawn(function()
 				for _ = 1, S.cycleThrows do
 					if not (alive and S.farm and S.mode == "cycle") then break end
 					if not doThrow() then task.wait(1) end
-					task.wait(1.7)
+					if shopTick then pcall(shopTick) end
+					task.wait(1.2)
 				end
 				if alive and S.farm and S.mode == "cycle" then
 					startTrain()
@@ -596,79 +599,80 @@ local function buyStand(manual)
 		toast("Bar: " .. s.Name, C.green)
 	elseif manual then toast("Upgrade said no", C.red) end
 end
+shopTick = function()
+		local d = D()
+		if d and S.autoEquip and os.clock() - (ST.lastEq or 0) > 30 then ST.lastEq = os.clock() invoke("Plot_EquipBest") end
+		if d then
+			if S.autoFood then pcall(buyFood, false) end
+			if S.autoStand then pcall(buyStand, false) end
+			-- always hold the best food you own
+			local best = bestOwnedFood(d)
+			if S.autoFood and best > 0 and (d.EquippedFood or 0) < best then invoke("Shop_Equip", best) end
+			if S.autoFence and FenceC then pcall(function()
+				local nx = FenceC.Get((d.FenceLevel or 0) + 1)
+				if nx and type(nx.Price) == "number" and (d.Money or 0) - reserve() >= nx.Price then
+					local r = invoke("Plot_UpgradeFence")
+					if r and r.Ok then logf("fence upgraded: " .. tostring(nx.Slots) .. " slots ($" .. fmt(nx.Price) .. ")") toast("Fence: " .. tostring(nx.Slots) .. " slots", C.green) invoke("Plot_EquipBest") end
+				end
+			end) end
+			if S.autoClaims then
+				if d.FreeAnimalClaimed == false then
+					local r = invoke("Shop_ClaimFree")
+					if r and r.Ok then logf("claimed the free shop animal") invoke("Plot_EquipBest") end
+				end
+				if IRC and os.clock() - (ST.lastIdx or -999) > 60 then
+					ST.lastIdx = os.clock()
+					for _, col in ipairs(IRC.Collections or {}) do
+						local claimed = type(d.IndexClaimed) == "table" and d.IndexClaimed[col.Key]
+						if not claimed then
+							local r = invoke("IndexRewards_Claim", col.Key)
+							if r and r.Ok then
+								logf("index reward: " .. tostring(col.Trail) .. " trail")
+								if not (d.Trails and d.Trails.Equipped and d.Trails.Equipped ~= "") then invoke("IndexRewards_Equip", col.Trail) end
+							end
+						end
+					end
+				end
+			end
+			if S.fastReveal and d.Settings and d.Settings.AutoSkip ~= true and os.clock() - (ST.lastSkipSet or -999) > 30 then
+				ST.lastSkipSet = os.clock()
+				invoke("Player_SetSetting", "AutoSkip", true)
+			end
+			if S.sellExtras then pcall(function()
+				-- sell spare animals sitting in your inventory that are weaker than your plot (never mutated ones)
+				local weakest, spare = math.huge, {}
+				for id, a in pairs(d.Animals or {}) do
+					local inc = 0
+					pcall(function() inc = (AE.Get(a.ModelName).Income or 0) * (tonumber(a.Size) or 1) end)
+					if a.Placed then weakest = math.min(weakest, inc)
+					elseif not a.Mutation then spare[#spare + 1] = { id = id, inc = inc, name = a.ModelName } end
+				end
+				table.sort(spare, function(x, y) return x.inc > y.inc end)
+				for k = S.keepSpare + 1, #spare do
+					local a = spare[k]
+					if a.inc < weakest then
+						local m0 = d.Money or 0
+						local r = invoke("Plot_SellAnimal", a.id)
+						if r and r.Ok then
+							ST.sold = ST.sold + 1
+							local d2 = D()
+							local gain = d2 and (d2.Money or 0) - m0 or 0
+							if gain > 0 then ST.soldMoney = ST.soldMoney + gain end
+							logf("sold spare " .. tostring(a.name))
+						end
+					end
+				end
+			end) end
+			if S.autoOffline and d.OfflinePending and (d.OfflinePending.Base or 0) > 0 then
+				local r = invoke("Offline_Claim")
+				if r then logf("claimed offline money") end
+			end
+		end
+end
 task.spawn(function()
 	while alive do
 		task.wait(4)
-		if busy() ~= "Throw" then
-			local d = D()
-			if d and S.autoEquip and os.clock() - (ST.lastEq or 0) > 30 then ST.lastEq = os.clock() invoke("Plot_EquipBest") end
-			if d then
-				if S.autoFood then pcall(buyFood, false) end
-				if S.autoStand then pcall(buyStand, false) end
-				-- always hold the best food you own
-				local best = bestOwnedFood(d)
-				if S.autoFood and best > 0 and (d.EquippedFood or 0) < best then invoke("Shop_Equip", best) end
-				if S.autoFence and FenceC then pcall(function()
-					local nx = FenceC.Get((d.FenceLevel or 0) + 1)
-					if nx and type(nx.Price) == "number" and (d.Money or 0) - reserve() >= nx.Price then
-						local r = invoke("Plot_UpgradeFence")
-						if r and r.Ok then logf("fence upgraded: " .. tostring(nx.Slots) .. " slots ($" .. fmt(nx.Price) .. ")") toast("Fence: " .. tostring(nx.Slots) .. " slots", C.green) invoke("Plot_EquipBest") end
-					end
-				end) end
-				if S.autoClaims then
-					if d.FreeAnimalClaimed == false then
-						local r = invoke("Shop_ClaimFree")
-						if r and r.Ok then logf("claimed the free shop animal") invoke("Plot_EquipBest") end
-					end
-					if IRC and os.clock() - (ST.lastIdx or -999) > 60 then
-						ST.lastIdx = os.clock()
-						for _, col in ipairs(IRC.Collections or {}) do
-							local claimed = type(d.IndexClaimed) == "table" and d.IndexClaimed[col.Key]
-							if not claimed then
-								local r = invoke("IndexRewards_Claim", col.Key)
-								if r and r.Ok then
-									logf("index reward: " .. tostring(col.Trail) .. " trail")
-									if not (d.Trails and d.Trails.Equipped and d.Trails.Equipped ~= "") then invoke("IndexRewards_Equip", col.Trail) end
-								end
-							end
-						end
-					end
-				end
-				if S.fastReveal and d.Settings and d.Settings.AutoSkip ~= true and os.clock() - (ST.lastSkipSet or -999) > 30 then
-					ST.lastSkipSet = os.clock()
-					invoke("Player_SetSetting", "AutoSkip", true)
-				end
-				if S.sellExtras then pcall(function()
-					-- sell spare animals sitting in your inventory that are weaker than your plot (never mutated ones)
-					local weakest, spare = math.huge, {}
-					for id, a in pairs(d.Animals or {}) do
-						local inc = 0
-						pcall(function() inc = (AE.Get(a.ModelName).Income or 0) * (tonumber(a.Size) or 1) end)
-						if a.Placed then weakest = math.min(weakest, inc)
-						elseif not a.Mutation then spare[#spare + 1] = { id = id, inc = inc, name = a.ModelName } end
-					end
-					table.sort(spare, function(x, y) return x.inc > y.inc end)
-					for k = S.keepSpare + 1, #spare do
-						local a = spare[k]
-						if a.inc < weakest then
-							local m0 = d.Money or 0
-							local r = invoke("Plot_SellAnimal", a.id)
-							if r and r.Ok then
-								ST.sold = ST.sold + 1
-								local d2 = D()
-								local gain = d2 and (d2.Money or 0) - m0 or 0
-								if gain > 0 then ST.soldMoney = ST.soldMoney + gain end
-								logf("sold spare " .. tostring(a.name))
-							end
-						end
-					end
-				end) end
-				if S.autoOffline and d.OfflinePending and (d.OfflinePending.Base or 0) > 0 then
-					local r = invoke("Offline_Claim")
-					if r then logf("claimed offline money") end
-				end
-			end
-		end
+		if busy() ~= "Throw" then pcall(shopTick) end
 		flush()
 	end
 end)
