@@ -1,7 +1,7 @@
 -- Throw Food Helper · auto farm for "Throw Food For Animals"
 -- Plays the game through its own controls: real meter taps at PERFECT, walks to your own
 -- pull-up bar to train, taps the training bonus targets, and buys with in-game money only.
-local VERSION = "v2.0"
+local VERSION = "v2.1"
 local genv = (getgenv and getgenv()) or _G
 if genv.TFH_STOP then pcall(genv.TFH_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -24,7 +24,7 @@ local MB1, TOUCH, MOVE = Enum.UserInputType.MouseButton1, Enum.UserInputType.Tou
 -- ================= settings =================
 local DIR = "AFGThrowFood"
 local S = {
-	farm = false, mode = "smart", hunt = false, smartLevels = 25, cycleThrows = 3, cycleTrain = 60, autoEquip = true, tapBonus = true,
+	farm = false, mode = "smart", hunt = false, smartLevels = 25, fastMove = true, cycleThrows = 3, cycleTrain = 60, autoEquip = true, tapBonus = true,
 	autoFood = true, autoStand = true, autoOffline = true, reserve = 0, antiAfk = true, target = 0.955,
 	autoFence = true, autoClaims = true, fastReveal = true, sellExtras = false, keepSpare = 4,
 }
@@ -446,6 +446,12 @@ local function doThrow()
 		local ch = lp.Character
 		local hum = ch and ch:FindFirstChildOfClass("Humanoid")
 		local hrp = ch and ch:FindFirstChild("HumanoidRootPart")
+		if start and hrp and S.fastMove and (hrp.Position - start.Position).Magnitude > 14 then
+			-- instant switch inside your own plot: no walking time between training and throwing
+			hrp.AssemblyLinearVelocity = Vector3.zero
+			hrp.CFrame = start.CFrame + Vector3.new(0, 4, 0)
+			task.wait(0.25)
+		end
 		if start and hum and hrp and (hrp.Position - start.Position).Magnitude > 14 then
 			ST.phase = "walking to start"
 			hum:MoveTo(start.Position)
@@ -522,6 +528,13 @@ local function startTrain()
 	local hum = ch and ch:FindFirstChildOfClass("Humanoid")
 	local hrp = ch and ch:FindFirstChild("HumanoidRootPart")
 	if not (spot and hum and hrp) then return false end
+	if S.fastMove then
+		hrp.AssemblyLinearVelocity = Vector3.zero
+		hrp.CFrame = spot.CFrame + Vector3.new(0, 3, 0)
+		local t0 = os.clock()
+		while alive and os.clock() - t0 < 2 and not training() do task.wait(0.1) end
+		if training() then ST.phase = "training" return true end
+	end
 	ST.phase = "walking to bar"
 	hum:MoveTo(spot.Position)
 	local t = os.clock()
@@ -883,6 +896,7 @@ title(farmPg, "AUTOMATION")
 toggle(farmPg, "Equip best", "after each catch + every 30 s", function() return S.autoEquip end, function(v) S.autoEquip = v end, "🐾")
 toggle(farmPg, "Tap the x2 training targets", "presses the game's own purple x2 button", function() return S.tapBonus end, function(v) S.tapBonus = v end, "✨")
 toggle(farmPg, "Fast reveal", "the game's own auto-skip setting", function() return S.fastReveal end, function(v) S.fastReveal = v if not v then invoke("Player_SetSetting", "AutoSkip", false) end end, "⏩")
+toggle(farmPg, "Instant switch", "jump between bar and start line (no walking)", function() return S.fastMove end, function(v) S.fastMove = v end, "⚡")
 toggle(farmPg, "Index hunter", "aims at areas with animals you miss (trail rewards)", function() return S.hunt end, function(v) S.hunt = v task.spawn(updateHunt) end, "📖")
 title(farmPg, "SMART + CYCLE")
 chips(farmPg, "Smart: train for the next area if it is within", { { "10 lv", 10 }, { "25 lv", 25 }, { "50 lv", 50 }, { "100 lv", 100 } }, function() return S.smartLevels end, function(v) S.smartLevels = v end)
