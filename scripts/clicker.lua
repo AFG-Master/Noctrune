@@ -479,6 +479,7 @@ local function stopClicker(reason)
 		R.holding = false
 	end
 	setMarkersVisible(true)
+	if R.reopen then R.reopen = false setPanel(true) end
 	if refreshMain then refreshMain() end
 	if reason then toast(reason, C.amber, 2.5) end
 end
@@ -488,6 +489,7 @@ local function startClicker()
 	if #S.points == 0 then addPoint() end
 	R.running, R.acc, R.clicks, R.t0, R.idx = true, 0, 0, os.clock(), 1
 	setMarkersVisible(false) -- markers are buttons: hide them so clicks reach the game
+	R.reopen = S.hidePanel and panelOpen
 	if S.hidePanel then setPanel(false) end
 	if S.hold then
 		local p = S.points[1]
@@ -587,6 +589,7 @@ local function playMacro()
 	if #MC.steps == 0 then toast("Slot " .. S.slot .. " is empty: record first", C.amber) return end
 	if R.running then stopClicker() end
 	MC.playing, MC.loopN = true, 0
+	MC.reopen = S.hidePanel and panelOpen
 	if S.hidePanel then setPanel(false) end
 	setMarkersVisible(false)
 	if refreshMacro then refreshMacro() end
@@ -613,6 +616,7 @@ local function playMacro()
 		end
 		MC.playing = false
 		setMarkersVisible(true)
+		if MC.reopen then MC.reopen = false setPanel(true) end
 		if refreshMacro then refreshMacro() end
 		toast("Macro finished (" .. MC.loopN .. " loops)", C.green)
 	end)
