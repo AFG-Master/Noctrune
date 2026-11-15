@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.2"
+local VERSION = "v1.2.1"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -183,16 +183,19 @@ rescale()
 on(workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"), rescale)
 
 local panelOpen = true
+local panelTok = 0
 local function setPanel(v, instant)
 	panelOpen = v
+	panelTok = panelTok + 1
+	local my = panelTok
 	if instant then panel.Visible = v popScale.Scale = 1 return end
 	if v then
-		setPanel(true)
+		panel.Visible = true
 		popScale.Scale = 0.86
 		tw(popScale, 0.35, { Scale = 1 }, Enum.EasingStyle.Back)
 	else
 		tw(popScale, 0.18, { Scale = 0.86 }, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
-		task.delay(0.18, function() if not panelOpen then setPanel(false) end end)
+		task.delay(0.2, function() if panelTok == my and not panelOpen then panel.Visible = false popScale.Scale = 1 end end)
 	end
 end
 
