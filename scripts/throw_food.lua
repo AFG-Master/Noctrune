@@ -372,7 +372,7 @@ local function tapCenter()
 	local x, y = vp.X / 2 + OFF[1], vp.Y * 0.62 + OFF[2]
 	pcall(function()
 		VIM:SendTouchEvent(41, 0, x, y)
-		RunService.RenderStepped:Wait()
+		task.wait(0.06) -- a real-length tap: one-frame taps are ignored by the reveal screen
 		VIM:SendTouchEvent(41, 2, x, y)
 	end)
 end
