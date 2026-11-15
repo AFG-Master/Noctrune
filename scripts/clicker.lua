@@ -405,9 +405,28 @@ local function clickAt(x, y)
 	return m
 end
 -- measure each method's offset: send at (x, y), see where the game says it landed
+-- On a phone, fake MOUSE events make Roblox think you switched to a mouse and it hides the joystick.
+-- So on touch devices only touch events are sent unless you pick a mouse method yourself.
+local isTouch = UIS.TouchEnabled
+local function wakeTouch()
+	if not (isTouch and VIM) then return end
+	if UIS:GetLastInputType() == Enum.UserInputType.Touch then return end
+	-- tap a tiny invisible shield of our own, so nothing in the game is pressed
+	local shield = new("TextButton", { Position = UDim2.fromOffset(0, 0), Size = UDim2.fromOffset(30, 30), BackgroundTransparency = 1, Text = "", ZIndex = 100 }, gui)
+	RunService.Heartbeat:Wait()
+	local x, y = shield.AbsolutePosition.X + 15, shield.AbsolutePosition.Y + 15
+	pcall(function()
+		VIM:SendTouchEvent(31, 0, x + OFF.Touch[1], y + OFF.Touch[2])
+		VIM:SendTouchEvent(31, 2, x + OFF.Touch[1], y + OFF.Touch[2])
+	end)
+	task.wait(0.15)
+	shield:Destroy()
+end
 local function calibrate()
 	local results = {}
-	for _, name in ipairs({ "VIM", "Touch", "Exec" }) do
+	local list = isTouch and { "Touch" } or { "VIM", "Touch", "Exec" }
+	if isTouch and (S.method == "VIM" or S.method == "Exec") then list = { "Touch", S.method } end
+	for _, name in ipairs(list) do
 		local m = inputs[name]
 		if m.ok() then
 			local u
@@ -422,6 +441,10 @@ local function calibrate()
 			if u then OFF[name] = { 300 - u.X, 150 - u.Y } results[name] = true
 			else OFF[name] = saved results[name] = false end
 		end
+	end
+	if isTouch then
+		if not results.VIM then OFF.VIM = { OFF.Touch[1], OFF.Touch[2] } end
+		wakeTouch()
 	end
 	return results
 end
@@ -488,6 +511,7 @@ local function startClicker()
 	if MC.playing or MC.recording then toast("Stop the macro first", C.amber) return end
 	if #S.points == 0 then addPoint() end
 	R.running, R.acc, R.clicks, R.t0, R.idx = true, 0, 0, os.clock(), 1
+	task.spawn(wakeTouch)
 	setMarkersVisible(false) -- markers are buttons: hide them so clicks reach the game
 	R.reopen = S.hidePanel and panelOpen
 	if S.hidePanel then setPanel(false) end
@@ -645,6 +669,7 @@ local function playMacro()
 	setMarkersVisible(false)
 	if refreshMacro then refreshMacro() end
 	task.spawn(function()
+		wakeTouch()
 		while alive and MC.playing do
 			MC.loopN = MC.loopN + 1
 			-- precise timing: each step is scheduled from the loop start, so small delays never add up
@@ -763,13 +788,18 @@ local function selfTest()
 	for _, name in ipairs({ "Touch", "VIM", "Exec" }) do
 		local m = inputs[name]
 		hits = 0
+		if isTouch and name ~= "Touch" then
+			results[#results + 1] = name .. " skip"
+		else
 		if m.ok() then
 			for _ = 1, 3 do pcall(m.press, cx, cy, true) pcall(m.press, cx, cy, false) RunService.Heartbeat:Wait() end
 			task.wait(0.15)
 		end
 		results[#results + 1] = name .. (hits > 0 and " ✓" or " ✗")
 		if hits > 0 and not best then best = name end
+		end
 	end
+	wakeTouch()
 	c:Disconnect()
 	tgt:Destroy()
 	setPanel(wasVis)
