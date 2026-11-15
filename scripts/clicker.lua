@@ -1,6 +1,6 @@
 -- AFG Clicker · universal auto clicker + macro recorder for Roblox (mobile + PC)
 -- One Heartbeat loop, several clicks per frame when needed, so very high CPS without lag.
-local VERSION = "v1.4"
+local VERSION = "v1.5"
 local genv = (getgenv and getgenv()) or _G
 if genv.AFGC_STOP then pcall(genv.AFGC_STOP) end
 
@@ -26,6 +26,9 @@ local S = {
 	stopClicks = 0, stopSecs = 0, hold = false, hidePanel = true, antiAfk = true,
 	macroSpeed = 1, macroLoops = 0, loopDelay = 0, slot = 1, fps = 0, smooth = true,
 	points = {},
+	perGame = true, games = {}, countdown = 0, burst = "off", flash = true,
+	autoBtn = false, btnWords = "claim, collect, continue, ok, skip, close", btnEvery = 1,
+	total = 0, bestCps = 0,
 }
 local function hasFiles() return writefile and readfile and isfile end
 pcall(function()
@@ -34,6 +37,10 @@ pcall(function()
 		for k, v in pairs(t) do if S[k] ~= nil then S[k] = v end end
 	end
 end)
+-- every game remembers its own click points
+local PID = tostring(game.PlaceId)
+if type(S.games) ~= "table" then S.games = {} end
+if S.perGame then S.points = S.games[PID] or {} end
 local dirty = false
 local function save() dirty = true end
 local function flush()
@@ -41,6 +48,7 @@ local function flush()
 	dirty = false
 	pcall(function()
 		if makefolder and isfolder and not isfolder(DIR) then makefolder(DIR) end
+		if S.perGame then S.games[PID] = S.points end
 		writefile(DIR .. "/settings.json", HttpService:JSONEncode(S))
 	end)
 end
@@ -228,7 +236,7 @@ new("Frame", { Position = UDim2.new(0, 14, 0, 48), Size = UDim2.new(1, -28, 0, 1
 local tabBar = new("Frame", { Position = UDim2.fromOffset(12, 56), Size = UDim2.new(1, -24, 0, 30), BackgroundColor3 = C.card, ZIndex = 3 }, panel)
 round(tabBar, 15)
 stroke(tabBar, C.line, 0.4, 1)
-local indicator = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(100, 24), BackgroundColor3 = C.a1, ZIndex = 4 }, tabBar)
+local indicator = new("Frame", { Position = UDim2.fromOffset(3, 3), Size = UDim2.fromOffset(76, 24), BackgroundColor3 = C.a1, ZIndex = 4 }, tabBar)
 round(indicator, 12)
 neon(indicator, 0)
 local pages, tabBtns, tabCount, current = {}, {}, 0, nil
@@ -248,7 +256,7 @@ local function showTab(name)
 	end
 end
 local function addTab(name, icon)
-	local b = new("TextButton", { Position = UDim2.fromOffset(3 + tabCount * 103, 3), Size = UDim2.fromOffset(100, 24), BackgroundTransparency = 1, Text = icon .. "  " .. name, Font = Enum.Font.GothamBlack, TextSize = 11, TextColor3 = C.sub, AutoButtonColor = false, ZIndex = 5 }, tabBar)
+	local b = new("TextButton", { Position = UDim2.fromOffset(3 + tabCount * 78, 3), Size = UDim2.fromOffset(76, 24), BackgroundTransparency = 1, Text = icon .. " " .. name, Font = Enum.Font.GothamBlack, TextSize = 10, TextColor3 = C.sub, AutoButtonColor = false, ZIndex = 5 }, tabBar)
 	tabCount = tabCount + 1
 	local pg = new("ScrollingFrame", { Position = UDim2.fromOffset(12, 94), Size = UDim2.new(1, -24, 1, -102), BackgroundTransparency = 1, ScrollBarThickness = 2, ScrollBarImageColor3 = C.a2, CanvasSize = UDim2.new(), AutomaticCanvasSize = Enum.AutomaticSize.Y, BorderSizePixel = 0, Visible = false, ZIndex = 3 }, panel)
 	new("UIListLayout", { Padding = UDim.new(0, 7), SortOrder = Enum.SortOrder.LayoutOrder }, pg)
@@ -487,6 +495,30 @@ local function addPoint(x, y)
 	if refreshPoints then refreshPoints() end
 end
 
+-- ================= click flash + countdown visuals (never block touches) =================
+local flashPool, flashIdx = {}, 0
+for k = 1, 6 do
+	local f = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Size = UDim2.fromOffset(10, 10), BackgroundTransparency = 1, Active = false, Visible = false, ZIndex = 14 }, gui)
+	pcall(function() f.Interactable = false end)
+	round(f, 999)
+	flashPool[k] = { f = f, s = stroke(f, C.a1, 0, 2) }
+end
+local function flashAt(x, y)
+	flashIdx = flashIdx % #flashPool + 1
+	local e = flashPool[flashIdx]
+	local o0 = gui.AbsolutePosition
+	e.f.Position = UDim2.fromOffset(x - o0.X, y - o0.Y)
+	e.f.Size = UDim2.fromOffset(8, 8)
+	e.s.Transparency = 0
+	e.f.Visible = true
+	tw(e.f, 0.35, { Size = UDim2.fromOffset(34, 34) })
+	tw(e.s, 0.35, { Transparency = 1 })
+end
+local cdLabel = label(gui, { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.42), Size = UDim2.fromOffset(160, 120), Text = "", Font = Enum.Font.GothamBlack, TextSize = 90, TextXAlignment = Enum.TextXAlignment.Center, Visible = false, ZIndex = 70 })
+pcall(function() cdLabel.Interactable = false end)
+new("UIGradient", { Color = NEON }, cdLabel)
+new("UIStroke", { Color = C.bg, Thickness = 3, Transparency = 0.2 }, cdLabel)
+
 -- ================= runtime state =================
 local R = { running = false, acc = 0, clicks = 0, t0 = 0, idx = 1, hist = {}, cps = 0, holding = false }
 local MC = { steps = {}, recording = false, playing = false, lastT = 0, loopN = 0, stepN = 0 }
@@ -496,6 +528,7 @@ local refreshMain
 local function stopClicker(reason)
 	if not R.running then return end
 	R.running = false
+	save()
 	if R.holding then
 		local p = S.points[1]
 		if p then pcall(method(p[1], p[2]).press, p[1], p[2], false) end
@@ -506,7 +539,7 @@ local function stopClicker(reason)
 	if refreshMain then refreshMain() end
 	if reason then toast(reason, C.amber, 2.5) end
 end
-local function startClicker()
+local function startNow()
 	if R.running then return end
 	if MC.playing or MC.recording then toast("Stop the macro first", C.amber) return end
 	if #S.points == 0 then addPoint() end
@@ -522,10 +555,44 @@ local function startClicker()
 	end
 	if refreshMain then refreshMain() end
 end
-local function toggleClicker() if R.running then stopClicker() else startClicker() end end
+local function startClicker()
+	if R.running or R.counting then return end
+	if (S.countdown or 0) <= 0 then startNow() return end
+	if MC.playing or MC.recording then toast("Stop the macro first", C.amber) return end
+	R.counting = true
+	if refreshMain then refreshMain() end
+	task.spawn(function()
+		for k = S.countdown, 1, -1 do
+			if not (alive and R.counting) then break end
+			cdLabel.Text = tostring(k)
+			cdLabel.Visible = true
+			cdLabel.TextTransparency = 0
+			cdLabel.Size = UDim2.fromOffset(220, 160)
+			tw(cdLabel, 0.9, { Size = UDim2.fromOffset(120, 90), TextTransparency = 0.6 })
+			task.wait(1)
+		end
+		cdLabel.Visible = false
+		if R.counting and alive then R.counting = false startNow() else R.counting = false end
+		if refreshMain then refreshMain() end
+	end)
+end
+local function toggleClicker()
+	if R.counting then R.counting = false toast("Start cancelled", C.amber) return end
+	if R.running then stopClicker() else startClicker() end
+end
 
+local function burstPair()
+	local a, b = tostring(S.burst):match("^(%d+):(%d+)$")
+	return tonumber(a), tonumber(b)
+end
 on(RunService.Heartbeat, function(dt)
 	if not R.running or R.holding then return end
+	local bOn, bOff = burstPair()
+	if bOn and bOff and bOff > 0 then
+		local ph = (os.clock() - R.t0) % (bOn + bOff)
+		R.resting = ph >= bOn
+		if R.resting then R.acc = 0 return end
+	else R.resting = false end
 	local rate = S.cps
 	if S.jitterPct > 0 then rate = rate * (1 + (math.random() * 2 - 1) * S.jitterPct / 100) end
 	R.acc = R.acc + dt * rate
@@ -548,7 +615,14 @@ on(RunService.Heartbeat, function(dt)
 			R.idx = R.idx % #pts + 1
 		end
 	end
-	R.clicks = R.clicks + n * (S.mode == "All" and #pts or 1)
+	local done = n * (S.mode == "All" and #pts or 1)
+	R.clicks = R.clicks + done
+	S.total = (S.total or 0) + done
+	if S.flash and os.clock() - (R.lastFlash or 0) > 0.09 then
+		R.lastFlash = os.clock()
+		local p = S.mode == "All" and pts[math.random(1, #pts)] or (pts[(R.idx - 2) % #pts + 1] or pts[1])
+		flashAt(p[1], p[2])
+	end
 	local h = R.hist
 	h[#h + 1] = { os.clock(), n * (S.mode == "All" and #pts or 1) }
 	if S.stopClicks > 0 and R.clicks >= S.stopClicks then stopClicker("Stopped after " .. R.clicks .. " clicks") end
@@ -845,6 +919,7 @@ end
 -- ================= pages =================
 local clickPg = addTab("CLICK", "⚡")
 local macroPg = addTab("MACRO", "⏺")
+local smartPg = addTab("SMART", "✦")
 local morePg = addTab("MORE", "⚙")
 
 -- CLICK: hero card = power button + live stats + speed graph
@@ -960,9 +1035,24 @@ slotRefresh = chips(macroPg, "Macro slot (saved on your device)", { { "1", 1 }, 
 	if refreshMacro then refreshMacro() end
 end)
 toggle(macroPg, "Ultra smooth playback", "glides fingers between recorded points every frame", function() return S.smooth end, function(v) S.smooth = v end)
-local edCard = card(macroPg, 36)
-local bUndo = btn(edCard, "Remove last step", 6, 4, 140, 28)
-local bClear = btn(edCard, "Clear slot", 150, 4, 148, 28, Color3.fromRGB(70, 30, 45))
+local edCard = card(macroPg, 70)
+local bUndo = btn(edCard, "Remove last step", 6, 4, 148, 28)
+local bClear = btn(edCard, "Clear slot", 158, 4, 148, 28, Color3.fromRGB(70, 30, 45))
+local bTrim = btn(edCard, "Trim start", 6, 36, 148, 28)
+local bGaps = btn(edCard, "Cut long pauses", 158, 36, 148, 28)
+on(bTrim.MouseButton1Click, function()
+	if MC.recording or MC.playing or #MC.steps == 0 then return end
+	MC.steps[1].d = math.min(MC.steps[1].d or 0, 0.15)
+	saveMacro() refreshMacro() toast("Start trimmed", C.green)
+end)
+on(bGaps.MouseButton1Click, function()
+	if MC.recording or MC.playing then return end
+	local cut = 0
+	for _, st in ipairs(MC.steps) do
+		if (st.d or 0) > 1.5 then cut = cut + st.d - 0.5 st.d = 0.5 end
+	end
+	saveMacro() refreshMacro() toast(string.format("Cut %.1fs of waiting", cut), C.green)
+end)
 on(bUndo.MouseButton1Click, function()
 	if MC.recording or MC.playing then return end
 	-- remove the last gesture: everything back to the previous "down"/"kd"
@@ -1028,12 +1118,106 @@ on(bTest.MouseButton1Click, function()
 		testL.Text = (best and ("Auto uses " .. best .. " · ") or "") .. table.concat(res or {}, "  ")
 	end)
 end)
+title(morePg, "LIFETIME")
+local statsCard = card(morePg, 40)
+local statsL = label(statsCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2.new(1, -24, 1, -8), TextSize = 11, ZIndex = 4 })
 label(card(morePg, 40), { Position = UDim2.fromOffset(10, 4), Size = UDim2.new(1, -20, 1, -8), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, ZIndex = 4, Text = "PC keys:  F6 clicker on/off  ·  F7 play/stop macro  ·  F8 record/stop" })
+
+-- SMART
+title(smartPg, "AUTO-PRESS GAME BUTTONS")
+toggle(smartPg, "Auto-press buttons", "presses game buttons whose text has your words", function() return S.autoBtn end, function(v) S.autoBtn = v end)
+local wCard = card(smartPg, 58)
+label(wCard, { Position = UDim2.fromOffset(12, 5), Size = UDim2.new(1, -24, 0, 14), Text = "Words (comma separated, any game language)", TextSize = 10, TextColor3 = C.sub, ZIndex = 4 })
+local wordsBox = new("TextBox", { Position = UDim2.fromOffset(8, 24), Size = UDim2.new(1, -16, 0, 26), BackgroundColor3 = C.card2, Text = S.btnWords, PlaceholderText = "claim, collect, ok", Font = Enum.Font.GothamBold, TextSize = 11, TextColor3 = C.a1, ClearTextOnFocus = false, TextXAlignment = Enum.TextXAlignment.Left, ZIndex = 4 }, wCard)
+round(wordsBox, 8)
+new("UIPadding", { PaddingLeft = UDim.new(0, 8) }, wordsBox)
+on(wordsBox.FocusLost, function() S.btnWords = wordsBox.Text save() end)
+chips(smartPg, "Check every", { { "0.25s", 0.25 }, { "0.5s", 0.5 }, { "1s", 1 }, { "3s", 3 } }, function() return S.btnEvery end, function(v) S.btnEvery = v end)
+local btnStatL = label(card(smartPg, 30), { Position = UDim2.fromOffset(12, 0), Size = UDim2.new(1, -24, 1, 0), Text = "nothing pressed yet", TextSize = 10, TextColor3 = C.sub, TextTruncate = Enum.TextTruncate.AtEnd, ZIndex = 4 })
+title(smartPg, "TIMING")
+chips(smartPg, "Countdown before START", { { "off", 0 }, { "3s", 3 }, { "5s", 5 }, { "10s", 10 } }, function() return S.countdown end, function(v) S.countdown = v end)
+chips(smartPg, "Work / rest cycle", { { "off", "off" }, { "5/5s", "5:5" }, { "10/20s", "10:20" }, { "30/30s", "30:30" }, { "1/2m", "60:120" } }, function() return S.burst end, function(v) S.burst = v end)
+title(smartPg, "EXTRAS")
+toggle(smartPg, "Click flash", "a small neon ring shows where it clicks", function() return S.flash end, function(v) S.flash = v end)
+toggle(smartPg, "Points per game", "every game remembers its own click points", function() return S.perGame end, function(v)
+	S.perGame = v
+	if v then S.games[PID] = S.points end
+end)
+
+-- auto-press: scans your game UI for visible buttons with matching text (never Robux / buy buttons)
+local BLOCK = { "robux", "r%$", "buy", "purchase", "premium", "gift", "trade", "delete", "sell", "leave", "kick", "report", "block" }
+local pressedN, lastPress, btnCool = 0, "", {}
+local function shown(o)
+	local x = o
+	while x and x ~= lp.PlayerGui do
+		if x:IsA("GuiObject") and not x.Visible then return false end
+		if x:IsA("ScreenGui") and not x.Enabled then return false end
+		if x:IsA("LayerCollector") and x ~= lp.PlayerGui and x.Parent == lp.PlayerGui then break end
+		x = x.Parent
+	end
+	return true
+end
+local function textOf(b)
+	local t = b:IsA("TextButton") and b.Text or ""
+	if #t < 1 then
+		for _, d in ipairs(b:GetDescendants()) do
+			if d:IsA("TextLabel") and #d.Text > 0 then t = t .. " " .. d.Text if #t > 40 then break end end
+		end
+	end
+	return string.lower(t)
+end
+local function scanButtons()
+	local words = {}
+	for w in string.gmatch(string.lower(S.btnWords or ""), "[^,]+") do
+		w = w:match("^%s*(.-)%s*$")
+		if #w > 0 then words[#words + 1] = w end
+	end
+	if #words == 0 then return end
+	local now = os.clock()
+	for _, b in ipairs(lp.PlayerGui:GetDescendants()) do
+		if b:IsA("GuiButton") and not b:FindFirstAncestor("TouchGui") and (not btnCool[b] or now - btnCool[b] > 1.5) and shown(b) then
+			local t = textOf(b)
+			if #t > 0 then
+				local hit
+				for _, w in ipairs(words) do if string.find(t, w, 1, true) then hit = w break end end
+				if hit then
+					for _, bad in ipairs(BLOCK) do if string.find(t, bad) and not string.find(hit, bad) then hit = nil break end end
+				end
+				if hit then
+					btnCool[b] = now
+					local c = b.AbsolutePosition + b.AbsoluteSize / 2
+					fireButton(b, c.X, c.Y)
+					pressedN = pressedN + 1
+					lastPress = t:gsub("%s+", " "):sub(1, 30)
+				end
+			end
+		end
+	end
+end
+task.spawn(function()
+	while alive do
+		if S.autoBtn then pcall(scanButtons) end
+		btnStatL.Text = pressedN > 0 and string.format("pressed %d  ·  last: %s", pressedN, lastPress) or (S.autoBtn and "watching for buttons..." or "off")
+		task.wait(math.max(0.25, S.btnEvery or 1))
+	end
+end)
 
 -- ================= panel / fab behaviour =================
 on(minB.MouseButton1Click, function() setPanel(false) end)
+local fabHold = { t = 0, fired = false }
+on(fab.InputBegan, function(i)
+	if i.UserInputType ~= MB1 and i.UserInputType ~= TOUCH then return end
+	fabHold.t, fabHold.fired = os.clock(), false
+	local my = fabHold.t
+	task.delay(0.55, function()
+		if fabHold.t == my and fabDrag.input and not fabDrag.moved then
+			fabHold.fired = true
+			toggleClicker()
+		end
+	end)
+end)
 on(fab.MouseButton1Click, function()
-	if fabDrag.moved then return end
+	if fabDrag.moved or fabHold.fired then fabHold.fired = false return end
 	if MC.recording then stopRecord() return end
 	setPanel(not panelOpen)
 end)
@@ -1128,6 +1312,10 @@ task.spawn(function()
 		end
 		if MC.playing then refreshMacro() end
 		refreshMain()
+		if R.cps > (S.bestCps or 0) then S.bestCps = R.cps save() end
+		statsL.Text = string.format("%s clicks all time  ·  record %d CPS", short(S.total or 0), S.bestCps or 0)
+		if R.running and R.resting then pill.Text, pill.TextColor3, pillStroke.Color = "◌ REST", C.amber, C.amber end
+		if R.counting then pill.Text, pill.TextColor3, pillStroke.Color = "◷ " .. tostring(cdLabel.Text), C.amber, C.amber end
 		if pulse % 8 == 0 then flush() end
 		task.wait(0.25)
 	end
