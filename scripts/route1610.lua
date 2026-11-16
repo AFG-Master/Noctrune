@@ -1,6 +1,6 @@
 -- Route 1610 Driver · auto drive + monster guard for "Route 1610"
 -- Drives with the game's own road path and input system; never touches purchases or leaderboards.
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 local genv = (getgenv and getgenv()) or _G
 if genv.R1610_STOP then pcall(genv.R1610_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -370,7 +370,7 @@ pcall(function()
 		local ok, cfg = pcall(require, m)
 		if ok then
 			local ok2, r = pcall(RP.build, cfg)
-			if ok2 and r and r.samples then ROUTES[#ROUTES + 1] = { name = m.Name, r = r, len = r.samples[#r.samples] and r.samples[#r.samples].s or 0 } end
+			if ok2 and r and r.samples then ROUTES[#ROUTES + 1] = { name = m.Name, r = r, len = r.samples[#r.samples] and r.samples[#r.samples].s or 0, width = cfg.RoadWidth or 24 } end
 		end
 	end
 end)
@@ -389,7 +389,7 @@ local function pickRoute()
 			if not bs or score < bs then best, bs = R, score end
 		end
 	end
-	if best and best ~= CUR.R then CUR.R, CUR.route, CUR.name = best, best.r, best.name logf("road: " .. best.name) end
+	if best and best ~= CUR.R then CUR.R, CUR.route, CUR.name, CUR.width = best, best.r, best.name, best.width logf("road: " .. best.name) end
 end
 
 -- ================= obstacles: a lane map of everything on the road =================
@@ -449,17 +449,21 @@ local function refreshBlocks()
 	for _, o in ipairs(OBST) do o.full = (o.lo < -11 and o.hi > 11) end -- whole road: can not be dodged
 end
 -- the free line through the next obstacles (closest to where we already are)
-local function laneFor(s_, curLat)
-	if not S.dodge then return 0 end
+local function laneFor(s_, curLat, extra)
+	if not S.dodge and not extra then return 0 end
 	local window = {}
-	for _, o in ipairs(OBST) do
-		if not o.full and o.s1 > s_ - 6 and o.s0 - s_ < 110 then window[#window + 1] = o end
+	if S.dodge then
+		for _, o in ipairs(OBST) do
+			if not o.full and o.s1 > s_ - 6 and o.s0 - s_ < 110 then window[#window + 1] = o end
+		end
 	end
+	if extra then window[#window + 1] = extra end
 	if #window == 0 then ST.dodging = nil return 0 end
+	local edge = (CUR.width or 24) / 2 - CAR_HALF - 0.6
 	local best, bestCost
 	for i = -22, 22 do
 		local L = i * 0.5
-		local free = true
+		local free = math.abs(L) <= edge
 		for _, o in ipairs(window) do
 			if L + CAR_HALF + 1.2 > o.lo and L - CAR_HALF - 1.2 < o.hi then free = false break end
 		end
@@ -518,13 +522,19 @@ local function autoInput(st, dt)
 		if o.full and o.s0 - s > 0 and o.s0 - s < 35 then lane = 0 break end -- hit roadblocks dead straight
 	end
 	if gap and gap < 0 and gap > -240 then
-		-- AMBUSH: it is waiting on the road ahead -> pass it on the far side of the road
-		lane = (rLat or 0) >= 0 and -8.5 or 8.5
+		-- AMBUSH: it is waiting on the road ahead -> treat it as an obstacle and take the clearest side
+		local r0 = rLat or 0
+		lane = laneFor(s, lat, { s0 = s - gap - 6, s1 = s - gap + 6, lo = r0 - 7.5, hi = r0 + 7.5, kind = "ambush" })
 		if not ST.ambushAt or os.clock() - ST.ambushAt > 4 then ST.ambushAt = os.clock() ST.ambush = (ST.ambush or 0) + 1 logf("ambush ahead: passing on the " .. (lane < 0 and "left" or "right")) end
 	elseif gap and gap >= 0 and gap < 45 and lane == 0 then
 		-- it is right behind: move away from its side to dodge the swipe
 		lane = (rLat or 0) >= lat and -5 or 5
 	end
+	-- glide between lanes (a snap of the wheel at 110 flips the car)
+	local maxStep = math.max(6, spd * 0.16) * (1 / 30)
+	ST.laneNow = ST.laneNow or 0
+	ST.laneNow = ST.laneNow + math.clamp(lane - ST.laneNow, -maxStep, maxStep)
+	lane = ST.laneNow
 	local look = 14 + spd * 0.45
 	local _, tx, _, tz = pcall(RP.pointAt, CUR.route, s + look, lane)
 	if not tx then return end
