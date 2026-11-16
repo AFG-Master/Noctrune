@@ -14,7 +14,18 @@ local SCRIPTS = {
 	{ name = "Driving Empire Spookfest", place = 3351674303, url = BASE .. "Noctrune/main/scripts/spookfest.lua" },
 	{ name = "3008 Helper", place = 2768379856, url = BASE .. "Noctrune/main/scripts/h3008.lua" },
 	{ name = "Egg Loop Helper", place = 125177095586059, url = BASE .. "Noctrune/main/scripts/egg_loop.lua" },
-	{ name = "Route 1610 Driver", place = 107530102033104, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4 },
+	{ name = "Do Not Stop Driver", place = 107530102033104, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4 },
+	{ name = "Do Not Stop Driver (Lobby)", place = 116779912472448, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map02)", place = 73944063866340, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map03)", place = 81271298082422, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map04)", place = 76065553551463, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map05)", place = 111081709255588, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map06)", place = 137070863487426, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map07)", place = 129862496496546, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map08)", place = 104171809510415, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Map09)", place = 117653142673937, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Tournament)", place = 108375498051497, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
+	{ name = "Do Not Stop Driver (Endless)", place = 98531913151071, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4, hidden = true },
 	{ name = "Battleship Commander", place = 117932401180169, url = BASE .. "Noctrune/main/scripts/battleship.lua" },
 	{ name = "Throw Food Helper", place = 120219252362013, url = BASE .. "Noctrune/main/scripts/throw_food.lua" },
 	{ name = "OP Pasahero", place = 78175233789962, url = BASE .. "Noctrune/main/scripts/pasahero.lua" },
@@ -55,7 +66,9 @@ gui.Name = "AFGHub" gui.ResetOnSpawn = false gui.DisplayOrder = 60 gui.IgnoreGui
 pcall(function() gui.Parent = (gethui and gethui()) or game:GetService("CoreGui") end)
 if not gui.Parent then gui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui") end
 local vp = workspace.CurrentCamera.ViewportSize
-local H = math.min(48 + #SCRIPTS * 34 + 10, math.floor(vp.Y * 0.78))
+local shown = 0
+for _, sc in ipairs(SCRIPTS) do if not sc.hidden then shown = shown + 1 end end
+local H = math.min(48 + shown * 34 + 10, math.floor(vp.Y * 0.78))
 local f = Instance.new("Frame", gui)
 f.AnchorPoint = Vector2.new(0.5, 0.5) f.Position = UDim2.fromScale(0.5, 0.5)
 f.Size = UDim2.fromOffset(260, H) f.BackgroundColor3 = Color3.fromRGB(16, 17, 22) f.BorderSizePixel = 0
@@ -66,7 +79,7 @@ head.BackgroundTransparency = 1 head.Size = UDim2.new(1, 0, 0, 42) head.Text = "
 local title = Instance.new("TextLabel", head)
 title.BackgroundTransparency = 1 title.Position = UDim2.fromOffset(14, 9) title.Size = UDim2.new(1, -90, 0, 24)
 title.Font = Enum.Font.GothamBlack title.TextSize = 15 title.TextXAlignment = Enum.TextXAlignment.Left
-title.TextColor3 = Color3.new(1, 1, 1) title.Text = "AFG HUB  ·  " .. #SCRIPTS
+title.TextColor3 = Color3.new(1, 1, 1) title.Text = "AFG HUB  ·  " .. shown
 local function headBtn(txt, x)
 	local b = Instance.new("TextButton", head)
 	b.AnchorPoint = Vector2.new(1, 0) b.Position = UDim2.new(1, x, 0, 8) b.Size = UDim2.fromOffset(26, 26)
@@ -83,13 +96,15 @@ list.ScrollBarImageColor3 = Color3.fromRGB(120, 200, 255) list.CanvasSize = UDim
 list.AutomaticCanvasSize = Enum.AutomaticSize.Y list.ScrollingDirection = Enum.ScrollingDirection.Y
 local lay = Instance.new("UIListLayout", list) lay.Padding = UDim.new(0, 4) lay.SortOrder = Enum.SortOrder.LayoutOrder
 for i, sc in ipairs(SCRIPTS) do
-	local b = Instance.new("TextButton", list)
-	b.LayoutOrder = i b.Size = UDim2.new(1, -6, 0, 30)
-	b.BackgroundColor3 = Color3.fromRGB(30, 32, 40) b.BorderSizePixel = 0 b.AutoButtonColor = true
-	b.Font = Enum.Font.GothamBold b.TextSize = 12 b.TextColor3 = Color3.fromRGB(235, 237, 245)
-	b.TextXAlignment = Enum.TextXAlignment.Left b.Text = "   " .. sc.name
-	Instance.new("UICorner", b).CornerRadius = UDim.new(0, 9)
-	b.MouseButton1Click:Connect(function() gui:Destroy() run(sc) end)
+		if not sc.hidden then
+		local b = Instance.new("TextButton", list)
+		b.LayoutOrder = i b.Size = UDim2.new(1, -6, 0, 30)
+		b.BackgroundColor3 = Color3.fromRGB(30, 32, 40) b.BorderSizePixel = 0 b.AutoButtonColor = true
+		b.Font = Enum.Font.GothamBold b.TextSize = 12 b.TextColor3 = Color3.fromRGB(235, 237, 245)
+		b.TextXAlignment = Enum.TextXAlignment.Left b.Text = "   " .. sc.name
+		Instance.new("UICorner", b).CornerRadius = UDim.new(0, 9)
+		b.MouseButton1Click:Connect(function() gui:Destroy() run(sc) end)
+	end
 end
 -- folded pill
 local pill = Instance.new("TextButton", gui)
