@@ -21,7 +21,7 @@ local MB1, TOUCH, MOVE = Enum.UserInputType.MouseButton1, Enum.UserInputType.Tou
 
 local DIR = "AFGRoute1610"
 local S = {
-	drive = false, pace = 105, curves = true, dodge = true, assist = true, cruise = false, antiTumble = true,
+	drive = false, pace = 130, minBend = 85, curves = true, dodge = true, assist = true, cruise = false, antiTumble = true,
 	crank = true, flash = true, antiScare = true, esp = true, fullbright = false, nofog = false,
 	walkOn = false, walk = 28, autoVote = false, vote = "restart", codesDone = {},
 }
@@ -427,6 +427,18 @@ local function laneFor(s, curLat)
 	return want
 end
 
+-- ================= the Runner: where it is and how close =================
+local function runnerInfo(route, carS)
+	local f = workspace:FindFirstChild("ClientMonsters")
+	local rn = f and f:FindFirstChild("Runner")
+	if not rn then return nil end
+	local part = rn:IsA("Model") and (rn.PrimaryPart or rn:FindFirstChildWhichIsA("BasePart", true)) or rn
+	if not (part and part:IsA("BasePart")) then return nil end
+	local ok, rs, rl = pcall(RP.project, route, part.Position.X, part.Position.Z)
+	if not ok or not rs then return nil end
+	return carS - rs, rl
+end
+
 -- ================= driver =================
 local function curvature(route, s)
 	local ok, x1, _, z1 = pcall(RP.pointAt, route, s, 0)
@@ -449,6 +461,13 @@ local function autoInput(st, dt)
 	if not ok or not s then return end
 	local spd = speed()
 	local lane = laneFor(s, lat)
+	local gap, rLat = nil, nil
+	if runAttr("RunnerActive") then gap, rLat = runnerInfo(CUR.route, s) end
+	ST.gap = gap
+	if gap and gap > -20 and gap < 45 and lane == 0 then
+		-- it is right behind: move away from its side to dodge the swipe
+		lane = (rLat or 0) >= lat and -5 or 5
+	end
 	local look = 14 + spd * 0.45
 	local _, tx, _, tz = pcall(RP.pointAt, CUR.route, s + look, lane)
 	if not tx then return end
@@ -464,13 +483,15 @@ local function autoInput(st, dt)
 	local target = S.pace
 	if S.curves then
 		local bend = curvature(CUR.route, s + math.min(spd * 0.6, 60))
-		target = math.max(38, S.pace * (1 - math.clamp(bend * 1.9, 0, 0.62)))
+		target = math.max(S.minBend, S.pace * (1 - math.clamp(bend * 1.3, 0, 0.45)))
 	end
+	-- the Runner is close: no slowing down at all
+	if gap and gap < 140 then target = math.max(target, math.min(S.pace, 125)) end
 	local thr, brk = 1, 0
 	if spd > target + 6 then thr, brk = 0, math.clamp((spd - target) / 25, 0.2, 1)
 	elseif spd > target - 3 then thr = 0.35 end
 	st.Throttle, st.Brake, st.Steer, st.Handbrake = thr, brk, steer, false
-	ST.phase = string.format("driving %d/%d  ·  %s", math.floor(spd), math.floor(target), CUR.name)
+	ST.phase = string.format("driving %d/%d%s", math.floor(spd), math.floor(target), gap and ("  ·  Runner " .. math.floor(gap) .. "m behind") or "")
 	return s
 end
 -- manual helpers: cruise (holds the pace while you steer) and steering assist (keeps you on the road)
@@ -715,7 +736,8 @@ local roadCard = card(homePg, 62)
 local roadL = label(roadCard, { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 0, 16), Font = Enum.Font.GothamBold, TextSize = 12, ZIndex = 4, Text = "" })
 local roadBar = bar(roadCard, 12, 28, CW - 24)
 local roadSub = label(roadCard, { Position = UDim2.fromOffset(12, 40), Size = UDim2.new(1, -24, 0, 16), TextSize = 10, TextColor3 = C.sub, ZIndex = 4, Text = "" })
-chips(homePg, "Pace (speed you drive at)", { { "70", 70 }, { "90", 90 }, { "105", 105 }, { "120", 120 }, { "135", 135 } }, function() return S.pace end, function(v) S.pace = v end)
+chips(homePg, "Pace (Runner cruises at 92)", { { "100", 100 }, { "115", 115 }, { "130", 130 }, { "140", 140 } }, function() return S.pace end, function(v) S.pace = v end)
+chips(homePg, "Slowest speed in bends", { { "70", 70 }, { "85", 85 }, { "100", 100 } }, function() return S.minBend end, function(v) S.minBend = v end)
 toggle(homePg, "Slow for bends", "brakes before sharp turns", function() return S.curves end, function(v) S.curves = v end, "↪")
 toggle(homePg, "Dodge roadblocks", "changes lane around blocks ahead", function() return S.dodge end, function(v) S.dodge = v end, "🚧")
 toggle(homePg, "Anti-tumble", "flipped or stuck: resets the car", function() return S.antiTumble end, function(v) S.antiTumble = v end, "🔄")
