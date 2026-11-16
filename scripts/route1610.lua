@@ -458,6 +458,9 @@ local function laneFor(s_, curLat, extra)
 		end
 	end
 	if extra then window[#window + 1] = extra end
+	-- the standing Ambusher: hitting it staggers the car to 45 % speed, so it is an obstacle
+	local amb = ST.ambusher
+	if amb and amb.s > s_ - 8 and amb.s - s_ < 160 then window[#window + 1] = { s0 = amb.s - 6, s1 = amb.s + 6, lo = amb.lat - 8, hi = amb.lat + 8, kind = "Ambusher" } end
 	if #window == 0 then ST.dodging = nil return 0 end
 	local edge = (CUR.width or 24) / 2 - CAR_HALF - 0.6
 	local best, bestCost
@@ -494,6 +497,16 @@ local function runnerInfo(route, carS)
 end
 
 -- ================= driver =================
+local function scanAmbusher()
+	ST.ambusher = nil
+	local f = workspace:FindFirstChild("ClientMonsters")
+	local m = f and f:FindFirstChild("Ambusher")
+	if not (m and CUR.route) then return end
+	local part = m.PrimaryPart or m:FindFirstChildWhichIsA("BasePart", true)
+	if not part then return end
+	local ok, s_, lat = pcall(RP.project, CUR.route, part.Position.X, part.Position.Z)
+	if ok and s_ then ST.ambusher = { s = s_, lat = lat } end
+end
 local function curvature(route, s)
 	local ok, x1, _, z1 = pcall(RP.pointAt, route, s, 0)
 	local _, x2, _, z2 = pcall(RP.pointAt, route, s + 25, 0)
@@ -514,6 +527,7 @@ local function autoInput(st, dt)
 	local ok, s, lat = pcall(RP.project, CUR.route, p.X, p.Z)
 	if not ok or not s then return end
 	local spd = speed()
+	pcall(scanAmbusher)
 	local lane = laneFor(s, lat)
 	local gap, rLat = nil, nil
 	if runAttr("RunnerActive") then gap, rLat = runnerInfo(CUR.route, s) end
@@ -524,7 +538,7 @@ local function autoInput(st, dt)
 	if gap and gap < 0 and gap > -240 then
 		-- AMBUSH: it is waiting on the road ahead -> treat it as an obstacle and take the clearest side
 		local r0 = rLat or 0
-		lane = laneFor(s, lat, { s0 = s - gap - 6, s1 = s - gap + 6, lo = r0 - 7.5, hi = r0 + 7.5, kind = "ambush" })
+		lane = laneFor(s, lat, { s0 = s - gap - 6, s1 = s - gap + 6, lo = r0 - 7.5, hi = r0 + 7.5, kind = "Runner flank" })
 		if not ST.ambushAt or os.clock() - ST.ambushAt > 4 then ST.ambushAt = os.clock() ST.ambush = (ST.ambush or 0) + 1 logf("ambush ahead: passing on the " .. (lane < 0 and "left" or "right")) end
 	elseif gap and gap >= 0 and gap < 45 and lane == 0 then
 		-- it is right behind: move away from its side to dodge the swipe
