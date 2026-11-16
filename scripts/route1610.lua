@@ -1,6 +1,6 @@
 -- Route 1610 Driver · auto drive + monster guard for "Route 1610"
 -- Drives with the game's own road path and input system; never touches purchases or leaderboards.
-local VERSION = "v1.3"
+local VERSION = "v1.4"
 local genv = (getgenv and getgenv()) or _G
 if genv.R1610_STOP then pcall(genv.R1610_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -21,7 +21,7 @@ local MB1, TOUCH, MOVE = Enum.UserInputType.MouseButton1, Enum.UserInputType.Tou
 
 local DIR = "AFGRoute1610"
 local S = {
-	drive = false, pace = 130, minBend = 85, curves = true, dodge = true, assist = true, cruise = false, antiTumble = true,
+	drive = false, pace = 130, grip = 70, curves = true, dodge = true, assist = true, cruise = false, antiTumble = true,
 	crank = true, flash = true, antiScare = true, esp = true, fullbright = false, nofog = false,
 	walkOn = false, walk = 28, autoVote = false, autoRevive = true, bestCar = true, vote = "restart", codesDone = {},
 }
@@ -507,6 +507,26 @@ local function scanAmbusher()
 	local ok, s_, lat = pcall(RP.project, CUR.route, part.Position.X, part.Position.Z)
 	if ok and s_ then ST.ambusher = { s = s_, lat = lat } end
 end
+-- how sharply the road turns at s (radians per stud), cached per 15 studs of each route
+local function bendAt(R, s_)
+	R.bend = R.bend or {}
+	local key = math.floor(s_ / 15)
+	local v = R.bend[key]
+	if v then return v end
+	local function heading(x)
+		local x1, _, z1 = RP.pointAt(R.r, x, 0)
+		local x2, _, z2 = RP.pointAt(R.r, x + 6, 0)
+		return math.atan2(x2 - x1, z2 - z1)
+	end
+	local ok, k = pcall(function()
+		local d = heading(key * 15 + 15) - heading(key * 15 - 15)
+		d = (d + math.pi) % (2 * math.pi) - math.pi
+		return math.abs(d) / 30
+	end)
+	v = ok and k or 0
+	R.bend[key] = v
+	return v
+end
 local function curvature(route, s)
 	local ok, x1, _, z1 = pcall(RP.pointAt, route, s, 0)
 	local _, x2, _, z2 = pcall(RP.pointAt, route, s + 25, 0)
@@ -561,16 +581,19 @@ local function autoInput(st, dt)
 	local ang = math.atan2(fwd:Cross(to).Y, fwd:Dot(to))
 	local steer = math.clamp(-ang * 2.3, -1, 1)
 	-- speed for the bend ahead
+	-- corner-speed planning: every bend ahead has a top speed (grip), and we brake early enough for it
 	local target = S.pace
 	if S.curves then
-		local bend = curvature(CUR.route, s + math.min(spd * 0.6, 60))
-		target = math.max(S.minBend, S.pace * (1 - math.clamp(bend * 1.3, 0, 0.45)))
-	end
-	-- the Runner is close: no slowing down at all
-	-- the Runner can cut corners and flank you when it is 40-260 behind: never slow down while it can
-	if gap and gap < 300 then
-		local bend = curvature(CUR.route, s + math.min(spd * 0.6, 60))
-		target = bend > 1.2 and math.max(target, S.pace * 0.8) or S.pace
+		local grip = S.grip * ((gap and gap >= 0 and gap < 120) and 1.12 or 1)
+		for d = 0, 240, 15 do
+			local k = bendAt(CUR.R, s + d)
+			if k > 1e-4 then
+				local vmax = math.sqrt(grip / k)
+				local allowed = math.sqrt(vmax * vmax + 2 * 55 * math.max(d - 12, 0))
+				if allowed < target then target = allowed end
+			end
+		end
+		target = math.max(target, 45)
 	end
 	local thr, brk = 1, 0
 	if spd > target + 6 then thr, brk = 0, math.clamp((spd - target) / 25, 0.2, 1)
@@ -858,7 +881,7 @@ local roadL = label(roadCard, { Position = UDim2.fromOffset(12, 6), Size = UDim2
 local roadBar = bar(roadCard, 12, 28, CW - 24)
 local roadSub = label(roadCard, { Position = UDim2.fromOffset(12, 40), Size = UDim2.new(1, -24, 0, 16), TextSize = 10, TextColor3 = C.sub, ZIndex = 4, Text = "" })
 chips(homePg, "Pace (Runner cruises at 92)", { { "100", 100 }, { "115", 115 }, { "130", 130 }, { "140", 140 } }, function() return S.pace end, function(v) S.pace = v end)
-chips(homePg, "Slowest speed in bends", { { "70", 70 }, { "85", 85 }, { "100", 100 } }, function() return S.minBend end, function(v) S.minBend = v end)
+chips(homePg, "Cornering", { { "Safe", 55 }, { "Normal", 70 }, { "Fast", 85 } }, function() return S.grip end, function(v) S.grip = v end)
 toggle(homePg, "Slow for bends", "brakes before sharp turns", function() return S.curves end, function(v) S.curves = v end, "↪")
 toggle(homePg, "Dodge roadblocks", "changes lane around blocks ahead", function() return S.dodge end, function(v) S.dodge = v end, "🚧")
 toggle(homePg, "Anti-tumble", "flipped or stuck: resets the car", function() return S.antiTumble end, function(v) S.antiTumble = v end, "🔄")
