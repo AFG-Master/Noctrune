@@ -414,7 +414,14 @@ local function refreshBlocks()
 		for _, p in ipairs(folder:GetDescendants()) do
 			if p:IsA("BasePart") and p.Transparency < 1 and p.Size.Y > 0.4 then
 				local ok, s_, lat = pcall(RP.project, CUR.route, p.Position.X, p.Position.Z)
-				if ok and s_ and math.abs(lat) < 20 then
+				local roadY
+				if ok and s_ then local _, y = RP.pointAt(CUR.route, s_, lat) roadY = y end
+				local cfh = p.CFrame
+				local halfY = math.abs(cfh.RightVector.Y) * p.Size.X / 2 + math.abs(cfh.UpVector.Y) * p.Size.Y / 2 + math.abs(cfh.LookVector.Y) * p.Size.Z / 2
+				local bottom, top = p.Position.Y - halfY, p.Position.Y + halfY
+				-- only things at car height count (not signs, arches or roofs above the road)
+				local atCar = roadY and bottom < roadY + 4.5 and top > roadY + 0.35
+				if ok and s_ and math.abs(lat) < 20 and atCar then
 					local side = sideAxis(CUR.route, s_)
 					local cf, h = p.CFrame, p.Size / 2
 					local ext = math.abs(cf.RightVector:Dot(side)) * h.X + math.abs(cf.UpVector:Dot(side)) * h.Y + math.abs(cf.LookVector:Dot(side)) * h.Z
