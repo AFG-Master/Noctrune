@@ -652,7 +652,16 @@ local function redeemAll(manual)
 	local got = 0
 	for _, c in ipairs(list) do
 		if not S.codesDone[c.Code] then
-			local ok, r = pcall(function() return Rem.Garage:InvokeServer("redeem", c.Code) end)
+			-- the server only answers codes in the lobby: give up after 8 s instead of hanging
+			local done, ok, r = false, false, nil
+			task.spawn(function() ok, r = pcall(function() return Rem.Garage:InvokeServer("redeem", c.Code) end) done = true end)
+			local t0 = os.clock()
+			while not done and os.clock() - t0 < 8 do task.wait(0.1) end
+			if not done then
+				if manual then toast("Codes only work in the lobby", C.amber, 3) end
+				logf("codes: server did not answer (use it in the lobby)")
+				return
+			end
 			if ok and type(r) == "table" and r.redeemed then
 				got = got + (tonumber(r.redeemed.credits) or 0)
 				S.codesDone[c.Code] = true
