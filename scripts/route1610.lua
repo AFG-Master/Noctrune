@@ -1,6 +1,6 @@
 -- Route 1610 Driver · auto drive + monster guard for "Route 1610"
 -- Drives with the game's own road path and input system; never touches purchases or leaderboards.
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 local genv = (getgenv and getgenv()) or _G
 if genv.R1610_STOP then pcall(genv.R1610_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -23,7 +23,7 @@ local DIR = "AFGRoute1610"
 local S = {
 	drive = false, pace = 130, minBend = 85, curves = true, dodge = true, assist = true, cruise = false, antiTumble = true,
 	crank = true, flash = true, antiScare = true, esp = true, fullbright = false, nofog = false,
-	walkOn = false, walk = 28, autoVote = false, vote = "restart", codesDone = {},
+	walkOn = false, walk = 28, autoVote = false, autoRevive = true, vote = "restart", codesDone = {},
 }
 pcall(function()
 	if isfile and isfile(DIR .. "/settings.json") then
@@ -392,39 +392,82 @@ local function pickRoute()
 	if best and best ~= CUR.R then CUR.R, CUR.route, CUR.name = best, best.r, best.name logf("road: " .. best.name) end
 end
 
--- ================= obstacles: roadblocks + the Runner =================
-local BLOCKS = {}
+-- ================= obstacles: a lane map of everything on the road =================
+-- Map parts have no Roblox collision (the game's own car physics handles crashes), so we measure them:
+-- every obstacle becomes an interval of the road's width that is blocked at a distance s.
+local OBST = {}          -- { s0, s1, lo, hi, kind, full }
+local BLOCKS = OBST      -- (shown in the UI)
+local CAR_HALF = 3.4
+local function sideAxis(route, s_)
+	local x1, _, z1 = RP.pointAt(route, s_, 0)
+	local x2, _, z2 = RP.pointAt(route, s_, 1)
+	local v = Vector3.new(x2 - x1, 0, z2 - z1)
+	return v.Magnitude > 1e-3 and v.Unit or Vector3.new(1, 0, 0)
+end
 local function refreshBlocks()
-	table.clear(BLOCKS)
+	table.clear(OBST)
 	if not CUR.route then return end
 	local map = workspace:FindFirstChild("Map")
-	local rb = map and map:FindFirstChild("Roadblocks")
-	if not rb then return end
-	for _, m in ipairs(rb:GetDescendants()) do
-		if m:IsA("BasePart") and m.CanCollide and m.Size.Magnitude > 3 then
-			local ok, s, lat = pcall(RP.project, CUR.route, m.Position.X, m.Position.Z)
-			if ok and s and math.abs(lat) < 14 then
-				BLOCKS[#BLOCKS + 1] = { s = s, lat = lat, w = math.max(m.Size.X, m.Size.Z) * 0.5 + 3.5 }
+	if not map then return end
+	local raw = {}
+	local function scan(folder, kind)
+		for _, p in ipairs(folder:GetDescendants()) do
+			if p:IsA("BasePart") and p.Transparency < 1 and p.Size.Y > 0.4 then
+				local ok, s_, lat = pcall(RP.project, CUR.route, p.Position.X, p.Position.Z)
+				if ok and s_ and math.abs(lat) < 20 then
+					local side = sideAxis(CUR.route, s_)
+					local cf, h = p.CFrame, p.Size / 2
+					local ext = math.abs(cf.RightVector:Dot(side)) * h.X + math.abs(cf.UpVector:Dot(side)) * h.Y + math.abs(cf.LookVector:Dot(side)) * h.Z
+					raw[#raw + 1] = { s = s_, lo = lat - ext, hi = lat + ext, kind = kind }
+				end
 			end
 		end
 	end
-	table.sort(BLOCKS, function(a, b) return a.s < b.s end)
+	if map:FindFirstChild("Roadblocks") then scan(map.Roadblocks, "roadblock") end
+	if map:FindFirstChild("Jumps") then scan(map.Jumps, "jump") end
+	if map:FindFirstChild("Places") then
+		for _, c in ipairs(map.Places:GetChildren()) do
+			if c.Name ~= "Front" then scan(c, string.lower(c.Name)) end
+		end
+	end
+	table.sort(raw, function(x, y) return x.s < y.s end)
+	for _, r in ipairs(raw) do
+		local o = OBST[#OBST]
+		if o and o.kind == r.kind and r.s - o.s1 < 14 then
+			o.s1 = math.max(o.s1, r.s) o.lo = math.min(o.lo, r.lo) o.hi = math.max(o.hi, r.hi)
+		else
+			OBST[#OBST + 1] = { s0 = r.s, s1 = r.s, lo = r.lo, hi = r.hi, kind = r.kind }
+		end
+	end
+	for _, o in ipairs(OBST) do o.full = (o.lo < -11 and o.hi > 11) end -- whole road: can not be dodged
 end
-local function laneFor(s, curLat)
+-- the free line through the next obstacles (closest to where we already are)
+local function laneFor(s_, curLat)
 	if not S.dodge then return 0 end
-	local want = 0
-	for _, b in ipairs(BLOCKS) do
-		if b.s > s and b.s - s < 90 then
-			if math.abs(b.lat - want) < b.w then
-				-- pass on the side with more road
-				local left, right = b.lat - b.w, b.lat + b.w
-				want = (math.abs(left) < math.abs(right)) and left or right
-				want = math.clamp(want, -9, 9)
-				if not ST.lastDodge or os.clock() - ST.lastDodge > 3 then ST.lastDodge = os.clock() ST.dodges = ST.dodges + 1 end
-			end
+	local window = {}
+	for _, o in ipairs(OBST) do
+		if not o.full and o.s1 > s_ - 6 and o.s0 - s_ < 110 then window[#window + 1] = o end
+	end
+	if #window == 0 then ST.dodging = nil return 0 end
+	local best, bestCost
+	for i = -22, 22 do
+		local L = i * 0.5
+		local free = true
+		for _, o in ipairs(window) do
+			if L + CAR_HALF + 1.2 > o.lo and L - CAR_HALF - 1.2 < o.hi then free = false break end
+		end
+		if free then
+			local cost = math.abs(L - (ST.lastLane or 0)) * 0.6 + math.abs(L) * 0.4
+			if not bestCost or cost < bestCost then best, bestCost = L, cost end
 		end
 	end
-	return want
+	if best and best ~= 0 and ST.dodging ~= window[1] then
+		ST.dodging = window[1]
+		ST.dodges = ST.dodges + 1
+		logf(string.format("%s ahead: line %+.1f", window[1].kind, best))
+	end
+	ST.lastLane = best or 0
+	return best or 0
 end
 
 -- ================= the Runner: where it is and how close =================
@@ -464,6 +507,9 @@ local function autoInput(st, dt)
 	local gap, rLat = nil, nil
 	if runAttr("RunnerActive") then gap, rLat = runnerInfo(CUR.route, s) end
 	ST.gap = gap
+	for _, o in ipairs(OBST) do
+		if o.full and o.s0 - s > 0 and o.s0 - s < 35 then lane = 0 break end -- hit roadblocks dead straight
+	end
 	if gap and gap < 0 and gap > -240 then
 		-- AMBUSH: it is waiting on the road ahead -> pass it on the far side of the road
 		lane = (rLat or 0) >= 0 and -8.5 or 8.5
@@ -658,12 +704,27 @@ task.spawn(function()
 			if S.walkOn and h and not h.SeatPart then h.WalkSpeed = S.walk end
 		end)
 		pcall(function()
-			if S.autoVote and lp.PlayerGui:FindFirstChild("Finish") and lp.PlayerGui.Finish.Enabled or (S.autoVote and lp.PlayerGui:FindFirstChild("Caught") and lp.PlayerGui.Caught.Enabled) then
-				if not ST.votedAt or os.clock() - ST.votedAt > 8 then
-					ST.votedAt = os.clock()
-					Rem.EndVote:FireServer(S.vote)
-					logf("voted: " .. S.vote)
+			-- end screens: press the game's own buttons (free revive first, never a paid one)
+			if os.clock() - (ST.votedAt or 0) < 6 then return end
+			local caught = lp.PlayerGui:FindFirstChild("Caught")
+			local finish = lp.PlayerGui:FindFirstChild("Finish")
+			local function press(b)
+				if b and b:IsA("GuiButton") and b.Visible then ST.votedAt = os.clock() pcall(firesignal, b.Activated) return true end
+			end
+			if caught and caught.Enabled then
+				local rev = caught:FindFirstChild("Retry", true)
+				if S.autoRevive and rev and string.find(string.upper(rev.Text or ""), "FREE") then
+					if press(rev) then ST.revives = (ST.revives or 0) + 1 logf("free revive used") return end
 				end
+				if S.autoVote then
+					local name = S.vote == "map" and "Menu" or (S.vote == "home" and "Home" or "Restart")
+					local b = caught:FindFirstChild(name, true)
+					if press(b) then logf("caught: " .. name) end
+				end
+			elseif finish and finish.Enabled and S.autoVote then
+				local name = S.vote == "map" and "Menu" or (S.vote == "home" and "Home" or "Again")
+				local b = finish:FindFirstChild(name, true)
+				if press(b) then logf("finished: " .. name) end
 			end
 		end)
 		task.wait(0.5)
@@ -763,7 +824,8 @@ toggle(viewPg, "Clear fog", "removes fog and haze", function() return S.nofog en
 title(viewPg, "LOBBY")
 toggle(viewPg, "Lobby walk speed", "only when you are out of the car", function() return S.walkOn end, function(v) S.walkOn = v end, "🏃")
 chips(viewPg, "Walk speed", { { "20", 20 }, { "28", 28 }, { "40", 40 } }, function() return S.walk end, function(v) S.walk = v end)
-toggle(viewPg, "Auto vote after a run", "votes for you on the end screen", function() return S.autoVote end, function(v) S.autoVote = v end, "🗳")
+toggle(viewPg, "Auto free revive", "uses FREE revives only, never paid ones", function() return S.autoRevive end, function(v) S.autoRevive = v end, "❤️")
+toggle(viewPg, "Auto vote after a run", "presses Again / New map / Home for you", function() return S.autoVote end, function(v) S.autoVote = v end, "🗳")
 chips(viewPg, "Vote", { { "Again", "restart" }, { "New map", "map" }, { "Home", "home" } }, function() return S.vote end, function(v) S.vote = v end)
 do
 	local qc = card(viewPg, 40)
@@ -809,7 +871,7 @@ task.spawn(function()
 		local len = CUR.R and CUR.R.len or 0
 		roadL.Text = string.format("%s  ·  %s", CUR.name, tostring(state))
 		roadBar(len > 0 and carS / len or 0)
-		roadSub.Text = S.drive and ST.phase or string.format("%d / %d m  ·  %d roadblocks known", math.floor(carS), math.floor(len), #BLOCKS)
+		roadSub.Text = S.drive and ST.phase or string.format("%d / %d m  ·  %d obstacles mapped", math.floor(carS), math.floor(len), #BLOCKS)
 		local r = myRun()
 		guardL.Text = string.format("Knocker: %s  ·  Intruder: %s\nRunner active: %s  ·  cranks %d  ·  torch %d", tostring(r and r:GetAttribute("KnockerPhase") ~= "" and r:GetAttribute("KnockerPhase") or "—"), tostring(r and r:GetAttribute("IntruderPhase") ~= "" and r:GetAttribute("IntruderPhase") or "—"), tostring(r and r:GetAttribute("RunnerActive")), ST.cranks, ST.flashes)
 		sessL.Text = string.format("Time %d:%02d  ·  dodges %d  ·  resets %d\nCranks %d  ·  torches %d  ·  code credits %d", math.floor((os.clock() - ST.t0) / 60), math.floor((os.clock() - ST.t0) % 60), ST.dodges, ST.resets, ST.cranks, ST.flashes, ST.codes)
