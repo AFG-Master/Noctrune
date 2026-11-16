@@ -1,6 +1,6 @@
 -- Route 1610 Driver · auto drive + monster guard for "Route 1610"
 -- Drives with the game's own road path and input system; never touches purchases or leaderboards.
-local VERSION = "v1.2"
+local VERSION = "v1.3"
 local genv = (getgenv and getgenv()) or _G
 if genv.R1610_STOP then pcall(genv.R1610_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -23,7 +23,7 @@ local DIR = "AFGRoute1610"
 local S = {
 	drive = false, pace = 130, minBend = 85, curves = true, dodge = true, assist = true, cruise = false, antiTumble = true,
 	crank = true, flash = true, antiScare = true, esp = true, fullbright = false, nofog = false,
-	walkOn = false, walk = 28, autoVote = false, autoRevive = true, vote = "restart", codesDone = {},
+	walkOn = false, walk = 28, autoVote = false, autoRevive = true, bestCar = true, vote = "restart", codesDone = {},
 }
 pcall(function()
 	if isfile and isfile(DIR .. "/settings.json") then
@@ -538,7 +538,7 @@ local function autoInput(st, dt)
 	if gap and gap < 0 and gap > -240 then
 		-- AMBUSH: it is waiting on the road ahead -> treat it as an obstacle and take the clearest side
 		local r0 = rLat or 0
-		lane = laneFor(s, lat, { s0 = s - gap - 6, s1 = s - gap + 6, lo = r0 - 7.5, hi = r0 + 7.5, kind = "Runner flank" })
+		lane = laneFor(s, lat, { s0 = s - gap - 10, s1 = s - gap + 10, lo = r0 - 10, hi = r0 + 10, kind = "Runner flank" })
 		if not ST.ambushAt or os.clock() - ST.ambushAt > 4 then ST.ambushAt = os.clock() ST.ambush = (ST.ambush or 0) + 1 logf("ambush ahead: passing on the " .. (lane < 0 and "left" or "right")) end
 	elseif gap and gap >= 0 and gap < 45 and lane == 0 then
 		-- it is right behind: move away from its side to dodge the swipe
@@ -567,7 +567,11 @@ local function autoInput(st, dt)
 		target = math.max(S.minBend, S.pace * (1 - math.clamp(bend * 1.3, 0, 0.45)))
 	end
 	-- the Runner is close: no slowing down at all
-	if gap and gap < 140 and gap >= 0 then target = math.max(target, math.min(S.pace, 125)) end
+	-- the Runner can cut corners and flank you when it is 40-260 behind: never slow down while it can
+	if gap and gap < 300 then
+		local bend = curvature(CUR.route, s + math.min(spd * 0.6, 60))
+		target = bend > 1.2 and math.max(target, S.pace * 0.8) or S.pace
+	end
 	local thr, brk = 1, 0
 	if spd > target + 6 then thr, brk = 0, math.clamp((spd - target) / 25, 0.2, 1)
 	elseif spd > target - 3 then thr = 0.35 end
@@ -762,6 +766,21 @@ task.spawn(function()
 	end
 end)
 
+-- ================= lobby: equip the best car your level unlocked (free rewards) =================
+local function equipBestCar()
+	local cars = {}
+	pcall(function() cars = require(RS.Shared.Config.Progression).Cars end)
+	local lvl = lp:GetAttribute("Level") or 1
+	local best, bl = nil, -1
+	for id, need in pairs(cars) do if need <= lvl and need > bl then best, bl = id, need end end
+	if not best then return end
+	local done, r = false, nil
+	task.spawn(function() pcall(function() r = Rem.Garage:InvokeServer("equip", { kind = "car", id = best }) end) done = true end)
+	local t0 = os.clock()
+	while not done and os.clock() - t0 < 8 do task.wait(0.1) end
+	if done and r then logf("equipped best car: " .. best) toast("Car: " .. best, C.green, 3) end
+end
+
 -- ================= codes (the game's own code list) =================
 local function redeemAll(manual)
 	local list = {}
@@ -793,6 +812,12 @@ local function redeemAll(manual)
 	ST.codes = ST.codes + got
 	if manual then toast(got > 0 and ("Codes: +" .. got .. " credits") or "No new codes", got > 0 and C.green or C.amber, 3) end
 end
+-- in the lobby: best car + any new codes, once
+task.spawn(function()
+	task.wait(6)
+	if S.bestCar and not myRun() then pcall(equipBestCar) end
+	if not myRun() then pcall(redeemAll, false) end
+end)
 
 -- route pick + roadblock refresh
 task.spawn(function()
@@ -858,6 +883,7 @@ chips(viewPg, "Walk speed", { { "20", 20 }, { "28", 28 }, { "40", 40 } }, functi
 toggle(viewPg, "Auto free revive", "uses FREE revives only, never paid ones", function() return S.autoRevive end, function(v) S.autoRevive = v end, "❤️")
 toggle(viewPg, "Auto vote after a run", "presses Again / New map / Home for you", function() return S.autoVote end, function(v) S.autoVote = v end, "🗳")
 chips(viewPg, "Vote", { { "Again", "restart" }, { "New map", "map" }, { "Home", "home" } }, function() return S.vote end, function(v) S.vote = v end)
+toggle(viewPg, "Equip best unlocked car", "in the lobby: your fastest free car", function() return S.bestCar end, function(v) S.bestCar = v end, "🏎")
 do
 	local qc = card(viewPg, 40)
 	local b = btn(qc, "🎟 Redeem all game codes", 6, 6, CW - 12, 28)
