@@ -1,7 +1,7 @@
 -- Battleship Commander · "Evolve a Battleship"
 -- Bot-only autopilot: hunts NPC ships, collects scrap and crates, avoids real players,
 -- picks upgrade cards, uses abilities, evolves and respawns. It never targets a player.
-local VERSION = "v1.1"
+local VERSION = "v1.2"
 local genv = (getgenv and getgenv()) or _G
 if genv.NAVAL_STOP then pcall(genv.NAVAL_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -24,6 +24,7 @@ local S = {
 	pilot = false, mode = "farm", target = true, cards = true, preset = "guns", abilities = true, evolve = true, respawn = true,
 	starter = "Destroyer", avoid = 1.6, retreat = 0.35, pickups = true, huntRadius = 2200, maxGap = 6, whirl = true, antiAfk = true,
 	port = true, portHp = 0.3, healTo = 0.9, vacuum = true, magnetFirst = true, warn = true,
+	guard = true, assist = true, assistRange = 700, manualAim = true, radar = true, radarCrates = true, radarBots = false,
 }
 pcall(function()
 	if isfile and isfile(DIR .. "/settings.json") then
@@ -364,6 +365,7 @@ local function inSafe(pos)
 	local h, d = nearestPort(pos)
 	return h and d < (h.Radius or 700) * 0.8
 end
+local reachable -- set further down (needs the island list)
 -- the full pickup list the game already draws (scrap + crates)
 local pickupList
 pcall(function() pickupList = debug.getupvalues(PR.GetNearest)[1] end)
@@ -382,7 +384,7 @@ local function bestScrap(pos, maxD)
 		local pp = pk.Pos
 		if typeof(pp) == "Vector2" then
 			local d = (pp - pos).Magnitude
-			if d < maxD then cand[#cand + 1] = { p = pp, d = d, v = pickupValue(pk) } end
+			if d < maxD and reachable(pp) then cand[#cand + 1] = { p = pp, d = d, v = pickupValue(pk) } end
 		end
 	end
 	local best, bs
@@ -463,28 +465,103 @@ end
 -- ================= steering =================
 local AP = { vec = Vector2.zero, active = false }
 local origMove = IC and IC.GetMoveVector
+local MAN = { idle = false, goal = nil }
+local manualAssist -- defined after steering helpers
 if IC then
 	IC.GetMoveVector = function(...)
 		if AP.active and S.pilot then return AP.vec end
-		return origMove(...)
+		local v = origMove(...)
+		if S.pilot then return v end
+		local ok, out = pcall(manualAssist, v)
+		if ok and typeof(out) == "Vector2" then return out end
+		return v
 	end
 end
 local function unit(v) local m = v.Magnitude return m > 1e-3 and v / m or Vector2.zero end
 local function rot(v, a) local c, s = math.cos(a), math.sin(a) return Vector2.new(v.X * c - v.Y * s, v.X * s + v.Y * c) end
-local function blocked(p)
-	if not WU then return false end
-	local ok, b = pcall(WU.IsBlocked, p)
-	return ok and b
-end
-local function clearDir(pos, dir)
-	-- look ahead and bend around islands/harbours
-	if dir.Magnitude < 1e-3 then return dir end
-	for _, a in ipairs({ 0, 0.4, -0.4, 0.8, -0.8, 1.2, -1.2, 1.7, -1.7 }) do
-		local d = rot(dir, a)
-		if not blocked(pos + d * 220) and not blocked(pos + d * 110) then return d end
+-- islands from the game's own world config: circles with a radius
+local ISLANDS = {}
+pcall(function()
+	for _, i in ipairs(WC.Islands) do
+		local c = i.Position or i.Center
+		if c then ISLANDS[#ISLANDS + 1] = { c = Vector2.new(c.X, c.Y), r = i.Radius or 200, port = i.Kind == "Port" } end
 	end
-	return -dir
+end)
+local function shipR()
+	local m = me()
+	return ((m and m.Meta and m.Meta.Length) or 120) * 0.5 + 45
 end
+-- first island the straight line pos -> pos+dir*len would hit
+local function firstHit(pos, dir, len, pad)
+	local best, bt
+	for _, isl in ipairs(ISLANDS) do
+		local R = isl.r + pad
+		local f = pos - isl.c
+		local bq = f:Dot(dir)
+		local cq = f:Dot(f) - R * R
+		if cq < 0 then return isl, 0 end -- already inside the buffer
+		local disc = bq * bq - cq
+		if disc > 0 and bq < 0 then
+			local t = -bq - math.sqrt(disc)
+			if t >= 0 and t <= len and (not bt or t < bt) then best, bt = isl, t end
+		end
+	end
+	return best, bt
+end
+local NAV = { side = 0, sideUntil = 0, lastPos = nil, lastT = 0, stuckUntil = 0, escape = nil }
+-- bend a wanted direction around islands (keeps the same side for a moment so it never wobbles)
+local function avoidIslands(pos, dir, lookahead)
+	if dir.Magnitude < 1e-3 or #ISLANDS == 0 then return dir end
+	local pad = shipR()
+	local isl, t = firstHit(pos, dir, lookahead or 520, pad)
+	if not isl then return dir end
+	local away = unit(pos - isl.c)
+	if t == 0 then
+		-- inside the buffer: push straight out while still sliding along the shore
+		local slide = Vector2.new(-away.Y, away.X)
+		if slide:Dot(dir) < 0 then slide = -slide end
+		return unit(away * 1.4 + slide)
+	end
+	-- tangent: go round on the side closer to where we want to go
+	local toC = isl.c - pos
+	local R = isl.r + pad
+	local dist = toC.Magnitude
+	local ang = math.asin(math.clamp(R / math.max(dist, R + 1), -1, 1)) + 0.12
+	local left, right = rot(unit(toC), ang), rot(unit(toC), -ang)
+	local now_ = os.clock()
+	if now_ > NAV.sideUntil then
+		NAV.side = (left:Dot(dir) >= right:Dot(dir)) and 1 or -1
+		NAV.sideUntil = now_ + 2.5
+	end
+	return NAV.side == 1 and left or right
+end
+-- stuck detector: barely moving while trying to move -> back away from the nearest island
+local function stuckFix(pos, want)
+	local t = os.clock()
+	if t < NAV.stuckUntil and NAV.escape then return NAV.escape end
+	if not NAV.lastPos then NAV.lastPos, NAV.lastT = pos, t return nil end
+	if t - NAV.lastT >= 1.5 then
+		local moved = (pos - NAV.lastPos).Magnitude
+		NAV.lastPos, NAV.lastT = pos, t
+		if moved < 40 and want.Magnitude > 0.2 then
+			local nearest, nd
+			for _, isl in ipairs(ISLANDS) do local d = (pos - isl.c).Magnitude - isl.r if not nd or d < nd then nearest, nd = isl, d end end
+			local out = nearest and unit(pos - nearest.c) or -want
+			NAV.escape = unit(out + Vector2.new(-out.Y, out.X) * 0.6)
+			NAV.stuckUntil = t + 1.6
+			NAV.sideUntil = 0
+			logf("unstuck from an island")
+			return NAV.escape
+		end
+	end
+	return nil
+end
+reachable = function(p)
+	local pad = shipR() * 0.6
+	for _, isl in ipairs(ISLANDS) do if (p - isl.c).Magnitude < isl.r + pad then return false end end
+	return true
+end
+local function clearDir(pos, dir) return avoidIslands(pos, dir, 520) end
 local function whirlRepel(pos)
 	local v = Vector2.zero
 	if not (S.whirl and WR and WR.GetList) then return v end
@@ -499,6 +576,31 @@ local function whirlRepel(pos)
 		end
 	end)
 	return v
+end
+
+manualAssist = function(v)
+	local m = me()
+	if not (m and m.Pos and session().Alive) then return v end
+	local pos = m.Pos
+	if v.Magnitude > 0.05 then
+		MAN.idle = false
+		-- you steer; we only bend the line when it is about to hit an island
+		if S.guard then
+			local d = unit(v)
+			local bent = avoidIslands(pos, d, 360)
+			if bent ~= d then return bent * v.Magnitude end
+		end
+		return v
+	end
+	-- hands off the joystick: sweep nearby scrap by itself (never toward players)
+	if not S.assist then return v end
+	local _, players = scanWorld(m)
+	for _, p in ipairs(players) do if p.d < 900 then return v end end
+	local pick = bestScrap(pos, S.assistRange)
+	if not pick then MAN.idle = false return v end
+	MAN.idle = true
+	local d = unit(pick - pos)
+	return stuckFix(pos, d) or avoidIslands(pos, d, 400)
 end
 
 local function steer(dt)
@@ -601,9 +703,90 @@ local function steer(dt)
 	end
 	local dir = unit(want + danger + whirlRepel(pos))
 	if dir.Magnitude < 0.01 then dir = unit(want) end
-	AP.vec = clearDir(pos, dir)
+	AP.vec = stuckFix(pos, dir) or clearDir(pos, dir)
 end
-on(RunService.Heartbeat, function(dt) pcall(steer, dt) end)
+on(RunService.Heartbeat, function(dt)
+	pcall(steer, dt)
+	-- manual play: keep a bot selected (never replaces a target you chose yourself)
+	if not S.pilot and S.manualAim and session().Alive then
+		pcall(function()
+			local m = me()
+			local cur = CS.TargetId and CS.GetEntity(CS.TargetId)
+			if cur and live(cur) then return end
+			local npcs = scanWorld(m)
+			local range = (CS.MyStats and CS.MyStats.Range) or 700
+			local t = pickTarget(m, npcs, range)
+			if t then CS.SetTarget(t.Id) end
+		end)
+	end
+end)
+
+-- ================= radar: edge arrows to players (red), crates (gold), big bots (blue) =================
+local Cam2 = req(Cl.Camera.Camera2D)
+local radarGui = Instance.new("ScreenGui")
+radarGui.Name = "NavalRadar" radarGui.ResetOnSpawn = false radarGui.IgnoreGuiInset = true radarGui.DisplayOrder = 50
+pcall(function() radarGui.ScreenInsets = lp.PlayerGui.WorldGui.ScreenInsets end)
+pcall(function() radarGui.Parent = (gethui and gethui()) or game:GetService("CoreGui") end)
+local ARROWS = {}
+for k = 1, 14 do
+	local f = Instance.new("Frame")
+	f.AnchorPoint = Vector2.new(0.5, 0.5) f.Size = UDim2.fromOffset(34, 34) f.BackgroundTransparency = 1 f.Visible = false f.Active = false
+	pcall(function() f.Interactable = false end)
+	f.Parent = radarGui
+	local a = Instance.new("TextLabel")
+	a.BackgroundTransparency = 1 a.Size = UDim2.fromScale(1, 1) a.Text = "▲" a.Font = Enum.Font.GothamBlack a.TextSize = 22 a.Parent = f
+	local stroke_ = Instance.new("UIStroke") stroke_.Thickness = 2 stroke_.Color = Color3.new(0, 0, 0) stroke_.Transparency = 0.3 stroke_.Parent = a
+	local d = Instance.new("TextLabel")
+	d.BackgroundTransparency = 1 d.Size = UDim2.new(0, 70, 0, 14) d.Position = UDim2.new(0.5, -35, 1, -4) d.Font = Enum.Font.GothamBold d.TextSize = 10 d.TextColor3 = Color3.new(1, 1, 1) d.Parent = f
+	local st2 = Instance.new("UIStroke") st2.Thickness = 1.5 st2.Transparency = 0.2 st2.Parent = d
+	ARROWS[k] = { f = f, a = a, d = d }
+end
+local function radarTick()
+	for _, ar in ipairs(ARROWS) do ar.f.Visible = false end
+	if not (S.radar and Cam2 and session().Alive) then return end
+	local m = me()
+	if not (m and m.Pos) then return end
+	local vs = Cam2.ViewSize or workspace.CurrentCamera.ViewportSize
+	local list = {}
+	local _, players = scanWorld(m)
+	for _, p in ipairs(players) do if p.d < 4000 then list[#list + 1] = { p = p.e.Pos, c = Color3.fromRGB(255, 70, 90), d = p.d, txt = tostring(p.e.Meta.Name):sub(1, 10) .. " " .. math.floor(p.d) } end end
+	if S.radarCrates and pickupList then
+		for _, pk in pairs(pickupList) do
+			if typeof(pk.Pos) == "Vector2" and (pickupValue(pk) >= 4) then
+				local d = (pk.Pos - m.Pos).Magnitude
+				if d < 3000 then list[#list + 1] = { p = pk.Pos, c = Color3.fromRGB(255, 210, 70), d = d, txt = math.floor(d) .. "" } end
+			end
+		end
+	end
+	if S.radarBots then
+		local npcs = scanWorld(m)
+		for _, n in ipairs(npcs) do if n.d < 3000 and (n.e.Meta.Level or 1) >= 8 then list[#list + 1] = { p = n.e.Pos, c = Color3.fromRGB(90, 190, 255), d = n.d, txt = "L" .. tostring(n.e.Meta.Level) } end end
+	end
+	table.sort(list, function(x, y) return x.d < y.d end)
+	local k = 0
+	for _, it in ipairs(list) do
+		local ok, sp = pcall(Cam2.WorldToScreen, it.p)
+		if ok and typeof(sp) == "Vector2" then
+			local onScreen = sp.X > 20 and sp.Y > 20 and sp.X < vs.X - 20 and sp.Y < vs.Y - 20
+			if not onScreen then
+				k = k + 1
+				if k > #ARROWS then break end
+				local ctr = vs / 2
+				local dir = sp - ctr
+				local sx = (vs.X / 2 - 30) / math.max(math.abs(dir.X), 1e-3)
+				local sy = (vs.Y / 2 - 30) / math.max(math.abs(dir.Y), 1e-3)
+				local e = ctr + dir * math.min(sx, sy)
+				local ar = ARROWS[k]
+				ar.f.Position = UDim2.fromOffset(e.X, e.Y)
+				ar.a.Rotation = math.deg(math.atan2(dir.X, -dir.Y))
+				ar.a.TextColor3 = it.c
+				ar.d.Text = it.txt
+				ar.f.Visible = true
+			end
+		end
+	end
+end
+task.spawn(function() while alive do pcall(radarTick) task.wait(0.07) end end)
 
 -- ================= upgrade cards =================
 local PRESETS = {
@@ -777,6 +960,8 @@ local nearCard = card(homePg, 44)
 local nearL = label(nearCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2.new(1, -24, 1, -8), TextSize = 11, TextWrapped = true, ZIndex = 4, Text = "" })
 
 -- PILOT
+title(pilotPg, "ISLANDS")
+toggle(pilotPg, "Island guard", "steers around islands, also while YOU steer", function() return S.guard end, function(v) S.guard = v end, "🏝")
 title(pilotPg, "SAFE ZONE")
 toggle(pilotPg, "Go to port when hurt", "sails to the nearest port and heals", function() return S.port end, function(v) S.port = v end, "⚓")
 chips(pilotPg, "Go to port at hull", { { "20%", 0.2 }, { "30%", 0.3 }, { "40%", 0.4 }, { "50%", 0.5 } }, function() return S.portHp end, function(v) S.portHp = v end)
@@ -792,6 +977,12 @@ toggle(pilotPg, "Scrap vacuum", "plans routes through the biggest scrap clusters
 chips(pilotPg, "Hunt radius", { { "1200", 1200 }, { "2200", 2200 }, { "3500", 3500 } }, function() return S.huntRadius end, function(v) S.huntRadius = v end)
 
 -- COMBAT
+title(combatPg, "MANUAL PLAY HELPERS")
+toggle(combatPg, "Idle scrap sweep", "let go of the joystick: it collects nearby scrap", function() return S.assist end, function(v) S.assist = v end, "🧹")
+chips(combatPg, "Idle sweep range", { { "400", 400 }, { "700", 700 }, { "1200", 1200 } }, function() return S.assistRange end, function(v) S.assistRange = v end)
+toggle(combatPg, "Auto-aim bots (manual)", "selects a bot when you have no target", function() return S.manualAim end, function(v) S.manualAim = v end, "🎯")
+toggle(combatPg, "Radar arrows", "edge arrows: red players, gold crates", function() return S.radar end, function(v) S.radar = v end, "📡")
+toggle(combatPg, "Radar: big bots", "blue arrows to level 8+ bots", function() return S.radarBots end, function(v) S.radarBots = v end, "🤖")
 title(combatPg, "AUTOMATION")
 toggle(combatPg, "Auto-aim NPCs", "picks the best bot in range; never a player", function() return S.target end, function(v) S.target = v end, "🎯")
 toggle(combatPg, "Auto upgrade cards", "picks by the build below", function() return S.cards end, function(v) S.cards = v end, "🃏")
@@ -860,7 +1051,7 @@ task.spawn(function()
 		tHp.Text = math.floor(hp * 100) .. "%"
 		tCoins.Text = fmt(CS.Profile and CS.Profile.Coins or 0)
 		hpBar(hp)
-		goalL.Text = (s.Alive == false and "sunk: respawning" or (S.pilot and ST.goal or "manual control")) .. "  ·  " .. tostring(s.Ship or "?")
+		goalL.Text = (s.Alive == false and "sunk: respawning" or (S.pilot and ST.goal or (MAN.idle and "manual · sweeping scrap" or "manual control"))) .. "  ·  " .. tostring(s.Ship or "?")
 		goalSub.Text = string.format("range %d  ·  speed %d  ·  dmg %d", math.floor(CS.MyStats and CS.MyStats.Range or 0), math.floor(CS.MyStats and CS.MyStats.Speed or 0), math.floor(CS.MyStats and CS.MyStats.Damage or 0))
 		if m and m.Pos then
 			local npcs, players = scanWorld(m)
@@ -886,6 +1077,7 @@ genv.NAVAL_STOP = function()
 	S.pilot = false
 	AP.active = false
 	if IC and origMove then IC.GetMoveVector = origMove end
+	pcall(function() radarGui:Destroy() end)
 	flush()
 	for _, c in ipairs(conns) do pcall(function() c:Disconnect() end) end
 	pcall(function() gui:Destroy() end)
