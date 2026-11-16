@@ -1,7 +1,7 @@
 -- Battleship Commander · "Evolve a Battleship"
 -- Bot-only autopilot: hunts NPC ships, collects scrap and crates, avoids real players,
 -- picks upgrade cards, uses abilities, evolves and respawns. It never targets a player.
-local VERSION = "v1.3"
+local VERSION = "v1.4"
 local genv = (getgenv and getgenv()) or _G
 if genv.NAVAL_STOP then pcall(genv.NAVAL_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -24,7 +24,7 @@ local S = {
 	pilot = false, mode = "farm", target = true, cards = true, preset = "guns", abilities = true, evolve = true, respawn = true,
 	starter = "Destroyer", avoid = 1.6, retreat = 0.35, pickups = true, huntRadius = 2200, maxGap = 6, whirl = true, antiAfk = true,
 	port = true, portHp = 0.3, healTo = 0.9, vacuum = true, magnetFirst = true, warn = true,
-	escape = true, escGap = 0, escRadius = 2.5, calm = 12, escOnHit = true, escManual = true,
+	zoneLimit = true, bossAvoid = true, dmgRun = true, escape = true, escGap = 0, escRadius = 2.5, calm = 12, escOnHit = true, escManual = true,
 	guard = true, assist = true, assistRange = 700, manualAim = true, radar = true, radarCrates = true, radarBots = false,
 }
 pcall(function()
@@ -367,6 +367,7 @@ local function inSafe(pos)
 	return h and d < (h.Radius or 700) * 0.8
 end
 local reachable -- set further down (needs the island list)
+local okSpot -- set further down (safe waters)
 -- the full pickup list the game already draws (scrap + crates)
 local pickupList
 pcall(function() pickupList = debug.getupvalues(PR.GetNearest)[1] end)
@@ -385,7 +386,7 @@ local function bestScrap(pos, maxD)
 		local pp = pk.Pos
 		if typeof(pp) == "Vector2" then
 			local d = (pp - pos).Magnitude
-			if d < maxD and reachable(pp) then cand[#cand + 1] = { p = pp, d = d, v = pickupValue(pk) } end
+			if d < maxD and reachable(pp) and (not okSpot or okSpot(pp)) then cand[#cand + 1] = { p = pp, d = d, v = pickupValue(pk) } end
 		end
 	end
 	local best, bs
@@ -421,6 +422,16 @@ end
 -- ================= who is who =================
 local function isPlayer(e) return e and e.Meta and e.Meta.Kind == "Player" end
 local function isNpc(e) return e and e.Meta and e.Meta.Kind ~= "Player" and not e.IsSelf end
+local function isBoss(e)
+	local mt = e and e.Meta
+	if not mt then return false end
+	return mt.Boss == true or mt.EnemyType == "World Boss" or mt.Type == "Kraken" or (mt.MaxHealth or 0) >= 20000 or (mt.Length or 0) >= 300
+end
+-- a bot's level; bosses and unknown levels count as very strong
+local function npcLevel(e)
+	if isBoss(e) then return 999 end
+	return (e.Meta and e.Meta.Level) or 999
+end
 local function live(e) return e and e.Pos and not e.Dead and not e.IsSelf end
 local function scanWorld(m)
 	local npcs, players = {}, {}
@@ -444,8 +455,8 @@ local function pickTarget(m, npcs, range)
 	local best, bestScore
 	for _, n in ipairs(npcs) do
 		local e = n.e
-		local lvl = e.Meta.Level or 1
-		if n.d <= range * 1.15 and lvl <= myLevel() + S.maxGap then
+		local lvl = npcLevel(e)
+		if n.d <= range * 1.15 and lvl <= myLevel() + S.maxGap and not isBoss(e) then
 			-- prefer close, damaged, and worth-it targets
 			local score = n.d / range + (e.HealthFrac or 1) * 0.8 - math.min(lvl, 30) * 0.01
 			if not bestScore or score < bestScore then best, bestScore = e, score end
@@ -666,6 +677,45 @@ local function escapePort(pos, chaserPos)
 	return best
 end
 
+-- ================= safe waters =================
+local CENTER = (WC and WC.Center) and Vector2.new(WC.Center.X, WC.Center.Y) or Vector2.new(11000, 11000)
+local function maxRadius()
+	if not S.zoneLimit then return math.huge end
+	local zones = WC and WC.Zones or {}
+	local L = myLevel()
+	-- level < 15: Calm Waters, < 28: Contested Sea, else anywhere
+	local idx = L < 15 and 1 or (L < 28 and 2 or 3)
+	local z = zones[idx]
+	return (z and z.MaxDistance and z.MaxDistance ~= math.huge) and (z.MaxDistance - 250) or math.huge
+end
+local DANGER = {} -- refreshed every frame: bosses + too-strong bots
+local function refreshDanger(npcs)
+	table.clear(DANGER)
+	local myL = myLevel()
+	for _, n in ipairs(npcs) do
+		local e = n.e
+		if (S.bossAvoid and isBoss(e)) or npcLevel(e) > myL + S.maxGap then
+			DANGER[#DANGER + 1] = { p = e.Pos, r = isBoss(e) and 1700 or 900 }
+		end
+	end
+end
+okSpot = function(p)
+	if (p - CENTER).Magnitude > maxRadius() then return false end
+	for _, d in ipairs(DANGER) do if (p - d.p).Magnitude < d.r then return false end end
+	return true
+end
+-- hull loss rate: running away early beats dying
+local HP = { last = nil, t = 0, rate = 0 }
+local function hpRate(hp)
+	local t = os.clock()
+	if HP.last and t - HP.t >= 0.5 then
+		local r = (HP.last - hp) / (t - HP.t)
+		HP.rate = HP.rate * 0.5 + r * 0.5
+		HP.last, HP.t = hp, t
+	elseif not HP.last then HP.last, HP.t = hp, t end
+	return HP.rate
+end
+
 local function steer(dt)
 	local m = me()
 	if not (m and m.Pos and session().Alive) then AP.active = false return end
@@ -682,10 +732,13 @@ local function steer(dt)
 	end
 	AP.active = true
 	local npcs, players = scanWorld(m)
+	refreshDanger(npcs)
 	keepNpcTarget(m, npcs)
 	local range = (CS.MyStats and CS.MyStats.Range) or 700
 	local pos = m.Pos
 	local want = Vector2.zero
+	local cur0 = CS.TargetId and CS.GetEntity(CS.TargetId)
+	if cur0 and isBoss(cur0) and S.bossAvoid then pcall(CS.SetTarget, nil) end
 	-- 1) keep away from real players (never engage them)
 	local danger = Vector2.zero
 	local near = 0
@@ -702,6 +755,22 @@ local function steer(dt)
 	end
 	-- 2) low health: break away from everything and heal
 	local hp = m.HealthFrac or 1
+	-- keep clear of the Kraken and bots that are too strong
+	for _, d in ipairs(DANGER) do
+		local dist = (pos - d.p).Magnitude
+		if dist < d.r then danger = danger + unit(pos - d.p) * (2.5 * (1 - dist / d.r) + 0.5) end
+	end
+	-- stay inside the waters that fit your level
+	local maxR = maxRadius()
+	local fromC = (pos - CENTER).Magnitude
+	if fromC > maxR then danger = danger + unit(CENTER - pos) * 2 end
+	-- losing hull fast (more than ~12 % per second): leave now, do not wait for the threshold
+	local rate = hpRate(hp)
+	if S.dmgRun and S.port and rate > 0.12 and hp < 0.85 and not ST.toPort then
+		ST.toPort = true
+		logf(string.format("taking heavy damage (%d%%/s): running to port", math.floor(rate * 100)))
+		toast("Heavy damage: running to port!", C.red, 3)
+	end
 	-- go home: at low hull sail to the nearest port and wait there until healed
 	if S.port and (hp <= S.portHp or (ST.toPort and hp < S.healTo)) then
 		if not ST.toPort then ST.toPort = true logf(string.format("hull %d%%: heading to port", math.floor(hp * 100))) toast("Low hull: going to port", C.amber, 3) end
@@ -740,7 +809,7 @@ local function steer(dt)
 		if not (tgt and isNpc(tgt) and live(tgt)) then
 			local bestN, bestD
 			for _, n in ipairs(npcs) do
-				if (n.e.Meta.Level or 1) <= myLevel() + S.maxGap and n.d <= S.huntRadius and (not bestD or n.d < bestD) then bestN, bestD = n.e, n.d end
+				if npcLevel(n.e) <= myLevel() + S.maxGap and n.d <= S.huntRadius and okSpot(n.e.Pos) and (not bestD or n.d < bestD) then bestN, bestD = n.e, n.d end
 			end
 			tgt = bestN
 		end
@@ -774,8 +843,14 @@ local function steer(dt)
 			-- roam: head for open water away from the map edge
 			AP.roam = AP.roam or pos
 			if (AP.roam - pos).Magnitude < 150 or not AP.roamT or os.clock() - AP.roamT > 25 then
-				local ok, p = pcall(WU.RandomOpenPoint)
-				AP.roam = ok and typeof(p) == "Vector2" and p or (pos + Vector2.new(math.random(-1500, 1500), math.random(-1500, 1500)))
+				local p
+				for _ = 1, 12 do
+					local a = math.random() * math.pi * 2
+					local r = math.min(maxRadius(), 9000) * math.sqrt(math.random())
+					local c = CENTER + Vector2.new(math.cos(a), math.sin(a)) * r
+					if reachable(c) and okSpot(c) then p = c break end
+				end
+				AP.roam = p or CENTER
 				AP.roamT = os.clock()
 			end
 			want = unit(AP.roam - pos)
@@ -1043,6 +1118,10 @@ local nearL = label(nearCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2
 -- PILOT
 title(pilotPg, "ISLANDS")
 toggle(pilotPg, "Island guard", "steers around islands, also while YOU steer", function() return S.guard end, function(v) S.guard = v end, "🏝")
+title(pilotPg, "STAY ALIVE")
+toggle(pilotPg, "Avoid the Kraken", "never fights or goes near the world boss", function() return S.bossAvoid end, function(v) S.bossAvoid = v end, "🐙")
+toggle(pilotPg, "Stay in waters for my level", "Calm <15 · Contested <28 · Deadwater after", function() return S.zoneLimit end, function(v) S.zoneLimit = v end, "🗺")
+toggle(pilotPg, "Run when taking heavy damage", "goes to port early instead of dying", function() return S.dmgRun end, function(v) S.dmgRun = v end, "💔")
 title(pilotPg, "ESCAPE STRONGER PLAYERS")
 toggle(pilotPg, "Run to port from stronger players", "and stay there until they leave", function() return S.escape end, function(v) S.escape = v end, "🏃")
 chips(pilotPg, "Run from players above your level +", { { "+0", 0 }, { "+3", 3 }, { "+6", 6 }, { "+10", 10 } }, function() return S.escGap end, function(v) S.escGap = v end)
