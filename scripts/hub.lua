@@ -14,6 +14,7 @@ local SCRIPTS = {
 	{ name = "Driving Empire Spookfest", place = 3351674303, url = BASE .. "Noctrune/main/scripts/spookfest.lua" },
 	{ name = "3008 Helper", place = 2768379856, url = BASE .. "Noctrune/main/scripts/h3008.lua" },
 	{ name = "Egg Loop Helper", place = 125177095586059, url = BASE .. "Noctrune/main/scripts/egg_loop.lua" },
+	{ name = "Route 1610 Driver", place = 107530102033104, url = BASE .. "Noctrune/main/scripts/route1610.lua", delay = 4 },
 	{ name = "Battleship Commander", place = 117932401180169, url = BASE .. "Noctrune/main/scripts/battleship.lua" },
 	{ name = "Throw Food Helper", place = 120219252362013, url = BASE .. "Noctrune/main/scripts/throw_food.lua" },
 	{ name = "OP Pasahero", place = 78175233789962, url = BASE .. "Noctrune/main/scripts/pasahero.lua" },
