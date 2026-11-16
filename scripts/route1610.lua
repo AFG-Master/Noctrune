@@ -464,7 +464,11 @@ local function autoInput(st, dt)
 	local gap, rLat = nil, nil
 	if runAttr("RunnerActive") then gap, rLat = runnerInfo(CUR.route, s) end
 	ST.gap = gap
-	if gap and gap > -20 and gap < 45 and lane == 0 then
+	if gap and gap < 0 and gap > -240 then
+		-- AMBUSH: it is waiting on the road ahead -> pass it on the far side of the road
+		lane = (rLat or 0) >= 0 and -8.5 or 8.5
+		if not ST.ambushAt or os.clock() - ST.ambushAt > 4 then ST.ambushAt = os.clock() ST.ambush = (ST.ambush or 0) + 1 logf("ambush ahead: passing on the " .. (lane < 0 and "left" or "right")) end
+	elseif gap and gap >= 0 and gap < 45 and lane == 0 then
 		-- it is right behind: move away from its side to dodge the swipe
 		lane = (rLat or 0) >= lat and -5 or 5
 	end
@@ -486,7 +490,7 @@ local function autoInput(st, dt)
 		target = math.max(S.minBend, S.pace * (1 - math.clamp(bend * 1.3, 0, 0.45)))
 	end
 	-- the Runner is close: no slowing down at all
-	if gap and gap < 140 then target = math.max(target, math.min(S.pace, 125)) end
+	if gap and gap < 140 and gap >= 0 then target = math.max(target, math.min(S.pace, 125)) end
 	local thr, brk = 1, 0
 	if spd > target + 6 then thr, brk = 0, math.clamp((spd - target) / 25, 0.2, 1)
 	elseif spd > target - 3 then thr = 0.35 end
