@@ -1,7 +1,7 @@
 -- Battleship Commander · "Evolve a Battleship"
 -- Bot-only autopilot: hunts NPC ships, collects scrap and crates, avoids real players,
 -- picks upgrade cards, uses abilities, evolves and respawns. It never targets a player.
-local VERSION = "v1.2"
+local VERSION = "v1.3"
 local genv = (getgenv and getgenv()) or _G
 if genv.NAVAL_STOP then pcall(genv.NAVAL_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -24,6 +24,7 @@ local S = {
 	pilot = false, mode = "farm", target = true, cards = true, preset = "guns", abilities = true, evolve = true, respawn = true,
 	starter = "Destroyer", avoid = 1.6, retreat = 0.35, pickups = true, huntRadius = 2200, maxGap = 6, whirl = true, antiAfk = true,
 	port = true, portHp = 0.3, healTo = 0.9, vacuum = true, magnetFirst = true, warn = true,
+	escape = true, escGap = 0, escRadius = 2.5, calm = 12, escOnHit = true, escManual = true,
 	guard = true, assist = true, assistRange = 700, manualAim = true, radar = true, radarCrates = true, radarBots = false,
 }
 pcall(function()
@@ -469,9 +470,9 @@ local MAN = { idle = false, goal = nil }
 local manualAssist -- defined after steering helpers
 if IC then
 	IC.GetMoveVector = function(...)
-		if AP.active and S.pilot then return AP.vec end
+		if AP.active and (S.pilot or AP.manualEscape) then return AP.vec end
 		local v = origMove(...)
-		if S.pilot then return v end
+		if S.pilot or AP.manualEscape then return v end
 		local ok, out = pcall(manualAssist, v)
 		if ok and typeof(out) == "Vector2" then return out end
 		return v
@@ -603,9 +604,82 @@ manualAssist = function(v)
 	return stuckFix(pos, d) or avoidIslands(pos, d, 400)
 end
 
+-- ================= threats: stronger players, or any player shooting you =================
+local THREAT = { hitBy = {}, lastSeen = 0, who = nil, active = false }
+pcall(function()
+	on(Rem.Combat.Effect.OnClientEvent, function(kind, data)
+		if kind ~= "Shot" or type(data) ~= "table" then return end
+		if data.T ~= CS.MyId or not data.A then return end
+		local a = CS.GetEntity(data.A)
+		if a and isPlayer(a) then
+			THREAT.hitBy[data.A] = os.clock()
+		end
+	end)
+end)
+local function threatScan(m)
+	if not S.escape then THREAT.active = false return nil end
+	local range = (CS.MyStats and CS.MyStats.Range) or 700
+	local radius = range * S.escRadius
+	local myL = myLevel()
+	local worst, wd
+	local _, players = scanWorld(m)
+	for _, p in ipairs(players) do
+		local lvl = p.e.Meta.Level or 1
+		local shooting = S.escOnHit and THREAT.hitBy[p.e.Id] and os.clock() - THREAT.hitBy[p.e.Id] < 8
+		local stronger = lvl > myL + S.escGap
+		if (stronger and p.d < radius) or shooting then
+			if not wd or p.d < wd then worst, wd = p, p.d end
+		end
+	end
+	if worst then
+		THREAT.lastSeen = os.clock()
+		if not THREAT.active then
+			THREAT.active = true
+			logf(string.format("escaping %s (L%s)", tostring(worst.e.Meta.Name), tostring(worst.e.Meta.Level)))
+			toast(string.format("🏃 Escaping %s (L%s) to port", tostring(worst.e.Meta.Name), tostring(worst.e.Meta.Level)), C.red, 3)
+		end
+		THREAT.who = worst
+	elseif THREAT.active and os.clock() - THREAT.lastSeen > S.calm then
+		THREAT.active = false
+		THREAT.who = nil
+		logf("coast is clear: back to farming")
+		toast("Coast is clear", C.green, 2)
+	end
+	return THREAT.active
+end
+-- port choice when running: nearest one that is not past the chaser
+local function escapePort(pos, chaserPos)
+	local best, bs
+	for _, h in ipairs(HARBOURS) do
+		local c = h.Center
+		if c then
+			local d = (c - pos).Magnitude
+			local score = d
+			if chaserPos then
+				local toPort = unit(c - pos)
+				local toChaser = unit(chaserPos - pos)
+				if toPort:Dot(toChaser) > 0.5 then score = score + 3000 end
+			end
+			if not bs or score < bs then best, bs = h, score end
+		end
+	end
+	return best
+end
+
 local function steer(dt)
 	local m = me()
-	if not (S.pilot and m and m.Pos and session().Alive) then AP.active = false return end
+	if not (m and m.Pos and session().Alive) then AP.active = false return end
+	if not S.pilot then
+		-- manual play: only take the wheel to escape a stronger / attacking player
+		if S.escManual and threatScan(m) then
+			AP.active = true
+			AP.manualEscape = true
+		else
+			if AP.manualEscape then AP.manualEscape = false end
+			AP.active = false
+			return
+		end
+	end
 	AP.active = true
 	local npcs, players = scanWorld(m)
 	keepNpcTarget(m, npcs)
@@ -635,18 +709,25 @@ local function steer(dt)
 		ST.toPort = false
 		logf("healed: back to farming")
 	end
-	local fleeing = hp < S.retreat or ST.toPort
-	if ST.toPort then
-		pcall(CS.SetTarget, nil)
-		local h, d = nearestPort(pos)
+	local threatened = threatScan(m)
+	local fleeing = hp < S.retreat or ST.toPort or threatened
+	if ST.toPort or threatened then
+		local cur = CS.TargetId and CS.GetEntity(CS.TargetId)
+		if not (cur and isNpc(cur) and not threatened) then pcall(CS.SetTarget, nil) end
+		local chaser = THREAT.who and THREAT.who.e and THREAT.who.e.Pos
+		local h = threatened and escapePort(pos, chaser) or nearestPort(pos)
+		local d = h and (h.Center - pos).Magnitude or 0
 		if h and inSafe(pos) then
 			want = Vector2.zero
 			AP.vec = Vector2.zero
-			ST.goal = string.format("safe in %s, healing %d%%", tostring(h.Name), math.floor(hp * 100))
+			ST.goal = threatened and string.format("safe in %s, waiting for %s to leave", tostring(h.Name), tostring(THREAT.who and THREAT.who.e.Meta.Name or "player"))
+				or string.format("safe in %s, healing %d%%", tostring(h.Name), math.floor(hp * 100))
 			return
 		elseif h then
 			want = unit(h.Center - pos) * 2
-			ST.goal = string.format("to %s (%dm), hull %d%%", tostring(h.Name), math.floor(d), math.floor(hp * 100))
+			if chaser then danger = danger + unit(pos - chaser) * 0.8 end
+			ST.goal = threatened and string.format("ESCAPING to %s (%dm)", tostring(h.Name), math.floor(d))
+				or string.format("to %s (%dm), hull %d%%", tostring(h.Name), math.floor(d), math.floor(hp * 100))
 		end
 		for _, n in ipairs(npcs) do if n.d < range then danger = danger + unit(pos - n.e.Pos) * 0.6 end end
 	elseif fleeing then
@@ -862,8 +943,8 @@ local function doAbilities()
 			if id == "MegaBomb" then use = npcNear >= 2 and not playerNear
 			elseif id == "Escorts" then use = npcNear >= 1 and not playerNear
 			elseif id == "Patch" then use = hp < 0.6 or (ST.toPort and hp < S.healTo)
-			elseif id == "IronShield" then use = hp < 0.5 or (ST.toPort and (npcNear > 0 or playerNear))
-			elseif id == "Afterburner" then use = ST.toPort or hp < S.retreat or playerNear or (npcNear == 0 and S.pilot)
+			elseif id == "IronShield" then use = hp < 0.5 or ((ST.toPort or THREAT.active) and (npcNear > 0 or playerNear))
+			elseif id == "Afterburner" then use = ST.toPort or THREAT.active or hp < S.retreat or playerNear or (npcNear == 0 and S.pilot)
 			end
 			if use then useAbility(id) end
 		end
@@ -962,6 +1043,13 @@ local nearL = label(nearCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2
 -- PILOT
 title(pilotPg, "ISLANDS")
 toggle(pilotPg, "Island guard", "steers around islands, also while YOU steer", function() return S.guard end, function(v) S.guard = v end, "🏝")
+title(pilotPg, "ESCAPE STRONGER PLAYERS")
+toggle(pilotPg, "Run to port from stronger players", "and stay there until they leave", function() return S.escape end, function(v) S.escape = v end, "🏃")
+chips(pilotPg, "Run from players above your level +", { { "+0", 0 }, { "+3", 3 }, { "+6", 6 }, { "+10", 10 } }, function() return S.escGap end, function(v) S.escGap = v end)
+chips(pilotPg, "Danger distance (x your range)", { { "1.5x", 1.5 }, { "2.5x", 2.5 }, { "4x", 4 } }, function() return S.escRadius end, function(v) S.escRadius = v end)
+chips(pilotPg, "Wait after they leave", { { "5s", 5 }, { "12s", 12 }, { "30s", 30 } }, function() return S.calm end, function(v) S.calm = v end)
+toggle(pilotPg, "Also run if any player shoots me", "even a weaker one", function() return S.escOnHit end, function(v) S.escOnHit = v end, "🎯")
+toggle(pilotPg, "Escape even when I steer", "takes the wheel only to run, then gives it back", function() return S.escManual end, function(v) S.escManual = v end, "🛟")
 title(pilotPg, "SAFE ZONE")
 toggle(pilotPg, "Go to port when hurt", "sails to the nearest port and heals", function() return S.port end, function(v) S.port = v end, "⚓")
 chips(pilotPg, "Go to port at hull", { { "20%", 0.2 }, { "30%", 0.3 }, { "40%", 0.4 }, { "50%", 0.5 } }, function() return S.portHp end, function(v) S.portHp = v end)
