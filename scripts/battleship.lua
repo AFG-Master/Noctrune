@@ -1,7 +1,7 @@
 -- Battleship Commander · "Evolve a Battleship"
 -- Bot-only autopilot: hunts NPC ships, collects scrap and crates, avoids real players,
 -- picks upgrade cards, uses abilities, evolves and respawns. It never targets a player.
-local VERSION = "v1.0"
+local VERSION = "v1.1"
 local genv = (getgenv and getgenv()) or _G
 if genv.NAVAL_STOP then pcall(genv.NAVAL_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -23,6 +23,7 @@ local DIR = "AFGNaval"
 local S = {
 	pilot = false, mode = "farm", target = true, cards = true, preset = "guns", abilities = true, evolve = true, respawn = true,
 	starter = "Destroyer", avoid = 1.6, retreat = 0.35, pickups = true, huntRadius = 2200, maxGap = 6, whirl = true, antiAfk = true,
+	port = true, portHp = 0.3, healTo = 0.9, vacuum = true, magnetFirst = true, warn = true,
 }
 pcall(function()
 	if isfile and isfile(DIR .. "/settings.json") then
@@ -345,6 +346,57 @@ local PvP = req(RS.Shared.Utilities.PvPRules)
 local PerkC = req(RS.Shared.Config.PerkConfig)
 local ShipC = req(RS.Shared.Config.ShipConfig)
 local Rem = RS:WaitForChild("Remotes")
+local WC = req(RS.Shared.Config.WorldConfig)
+-- harbours are the safe zones (Port Anchorage, Ironhold, Port Coral)
+local HARBOURS = {}
+pcall(function() for _, h in ipairs(WC.Harbours) do HARBOURS[#HARBOURS + 1] = h end end)
+local function nearestPort(pos)
+	local best, bd
+	for _, h in ipairs(HARBOURS) do
+		local c = h.Center
+		if c then local d = (c - pos).Magnitude if not bd or d < bd then best, bd = h, d end end
+	end
+	return best, bd
+end
+local function inSafe(pos)
+	local ok, r = pcall(WU.InSafeZone, pos)
+	if ok and r then return true end
+	local h, d = nearestPort(pos)
+	return h and d < (h.Radius or 700) * 0.8
+end
+-- the full pickup list the game already draws (scrap + crates)
+local pickupList
+pcall(function() pickupList = debug.getupvalues(PR.GetNearest)[1] end)
+local VALUE = { ScrapSmall = 1, ScrapMedium = 2.2, ScrapLarge = 4, Crate = 7, Chest = 10 }
+local function pickupValue(pk)
+	local v = VALUE[pk.Type]
+	if v then return v end
+	if pk.Def and type(pk.Def) == "table" then return tonumber(pk.Def.XP or pk.Def.Value or pk.Def.Amount) or 1.5 end
+	return 1.5
+end
+-- best place to sail for scrap: value of a pickup plus everything around it, divided by the trip
+local function bestScrap(pos, maxD)
+	if not pickupList then return nil end
+	local cand = {}
+	for _, pk in pairs(pickupList) do
+		local pp = pk.Pos
+		if typeof(pp) == "Vector2" then
+			local d = (pp - pos).Magnitude
+			if d < maxD then cand[#cand + 1] = { p = pp, d = d, v = pickupValue(pk) } end
+		end
+	end
+	local best, bs
+	for i = 1, #cand do
+		local a = cand[i]
+		local cluster = a.v
+		for j = 1, #cand do
+			if i ~= j and (cand[j].p - a.p).Magnitude < 260 then cluster = cluster + cand[j].v end
+		end
+		local score = cluster / (a.d + 150)
+		if not bs or score > bs then best, bs = a, score end
+	end
+	return best and best.p, best and best.d
+end
 local function stat(n) local ls = lp:FindFirstChild("leaderstats") local v = ls and ls:FindFirstChild(n) return v and v.Value end
 local function fmt(n)
 	n = tonumber(n) or 0
@@ -474,8 +526,28 @@ local function steer(dt)
 	end
 	-- 2) low health: break away from everything and heal
 	local hp = m.HealthFrac or 1
-	local fleeing = hp < S.retreat
-	if fleeing then
+	-- go home: at low hull sail to the nearest port and wait there until healed
+	if S.port and (hp <= S.portHp or (ST.toPort and hp < S.healTo)) then
+		if not ST.toPort then ST.toPort = true logf(string.format("hull %d%%: heading to port", math.floor(hp * 100))) toast("Low hull: going to port", C.amber, 3) end
+	elseif ST.toPort then
+		ST.toPort = false
+		logf("healed: back to farming")
+	end
+	local fleeing = hp < S.retreat or ST.toPort
+	if ST.toPort then
+		pcall(CS.SetTarget, nil)
+		local h, d = nearestPort(pos)
+		if h and inSafe(pos) then
+			want = Vector2.zero
+			AP.vec = Vector2.zero
+			ST.goal = string.format("safe in %s, healing %d%%", tostring(h.Name), math.floor(hp * 100))
+			return
+		elseif h then
+			want = unit(h.Center - pos) * 2
+			ST.goal = string.format("to %s (%dm), hull %d%%", tostring(h.Name), math.floor(d), math.floor(hp * 100))
+		end
+		for _, n in ipairs(npcs) do if n.d < range then danger = danger + unit(pos - n.e.Pos) * 0.6 end end
+	elseif fleeing then
 		for _, n in ipairs(npcs) do if n.d < range * 1.3 then danger = danger + unit(pos - n.e.Pos) * 1.5 end end
 		ST.goal = string.format("retreating (hp %d%%)", math.floor(hp * 100))
 	end
@@ -490,9 +562,12 @@ local function steer(dt)
 			tgt = bestN
 		end
 		local pick
-		if S.pickups and PR and PR.GetNearest then
-			local ok, p = pcall(PR.GetNearest, pos)
-			if ok and typeof(p) == "Vector2" and (p - pos).Magnitude < 900 then pick = p end
+		if S.pickups then
+			if S.vacuum then pick = bestScrap(pos, tgt and 900 or 2200) end
+			if not pick and PR and PR.GetNearest then
+				local ok, p = pcall(PR.GetNearest, pos)
+				if ok and typeof(p) == "Vector2" and (p - pos).Magnitude < 900 then pick = p end
+			end
 		end
 		if S.mode == "pickups" then tgt = nil end
 		if tgt and S.mode ~= "pickups" then
@@ -562,6 +637,7 @@ local function doCards()
 			local order = PRESETS[S.preset] or PRESETS.guns
 			local rank = {}
 			for i, id in ipairs(order) do rank[id] = i end
+			if S.magnetFirst then rank.Magnet = 0 end
 			local abilities = 0
 			for _ in pairs(s.Abilities or {}) do abilities = abilities + 1 end
 			local bestR
@@ -602,9 +678,9 @@ local function doAbilities()
 			local use = false
 			if id == "MegaBomb" then use = npcNear >= 2 and not playerNear
 			elseif id == "Escorts" then use = npcNear >= 1 and not playerNear
-			elseif id == "Patch" then use = hp < 0.6
-			elseif id == "IronShield" then use = hp < 0.5
-			elseif id == "Afterburner" then use = hp < S.retreat or playerNear or (npcNear == 0 and S.pilot)
+			elseif id == "Patch" then use = hp < 0.6 or (ST.toPort and hp < S.healTo)
+			elseif id == "IronShield" then use = hp < 0.5 or (ST.toPort and (npcNear > 0 or playerNear))
+			elseif id == "Afterburner" then use = ST.toPort or hp < S.retreat or playerNear or (npcNear == 0 and S.pilot)
 			end
 			if use then useAbility(id) end
 		end
@@ -631,8 +707,34 @@ local function doRespawn()
 	end
 end
 
+local warned = {}
+local function doAlerts()
+	local m = me()
+	if not (S.warn and m and m.Pos) then return end
+	local _, players = scanWorld(m)
+	local range = (CS.MyStats and CS.MyStats.Range) or 700
+	for _, p in ipairs(players) do
+		local id = p.e.Id
+		if p.d < range * 2.2 then
+			if not warned[id] or os.clock() - warned[id] > 30 then
+				warned[id] = os.clock()
+				toast(string.format("⚠ %s (L%s) nearby", tostring(p.e.Meta.Name), tostring(p.e.Meta.Level)), C.amber, 3)
+				ST.avoided = ST.avoided + 1
+			end
+		end
+	end
+end
+pcall(function()
+	on(Rem.World.Boss.OnClientEvent, function(kind)
+		if S.warn and (kind == "Spawn" or kind == "Spawned" or kind == "Rise" or kind == "Start") then
+			toast("🐙 The Kraken has risen!", C.a3, 4)
+			logf("Kraken appeared")
+		end
+	end)
+end)
 task.spawn(function()
 	while alive do
+		pcall(doAlerts)
 		pcall(doCards)
 		pcall(doAbilities)
 		pcall(doRespawn)
@@ -675,6 +777,10 @@ local nearCard = card(homePg, 44)
 local nearL = label(nearCard, { Position = UDim2.fromOffset(12, 4), Size = UDim2.new(1, -24, 1, -8), TextSize = 11, TextWrapped = true, ZIndex = 4, Text = "" })
 
 -- PILOT
+title(pilotPg, "SAFE ZONE")
+toggle(pilotPg, "Go to port when hurt", "sails to the nearest port and heals", function() return S.port end, function(v) S.port = v end, "⚓")
+chips(pilotPg, "Go to port at hull", { { "20%", 0.2 }, { "30%", 0.3 }, { "40%", 0.4 }, { "50%", 0.5 } }, function() return S.portHp end, function(v) S.portHp = v end)
+chips(pilotPg, "Leave port at hull", { { "70%", 0.7 }, { "90%", 0.9 }, { "100%", 0.995 } }, function() return S.healTo end, function(v) S.healTo = v end)
 title(pilotPg, "SAFETY")
 chips(pilotPg, "Stay away from real players (x your range)", { { "1.2x", 1.2 }, { "1.6x", 1.6 }, { "2x", 2 }, { "3x", 3 } }, function() return S.avoid end, function(v) S.avoid = v end)
 chips(pilotPg, "Retreat when hull below", { { "20%", 0.2 }, { "35%", 0.35 }, { "50%", 0.5 } }, function() return S.retreat end, function(v) S.retreat = v end)
@@ -682,6 +788,7 @@ chips(pilotPg, "Only fight NPCs up to your level +", { { "+2", 2 }, { "+6", 6 },
 toggle(pilotPg, "Avoid whirlpool eyes", "steers around the pull", function() return S.whirl end, function(v) S.whirl = v end, "🌀")
 title(pilotPg, "ROUTE")
 toggle(pilotPg, "Grab scrap + crates", "drifts to pickups while fighting", function() return S.pickups end, function(v) S.pickups = v end, "📦")
+toggle(pilotPg, "Scrap vacuum", "plans routes through the biggest scrap clusters", function() return S.vacuum end, function(v) S.vacuum = v end, "🧲")
 chips(pilotPg, "Hunt radius", { { "1200", 1200 }, { "2200", 2200 }, { "3500", 3500 } }, function() return S.huntRadius end, function(v) S.huntRadius = v end)
 
 -- COMBAT
@@ -689,6 +796,7 @@ title(combatPg, "AUTOMATION")
 toggle(combatPg, "Auto-aim NPCs", "picks the best bot in range; never a player", function() return S.target end, function(v) S.target = v end, "🎯")
 toggle(combatPg, "Auto upgrade cards", "picks by the build below", function() return S.cards end, function(v) S.cards = v end, "🃏")
 chips(combatPg, "Build", { { "🔫 Guns", "guns" }, { "🛡 Tank", "tank" }, { "💰 Farm", "farm" } }, function() return S.preset end, function(v) S.preset = v end)
+toggle(combatPg, "Magnet card first", "bigger real pickup range from the Magnet upgrade", function() return S.magnetFirst end, function(v) S.magnetFirst = v end, "🧲")
 toggle(combatPg, "Auto evolve", "chooses the strongest ship offered", function() return S.evolve end, function(v) S.evolve = v end, "🔱")
 toggle(combatPg, "Auto abilities", "bombs/escorts only when no player is near", function() return S.abilities end, function(v) S.abilities = v end, "✨")
 toggle(combatPg, "Auto respawn", "free respawn, never the Robux offer", function() return S.respawn end, function(v) S.respawn = v end, "♻️")
@@ -701,6 +809,7 @@ title(morePg, "LOG")
 local logL = label(card(morePg, 120), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextColor3 = C.sub, TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = true, ZIndex = 4 })
 title(morePg, "OPTIONS")
 toggle(morePg, "Anti-AFK", "no idle kick", function() return S.antiAfk end, function(v) S.antiAfk = v end, "🛡")
+toggle(morePg, "Alerts", "player nearby + Kraken warnings", function() return S.warn end, function(v) S.warn = v end, "🔔")
 label(card(morePg, 52), { Position = UDim2.fromOffset(12, 6), Size = UDim2.new(1, -24, 1, -12), TextSize = 10, TextColor3 = C.sub, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 4,
 	Text = "Bot-only: it aims at NPCs, never at players, and sails away from player ships. The game's guns still fire on their own at anything that gets in range." })
 
@@ -763,7 +872,7 @@ task.spawn(function()
 		end
 		local el = os.clock() - ST.t0
 		local gained = kills - (ST.kills0 or kills)
-		sessL.Text = string.format("Time %s  ·  kills +%d  (%d / hour)\nCards %d  ·  abilities %d  ·  evolves %d\nRespawns %d  ·  best level %s", mmss(el), gained, el > 30 and math.floor(gained / el * 3600) or 0, ST.cards, ST.abil, ST.evolves, ST.deaths, tostring(CS.Profile and CS.Profile.BestLevel or "?"))
+		sessL.Text = string.format("Time %s  ·  kills +%d  (%d / hour)\nCards %d  ·  abilities %d  ·  evolves %d\nRespawns %d  ·  best level %s  ·  player alerts " .. tostring(ST.avoided), mmss(el), gained, el > 30 and math.floor(gained / el * 3600) or 0, ST.cards, ST.abil, ST.evolves, ST.deaths, tostring(CS.Profile and CS.Profile.BestLevel or "?"))
 		logL.Text = #ST.log > 0 and table.concat(ST.log, "\n") or "—"
 		flush()
 		task.wait(0.5)
