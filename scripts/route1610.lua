@@ -1,6 +1,6 @@
 -- Route 1610 Driver · auto drive + monster guard for "Route 1610"
 -- Drives with the game's own road path and input system; never touches purchases or leaderboards.
-local VERSION = "v1.4"
+local VERSION = "v1.5"
 local genv = (getgenv and getgenv()) or _G
 if genv.R1610_STOP then pcall(genv.R1610_STOP) end
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -559,8 +559,17 @@ local function autoInput(st, dt)
 		-- AMBUSH: it is waiting on the road ahead -> treat it as an obstacle and take the clearest side
 		local r0 = rLat or 0
 		lane = laneFor(s, lat, { s0 = s - gap - 10, s1 = s - gap + 10, lo = r0 - 10, hi = r0 + 10, kind = "Runner flank" })
+		-- it is right beside / just ahead: go as far from its side as the road allows
+		if gap > -60 and gap < 70 then
+			local edge = (CUR.width or 24) / 2 - CAR_HALF - 0.8
+			lane = (r0 >= 0 and -edge or edge)
+		end
 		if not ST.ambushAt or os.clock() - ST.ambushAt > 4 then ST.ambushAt = os.clock() ST.ambush = (ST.ambush or 0) + 1 logf("ambush ahead: passing on the " .. (lane < 0 and "left" or "right")) end
-	elseif gap and gap >= 0 and gap < 45 and lane == 0 then
+	elseif gap and gap >= 0 and gap < 70 then
+		local rl = rLat or 0
+		local edge = (CUR.width or 24) / 2 - CAR_HALF - 0.8
+		lane = (rl >= lat) and -edge or edge
+	elseif false then
 		-- it is right behind: move away from its side to dodge the swipe
 		lane = (rLat or 0) >= lat and -5 or 5
 	end
