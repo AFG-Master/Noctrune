@@ -1688,7 +1688,7 @@ function B.reloadHub(ref, opts)
 		task.wait(0.6)
 	end
 	genv.NOCTURNE_SKIP_GAME = opts.skipGame == true
-	local okGet, src = pcall(game.HttpGet, game, url)
+	local okGet, src = pcall(game.HttpGet, game, url .. "?nc=" .. tostring(math.floor(os.clock() * 1000)))
 	if not okGet then
 		return "Download failed: " .. tostring(src)
 	end
@@ -1713,7 +1713,7 @@ function B.update(ref)
 	local url = ref and ("https://raw.githubusercontent.com/AFG-Master/Noctrune/" .. ref .. "/bridge/kit.lua")
 		or genv.BRIDGE_KIT_URL or "https://raw.githubusercontent.com/AFG-Master/Noctrune/main/bridge/kit.lua"
 	genv.BRIDGE_KIT_URL = url
-	local src = game:HttpGet(url)
+	local src = game:HttpGet(url .. "?nc=" .. tostring(math.floor(os.clock() * 1000)))
 	local fn = assert(loadstring(src, "=bridge_loop"))
 	task.defer(fn)
 	return "Bridge loop reloading from " .. url
