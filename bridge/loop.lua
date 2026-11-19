@@ -688,6 +688,38 @@ do
 		return score
 	end
 
+	-- Hidden by a gradient that fades everything out (self or any ancestor)?
+	local function fadedOut(o)
+		local cur = o
+		while cur and cur:IsA("GuiObject") do
+			local g = cur:FindFirstChildOfClass("UIGradient")
+			if g then
+				local all = true
+				for _, k in ipairs(g.Transparency.Keypoints) do
+					if k.Value < 0.95 then
+						all = false
+					end
+				end
+				if all then
+					return true
+				end
+			end
+			if cur:IsA("CanvasGroup") and cur.GroupTransparency > 0.9 then
+				return true
+			end
+			cur = cur.Parent
+		end
+		return false
+	end
+	-- A popup has something to read or press (loading logos and backdrops don't).
+	local function hasContent(f)
+		for _, d in ipairs(f:GetDescendants()) do
+			if (d:IsA("GuiButton") or ((d:IsA("TextLabel") or d:IsA("TextButton")) and #d.Text > 1)) and d.Visible then
+				return true
+			end
+		end
+		return false
+	end
 	-- A popup: a big visible window near the middle of the screen in the game's UI.
 	function B.popups()
 		local pg = LocalPlayer:FindFirstChildOfClass("PlayerGui")
@@ -707,7 +739,7 @@ do
 						local central = math.abs(cx - vp.X / 2) < vp.X * 0.22 and math.abs(cy - vp.Y / 2) < vp.Y * 0.3
 						local opaque = f.BackgroundTransparency < 0.6 or (f:IsA("ImageLabel") and f.ImageTransparency < 0.6)
 							or (f:IsA("CanvasGroup") and f.GroupTransparency < 0.6)
-						if a > area * 0.12 and a < area * 0.98 and central and opaque and guiShown(f) then
+						if a > area * 0.12 and a < area * 0.98 and central and opaque and guiShown(f) and not fadedOut(f) and hasContent(f) then
 							-- Skip if an ancestor is already a popup (keep the outermost window).
 							local inside = false
 							for _, other in ipairs(found) do
@@ -3269,7 +3301,10 @@ do
 			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
 		end
 	end))
-	event("joined", (gameName or tostring(game.PlaceId)) .. " · server " .. game.JobId:sub(1, 8))
+	task.spawn(function()
+		local ok, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
+		event("joined", ((ok and info and info.Name) or tostring(game.PlaceId)) .. " · server " .. game.JobId:sub(1, 8))
+	end)
 	-- Popups appearing/closing and stuck detection, checked every 3 s.
 	task.spawn(function()
 		local lastPop = ""
