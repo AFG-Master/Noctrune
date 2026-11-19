@@ -27,7 +27,8 @@ const INSTRUCTIONS = `This connector runs Luau code inside the owner's Roblox cl
 - The owner uses this for helpers that only affect their own character and screen. Don't write scripts that target, track or harm other players.
 - Bridge v2 kit: screen (what's on screen + nearby), press, ask_owner (Yes/No card), watch_action / snapshot / diff,
   actions, signals, scripts / read_script / grep_scripts, find_values, remote_log, get_errors, capabilities,
-  reload_hub, game memory (memory_read / memory_write) and research_scripts (ScriptBlox + Rscripts feature ideas).
+  reload_hub, game memory (memory_read / memory_write), research_scripts (ScriptBlox + Rscripts feature ideas),
+  and Roblox web info that works offline: roblox_game, roblox_servers, game_updates.
   In run_script the kit is available as B (e.g. B.press("Play"), B.key("E"), B.prompt(path)); JOB.stopped() and
   JOB.onStop(fn) let long jobs end cleanly when stop_job is called.
 - Before writing a script for a game, read memory_read for it first and save what you learn with memory_write.`;
@@ -354,6 +355,30 @@ const TOOLS = [
     },
     annotations: { readOnlyHint: true },
   },
+  {
+    name: "roblox_game",
+    description: "Roblox web info for a game (works even when the owner is offline): name, creator, last updated time, playing now, visits, favorites, max players, and the start of the description (often lists the latest update). Also says if it updated since the last check. Default: the connected game.",
+    inputSchema: { type: "object", properties: { place_id: { type: "string" } } },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "roblox_servers",
+    description: "Public servers of a game from Roblox's web API: server id, players/max, ping and fps. Useful for server hop features. Default: the connected game.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        place_id: { type: "string" },
+        sort: { type: "string", enum: ["small", "big"], description: "small = emptiest first (default), big = fullest first." },
+        limit: { type: "integer", minimum: 1, maximum: 50, description: "Default 10." },
+      },
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "game_updates",
+    description: "Update detector (offline): checks every game in game memory against Roblox and lists which ones updated since they were last checked, with times. Marks them as seen unless mark_seen is false.",
+    inputSchema: { type: "object", properties: { mark_seen: { type: "boolean" } } },
+  },
 ];
 
 export default {
@@ -363,7 +388,9 @@ export default {
     }
 
     const parts = new URL(request.url).pathname.split("/").filter(Boolean);
-    if (parts.length !== 2 || !safeEqual(parts[0], env.SECRET)) return text("Not found", 404);
+    // SECRET is the connector's key; LOOP_SECRET (optional) is a second key just for the Delta loop.
+    const keyOk = safeEqual(parts[0] || "", env.SECRET) || (env.LOOP_SECRET && safeEqual(parts[0] || "", env.LOOP_SECRET));
+    if (parts.length !== 2 || !keyOk) return text("Not found", 404);
 
     await ensureSchema(env.DB);
 
@@ -674,6 +701,12 @@ print("Reloading the bridge loop from " .. url)`, 10);
     }
     case "research_scripts":
       return researchScripts(env, a);
+    case "roblox_game":
+      return robloxGame(env, a.place_id);
+    case "roblox_servers":
+      return robloxServers(env, a);
+    case "game_updates":
+      return gameUpdates(env, a.mark_seen !== false);
   }
   return null;
 }
@@ -746,6 +779,91 @@ async function memoryWrite(env, a) {
   }
   await env.DB.batch(statements);
   return toolText(`Saved ${key} for place ${place} (${value.length} chars).`);
+}
+
+
+// Roblox web APIs ---------------------------------------------------------------
+async function memGet(env, place, key) {
+  const row = await env.DB.prepare("SELECT v FROM memory WHERE place = ? AND k = ?").bind(place, key).first();
+  return row ? row.v : null;
+}
+
+async function memSet(env, place, key, value) {
+  await env.DB.prepare("INSERT INTO memory (place, k, v, updated) VALUES (?, ?, ?, ?) ON CONFLICT (place, k) DO UPDATE SET v = excluded.v, updated = excluded.updated")
+    .bind(place, key, String(value), Date.now()).run();
+}
+
+async function universeOf(env, place) {
+  const cached = await memGet(env, place, "_universe");
+  if (cached) return cached;
+  const d = await getJson(`https://apis.roblox.com/universes/v1/places/${encodeURIComponent(place)}/universe`);
+  if (!d || !d.universeId) return null;
+  await memSet(env, place, "_universe", d.universeId);
+  return String(d.universeId);
+}
+
+function ago(iso) {
+  const ms = Date.now() - Date.parse(iso);
+  if (!Number.isFinite(ms)) return "?";
+  const h = ms / 3_600_000;
+  return h < 1 ? `${Math.round(h * 60)} min ago` : h < 48 ? `${Math.round(h)} h ago` : `${Math.round(h / 24)} days ago`;
+}
+
+async function robloxGame(env, given) {
+  const place = await placeOf(env, given);
+  if (!place) return toolError("No place_id given and no game connected.");
+  const uni = await universeOf(env, place);
+  if (!uni) return toolError(`Roblox didn't return a universe for place ${place}.`);
+  const d = await getJson(`https://games.roblox.com/v1/games?universeIds=${uni}`);
+  const g = d && d.data && d.data[0];
+  if (!g) return toolError("Roblox didn't return game info.");
+  const seen = await memGet(env, place, "_updated");
+  const changed = seen && seen !== g.updated;
+  const lines = [
+    `${g.name} (place ${place}, universe ${uni})`,
+    `Creator: ${g.creator && g.creator.name} · Genre: ${g.genre || "?"} · Max players: ${g.maxPlayers}`,
+    `Updated: ${g.updated} (${ago(g.updated)})${seen ? (changed ? " · UPDATED since last check" : " · no update since last check") : ""}`,
+    `Playing now: ${g.playing} · Visits: ${g.visits} · Favorites: ${g.favoritedCount}`,
+    "",
+    cleanText(g.description, 900),
+  ];
+  return toolText(lines.join("\n"));
+}
+
+async function robloxServers(env, a) {
+  const place = await placeOf(env, a.place_id);
+  if (!place) return toolError("No place_id given and no game connected.");
+  const limit = clampInt(a.limit, 10, 1, 50);
+  const order = a.sort === "big" ? "Desc" : "Asc";
+  const d = await getJson(`https://games.roblox.com/v1/games/${encodeURIComponent(place)}/servers/Public?sortOrder=${order}&limit=${limit <= 10 ? 10 : limit <= 25 ? 25 : 50}&excludeFullGames=true`);
+  const list = ((d && d.data) || []).slice(0, limit);
+  if (!list.length) return toolText("No public servers returned.");
+  const game = await readGameState(env);
+  const mine = game && String(game.placeId) === place ? game.serverJobId : null;
+  return toolText(list.map((s) => `${s.id}  ${s.playing}/${s.maxPlayers}  ping ${s.ping ?? "?"}  fps ${s.fps ? Math.round(s.fps) : "?"}${s.id === mine ? "  <- owner is here" : ""}`).join("\n"));
+}
+
+async function gameUpdates(env, markSeen) {
+  const rows = await env.DB.prepare("SELECT DISTINCT place FROM memory").all();
+  const places = (rows.results || []).map((r) => r.place).filter((p) => /^\d+$/.test(p));
+  if (!places.length) return toolText("No games in memory yet.");
+  const unis = {};
+  for (const p of places.slice(0, 40)) {
+    const u = await universeOf(env, p);
+    if (u) unis[u] = p;
+  }
+  const ids = Object.keys(unis);
+  const d = ids.length ? await getJson(`https://games.roblox.com/v1/games?universeIds=${ids.join(",")}`) : null;
+  const out = [];
+  for (const g of (d && d.data) || []) {
+    const place = unis[String(g.id)];
+    const seen = await memGet(env, place, "_updated");
+    const status = !seen ? "first check" : seen !== g.updated ? "UPDATED" : "no change";
+    out.push(`${status.padEnd(11)} ${g.name} (place ${place}) updated ${ago(g.updated)}`);
+    if (markSeen) await memSet(env, place, "_updated", g.updated);
+  }
+  out.sort((x, y) => (y.startsWith("UPDATED") ? 1 : 0) - (x.startsWith("UPDATED") ? 1 : 0));
+  return toolText(out.join("\n") || "Roblox returned nothing.");
 }
 
 // Idea research ---------------------------------------------------------------
