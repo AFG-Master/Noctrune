@@ -1235,8 +1235,16 @@ if not EC.hooked then
 	end)
 	LogService.MessageOut:Connect(function(message, kind)
 		if kind == Enum.MessageType.MessageError and not message:find("^%[Bridge%]") then
-			task.defer(function()
-				if not EC.last[message:sub(1, 200)] then
+			task.delay(0.5, function()
+				local key = message:sub(1, 200)
+				local dup = EC.last[key]
+				for i = #EC.recent, math.max(1, #EC.recent - 5), -1 do
+					local e = EC.recent[i]
+					if os.time() - e.time <= 2 and (message:find(e.msg:sub(1, 120), 1, true) or e.msg:find(message:sub(1, 120), 1, true)) then
+						dup = true
+					end
+				end
+				if not dup then
 					pushError(message, "", "console")
 				end
 			end)
