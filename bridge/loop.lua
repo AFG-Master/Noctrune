@@ -568,6 +568,24 @@ function B.tapAt(x, y, force)
 	VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
 end
 
+-- Fire a button's click handlers in the background (some games' handlers wait on things that
+-- never finish from an executor thread). Returns how many handlers were fired.
+local function fireClicks(btn)
+	if not (X.firesignal and X.getconnections) then
+		return 0
+	end
+	local fired = 0
+	for _, sig in ipairs({ "Activated", "MouseButton1Click", "MouseButton1Down", "MouseButton1Up" }) do
+		local ok, cons = pcall(X.getconnections, btn[sig])
+		if ok and cons and #cons > 0 then
+			fired = fired + #cons
+			task.spawn(pcall, X.firesignal, btn[sig])
+		end
+	end
+	return fired
+end
+B.fireClicks = fireClicks
+
 -- method: "auto" (game's own click handlers first, then a real tap), "signal" or "tap"
 function B.press(target, method)
 	method = method or "auto"
@@ -579,14 +597,7 @@ function B.press(target, method)
 		return "Refused: " .. shortPath(btn) .. " looks like a paid (Robux) button"
 	end
 	if method ~= "tap" and X.firesignal and X.getconnections then
-		local fired = 0
-		for _, sig in ipairs({ "Activated", "MouseButton1Click", "MouseButton1Down", "MouseButton1Up" }) do
-			local ok, cons = pcall(X.getconnections, btn[sig])
-			if ok and cons and #cons > 0 then
-				pcall(X.firesignal, btn[sig])
-				fired = fired + #cons
-			end
-		end
+		local fired = fireClicks(btn)
 		if fired > 0 then
 			return ("Pressed %s (fired %d handlers)"):format(shortPath(btn), fired)
 		end
@@ -820,19 +831,16 @@ do
 		return found
 	end
 
-	local function pressClose(b)
-		-- The game's own click handlers first, then a real tap.
-		local fired = 0
-		if X.firesignal and X.getconnections then
-			for _, sig in ipairs({ "Activated", "MouseButton1Click", "MouseButton1Down", "MouseButton1Up" }) do
-				local ok, cons = pcall(X.getconnections, b[sig])
-				if ok and cons and #cons > 0 then
-					pcall(X.firesignal, b[sig])
-					fired = fired + #cons
-				end
+	local function pressClose(b, frame)
+		-- The game's own click handlers first (in the background), then a real tap if it's still open.
+		local fired = fireClicks(b)
+		if fired > 0 then
+			local t0 = os.clock()
+			while os.clock() - t0 < 1 and guiShown(frame) and frame:IsDescendantOf(game) do
+				task.wait(0.1)
 			end
 		end
-		if fired == 0 then
+		if fired == 0 or (guiShown(frame) and frame:IsDescendantOf(game)) then
 			local gui = b:FindFirstAncestorWhichIsA("ScreenGui")
 			local c = b.AbsolutePosition + b.AbsoluteSize / 2 + B.tapOffset
 			if gui and not gui.IgnoreGuiInset then
@@ -855,7 +863,7 @@ do
 			for _, p in ipairs(list) do
 				local label = ('"%s" (%s, %d%% of screen%s)'):format(p.title, shortPath(p.frame), p.cover, p.paid and ", has a paid offer" or "")
 				if p.close and p.score >= 6 then
-					pressClose(p.close)
+					pressClose(p.close, p.frame)
 					task.wait(0.6)
 					local gone = not guiShown(p.frame) or not p.frame:IsDescendantOf(game)
 					table.insert(out, (gone and "Closed " or "Pressed close on ") .. label .. " with " .. shortPath(p.close))
