@@ -2411,7 +2411,11 @@ function B.signature()
 	end
 	for _, svc in ipairs({ RS, workspace, game:GetService("ReplicatedFirst"), game:GetService("StarterGui") }) do
 		for _, c in ipairs(svc:GetChildren()) do
-			table.insert(tops, cleanStr(svc.Name .. "." .. c.Name))
+			-- Skip players' characters (and anything named after a player) so joins/leaves aren't "updates".
+			local isPlayer = Players:GetPlayerFromCharacter(c) or Players:FindFirstChild(c.Name)
+			if not isPlayer and not c:IsA("Camera") and not c:IsA("Terrain") then
+				table.insert(tops, cleanStr(svc.Name .. "." .. c.Name))
+			end
 		end
 	end
 	local modules = {}
@@ -2799,7 +2803,30 @@ do
 	function B.bugReport(note)
 		local parts = { "Owner's note: " .. (note ~= "" and note or "(none)") }
 		pcall(function()
-			table.insert(parts, "\n--- Screen ---\n" .. B.screen({ world = true, range = 60, limit = 80 }))
+			-- Leave out lines that mention other players (player lists, name tags): reports are stored.
+			local names = {}
+			for _, plr in ipairs(Players:GetPlayers()) do
+				if plr ~= LocalPlayer then
+					table.insert(names, plr.Name:lower())
+					table.insert(names, plr.DisplayName:lower())
+				end
+			end
+			local kept, dropped = {}, 0
+			for line in B.screen({ world = true, range = 60, limit = 80 }):gmatch("[^\n]+") do
+				local low, other = line:lower(), false
+				for _, n in ipairs(names) do
+					if #n >= 3 and low:find(n, 1, true) then
+						other = true
+						break
+					end
+				end
+				if other then
+					dropped = dropped + 1
+				else
+					table.insert(kept, line)
+				end
+			end
+			table.insert(parts, "\n--- Screen ---\n" .. table.concat(kept, "\n") .. (dropped > 0 and ("\n(" .. dropped .. " lines about other players left out)") or ""))
 		end)
 		table.insert(parts, "\n--- Recent errors ---\n" .. B.errors(10))
 		table.insert(parts, "\n--- Recent remote calls ---\n" .. B.remotes(20))
