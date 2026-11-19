@@ -1515,8 +1515,13 @@ function B.watch(seconds, roots, text)
 end
 
 -- Remote log (only calls your own client makes) ---------------------------------
-local RL = genv.BridgeRemoteLog or { on = false, entries = {}, max = 300, mine = false }
-genv.BridgeRemoteLog = RL
+-- v2 table name: older kits installed a hook that broke FireServer while logging; it checks the old
+-- table (which stays off), so this new table gets its own fixed hook.
+local RL = genv.BridgeRemoteLog2 or { on = false, entries = {}, max = 300, mine = false }
+genv.BridgeRemoteLog2 = RL
+if genv.BridgeRemoteLog then
+	genv.BridgeRemoteLog.on = false
+end
 local function rlAdd(remote, method, args, caller)
 	local n = #RL.entries
 	if n >= RL.max then
