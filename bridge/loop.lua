@@ -633,9 +633,11 @@ end
 -- "rate us"...) and closes them with their own close / X / Later / No thanks button.
 -- Never presses anything paid. B.popupWatch(true) keeps closing them so scripts don't get stuck.
 do
+	-- No "skip" / "continue": in-game those can skip quests or confirm things (sometimes paid).
 	local CLOSE_WORDS = { "close", "exit", "cancel", "dismiss", "no thanks", "nothanks", "not now", "notnow", "later",
-		"maybe later", "skip", "back", "x", "ok", "okay", "got it", "gotit", "continue", "done", "return", "hide" }
-	local PARTIAL_WORDS = { "close", "exit", "cancel", "dismiss", "skip", "nothanks", "no thanks", "notnow", "not now", "later" }
+		"maybe later", "back", "x", "ok", "okay", "got it", "gotit", "done", "hide" }
+	local PARTIAL_WORDS = { "close", "exit", "cancel", "dismiss", "nothanks", "no thanks", "notnow", "not now", "later" }
+	local NEVER_WORDS = { "skip", "continue", "buy", "purchase", "claim", "collect", "spin", "go", "invite", "equip", "sell", "delete", "reset" }
 	local CLOSE_GLYPHS = { "x", "×", "✕", "✖", "❌", "╳" }
 	local function norm(s)
 		return (string.lower(s or ""):gsub("<[^>]->", ""):gsub("^%s+", ""):gsub("%s+$", ""))
@@ -650,6 +652,13 @@ do
 			local tl = b:FindFirstChildWhichIsA("TextLabel", true)
 			txt = tl and norm(tl.Text) or ""
 		end
+		-- Anything that does something (skip, claim, sell, go...) is never a close button.
+		local whole = name .. " " .. txt .. " " .. (b.Parent and norm(b.Parent.Name) or "")
+		for _, w in ipairs(NEVER_WORDS) do
+			if (" " .. whole .. " "):find("[^%a]" .. w .. "[^%a]") or whole:find(w .. "button", 1, true) or whole:find(w .. "quest", 1, true) then
+				return 0
+			end
+		end
 		local score = 0
 		for _, w in ipairs(CLOSE_WORDS) do
 			if txt == w or name == w then
@@ -659,6 +668,13 @@ do
 		for _, w in ipairs(PARTIAL_WORDS) do
 			if name:find(w, 1, true) or txt:find(w, 1, true) then
 				score = math.max(score, 7)
+			end
+		end
+		-- A plain "Button" inside a frame called Close / Exit / X counts too.
+		local parentName = b.Parent and norm(b.Parent.Name) or ""
+		for _, w in ipairs({ "close", "exit", "x", "closebutton", "back", "cancel" }) do
+			if parentName == w or (#w > 3 and parentName:find(w, 1, true)) then
+				score = math.max(score, 9)
 			end
 		end
 		for _, g in ipairs(CLOSE_GLYPHS) do
@@ -739,7 +755,8 @@ do
 						local central = math.abs(cx - vp.X / 2) < vp.X * 0.22 and math.abs(cy - vp.Y / 2) < vp.Y * 0.3
 						local opaque = f.BackgroundTransparency < 0.6 or (f:IsA("ImageLabel") and f.ImageTransparency < 0.6)
 							or (f:IsA("CanvasGroup") and f.GroupTransparency < 0.6)
-						if a > area * 0.12 and a < area * 0.98 and central and opaque and guiShown(f) and not fadedOut(f) and hasContent(f) then
+						-- Opaque windows count; see-through containers count only when they hold a close button.
+						if a > area * 0.12 and a < area * 0.98 and central and guiShown(f) and not fadedOut(f) and hasContent(f) then
 							-- Skip if an ancestor is already a popup (keep the outermost window).
 							local inside = false
 							for _, other in ipairs(found) do
@@ -769,6 +786,9 @@ do
 										end
 									end
 								end
+								if not opaque and bestScore < 6 then
+									best = nil
+								end
 								local title = ""
 								for _, t in ipairs(f:GetDescendants()) do
 									if t:IsA("TextLabel") and guiShown(t) and #t.Text > 2 then
@@ -781,8 +801,10 @@ do
 										table.remove(found, i)
 									end
 								end
-								table.insert(found, { frame = f, title = title, close = best, score = bestScore,
-									paid = looksPaid(f), cover = math.floor(a / area * 100) })
+								if opaque or best then
+									table.insert(found, { frame = f, title = title, close = best, score = bestScore,
+										paid = looksPaid(f), cover = math.floor(a / area * 100) })
+								end
 							end
 						end
 					end
