@@ -1,5 +1,5 @@
 --[[
-	Roblox Bridge loop v3 (for Delta)
+	Roblox Bridge loop v4 (for Delta)
 	Lets Claude run scripts in your game through your Cloudflare Worker,
 	plus a helper kit (getgenv().B) that Claude's tools use.
 
@@ -11,7 +11,7 @@
 	Everything here only reads or acts on your own client.
 ]]
 
-local LOOP_VERSION = "3.0"
+local LOOP_VERSION = "4.0"
 local DEFAULT_LOOP_URL = "https://raw.githubusercontent.com/AFG-Master/Noctrune/main/bridge/loop.lua"
 
 local genv = getgenv()
@@ -401,6 +401,15 @@ function B.screen(opts)
 	params.FilterDescendantsInstances = { char }
 	local hit = workspace:Raycast(cam.CFrame.Position, cam.CFrame.LookVector * 500, params)
 	add("Looking at: " .. (hit and (shortPath(hit.Instance) .. (" (%.0f studs)"):format(hit.Distance)) or "nothing"))
+	if B.popups then
+		local okP, pops = pcall(B.popups)
+		if okP and #pops > 0 then
+			for _, p in ipairs(pops) do
+				add(('POPUP covering %d%% of screen: "%s" %s · close button: %s%s'):format(p.cover, p.title, shortPath(p.frame),
+					p.close and shortPath(p.close) or "none found", p.paid and " · has a paid offer (never press it)" or ""))
+			end
+		end
+	end
 
 	-- UI
 	add("")
@@ -559,6 +568,24 @@ function B.tapAt(x, y, force)
 	VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
 end
 
+-- Fire a button's click handlers in the background (some games' handlers wait on things that
+-- never finish from an executor thread). Returns how many handlers were fired.
+local function fireClicks(btn)
+	if not (X.firesignal and X.getconnections) then
+		return 0
+	end
+	local fired = 0
+	for _, sig in ipairs({ "Activated", "MouseButton1Click", "MouseButton1Down", "MouseButton1Up" }) do
+		local ok, cons = pcall(X.getconnections, btn[sig])
+		if ok and cons and #cons > 0 then
+			fired = fired + #cons
+			task.spawn(pcall, X.firesignal, btn[sig])
+		end
+	end
+	return fired
+end
+B.fireClicks = fireClicks
+
 -- method: "auto" (game's own click handlers first, then a real tap), "signal" or "tap"
 function B.press(target, method)
 	method = method or "auto"
@@ -570,14 +597,7 @@ function B.press(target, method)
 		return "Refused: " .. shortPath(btn) .. " looks like a paid (Robux) button"
 	end
 	if method ~= "tap" and X.firesignal and X.getconnections then
-		local fired = 0
-		for _, sig in ipairs({ "Activated", "MouseButton1Click", "MouseButton1Down", "MouseButton1Up" }) do
-			local ok, cons = pcall(X.getconnections, btn[sig])
-			if ok and cons and #cons > 0 then
-				pcall(X.firesignal, btn[sig])
-				fired = fired + #cons
-			end
-		end
+		local fired = fireClicks(btn)
 		if fired > 0 then
 			return ("Pressed %s (fired %d handlers)"):format(shortPath(btn), fired)
 		end
@@ -616,6 +636,298 @@ function B.prompt(target)
 	task.wait(p.HoldDuration + 0.05)
 	p:InputHoldEnd()
 	return "Held " .. shortPath(p)
+end
+
+
+-- Popup handler (any game) ---------------------------------------------------------
+-- Finds windows covering the screen (shop offers, starter packs, daily rewards, tutorials,
+-- "rate us"...) and closes them with their own close / X / Later / No thanks button.
+-- Never presses anything paid. B.popupWatch(true) keeps closing them so scripts don't get stuck.
+do
+	-- No "skip" / "continue": in-game those can skip quests or confirm things (sometimes paid).
+	local CLOSE_WORDS = { "close", "exit", "cancel", "dismiss", "no thanks", "nothanks", "not now", "notnow", "later",
+		"maybe later", "back", "x", "ok", "okay", "got it", "gotit", "done", "hide" }
+	local PARTIAL_WORDS = { "close", "exit", "cancel", "dismiss", "nothanks", "no thanks", "notnow", "not now", "later" }
+	local NEVER_WORDS = { "skip", "continue", "buy", "purchase", "claim", "collect", "spin", "go", "invite", "equip", "sell", "delete",
+		"reset", "plus", "add", "shop", "store", "money", "cash", "coins", "gems", "currency", "robux", "upgrade", "boost" }
+	local CLOSE_GLYPHS = { "x", "×", "✕", "✖", "❌", "╳" }
+	local function norm(s)
+		return (string.lower(s or ""):gsub("<[^>]->", ""):gsub("^%s+", ""):gsub("%s+$", ""))
+	end
+	local function closeScore(b, frame)
+		if looksPaid(b) then
+			return 0
+		end
+		local name = norm(b.Name)
+		local txt = b:IsA("TextButton") and norm(b.Text) or ""
+		if txt == "" then
+			local tl = b:FindFirstChildWhichIsA("TextLabel", true)
+			txt = tl and norm(tl.Text) or ""
+		end
+		-- Anything that does something (skip, claim, sell, go, +, shop...) is never a close button.
+		if txt == "+" then
+			return 0
+		end
+		local whole = name .. " " .. txt .. " " .. (b.Parent and norm(b.Parent.Name) or "") .. " " .. (b.Parent and b.Parent.Parent and norm(b.Parent.Parent.Name) or "")
+		whole = whole:gsub("_", " ")
+		for _, w in ipairs(NEVER_WORDS) do
+			if (" " .. whole .. " "):find("[^%a]" .. w .. "[^%a]") or whole:find(w .. "button", 1, true) or whole:find(w .. "quest", 1, true) then
+				return 0
+			end
+		end
+		local score = 0
+		for _, w in ipairs(CLOSE_WORDS) do
+			if txt == w or name == w then
+				score = math.max(score, 10)
+			end
+		end
+		for _, w in ipairs(PARTIAL_WORDS) do
+			if name:find(w, 1, true) or txt:find(w, 1, true) then
+				score = math.max(score, 7)
+			end
+		end
+		-- A plain "Button" inside a frame called Close / Exit / X counts too.
+		local parentName = b.Parent and norm(b.Parent.Name) or ""
+		for _, w in ipairs({ "close", "exit", "x", "closebutton", "back", "cancel" }) do
+			if parentName == w or (#w > 3 and parentName:find(w, 1, true)) then
+				score = math.max(score, 9)
+			end
+		end
+		for _, g in ipairs(CLOSE_GLYPHS) do
+			if txt == g then
+				score = math.max(score, 10)
+			end
+		end
+		-- Small square button near the window's top-right corner = an X.
+		local p, s = b.AbsolutePosition, b.AbsoluteSize
+		local fp, fs = frame.AbsolutePosition, frame.AbsoluteSize
+		if s.X < 90 and s.Y < 90 and math.abs(s.X - s.Y) < 20 then
+			local nearRight = p.X + s.X / 2 > fp.X + fs.X * 0.7
+			local nearTop = p.Y + s.Y / 2 < fp.Y + fs.Y * 0.35
+			if nearRight and nearTop then
+				score = math.max(score, 6)
+			end
+			-- Reddish X button
+			local c = b.BackgroundColor3
+			if b.BackgroundTransparency < 0.5 and c.R > 0.6 and c.G < 0.4 and c.B < 0.4 then
+				score = score + 2
+			end
+		end
+		-- "Continue"/"OK" can also be a buy confirm: only if nothing paid is in the same window.
+		if (txt == "continue" or txt == "ok" or txt == "okay") and looksPaid(frame) then
+			return 0
+		end
+		return score
+	end
+
+	-- Hidden by a gradient that fades everything out (self or any ancestor)?
+	local function fadedOut(o)
+		local cur = o
+		while cur and cur:IsA("GuiObject") do
+			local g = cur:FindFirstChildOfClass("UIGradient")
+			if g then
+				local all = true
+				for _, k in ipairs(g.Transparency.Keypoints) do
+					if k.Value < 0.95 then
+						all = false
+					end
+				end
+				if all then
+					return true
+				end
+			end
+			if cur:IsA("CanvasGroup") and cur.GroupTransparency > 0.9 then
+				return true
+			end
+			cur = cur.Parent
+		end
+		return false
+	end
+	-- A popup has something to read or press (loading logos and backdrops don't).
+	local function hasContent(f)
+		for _, d in ipairs(f:GetDescendants()) do
+			if (d:IsA("GuiButton") or ((d:IsA("TextLabel") or d:IsA("TextButton")) and #d.Text > 1)) and d.Visible then
+				return true
+			end
+		end
+		return false
+	end
+	-- A popup: a big visible window near the middle of the screen in the game's UI.
+	function B.popups()
+		local pg = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+		local vp = workspace.CurrentCamera.ViewportSize
+		local area = vp.X * vp.Y
+		local found = {}
+		if not pg then
+			return found
+		end
+		for _, sg in ipairs(pg:GetChildren()) do
+			if sg:IsA("ScreenGui") and sg.Enabled then
+				for _, f in ipairs(sg:GetDescendants()) do
+					if (f:IsA("Frame") or f:IsA("ImageLabel") or f:IsA("CanvasGroup") or f:IsA("ScrollingFrame")) and f.Visible then
+						local s, p = f.AbsoluteSize, f.AbsolutePosition
+						local a = s.X * s.Y
+						local cx, cy = p.X + s.X / 2, p.Y + s.Y / 2
+						local central = math.abs(cx - vp.X / 2) < vp.X * 0.22 and math.abs(cy - vp.Y / 2) < vp.Y * 0.3
+						local opaque = f.BackgroundTransparency < 0.6 or (f:IsA("ImageLabel") and f.ImageTransparency < 0.6)
+							or (f:IsA("CanvasGroup") and f.GroupTransparency < 0.6)
+						-- Opaque windows count; see-through containers count only when they hold a close button.
+						if a > area * 0.12 and a < area * 0.98 and central and guiShown(f) and not fadedOut(f) and hasContent(f) then
+							-- Skip if an ancestor is already a popup (keep the outermost window).
+							local inside = false
+							for _, other in ipairs(found) do
+								if f:IsDescendantOf(other.frame) then
+									inside = true
+									break
+								end
+							end
+							if not inside then
+								local best, bestScore = nil, 0
+								for _, b in ipairs(f:GetDescendants()) do
+									if b:IsA("GuiButton") and guiShown(b) and b.AbsoluteSize.X > 4 then
+										local sc = closeScore(b, f)
+										if sc > bestScore then
+											best, bestScore = b, sc
+										end
+									end
+								end
+								-- Close buttons sometimes sit just outside the window (same parent).
+								if not best and f.Parent then
+									for _, b in ipairs(f.Parent:GetChildren()) do
+										if b:IsA("GuiButton") and guiShown(b) then
+											local sc = closeScore(b, f)
+											if sc > bestScore then
+												best, bestScore = b, sc
+											end
+										end
+									end
+								end
+								-- See-through containers (like a whole HUD) need a clearly named close button.
+								if not opaque and bestScore < 9 then
+									best = nil
+								end
+								local title = ""
+								for _, t in ipairs(f:GetDescendants()) do
+									if t:IsA("TextLabel") and guiShown(t) and #t.Text > 2 then
+										title = norm(t.Text):sub(1, 50)
+										break
+									end
+								end
+								for i = #found, 1, -1 do
+									if found[i].frame:IsDescendantOf(f) then
+										table.remove(found, i)
+									end
+								end
+								if opaque or best then
+									table.insert(found, { frame = f, title = title, close = best, score = bestScore,
+										paid = looksPaid(f), cover = math.floor(a / area * 100) })
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+		return found
+	end
+
+	local function pressClose(b, frame)
+		-- The game's own click handlers first (in the background), then a real tap if it's still open.
+		local fired = fireClicks(b)
+		if fired > 0 then
+			local t0 = os.clock()
+			while os.clock() - t0 < 1 and guiShown(frame) and frame:IsDescendantOf(game) do
+				task.wait(0.1)
+			end
+		end
+		if fired == 0 or (guiShown(frame) and frame:IsDescendantOf(game)) then
+			local gui = b:FindFirstAncestorWhichIsA("ScreenGui")
+			local c = b.AbsolutePosition + b.AbsoluteSize / 2 + B.tapOffset
+			if gui and not gui.IgnoreGuiInset then
+				c = c + GuiService:GetGuiInset()
+			end
+			pcall(B.tapAt, c.X, c.Y)
+		end
+	end
+
+	-- Close every popup it can. opts.hide = true also hides (locally) ones with no close button.
+	function B.closePopups(opts)
+		opts = opts or {}
+		local out = {}
+		for _ = 1, 3 do
+			local list = B.popups()
+			if #list == 0 then
+				break
+			end
+			local acted = false
+			for _, p in ipairs(list) do
+				local label = ('"%s" (%s, %d%% of screen%s)'):format(p.title, shortPath(p.frame), p.cover, p.paid and ", has a paid offer" or "")
+				if p.close and p.score >= 6 then
+					pressClose(p.close, p.frame)
+					task.wait(0.6)
+					local gone = not guiShown(p.frame) or not p.frame:IsDescendantOf(game)
+					table.insert(out, (gone and "Closed " or "Pressed close on ") .. label .. " with " .. shortPath(p.close))
+					acted = true
+				elseif opts.hide then
+					p.frame.Visible = false
+					table.insert(out, "Hid (no close button) " .. label)
+					acted = true
+				else
+					table.insert(out, "No safe close button: " .. label)
+				end
+			end
+			if not acted then
+				break
+			end
+		end
+		return #out > 0 and table.concat(out, "\n") or "No popups on screen."
+	end
+
+	local PW = genv.BridgePopupWatch or { on = false, log = {} }
+	genv.BridgePopupWatch = PW
+	-- Keep closing popups in the background (off by default).
+	function B.popupWatch(on, opts)
+		opts = opts or {}
+		PW.on = on
+		PW.hide = opts.hide == true
+		PW.token = (PW.token or 0) + 1
+		local token = PW.token
+		if on then
+			task.spawn(function()
+				while running and PW.on and PW.token == token do
+					local list = B.popups()
+					if #list > 0 then
+						local res = B.closePopups({ hide = PW.hide })
+						if not res:find("^No popups") then
+							table.insert(PW.log, os.date("%H:%M:%S ") .. res)
+							if #PW.log > 50 then
+								table.remove(PW.log, 1)
+							end
+						end
+					end
+					task.wait(opts.every or 2)
+				end
+			end)
+		end
+		return ("Popup watch %s%s. Recently closed:\n%s"):format(on and "on" or "off", PW.hide and " (also hides)" or "",
+			#PW.log > 0 and table.concat(PW.log, "\n", math.max(1, #PW.log - 9)) or "(nothing yet)")
+	end
+	if PW.on then
+		B.popupWatch(true, { hide = PW.hide })
+	end
+
+	function B.popupList()
+		local list = B.popups()
+		if #list == 0 then
+			return "No popups on screen."
+		end
+		local out = {}
+		for i, p in ipairs(list) do
+			table.insert(out, ('%d. "%s"  %s  %d%% of screen%s\n   close: %s'):format(i, p.title, shortPath(p.frame), p.cover,
+				p.paid and "  (contains a paid offer)" or "", p.close and (shortPath(p.close) .. " (score " .. p.score .. ")") or "none found"))
+		end
+		return table.concat(out, "\n")
+	end
 end
 
 -- Action finder ----------------------------------------------------------------
@@ -1517,7 +1829,7 @@ function B.mapData(range, opts)
 	local params = OverlapParams.new()
 	params.FilterType = Enum.RaycastFilterType.Exclude
 	params.FilterDescendantsInstances = { char, vmodel }
-	params.MaxParts = opts.maxParts or 3500
+	params.MaxParts = opts.maxParts or 4000
 	local parts = workspace:GetPartBoundsInBox(CFrame.new(center), Vector3.new(range * 2, opts.height or 160, range * 2), params)
 	local list, marks, seenModel = {}, {}, {}
 	local players = 0
@@ -1526,7 +1838,7 @@ function B.mapData(range, opts)
 		local plr = model and Players:GetPlayerFromCharacter(model)
 		if plr then
 			players = players + 1
-		elseif p.Transparency < 0.95 or p.CanCollide then
+		elseif (p.Transparency < 0.95 or p.CanCollide) and (p.Size.X > 1.5 or p.Size.Z > 1.5) and #list < (opts.maxDrawn or 1500) then
 			local cf, s = p.CFrame, p.Size / 2
 			local a, b, c = cf.RightVector * s.X, cf.UpVector * s.Y, cf.LookVector * s.Z
 			local top = p.Position.Y + math.abs(a.Y) + math.abs(b.Y) + math.abs(c.Y)
@@ -2406,7 +2718,11 @@ function B.signature()
 		end
 		counts[o.ClassName] = (counts[o.ClassName] or 0) + 1
 		if (o:IsA("BaseRemoteEvent") or o:IsA("RemoteFunction")) and #remotes < 3000 then
-			table.insert(remotes, cleanStr(o:GetFullName()))
+			-- Remotes named with random ids (made fresh each server) aren't part of the game's structure.
+			local n = o.Name
+			if not (n:match("^%x+%-%x+%-%x+%-%x+%-%x+$") or n:match("^%d+$") or (#n >= 20 and n:match("^[%w_%-]+$") and not n:match("[aeiouAEIOU][a-z][a-z]"))) then
+				table.insert(remotes, cleanStr(o:GetFullName()))
+			end
 		end
 	end
 	for _, svc in ipairs({ RS, workspace, game:GetService("ReplicatedFirst"), game:GetService("StarterGui") }) do
@@ -2429,7 +2745,9 @@ function B.signature()
 	table.sort(remotes)
 	table.sort(tops)
 	table.sort(modules)
-	return { placeVersion = game.PlaceVersion, game = gameName, remotes = remotes, tops = tops, counts = counts, modules = modules }
+	local okH, hashes = pcall(B.scriptHashes)
+	return { placeVersion = game.PlaceVersion, game = gameName, remotes = remotes, tops = tops, counts = counts, modules = modules,
+		hashes = okH and hashes or nil }
 end
 
 -- Settings backup ------------------------------------------------------------------------
@@ -2862,7 +3180,7 @@ do
 		local m = Instance.new("Frame")
 		m.Name = "Menu"
 		m.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
-		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 246 or 196)
+		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 296 or 246)
 		local ap = holder.AbsolutePosition
 		local vp = workspace.CurrentCamera.ViewportSize
 		m.Position = UDim2.new(0, math.clamp(ap.X, 4, vp.X - 204), 0, math.clamp(ap.Y + 42, 4, vp.Y - m.Size.Y.Offset - 4))
@@ -2899,6 +3217,14 @@ do
 				end)
 			end)
 		end)
+		item("Status page link", nil, function()
+			if X.setclipboard then
+				X.setclipboard(BRIDGE_URL .. "/dash")
+				notify("Link copied. Paste it in Safari.")
+			else
+				notify("Can't copy here: no clipboard function")
+			end
+		end)
 		item("Hide until rejoin", nil, function()
 			holder.Visible = false
 		end)
@@ -2922,6 +3248,353 @@ do
 	table.insert(loopConns, { Disconnect = function()
 		sg:Destroy()
 	end })
+end
+
+
+--------------------------------------------------------------------------------
+-- Bridge v4 kit
+--------------------------------------------------------------------------------
+
+-- Event timeline: died, respawned, got in/out of a seat, popups, errors, kicks, teleports.
+-- Kept across rejoins in a file; new events go to the Worker with the next status poll.
+local EV = genv.BridgeEvents or { list = {}, unsent = {} }
+genv.BridgeEvents = EV
+local EVENT_FILE = "bridge_events.json"
+local function event(kind, text)
+	local e = { t = os.time(), k = kind, x = cleanStr(tostring(text or "")):sub(1, 200) }
+	table.insert(EV.list, e)
+	if #EV.list > 300 then
+		table.remove(EV.list, 1)
+	end
+	table.insert(EV.unsent, e)
+	if #EV.unsent > 60 then
+		table.remove(EV.unsent, 1)
+	end
+end
+B.event = event
+function B.events(n)
+	n = n or 40
+	local out = {}
+	for i = math.max(1, #EV.list - n + 1), #EV.list do
+		local e = EV.list[i]
+		table.insert(out, ("%s  %-9s %s"):format(os.date("%H:%M:%S", e.t), e.k, e.x))
+	end
+	return #out > 0 and table.concat(out, "\n") or "(no events yet)"
+end
+if X.isfile and X.readfile and #EV.list == 0 then
+	pcall(function()
+		if X.isfile(EVENT_FILE) then
+			local saved = HttpService:JSONDecode(X.readfile(EVENT_FILE))
+			for _, e in ipairs(saved) do
+				table.insert(EV.list, e)
+			end
+		end
+	end)
+end
+do
+	local myToken = SESSION
+	EV.token = myToken
+	local function hookChar(char)
+		local hum = char:WaitForChild("Humanoid", 10)
+		if not hum or EV.token ~= myToken then
+			return
+		end
+		table.insert(loopConns, hum.Died:Connect(function()
+			local r = char:FindFirstChild("HumanoidRootPart")
+			event("died", r and ("at %.0f, %.0f, %.0f"):format(r.Position.X, r.Position.Y, r.Position.Z) or "")
+		end))
+		table.insert(loopConns, hum.Seated:Connect(function(on, seat)
+			if on and seat then
+				local m = seat:FindFirstAncestorOfClass("Model")
+				event("seated", m and m.Name or seat.Name)
+			else
+				event("unseated", "")
+			end
+		end))
+		local lowWarned = false
+		table.insert(loopConns, hum.HealthChanged:Connect(function(h)
+			if h > 0 and h < hum.MaxHealth * 0.25 and not lowWarned then
+				lowWarned = true
+				event("lowhealth", ("%.0f / %.0f"):format(h, hum.MaxHealth))
+			elseif h >= hum.MaxHealth * 0.5 then
+				lowWarned = false
+			end
+		end))
+	end
+	if LocalPlayer.Character then
+		task.spawn(hookChar, LocalPlayer.Character)
+	end
+	table.insert(loopConns, LocalPlayer.CharacterAdded:Connect(function(c)
+		event("spawned", "")
+		task.spawn(hookChar, c)
+	end))
+	table.insert(loopConns, LocalPlayer.OnTeleport:Connect(function(state, placeId)
+		if state == Enum.TeleportState.Started then
+			event("teleport", "to place " .. tostring(placeId))
+			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
+		end
+	end))
+	table.insert(loopConns, GuiService.ErrorMessageChanged:Connect(function()
+		local m = GuiService:GetErrorMessage()
+		if m and m ~= "" then
+			event("kicked", m)
+			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
+		end
+	end))
+	-- Only once per server (reloading the bridge isn't a join).
+	if genv.BridgeJoinedServer ~= game.JobId then
+		genv.BridgeJoinedServer = game.JobId
+		task.spawn(function()
+			local ok, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
+			event("joined", ((ok and info and info.Name) or tostring(game.PlaceId)) .. " · server " .. game.JobId:sub(1, 8))
+		end)
+	end
+	-- Popups appearing/closing and stuck detection, checked every 3 s.
+	task.spawn(function()
+		local lastPop = ""
+		local stillSince, lastPos = nil, nil
+		while running and EV.token == myToken do
+			local okP, pops = pcall(function()
+				return B.popups and B.popups() or {}
+			end)
+			local title = (okP and #pops > 0) and pops[1].title or ""
+			if title ~= lastPop then
+				if title ~= "" then
+					event("popup", ('"%s"%s'):format(title, pops[1].paid and " (paid offer)" or ""))
+				else
+					event("popupgone", lastPop)
+				end
+				lastPop = title
+			end
+			-- Stuck: a job is running, I'm trying to move (or driving), but my position isn't changing.
+			local nJobs = 0
+			for _ in pairs(genv.BridgeJobs or {}) do
+				nJobs = nJobs + 1
+			end
+			local vr = myVehicleRoot()
+			local root = vr or (myRoot())
+			local _, ch = myRoot()
+			local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+			local trying = hum and (hum.MoveDirection.Magnitude > 0.1 or (vr and math.abs((vr.Parent and vr.Parent:GetAttribute("Throttle")) or 0) > 0.1))
+			if root and nJobs > 0 and trying then
+				if lastPos and (root.Position - lastPos).Magnitude < 2 then
+					stillSince = stillSince or os.clock()
+					if os.clock() - stillSince > 15 then
+						event("stuck", ("no progress for 15 s at %.0f, %.0f, %.0f"):format(root.Position.X, root.Position.Y, root.Position.Z))
+						stillSince = os.clock() + 45
+					end
+				else
+					stillSince = nil
+				end
+			else
+				stillSince = nil
+			end
+			lastPos = root and root.Position
+			task.wait(3)
+		end
+	end)
+	-- Errors become events too (counted, not every line).
+	local lastCount = #EC.recent
+	task.spawn(function()
+		while running and EV.token == myToken do
+			if #EC.recent > lastCount then
+				local e = EC.recent[#EC.recent]
+				event("error", ("%d new · %s"):format(#EC.recent - lastCount, e.msg:sub(1, 120)))
+				lastCount = #EC.recent
+			end
+			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
+			task.wait(10)
+		end
+	end)
+end
+
+-- Metrics: FPS, memory, ping and my own leaderstats every 15 s (plus custom tracks).
+local MT = genv.BridgeMetrics or { tracks = {} }
+genv.BridgeMetrics = MT
+-- B.track("speed", function() return root.AssemblyLinearVelocity.Magnitude end)
+function B.track(name, fn)
+	MT.tracks[name] = fn
+	return "Tracking " .. name
+end
+function B.untrack(name)
+	MT.tracks[name] = nil
+	return "Stopped tracking " .. name
+end
+do
+	local frames, since = 0, os.clock()
+	table.insert(loopConns, RunService.RenderStepped:Connect(function()
+		frames = frames + 1
+	end))
+	function B.sample()
+		local now = os.clock()
+		local fps = frames / math.max(0.001, now - since)
+		frames, since = 0, now
+		local s = { fps = math.floor(fps * 10) / 10, mem = math.floor(Stats:GetTotalMemoryUsageMb()), ping = math.floor(LocalPlayer:GetNetworkPing() * 1000) }
+		local ls = LocalPlayer:FindFirstChild("leaderstats")
+		if ls then
+			for _, v in ipairs(ls:GetChildren()) do
+				if v:IsA("IntValue") or v:IsA("NumberValue") then
+					s["ls:" .. cleanStr(v.Name)] = v.Value
+				elseif v:IsA("StringValue") then
+					local n = tonumber((v.Value:gsub("[,%$%s]", "")))
+					if n then
+						s["ls:" .. cleanStr(v.Name)] = n
+					end
+				end
+			end
+		end
+		for name, fn in pairs(MT.tracks) do
+			local ok, v = pcall(fn)
+			if ok and type(v) == "number" and v == v then
+				s[name] = v
+			end
+		end
+		MT.last = s
+		return s
+	end
+end
+
+-- Camera picture data: rays through a grid of the screen, coloured like the hit surface.
+function B.cameraData(w, h)
+	w, h = w or 160, h or 90
+	local cam = workspace.CurrentCamera
+	local vp = cam.ViewportSize
+	local rp = RaycastParams.new()
+	rp.FilterType = Enum.RaycastFilterType.Exclude
+	rp.FilterDescendantsInstances = {}
+	local sun = game:GetService("Lighting"):GetSunDirection()
+	local terrain = workspace.Terrain
+	local hex = table.create and table.create(h) or {}
+	local maxD = 1500
+	for y = 0, h - 1 do
+		local row = table.create and table.create(w) or {}
+		for x = 0, w - 1 do
+			local ray = cam:ViewportPointToRay((x + 0.5) / w * vp.X, (y + 0.5) / h * vp.Y)
+			local hit = workspace:Raycast(ray.Origin, ray.Direction * maxD, rp)
+			local r, g, b
+			if hit then
+				local c
+				if hit.Instance == terrain then
+					if hit.Material == Enum.Material.Water then
+						c = terrain.WaterColor
+					else
+						local ok, mc = pcall(terrain.GetMaterialColor, terrain, hit.Material)
+						c = ok and mc or Color3.fromRGB(90, 110, 70)
+					end
+				else
+					c = hit.Instance.Color
+					if hit.Instance.Transparency > 0.6 then
+						c = c:Lerp(Color3.fromRGB(150, 180, 210), 0.5)
+					end
+				end
+				local light = 0.45 + 0.55 * math.max(0, hit.Normal:Dot(sun))
+				local fog = math.clamp(hit.Distance / maxD, 0, 1) ^ 1.5
+				r = (c.R * light) * (1 - fog) + 0.62 * fog
+				g = (c.G * light) * (1 - fog) + 0.72 * fog
+				b = (c.B * light) * (1 - fog) + 0.85 * fog
+			else
+				local t = y / h
+				r, g, b = 0.45 + 0.2 * t, 0.62 + 0.15 * t, 0.9
+			end
+			row[x + 1] = string.format("%02x%02x%02x", math.clamp(r * 255, 0, 255), math.clamp(g * 255, 0, 255), math.clamp(b * 255, 0, 255))
+		end
+		hex[y + 1] = table.concat(row)
+		if y % 6 == 5 then
+			task.wait()
+		end
+	end
+	return { w = w, h = h, px = table.concat(hex), vw = math.floor(vp.X), vh = math.floor(vp.Y), ui = B.uiData({ hub = false }) }
+end
+
+-- Script change tracker: hashes of the game's client scripts, and their source for later diffs.
+local function scriptHash(s)
+	local gsh = getfenv(0).getscripthash or genv.getscripthash
+	if gsh then
+		local ok, h = pcall(gsh, s)
+		if ok and h then
+			return tostring(h)
+		end
+	end
+	local gsb = getfenv(0).getscriptbytecode or genv.getscriptbytecode
+	if gsb then
+		local ok, bc = pcall(gsb, s)
+		if ok and type(bc) == "string" then
+			local h = #bc
+			for i = 1, #bc, 7 do
+				h = (h * 31 + bc:byte(i)) % 4294967296
+			end
+			return ("%x-%d"):format(h, #bc)
+		end
+	end
+	return nil
+end
+B.scriptHash = scriptHash
+
+local function gameScripts(filter)
+	filter = filter and filter:lower() or nil
+	local list, seen = {}, {}
+	local function add(s)
+		if typeof(s) == "Instance" and not seen[s] and (s:IsA("LocalScript") or s:IsA("ModuleScript")) then
+			seen[s] = true
+			local p = shortPath(s)
+			if not filter or p:lower():find(filter, 1, true) then
+				table.insert(list, s)
+			end
+		end
+	end
+	if X.getloadedmodules then
+		for _, s in ipairs(X.getloadedmodules()) do
+			add(s)
+		end
+	end
+	if X.getrunningscripts then
+		for _, s in ipairs(X.getrunningscripts()) do
+			add(s)
+		end
+	end
+	return list
+end
+
+function B.scriptHashes(filter)
+	local out = {}
+	for i, s in ipairs(gameScripts(filter)) do
+		local h = scriptHash(s)
+		if h then
+			out[shortPath(s)] = h
+		end
+		if i % 200 == 0 then
+			task.wait()
+		end
+	end
+	return out
+end
+
+-- Sources of scripts (all matching filter, or exact paths), for the Worker to keep or diff.
+function B.scriptSources(filter, paths, maxN)
+	local out, n = {}, 0
+	local targets = {}
+	if paths then
+		for _, p in ipairs(paths) do
+			local s = B.get(p)
+			if s then
+				table.insert(targets, s)
+			end
+		end
+	else
+		targets = gameScripts(filter)
+	end
+	for _, s in ipairs(targets) do
+		if n >= (maxN or 40) then
+			break
+		end
+		local ok, src = pcall(sourceOf, s)
+		if ok and type(src) == "string" then
+			n = n + 1
+			table.insert(out, { path = shortPath(s), hash = scriptHash(s) or "", src = cleanStr(src):sub(1, 150000) })
+		end
+		task.wait()
+	end
+	return out
 end
 
 --------------------------------------------------------------------------------
@@ -3039,6 +3712,41 @@ local function runJob(job)
 		end
 	end
 
+	-- Persistent jobs restart from the top after I die/respawn (and the Worker re-sends them after a rejoin).
+	if job.persist == 1 or job.persist == true then
+		local restarts = 0
+		local conn
+		conn = LocalPlayer.CharacterAdded:Connect(function(char)
+			if entry.stopped or restarts >= 20 then
+				conn:Disconnect()
+				return
+			end
+			restarts = restarts + 1
+			for _, f in ipairs(entry.stopFns) do
+				pcall(f)
+			end
+			entry.stopFns = {}
+			pcall(task.cancel, entry.thread)
+			capture("[restarting after respawn] ", restarts)
+			char:WaitForChild("HumanoidRootPart", 15)
+			task.wait(2)
+			finished = false
+			entry.thread = task.spawn(function()
+				local results = table.pack(xpcall(fn, function(e)
+					return debug.traceback(tostring(e), 2)
+				end))
+				ok = results[1]
+				if not ok then
+					err = results[2]
+				end
+				finished = true
+			end)
+		end)
+		table.insert(entry.stopFns, function()
+			conn:Disconnect()
+		end)
+	end
+
 	local started = tick()
 	while not finished and tick() - started < 5 do
 		task.wait(0.1)
@@ -3101,6 +3809,7 @@ task.spawn(function()
 
 	local lastInfo, lastJob = tick(), 0
 	local res = first
+	local lpFails, lpOff = 0, genv.BRIDGE_NO_LONGPOLL == true
 	while running do
 		if res then
 			for _, job in ipairs(res.jobs or {}) do
@@ -3115,22 +3824,51 @@ task.spawn(function()
 			end
 		end
 
-		-- Poll fast right after Claude sends something, slower when idle.
-		task.wait((tick() - lastJob < 120) and 0.5 or 2)
+		-- Long poll: the Worker holds the request until a job arrives (up to 12 s), so jobs start at once.
+		-- If long polls keep failing, fall back to short polls (fast after a job, slower when idle).
+		if lpOff or not res then
+			task.wait((tick() - lastJob < 120) and 0.5 or 2)
+		else
+			task.wait(0.05)
+		end
 		if not running then
 			break
 		end
 
 		local body = { ping = true, version = LOOP_VERSION, session = SESSION, player = LocalPlayer.Name }
+		if not lpOff then
+			body.wait = 12
+		end
 		if tick() - lastInfo > 15 then
 			body.info = gameInfo()
 			lastInfo = tick()
+			local okS, sample = pcall(B.sample)
+			if okS then
+				body.metrics = sample
+			end
+		end
+		local sentEvents = #EV.unsent
+		if sentEvents > 0 then
+			body.events = EV.unsent
 		end
 		local errs = takeErrors()
 		if errs then
 			body.errors = errs
 		end
 		res = post("poll", body)
+		if res then
+			lpFails = 0
+			if sentEvents > 0 then
+				for _ = 1, sentEvents do
+					table.remove(EV.unsent, 1)
+				end
+			end
+		elseif not lpOff then
+			lpFails = lpFails + 1
+			if lpFails >= 3 then
+				lpOff = true
+			end
+		end
 		if res and errs and res.errorsSaved then
 			confirmErrors(#errs)
 		end
