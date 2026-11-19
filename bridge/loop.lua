@@ -2718,7 +2718,11 @@ function B.signature()
 		end
 		counts[o.ClassName] = (counts[o.ClassName] or 0) + 1
 		if (o:IsA("BaseRemoteEvent") or o:IsA("RemoteFunction")) and #remotes < 3000 then
-			table.insert(remotes, cleanStr(o:GetFullName()))
+			-- Remotes named with random ids (made fresh each server) aren't part of the game's structure.
+			local n = o.Name
+			if not (n:match("^%x+%-%x+%-%x+%-%x+%-%x+$") or n:match("^%d+$") or (#n >= 20 and n:match("^[%w_%-]+$") and not n:match("[aeiouAEIOU][a-z][a-z]"))) then
+				table.insert(remotes, cleanStr(o:GetFullName()))
+			end
 		end
 	end
 	for _, svc in ipairs({ RS, workspace, game:GetService("ReplicatedFirst"), game:GetService("StarterGui") }) do
@@ -3337,10 +3341,14 @@ do
 			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
 		end
 	end))
-	task.spawn(function()
-		local ok, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
-		event("joined", ((ok and info and info.Name) or tostring(game.PlaceId)) .. " · server " .. game.JobId:sub(1, 8))
-	end)
+	-- Only once per server (reloading the bridge isn't a join).
+	if genv.BridgeJoinedServer ~= game.JobId then
+		genv.BridgeJoinedServer = game.JobId
+		task.spawn(function()
+			local ok, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
+			event("joined", ((ok and info and info.Name) or tostring(game.PlaceId)) .. " · server " .. game.JobId:sub(1, 8))
+		end)
+	end
 	-- Popups appearing/closing and stuck detection, checked every 3 s.
 	task.spawn(function()
 		local lastPop = ""
