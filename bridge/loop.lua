@@ -1365,6 +1365,35 @@ function B.sendData(key, data)
 	return res and res.ok and ("sent " .. tostring(res.chars or 0) .. " chars") or "send failed"
 end
 
+-- Names a function by the hub flags / fields it uses (works on obfuscated one-line builds).
+local function fnHint(f)
+	if not X.getconstants or type(f) ~= "function" then
+		return ""
+	end
+	local ok, consts = pcall(X.getconstants, f)
+	if not ok or type(consts) ~= "table" then
+		return ""
+	end
+	local O = genv.NOCTURNE and genv.NOCTURNE.Options
+	local flags, words, seen = {}, {}, {}
+	for _, c in pairs(consts) do
+		if type(c) == "string" and not seen[c] then
+			seen[c] = true
+			if O and O[c] then
+				table.insert(flags, c)
+			elseif #c > 3 and #c < 24 and c:match("^%a[%w_]*$") and #words < 4 then
+				table.insert(words, c)
+			end
+		end
+	end
+	table.sort(flags)
+	if #flags > 0 then
+		return " [" .. table.concat(flags, ", ", 1, math.min(#flags, 4)) .. "]"
+	end
+	return #words > 0 and (" {" .. table.concat(words, ", ") .. "}") or ""
+end
+B.fnHint = fnHint
+
 local function myVehicleRoot()
 	local _, char = myRoot()
 	local hum = char and char:FindFirstChildOfClass("Humanoid")
@@ -1566,11 +1595,18 @@ function B.look(opts)
 		local floor = workspace:Raycast(probe, Vector3.new(0, -30, 0), rp)
 		local d = math.min(low and low.Distance or maxD, high and high.Distance or maxD)
 		local hit = (low and (not high or low.Distance <= high.Distance)) and low or high
+		local hitName = hit and hit.Instance.Name
+		if hit then
+			local mdl = hit.Instance:FindFirstAncestorOfClass("Model")
+			if mdl and Players:GetPlayerFromCharacter(mdl) then
+				hitName = "a player"
+			end
+		end
 		local what
 		if d >= maxD then
 			what = "open"
 		else
-			what = ("%s %.0f st (%s%s)"):format((low and not high) and "low obstacle" or "wall", d, hit.Instance.Name,
+			what = ("%s %.0f st (%s%s)"):format((low and not high) and "low obstacle" or "wall", d, hitName,
 				(low and high and math.abs(low.Distance - high.Distance) > 3) and ", slope/step" or "")
 		end
 		if not floor then
@@ -1701,7 +1737,7 @@ function B.perf(seconds, opts)
 				for _, c in ipairs(cons) do
 					local f = c.Function
 					if type(f) == "function" and (not isExec or isExec(f)) and c.Enabled ~= false then
-						local key = sigName .. " " .. fnInfo(f)
+						local key = sigName .. " " .. fnInfo(f) .. fnHint(f)
 						local entry = { key = key, t = 0, n = 0, errs = 0 }
 						table.insert(cost, entry)
 						local okD = pcall(function()
@@ -2202,7 +2238,7 @@ function B.findFunctions(q)
 					end
 				end
 				if match then
-					table.insert(hits, { f = f, info = ("%s:%s %s"):format(tostring(src):sub(1, 40), tostring(line), name or "") })
+					table.insert(hits, { f = f, info = ("%s:%s %s%s"):format(tostring(src):sub(1, 40), tostring(line), name or "", fnHint(f)) })
 					if #hits >= 30 then
 						break
 					end
