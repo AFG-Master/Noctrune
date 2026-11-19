@@ -1,5 +1,5 @@
 --[[
-	Roblox Bridge loop v2 (for Delta)
+	Roblox Bridge loop v3 (for Delta)
 	Lets Claude run scripts in your game through your Cloudflare Worker,
 	plus a helper kit (getgenv().B) that Claude's tools use.
 
@@ -11,7 +11,7 @@
 	Everything here only reads or acts on your own client.
 ]]
 
-local LOOP_VERSION = "2.0"
+local LOOP_VERSION = "3.0"
 local DEFAULT_LOOP_URL = "https://raw.githubusercontent.com/AFG-Master/Noctrune/main/bridge/loop.lua"
 
 local genv = getgenv()
@@ -39,6 +39,13 @@ if genv.RobloxBridgeStop then
 	pcall(genv.RobloxBridgeStop)
 end
 genv.RobloxBridgeURL = BRIDGE_URL -- lets NOCTURNE's Scanner send scans here
+do
+	local qot = (syn and syn.queue_on_teleport) or queue_on_teleport
+	if qot and not genv.BRIDGE_NO_TELEPORT_QUEUE and not genv.BridgeQueued then
+		genv.BridgeQueued = true
+		pcall(qot, ("if not (getgenv().RobloxBridgeStop) then getgenv().BRIDGE_URL = %q loadstring(game:HttpGet(%q))() end"):format(BRIDGE_URL, genv.BRIDGE_LOOP_URL or "https://raw.githubusercontent.com/AFG-Master/Noctrune/main/bridge/loop.lua"))
+	end
+end
 local running = true
 local loopConns = {}
 genv.RobloxBridgeStop = function()
@@ -54,12 +61,46 @@ local function notify(text)
 	pcall(StarterGui.SetCore, StarterGui, "SendNotification", { Title = "Bridge", Text = text, Duration = 4 })
 end
 
+-- Strings Roblox can't JSON-encode (broken UTF-8 from game text) are cleaned before sending.
+local function cleanStr(s)
+	if utf8.len(s) then
+		return s
+	end
+	return (s:gsub("[\128-\255]", "?"))
+end
+local function cleanAll(v, depth)
+	depth = depth or 0
+	local t = type(v)
+	if t == "string" then
+		return cleanStr(v)
+	elseif t == "number" then
+		if v ~= v or v == math.huge or v == -math.huge then
+			return 0
+		end
+		return v
+	elseif t == "table" and depth < 12 then
+		local out = {}
+		for k, val in pairs(v) do
+			out[type(k) == "string" and cleanStr(k) or k] = cleanAll(val, depth + 1)
+		end
+		return out
+	end
+	return v
+end
+
 local function post(route, data)
+	local okE, encoded = pcall(HttpService.JSONEncode, HttpService, data)
+	if not okE then
+		okE, encoded = pcall(HttpService.JSONEncode, HttpService, cleanAll(data))
+		if not okE then
+			return nil
+		end
+	end
 	local ok, res = pcall(httpRequest, {
 		Url = BRIDGE_URL .. "/" .. route,
 		Method = "POST",
 		Headers = { ["Content-Type"] = "application/json" },
-		Body = HttpService:JSONEncode(data),
+		Body = encoded,
 	})
 	if not ok or not res or res.StatusCode ~= 200 then
 		return nil
@@ -463,8 +504,56 @@ local function findButton(target)
 	return best
 end
 
-function B.tapAt(x, y)
+-- Never press anything paid: Robux prices, Buy/Purchase, gamepasses, premium.
+local PAID_WORDS = { "robux", "r%$", "purchase", "gamepass", "premium", "buy", "price", "devproduct", "starterpack", "starter pack" }
+local function looksPaid(o)
+	local function check(x)
+		local t = string.lower(x.Name .. " " .. ((x:IsA("TextLabel") or x:IsA("TextButton")) and x.Text or ""))
+		for _, w in ipairs(PAID_WORDS) do
+			if t:find(w) then
+				return true
+			end
+		end
+		if x:IsA("ImageLabel") or x:IsA("ImageButton") then
+			-- Roblox's Robux icon
+			if tostring(x.Image):find("robux", 1, true) then
+				return true
+			end
+		end
+		return false
+	end
+	if check(o) then
+		return true
+	end
+	for _, d in ipairs(o:GetDescendants()) do
+		if d:IsA("GuiObject") and check(d) then
+			return true
+		end
+	end
+	return false
+end
+B.looksPaid = looksPaid
+
+-- The button a tap at screen point (x, y) would hit (tap coordinates, i.e. with B.tapOffset).
+function B.buttonAt(x, y)
+	local pg = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local p = Vector2.new(x, y) - B.tapOffset
+	for _, yy in ipairs({ p.Y, p.Y - GuiService:GetGuiInset().Y }) do
+		for _, o in ipairs(pg:GetGuiObjectsAtPosition(p.X, yy)) do
+			if o:IsA("GuiButton") and guiShown(o) then
+				return o
+			end
+		end
+	end
+	return nil
+end
+
+function B.tapAt(x, y, force)
 	assert(VIM, "No VirtualInputManager")
+	local hit = B.buttonAt(x, y)
+	if hit and looksPaid(hit) and not force then
+		error("Refused: that tap would hit a paid button (" .. shortPath(hit) .. ")", 2)
+	end
 	VIM:SendMouseButtonEvent(x, y, 0, true, game, 0)
 	task.wait(0.05)
 	VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
@@ -476,6 +565,9 @@ function B.press(target, method)
 	local btn = findButton(target)
 	if not btn then
 		return "No visible button matches " .. tostring(target)
+	end
+	if looksPaid(btn) then
+		return "Refused: " .. shortPath(btn) .. " looks like a paid (Robux) button"
 	end
 	if method ~= "tap" and X.firesignal and X.getconnections then
 		local fired = 0
@@ -1263,6 +1355,7 @@ function B.errors(lastN)
 	return #out > 0 and table.concat(out, "\n") or "(no errors caught this session)"
 end
 
+local gameName
 -- Hub reload and self update ----------------------------------------------------
 function B.reloadHub(ref, opts)
 	opts = opts or {}
@@ -1306,9 +1399,1534 @@ function B.update(ref)
 end
 
 --------------------------------------------------------------------------------
+-- Bridge v3 kit
+--------------------------------------------------------------------------------
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
+local PPS = game:GetService("ProximityPromptService")
+
+B.clean = cleanAll
+
+local SESSION = HttpService:GenerateGUID(false)
+B.session = SESSION
+
+-- Send a big piece of data to the Worker under a key (pictures, scans, backups).
+function B.sendData(key, data)
+	local res = post("data", { key = key, body = data })
+	return res and res.ok and ("sent " .. tostring(res.chars or 0) .. " chars") or "send failed"
+end
+
+-- Names a function by the hub flags / fields it uses (works on obfuscated one-line builds).
+local function fnHint(f)
+	if not X.getconstants or type(f) ~= "function" then
+		return ""
+	end
+	local ok, consts = pcall(X.getconstants, f)
+	if not ok or type(consts) ~= "table" then
+		return ""
+	end
+	local O = genv.NOCTURNE and genv.NOCTURNE.Options
+	local flags, words, seen = {}, {}, {}
+	for _, c in pairs(consts) do
+		if type(c) == "string" and not seen[c] then
+			seen[c] = true
+			if O and O[c] then
+				table.insert(flags, c)
+			elseif #c > 3 and #c < 24 and c:match("^%a[%w_]*$") and #words < 4 then
+				table.insert(words, c)
+			end
+		end
+	end
+	table.sort(flags)
+	if #flags > 0 then
+		return " [" .. table.concat(flags, ", ", 1, math.min(#flags, 4)) .. "]"
+	end
+	return #words > 0 and (" {" .. table.concat(words, ", ") .. "}") or ""
+end
+B.fnHint = fnHint
+
+local function myVehicleRoot()
+	local _, char = myRoot()
+	local hum = char and char:FindFirstChildOfClass("Humanoid")
+	local seat = hum and hum.SeatPart
+	if not seat then
+		return nil
+	end
+	local model = seat:FindFirstAncestorOfClass("Model")
+	local folder = workspace:FindFirstChild("Vehicles")
+	local mine = folder and folder:FindFirstChild(LocalPlayer.Name)
+	if mine then
+		model = mine
+	end
+	local rootPart = model and (model:FindFirstChild("Weight") or model.PrimaryPart) or seat
+	return rootPart, model, seat
+end
+B.vehicle = myVehicleRoot
+
+local function r1(n)
+	return math.floor(n * 10 + 0.5) / 10
+end
+
+-- Path recorder (always on, cheap): where I and my car went, last 30 minutes. ---------
+local TR = genv.BridgeTrail or { pts = {}, max = 3600 }
+genv.BridgeTrail = TR
+TR.token = SESSION
+do
+	local myToken = SESSION
+	task.spawn(function()
+		while running and TR.token == myToken do
+			local vr = myVehicleRoot()
+			local root = vr or (myRoot())
+			if root then
+				local p = root.Position
+				local last = TR.pts[#TR.pts]
+				if not last or (Vector3.new(last[2], last[3], last[4]) - p).Magnitude > 0.5 or os.time() - last[1] > 10 then
+					table.insert(TR.pts, { os.time(), r1(p.X), r1(p.Y), r1(p.Z), vr and 1 or 0 })
+					if #TR.pts > TR.max then
+						table.remove(TR.pts, 1)
+					end
+				end
+			end
+			task.wait(0.5)
+		end
+	end)
+end
+function B.trail(seconds)
+	local cut = os.time() - (seconds or 300)
+	local out = {}
+	for _, p in ipairs(TR.pts) do
+		if p[1] >= cut then
+			table.insert(out, p)
+		end
+	end
+	return out
+end
+
+-- Picture data: top-down map around me ------------------------------------------
+-- Each part is sent as its centre plus three half-axes projected on the ground,
+-- so the Worker can draw the real (rotated) footprint.
+function B.mapData(range, opts)
+	opts = opts or {}
+	range = range or 120
+	local root, char = myRoot()
+	local vr, vmodel = myVehicleRoot()
+	local me = vr or root
+	assert(me, "No character")
+	local center = opts.center or me.Position
+	local feet = me.Position.Y - (vr and 1 or 3)
+	local params = OverlapParams.new()
+	params.FilterType = Enum.RaycastFilterType.Exclude
+	params.FilterDescendantsInstances = { char, vmodel }
+	params.MaxParts = opts.maxParts or 3500
+	local parts = workspace:GetPartBoundsInBox(CFrame.new(center), Vector3.new(range * 2, opts.height or 160, range * 2), params)
+	local list, marks, seenModel = {}, {}, {}
+	local players = 0
+	for _, p in ipairs(parts) do
+		local model = p:FindFirstAncestorOfClass("Model")
+		local plr = model and Players:GetPlayerFromCharacter(model)
+		if plr then
+			players = players + 1
+		elseif p.Transparency < 0.95 or p.CanCollide then
+			local cf, s = p.CFrame, p.Size / 2
+			local a, b, c = cf.RightVector * s.X, cf.UpVector * s.Y, cf.LookVector * s.Z
+			local top = p.Position.Y + math.abs(a.Y) + math.abs(b.Y) + math.abs(c.Y)
+			local bottom = p.Position.Y - (math.abs(a.Y) + math.abs(b.Y) + math.abs(c.Y))
+			local kind
+			if not p.CanCollide then
+				kind = 3
+			elseif p.Material == Enum.Material.Water then
+				kind = 5
+			elseif top <= feet + 1.5 then
+				kind = 0
+			elseif top <= feet + 4 then
+				kind = 1
+			elseif bottom > feet + 12 then
+				kind = 6 -- overhead (bridge, roof)
+			else
+				kind = 2
+			end
+			table.insert(list, { r1(p.Position.X), r1(p.Position.Z), r1(a.X), r1(a.Z), r1(b.X), r1(b.Z), r1(c.X), r1(c.Z), r1(top), r1(bottom), kind })
+			local prompt = p:FindFirstChildWhichIsA("ProximityPrompt", true)
+			if prompt and #marks < 80 then
+				table.insert(marks, { r1(p.Position.X), r1(p.Position.Z), "prompt", cleanStr((prompt.ActionText ~= "" and prompt.ActionText or prompt.ObjectText) .. " " .. shortPath(prompt)) })
+			end
+			if model and not seenModel[model] and model:FindFirstChildOfClass("Humanoid") then
+				seenModel[model] = true
+				table.insert(marks, { r1(p.Position.X), r1(p.Position.Z), "npc", cleanStr(shortPath(model)) })
+			end
+		end
+	end
+	-- Ground heights (also terrain and water), a coarse grid.
+	local grid, n = {}, opts.grid or 32
+	local rp = RaycastParams.new()
+	rp.FilterType = Enum.RaycastFilterType.Exclude
+	rp.FilterDescendantsInstances = { char, vmodel }
+	local step = range * 2 / n
+	for gz = 0, n - 1 do
+		for gx = 0, n - 1 do
+			local x, z = center.X - range + (gx + 0.5) * step, center.Z - range + (gz + 0.5) * step
+			local hit = workspace:Raycast(Vector3.new(x, center.Y + 150, z), Vector3.new(0, -400, 0), rp)
+			if hit then
+				table.insert(grid, { r1(hit.Position.Y), hit.Material == Enum.Material.Water and 1 or 0 })
+			else
+				table.insert(grid, { -9999, 0 })
+			end
+		end
+		if gz % 8 == 7 then
+			task.wait()
+		end
+	end
+	local look = me.CFrame.LookVector
+	return {
+		center = { r1(center.X), r1(center.Y), r1(center.Z) },
+		range = range,
+		feet = r1(feet),
+		me = { r1(me.Position.X), r1(me.Position.Z), r1(look.X), r1(look.Z), vr and 1 or 0 },
+		parts = list,
+		marks = marks,
+		grid = grid,
+		gridN = n,
+		players = players,
+		trail = opts.trail and B.trail(opts.trail) or nil,
+	}
+end
+
+-- Picture data: the screen's UI as rectangles --------------------------------------
+function B.uiData(opts)
+	opts = opts or {}
+	local vp = workspace.CurrentCamera.ViewportSize
+	local inset = GuiService:GetGuiInset()
+	local items = {}
+	for i, it in ipairs(B.visibleGui(opts)) do
+		if i > 400 then
+			break
+		end
+		local o = it.o
+		local gui = o:FindFirstAncestorWhichIsA("ScreenGui")
+		local off = (gui and not gui.IgnoreGuiInset) and inset.Y or 0
+		local p, s = o.AbsolutePosition, o.AbsoluteSize
+		local hub = not o:IsDescendantOf(LocalPlayer:FindFirstChildOfClass("PlayerGui"))
+		table.insert(items, { math.floor(p.X), math.floor(p.Y + off), math.floor(s.X), math.floor(s.Y), it.btn and 1 or 0, cleanStr(it.text:sub(1, 40)), cleanStr(shortPath(o)), hub and 1 or 0 })
+	end
+	return { w = math.floor(vp.X), h = math.floor(vp.Y + inset.Y), inset = math.floor(inset.Y), items = items }
+end
+
+-- Look-around radar ----------------------------------------------------------------
+local SECTORS = { "ahead", "ahead-right", "right", "behind-right", "behind", "behind-left", "left", "ahead-left" }
+function B.look(opts)
+	opts = opts or {}
+	local root, char = myRoot()
+	local vr, vmodel = myVehicleRoot()
+	local me = vr or root
+	assert(me, "No character")
+	local maxD = opts.range or 120
+	local rp = RaycastParams.new()
+	rp.FilterType = Enum.RaycastFilterType.Exclude
+	rp.FilterDescendantsInstances = { char, vmodel }
+	local fwd = Vector3.new(me.CFrame.LookVector.X, 0, me.CFrame.LookVector.Z)
+	fwd = fwd.Magnitude > 0.01 and fwd.Unit or Vector3.new(0, 0, -1)
+	local base = me.Position
+	local downHit = workspace:Raycast(base, Vector3.new(0, -500, 0), rp)
+	local groundY = downHit and downHit.Position.Y or base.Y - 3
+	local out = {}
+	local speed = me.AssemblyLinearVelocity
+	table.insert(out, ("From %s at %.0f,%.0f,%.0f · speed %.0f st/s · facing %s"):format(vr and "my car" or "me", base.X, base.Y, base.Z,
+		speed.Magnitude, ("%.0f deg"):format(math.deg(math.atan2(-fwd.X, -fwd.Z)) % 360)))
+	table.insert(out, downHit and ("Ground %.1f st below (%s, %s)"):format(base.Y - groundY, downHit.Material.Name, shortPath(downHit.Instance)) or "No ground below (void or water far down)")
+	local upHit = workspace:Raycast(base, Vector3.new(0, 200, 0), rp)
+	table.insert(out, upHit and ("Roof %.0f st above (%s)"):format(upHit.Distance, shortPath(upHit.Instance)) or "Open sky above")
+	local rows = {}
+	for i = 0, 15 do
+		local ang = -i * math.pi / 8
+		local dir = CFrame.fromAxisAngle(Vector3.yAxis, ang):VectorToWorldSpace(fwd)
+		local low = workspace:Raycast(Vector3.new(base.X, groundY + 1.2, base.Z), dir * maxD, rp)
+		local high = workspace:Raycast(Vector3.new(base.X, groundY + 5, base.Z), dir * maxD, rp)
+		-- Drop check: is there ground 8 studs out that way?
+		local probe = Vector3.new(base.X, groundY + 3, base.Z) + dir * 8
+		local floor = workspace:Raycast(probe, Vector3.new(0, -30, 0), rp)
+		local d = math.min(low and low.Distance or maxD, high and high.Distance or maxD)
+		local hit = (low and (not high or low.Distance <= high.Distance)) and low or high
+		local hitName = hit and hit.Instance.Name
+		if hit then
+			local mdl = hit.Instance:FindFirstAncestorOfClass("Model")
+			if mdl and Players:GetPlayerFromCharacter(mdl) then
+				hitName = "a player"
+			end
+		end
+		local what
+		if d >= maxD then
+			what = "open"
+		else
+			what = ("%s %.0f st (%s%s)"):format((low and not high) and "low obstacle" or "wall", d, hitName,
+				(low and high and math.abs(low.Distance - high.Distance) > 3) and ", slope/step" or "")
+		end
+		if not floor then
+			what = what .. ", DROP 8 st out"
+		elseif probe.Y - floor.Position.Y > 6 then
+			what = what .. (", drops %.0f st"):format(probe.Y - floor.Position.Y - 3)
+		end
+		rows[i + 1] = { d = d, text = what }
+	end
+	for s = 1, 8 do
+		local i = (s - 1) * 2 + 1
+		table.insert(out, ("%-13s %s"):format(SECTORS[s] .. ":", rows[i].text))
+	end
+	local compact = {}
+	for i = 1, 16 do
+		compact[i] = rows[i].d >= maxD and "-" or tostring(math.floor(rows[i].d))
+	end
+	table.insert(out, "16 rays clockwise from ahead (studs, - = open): " .. table.concat(compact, " "))
+	return table.concat(out, "\n")
+end
+
+-- Incoming remote log (what the server sends to this client) -----------------------
+do
+	local IN = genv.BridgeInLog or { on = false, conns = {}, wrapped = {}, rate = {} }
+	genv.BridgeInLog = IN
+	local getcb = getfenv(0).getcallbackvalue or genv.getcallbackvalue
+	local function logIn(remote, method, ...)
+		if not IN.on then
+			return
+		end
+		local name = remote:GetFullName()
+		local sec = os.time()
+		local r = IN.rate[name]
+		if not r or r.sec ~= sec then
+			r = { sec = sec, n = 0 }
+			IN.rate[name] = r
+		end
+		r.n = r.n + 1
+		if r.n > 8 then
+			return -- very chatty remotes: keep the first few per second
+		end
+		local args = table.pack(...)
+		local parts = {}
+		for i = 1, math.min(args.n, 8) do
+			parts[i] = ser(args[i], 2)
+		end
+		rlAdd(name, method, table.concat(parts, ", "), "server")
+	end
+	local function watchRemote(o)
+		if IN.conns[o] then
+			return
+		end
+		if o:IsA("RemoteEvent") or o:IsA("UnreliableRemoteEvent") then
+			IN.conns[o] = o.OnClientEvent:Connect(function(...)
+				logIn(o, "OnClientEvent", ...)
+			end)
+		elseif o:IsA("RemoteFunction") and getcb then
+			local ok, cb = pcall(getcb, o, "OnClientInvoke")
+			if ok and type(cb) == "function" then
+				IN.wrapped[o] = cb
+				o.OnClientInvoke = function(...)
+					logIn(o, "OnClientInvoke", ...)
+					return cb(...)
+				end
+				IN.conns[o] = true
+			end
+		end
+	end
+	function B.inLog(on)
+		IN.on = on
+		if on then
+			for _, svc in ipairs({ game:GetService("ReplicatedStorage"), workspace, LocalPlayer }) do
+				for _, o in ipairs(svc:GetDescendants()) do
+					if o:IsA("BaseRemoteEvent") or o:IsA("RemoteFunction") then
+						watchRemote(o)
+					end
+				end
+			end
+			if not IN.added then
+				IN.added = game.DescendantAdded:Connect(function(o)
+					if IN.on and (o:IsA("BaseRemoteEvent") or o:IsA("RemoteFunction")) then
+						watchRemote(o)
+					end
+				end)
+			end
+		else
+			for o, c in pairs(IN.conns) do
+				if typeof(c) == "RBXScriptConnection" then
+					c:Disconnect()
+				end
+				if IN.wrapped[o] then
+					pcall(function()
+						o.OnClientInvoke = IN.wrapped[o]
+					end)
+				end
+			end
+			IN.conns, IN.wrapped = {}, {}
+			if IN.added then
+				IN.added:Disconnect()
+				IN.added = nil
+			end
+		end
+		local n = 0
+		for _ in pairs(IN.conns) do
+			n = n + 1
+		end
+		return ("Incoming log %s (%d remotes watched)"):format(on and "on" or "off", n)
+	end
+end
+
+-- Performance meter ------------------------------------------------------------------
+function B.perf(seconds, opts)
+	opts = opts or {}
+	seconds = seconds or 5
+	local frames, worst = {}, 0
+	local wrappers, disabled, cost = {}, {}, {}
+	local isExec = getfenv(0).isexecutorclosure or genv.isexecutorclosure
+	if opts.connections ~= false and X.getconnections then
+		for _, sigName in ipairs({ "RenderStepped", "Heartbeat", "Stepped", "PreRender", "PreSimulation", "PostSimulation" }) do
+			local okS, sig = pcall(function()
+				return RunService[sigName]
+			end)
+			local okC, cons = false, nil
+			if okS and sig then
+				okC, cons = pcall(X.getconnections, sig)
+			end
+			if okC and cons then
+				for _, c in ipairs(cons) do
+					local f = c.Function
+					if type(f) == "function" and (not isExec or isExec(f)) and c.Enabled ~= false then
+						local key = sigName .. " " .. fnInfo(f) .. fnHint(f)
+						local entry = { key = key, t = 0, n = 0, errs = 0 }
+						table.insert(cost, entry)
+						local okD = pcall(function()
+							c:Disable()
+						end)
+						if okD then
+							table.insert(disabled, c)
+							table.insert(wrappers, sig:Connect(function(...)
+								local t0 = os.clock()
+								local ok = pcall(f, ...)
+								entry.t = entry.t + (os.clock() - t0)
+								entry.n = entry.n + 1
+								if not ok then
+									entry.errs = entry.errs + 1
+								end
+							end))
+						end
+					end
+				end
+			end
+		end
+	end
+	local mem0 = Stats:GetTotalMemoryUsageMb()
+	local fc = RunService.RenderStepped:Connect(function(dt)
+		table.insert(frames, dt)
+		if dt > worst then
+			worst = dt
+		end
+	end)
+	local t0 = os.clock()
+	task.wait(seconds)
+	fc:Disconnect()
+	local elapsed = os.clock() - t0
+	for _, w in ipairs(wrappers) do
+		w:Disconnect()
+	end
+	for _, c in ipairs(disabled) do
+		pcall(function()
+			c:Enable()
+		end)
+	end
+	table.sort(frames)
+	local n = #frames
+	local low1 = 0
+	if n > 0 then
+		local k = math.max(1, math.floor(n * 0.01))
+		local sum = 0
+		for i = n - k + 1, n do
+			sum = sum + frames[i]
+		end
+		low1 = 1 / (sum / k)
+	end
+	local out = {}
+	table.insert(out, ("FPS %.1f · 1%% low %.0f · worst frame %.0f ms · %d frames in %.1fs"):format(n / elapsed, low1, worst * 1000, n, elapsed))
+	table.insert(out, ("Memory %.0f -> %.0f MB · ping %.0f ms · instances in workspace %d"):format(mem0, Stats:GetTotalMemoryUsageMb(),
+		LocalPlayer:GetNetworkPing() * 1000, #workspace:GetDescendants()))
+	if #cost > 0 then
+		table.sort(cost, function(a, b)
+			return a.t > b.t
+		end)
+		local total = 0
+		for _, e in ipairs(cost) do
+			total = total + e.t
+		end
+		table.insert(out, ("Executor per-frame scripts: %d connections, %.2f ms per frame total (%.1f%% of frame time)"):format(#cost,
+			n > 0 and total / n * 1000 or 0, elapsed > 0 and total / elapsed * 100 or 0))
+		for i, e in ipairs(cost) do
+			if i > (opts.top or 15) then
+				break
+			end
+			table.insert(out, ("  %6.3f ms/frame  %s%s"):format(n > 0 and e.t / n * 1000 or 0, e.key, e.errs > 0 and (" (" .. e.errs .. " errors)") or ""))
+		end
+		table.insert(out, "(task loops and BindToRenderStep are not measured)")
+	end
+	return table.concat(out, "\n")
+end
+
+-- Auto test runner -------------------------------------------------------------------
+-- Each test is Lua code with T available: T.set(flag, value), T.wait(s), T.expect(ok, msg),
+-- T.near(a, b, tol, msg), T.fps(seconds), T.errors() (new errors since the test started).
+local function hubOptions()
+	return genv.NOCTURNE and genv.NOCTURNE.Options
+end
+function B.runTests(list, opts)
+	opts = opts or {}
+	local results, pass, fail = {}, 0, 0
+	for _, t in ipairs(list) do
+		local errs0 = #EC.recent
+		local changed = {}
+		local T = {}
+		function T.set(flag, value)
+			local O = hubOptions()
+			local o = O and O[flag]
+			assert(o, "No option " .. tostring(flag))
+			if changed[flag] == nil then
+				changed[flag] = { o.Value }
+			end
+			o:Set(value)
+		end
+		T.wait = task.wait
+		function T.expect(ok, msg)
+			if not ok then
+				error("expected: " .. tostring(msg), 0)
+			end
+		end
+		function T.near(a, b, tol, msg)
+			if math.abs(a - b) > (tol or 0.01) then
+				error(("%s: got %s, wanted %s"):format(tostring(msg or "value"), tostring(a), tostring(b)), 0)
+			end
+		end
+		function T.fps(s)
+			local n, t0 = 0, os.clock()
+			local c = RunService.RenderStepped:Connect(function()
+				n = n + 1
+			end)
+			task.wait(s or 1)
+			c:Disconnect()
+			return n / (os.clock() - t0)
+		end
+		function T.errors()
+			local new = {}
+			for i = errs0 + 1, #EC.recent do
+				table.insert(new, EC.recent[i].msg)
+			end
+			return new
+		end
+		local fn, cerr = loadstring(t.code, "=test:" .. t.name)
+		local ok, msg, ms
+		local t0 = os.clock()
+		if not fn then
+			ok, msg = false, "compile: " .. tostring(cerr)
+		else
+			setfenv(fn, setmetatable({ T = T, B = B }, { __index = getfenv(0) }))
+			local done = false
+			local th = task.spawn(function()
+				ok, msg = pcall(fn)
+				done = true
+			end)
+			while not done and os.clock() - t0 < (opts.timeout or 20) do
+				task.wait(0.05)
+			end
+			if not done then
+				pcall(task.cancel, th)
+				ok, msg = false, "timed out"
+			end
+		end
+		ms = (os.clock() - t0) * 1000
+		-- Put back every option the test changed.
+		for flag, v in pairs(changed) do
+			pcall(function()
+				hubOptions()[flag]:Set(v[1])
+			end)
+		end
+		if ok and opts.failOnErrors ~= false then
+			local new = T.errors()
+			if #new > 0 then
+				ok, msg = false, "new error: " .. new[1]:sub(1, 200)
+			end
+		end
+		if ok then
+			pass = pass + 1
+			table.insert(results, ("PASS %s (%.0f ms)%s"):format(t.name, ms, (msg ~= nil and msg ~= true) and ("  " .. tostring(msg)) or ""))
+		else
+			fail = fail + 1
+			table.insert(results, ("FAIL %s: %s"):format(t.name, tostring(msg)))
+		end
+		task.wait(0.15)
+	end
+	return ("%d passed, %d failed\n%s"):format(pass, fail, table.concat(results, "\n"))
+end
+
+-- Built-in suite: every NOCTURNE toggle turns on and off with no new errors.
+local TOGGLE_SKIP = { autoRejoin = true, afkMode = true, hideUi = true, streamer = true, invisible = true, godMode = true,
+	freeze = true, ui_restoreAll = true, quickLoadOnDeath = true, respawnAtDeath = true, macroPlay = true, patrol = true,
+	autoWalk = true, vehAutoOn = true, vehFarmOn = true, tapWalk = true, autoGameScript = true, dock = true, keyButtons = true,
+	ui_perGame = true, antiAfk = true, hookKick = true }
+function B.hubToggleTests(filter)
+	local O = hubOptions()
+	assert(O, "NOCTURNE isn't loaded")
+	local names = {}
+	for k, o in pairs(O) do
+		if type(o) == "table" and o.Type == "Toggle" and not TOGGLE_SKIP[k] and o.Value == false and (not filter or k:lower():find(filter:lower(), 1, true)) then
+			table.insert(names, k)
+		end
+	end
+	table.sort(names)
+	local list = {}
+	for _, k in ipairs(names) do
+		table.insert(list, { name = k, code = ("T.set(%q, true) T.wait(0.5) local f = T.fps(0.5) T.set(%q, false) T.wait(0.3) return ('%%.0f fps'):format(f)"):format(k, k) })
+	end
+	return list
+end
+
+-- Teach by doing ---------------------------------------------------------------------
+-- Records my taps on game buttons, keys, prompts, remote calls and walking while I do
+-- an action once, then writes it as script steps.
+function B.teach(seconds, text)
+	seconds = seconds or 60
+	local events, conns = {}, {}
+	local t0 = os.clock()
+	local function add(kind, data)
+		data.t = os.clock() - t0
+		data.kind = kind
+		table.insert(events, data)
+	end
+	local pg = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local cardGui
+	table.insert(conns, UIS.InputBegan:Connect(function(input, processed)
+		local ut = input.UserInputType
+		if ut == Enum.UserInputType.Touch or ut == Enum.UserInputType.MouseButton1 then
+			local pos = input.Position
+			local best
+			for _, y in ipairs({ pos.Y, pos.Y - GuiService:GetGuiInset().Y }) do
+				for _, o in ipairs(pg:GetGuiObjectsAtPosition(pos.X, y)) do
+					if o:IsA("GuiButton") and guiShown(o) and not (cardGui and o:IsDescendantOf(cardGui)) then
+						best = best or o
+					end
+				end
+				if best then
+					break
+				end
+			end
+			if best then
+				local label = best:IsA("TextButton") and best.Text or ""
+				if label == "" then
+					local tl = best:FindFirstChildWhichIsA("TextLabel", true)
+					label = tl and tl.Text or ""
+				end
+				add("tap", { path = shortPath(best), text = cleanStr(label:gsub("<[^>]->", ""):sub(1, 40)), paid = looksPaid(best) })
+			end
+		elseif ut == Enum.UserInputType.Keyboard and not processed then
+			add("key", { key = input.KeyCode.Name })
+		end
+	end))
+	table.insert(conns, PPS.PromptTriggered:Connect(function(p)
+		add("prompt", { path = shortPath(p), text = cleanStr(p.ActionText .. " " .. p.ObjectText) })
+	end))
+	local _, char = myRoot()
+	if char then
+		table.insert(conns, char.ChildAdded:Connect(function(c)
+			if c:IsA("Tool") then
+				add("equip", { tool = c.Name })
+			end
+		end))
+	end
+	-- Outgoing remote calls from the game's own scripts during the recording.
+	local rlWas, rlStart = RL.on, #RL.entries
+	installRemoteHook()
+	RL.on = true
+	local lastPos
+	do
+		local vr0 = myVehicleRoot()
+		local r0 = vr0 or (myRoot())
+		lastPos = r0 and r0.Position
+	end
+	local sg, f, body = makeCard(60, true)
+	cardGui = sg
+	local done = false
+	local b = cardButton(f, "Done", 300, 7, 88, Color3.fromRGB(110, 85, 220))
+	b.Activated:Connect(function()
+		done = true
+	end)
+	while not done and os.clock() - t0 < seconds and sg.Parent do
+		body.Text = (text or "Recording: do the action once, then tap Done.") .. ("  (%ds)"):format(seconds - (os.clock() - t0))
+		local vr = myVehicleRoot()
+		local root = vr or (myRoot())
+		if root then
+			local p = root.Position
+			if not lastPos or (p - lastPos).Magnitude > 4 then
+				add(vr and "drive" or "move", { pos = p })
+				lastPos = p
+			end
+		end
+		task.wait(0.25)
+	end
+	sg:Destroy()
+	for _, c in ipairs(conns) do
+		c:Disconnect()
+	end
+	local remotes = {}
+	for i = rlStart + 1, #RL.entries do
+		table.insert(remotes, RL.entries[i])
+	end
+	RL.on = rlWas
+	-- Timeline and generated steps
+	local tl, code = {}, { "-- Steps recorded from what you did (check before looping)" }
+	local lastMove
+	local function flushMove()
+		if lastMove then
+			local p = lastMove.pos
+			table.insert(code, ("B.walkTo(Vector3.new(%.1f, %.1f, %.1f))"):format(p.X, p.Y, p.Z))
+			lastMove = nil
+		end
+	end
+	for _, e in ipairs(events) do
+		if e.kind == "move" or e.kind == "drive" then
+			lastMove = e
+		else
+			flushMove()
+			if e.kind == "tap" then
+				table.insert(tl, ("%5.1fs tap %q  %s"):format(e.t, e.text, e.path))
+				if e.paid then
+					table.insert(code, ("-- skipped a paid button: %s"):format(e.path))
+				else
+					table.insert(code, ("B.press(%q)  -- %s"):format(e.path, e.text))
+				end
+			elseif e.kind == "prompt" then
+				table.insert(tl, ("%5.1fs prompt %s  %s"):format(e.t, e.text, e.path))
+				table.insert(code, ("B.prompt(%q)"):format(e.path))
+			elseif e.kind == "key" then
+				table.insert(tl, ("%5.1fs key %s"):format(e.t, e.key))
+				table.insert(code, ("B.key(%q)"):format(e.key))
+			elseif e.kind == "equip" then
+				table.insert(tl, ("%5.1fs equip %s"):format(e.t, e.tool))
+				table.insert(code, ("B.equip(%q)"):format(e.tool))
+			end
+			table.insert(code, "task.wait(0.3)")
+		end
+	end
+	flushMove()
+	local moves = 0
+	for _, e in ipairs(events) do
+		if e.kind == "move" or e.kind == "drive" then
+			moves = moves + 1
+		end
+	end
+	local out = { ("Recorded %.0fs: %d taps/prompts/keys, %d position points, %d remote calls"):format(os.clock() - t0, #tl, moves, #remotes), "", "Timeline:" }
+	for _, l in ipairs(tl) do
+		table.insert(out, l)
+	end
+	table.insert(out, "")
+	table.insert(out, "Remote calls the game sent (these are what the actions really do):")
+	for i, r in ipairs(remotes) do
+		if i > 40 then
+			table.insert(out, ("... %d more"):format(#remotes - 40))
+			break
+		end
+		table.insert(out, ("  %s:%s(%s)  from %s"):format(r.remote, r.method, r.args, r.caller))
+	end
+	table.insert(out, "")
+	table.insert(out, "Generated steps:")
+	table.insert(out, table.concat(code, "\n"))
+	return table.concat(out, "\n")
+end
+
+function B.walkTo(pos, timeout)
+	local root, char = myRoot()
+	local hum = char and char:FindFirstChildOfClass("Humanoid")
+	assert(hum and root, "No character")
+	hum:MoveTo(pos)
+	local t0 = os.clock()
+	while os.clock() - t0 < (timeout or 15) and (root.Position - pos).Magnitude > 4 do
+		task.wait(0.1)
+	end
+	return (root.Position - pos).Magnitude <= 4
+end
+
+function B.equip(name)
+	local _, char = myRoot()
+	local tool = LocalPlayer.Backpack:FindFirstChild(name)
+	local hum = char and char:FindFirstChildOfClass("Humanoid")
+	if tool and hum then
+		hum:EquipTool(tool)
+		return true
+	end
+	return false
+end
+
+-- Map memory: one full scan of useful places ------------------------------------------
+local PLACE_WORDS = { "shop", "store", "sell", "buy", "upgrade", "teleport", "portal", "spawn", "checkpoint", "pad", "collect",
+	"dealer", "garage", "bank", "quest", "npc", "reward", "daily", "rebirth", "merchant", "craft", "race", "start", "finish", "gas" }
+function B.mapScan()
+	local groups = {}
+	local function addTo(cat, name, pos, extra)
+		local g = groups[cat]
+		if not g then
+			g = { byName = {}, n = 0 }
+			groups[cat] = g
+		end
+		local e = g.byName[name]
+		if not e then
+			e = { pos = {}, extra = extra }
+			g.byName[name] = e
+			g.n = g.n + 1
+		end
+		if #e.pos < 12 then
+			table.insert(e.pos, ("%.0f,%.0f,%.0f"):format(pos.X, pos.Y, pos.Z))
+		else
+			e.more = (e.more or 0) + 1
+		end
+	end
+	local function posOf(o)
+		if o:IsA("BasePart") then
+			return o.Position
+		elseif o:IsA("Attachment") then
+			return o.WorldPosition
+		elseif o:IsA("Model") then
+			local ok, cf = pcall(o.GetPivot, o)
+			return ok and cf.Position or nil
+		end
+		return nil
+	end
+	local count = 0
+	for _, o in ipairs(workspace:GetDescendants()) do
+		count = count + 1
+		if count % 4000 == 0 then
+			task.wait()
+		end
+		if o:IsA("ProximityPrompt") then
+			local p = o.Parent and posOf(o.Parent)
+			if p then
+				addTo("Prompts", cleanStr(("%s / %s  (%s)"):format(o.ActionText, o.ObjectText, shortPath(o.Parent))), p)
+			end
+		elseif o:IsA("ClickDetector") then
+			local p = o.Parent and posOf(o.Parent)
+			if p then
+				addTo("Click detectors", cleanStr(shortPath(o.Parent)), p)
+			end
+		elseif o:IsA("SpawnLocation") then
+			addTo("Spawns", cleanStr(o.Name), o.Position)
+		elseif o:IsA("VehicleSeat") then
+			addTo("Vehicle seats", cleanStr(o.Parent and o.Parent.Name or "?"), o.Position)
+		elseif o:IsA("Humanoid") and o.Parent and not Players:GetPlayerFromCharacter(o.Parent) then
+			local p = posOf(o.Parent)
+			if p then
+				addTo("NPCs", cleanStr(o.Parent.Name), p)
+			end
+		elseif o:IsA("TouchTransmitter") and o.Parent and o.Parent:IsA("BasePart") then
+			local n = (o.Parent.Name .. " " .. (o.Parent.Parent and o.Parent.Parent.Name or "")):lower()
+			for _, w in ipairs(PLACE_WORDS) do
+				if n:find(w, 1, true) then
+					addTo("Touch pads", cleanStr(shortPath(o.Parent)), o.Parent.Position)
+					break
+				end
+			end
+		elseif o:IsA("Model") or o:IsA("Folder") then
+			local n = o.Name:lower()
+			for _, w in ipairs(PLACE_WORDS) do
+				if n:find(w, 1, true) then
+					local p = posOf(o)
+					if p then
+						addTo("Named places", cleanStr(o.Name), p)
+					end
+					break
+				end
+			end
+		end
+	end
+	local out = { ("Map scan of %s (place %d, version %d), %d objects checked"):format(gameName or "?", game.PlaceId, game.PlaceVersion, count) }
+	for _, cat in ipairs({ "Prompts", "Touch pads", "Named places", "Spawns", "NPCs", "Click detectors", "Vehicle seats" }) do
+		local g = groups[cat]
+		if g then
+			table.insert(out, ("\n== %s (%d kinds) =="):format(cat, g.n))
+			local names = {}
+			for name in pairs(g.byName) do
+				table.insert(names, name)
+			end
+			table.sort(names)
+			for i, name in ipairs(names) do
+				if i > 150 then
+					table.insert(out, ("... %d more kinds"):format(#names - 150))
+					break
+				end
+				local e = g.byName[name]
+				table.insert(out, ("%s  @ %s%s"):format(name, table.concat(e.pos, " | "), e.more and (" (+" .. e.more .. " more)") or ""))
+			end
+		end
+	end
+	return table.concat(out, "\n")
+end
+
+-- Live patch: swap a running function (NOCTURNE or any script) -------------------------
+-- Find it by its chunk name, line, constants it uses (field names like "vehFlyOn" survive
+-- obfuscation), then hook it with new code that gets the original as its first argument.
+B.patches = B.patches or {}
+function B.findFunctions(q)
+	assert(X.getgc, "getgc is missing")
+	q = q or {}
+	local isExec = getfenv(0).isexecutorclosure or genv.isexecutorclosure
+	local islc = getfenv(0).islclosure or genv.islclosure
+	local hits = {}
+	for _, f in ipairs(X.getgc(false)) do
+		if type(f) == "function" and (not islc or islc(f)) and (q.game or not isExec or isExec(f)) then
+			local ok, src, line, name = pcall(debug.info, f, "sln")
+			if ok and (not q.source or tostring(src):find(q.source, 1, true)) and (not q.line or line == q.line)
+				and (not q.name or name == q.name) then
+				local match = true
+				if q.const then
+					match = false
+					if X.getconstants then
+						local okC, consts = pcall(X.getconstants, f)
+						if okC and consts then
+							local want = type(q.const) == "table" and q.const or { q.const }
+							local have = {}
+							for _, c in pairs(consts) do
+								if type(c) == "string" then
+									have[c] = true
+								end
+							end
+							match = true
+							for _, w in ipairs(want) do
+								if not have[w] then
+									match = false
+								end
+							end
+						end
+					end
+				end
+				if match then
+					table.insert(hits, { f = f, info = ("%s:%s %s%s"):format(tostring(src):sub(1, 40), tostring(line), name or "", fnHint(f)) })
+					if #hits >= 30 then
+						break
+					end
+				end
+			end
+		end
+	end
+	return hits
+end
+
+function B.patch(q, code, opts)
+	opts = opts or {}
+	assert(X.hookfunction, "hookfunction is missing")
+	local hits = B.findFunctions(q)
+	if #hits == 0 then
+		return "No function matches."
+	end
+	if #hits > 1 and not opts.all then
+		local lines = { #hits .. " functions match; narrow it (line/const) or pass all = true:" }
+		for _, h in ipairs(hits) do
+			table.insert(lines, "  " .. h.info)
+		end
+		return table.concat(lines, "\n")
+	end
+	local maker, err = loadstring(code, "=patch")
+	assert(maker, "Patch compile error: " .. tostring(err))
+	setfenv(maker, setmetatable({ B = B }, { __index = getfenv(0) }))
+	local impl = maker()
+	assert(type(impl) == "function", "Patch code must return function(old, ...)")
+	local done = {}
+	for _, h in ipairs(hits) do
+		local holder = {}
+		local wrapper = function(...)
+			return impl(holder.old, ...)
+		end
+		holder.old = X.hookfunction(h.f, wrapper)
+		local id = #B.patches + 1
+		B.patches[id] = { f = h.f, old = holder.old, info = h.info }
+		table.insert(done, ("patch %d: %s"):format(id, h.info))
+	end
+	return "Patched:\n" .. table.concat(done, "\n") .. "\nUndo with B.unpatch(id)."
+end
+
+function B.unpatch(id)
+	local p = B.patches[id]
+	if not p then
+		return "No patch " .. tostring(id)
+	end
+	X.hookfunction(p.f, p.old)
+	B.patches[id] = nil
+	return "Undid patch " .. id .. " (" .. p.info .. ")"
+end
+
+-- Tuning session: change a value while the owner plays; they rate each one --------------
+function B.tune(opts)
+	local values = opts.values
+	assert(values and #values > 0, "Give values")
+	local apply
+	if opts.flag then
+		apply = function(v)
+			hubOptions()[opts.flag]:Set(v)
+		end
+	else
+		local f, err = loadstring("local V = ... " .. opts.apply, "=tune")
+		assert(f, "apply code: " .. tostring(err))
+		setfenv(f, setmetatable({ B = B }, { __index = getfenv(0) }))
+		apply = f
+	end
+	local label = opts.label or opts.flag or "value"
+	local results = {}
+	for i, v in ipairs(values) do
+		apply(v)
+		local a = B.ask(("%s = %s (%d of %d). Try it, then rate it."):format(label, tostring(v), i, #values),
+			{ "Better", "Same", "Worse", "Stop" }, { note = true, timeout = opts.timeout or 300 })
+		table.insert(results, { v = v, a = a })
+		if a == "Stop" or a:find("^no answer") then
+			break
+		end
+	end
+	local names = {}
+	for _, r in ipairs(results) do
+		table.insert(names, tostring(r.v))
+	end
+	local keep = B.ask("Which " .. label .. " should stay?", names, { note = false, timeout = opts.timeout or 300 })
+	for _, r in ipairs(results) do
+		if tostring(r.v) == keep then
+			apply(r.v)
+		end
+	end
+	local out = { "Tuning " .. label .. ":" }
+	for _, r in ipairs(results) do
+		table.insert(out, ("  %s -> %s"):format(tostring(r.v), r.a))
+	end
+	table.insert(out, "Kept: " .. tostring(keep))
+	return table.concat(out, "\n")
+end
+
+-- Game signature (update detector) ------------------------------------------------------
+function B.signature()
+	local remotes, counts, tops = {}, {}, {}
+	local RS = game:GetService("ReplicatedStorage")
+	for i, o in ipairs(RS:GetDescendants()) do
+		if i % 5000 == 0 then
+			task.wait()
+		end
+		counts[o.ClassName] = (counts[o.ClassName] or 0) + 1
+		if (o:IsA("BaseRemoteEvent") or o:IsA("RemoteFunction")) and #remotes < 3000 then
+			table.insert(remotes, cleanStr(o:GetFullName()))
+		end
+	end
+	for _, svc in ipairs({ RS, workspace, game:GetService("ReplicatedFirst"), game:GetService("StarterGui") }) do
+		for _, c in ipairs(svc:GetChildren()) do
+			-- Skip players' characters (and anything named after a player) so joins/leaves aren't "updates".
+			local isPlayer = Players:GetPlayerFromCharacter(c) or Players:FindFirstChild(c.Name)
+			if not isPlayer and not c:IsA("Camera") and not c:IsA("Terrain") then
+				table.insert(tops, cleanStr(svc.Name .. "." .. c.Name))
+			end
+		end
+	end
+	local modules = {}
+	if X.getloadedmodules then
+		for _, m in ipairs(X.getloadedmodules()) do
+			if #modules < 3000 then
+				table.insert(modules, cleanStr(m:GetFullName()))
+			end
+		end
+	end
+	table.sort(remotes)
+	table.sort(tops)
+	table.sort(modules)
+	return { placeVersion = game.PlaceVersion, game = gameName, remotes = remotes, tops = tops, counts = counts, modules = modules }
+end
+
+-- Settings backup ------------------------------------------------------------------------
+local function listFilesDeep(folder, out, depth)
+	local lf = getfenv(0).listfiles or genv.listfiles
+	if not lf or depth > 4 then
+		return
+	end
+	local ok, items = pcall(lf, folder)
+	if not ok then
+		return
+	end
+	for _, p in ipairs(items) do
+		local isDir = X.isfolder and X.isfolder(p)
+		if isDir then
+			listFilesDeep(p, out, depth + 1)
+		else
+			table.insert(out, p)
+		end
+	end
+end
+function B.settingsFiles(folders)
+	folders = folders or { "Nocturne" }
+	local files, size = {}, 0
+	for _, f in ipairs(folders) do
+		local paths = {}
+		listFilesDeep(f, paths, 0)
+		for _, p in ipairs(paths) do
+			local low = p:lower()
+			-- Never back up anything that could hold the bridge address/secret.
+			if not low:find("bridge") and not low:find("autoexec") and (low:find("%.json$") or low:find("%.txt$")) then
+				local ok, content = pcall(X.readfile, p)
+				if ok and type(content) == "string" and #content < 400000 and size + #content < 1500000 then
+					size = size + #content
+					table.insert(files, { path = (p:gsub("\\", "/")), content = cleanStr(content) })
+				end
+			end
+		end
+	end
+	return files
+end
+function B.restoreFiles(files)
+	local n = 0
+	for _, f in ipairs(files) do
+		local dir = f.path:match("^(.*)/[^/]+$")
+		if dir and X.makefolder and X.isfolder then
+			local acc = ""
+			for part in dir:gmatch("[^/]+") do
+				acc = acc == "" and part or (acc .. "/" .. part)
+				if not X.isfolder(acc) then
+					pcall(X.makefolder, acc)
+				end
+			end
+		end
+		if pcall(X.writefile, f.path, f.content) then
+			n = n + 1
+		end
+	end
+	return ("Restored %d of %d files. Rejoin or reload the script to use them."):format(n, #files)
+end
+
+-- Game effects finder: real sounds, animations, particles to reuse ----------------------
+function B.effects(filter)
+	filter = filter and filter:lower() or nil
+	local groups = { Sounds = {}, Animations = {}, Particles = {}, ["Beams & trails"] = {}, ["Fire, smoke, sparkles"] = {}, ["Post effects"] = {} }
+	local function add(group, key, o, extra)
+		local g = groups[group]
+		local e = g[key]
+		if not e then
+			e = { n = 0, path = shortPath(o), extra = extra }
+			g[key] = e
+		end
+		e.n = e.n + 1
+	end
+	local _, vmodel = myVehicleRoot()
+	local roots = { game:GetService("ReplicatedStorage"), game:GetService("SoundService"), game:GetService("Lighting"), workspace.CurrentCamera, LocalPlayer }
+	if LocalPlayer.Character then
+		table.insert(roots, LocalPlayer.Character)
+	end
+	if vmodel then
+		table.insert(roots, vmodel)
+	end
+	table.insert(roots, workspace)
+	local seen, count = {}, 0
+	for _, r in ipairs(roots) do
+		for _, o in ipairs(r:GetDescendants()) do
+			count = count + 1
+			if count % 5000 == 0 then
+				task.wait()
+			end
+			if not seen[o] then
+				seen[o] = true
+				local name = o.Name
+				if not filter or (name:lower():find(filter, 1, true) or shortPath(o):lower():find(filter, 1, true)) then
+					if o:IsA("Sound") then
+						add("Sounds", o.SoundId, o, ("%s vol %.1f%s"):format(name, o.Volume, o.Playing and " PLAYING" or ""))
+					elseif o:IsA("Animation") then
+						add("Animations", o.AnimationId, o, name)
+					elseif o:IsA("ParticleEmitter") then
+						add("Particles", o.Texture .. name, o, ("%s rate %.0f%s"):format(name, o.Rate, o.Enabled and " ON" or ""))
+					elseif o:IsA("Beam") or o:IsA("Trail") then
+						add("Beams & trails", o.ClassName .. o.Texture .. name, o, o.ClassName .. " " .. name)
+					elseif o:IsA("Fire") or o:IsA("Smoke") or o:IsA("Sparkles") or o:IsA("Explosion") then
+						add("Fire, smoke, sparkles", o.ClassName .. name, o, o.ClassName .. " " .. name .. (o:IsA("Explosion") and "" or (o.Enabled and " ON" or "")))
+					elseif o:IsA("PostEffect") or o:IsA("Atmosphere") or o:IsA("Sky") then
+						add("Post effects", o.ClassName .. name, o, o.ClassName .. " " .. name)
+					end
+				end
+			end
+		end
+	end
+	local out = { ("Effects found (%d objects checked)%s"):format(count, filter and (" matching " .. filter) or "") }
+	local _, char = myRoot()
+	local hum = char and char:FindFirstChildOfClass("Humanoid")
+	local animator = hum and hum:FindFirstChildOfClass("Animator")
+	if animator then
+		local tracks = animator:GetPlayingAnimationTracks()
+		table.insert(out, ("\n== Playing on my character (%d) =="):format(#tracks))
+		for _, t in ipairs(tracks) do
+			table.insert(out, ("  %s  %s  speed %.1f"):format(t.Animation and t.Animation.AnimationId or "?", t.Name, t.Speed))
+		end
+	end
+	for _, gname in ipairs({ "Sounds", "Animations", "Particles", "Beams & trails", "Fire, smoke, sparkles", "Post effects" }) do
+		local keys = {}
+		for k in pairs(groups[gname]) do
+			table.insert(keys, k)
+		end
+		table.sort(keys, function(a, b)
+			return groups[gname][a].path < groups[gname][b].path
+		end)
+		table.insert(out, ("\n== %s (%d) =="):format(gname, #keys))
+		for i, k in ipairs(keys) do
+			if i > 60 then
+				table.insert(out, ("  ... %d more (use a filter)"):format(#keys - 60))
+				break
+			end
+			local e = groups[gname][k]
+			local id = (gname == "Sounds" or gname == "Animations") and (k .. "  ") or ""
+			table.insert(out, ("  %s%s x%d  %s"):format(id, e.extra or "", e.n, e.path))
+		end
+	end
+	return cleanStr(table.concat(out, "\n"))
+end
+
+-- Kick & crash reporter --------------------------------------------------------------------
+local SESSION_FILE = "bridge_session.json"
+local function flushErrorsNow()
+	local errs = {}
+	for i = 1, math.min(#EC.queue, 20) do
+		errs[i] = EC.queue[i]
+	end
+	if #errs > 0 then
+		local res = post("poll", { errors = cleanAll(errs), session = SESSION, player = LocalPlayer.Name, version = LOOP_VERSION, peek = true })
+		if res and res.errorsSaved then
+			for _ = 1, #errs do
+				table.remove(EC.queue, 1)
+			end
+		end
+	end
+end
+B.flushErrors = flushErrorsNow
+do
+	local reported = false
+	local function onKick(msg)
+		if reported or not msg or msg == "" then
+			return
+		end
+		reported = true
+		local lastErr = {}
+		for i = math.max(1, #EC.recent - 4), #EC.recent do
+			table.insert(lastErr, EC.recent[i].msg:sub(1, 200))
+		end
+		local lastRem = {}
+		for i = math.max(1, #RL.entries - 5), #RL.entries do
+			local e = RL.entries[i]
+			table.insert(lastRem, e.remote .. ":" .. e.method .. "(" .. e.args:sub(1, 80) .. ")")
+		end
+		local pos = TR.pts[#TR.pts]
+		pushError("[KICKED/DISCONNECTED] " .. msg, "Last errors:\n" .. table.concat(lastErr, "\n") .. "\nLast remotes:\n" .. table.concat(lastRem, "\n")
+			.. (pos and ("\nLast position: %s, %s, %s"):format(pos[2], pos[3], pos[4]) or ""), "kick reporter")
+		flushErrorsNow()
+	end
+	pcall(function()
+		table.insert(loopConns, GuiService.ErrorMessageChanged:Connect(function()
+			onKick(GuiService:GetErrorMessage())
+		end))
+	end)
+	-- Previous session: if it ended with errors in its last minute, report that once.
+	if X.isfile and X.readfile then
+		pcall(function()
+			if X.isfile(SESSION_FILE) then
+				local prev = HttpService:JSONDecode(X.readfile(SESSION_FILE))
+				if prev and prev.session ~= SESSION and prev.recentErrors and #prev.recentErrors > 0 then
+					pushError(("[PREVIOUS SESSION] ended near %s in place %s with %d errors in its last minute"):format(
+						os.date("!%H:%M:%S UTC", prev.time or 0), tostring(prev.place), #prev.recentErrors),
+						table.concat(prev.recentErrors, "\n"), "crash reporter")
+				end
+			end
+		end)
+	end
+	task.spawn(function()
+		while running do
+			local recentErrors = {}
+			for i = #EC.recent, 1, -1 do
+				local e = EC.recent[i]
+				if os.time() - e.time > 60 then
+					break
+				end
+				table.insert(recentErrors, e.msg:sub(1, 200))
+			end
+			if X.writefile then
+				pcall(X.writefile, SESSION_FILE, HttpService:JSONEncode(cleanAll({ session = SESSION, time = os.time(), place = game.PlaceId, recentErrors = recentErrors })))
+			end
+			task.wait(15)
+		end
+	end)
+end
+
+-- Claude dot: shows running jobs, one tap stops them all; menu for notes and bug reports --
+do
+	local DOT_FILE = "bridge_dot.json"
+	local old = hudParent():FindFirstChild("BridgeDot")
+	if old then
+		old:Destroy()
+	end
+	local sg = Instance.new("ScreenGui")
+	sg.Name = "BridgeDot"
+	sg.IgnoreGuiInset = true
+	sg.ResetOnSpawn = false
+	sg.DisplayOrder = 1e6 - 1
+	sg.Parent = hudParent()
+	B.dotGui = sg
+	local pos = { x = 0.5, y = 0, ox = -150, oy = 6 }
+	pcall(function()
+		if X.isfile and X.isfile(DOT_FILE) then
+			local saved = HttpService:JSONDecode(X.readfile(DOT_FILE))
+			if saved and saved.x then
+				pos = saved
+			end
+		end
+	end)
+	local holder = Instance.new("Frame")
+	holder.BackgroundTransparency = 1
+	holder.Size = UDim2.new(0, 84, 0, 36)
+	holder.Position = UDim2.new(pos.x, pos.ox, pos.y, pos.oy)
+	holder.Parent = sg
+	local dot = Instance.new("TextButton")
+	dot.Size = UDim2.new(0, 36, 0, 36)
+	dot.BackgroundColor3 = Color3.fromRGB(28, 24, 44)
+	dot.BackgroundTransparency = 0.35
+	dot.Text = "C"
+	dot.Font = Enum.Font.GothamBlack
+	dot.TextSize = 16
+	dot.TextColor3 = Color3.fromRGB(170, 150, 255)
+	dot.AutoButtonColor = false
+	dot.Parent = holder
+	Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
+	local ring = Instance.new("UIStroke", dot)
+	ring.Color = Color3.fromRGB(140, 110, 255)
+	ring.Thickness = 1.5
+	ring.Transparency = 0.5
+	local stop = Instance.new("TextButton")
+	stop.Size = UDim2.new(0, 40, 0, 36)
+	stop.Position = UDim2.new(0, 42, 0, 0)
+	stop.BackgroundColor3 = Color3.fromRGB(170, 55, 65)
+	stop.Text = ""
+	stop.AutoButtonColor = true
+	stop.Visible = false
+	stop.Parent = holder
+	Instance.new("UICorner", stop).CornerRadius = UDim.new(0, 10)
+	local sq = Instance.new("Frame")
+	sq.AnchorPoint = Vector2.new(0.5, 0.5)
+	sq.Position = UDim2.new(0.5, -7, 0.5, 0)
+	sq.Size = UDim2.new(0, 11, 0, 11)
+	sq.BackgroundColor3 = Color3.new(1, 1, 1)
+	sq.Parent = stop
+	Instance.new("UICorner", sq).CornerRadius = UDim.new(0, 2)
+	local cnt = Instance.new("TextLabel")
+	cnt.BackgroundTransparency = 1
+	cnt.Position = UDim2.new(0.5, 2, 0, 0)
+	cnt.Size = UDim2.new(0.5, -2, 1, 0)
+	cnt.Font = Enum.Font.GothamBold
+	cnt.TextSize = 13
+	cnt.TextColor3 = Color3.new(1, 1, 1)
+	cnt.Text = "1"
+	cnt.Parent = stop
+
+	function B.stopAll(reason)
+		local n = 0
+		for _, e in pairs(genv.BridgeJobs or {}) do
+			if e.finish then
+				n = n + 1
+				pcall(e.finish, reason or "stopped by owner")
+			end
+		end
+		task.spawn(post, "stopall", { player = LocalPlayer.Name })
+		return ("Stopped %d jobs"):format(n)
+	end
+	stop.Activated:Connect(function()
+		B.stopAll("owner tapped stop")
+		notify("Stopped Claude's jobs")
+	end)
+
+	-- Drag to move (position is saved), tap to open the menu.
+	local dragStart, startPos, moved
+	dot.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragStart, startPos, moved = input.Position, holder.AbsolutePosition, false
+		end
+	end)
+	table.insert(loopConns, UIS.InputChanged:Connect(function(input)
+		if dragStart and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+			local d = input.Position - dragStart
+			if d.Magnitude > 8 then
+				moved = true
+			end
+			if moved then
+				local vp = workspace.CurrentCamera.ViewportSize
+				local x = math.clamp(startPos.X + d.X, 0, vp.X - 84)
+				local y = math.clamp(startPos.Y + d.Y, 0, vp.Y - 36)
+				holder.Position = UDim2.new(0, x, 0, y)
+			end
+		end
+	end))
+	local openMenu
+	table.insert(loopConns, UIS.InputEnded:Connect(function(input)
+		if dragStart and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1) then
+			dragStart = nil
+			if moved then
+				local p = holder.Position
+				pcall(X.writefile, DOT_FILE, HttpService:JSONEncode({ x = p.X.Scale, ox = p.X.Offset, y = p.Y.Scale, oy = p.Y.Offset }))
+			else
+				openMenu()
+			end
+		end
+	end))
+
+	local function sendInbox(kind, textValue, extra)
+		local res = post("inbox", cleanAll({ kind = kind, text = textValue, extra = extra, player = LocalPlayer.Name, place = game.PlaceId, game = gameName }))
+		notify(res and res.ok and (kind == "bug" and "Bug report sent to Claude" or "Note sent to Claude") or "Couldn't send, try again")
+	end
+
+	local function typeCard(title, onSend)
+		local csg, f, body = makeCard(204)
+		body.Text = title
+		local box = Instance.new("TextBox")
+		box.Position = UDim2.new(0, 16, 0, 96)
+		box.Size = UDim2.new(1, -32, 0, 46)
+		box.BackgroundColor3 = Color3.fromRGB(30, 30, 44)
+		box.TextColor3 = Color3.new(1, 1, 1)
+		box.PlaceholderText = "Type here..."
+		box.Text = ""
+		box.ClearTextOnFocus = false
+		box.TextWrapped = true
+		box.Font = Enum.Font.Gotham
+		box.TextSize = 15
+		box.Parent = f
+		Instance.new("UICorner", box).CornerRadius = UDim.new(0, 12)
+		local send = cardButton(f, "Send", 16, 150, 160, Color3.fromRGB(110, 85, 220))
+		local cancel = cardButton(f, "Cancel", 184, 150, 160)
+		send.Activated:Connect(function()
+			local t = box.Text
+			csg:Destroy()
+			onSend(t)
+		end)
+		cancel.Activated:Connect(function()
+			csg:Destroy()
+		end)
+	end
+
+	function B.bugReport(note)
+		local parts = { "Owner's note: " .. (note ~= "" and note or "(none)") }
+		pcall(function()
+			-- Leave out lines that mention other players (player lists, name tags): reports are stored.
+			local names = {}
+			for _, plr in ipairs(Players:GetPlayers()) do
+				if plr ~= LocalPlayer then
+					table.insert(names, plr.Name:lower())
+					table.insert(names, plr.DisplayName:lower())
+				end
+			end
+			local kept, dropped = {}, 0
+			for line in B.screen({ world = true, range = 60, limit = 80 }):gmatch("[^\n]+") do
+				local low, other = line:lower(), false
+				for _, n in ipairs(names) do
+					if #n >= 3 and low:find(n, 1, true) then
+						other = true
+						break
+					end
+				end
+				if other then
+					dropped = dropped + 1
+				else
+					table.insert(kept, line)
+				end
+			end
+			table.insert(parts, "\n--- Screen ---\n" .. table.concat(kept, "\n") .. (dropped > 0 and ("\n(" .. dropped .. " lines about other players left out)") or ""))
+		end)
+		table.insert(parts, "\n--- Recent errors ---\n" .. B.errors(10))
+		table.insert(parts, "\n--- Recent remote calls ---\n" .. B.remotes(20))
+		local tr = B.trail(30)
+		if #tr > 0 then
+			local a, b = tr[1], tr[#tr]
+			table.insert(parts, ("\n--- Movement, last 30 s ---\n%d points, from %s,%s,%s to %s,%s,%s%s"):format(#tr, a[2], a[3], a[4], b[2], b[3], b[4], b[5] == 1 and " (driving)" or ""))
+		end
+		local O = hubOptions()
+		if O then
+			local on = {}
+			for k, o in pairs(O) do
+				if type(o) == "table" and o.Type == "Toggle" and o.Value == true then
+					table.insert(on, k)
+				end
+			end
+			table.sort(on)
+			table.insert(parts, "\n--- NOCTURNE toggles on ---\n" .. table.concat(on, ", "))
+		end
+		table.insert(parts, ("\n--- Client ---\nFPS %.0f, memory %.0f MB, ping %.0f ms"):format(workspace:GetRealPhysicsFPS(), Stats:GetTotalMemoryUsageMb(), LocalPlayer:GetNetworkPing() * 1000))
+		return table.concat(parts, "\n")
+	end
+
+	openMenu = function()
+		if sg:FindFirstChild("Menu") then
+			sg.Menu:Destroy()
+			return
+		end
+		local nJobs = 0
+		for _ in pairs(genv.BridgeJobs or {}) do
+			nJobs = nJobs + 1
+		end
+		local m = Instance.new("Frame")
+		m.Name = "Menu"
+		m.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 246 or 196)
+		local ap = holder.AbsolutePosition
+		local vp = workspace.CurrentCamera.ViewportSize
+		m.Position = UDim2.new(0, math.clamp(ap.X, 4, vp.X - 204), 0, math.clamp(ap.Y + 42, 4, vp.Y - m.Size.Y.Offset - 4))
+		m.Parent = sg
+		Instance.new("UICorner", m).CornerRadius = UDim.new(0, 14)
+		local st = Instance.new("UIStroke", m)
+		st.Color = Color3.fromRGB(140, 110, 255)
+		local y = 8
+		local function item(textValue, color, fn)
+			local b = cardButton(m, textValue, 8, y, 184, color)
+			b.TextSize = 15
+			b.Activated:Connect(function()
+				m:Destroy()
+				fn()
+			end)
+			y = y + 50
+		end
+		if nJobs > 0 then
+			item(("Stop Claude's jobs (%d)"):format(nJobs), Color3.fromRGB(170, 55, 65), function()
+				B.stopAll("owner tapped stop")
+			end)
+		end
+		item("Note to Claude", Color3.fromRGB(110, 85, 220), function()
+			typeCard("Note to Claude (bug, idea, anything). Claude reads these next session.", function(t)
+				if t ~= "" then
+					sendInbox("note", t)
+				end
+			end)
+		end)
+		item("Report a bug", nil, function()
+			typeCard("What went wrong? Screen, errors and recent actions are added for you.", function(t)
+				task.spawn(function()
+					sendInbox("bug", t, B.bugReport(t))
+				end)
+			end)
+		end)
+		item("Hide until rejoin", nil, function()
+			holder.Visible = false
+		end)
+		item("Close", nil, function() end)
+	end
+
+	-- Badge: lights up while Claude's jobs run.
+	task.spawn(function()
+		while running and sg.Parent do
+			local n = 0
+			for _ in pairs(genv.BridgeJobs or {}) do
+				n = n + 1
+			end
+			stop.Visible = n > 0
+			cnt.Text = tostring(n)
+			ring.Transparency = n > 0 and 0 or 0.5
+			dot.BackgroundTransparency = n > 0 and 0.05 or 0.35
+			task.wait(0.3)
+		end
+	end)
+	table.insert(loopConns, { Disconnect = function()
+		sg:Destroy()
+	end })
+end
+
+--------------------------------------------------------------------------------
 -- The loop
 --------------------------------------------------------------------------------
-local gameName
 local function gameInfo()
 	if not gameName then
 		local ok, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
@@ -1328,6 +2946,8 @@ local function gameInfo()
 		placeId = game.PlaceId,
 		serverJobId = game.JobId,
 		player = LocalPlayer.Name,
+		userId = LocalPlayer.UserId,
+		placeVersion = game.PlaceVersion,
 		executor = okExec and executor or "unknown",
 		players = #Players:GetPlayers(),
 		position = root and string.format("%.1f, %.1f, %.1f", root.Position.X, root.Position.Y, root.Position.Z) or "no character",
@@ -1338,6 +2958,7 @@ local function gameInfo()
 		hubLoaded = (genv.NOCTURNE and genv.NOCTURNE.UI) and "yes" or "no",
 		remoteLog = RL.on and ("on, " .. #RL.entries .. " calls") or "off",
 		errorsThisSession = #EC.recent,
+		incomingLog = (genv.BridgeInLog and genv.BridgeInLog.on) and "on" or "off",
 	}
 end
 
@@ -1463,9 +3084,17 @@ local function confirmErrors(n)
 end
 
 task.spawn(function()
-	local first = post("poll", { info = gameInfo(), version = LOOP_VERSION })
+	local first = post("poll", { info = gameInfo(), version = LOOP_VERSION, session = SESSION, player = LocalPlayer.Name })
 	if first then
 		notify("Bridge connected (v" .. LOOP_VERSION .. ")")
+		-- Update detector: send this game's signature once per session.
+		task.delay(8, function()
+			if running then
+				pcall(function()
+					B.sendData("sig:" .. game.PlaceId, B.signature())
+				end)
+			end
+		end)
 	else
 		notify("Bridge couldn't connect. Check BRIDGE_URL.")
 	end
@@ -1492,7 +3121,7 @@ task.spawn(function()
 			break
 		end
 
-		local body = { ping = true, version = LOOP_VERSION }
+		local body = { ping = true, version = LOOP_VERSION, session = SESSION, player = LocalPlayer.Name }
 		if tick() - lastInfo > 15 then
 			body.info = gameInfo()
 			lastInfo = tick()
