@@ -637,7 +637,8 @@ do
 	local CLOSE_WORDS = { "close", "exit", "cancel", "dismiss", "no thanks", "nothanks", "not now", "notnow", "later",
 		"maybe later", "back", "x", "ok", "okay", "got it", "gotit", "done", "hide" }
 	local PARTIAL_WORDS = { "close", "exit", "cancel", "dismiss", "nothanks", "no thanks", "notnow", "not now", "later" }
-	local NEVER_WORDS = { "skip", "continue", "buy", "purchase", "claim", "collect", "spin", "go", "invite", "equip", "sell", "delete", "reset" }
+	local NEVER_WORDS = { "skip", "continue", "buy", "purchase", "claim", "collect", "spin", "go", "invite", "equip", "sell", "delete",
+		"reset", "plus", "add", "shop", "store", "money", "cash", "coins", "gems", "currency", "robux", "upgrade", "boost" }
 	local CLOSE_GLYPHS = { "x", "×", "✕", "✖", "❌", "╳" }
 	local function norm(s)
 		return (string.lower(s or ""):gsub("<[^>]->", ""):gsub("^%s+", ""):gsub("%s+$", ""))
@@ -652,8 +653,12 @@ do
 			local tl = b:FindFirstChildWhichIsA("TextLabel", true)
 			txt = tl and norm(tl.Text) or ""
 		end
-		-- Anything that does something (skip, claim, sell, go...) is never a close button.
-		local whole = name .. " " .. txt .. " " .. (b.Parent and norm(b.Parent.Name) or "")
+		-- Anything that does something (skip, claim, sell, go, +, shop...) is never a close button.
+		if txt == "+" then
+			return 0
+		end
+		local whole = name .. " " .. txt .. " " .. (b.Parent and norm(b.Parent.Name) or "") .. " " .. (b.Parent and b.Parent.Parent and norm(b.Parent.Parent.Name) or "")
+		whole = whole:gsub("_", " ")
 		for _, w in ipairs(NEVER_WORDS) do
 			if (" " .. whole .. " "):find("[^%a]" .. w .. "[^%a]") or whole:find(w .. "button", 1, true) or whole:find(w .. "quest", 1, true) then
 				return 0
@@ -786,7 +791,8 @@ do
 										end
 									end
 								end
-								if not opaque and bestScore < 6 then
+								-- See-through containers (like a whole HUD) need a clearly named close button.
+								if not opaque and bestScore < 9 then
 									best = nil
 								end
 								local title = ""
