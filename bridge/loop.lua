@@ -574,8 +574,8 @@ function B.actions()
 			for _, it in ipairs(i.inputTypes or {}) do
 				table.insert(inputs, typeof(it) == "EnumItem" and it.Name or tostring(it))
 			end
-			table.insert(out, ("  %s  keys: %s  touchButton: %s  priority: %s"):format(name, table.concat(inputs, ", "),
-				tostring(i.createTouchButton), tostring(i.priority)))
+			table.insert(out, ("  %s  keys: %s%s  priority: %s"):format(name, table.concat(inputs, ", "),
+				i.createTouchButton and "  (has touch button)" or "", tostring(i.priorityLevel or i.stackOrder or "?")))
 		end
 	end
 	if n == 0 then
@@ -914,11 +914,32 @@ function B.diff(a, b, limit)
 			table.insert(out, s)
 		end
 	end
+	-- Whole added/removed groups show as one line ("+12 inside") instead of every child.
+	local function folded(mapNew, mapOld, sign)
+		local tops, inside = {}, {}
+		for k in pairs(mapNew) do
+			if not mapOld[k] then
+				local top, parent = k, k:match("^(.*)%.[^%.]+$")
+				while parent and mapNew[parent] and not mapOld[parent] do
+					top = parent
+					parent = parent:match("^(.*)%.[^%.]+$")
+				end
+				if top == k then
+					tops[k] = true
+				else
+					inside[top] = (inside[top] or 0) + 1
+				end
+			end
+		end
+		for k in pairs(tops) do
+			add(sign .. " " .. k .. " [" .. mapNew[k].class .. "]" .. (inside[k] and ("  (+" .. inside[k] .. " inside)") or ""))
+		end
+	end
+	folded(Bs.map, A.map, "+")
+	folded(A.map, Bs.map, "-")
 	for k, pb in pairs(Bs.map) do
 		local pa = A.map[k]
-		if not pa then
-			add("+ " .. k .. " [" .. pb.class .. "]")
-		else
+		if pa then
 			local changes = {}
 			for f, v in pairs(pb) do
 				if pa[f] ~= v then
@@ -936,11 +957,6 @@ function B.diff(a, b, limit)
 			end
 		end
 	end
-	for k, pa in pairs(A.map) do
-		if not Bs.map[k] then
-			add("- " .. k .. " [" .. pa.class .. "]")
-		end
-	end
 	table.sort(out, function(x, y)
 		return x:sub(3) < y:sub(3)
 	end)
@@ -951,7 +967,7 @@ function B.diff(a, b, limit)
 end
 
 -- Small on-screen cards (watch banner, questions) ----------------------------------
-local function makeCard(height)
+local function makeCard(height, compact)
 	local sg = Instance.new("ScreenGui")
 	sg.Name = "BridgeCard"
 	sg.IgnoreGuiInset = true
@@ -961,7 +977,7 @@ local function makeCard(height)
 	local f = Instance.new("Frame")
 	f.AnchorPoint = Vector2.new(0.5, 0)
 	f.Position = UDim2.new(0.5, 0, 0, -height)
-	f.Size = UDim2.new(0, 360, 0, height)
+	f.Size = UDim2.new(0, compact and 400 or 360, 0, height)
 	f.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
 	f.BackgroundTransparency = 0.05
 	f.Parent = sg
@@ -978,17 +994,26 @@ local function makeCard(height)
 	title.TextColor3 = Color3.fromRGB(170, 150, 255)
 	title.TextXAlignment = Enum.TextXAlignment.Left
 	title.Text = "CLAUDE"
+	title.Visible = not compact
 	title.Parent = f
 	local body = Instance.new("TextLabel")
 	body.BackgroundTransparency = 1
-	body.Position = UDim2.new(0, 16, 0, 30)
-	body.Size = UDim2.new(1, -32, 0, 60)
+	body.Position = compact and UDim2.new(0, 14, 0, 6) or UDim2.new(0, 16, 0, 30)
+	body.Size = compact and UDim2.new(1, -124, 1, -12) or UDim2.new(1, -32, 0, 60)
 	body.Font = Enum.Font.GothamMedium
-	body.TextSize = 16
+	body.TextSize = compact and 14 or 16
+	body.TextScaled = compact == true
+	if compact then
+		body.TextYAlignment = Enum.TextYAlignment.Center
+		local lim = Instance.new("UITextSizeConstraint", body)
+		lim.MaxTextSize = 15
+	end
 	body.TextWrapped = true
 	body.TextColor3 = Color3.new(1, 1, 1)
 	body.TextXAlignment = Enum.TextXAlignment.Left
-	body.TextYAlignment = Enum.TextYAlignment.Top
+	if not compact then
+		body.TextYAlignment = Enum.TextYAlignment.Top
+	end
 	body.Parent = f
 	sg.Parent = hudParent()
 	pcall(function()
@@ -998,7 +1023,7 @@ local function makeCard(height)
 		s.Parent = sg
 		s:Play()
 	end)
-	TweenService:Create(f, TweenInfo.new(0.35, Enum.EasingStyle.Quint), { Position = UDim2.new(0.5, 0, 0, 70) }):Play()
+	TweenService:Create(f, TweenInfo.new(0.35, Enum.EasingStyle.Quint), { Position = UDim2.new(0.5, 0, 0, (compact or workspace.CurrentCamera.ViewportSize.Y < 520) and 8 or 70) }):Play()
 	return sg, f, body
 end
 
@@ -1068,9 +1093,9 @@ end
 function B.watch(seconds, roots, text)
 	seconds = seconds or 20
 	B.snap("before", roots)
-	local sg, f, body = makeCard(150)
+	local sg, f, body = makeCard(60, true)
 	local done = false
-	local b = cardButton(f, "Done", 16, 96, 328, Color3.fromRGB(110, 85, 220))
+	local b = cardButton(f, "Done", 400 - 100, 7, 88, Color3.fromRGB(110, 85, 220))
 	b.Activated:Connect(function()
 		done = true
 	end)
