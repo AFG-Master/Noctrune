@@ -401,6 +401,15 @@ function B.screen(opts)
 	params.FilterDescendantsInstances = { char }
 	local hit = workspace:Raycast(cam.CFrame.Position, cam.CFrame.LookVector * 500, params)
 	add("Looking at: " .. (hit and (shortPath(hit.Instance) .. (" (%.0f studs)"):format(hit.Distance)) or "nothing"))
+	if B.popups then
+		local okP, pops = pcall(B.popups)
+		if okP and #pops > 0 then
+			for _, p in ipairs(pops) do
+				add(('POPUP covering %d%% of screen: "%s" %s · close button: %s%s'):format(p.cover, p.title, shortPath(p.frame),
+					p.close and shortPath(p.close) or "none found", p.paid and " · has a paid offer (never press it)" or ""))
+			end
+		end
+	end
 
 	-- UI
 	add("")
@@ -616,6 +625,241 @@ function B.prompt(target)
 	task.wait(p.HoldDuration + 0.05)
 	p:InputHoldEnd()
 	return "Held " .. shortPath(p)
+end
+
+
+-- Popup handler (any game) ---------------------------------------------------------
+-- Finds windows covering the screen (shop offers, starter packs, daily rewards, tutorials,
+-- "rate us"...) and closes them with their own close / X / Later / No thanks button.
+-- Never presses anything paid. B.popupWatch(true) keeps closing them so scripts don't get stuck.
+do
+	local CLOSE_WORDS = { "close", "exit", "cancel", "dismiss", "no thanks", "nothanks", "not now", "notnow", "later",
+		"maybe later", "skip", "back", "x", "ok", "okay", "got it", "gotit", "continue", "done", "return", "hide" }
+	local PARTIAL_WORDS = { "close", "exit", "cancel", "dismiss", "skip", "nothanks", "no thanks", "notnow", "not now", "later" }
+	local CLOSE_GLYPHS = { "x", "×", "✕", "✖", "❌", "╳" }
+	local function norm(s)
+		return (string.lower(s or ""):gsub("<[^>]->", ""):gsub("^%s+", ""):gsub("%s+$", ""))
+	end
+	local function closeScore(b, frame)
+		if looksPaid(b) then
+			return 0
+		end
+		local name = norm(b.Name)
+		local txt = b:IsA("TextButton") and norm(b.Text) or ""
+		if txt == "" then
+			local tl = b:FindFirstChildWhichIsA("TextLabel", true)
+			txt = tl and norm(tl.Text) or ""
+		end
+		local score = 0
+		for _, w in ipairs(CLOSE_WORDS) do
+			if txt == w or name == w then
+				score = math.max(score, 10)
+			end
+		end
+		for _, w in ipairs(PARTIAL_WORDS) do
+			if name:find(w, 1, true) or txt:find(w, 1, true) then
+				score = math.max(score, 7)
+			end
+		end
+		for _, g in ipairs(CLOSE_GLYPHS) do
+			if txt == g then
+				score = math.max(score, 10)
+			end
+		end
+		-- Small square button near the window's top-right corner = an X.
+		local p, s = b.AbsolutePosition, b.AbsoluteSize
+		local fp, fs = frame.AbsolutePosition, frame.AbsoluteSize
+		if s.X < 90 and s.Y < 90 and math.abs(s.X - s.Y) < 20 then
+			local nearRight = p.X + s.X / 2 > fp.X + fs.X * 0.7
+			local nearTop = p.Y + s.Y / 2 < fp.Y + fs.Y * 0.35
+			if nearRight and nearTop then
+				score = math.max(score, 6)
+			end
+			-- Reddish X button
+			local c = b.BackgroundColor3
+			if b.BackgroundTransparency < 0.5 and c.R > 0.6 and c.G < 0.4 and c.B < 0.4 then
+				score = score + 2
+			end
+		end
+		-- "Continue"/"OK" can also be a buy confirm: only if nothing paid is in the same window.
+		if (txt == "continue" or txt == "ok" or txt == "okay") and looksPaid(frame) then
+			return 0
+		end
+		return score
+	end
+
+	-- A popup: a big visible window near the middle of the screen in the game's UI.
+	function B.popups()
+		local pg = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+		local vp = workspace.CurrentCamera.ViewportSize
+		local area = vp.X * vp.Y
+		local found = {}
+		if not pg then
+			return found
+		end
+		for _, sg in ipairs(pg:GetChildren()) do
+			if sg:IsA("ScreenGui") and sg.Enabled then
+				for _, f in ipairs(sg:GetDescendants()) do
+					if (f:IsA("Frame") or f:IsA("ImageLabel") or f:IsA("CanvasGroup") or f:IsA("ScrollingFrame")) and f.Visible then
+						local s, p = f.AbsoluteSize, f.AbsolutePosition
+						local a = s.X * s.Y
+						local cx, cy = p.X + s.X / 2, p.Y + s.Y / 2
+						local central = math.abs(cx - vp.X / 2) < vp.X * 0.22 and math.abs(cy - vp.Y / 2) < vp.Y * 0.3
+						local opaque = f.BackgroundTransparency < 0.6 or (f:IsA("ImageLabel") and f.ImageTransparency < 0.6)
+							or (f:IsA("CanvasGroup") and f.GroupTransparency < 0.6)
+						if a > area * 0.12 and a < area * 0.98 and central and opaque and guiShown(f) then
+							-- Skip if an ancestor is already a popup (keep the outermost window).
+							local inside = false
+							for _, other in ipairs(found) do
+								if f:IsDescendantOf(other.frame) then
+									inside = true
+									break
+								end
+							end
+							if not inside then
+								local best, bestScore = nil, 0
+								for _, b in ipairs(f:GetDescendants()) do
+									if b:IsA("GuiButton") and guiShown(b) and b.AbsoluteSize.X > 4 then
+										local sc = closeScore(b, f)
+										if sc > bestScore then
+											best, bestScore = b, sc
+										end
+									end
+								end
+								-- Close buttons sometimes sit just outside the window (same parent).
+								if not best and f.Parent then
+									for _, b in ipairs(f.Parent:GetChildren()) do
+										if b:IsA("GuiButton") and guiShown(b) then
+											local sc = closeScore(b, f)
+											if sc > bestScore then
+												best, bestScore = b, sc
+											end
+										end
+									end
+								end
+								local title = ""
+								for _, t in ipairs(f:GetDescendants()) do
+									if t:IsA("TextLabel") and guiShown(t) and #t.Text > 2 then
+										title = norm(t.Text):sub(1, 50)
+										break
+									end
+								end
+								for i = #found, 1, -1 do
+									if found[i].frame:IsDescendantOf(f) then
+										table.remove(found, i)
+									end
+								end
+								table.insert(found, { frame = f, title = title, close = best, score = bestScore,
+									paid = looksPaid(f), cover = math.floor(a / area * 100) })
+							end
+						end
+					end
+				end
+			end
+		end
+		return found
+	end
+
+	local function pressClose(b)
+		-- The game's own click handlers first, then a real tap.
+		local fired = 0
+		if X.firesignal and X.getconnections then
+			for _, sig in ipairs({ "Activated", "MouseButton1Click", "MouseButton1Down", "MouseButton1Up" }) do
+				local ok, cons = pcall(X.getconnections, b[sig])
+				if ok and cons and #cons > 0 then
+					pcall(X.firesignal, b[sig])
+					fired = fired + #cons
+				end
+			end
+		end
+		if fired == 0 then
+			local gui = b:FindFirstAncestorWhichIsA("ScreenGui")
+			local c = b.AbsolutePosition + b.AbsoluteSize / 2 + B.tapOffset
+			if gui and not gui.IgnoreGuiInset then
+				c = c + GuiService:GetGuiInset()
+			end
+			pcall(B.tapAt, c.X, c.Y)
+		end
+	end
+
+	-- Close every popup it can. opts.hide = true also hides (locally) ones with no close button.
+	function B.closePopups(opts)
+		opts = opts or {}
+		local out = {}
+		for _ = 1, 3 do
+			local list = B.popups()
+			if #list == 0 then
+				break
+			end
+			local acted = false
+			for _, p in ipairs(list) do
+				local label = ('"%s" (%s, %d%% of screen%s)'):format(p.title, shortPath(p.frame), p.cover, p.paid and ", has a paid offer" or "")
+				if p.close and p.score >= 6 then
+					pressClose(p.close)
+					task.wait(0.6)
+					local gone = not guiShown(p.frame) or not p.frame:IsDescendantOf(game)
+					table.insert(out, (gone and "Closed " or "Pressed close on ") .. label .. " with " .. shortPath(p.close))
+					acted = true
+				elseif opts.hide then
+					p.frame.Visible = false
+					table.insert(out, "Hid (no close button) " .. label)
+					acted = true
+				else
+					table.insert(out, "No safe close button: " .. label)
+				end
+			end
+			if not acted then
+				break
+			end
+		end
+		return #out > 0 and table.concat(out, "\n") or "No popups on screen."
+	end
+
+	local PW = genv.BridgePopupWatch or { on = false, log = {} }
+	genv.BridgePopupWatch = PW
+	-- Keep closing popups in the background (off by default).
+	function B.popupWatch(on, opts)
+		opts = opts or {}
+		PW.on = on
+		PW.hide = opts.hide == true
+		PW.token = (PW.token or 0) + 1
+		local token = PW.token
+		if on then
+			task.spawn(function()
+				while running and PW.on and PW.token == token do
+					local list = B.popups()
+					if #list > 0 then
+						local res = B.closePopups({ hide = PW.hide })
+						if not res:find("^No popups") then
+							table.insert(PW.log, os.date("%H:%M:%S ") .. res)
+							if #PW.log > 50 then
+								table.remove(PW.log, 1)
+							end
+						end
+					end
+					task.wait(opts.every or 2)
+				end
+			end)
+		end
+		return ("Popup watch %s%s. Recently closed:\n%s"):format(on and "on" or "off", PW.hide and " (also hides)" or "",
+			#PW.log > 0 and table.concat(PW.log, "\n", math.max(1, #PW.log - 9)) or "(nothing yet)")
+	end
+	if PW.on then
+		B.popupWatch(true, { hide = PW.hide })
+	end
+
+	function B.popupList()
+		local list = B.popups()
+		if #list == 0 then
+			return "No popups on screen."
+		end
+		local out = {}
+		for i, p in ipairs(list) do
+			table.insert(out, ('%d. "%s"  %s  %d%% of screen%s\n   close: %s'):format(i, p.title, shortPath(p.frame), p.cover,
+				p.paid and "  (contains a paid offer)" or "", p.close and (shortPath(p.close) .. " (score " .. p.score .. ")") or "none found"))
+		end
+		return table.concat(out, "\n")
+	end
 end
 
 -- Action finder ----------------------------------------------------------------
