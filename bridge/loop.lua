@@ -3873,6 +3873,13 @@ task.spawn(function()
 			confirmErrors(#errs)
 		end
 	end
+	-- Stopped (bridge reloading) while a poll was out: still run the jobs it brought back,
+	-- so nothing Claude sent gets lost in the switch.
+	if res then
+		for _, job in ipairs(res.jobs or {}) do
+			task.spawn(runJob, job)
+		end
+	end
 end)
 
 return B
