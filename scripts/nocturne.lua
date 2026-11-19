@@ -1,5 +1,5 @@
 -- NOCTURNE · protected build. Copying or reselling is not allowed.
-return (function(...) local lIl1lI1I={};local ll1lIlIIlIl={66,80,231,26,79,69,187,46,152,141,62,221,116,228,174,129};local function l11l1Il1lll(lI1III11ll,lI1I11IlI) local l11l11IIl=lI1III11ll..lI1I11IlI;local l1111I11l=lIl1lI1I[l11l11IIl];if l1111I11l then return l1111I11l end;l1111I11l={};for llI1IlI1l1l=1,#lI1III11ll do local lIllll11II=string.byte(lI1III11ll,llI1IlI1l1l);l1111I11l[llI1IlI1l1l]=string.char(bit32.bxor(bit32.bxor(lIllll11II,ll1lIlIIlIl[((llI1IlI1l1l-1+lI1I11IlI)%16)+1]),((llI1IlI1l1l-1)*7+lI1I11IlI)%256)) end;l1111I11l=table.concat(l1111I11l);lIl1lI1I[l11l11IIl]=l1111I11l;return l1111I11l end;
+return (function(...) local l1lI1ll1lll={};local llII11I1II1={238,158,201,186,126,208,225,44,9,132,31,173,202,55,12,29};local function lI1I1ll1llIl(lI1l1lIlllll,l1Il1lIlI) local l1II1l1I11=lI1l1lIlllll..l1Il1lIlI;local lIlIIl1I=l1lI1ll1lll[l1II1l1I11];if lIlIIl1I then return lIlIIl1I end;lIlIIl1I={};for l11l1II1l1l1=1,#lI1l1lIlllll do local lI111l11I=string.byte(lI1l1lIlllll,l11l1II1l1l1);lIlIIl1I[l11l1II1l1l1]=string.char(bit32.bxor(bit32.bxor(lI111l11I,llII11I1II1[((l11l1II1l1l1-1+l1Il1lIlI)%16)+1]),((l11l1II1l1l1-1)*7+l1Il1lIlI)%256)) end;lIlIIl1I=table.concat(lIlIIl1I);l1lI1ll1lll[l1II1l1I11]=lIlIIl1I;return lIlIIl1I end;
 
 
 
@@ -9,90 +9,94 @@ return (function(...) local lIl1lI1I={};local ll1lIlIIlIl={66,80,231,26,79,69,18
 
 
 
-local lIl1ll11I={};
+local llIlIl11Ill={};
 
-local l1llII1Il=l11l1Il1lll("\81\242\220\98\157\116\138\201\188\117\122\173\22\84\72\83\220\116\109\209\27\172\54\121\80\240\248\93\181\131\207\36\180\73\201\116\137\67\136\231\221\0\8\209\126\83\115\184\61\132\141\44\59\209\66\80\42\209\200\48\151\185\184\83\205\34\11\235\23\234\212\199\191\96\40\250\1\30\73\159\90\231\235\82\216\42\172\224\206\162\234\69\182\216\195",23);
-local llIIIIII1=loadstring(game:HttpGet(l1llII1Il .. l11l1Il1lll("\98\204\39\112\104\171\54\197\152\215\56\213\63\93\65\156\148\45\203\236\166\3\128\27",65)))();
+local lI1lIIIII1I=lI1I1ll1llIl("\181\11\190\212\49\74\177\75\125\48\82\246\26\60\227\163\56\173\15\103\183\146\141\123\241\181\208\6\185\235\100\84\208\112\171\194\37\125\51\229\156\197\160\138\114\59\216\200\89\221\111\26\151\239\253\4\28\69\52\191\75\211\65\40\174\94\184\134\100\83\63\145\248\163\209\33\223\163\98\188\56\182\94\98\164\150\152\53\104\103\65\153\53\102\232",89);
 
-local ll11I11l1lll1=game:GetService(l11l1Il1lll("\8\187\245\185\111\109\194",44));
-local lIII1l1l=game:GetService(l11l1Il1lll("\251\128\234\32\132\60\38\179\85\227",179));
-local llIl11lIIl1I1=game:GetService(l11l1Il1lll("\129\45\223\104\216\188\114\189\181\44\224\155\158\102\246\63",89));
-local l11l1II1I1II=game:GetService(l11l1Il1lll("\85\44\51\203\69\215\206\109",3));
-local lIl1I1Ill=game:GetService(l11l1Il1lll("\108\210\152\133\90\80\227\19\152\171\91\193\81\73\245",76));
-local llIIlI1Il=game:GetService(l11l1Il1lll("\154\179\13\207\176\147\115\153\57\33\141",144));
-local l1I1IIll1=game:GetService(l11l1Il1lll("\45\19\74\187\5\139\252\196\19\4\188\12\102\100\151\38\147\135",248));
-local lI1I11I1111Il=game:GetService(l11l1Il1lll("\63\92\182\71\212\111\124\207\5\163\47",115));
-local llII1l1I=game:GetService(l11l1Il1lll("\182\58\220\170\157\13\147\35\55\187",161));
-local l1lIl1lI=game:GetService(l11l1Il1lll("\157\96\108\241\5\88\78\124\220\127",79));
-local l11l111Il1l=game:GetService(l11l1Il1lll("\3\211\108\198\207",21));
+local function ll1l1lllIIl11(l1l11I1Il) 
+return l1l11I1Il .. (lI1I1ll1llIl("\229\21\48\168",164) .. tostring(math.floor(os.clock() * 1000))) end;
 
-local lllI1llI=ll11I11l1lll1.LocalPlayer;
-local lI11l11IIl,l1IIlll1I11l,l1llllI1lll1l=llIIIIII1.Track,llIIIIII1.Flags,llIIIIII1.Options;
+local l111II11I=loadstring(game:HttpGet(ll1l1lllIIl11(lI1lIIIII1I .. lI1I1ll1llIl("\136\180\19\154\46\68\69\43\126\145\225\194\223\35\138\213\30\53\191\38\224\204\51\21",215))))();
+
+local lllIlllIllI1I=game:GetService(lI1I1ll1llIl("\54\232\215\165\67\35\108",172));
+local lII1llIIIIlI=game:GetService(lI1I1ll1llIl("\133\100\35\156\40\134\220\57\1\13",54));
+local l1IIl1lll1l=game:GetService(lI1I1ll1llIl("\103\171\198\255\184\66\249\244\63\52\148\17\88\41\197\241",47));
+local ll11Il11lI=game:GetService(lI1I1ll1llIl("\238\65\52\117\21\245\87\118",191));
+local lIl11Il111=game:GetService(lI1I1ll1llIl("\113\137\238\29\42\47\248\129\232\166\140\33\6\218\240",58));
+local llII1lIII1=game:GetService(lI1I1ll1llIl("\165\27\174\196\225\229\252\2\86\2\112",105));
+local lIIII11l1II=game:GetService(lI1I1ll1llIl("\23\154\161\126\44\183\33\148\247\55\3\63\243\147\57\94\137\46",36));
+local l1IIllIIIIl1=game:GetService(lI1I1ll1llIl("\27\166\8\96\167\129\130\65\236\164\199",201));
+local l11lI1IIIllI1=game:GetService(lI1I1ll1llIl("\225\49\31\207\3\99\41\78\185\30",108));
+local l1IllII1l=game:GetService(lI1I1ll1llIl("\106\128\32\11\199\202\91\236\99\97",131));
+local ll1l1I1Il1=game:GetService(lI1I1ll1llIl("\65\140\226\153\226",15));
+
+local ll1lI1IIII1=lllIlllIllI1I.LocalPlayer;
+local lIl11lIIl,lll1l11Il1ll1,lllIIlllIIlIl=l111II11I.Track,l111II11I.Flags,l111II11I.Options;
 
 if getgenv then 
-getgenv().NOCTURNE={UI=llIIIIII1,Flags=l1IIlll1I11l,Options=l1llllI1lll1l} end;
+getgenv().NOCTURNE={UI=l111II11I,Flags=lll1l11Il1ll1,Options=lllIIlllIIlIl} end;
 
-local lI11IIlIIIllI,l1llIIIIIl11,l11I1llI1,lIlIl11lIII=llIIIIII1.Create,llIIIIII1.Corner,llIIIIII1.Label,llIIIIII1.List;
-local llIllI11I1I,l1II1I11=llIIIIII1.Themed,llIIIIII1.Tween;
+local lllII1lI1I1I,lIlll1ll1l1I1,lI11I11IlllI,l1IlIll1I=l111II11I.Create,l111II11I.Corner,l111II11I.Label,l111II11I.List;
+local lI11ll1lIIlII,lIl11IIl=l111II11I.Themed,l111II11I.Tween;
 
-local function l1llll1lI1I1l() 
-local lll1IIIllI1l=lllI1llI.Character;
-return lll1IIIllI1l and lll1IIIllI1l:FindFirstChildOfClass(l11l1Il1lll("\253\54\66\67\187\52\141\106",82)) end;
+local function l11l1IlI1I() 
+local l1l11Ill1lII=ll1lI1IIII1.Character;
+return l1l11Ill1lII and l1l11Ill1lII:FindFirstChildOfClass(lI1I1ll1llIl("\174\113\91\61\200\190\246\131",44)) end;
 
-local function lIl1I1lI1Il() 
-local l1I1Il1I1=lllI1llI.Character;
-return l1I1Il1I1 and l1I1Il1I1:FindFirstChild(l11l1Il1lll("\198\33\32\162\95\18\21\159\59\185\183\22\238\127\231\162",15)) end;
+local function l1lI11Il111ll() 
+local l1IIl1I1=ll1lI1IIII1.Character;
+return l1IIl1I1 and l1IIl1I1:FindFirstChild(lI1I1ll1llIl("\74\125\159\220\141\228\47\139\245\14\50\171\45\165\200\52",14)) end;
 
 
-local llIll1ll=l11l1Il1lll("\254\192\34\185\247\253\94\232\15\166\233\213",228);
+local lII1lIII=lI1I1ll1llIl("\224\114\25\230\165\167\84\101\76\50\227\66",170);
 pcall(function() 
-llIll1ll=l1I1IIll1:GetProductInfo(game.PlaceId).Name end);
+lII1lIII=lIIII11l1II:GetProductInfo(game.PlaceId).Name end);
 
-local l11l1111=l11l1Il1lll("\36\167\64\106\125\155\26\136",49);
+local llI11llIIlI=lI1I1ll1llIl("\30\91\187\20\58\237\218\53",146);
 pcall(function() 
 if identifyexecutor then 
-l11l1111=identifyexecutor() end end);
+llI11llIIlI=identifyexecutor() end end);
 
 
-local llII1lIlIll1l=llIl11lIIl1I1.TouchEnabled and (not llIl11lIIl1I1.KeyboardEnabled);
+local lIIIlllIl1l=l1IIl1lll1l.TouchEnabled and (not l1IIl1lll1l.KeyboardEnabled);
 
-local lI11II1llI1=llIIIIII1:CreateWindow({Name=l11l1Il1lll("\151\202\215\55\164\44\46\143",195),Tag=l11l1Il1lll("\25\72\115\214\216\99\136\177\226\2\148\46\200\22\16\213\217\252\152\94\88",173),ConfigFolder=l11l1Il1lll("\40\141\37\32\185\70\247\114\60",198),Theme=l11l1Il1lll("\92\104\218\11\86\68\175\202",80),Whitelist=lIl1ll11I,SplashText=l11l1Il1lll("\124\75\143\135\52\181\224\170",158) .. llIll1ll});
-
-
-
-
-
-
-
-
-local lI11lllIIIIl={walkSpeed=16,jumpPower=50,gravity=workspace.Gravity,fov=(workspace.CurrentCamera and workspace.CurrentCamera.FieldOfView) or 70,maxZoom=lllI1llI.CameraMaxZoomDistance};
+local l1l1Ill1=l111II11I:CreateWindow({Name=lI1I1ll1llIl("\176\198\148\203\7\177\149\40",16),Tag=lI1I1ll1llIl("\89\150\88\127\162\139\28\219\4\109\135\64\94\192\73\98\185\34\211\247\34",179),ConfigFolder=lI1I1ll1llIl("\110\45\23\161\138\75\102\198\89",242),Theme=lI1I1ll1llIl("\75\82\172\151\0\149\60\169",213),Whitelist=llIlIl11Ill,SplashText=lI1I1ll1llIl("\71\72\208\71\135\238\1\116",39) .. lII1lIII});
 
 
 
 
 
 
-local l11I1llI1lI=os.clock();
+
+
+local lII1lllI={walkSpeed=16,jumpPower=50,gravity=workspace.Gravity,fov=(workspace.CurrentCamera and workspace.CurrentCamera.FieldOfView) or 70,maxZoom=ll1lI1IIII1.CameraMaxZoomDistance};
 
 
 
 
 
-local l11lIIIl11=lI11II1llI1:Tab({Name=l11l1Il1lll("\77\156\210\215",226),Icon=l11l1Il1lll("\17\169\133\55",87),Hint=l11l1Il1lll("\105\0\136\204\224\53\16\188",251)});
+
+local l11I111IlI=os.clock();
+
+
+
+
+
+local ll1l1lIIll1=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\229\64\247\145",41),Icon=lI1I1ll1llIl("\57\180\20\165",88),Hint=lI1I1ll1llIl("\20\1\100\225\72\57\243\211",119)});
 
 do 
-local ll1Il1l11=l11lIIIl11:Section(l11l1Il1lll("",225));
-ll1Il1l11:Banner({Title=l11l1Il1lll("\26\227\79\207\125\94\152\142",106),Subtitle=l11l1Il1lll("\244\165\156\85\7\71\217\179\185\81\232\28\28\195\26\194\69\21\40\197\151\55\205\115\247\151\29",93) .. llIll1ll});
-local function llIl1l111I1ll(lI1IIl1lIII) 
+local l1I111I11l=ll1l1lIIll1:Section(lI1I1ll1llIl("",225));
+l1I111I11l:Banner({Title=lI1I1ll1llIl("\153\94\14\155\24\166\228\21",54),Subtitle=lI1I1ll1llIl("\18\110\3\205\35\37\131\137\20\105\207\234\2\85\70\180\195\158\247\93\179\149\87\169\90\79\250",193) .. lII1lIII});
+local function lIIlIII1II(lI1II1llll) 
 return function() 
-for l1l1III111lI,l1111IIlIl1 in ipairs(lI11II1llI1.Tabs) do 
-if l1111IIlIl1.Name == lI1IIl1lIII then 
-lI11II1llI1:SelectTab(l1111IIlIl1) end end end end;
+for lIIl1IIIII,l1ll11II1I in ipairs(l1l1Ill1.Tabs) do 
+if l1ll11II1I.Name == lI1II1llll then 
+l1l1Ill1:SelectTab(l1ll11II1I) end end end end;
 
 
 
 
-ll1Il1l11:Chips({{Name=l11l1Il1lll("\200\219\19\118",46)},{Name=l11l1Il1lll("\16\219\92\251\201\100",5),Callback=llIl1l111I1ll(l11l1Il1lll("\251\194\40\174\253\248",228))},{Name=l11l1Il1lll("\54\49\246\218\110\135\210",206),Callback=llIl1l111I1ll(l11l1Il1lll("\242\107\130\35\194\142\183",41))},{Name=l11l1Il1lll("\17\214\147\151\117\132\38\42",162),Callback=llIl1l111I1ll(l11l1Il1lll("\132\97\162\166\13\212\149\158",126))},{Name=l11l1Il1lll("\63\83\105\149\152\59",141),Callback=llIl1l111I1ll(l11l1Il1lll("\150\157\77\166\12\231",110))},{Name=l11l1Il1lll("\71\253\81\206\138\189",58),Callback=llIl1l111I1ll(l11l1Il1lll("\83\37\227\230\79\154",190))},{Name=l11l1Il1lll("\248\42\92\65",82),Callback=llIl1l111I1ll(l11l1Il1lll("\57\87\169\25",249))}}) end;
+l1I111I11l:Chips({{Name=lI1I1ll1llIl("\207\46\16\154",102)},{Name=lI1I1ll1llIl("\207\173\212\17\168\183",1),Callback=lIIlIII1II(lI1I1ll1llIl("\63\93\36\1\184\135",241))},{Name=lI1I1ll1llIl("\35\185\218\33\233\252\31",106),Callback=lIIlIII1II(lI1I1ll1llIl("\60\13\30\245\132\37\88",93))},{Name=lI1I1ll1llIl("\62\174\175\96\73\220\83\156",20),Callback=lIIlIII1II(lI1I1ll1llIl("\177\184\3\38\165\40\128\216",53))},{Name=lI1I1ll1llIl("\108\242\192\0\8\143",68),Callback=lIIlIII1II(lI1I1ll1llIl("\40\96\36\106\179\15",144))},{Name=lI1I1ll1llIl("\248\162\147\50\29\216",114),Callback=lIIlIII1II(lI1I1ll1llIl("\86\76\146\182\23\150",197))},{Name=lI1I1ll1llIl("\231\98\112\166",212),Callback=lIIlIII1II(lI1I1ll1llIl("\183\177\181\111",205))}}) end;
 
 
 
@@ -102,562 +106,562 @@ ll1Il1l11:Chips({{Name=l11l1Il1lll("\200\219\19\118",46)},{Name=l11l1Il1lll("\16
 
 
 
-local ll1l1llI=l11lIIIl11:Section(l11l1Il1lll("",17));
+local lIlIl1lIlIl=ll1l1lIIll1:Section(lI1I1ll1llIl("",93));
 
 
-local l1l11IIIllII=ll1l1llI:Custom(76);
-local lIlll1l1I=lI11IIlIIIllI(l11l1Il1lll("\72\166\172\46\212",143),{Size=UDim2.new(1,0,1,0),Parent=l1l11IIIllII});
-llIllI11I1I(lIlll1l1I,l11l1Il1lll("\43\183\187\9\217\108\250\163\144\160\158\28\237\130\158\56",71),l11l1Il1lll("\120\91\187\49\121\105\213",100));
-l1llIIIIIl11(lIlll1l1I,14);
-llIIIIII1.Stroke(lIlll1l1I);
-local ll1I1ll1llI1I=lI11IIlIIIllI(l11l1Il1lll("\207\123\236\185\147\112\180\9\236\185",91),{Size=UDim2.new(0,48,0,48),Position=UDim2.new(0,14,0.5,- 24),Parent=lIlll1l1I});
+local lIIl1IIl1=lIlIl1lIlIl:Custom(76);
+local lI11I11lI=lllII1lI1I1I(lI1I1ll1llIl("\212\202\35\64\22",158),{Size=UDim2.new(1,0,1,0),Parent=lIIl1IIl1});
+lI11ll1lIIlII(lI11I11lI,lI1I1ll1llIl("\187\85\226\210\20\29\134\30\184\44\253\243\230\31\73\86",67),lI1I1ll1llIl("\225\45\81\107\16\207\108",175));
+lIlll1ll1l1I1(lI11I11lI,14);
+l111II11I.Stroke(lI11I11lI);
+local llIIlIllIIl=lllII1lI1I1I(lI1I1ll1llIl("\175\245\15\11\31\204\138\215\92\152",75),{Size=UDim2.new(0,48,0,48),Position=UDim2.new(0,14,0.5,- 24),Parent=lI11I11lI});
 
 
 
 
-llIllI11I1I(ll1I1ll1llI1I,l11l1Il1lll("\83\206\54\114\127\173\42\159\154\218\25\149\29\93\80\219",65),l11l1Il1lll("\251\42\138",138));
-l1llIIIIIl11(ll1I1ll1llI1I,24);
-local l11l1lI1lI11I=lI11IIlIIIllI(l11l1Il1lll("\27\221\222\119\131\210\215\222",207),{Thickness=2,Color=Color3.new(1,1,1),Parent=ll1I1ll1llI1I});
-llIIIIII1.AccentGradient(l11l1lI1lI11I,45);
+lI11ll1lIIlII(llIIlIllIIl,lI1I1ll1llIl("\208\217\33\70\20\9\217\106\89\149\174\0\129\59\184\3",158),lI1I1ll1llIl("\2\169\28",201));
+lIlll1ll1l1I1(llIIlIllIIl,24);
+local ll1I1I1ll=lllII1lI1I1I(lI1I1ll1llIl("\52\162\58\164\60\211\245\225",104),{Thickness=2,Color=Color3.new(1,1,1),Parent=llIIlIllIIl});
+l111II11I.AccentGradient(ll1I1I1ll,45);
 task.spawn(function() 
-local lllI1I1I1,l111II11I1II=pcall(function() 
-return ll11I11l1lll1:GetUserThumbnailAsync(lllI1llI.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size100x100) end);
+local l11II1IIII1lI,llI11lIll=pcall(function() 
+return lllIlllIllI1I:GetUserThumbnailAsync(ll1lI1IIII1.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size100x100) end);
 
-if lllI1I1I1 then 
-ll1I1ll1llI1I.Image=l111II11I1II end end);
-
-
-local l1ll111llI1=l11I1llI1({Parent=lIlll1l1I,Text=lllI1llI.DisplayName,Font=Enum.Font.GothamBold,TextSize=15,Position=UDim2.new(0,74,0,18),Size=UDim2.new(1,- 330,0,20)});
-l11I1llI1({Parent=lIlll1l1I,Text=llIll1ll .. (l11l1Il1lll("\8\167\6\71\26\15",92) .. l11l1111),Font=Enum.Font.Gotham,TextSize=11,Color=l11l1Il1lll("\183\73\254\95\61\4\50",218),Position=UDim2.new(0,74,0,40),Size=UDim2.new(1,- 250,0,16)});
-
-local function lll1IlI1l(lllllI1IlI1,l11IlI1I1Il,lIllI1IIIl11) 
-local ll11l11I1l=lI11IIlIIIllI(l11l1Il1lll("\79\40\27\45\60",237),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,74,0,44),Position=UDim2.new(1,lIllI1IIIl11,0.5,0),Parent=lllllI1IlI1});
-llIllI11I1I(ll11l11I1l,l11l1Il1lll("\114\166\206\121\123\212\45\167\39\126\121\239\245\88\191\162",117),l11l1Il1lll("\209\121\39\229\62",236));
-l1llIIIIIl11(ll11l11I1l,10);
-l11I1llI1({Parent=ll11l11I1l,Text=l11IlI1I1Il,Font=Enum.Font.GothamBold,TextSize=9,Color=l11l1Il1lll("\85\226\160\101\174",108),Align=Enum.TextXAlignment.Right,Position=UDim2.new(0,0,0,7),Size=UDim2.new(1,- 10,0,12)});
-return l11I1llI1({Parent=ll11l11I1l,Text=l11l1Il1lll("\53\186",108),Font=Enum.Font.GothamBold,TextSize=14,Align=Enum.TextXAlignment.Right,Position=UDim2.new(0,0,0,20),Size=UDim2.new(1,- 10,0,18)}) end;
-
-local lIl1l11I=lll1IlI1l(lIlll1l1I,l11l1Il1lll("\226\235\91\171",40),- 178);
-local llI11II1=lll1IlI1l(lIlll1l1I,l11l1Il1lll("\247\57\143\24\81\115\200",154),- 96);
-local lllI11Il1=lll1IlI1l(lIlll1l1I,l11l1Il1lll("\161\84\201\107\26\179",165),- 14);
-lllI11Il1.TextColor3=Color3.new(1,1,1);
-llIIIIII1.AccentGradient(lllI11Il1);
+if l11II1IIII1lI then 
+llIIlIllIIl.Image=llI11lIll end end);
 
 
-local llI1l1l1=ll1l1llI:Custom(60);
-lI11IIlIIIllI(l11l1Il1lll("\1\229\75\233\65\104\154\170\60\220\138\134",106),{CellSize=UDim2.new(0.25,- 5,1,0),CellPadding=UDim2.new(0,6,0,0),SortOrder=Enum.SortOrder.LayoutOrder,Parent=llI1l1l1});
+local lI1llIlI=lI11I11IlllI({Parent=lI11I11lI,Text=ll1lI1IIII1.DisplayName,Font=Enum.Font.GothamBold,TextSize=15,Position=UDim2.new(0,74,0,18),Size=UDim2.new(1,- 330,0,20)});
+lI11I11IlllI({Parent=lI11I11lI,Text=lII1lIII .. (lI1I1ll1llIl("\174\217\101\120\34\115",96) .. llI11llIIlI),Font=Enum.Font.Gotham,TextSize=11,Color=lI1I1ll1llIl("\85\145\180\168\99\9\75",204),Position=UDim2.new(0,74,0,40),Size=UDim2.new(1,- 250,0,16)});
+
+local function lI1ll1111IIl(lI1lI1lIll1I,lIl1IIl11I,l111I11l1l) 
+local lIlll1Il=lllII1lI1I1I(lI1I1ll1llIl("\32\246\215\177\67",172),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,74,0,44),Position=UDim2.new(1,l111I11l1l,0.5,0),Parent=lI1lI1lIll1I});
+lI11ll1lIIlII(lIlll1Il,lI1I1ll1llIl("\233\230\114\232\105\18\233\193\204\76\16\114\13\243\75\34",135),lI1I1ll1llIl("\83\213\224\48\253",100));
+lIlll1ll1l1I1(lIlll1Il,10);
+lI11I11IlllI({Parent=lIlll1Il,Text=lIl1IIl11I,Font=Enum.Font.GothamBold,TextSize=9,Color=lI1I1ll1llIl("\102\114\229\102\234",7),Align=Enum.TextXAlignment.Right,Position=UDim2.new(0,0,0,7),Size=UDim2.new(1,- 10,0,12)});
+return lI11I11IlllI({Parent=lIlll1Il,Text=lI1I1ll1llIl("\20\217",131),Font=Enum.Font.GothamBold,TextSize=14,Align=Enum.TextXAlignment.Right,Position=UDim2.new(0,0,0,20),Size=UDim2.new(1,- 10,0,18)}) end;
+
+local l1II1Il1I=lI1ll1111IIl(lI11I11lI,lI1I1ll1llIl("\4\129\109\87",251),- 178);
+local ll111lllI1=lI1ll1111IIl(lI11I11lI,lI1I1ll1llIl("\186\97\226\218\10\48\183",83),- 96);
+local llIIl11IlII=lI1ll1111IIl(lI11I11lI,lI1I1ll1llIl("\255\138\195\150\68\230",80),- 14);
+llIIl11IlII.TextColor3=Color3.new(1,1,1);
+l111II11I.AccentGradient(llIIl11IlII);
 
 
-
-
-
-local function lIlI11lI1l(lllII1IIlI,l1ll1lI1I) 
-local lI1Il1II=lI11IIlIIIllI(l11l1Il1lll("\187\17\173\187\57",70),{LayoutOrder=l1ll1lI1I,Parent=llI1l1l1});
-llIllI11I1I(lI1Il1II,l11l1Il1lll("\2\21\221\56\138\121\56\47\243\103\239\217\16\251\86\128",238),l11l1Il1lll("\119\137\46\173\249\223\99",26));
-l1llIIIIIl11(lI1Il1II,12);
-llIIIIII1.Stroke(lI1Il1II);
-l11I1llI1({Parent=lI1Il1II,Text=lllII1IIlI,Font=Enum.Font.GothamBold,TextSize=9,Color=l11l1Il1lll("\21\162\224\165\110",44),Position=UDim2.new(0,12,0,10),Size=UDim2.new(1,- 24,0,12)});
-return l11I1llI1({Parent=lI1Il1II,Text=l11l1Il1lll("\160\62",54),Font=Enum.Font.GothamBold,TextSize=17,Position=UDim2.new(0,12,0,26),Size=UDim2.new(1,- 24,0,22)}) end;
-
-local lIl11IIlI=lIlI11lI1l(l11l1Il1lll("\128\6\158",27),1);
-local l1IIlIII1I1=lIlI11lI1l(l11l1Il1lll("\224\235\70\167",40),2);
-local lI1ll1ll=lIlI11lI1l(l11l1Il1lll("\128\142\41\217\85\221\143",72),3);
-local l11lI1I1II1=lIlI11lI1l(l11l1Il1lll("\37\131\15\56\3\222\165\122\190\224",171),4);
-
-
-local lI1I1Il1II=l11lIIIl11:Section(l11l1Il1lll("\4\214\230\225\30\219\48\1\179\75\224\126\219",178));
-local lI1ll1I11I=lI1I1Il1II:Custom(138);
-lI11IIlIIIllI(l11l1Il1lll("\200\74\235\196\21\240\104\210\137\139\91\87",38),{CellSize=UDim2.new(0.25,- 5,0,66),CellPadding=UDim2.new(0,6,0,6),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lI1ll1I11I});
+local lIll1lIl=lIlIl1lIlIl:Custom(60);
+lllII1lI1I1I(lI1I1ll1llIl("\64\245\149\90\67\84\150\196\242\156\91\243",10),{CellSize=UDim2.new(0.25,- 5,1,0),CellPadding=UDim2.new(0,6,0,0),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lIll1lIl});
 
 
 
 
 
-local llII11I1l1={};
-local function lIllI1llIl1ll(l1111lll,l1111l111,ll1llIll,l1IlllIlI) 
-local llIl111II=lI11IIlIIIllI(l11l1Il1lll("\95\107\145\3\186\159\36\220\103\9",68),{Text=l11l1Il1lll("",231),AutoButtonColor=false,LayoutOrder=l1IlllIlI,Parent=lI1ll1I11I});
-llIllI11I1I(llIl111II,l11l1Il1lll("\252\101\126\216\38\95\67\190\55\130\75\221\34\129\55\53",63),l11l1Il1lll("\131\113\188\165\28\216\130",126));
-l1llIIIIIl11(llIl111II,12);
-llIIIIII1.Stroke(llIl111II);
-local ll1ll11I1II=lI11IIlIIIllI(l11l1Il1lll("\243\49\78\79\176",82),{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Parent=llIl111II});
-l1llIIIIIl11(ll1ll11I1II,12);
-llIIIIII1.AccentGradient(ll1ll11I1II,45);
-local lIllll11lIl11=lI11IIlIIIllI(l11l1Il1lll("\173\35\203\109\4\110\115\186\148\35",105),{BackgroundTransparency=1,Image=llIIIIII1.IconIds[ll1llIll] or l11l1Il1lll("",4),ScaleType=Enum.ScaleType.Fit,Position=UDim2.new(0,12,0,11),Size=UDim2.new(0,20,0,20),ZIndex=2,Parent=llIl111II});
-local llIl1IllIl=l11I1llI1({Parent=llIl111II,Text=l1111l111,Font=Enum.Font.GothamBold,TextSize=12,Position=UDim2.new(0,12,0,36),Size=UDim2.new(1,- 24,0,16),ZIndex=2});
-local l1IlIIIIIII=lI11IIlIIIllI(l11l1Il1lll("\227\79\206\77\103\160\160",107),{Parent=llIl111II});
-llIl111II.MouseButton1Click:Connect(function() 
-llIIIIII1.Press(l1IlIIIIIII);
-local llII11ll1I=l1llllI1lll1l[l1111lll];
-if llII11ll1I then 
-llII11ll1I:Set(not llII11ll1I.Value) end end);
+local function ll1111lIl(llI1lIlIlI,l111IIl1) 
+local ll1lIIlIII111=lllII1lI1I1I(lI1I1ll1llIl("\251\45\139\233\7",57),{LayoutOrder=l111IIl1,Parent=lIll1lIl});
+lI11ll1lIIlII(ll1lIIlIII111,lI1I1ll1llIl("\216\217\197\71\48\107\2\213\91\105\156\156\233\120\208\239",173),lI1I1ll1llIl("\212\52\15\153\252\71\63",102));
+lIlll1ll1l1I1(ll1lIIlIII111,12);
+l111II11I.Stroke(ll1lIIlIII111);
+lI11I11IlllI({Parent=ll1lIIlIII111,Text=llI1lIlIlI,Font=Enum.Font.GothamBold,TextSize=9,Color=lI1I1ll1llIl("\194\164\209\61\153",17),Position=UDim2.new(0,12,0,10),Size=UDim2.new(1,- 24,0,12)});
+return lI11I11IlllI({Parent=ll1lIIlIII111,Text=lI1I1ll1llIl("\187\165",59),Font=Enum.Font.GothamBold,TextSize=17,Position=UDim2.new(0,12,0,26),Size=UDim2.new(1,- 24,0,22)}) end;
+
+local lll11IIll1II=ll1111lIl(lI1I1ll1llIl("\231\123\250",168),1);
+local l11lIlI1I111=ll1111lIl(lI1I1ll1llIl("\174\192\153\216",16),2);
+local lll1l1l111=ll1111lIl(lI1I1ll1llIl("\38\100\159\165\175\66\200",219),3);
+local l1II1IlIIlIl=ll1111lIl(lI1I1ll1llIl("\100\180\191\57\168\6\234\113\69\77",214),4);
 
 
-llII11I1l1[l1111lll]={fill=ll1ll11I1II,glyph=lIllll11lIl11,name=llIl1IllIl} end;
+local llII1I1lII=ll1l1lIIll1:Section(lI1I1ll1llIl("\244\232\198\224\126\167\70\3\253\223\202\73\36",117));
+local lI11I1ll=llII1I1lII:Custom(138);
+lllII1lI1I1I(lI1I1ll1llIl("\66\152\74\253\100\208\166\113\91\71\167\169",246),{CellSize=UDim2.new(0.25,- 5,0,66),CellPadding=UDim2.new(0,6,0,6),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lI11I1ll});
 
-lIllI1llIl1ll(l11l1Il1lll("\199\115\156",241),l11l1Il1lll("\152\72\68",95),l11l1Il1lll("\64\72\143\141\56",158),1);
-lIllI1llIl1ll(l11l1Il1lll("\219\44\76\78\188\43",82),l11l1Il1lll("\127\224\22\85\81\79",97),l11l1Il1lll("\247\172\97\112\201",62),2);
-lIllI1llIl1ll(l11l1Il1lll("\116\237\74\124\137\121\212",166),l11l1Il1lll("\224\120\126\130\52\171\56\102",135),l11l1Il1lll("\54\203\234\244\7\148\42\29\249\89\252",178),3);
-lIllI1llIl1ll(l11l1Il1lll("\199\60\137\30\108\99\152",138),l11l1Il1lll("\167\124\201\94\44",202),l11l1Il1lll("\231\243\109\151\37",24),4);
-lIllI1llIl1ll(l11l1Il1lll("\244\245\92\154\192\215\44",208),l11l1Il1lll("\196\229\76\170\240\199\60",192),l11l1Il1lll("\175\236\240\6\158",195),5);
-lIllI1llIl1ll(l11l1Il1lll("\29\82\115\146\157\7\200\131\243\24\147",141),l11l1Il1lll("\214\97\59\114\245\110\198\205\107\242",2),l11l1Il1lll("\149\100\248\80",165),6);
-lIllI1llIl1ll(l11l1Il1lll("\106\194\227\54\61\139\82\2\27",253),l11l1Il1lll("\141\76\84\245\21\237\128\68\218\109",95),l11l1Il1lll("\227\198\17\96\222\35\118\115\175",46),7);
-lIllI1llIl1ll(l11l1Il1lll("\68\66\229\3\81\180\88\216\104\102",96),l11l1Il1lll("\79\47\22\44\59\133\100\54\8\227",237),l11l1Il1lll("\216\219\39",228),8);
 
-local function ll1l1I11Il11l() 
-for llI11Il11,lII1lIIl in pairs(llII11I1l1) do 
-local lI1IIl1IIl1Il=l1IIlll1I11l[llI11Il11] == true;
-lII1lIIl.fill.BackgroundTransparency=(lI1IIl1IIl1Il and 0) or 1;
-local llIIl111I1=(lI1IIl1IIl1Il and llIIIIII1.Theme.OnAccent) or llIIIIII1.Theme.Text;
-lII1lIIl.glyph.ImageColor3=llIIl111I1;
-lII1lIIl.name.TextColor3=llIIl111I1 end end;
+
+
+
+local lIl1I1Il1I1l={};
+local function ll1Il11ll11l(lIII11ll1IIl,lIIl11I1I,l1IlI1Il,lllI1l1ll11l) 
+local l1Il1IIII=lllII1lI1I1I(lI1I1ll1llIl("\145\152\119\87\247\82\230\248\21\54",21),{Text=lI1I1ll1llIl("",148),AutoButtonColor=false,LayoutOrder=lllI1l1ll11l,Parent=lI11I1ll});
+lI11ll1lIIlII(l1Il1IIII,lI1I1ll1llIl("\204\152\196\164\101\33\4\200\255\127\250\111\18\227\188\231",96),lI1I1ll1llIl("\57\29\4\250\134\42\88",93));
+lIlll1ll1l1I1(l1Il1IIII,12);
+l111II11I.Stroke(l1Il1IIII);
+local ll111111=lllII1lI1I1I(lI1I1ll1llIl("\211\223\30\62\128",69),{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Parent=l1Il1IIII});
+lIlll1ll1l1I1(ll111111,12);
+l111II11I.AccentGradient(ll111111,45);
+local l11IIlll=lllII1lI1I1I(lI1I1ll1llIl("\220\81\51\207\207\252\59\71\110\31",138),{BackgroundTransparency=1,Image=l111II11I.IconIds[l1IlI1Il] or lI1I1ll1llIl("",47),ScaleType=Enum.ScaleType.Fit,Position=UDim2.new(0,12,0,11),Size=UDim2.new(0,20,0,20),ZIndex=2,Parent=l1Il1IIII});
+local l11I1II1Il=lI11I11IlllI({Parent=l1Il1IIII,Text=lIIl11I1I,Font=Enum.Font.GothamBold,TextSize=12,Position=UDim2.new(0,12,0,36),Size=UDim2.new(1,- 24,0,16),ZIndex=2});
+local l11l1lll1=lllII1lI1I1I(lI1I1ll1llIl("\94\110\226\64\143\236\3",39),{Parent=l1Il1IIII});
+l1Il1IIII.MouseButton1Click:Connect(function() 
+l111II11I.Press(l11l1lll1);
+local l1lIII111=lllIIlllIIlIl[lIII11ll1IIl];
+if l1lIII111 then 
+l1lIII111:Set(not l1lIII111.Value) end end);
+
+
+lIl1I1Il1I1l[lIII11ll1IIl]={fill=ll111111,glyph=l11IIlll,name=l11I1II1Il} end;
+
+ll1Il11ll11l(lI1I1ll1llIl("\19\33\230",165),lI1I1ll1llIl("\39\135\16",104),lI1I1ll1llIl("\90\68\87\178\194",29),1);
+ll1Il11ll11l(lI1I1ll1llIl("\136\107\85\48\207\161",44),lI1I1ll1llIl("\229\188\109\203\246\217",98),lI1I1ll1llIl("\150\19\118\211\170",248),2);
+ll1Il11ll11l(lI1I1ll1llIl("\119\7\81\245\7\174\139",240),lI1I1ll1llIl("\56\149\255\0\20\217\195\196",120),lI1I1ll1llIl("\82\211\60\150\236\3\0\7\179\156\199",56),3);
+ll1Il11ll11l(lI1I1ll1llIl("\9\40\35\233\147\246\163",77),lI1I1ll1llIl("\113\88\183\184\231",46),lI1I1ll1llIl("\233\152\210\168\103",96),4);
+ll1Il11ll11l(lI1I1ll1llIl("\84\42\199\168\240\186\123",62),lI1I1ll1llIl("\99\158\231\29\57\33\231",58),lI1I1ll1llIl("\233\168\209\13\162",1),5);
+ll1Il11ll11l(lI1I1ll1llIl("\2\64\183\142\142\64\254\183\218\11\159",219),lI1I1ll1llIl("\26\150\21\105\211\218\75\168\9\118",147),lI1I1ll1llIl("\226\34\232\125",118),6);
+ll1Il11ll11l(lI1I1ll1llIl("\149\108\95\58\210\157\240\132\113",44),lI1I1ll1llIl("\172\201\188\110\217\69\235\244\126\212",97),lI1I1ll1llIl("\28\83\58\251\94\141\70\114\239",225),7);
+ll1Il11ll11l(lI1I1ll1llIl("\20\237\143\33\83\158\32\38\227\211",111),lI1I1ll1llIl("\44\29\26\240\133\59\84\151\45\9",93),lI1I1ll1llIl("\193\173\76",190),8);
+
+local function lIll1l1I1() 
+for lIl1I1II1,l11lI1ll11I1 in pairs(lIl1I1Il1I1l) do 
+local lIllIIllI=lll1l11Il1ll1[lIl1I1II1] == true;
+l11lI1ll11I1.fill.BackgroundTransparency=(lIllIIllI and 0) or 1;
+local l1lIl11l=(lIllIIllI and l111II11I.Theme.OnAccent) or l111II11I.Theme.Text;
+l11lI1ll11I1.glyph.ImageColor3=l1lIl11l;
+l11lI1ll11I1.name.TextColor3=l1lIl11l end end;
 
 
 
 
 task.spawn(function() 
-local llIIIIll1lI1,lIll1l1I111I=0,os.clock();
-local lIIllI1l=lI11l11IIl(lIII1l1l.RenderStepped:Connect(function() 
-llIIIIll1lI1=llIIIIll1lI1 + 1 end));
+local l1I1IllIlIl1,llIIl1lII=0,os.clock();
+local llll1l1II1l=lIl11lIIl(lII1llIIIIlI.RenderStepped:Connect(function() 
+l1I1IllIlIl1=l1I1IllIlIl1 + 1 end));
 
-while llIIIIII1.Window == lI11II1llI1 do 
+while l111II11I.Window == l1l1Ill1 do 
 task.wait(0.5);
-local ll1llll1I1I1=os.clock();
-local llI1IllI1l11=math.floor((llIIIIll1lI1 / (ll1llll1I1I1 - lIll1l1I111I)) + 0.5);
-llIIIIll1lI1,lIll1l1I111I=0,ll1llll1I1I1;
-lIl11IIlI.Text=tostring(llI1IllI1l11);
+local llI11llI1=os.clock();
+local lII1l1I1lI=math.floor((l1I1IllIlIl1 / (llI11llI1 - llIIl1lII)) + 0.5);
+l1I1IllIlIl1,llIIl1lII=0,llI11llI1;
+lll11IIll1II.Text=tostring(lII1l1I1lI);
 pcall(function() 
-l1IIlIII1I1.Text=string.format(l11l1Il1lll("\209\104\140\86\59",202),math.floor(l11l111Il1l.Network.ServerStatsItem[l11l1Il1lll("\221\71\60\147\46\254\108\40\9",183)]:GetValue())) end);
+l11lIlI1I111.Text=string.format(lI1I1ll1llIl("\3\60\142\193\201",139),math.floor(ll1l1I1Il1.Network.ServerStatsItem[lI1I1ll1llIl("\13\229\165\136\3\79\240\85\225",243)]:GetValue())) end);
 
-lI1ll1ll.Text=(# ll11I11l1lll1:GetPlayers()) .. (l11l1Il1lll("\65",239) .. ll11I11l1lll1.MaxPlayers);
-local lllI1lII1llll=math.floor(workspace.DistributedGameTime);
-l11lI1I1II1.Text=string.format(l11l1Il1lll("\12\17\108\211\68\254\226\62\219",51),math.floor(lllI1lII1llll / 3600),math.floor((lllI1lII1llll % 3600) / 60));
-local lI11llIlIII1l=math.floor(ll1llll1I1I1 - l11I1llI1lI);
-llI11II1.Text=string.format(l11l1Il1lll("\124\90\120\244\179\34\205\147\212",189),math.floor(lI11llIlIII1l / 60),lI11llIlIII1l % 60);
-local l11II1I1=0;
-for lIlIIl1Ill,l1IIlIlI in pairs(l1llllI1lll1l) do 
-if ((l1IIlIlI.Type == l11l1Il1lll("\239\209\222\64\228\255",244)) and l1IIlIlI.Value) and (string.sub(lIlIIl1Ill,1,3) ~= l11l1Il1lll("\64\170\240",210)) then 
-l11II1I1=l11II1I1 + 1 end end;
-
-
-lllI11Il1.Text=tostring(l11II1I1);
-l1ll111llI1.Text=(l1IIlll1I11l.streamer and l11l1Il1lll("\126\239\121\202\227\34",235)) or lllI1llI.DisplayName;
-ll1I1ll1llI1I.ImageTransparency=(l1IIlll1I11l.streamer and 1) or 0;
-ll1l1I11Il11l() end;
-
-lIIllI1l:Disconnect() end);
+lll1l1l111.Text=(# lllIlllIllI1I:GetPlayers()) .. (lI1I1ll1llIl("\80",225) .. lllIlllIllI1I.MaxPlayers);
+local llIIlllI1=math.floor(workspace.DistributedGameTime);
+l1II1IlIIlIl.Text=string.format(lI1I1ll1llIl("\232\43\146\180\119\80\92\240\114",73),math.floor(llIIlllI1 / 3600),math.floor((llIIlllI1 % 3600) / 60));
+local l11II11IIII11=math.floor(llI11llI1 - l11I111IlI);
+ll111lllI1.Text=string.format(lI1I1ll1llIl("\15\187\177\33\67\214\81\26\34",84),math.floor(l11II11IIII11 / 60),l11II11IIII11 % 60);
+local lllI1I1lllII=0;
+for llI1IIIlI,lI1II1l1 in pairs(lllIIlllIIlIl) do 
+if ((lI1II1l1.Type == lI1I1ll1llIl("\233\48\141\227\14\53",57)) and lI1II1l1.Value) and (string.sub(llI1IIIlI,1,3) ~= lI1I1ll1llIl("\112\229\189",26)) then 
+lllI1I1lllII=lllI1I1lllII + 1 end end;
 
 
+llIIl11IlII.Text=tostring(lllI1I1lllII);
+lI1llIlI.Text=(lll1l11Il1ll1.streamer and lI1I1ll1llIl("\173\197\166\92\127\110",250)) or ll1lI1IIII1.DisplayName;
+llIIlIllIIl.ImageTransparency=(lll1l11Il1ll1.streamer and 1) or 0;
+lIll1l1I1() end;
+
+llll1l1II1l:Disconnect() end);
 
 
 
 
-local ll11I1lllIl=lI11II1llI1:Tab({Name=l11l1Il1lll("\141\47\141\143\217\38",102),Icon=l11l1Il1lll("\120\11\69\105\191\189",124),Hint=l11l1Il1lll("\231\107\104\193\97\78\68\170\43\135\107\198\43\156\101\105\64\152\148",63)});
-local llI1l1l111l1I=ll11I1lllIl:Section(l11l1Il1lll("\105\225\28\175\76\7\60\236",169));
 
 
-local function l1l1I1I111(l1lII1III1111,l11l1llI11Il1) 
-if not l1IIlll1I11l.safeLimits then 
-return l11l1llI11Il1 end;
-
-if l1lII1III1111 == l11l1Il1lll("\10\182\141\55\202",87) then 
-return math.min(l11l1llI11Il1,math.max(lI11lllIIIIl.walkSpeed * 1.35,21)) elseif l1lII1III1111 == l11l1Il1lll("\94\139\119\202",185) then 
-
-return math.min(l11l1llI11Il1,math.max(lI11lllIIIIl.jumpPower * 1.25,60)) elseif l1lII1III1111 == l11l1Il1lll("\162\176\5",250) then 
-
-return math.min(l11l1llI11Il1,40) end;
-
-return l11l1llI11Il1 end;
+local l11lI11II11I=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\191\221\164\129\56\7",113),Icon=lI1I1ll1llIl("\125\227\91\45\247\210",137),Hint=lI1I1ll1llIl("\22\126\16\234\29\118\191\106\255\110\217\160\119\82\14\187\177\237\140",209)});
+local lll1lIII11=l11lI11II11I:Section(lI1I1ll1llIl("\28\180\15\165\211\41\224\224",88));
 
 
+local function lII1ll1IIll1(llII1llI1II,lIIII1IlII11) 
+if not lll1l11Il1ll1.safeLimits then 
+return lIIII1IlII11 end;
+
+if llII1llI1II == lI1I1ll1llIl("\28\65\32\29\185",241) then 
+return math.min(lIIII1IlII11,math.max(lII1lllI.walkSpeed * 1.35,21)) elseif llII1llI1II == lI1I1ll1llIl("\68\44\106\31",192) then 
+
+return math.min(lIIII1IlII11,math.max(lII1lllI.jumpPower * 1.25,60)) elseif llII1llI1II == lI1I1ll1llIl("\164\100\10",223) then 
+
+return math.min(lIIII1IlII11,40) end;
+
+return lIIII1IlII11 end;
 
 
-local lIllIll1111ll,lI1llI1Il1II=false,false;
-local function lllIIllll1I() 
-local ll1ll11IllI=l1llll1lI1I1l();
-if not ll1ll11IllI then 
+
+
+local l11IIlI1lI,l111I1lIl=false,false;
+local function ll1I11l11lI() 
+local lIllIll1l1II=l11l1IlI1I();
+if not lIllIll1l1II then 
 return  end;
 
-if l1IIlll1I11l.speedOn and (l1IIlll1I11l.speedMode == l11l1Il1lll("\166\65\64\2\255\178\181\127",111)) then 
-ll1ll11IllI.WalkSpeed=l1l1I1I111(l11l1Il1lll("\38\211\234\231\17",178),l1IIlll1I11l.speed);
-lIllIll1111ll=true elseif lIllIll1111ll then 
+if lll1l11Il1ll1.speedOn and (lll1l11Il1ll1.speedMode == lI1I1ll1llIl("\46\109\131\141\148\111\2\81",203)) then 
+lIllIll1l1II.WalkSpeed=lII1ll1IIll1(lI1I1ll1llIl("\148\81\120\250\89",6),lll1l11Il1ll1.speed);
+l11IIlI1lI=true elseif l11IIlI1lI then 
 
-ll1ll11IllI.WalkSpeed=lI11lllIIIIl.walkSpeed;
-lIllIll1111ll=false end;
+lIllIll1l1II.WalkSpeed=lII1lllI.walkSpeed;
+l11IIlI1lI=false end;
 
-if l1IIlll1I11l.jumpOn then 
-ll1ll11IllI.UseJumpPower=true;
-ll1ll11IllI.JumpPower=l1l1I1I111(l11l1Il1lll("\91\250\24\73",97),l1IIlll1I11l.jump);
-lI1llI1Il1II=true elseif lI1llI1Il1II then 
+if lll1l11Il1ll1.jumpOn then 
+lIllIll1l1II.UseJumpPower=true;
+lIllIll1l1II.JumpPower=lII1ll1IIll1(lI1I1ll1llIl("\155\14\116\208",248),lll1l11Il1ll1.jump);
+l111I1lIl=true elseif l111I1lIl then 
 
-if ll1ll11IllI.UseJumpPower then 
-ll1ll11IllI.JumpPower=lI11lllIIIIl.jumpPower end;
+if lIllIll1l1II.UseJumpPower then 
+lIllIll1l1II.JumpPower=lII1lllI.jumpPower end;
 
-lI1llI1Il1II=false end end;
-
-
-
-llI1l1l111l1I:Toggle({Name=l11l1Il1lll("\243\211\30\245\0\211\165\133\91\83\234",56),Description=l11l1Il1lll("\91\246\164\115\234\172\1\226\142\138\37\183\50\63\157\120\136\102\42\20\154\201\141\110\123\48\252\102\218\154\110\247\74\218\149\140\10\73\240\11\190\171\90\155\24\75\254\12\232\74\5\59\255\252\33\131\222\210\220\87\231\232\84\139\120\160\245\172\97\63\197\47\78\92\172\119\113\100\195\60\141\38\96",108),Flag=l11l1Il1lll("\50\158\99\12\36\230\120\179\176\29",17),Callback=lllIIllll1I});
+l111I1lIl=false end end;
 
 
 
-
-
-
-llI1l1l111l1I:Toggle({Name=l11l1Il1lll("\231\9\175\63\119\81\166\236\84\175\196\130\38\171\1\235\80",154),Description=l11l1Il1lll("\142\63\170\246\150\14\124\216\34\53\230\100\97\165\149\223\38\149\93\119\73\153\151\123\170\245\241\6\149\94\5\188\67\24\205\215\240\124\1\163\76\85\99\146\12\171\240\40\211\117\248\90\117\236\172\15",27),Flag=l11l1Il1lll("\229\86\216\171\130\99\75",75),Callback=lllIIllll1I});
-llI1l1l111l1I:Slider({Name=l11l1Il1lll("\166\46\217\146\216\12\149\47\49\186",161),Flag=l11l1Il1lll("\26\69\161\86\197",115),Min=16,Max=300,Default=60,Callback=lllIIllll1I});
-llI1l1l111l1I:Segmented({Name=l11l1Il1lll("\118\163\250\247\1\235\25\27\176\180\19\143",194),Description=l11l1Il1lll("\107\193\182\145\87\74\65\224\180\172\114\244\8\83\238\56\223\86\25\5\217\159\101\143\42\58\137\91\215\201\123\200\31\198\136\187\73\127\228\18\95",92),Flag=l11l1Il1lll("\154\202\255\5\29\154\66\21\101",13),Options={l11l1Il1lll("\96\242\169\145\84\64\8\243",92),l11l1Il1lll("\106\60\40\193\212\114",205)},Default=l11l1Il1lll("\193\175\151\161\183\24\228\181",109),Callback=lllIIllll1I});
+lll1lIII11:Toggle({Name=lI1I1ll1llIl("\33\249\4\104\115\119\191\18\62\229\190",126),Description=lI1I1ll1llIl("\14\174\10\103\242\147\158\113\250\165\153\72\167\176\106\75\157\62\132\224\66\54\18\253\207\223\160\153\47\85\217\196\95\194\123\24\210\182\175\88\10\68\38\164\13\132\73\127\189\82\235\143\103\67\126\208\170\253\128\104\210\231\35\248\45\248\91\56\249\128\218\60\58\115\16\136\100\107\180\143\24\126\206",201),Flag=lI1I1ll1llIl("\205\168\241\186\94\202\246\196\245\120",80),Callback=ll1I11l11lI});
 
 
 
 
 
 
+lll1lIII11:Toggle({Name=lI1I1ll1llIl("\249\237\245\56\88\20\45\183\116\65\148\243\22\135\39\89\174",141),Description=lI1I1ll1llIl("\42\1\116\53\1\174\16\34\240\151\131\100\94\91\179\129\130\107\67\180\222\25\187\225\120\87\212\70\138\160\3\34\39\230\211\212\167\220\45\25\222\183\70\210\115\21\214\182\183\75\38\89\34\172\64\149",127),Flag=lI1I1ll1llIl("\57\248\243\25\99\38\115",125),Callback=ll1I11l11lI});
+lll1lIII11:Slider({Name=lI1I1ll1llIl("\97\9\242\215\138\35\43\96\12\192",155),Flag=lI1I1ll1llIl("\126\255\95\49\246",137),Min=16,Max=300,Default=60,Callback=ll1I11l11lI});
+lll1lIII11:Segmented({Name=lI1I1ll1llIl("\97\40\199\168\247\251\123\218\227\57\226\107",62),Description=lI1I1ll1llIl("\217\254\212\77\58\124\77\215\90\127\180\128\165\126\204\252\77\73\91\185\212\169\137\88\228\201\111\15\154\4\185\108\237\249\234\39\100\9\104\165\113",173),Flag=lI1I1ll1llIl("\6\61\250\214\33\154\13\120\143",165),Options={lI1I1ll1llIl("\169\30\132\49\160\83\119\96",232),lI1I1ll1llIl("\149\82\84\77\187\196",28)},Default=lI1I1ll1llIl("\138\189\95\28\77\36\239\75",206),Callback=ll1I11l11lI});
 
-llI1l1l111l1I:Toggle({Name=l11l1Il1lll("\35\33\237\199\98\134\151\208\200\78\252\182\108\155\51\182\226",206),Description=l11l1Il1lll("\132\255\222\105\108\218\109\99\73\164\54\194\206\1\114\168\12\103\90\208\129\78\186\233\245\21",45),Flag=l11l1Il1lll("\51\147\101\194\1\128",119),Callback=lllIIllll1I});
-llI1l1l111l1I:Slider({Name=l11l1Il1lll("\68\161\160\51\145\141\147\12\140\36",143),Flag=l11l1Il1lll("\202\34\176\18",229),Min=50,Max=500,Default=120,Increment=5,Callback=lllIIllll1I});
-llI1l1l111l1I:Toggle({Name=l11l1Il1lll("\180\13\170\191\50\221\112\246\240\110\187\174\13",70),Description=l11l1Il1lll("\175\146\45\198\134\235\81\141\41\33\179\16\66\168\140\194\39\42\137\31\2\17\224\6\190\226\1\238\48\226\181\156\239\182\0\253",160),Flag=l11l1Il1lll("\221\34\138\49\125\65\134",138)});
 
-lI11l11IIl(llIl11lIIl1I1.JumpRequest:Connect(function() 
-if l1IIlll1I11l.infJump then 
-local l1I1l1Il=l1llll1lI1I1l();
-if l1I1l1Il then 
-l1I1l1Il:ChangeState(Enum.HumanoidStateType.Jumping) end end end));
+
+
+
+
+
+lll1lIII11:Toggle({Name=lI1I1ll1llIl("\97\93\161\169\236\134\6\229\242\44\13\223\237\75\45\197\224",46),Description=lI1I1ll1llIl("\240\58\142\237\23\61\94\246\134\194\174\216\159\194\151\225\88\194\106\84\154\169\169\92\26\83",57),Flag=lI1I1ll1llIl("\84\60\122\47\221\77",208),Callback=ll1I11l11lI});
+lll1lIII11:Slider({Name=lI1I1ll1llIl("\72\125\159\205\195\251\41\152\194\19",14),Flag=lI1I1ll1llIl("\188\97\75\92",28),Min=50,Max=500,Default=120,Increment=5,Callback=ll1I11l11lI});
+lll1lIII11:Toggle({Name=lI1I1ll1llIl("\143\74\112\85\168\216\139\226\26\241\198\24\25",12),Description=lI1I1ll1llIl("\119\125\98\165\194\148\173\50\252\222\20\115\39\192\226\246\63\229\230\92\102\14\124\185\11\125\134\173\117\170\27\72\247\153\143\158",13),Flag=lI1I1ll1llIl("\178\153\231\89\203\189\102",247)});
+
+lIl11lIIl(l1IIl1lll1l.JumpRequest:Connect(function() 
+if lll1l11Il1ll1.infJump then 
+local l1l1I11IIII1I=l11l1IlI1I();
+if l1l1I11IIII1I then 
+l1l1I11IIII1I:ChangeState(Enum.HumanoidStateType.Jumping) end end end));
 
 
 
 
 do 
-llI1l1l111l1I:Toggle({Name=l11l1Il1lll("\37\176\80\107\100\138\85\144\145\35\218",49),Description=l11l1Il1lll("\227\17\9\202\36\112\60\169\32\133\147\98\156\73\85\119\62\151\152\39\129\227\249\6\155\35\26\242\65\232\197\195\246\32\63\162\17\23\9\150\25\165\248\11\208\62\248\191\154\233\188\26\243",47),Flag=l11l1Il1lll("\73\220\73\68\224\1\254\86\13\36",150)});
-llI1l1l111l1I:Slider({Name=l11l1Il1lll("\28\18\62\226\232\39\151\212\221\55\94",189),Flag=l11l1Il1lll("\231\239\93\189\242\236\36\178\16\1",192),Min=1,Max=5,Default=1});
-local lIlIII1l1Il1,lllll11llI1=0,0;
-lI11l11IIl(llIl11lIIl1I1.JumpRequest:Connect(function() 
-local lIlI1IIll1=l1llll1lI1I1l();
-if (((not l1IIlll1I11l.doubleJump) or l1IIlll1I11l.infJump) or (not lIlI1IIll1)) or ((os.clock() - lllll11llI1) < 0.2) then 
+lll1lIII11:Toggle({Name=lI1I1ll1llIl("\209\194\10\49\137\18\226\214\63\229\230",69),Description=lI1I1ll1llIl("\6\2\149\10\91\45\134\230\235\59\88\93\195\11\57\112\219\164\4\135\126\94\67\105\112\157\241\205\254\42\201\196\19\51\163\34\238\202\51\25\18\27\51\52\79\252\20\56\255\154\32\186\12",103),Flag=lI1I1ll1llIl("\219\142\224\42\129\192\45\46\176\15",33)});
+lll1lIII11:Slider({Name=lI1I1ll1llIl("\104\215\110\6\147\224\164\65\18\81\38",169),Flag=lI1I1ll1llIl("\228\115\253\66\15\214\203\201\94\42",136),Min=1,Max=5,Default=1});
+local ll1llIIllI1,lI1III1lll11=0,0;
+lIl11lIIl(l1IIl1lll1l.JumpRequest:Connect(function() 
+local l1lIl1lI=l11l1IlI1I();
+if (((not lll1l11Il1ll1.doubleJump) or lll1l11Il1ll1.infJump) or (not l1lIl1lI)) or ((os.clock() - lI1III1lll11) < 0.2) then 
 return  end;
 
-if (lIlI1IIll1.FloorMaterial == Enum.Material.Air) and (lIlIII1l1Il1 < (l1IIlll1I11l.extraJumps or 1)) then 
-lIlIII1l1Il1=lIlIII1l1Il1 + 1;
-lllll11llI1=os.clock();
-lIlI1IIll1:ChangeState(Enum.HumanoidStateType.Jumping) end end));
+if (l1lIl1lI.FloorMaterial == Enum.Material.Air) and (ll1llIIllI1 < (lll1l11Il1ll1.extraJumps or 1)) then 
+ll1llIIllI1=ll1llIIllI1 + 1;
+lI1III1lll11=os.clock();
+l1lIl1lI:ChangeState(Enum.HumanoidStateType.Jumping) end end));
 
 
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-local l1l1Il1III1=l1llll1lI1I1l();
-if ((lIlIII1l1Il1 > 0) and l1l1Il1III1) and (l1l1Il1III1.FloorMaterial ~= Enum.Material.Air) then 
-lIlIII1l1Il1=0 end end)) end;
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+local llIlIl1l11ll=l11l1IlI1I();
+if ((ll1llIIllI1 > 0) and llIlIl1l11ll) and (llIlIl1l11ll.FloorMaterial ~= Enum.Material.Air) then 
+ll1llIIllI1=0 end end)) end;
 
 
 
 
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function(llIlIllll111) 
-if not (l1IIlll1I11l.speedOn and (l1IIlll1I11l.speedMode == l11l1Il1lll("\234\179\246\18\140\43",179))) then 
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function(l1lIl1Ill) 
+if not (lll1l11Il1ll1.speedOn and (lll1l11Il1ll1.speedMode == lI1I1ll1llIl("\133\98\100\93\171\212",12))) then 
 return  end;
 
-local lIII11IIlIII,l1I1I1llIIl=l1llll1lI1I1l(),lIl1I1lI1Il();
-if ((lIII11IIlIII and l1I1I1llIIl) and (lIII11IIlIII.MoveDirection.Magnitude > 0)) and (not l1IIlll1I11l.fly) then 
-l1I1I1llIIl.CFrame=l1I1I1llIIl.CFrame + ((lIII11IIlIII.MoveDirection * math.max(l1l1I1I111(l11l1Il1lll("\1\23\188\58\103",48),l1IIlll1I11l.speed) - lIII11IIlIII.WalkSpeed,0)) * llIlIllll111) end end));
+local lIl1I1III11l,llIIlIl111=l11l1IlI1I(),l1lI11Il111ll();
+if ((lIl1I1III11l and llIIlIl111) and (lIl1I1III11l.MoveDirection.Magnitude > 0)) and (not lll1l11Il1ll1.fly) then 
+llIIlIl111.CFrame=llIIlIl111.CFrame + ((lIl1I1III11l.MoveDirection * math.max(lII1ll1IIll1(lI1I1ll1llIl("\120\87\212\70\138",39),lll1l11Il1ll1.speed) - lIl1I1III11l.WalkSpeed,0)) * l1lIl1Ill) end end));
 
 
 
 
 
-local ll1lIlII1=ll11I1lllIl:Section(l11l1Il1lll("\72\184\164\36\217\137",143));
-local l11ll1II11l,l1lIIIIl1IllI;
-local llIll1IIlI,ll111IIlIIIl=false,false;
+local lII1lIIll=l11lI11II11I:Section(lI1I1ll1llIl("\33\205\244\120\213\112",134));
+local llllIIll,llIIlIllIlIl;
+local l1llI1l1lI1,l11l111llll=false,false;
 
-local function lIIIIIlIll() 
-if l11ll1II11l then 
-l11ll1II11l:Destroy();
-l11ll1II11l=nil end;
+local function lII1IllI11l() 
+if llllIIll then 
+llllIIll:Destroy();
+llllIIll=nil end;
 
-if l1lIIIIl1IllI then 
-l1lIIIIl1IllI:Destroy();
-l1lIIIIl1IllI=nil end;
+if llIIlIllIlIl then 
+llIIlIllIlIl:Destroy();
+llIIlIllIlIl=nil end;
 
-local l1I1llI1Il=l1llll1lI1I1l();
-if l1I1llI1Il then 
-l1I1llI1Il.PlatformStand=false end end;
+local l11111IIIll=l11l1IlI1I();
+if l11111IIIll then 
+l11111IIIll.PlatformStand=false end end;
 
 
 
-local function l1I11l1lI1() 
-lIIIIIlIll();
-local lI111II1,lIIlI1l1I=lIl1I1lI1Il(),l1llll1lI1I1l();
-if (not lI111II1) or (not lIIlI1l1I) then 
+local function l1111lllI() 
+lII1IllI11l();
+local lIlll111l,llllIllllI=l1lI11Il111ll(),l11l1IlI1I();
+if (not lIlll111l) or (not llllIllllI) then 
 return  end;
 
-if l1IIlll1I11l.flyMethod ~= l11l1Il1lll("\148\9\153\247\134\1\10\173\60\119\103",11) then 
-
-return  end;
-
-l11ll1II11l=lI11IIlIIIllI(l11l1Il1lll("\86\131\40\162\190\169\122\100\230\26\75\75",42),{MaxForce=Vector3.new(1e9,1e9,1e9),Velocity=Vector3.zero,Parent=lI111II1});
-l1lIIIIl1IllI=lI11IIlIIIllI(l11l1Il1lll("\124\235\249\74\134\212\222\36",191),{MaxTorque=Vector3.new(1e9,1e9,1e9),P=9e4,CFrame=lI111II1.CFrame,Parent=lI111II1});
-lIIlI1l1I.PlatformStand=true end;
-
-
-local function l1I11II1I(lIlllll1IlI1l,llIllll11) 
-local lIIIlIll1l1II=lIlllll1IlI1l.MoveDirection;
-local llII1IIlll1l=Vector3.zero;
-if lIIIlIll1l1II.Magnitude > 0 then 
-local l1lIII11=llIllll11.CFrame.LookVector;
-local l1l1I11llI1I=Vector3.new(l1lIII11.X,0,l1lIII11.Z);
-if l1l1I11llI1I.Magnitude > 0.01 then 
-local l11IIIIlI=CFrame.lookAt(Vector3.zero,l1l1I11llI1I):VectorToObjectSpace(lIIIlIll1l1II);
-llII1IIlll1l=(llIllll11.CFrame.RightVector * l11IIIIlI.X) + (llIllll11.CFrame.LookVector * (- l11IIIIlI.Z)) else 
-
-llII1IIlll1l=lIIIlIll1l1II end end;
-
-
-local lIlI1111I1lI=0;
-if llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.Space) or llIll1IIlI then 
-lIlI1111I1lI=lIlI1111I1lI + 1 end;
-
-if llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftControl) or ll111IIlIIIl then 
-lIlI1111I1lI=lIlI1111I1lI - 1 end;
-
-llII1IIlll1l=llII1IIlll1l + Vector3.new(0,lIlI1111I1lI,0);
-if llII1IIlll1l.Magnitude > 1 then 
-llII1IIlll1l=llII1IIlll1l.Unit end;
-
-return llII1IIlll1l end;
-
-
-
-local lIII1IlIII11=lI11IIlIIIllI(l11l1Il1lll("\95\216\235\61\44",253),{AnchorPoint=Vector2.new(1,1),Size=UDim2.new(0,56,0,124),Position=UDim2.new(1,- 24,1,- 170),BackgroundTransparency=1,Visible=false,Parent=llIIIIII1.Gui});
-
-
-
-
-
-
-
-lIlIl11lIII(lIII1IlIII11,12);
-local function lIIll111I(llll1l1lIIlII,lI1II1I1II1) 
-local lI1I11III=lI11IIlIIIllI(l11l1Il1lll("\134\162\1\203\161\131\117\155\63\44",144),{Size=UDim2.new(0,56,0,56),Text=llll1l1lIIlII,Font=Enum.Font.GothamBold,TextSize=20,AutoButtonColor=false,BackgroundTransparency=0.15,Parent=lIII1IlIII11});
-llIllI11I1I(lI1I11III,l11l1Il1lll("\218\118\55\235\45\45\158\114\5\10\202\120\180\165\2\187",236),l11l1Il1lll("\164\87\206\149\177\110\90\254\7\81",59));
-llIllI11I1I(lI1I11III,l11l1Il1lll("\180\177\102\71\206\4\91\85\79\144",78),l11l1Il1lll("\156\32\143\147\210\32",102));
-l1llIIIIIl11(lI1I11III,28);
-llIIIIII1.Stroke(lI1I11III,l11l1Il1lll("\129\179\11\208\136\147",144));
-lI1I11III.InputBegan:Connect(function(l1l1llIl1ll) 
-if (l1l1llIl1ll.UserInputType == Enum.UserInputType.Touch) or (l1l1llIl1ll.UserInputType == Enum.UserInputType.MouseButton1) then 
-lI1II1I1II1(true) end end);
-
-
-lI1I11III.InputEnded:Connect(function(ll11III1lI) 
-if (ll11III1lI.UserInputType == Enum.UserInputType.Touch) or (ll11III1lI.UserInputType == Enum.UserInputType.MouseButton1) then 
-lI1II1I1II1(false) end end) end;
-
-
-
-lIIll111I(l11l1Il1lll("\234\241\150",124),function(l1lIIIIlI1) 
-llIll1IIlI=l1lIIIIlI1 end);
-
-lIIll111I(l11l1Il1lll("\11\192\228",199),function(llll111lI11) 
-ll111IIlIIIl=llll111lI11 end);
-
-
-ll1lIlII1:Toggle({Name=l11l1Il1lll("\46\171\253",28),Description=(llII1lIlIll1l and l11l1Il1lll("\88\45\233\235\29\137\206\217\38\243\94\49\12\142\59\186\243\192\23\112\198\107\99\117\253\46\131\128\217\120\196\18\89\73\206\148\52\175\239\170\25\155\25\70\175\69\25\134\210\245\114\83\47\189\197\152\107\223\236\162\51\148\103\255\185\105\172",190)) or l11l1Il1lll("\195\231\14\159\88\24\185\91\227\199\102\39\122\14\168\90\91\9\144\19\160\250\20\208\125\183\183\97\167\186\3\230\197\206\90\231\57\41\149\40\221\119\104\80\249\219\147\123\123\58\246\112\198",196),Flag=l11l1Il1lll("\125\114\160",84),Keybind=Enum.KeyCode.F,Callback=function(lI1lIII1I1I) 
-
-
-
-
-
-lIII1IlIII11.Visible=lI1lIII1I1I and llIl11lIIl1I1.TouchEnabled;
-if lI1lIII1I1I then 
-l1I11l1lI1() else 
-
-lIIIIIlIll();
-llIll1IIlI,ll111IIlIIIl=false,false end end});
-
-
-
-ll1lIlII1:Slider({Name=l11l1Il1lll("\98\226\19\234\82\18\55\253\213",169),Flag=l11l1Il1lll("\46\203\157\131\106\106\228\19",60),Min=10,Max=400,Default=70,Increment=5});
-ll1lIlII1:Segmented({Name=l11l1Il1lll("\132\187\16\175\190\131\101\247\79\86",128),Description=l11l1Il1lll("\166\98\129\61\63\143\118\235\41\59\30\36\42\215\99\62\20\255\116\204\171\86\230\77\153\179\133\69\91\71\254\169\177\85\236\81\72\227\16\158\9\9\53\128\208\99\202\194\96\223\92\240\200\115\128\98\191\133\184\48\110\230\16\68\67\231\217\125\60\213\50\189\61",181),Flag=l11l1Il1lll("\176\10\132\195\195\24\13\180\61",11),Options={l11l1Il1lll("\162\219\54\149\18\91\86\145",121),l11l1Il1lll("\60\43\57\138\33\0\3\253\124\212\187",255)},Default=l11l1Il1lll("\151\26\233\134\139\102\225\35",145),Callback=function() 
-
-
-
-
-
-
-if l1IIlll1I11l.fly then 
-l1I11l1lI1() end end});
-
-
-
-
-local lllII1llII1II=Vector3.zero;
-lI11l11IIl(lIII1l1l.RenderStepped:Connect(function(lIIl1lIIl1II) 
-if not l1IIlll1I11l.fly then 
-lllII1llII1II=Vector3.zero;
-return  end;
-
-local lIll11IlIIl,lI1IIlI1I11ll=l1llll1lI1I1l(),workspace.CurrentCamera;
-if (not lIll11IlIIl) or (not lI1IIlI1I11ll) then 
-return  end;
-
-if l1IIlll1I11l.flyMethod ~= l11l1Il1lll("\171\218\32\202\1\227\255\108\147\52\174",243) then 
-local lI11lI11=lIl1I1lI1Il();
-if lI11lI11 then 
-
-lllII1llII1II=lllII1llII1II:Lerp(l1I11II1I(lIll11IlIIl,lI1IIlI1I11ll) * l1l1I1I111(l11l1Il1lll("\144\42\164",43),l1IIlll1I11l.flySpeed),math.min(lIIl1lIIl1II * 12,1));
-lI11lI11.AssemblyLinearVelocity=lllII1llII1II end;
+if lll1l11Il1ll1.flyMethod ~= lI1I1ll1llIl("\112\183\199\244\209\65\230\247\46\21\130",47) then 
 
 return  end;
 
-if not (l11ll1II11l and l11ll1II11l.Parent) then 
-l1I11l1lI1();
-if not l11ll1II11l then 
+llllIIll=lllII1lI1I1I(lI1I1ll1llIl("\20\251\194\213\0\68\99\24\201\98\119\188",156),{MaxForce=Vector3.new(1e9,1e9,1e9),Velocity=Vector3.zero,Parent=lIlll111l});
+llIIlIllIlIl=lllII1lI1I1I(lI1I1ll1llIl("\140\214\131\246\5\234\217\18",32),{MaxTorque=Vector3.new(1e9,1e9,1e9),P=9e4,CFrame=lIlll111l.CFrame,Parent=lIlll111l});
+llllIllllI.PlatformStand=true end;
+
+
+local function llIIIlII11I(l1l1I1lI1Ill,l111II1IlI) 
+local lII11lI1lI1=l1l1I1lI1Ill.MoveDirection;
+local lIll1I11ll1=Vector3.zero;
+if lII11lI1lI1.Magnitude > 0 then 
+local llIlII1ll11l1=l111II1IlI.CFrame.LookVector;
+local lIlIllI11ll1I=Vector3.new(llIlII1ll11l1.X,0,llIlII1ll11l1.Z);
+if lIlIllI11ll1I.Magnitude > 0.01 then 
+local llI11lI1III=CFrame.lookAt(Vector3.zero,lIlIllI11ll1I):VectorToObjectSpace(lII11lI1lI1);
+lIll1I11ll1=(l111II1IlI.CFrame.RightVector * llI11lI1III.X) + (l111II1IlI.CFrame.LookVector * (- llI11lI1III.Z)) else 
+
+lIll1I11ll1=lII11lI1lI1 end end;
+
+
+local lIllI1ll11I=0;
+if l1IIl1lll1l:IsKeyDown(Enum.KeyCode.Space) or l1llI1l1lI1 then 
+lIllI1ll11I=lIllI1ll11I + 1 end;
+
+if l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftControl) or l11l111llll then 
+lIllI1ll11I=lIllI1ll11I - 1 end;
+
+lIll1I11ll1=lIll1I11ll1 + Vector3.new(0,lIllI1ll11I,0);
+if lIll1I11ll1.Magnitude > 1 then 
+lIll1I11ll1=lIll1I11ll1.Unit end;
+
+return lIll1I11ll1 end;
+
+
+
+local l1I11I1Il11II=lllII1lI1I1I(lI1I1ll1llIl("\193\51\28\146\248",102),{AnchorPoint=Vector2.new(1,1),Size=UDim2.new(0,56,0,124),Position=UDim2.new(1,- 24,1,- 170),BackgroundTransparency=1,Visible=false,Parent=l111II11I.Gui});
+
+
+
+
+
+
+
+l1IlIll1I(l1I11I1Il11II,12);
+local function l1IllIII(llI11llI111Il,lIl1111I11I1l) 
+local llIIIll1=lllII1lI1I1I(lI1I1ll1llIl("\118\77\170\169\193\158\82\251\232\47",46),{Size=UDim2.new(0,56,0,56),Text=llI11llI111Il,Font=Enum.Font.GothamBold,TextSize=20,AutoButtonColor=false,BackgroundTransparency=0.15,Parent=l1I11I1Il11II});
+lI11ll1lIIlII(llIIIll1,lI1I1ll1llIl("\87\221\177\67\77\66\181\208\229\151\109\232\211\38\23\196",10),lI1I1ll1llIl("\7\28\236\200\82\213\125\121\148\188",149));
+lI11ll1lIIlII(llIIIll1,lI1I1ll1llIl("\143\146\249\103\253\191\122\75\64\235",247),lI1I1ll1llIl("\112\216\58\133\240\24",56));
+lIlll1ll1l1I1(llIIIll1,28);
+l111II11I.Stroke(llIIIll1,lI1I1ll1llIl("\94\251\72\59\249\197",137));
+llIIIll1.InputBegan:Connect(function(l1Il111llI) 
+if (l1Il111llI.UserInputType == Enum.UserInputType.Touch) or (l1Il111llI.UserInputType == Enum.UserInputType.MouseButton1) then 
+lIl1111I11I1l(true) end end);
+
+
+llIIIll1.InputEnded:Connect(function(lIIl1Il1lII1) 
+if (lIIl1Il1lII1.UserInputType == Enum.UserInputType.Touch) or (lIIl1Il1lII1.UserInputType == Enum.UserInputType.MouseButton1) then 
+lIl1111I11I1l(false) end end) end;
+
+
+
+l1IllIII(lI1I1ll1llIl("\111\153\8",9),function(lIllIl1l1ll1l) 
+l1llI1l1lI1=lIllIl1l1ll1l end);
+
+l1IllIII(lI1I1ll1llIl("\75\242\77",19),function(ll11IIl1I1I) 
+l11l111llll=ll11IIl1I1I end);
+
+
+lII1lIIll:Toggle({Name=lI1I1ll1llIl("\28\20\31",109),Description=(lIIIlllIl1l and lI1I1ll1llIl("\181\246\77\44\130\226\215\55\68\81\199\15\61\127\152\146\30\155\51\87\89\32\122\155\159\140\250\62\136\137\71\58\180\18\234\211\43\4\246\68\123\57\64\248\30\52\250\174\63\174\86\52\48\118\92\246\9\125\149\28\162\229\100\87\212\50\136",121)) or lI1I1ll1llIl("\35\122\169\15\127\155\172\36\174\108\224\111\218\161\131\248\251\212\55\131\167\57\65\175\48\220\241\9\7\21\232\132\101\19\189\55\30\234\192\23\208\28\46\216\153\180\120\25\27\39\17\160\129",162),Flag=lI1I1ll1llIl("\252\212\223",173),Keybind=Enum.KeyCode.F,Callback=function(llIll1I1III) 
+
+
+
+
+
+l1I11I1Il11II.Visible=llIll1I1III and l1IIl1lll1l.TouchEnabled;
+if llIll1I1III then 
+l1111lllI() else 
+
+lII1IllI11l();
+l1llI1l1lI1,l11l111llll=false,false end end});
+
+
+
+lII1lIIll:Slider({Name=lI1I1ll1llIl("\161\77\100\191\78\244\159\101\86",6),Flag=lI1I1ll1llIl("\235\99\195\135\98\69\75\176",9),Min=10,Max=400,Default=70,Increment=5});
+lII1lIIll:Segmented({Name=lI1I1ll1llIl("\92\84\95\140\186\252\153\72\218\233",45),Description=lI1I1ll1llIl("\64\109\146\179\169\89\15\92\105\229\181\141\80\63\247\84\242\144\103\34\61\128\191\250\249\109\206\236\33\175\106\227\87\26\255\223\222\53\41\41\73\215\94\41\170\139\94\104\134\176\79\94\94\165\217\213\159\91\243\153\20\14\132\14\165\104\202\243\170\3\75\10\125",187),Flag=lI1I1ll1llIl("\60\151\170\88\44\183\57\151\242",36),Options={lI1I1ll1llIl("\59\138\54\91\81\105\122\141",233),lI1I1ll1llIl("\8\231\242\5\39\4\114\166\0\47\156",125)},Default=lI1I1ll1llIl("\35\40\243\220\38\190\22\101",165),Callback=function() 
+
+
+
+
+
+
+if lll1l11Il1ll1.fly then 
+l1111lllI() end end});
+
+
+
+
+local l1lll11lIlI11=Vector3.zero;
+lIl11lIIl(lII1llIIIIlI.RenderStepped:Connect(function(lIl1ll1I) 
+if not lll1l11Il1ll1.fly then 
+l1lll11lIlI11=Vector3.zero;
+return  end;
+
+local lIlIIlI1II1l,lI11I1l11=l11l1IlI1I(),workspace.CurrentCamera;
+if (not lIlIIlI1II1l) or (not lI11I1l11) then 
+return  end;
+
+if lll1l11Il1ll1.flyMethod ~= lI1I1ll1llIl("\92\6\83\198\82\174\148\123\68\217\90",240) then 
+local lI11lll1=l1lI11Il111ll();
+if lI11lll1 then 
+
+l1lll11lIlI11=l1lll11lIlI11:Lerp(llIIIlII11I(lIlIIlI1II1l,lI11I1l11) * lII1ll1IIll1(lI1I1ll1llIl("\29\59\152",87),lll1l11Il1ll1.flySpeed),math.min(lIl1ll1I * 12,1));
+lI11lll1.AssemblyLinearVelocity=l1lll11lIlI11 end;
+
+return  end;
+
+if not (llllIIll and llllIIll.Parent) then 
+l1111lllI();
+if not llllIIll then 
 return  end end;
 
 
-l11ll1II11l.Velocity=l1I11II1I(lIll11IlIIl,lI1IIlI1I11ll) * l1l1I1I111(l11l1Il1lll("\147\111\22",18),l1IIlll1I11l.flySpeed);
-l1lIIIIl1IllI.CFrame=lI1IIlI1I11ll.CFrame end));
+llllIIll.Velocity=llIIIlII11I(lIlIIlI1II1l,lI11I1l11) * lII1ll1IIll1(lI1I1ll1llIl("\187\19\179",89),lll1l11Il1ll1.flySpeed);
+llIIlIllIlIl.CFrame=lI11I1l11.CFrame end));
 
 
 
 
-local lI1lII1lIl=ll11I1lllIl:Section(l11l1Il1lll("\96\175\212\97\117\197\49",117));
-local l1IIIIll1={};
-local function ll11lII11() 
-for ll1ll1Il1ll,ll1IlIII in pairs(l1IIIIll1) do 
-if ll1ll1Il1ll.Parent then 
-ll1ll1Il1ll.CanCollide=ll1IlIII end end;
+local lI1lIl11II=l11lI11II11I:Section(lI1I1ll1llIl("\170\51\10\198\192\64\194",132));
+local ll11IIlIl={};
+local function l1llIl1lII() 
+for lII1l1Il,l1ll111Il11I1 in pairs(ll11IIlIl) do 
+if lII1l1Il.Parent then 
+lII1l1Il.CanCollide=l1ll111Il11I1 end end;
 
 
-l1IIIIll1={} end;
+ll11IIlIl={} end;
 
 
-lI1lII1lIl:Toggle({Name=l11l1Il1lll("\190\139\77\79\244\235",94),Description=l11l1Il1lll("\225\147\189\72\25\229\4\66\171\23\127\181\12\193\19\174\50\74\62\248\251\104\136\198\216\103\90\243\240\74\177",77),Flag=l11l1Il1lll("\247\170\183\79\216\78",131),Keybind=Enum.KeyCode.N,Callback=function(lIIIllIlI1llI) 
-
-
-
-
-
-if not lIIIllIlI1llI then 
-ll11lII11() end end});
+lI1lIl11II:Toggle({Name=lI1I1ll1llIl("\249\30\14\131\4\164",86),Description=lI1I1ll1llIl("\227\238\118\235\46\18\239\199\201\8\145\170\65\203\88\125\176\215\245\123\204\191\99\67\90\248\212\236\157\64\250",135),Flag=lI1I1ll1llIl("\245\140\125\219\230\41",82),Keybind=Enum.KeyCode.N,Callback=function(lI1l1I1I1I1) 
 
 
 
-lI11l11IIl(lIII1l1l.Stepped:Connect(function() 
-if not l1IIlll1I11l.noclip then 
+
+
+if not lI1l1I1I1I1 then 
+l1llIl1lII() end end});
+
+
+
+lIl11lIIl(lII1llIIIIlI.Stepped:Connect(function() 
+if not lll1l11Il1ll1.noclip then 
 return  end;
 
-local lIlIlIlI1I1=lllI1llI.Character;
-if not lIlIlIlI1I1 then 
+local l1llllI1I1II1=ll1lI1IIII1.Character;
+if not l1llllI1I1II1 then 
 return  end;
 
-for lIlIIl1llI1,l11I11Ill1 in ipairs(lIlIlIlI1I1:GetDescendants()) do 
-if l11I11Ill1:IsA(l11l1Il1lll("\192\246\90\170\195\199\35\171",192)) and l11I11Ill1.CanCollide then 
-if l1IIIIll1[l11I11Ill1] == nil then 
-l1IIIIll1[l11I11Ill1]=true end;
+for llII1l11l,l1Il1111lll in ipairs(l1llllI1I1II1:GetDescendants()) do 
+if l1Il1111lll:IsA(lI1I1ll1llIl("\228\37\5\249\54\112\45\83",108)) and l1Il1111lll.CanCollide then 
+if ll11IIlIl[l1Il1111lll] == nil then 
+ll11IIlIl[l1Il1111lll]=true end;
 
-l11I11Ill1.CanCollide=false end end end));
-
-
-
-
-lI1lII1lIl:Toggle({Name=l11l1Il1lll("\88\107\170\51\135\151\96\63\138\22\66\73\158\134",84),Description=l11l1Il1lll("\89\251\30\179\36\127\98\250\232\76\174\137\106\248\245\207\247\75\185\74\181\234\215\88\98\195\60\125\125\173\101\136\145\210\53\141\95\18\109\142\135\127\213\252\252\28\213\14\12\171\10\237\128\207\247\127\2\239\82\11\25\137\12\190\173\126\216\123\242\185",153),Flag=l11l1Il1lll("\218\81\237\224\117\128\61\156\254",6),Callback=function(lI1llI11ll) 
+l1Il1111lll.CanCollide=false end end end));
 
 
 
 
-workspace.Gravity=(lI1llI11ll and (l1IIlll1I11l.gravity or lI11lllIIIIl.gravity)) or lI11lllIIIIl.gravity end});
-
-
-lI1lII1lIl:Slider({Name=l11l1Il1lll("\183\150\79\85\244\239\190",94),Flag=l11l1Il1lll("\44\60\200\65\209\222\105",4),Min=0,Max=400,Default=math.floor(lI11lllIIIIl.gravity),Callback=function(lIlII1lI1Il1) 
+lI1lIl11II:Toggle({Name=lI1I1ll1llIl("\146\46\138\52\81\161\46\115\140\232\161\246\38\154",216),Description=lI1I1ll1llIl("\107\161\146\117\147\252\255\213\51\136\184\53\139\116\113\173\229\49\21\76\226\137\42\23\153\39\42\225\220\65\129\10\99\136\185\139\40\81\112\33\28\251\131\64\93\208\17\236\158\17\102\43\215\172\202\240\121\139\4\215\248\101\232\124\31\164\212\189\69\58",236),Flag=lI1I1ll1llIl("\184\243\148\94\228\241\62\52\147",65),Callback=function(llIlIllIlI) 
 
 
 
 
+workspace.Gravity=(llIlIllIlI and (lll1l11Il1ll1.gravity or lII1lllI.gravity)) or lII1lllI.gravity end});
 
 
-if l1IIlll1I11l.gravityOn then 
-workspace.Gravity=lIlII1lI1Il1 end end});
-
-
-
-lI1lII1lIl:Toggle({Name=l11l1Il1lll("\74\96\157\30\213\156\63\193\108",68),Description=l11l1Il1lll("\45\150\56\37\252\77\235\102\112\230\47\32\150\27\14\12\173\106\179\179\76\226\117\239\172\212\81\181\11\171\163\178\120\163\65\87\140",198),Flag=l11l1Il1lll("\133\32\222\99\55\77\123\188",105)});
-lI1lII1lIl:Toggle({Name=l11l1Il1lll("\141\188\76\210\66\79\176\11\160\70\22\49\249\251\100\133",132),Description=l11l1Il1lll("\172\157\219\59\147\95\117\71\135\199\48\177\163\230\13\174\19\7",120),Flag=l11l1Il1lll("\63\148\109\215\52\139",119),Callback=function(l1lIIlll) 
+lI1lIl11II:Slider({Name=lI1I1ll1llIl("\76\1\207\113\86\189\156",194),Flag=lI1I1ll1llIl("\113\166\135\154\127\21\182",220),Min=0,Max=400,Default=math.floor(lII1lllI.gravity),Callback=function(llll1lIl) 
 
 
 
 
-local l1IlIIlIII1l=lIl1I1lI1Il();
-if l1IlIIlIII1l then 
-l1IlIIlIII1l.Anchored=l1lIIlll end end});
+
+
+if lll1l11Il1ll1.gravityOn then 
+workspace.Gravity=llll1lIl end end});
+
+
+
+lI1lIl11II:Toggle({Name=lI1I1ll1llIl("\83\86\182\196\222\141\89\246\211",30),Description=lI1I1ll1llIl("\37\169\198\59\170\233\21\112\75\113\175\4\52\201\172\49\229\53\77\173\218\134\139\249\183\131\49\145\169\57\65\175\48\220\255\9\26",106),Flag=lI1I1ll1llIl("\184\122\213\240\5\224\96\239",99)});
+lI1lIl11II:Toggle({Name=lI1I1ll1llIl("\104\43\98\10\216\86\43\190\153\26\107\193\189\88\75\70",192),Description=lI1I1ll1llIl("\77\228\106\219\157\60\71\75\219\249\238\129\2\195\231\60\18\158",8),Flag=lI1I1ll1llIl("\205\245\116\230\116\5",135),Callback=function(l1l1lI111II) 
 
 
 
 
-local l1IlII11l1I;
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-if not l1IIlll1I11l.antiVoid then 
+local l1llll1llll=l1lI11Il111ll();
+if l1llll1llll then 
+l1llll1llll.Anchored=l1l1lI111II end end});
+
+
+
+
+local lIIII111ll;
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+if not lll1l11Il1ll1.antiVoid then 
 return  end;
 
-local lIIIIllI111,ll11lIll1l1=l1llll1lI1I1l(),lIl1I1lI1Il();
-if (not lIIIIllI111) or (not ll11lIll1l1) then 
+local llII1II11,llI1Il11IIll=l11l1IlI1I(),l1lI11Il111ll();
+if (not llII1II11) or (not llI1Il11IIll) then 
 return  end;
 
-if lIIIIllI111.FloorMaterial ~= Enum.Material.Air then 
-l1IlII11l1I=ll11lIll1l1.CFrame elseif l1IlII11l1I and (ll11lIll1l1.Position.Y < (workspace.FallenPartsDestroyHeight + 60)) then 
+if llII1II11.FloorMaterial ~= Enum.Material.Air then 
+lIIII111ll=llI1Il11IIll.CFrame elseif lIIII111ll and (llI1Il11IIll.Position.Y < (workspace.FallenPartsDestroyHeight + 60)) then 
 
-ll11lIll1l1.AssemblyLinearVelocity=Vector3.zero;
-ll11lIll1l1.CFrame=l1IlII11l1I + Vector3.new(0,4,0);
-llIIIIII1:Notify({Title=l11l1Il1lll("\97\122\170\154\96\221\152\147\25",142),Content=l11l1Il1lll("\102\178\234\245\13\191\84\7\171\169\82\203\250\253\5\16\245\76\97\34\134\20\168\135\48\140\107\233\71\121\184\175\107",194),Type=l11l1Il1lll("\144\40\14\189",215)}) end end));
-
-
-
-lI1lII1lIl:Button({Name=l11l1Il1lll("\231\38\73\80\176\40\140\46\215\36\141\9\105\79\130\142\87",82),Description=l11l1Il1lll("\156\113\126\243\16\74\82\72\137\111\119\215\94\169\61\115\76\225\189\74\174\216\140\42\171\3\168\65\186\15\171\226\199\26\10",79),Action=l11l1Il1lll("\226\193\8\17\184\40\111",30),Callback=function() 
+llI1Il11IIll.AssemblyLinearVelocity=Vector3.zero;
+llI1Il11IIll.CFrame=lIIII111ll + Vector3.new(0,4,0);
+l111II11I:Notify({Title=lI1I1ll1llIl("\231\42\2\245\75\103\48\78\190",108),Content=lI1I1ll1llIl("\249\122\70\146\129\23\209\33\89\65\40\44\180\224\140\252\106\132\205\69\42\188\45\161\194\100\17\238\9\100\49\67\244",196),Type=lI1I1ll1llIl("\70\31\99\215",177)}) end end));
 
 
 
+lI1lIl11II:Button({Name=lI1I1ll1llIl("\9\70\184\5\42\234\221\103\182\20\115\154\139\147\110\0\185",146),Description=lI1I1ll1llIl("\148\65\101\76\167\198\145\244\26\226\220\0\73\148\25\189\196\209\166\245\25\116\79\118\184\14\3\150\173\50\175\44\79\170\145",12),Action=lI1I1ll1llIl("\169\178\7\129\59\67\94",215),Callback=function() 
 
-local llI111I11I1,ll1lII1I1I11=lIl1I1lI1Il(),l1llll1lI1I1l();
-if (not llI111I11I1) or (not ll1lII1I1I11) then 
+
+
+
+local lI1l1IIIl,lI1IllIl=l1lI11Il111ll(),l11l1IlI1I();
+if (not lI1l1IIIl) or (not lI1IllIl) then 
 return  end;
 
-local l11ll1l1Il=llI111I11I1.CFrame;
-ll1lII1I1I11.Health=0;
-local lI1l111I11l=lllI1llI.CharacterAdded:Wait();
-local lIl1I1lIl=lI1l111I11l:WaitForChild(l11l1Il1lll("\57\186\88\24\22\144\12\174\134\49\213\110\193\179\112\188",33),10);
-if lIl1I1lIl then 
+local lIllll11Il1l1=lI1l1IIIl.CFrame;
+lI1IllIl.Health=0;
+local lIl11111=ll1lI1IIII1.CharacterAdded:Wait();
+local lII11II1Ill1=lIl11111:WaitForChild(lI1I1ll1llIl("\130\30\78\132\183\60\168\44\116\171\153\104\182\240\173\211",180),10);
+if lII11II1Ill1 then 
 task.wait(0.2);
-lIl1I1lIl.CFrame=l11ll1l1Il end end});
+lII11II1Ill1.CFrame=lIllll11Il1l1 end end});
 
 
 
-lI1lII1lIl:Button({Name=l11l1Il1lll("\121\75\186\50\108\42\215\58\137\49\109\68\131",100),Action=l11l1Il1lll("\6\201\127\254\92",106),Callback=function() 
+lI1lIl11II:Button({Name=lI1I1ll1llIl("\237\132\230\45\153\133\0\41\188\9\163\208\59",33),Action=lI1I1ll1llIl("\16\45\193\152\215",78),Callback=function() 
 
 
 
-l1llllI1lll1l.gravityOn:Set(false);
-l1llllI1lll1l.gravity:Set(math.floor(lI11lllIIIIl.gravity)) end});
+lllIIlllIIlIl.gravityOn:Set(false);
+lllIIlllIIlIl.gravity:Set(math.floor(lII1lllI.gravity)) end});
 
 
 
 
 
-local lIlIII1lI1II;
+local l11lll1I1II1;
 do 
-local l11IlIIIIl=ll11I1lllIl:Section(l11l1Il1lll("\101\108\170\129\44\216",142));
-local function l1lllII1() 
-if lIlIII1lI1II then 
-lIlIII1lI1II:Destroy();
-lIlIII1lI1II=nil end end;
+local lll1l1ll=l11lI11II11I:Section(lI1I1ll1llIl("\103\80\166\175\226\152",46));
+local function ll1111IlIIl() 
+if l11lll1I1II1 then 
+l11lll1I1II1:Destroy();
+l11lll1I1II1=nil end end;
 
 
-l11IlIIIIl:Toggle({Name=l11l1Il1lll("\81\142\63\210\139\39\206\153",85),Description=l11l1Il1lll("\249\41\136\18\125\65\214\153\76\160\244\178\167\124\84\63\170\252\21\133\206\245\21\18\183\79\106\34\147\23\171\129\38\140\121\245\76\105\164\235\60\220\138\128\37\141\49\59\144\28\232\99\57\8\102\52\155\111\22\66\236\116\209\238\28\237\90\222\230\204\126\68\9\247\172\242\92\228\65\76\164\116\217\66\31\52\210",138),Flag=l11l1Il1lll("\152\204\198\20\176\242\235",227),Callback=function(l1l11llIlIlI) 
+lll1l1ll:Toggle({Name=lI1I1ll1llIl("\186\190\19\211\41\81\90\111",215),Description=lI1I1ll1llIl("\7\237\242\21\114\4\61\162\12\46\132\227\151\112\82\109\180\216\143\130\225\176\222\9\151\161\122\19\163\59\141\243\24\72\3\242\131\44\79\208\60\18\250\209\21\193\119\105\142\248\178\100\22\77\109\239\187\129\70\51\220\88\247\220\98\41\32\217\233\137\149\127\201\249\220\163\108\232\71\30\186\208\195\69\48\113\25",125),Flag=lI1I1ll1llIl("\10\46\163\20\175\204\45",71),Callback=function(llI1I11lIII) 
 
 
 
 
-l1lllII1();
-if l1l11llIlIlI then 
-local lII1IIl11=lIl1I1lI1Il();
-if not lII1IIl11 then 
+ll1111IlIIl();
+if llI1I11lIII then 
+local ll1I1llIIlIIl=l1lI11Il111ll();
+if not ll1I1llIIlIIl then 
 return  end;
 
-lIlIII1lI1II=lI11IIlIIIllI(l11l1Il1lll("\253\82\206\210",22),{Name=llIIlI1Il:GenerateGUID(false),Size=Vector3.new(8,1,8),Anchored=true,Transparency=1,CanQuery=false,CFrame=CFrame.new(lII1IIl11.Position - Vector3.new(0,3.6,0)),Parent=workspace.CurrentCamera}) end end});
+l11lll1I1II1=lllII1lI1I1I(lI1I1ll1llIl("\219\146\92\243",66),{Name=llII1lIII1:GenerateGUID(false),Size=Vector3.new(8,1,8),Anchored=true,Transparency=1,CanQuery=false,CFrame=CFrame.new(ll1I1llIIlIIl.Position - Vector3.new(0,3.6,0)),Parent=workspace.CurrentCamera}) end end});
 
 
 
@@ -669,31 +673,31 @@ lIlIII1lI1II=lI11IIlIIIllI(l11l1Il1lll("\253\82\206\210",22),{Name=llIIlI1Il:Gen
 
 
 
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-if not lIlIII1lI1II then 
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+if not l11lll1I1II1 then 
 return  end;
 
-local lIl1llllIl=lIl1I1lI1Il();
-if lIl1llllIl then 
-local l1l1l11llIl1l=lIlIII1lI1II.Position.Y;
-if llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftControl) or ll111IIlIIIl then 
-l1l1l11llIl1l=l1l1l11llIl1l - 0.4 end;
+local l1llIl1lIII=l1lI11Il111ll();
+if l1llIl1lIII then 
+local l1lI1IllIlIII=l11lll1I1II1.Position.Y;
+if l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftControl) or l11l111llll then 
+l1lI1IllIlIII=l1lI1IllIlIII - 0.4 end;
 
-lIlIII1lI1II.CFrame=CFrame.new(lIl1llllIl.Position.X,l1l1l11llIl1l,lIl1llllIl.Position.Z) end end));
+l11lll1I1II1.CFrame=CFrame.new(l1llIl1lIII.Position.X,l1lI1IllIlIII,l1llIl1lIII.Position.Z) end end));
 
 
 
-llIIIIII1:OnUnload(function() 
-l1lllII1();
-if l1IIlll1I11l.autoSprint then 
+l111II11I:OnUnload(function() 
+ll1111IlIIl();
+if lll1l11Il1ll1.autoSprint then 
 pcall(function() 
-game:GetService(l11l1Il1lll("\222\142\214\228\47\46\173\126\21\14\140\19\133\187\14\217\127\242\166",252)):SendKeyEvent(false,Enum.KeyCode.LeftShift,false,game) end) end end);
+game:GetService(lI1I1ll1llIl("\95\173\99\93\150\190\53\178\40\72\187\120\87\129\229\180\254\49\147",179)):SendKeyEvent(false,Enum.KeyCode.LeftShift,false,game) end) end end);
 
 
 
-l11IlIIIIl:Toggle({Name=l11l1Il1lll("\63\49\41\156\33\30\28\249\112\200\188",255),Description=l11l1Il1lll("\142\184\30\175\161\143\98\244\0\240\79\48\232\80\32\12\193\135\74\119\42\48\213\47\214\205\122\192\87\206\145\189\81\23\253\7\82\178\17\204\112\96\241\30\180\127\3\38\178\212\81\150\197\194",128),Flag=l11l1Il1lll("\40\131\140\45\13\142\7\95\112\144",103),Callback=function(ll1I111l1l) 
+lll1l1ll:Toggle({Name=lI1I1ll1llIl("\94\52\65\135\109\54\247\201\84\177\30",129),Description=lI1I1ll1llIl("\227\158\242\24\239\220\4\0\205\173\109\148\250\239\226\16\76\65\70\160\4\67\147\251\59\144\56\4\165\145\115\129\252\241\209\48\156\161\55\56\189\61\147\250\38\64\1\250\63\18\93\129\43\49",49),Flag=lI1I1ll1llIl("\172\58\142\251\1\16\28\253\113\53",73),Callback=function(lllll1I11II1) 
 pcall(function() 
-game:GetService(l11l1Il1lll("\253\199\59\163\237\235\92\129\6\183\241\196\55\14\207\54\124\123\171",228)):SendKeyEvent(ll1I111l1l,Enum.KeyCode.LeftShift,false,game) end) end}) end;
+game:GetService(lI1I1ll1llIl("\132\81\49\89\36\237\69\168\69\119\228\119\195\129\104\85\69\205\161",207)):SendKeyEvent(lllll1I11II1,Enum.KeyCode.LeftShift,false,game) end) end}) end;
 
 
 
@@ -701,158 +705,158 @@ game:GetService(l11l1Il1lll("\253\199\59\163\237\235\92\129\6\183\241\196\55\14\
 
 
 do 
-local llIl1lIllI=ll11I1lllIl:Section(l11l1Il1lll("\206\180\128\116\228\90\67\218\62\201\83\34\31\140\220\116\108\101\39\198\84\158\212\98\131\91\132",147));
-local function llllIIIII1l(l11I1lllI,ll1l1IIl11I,lIlIlll1) 
-local lIlIl1Il=lI11IIlIIIllI(l11l1Il1lll("\73\199\186\6",55),{Name=llIIlI1Il:GenerateGUID(false),Anchored=true,CanCollide=false,CanQuery=false,Material=Enum.Material.Neon,Color=l11I1lllI,Size=ll1l1IIl11I,CFrame=lIlIlll1,Transparency=0.25,Parent=workspace.CurrentCamera});
-return lIlIl1Il end;
+local l111ll1Il1l=l11lI11II11I:Section(lI1I1ll1llIl("\6\170\45\151\203\40\13\68\70\118\41\67\155\83\50\242\196\27\170\5\123\204\154\156\123\4\30",72));
+local function llIlI11I(lIl11I11llllI,lI1I1IlI1,lIlIl1I1l1ll) 
+local lI111111lllIl=lllII1lI1I1I(lI1I1ll1llIl("\206\136\197\75",112),{Name=llII1lIII1:GenerateGUID(false),Anchored=true,CanCollide=false,CanQuery=false,Material=Enum.Material.Neon,Color=lIl11I11llllI,Size=lI1I1IlI1,CFrame=lIlIl1I1l1ll,Transparency=0.25,Parent=workspace.CurrentCamera});
+return lI111111lllIl end;
 
 
 
-local llIIl1III,l1lIIllIII,lll11lI1I11=nil,nil,0;
-local function lllllII11Il(l1IlIIl1lll) 
-local lI1lllII1l1I,lII11l1IlIIl=lIl1I1lI1Il(),l1llll1lI1I1l();
-if (not lI1lllII1l1I) or (not lII11l1IlIIl) then 
+local lI1I11lll,lIIllI1lI,llllllIIII=nil,nil,0;
+local function l11111IIl(lI1ll11llI) 
+local l1lII11I1l,lI1I11lI1=l1lI11Il111ll(),l11l1IlI1I();
+if (not l1lII11I1l) or (not lI1I11lI1) then 
 return  end;
 
-local l1ll1IlIlIlIl=lI1lllII1l1I.Position - Vector3.new(0,(lII11l1IlIIl.HipHeight + (lI1lllII1l1I.Size.Y / 2)) - 0.2,0);
-local lIll1lll=CFrame.new(l1ll1IlIlIlIl) * CFrame.Angles(0,0,math.rad(90));
-local lI1lIIIl=((l1IlIIl1lll == l11l1Il1lll("\105",92)) and Color3.fromRGB(80,170,255)) or Color3.fromRGB(255,150,60);
-if l1IlIIl1lll == l11l1Il1lll("\119",235) then 
-if llIIl1III then 
-llIIl1III:Destroy() end;
+local llllllIll1I11=l1lII11I1l.Position - Vector3.new(0,(lI1I11lI1.HipHeight + (l1lII11I1l.Size.Y / 2)) - 0.2,0);
+local lIlIIII11l1ll=CFrame.new(llllllIll1I11) * CFrame.Angles(0,0,math.rad(90));
+local ll11lIlI=((lI1ll11llI == lI1I1ll1llIl("\147",207)) and Color3.fromRGB(80,170,255)) or Color3.fromRGB(255,150,60);
+if lI1ll11llI == lI1I1ll1llIl("\182",22) then 
+if lI1I11lll then 
+lI1I11lll:Destroy() end;
 
-llIIl1III=llllIIIII1l(lI1lIIIl,Vector3.new(0.4,7,7),lIll1lll);
-llIIl1III.Shape=Enum.PartType.Cylinder else 
+lI1I11lll=llIlI11I(ll11lIlI,Vector3.new(0.4,7,7),lIlIIII11l1ll);
+lI1I11lll.Shape=Enum.PartType.Cylinder else 
 
-if l1lIIllIII then 
-l1lIIllIII:Destroy() end;
+if lIIllI1lI then 
+lIIllI1lI:Destroy() end;
 
-l1lIIllIII=llllIIIII1l(lI1lIIIl,Vector3.new(0.4,7,7),lIll1lll);
-l1lIIllIII.Shape=Enum.PartType.Cylinder end;
+lIIllI1lI=llIlI11I(ll11lIlI,Vector3.new(0.4,7,7),lIlIIII11l1ll);
+lIIllI1lI.Shape=Enum.PartType.Cylinder end;
 
-lll11lI1I11=os.clock() + 1.5;
-llIIIIII1:Notify({Title=l11l1Il1lll("\62\219\223\151\112\49\124",239) .. l1IlIIl1lll,Content=((llIIl1III and l1lIIllIII) and l11l1Il1lll("\12\251\249\107\209\205\211\201\93\247\244\81\222\63\167\243\158\113\109\157\97\122\77\167\50\198\97\220\58\129\101\105\64\145\195",207)) or l11l1Il1lll("\215\73\63\210\126\194\100\37\11\148\217\139\116\125\51\239\97\211\202\34\238\81\199\130\191\72\19",183),Type=l11l1Il1lll("\201\220\30\255",56)}) end;
+llllllIIII=os.clock() + 1.5;
+l111II11I:Notify({Title=lI1I1ll1llIl("\155\220\28\179\158\101\5",2) .. lI1ll11llI,Content=((lI1I11lll and lIIllI1lI) and lI1I1ll1llIl("\184\52\7\221\137\83\222\106\2\149\170\191\22\32\93\50\170\94\147\11\57\196\96\228\141\36\95\50\210\190\191\136\116\222\189",132)) or lI1I1ll1llIl("\187\162\104\19\181\59\131\255\15\72\2\244\130\105\82\132\45\24\253\131\69\200\96\120\155\180\232",37),Type=lI1I1ll1llIl("\131\134\144\115",221)}) end;
 
-llIl1lIllI:Button({Name=l11l1Il1lll("\233\106\73\241\11\238\85\9\60\224\236\111\209\252",151),Description=l11l1Il1lll("\72\150\219\219\48\70\180\236\77\143\55\235\90\11\38\89\217\54\74\2\165\52\150\122\213\32\204\12\96\73\132\142\5\170\240\231\69\184\0\31\170\184",226),Action=l11l1Il1lll("\196\0\173\56\13",170),Callback=function() 
-lllllII11Il(l11l1Il1lll("\64",81)) end});
+l111ll1Il1l:Button({Name=lI1I1ll1llIl("\169\88\224\218\22\79\153\4\164\60\223\240\170\49",67),Description=lI1I1ll1llIl("\15\237\151\212\180\145\121\3\210\228\74\147\220\199\214\134\190\77\38\13\33\227\91\149\74\107\177\116\230\133\116\81\2\209\188\232\193\111\205\240\53\19",95),Action=lI1I1ll1llIl("\77\211\107\7\231",153),Callback=function() 
+l11111IIl(lI1I1ll1llIl("\212",138)) end});
 
-llIl1lIllI:Button({Name=l11l1Il1lll("\37\239\142\129\112\187\84\33\134\120\205\87\104\46",146),Description=l11l1Il1lll("\75\220\43\132\38\103\18\136\254\93\161\248\244\127\178\2\17\76\191\90\136\221\215\72\18\171\68\103\108\193\85\173\133\34\193\42\8\76\102\183\209\42\220\141\144\26\151\106\32\177\26\240\100\63\242\104\53\144\37\29\0\234\53\181\176\6\239\88",137),Action=l11l1Il1lll("\89\54\27\35\60",237),Callback=function() 
-lllllII11Il(l11l1Il1lll("\66",152)) end});
+l111ll1Il1l:Button({Name=lI1I1ll1llIl("\245\0\99\155\191\224\122\26\73\55\31\187\207\123",186),Description=lI1I1ll1llIl("\4\21\144\13\73\37\134\228\237\58\71\28\109\156\110\89\158\165\4\211\39\95\67\36\97\140\226\131\245\98\201\246\10\43\186\99\167\206\50\27\66\13\122\41\73\185\11\113\239\216\97\185\11\125\166\196\134\119\67\185\217\9\233\174\127\79\212\81",103),Action=lI1I1ll1llIl("\85\224\131\123\95",26),Callback=function() 
+l11111IIl(lI1I1ll1llIl("\73",39)) end});
 
 
 
-local llIII1lI1Il1={};
-llIl1lIllI:Button({Name=l11l1Il1lll("\133\79\110\97\144\91\174\155\57\220\44\235\73\104",50),Description=l11l1Il1lll("\150\187\125\238\93\87\160\106\209\68\31\64\104\8\49\166\107\62\200\83\152\222\120\137\60\135\136\177\111\97\226\31\94\77\25\222\103\111\128\17\182\35\123\96\254\247\84\231\202\199\59",148),Action=l11l1Il1lll("\134\10\156\237\195",11),Callback=function() 
-local lIIlllI111l1,llI1I11IlIl=lIl1I1lI1Il(),l1llll1lI1I1l();
-if (not lIIlllI111l1) or (not llI1I11IlIl) then 
+local lIl1111I11I={};
+l111ll1Il1l:Button({Name=lI1I1ll1llIl("\93\227\91\55\247\128\196\33\50\113\85\216\108\97",137),Description=lI1I1ll1llIl("\187\205\58\21\31\253\59\55\64\151\26\105\65\8\25\154\70\104\143\136\218\116\3\84\205\84\173\152\70\65\202\67\243\251\94\37\37\197\219\204\167\112\62\73\215\247\124\155\103\17\252",91),Action=lI1I1ll1llIl("\119\141\188\60\152",198),Callback=function() 
+local llIIIlI1IlI11,lI1lllI11=l1lI11Il111ll(),l11l1IlI1I();
+if (not llIIIlI1IlI11) or (not lI1lllI11) then 
 return  end;
 
-local l1llI1IIIIl=(lIIlllI111l1.Position.Y - llI1I11IlIl.HipHeight) - (lIIlllI111l1.Size.Y / 2);
-table.insert(llIII1lI1Il1,llllIIIII1l(Color3.fromRGB(61,220,151),Vector3.new(6,0.4,6),CFrame.new(lIIlllI111l1.Position.X,l1llI1IIIIl + 0.2,lIIlllI111l1.Position.Z) + (lIIlllI111l1.CFrame.LookVector * 7))) end});
+local l11l1I1l1=(llIIIlI1IlI11.Position.Y - lI1lllI11.HipHeight) - (llIIIlI1IlI11.Size.Y / 2);
+table.insert(lIl1111I11I,llIlI11I(Color3.fromRGB(61,220,151),Vector3.new(6,0.4,6),CFrame.new(llIIIlI1IlI11.Position.X,l11l1I1l1 + 0.2,llIIIlI1IlI11.Position.Z) + (llIIIlI1IlI11.CFrame.LookVector * 7))) end});
 
-llIl1lIllI:Slider({Name=l11l1Il1lll("\186\151\37\208\208\31\93\124\194\135\38\216\150\244",104),Flag=l11l1Il1lll("\2\6\189\15\108\97\132\61",48),Min=40,Max=300,Default=120});
-llIl1lIllI:Button({Name=l11l1Il1lll("\66\103\197\47\166\42\60\95\227\243\78\170\231\213",136),Description=l11l1Il1lll("\147\174\13\225\98\252\252\136\173\165\29\238\191\149\49\254\78\86\216\122\213\82\60\72\194\198\125\108",72),Action=l11l1Il1lll("\58\102\79\145\155",157),Danger=true,Callback=function() 
-for l11llllI1I,lIl11I1lI in ipairs(llIII1lI1Il1) do 
-lIl11I1lI:Destroy() end;
+l111ll1Il1l:Slider({Name=lI1I1ll1llIl("\245\148\248\56\205\213\6\63\253\15\165\211\39\2",33),Flag=lI1I1ll1llIl("\225\122\221\80\17\251\171\166",152),Min=40,Max=300,Default=120});
+l111ll1Il1l:Button({Name=lI1I1ll1llIl("\120\77\91\179\209\236\221\87\228\217\40\6\129\20",29),Description=lI1I1ll1llIl("\169\132\147\125\21\186\157\0\170\143\123\66\217\84\178\237\20\60\102\230\130\212\189\32\37\12\219\224",221),Action=lI1I1ll1llIl("\168\255\43\134\173",34),Danger=true,Callback=function() 
+for l1lIlllII,ll1lI1lI1Il1l in ipairs(lIl1111I11I) do 
+ll1lI1lI1Il1l:Destroy() end;
 
-llIII1lI1Il1={};
-if llIIl1III then 
-llIIl1III:Destroy() end;
+lIl1111I11I={};
+if lI1I11lll then 
+lI1I11lll:Destroy() end;
 
-if l1lIIllIII then 
-l1lIIllIII:Destroy() end;
+if lIIllI1lI then 
+lIIllI1lI:Destroy() end;
 
-llIIl1III,l1lIIllIII=nil,nil end});
-
-
-
-llIl1lIllI:Toggle({Name=l11l1Il1lll("\94\212\169\2\254\66\224",55),Description=(llII1lIlIll1l and l11l1Il1lll("\197\122\187\174\76\246\125\240\171\212\252\100\77\223\182\170\61\226\12\65\157\120\200\19\31\22\142\209\114\116\33\106\217\92\156\213\123\141\90\196\192\160\113\19\228\31",54)) or l11l1Il1lll("\136\157\89\187\77\249\190\169\118\163\238\129\220\85\200\71\91\7\194\202\126\112\103\43\141\68\221\202\96\196\91\209\192\166\113\92\235\75\67\85\29\208\123\127\242\19\228\39\127\100\231\247",110),Flag=l11l1Il1lll("\183\118\175\179\13\215\130",126)});
-local lI11I1I111,l1lIlI1I11l1,lI1lllI1,lI1I1lIIlllI;
-local function lll1lI11ll1I() 
-lI1I1lIIlllI=nil;
-for lI1Il1IIll1l,lIIIIl1I11II in ipairs({lI11I1I111,l1lIlI1I11l1,lI1lllI1}) do 
-if lIIIIl1I11II then 
-lIIIIl1I11II:Destroy() end end;
+lI1I11lll,lIIllI1lI=nil,nil end});
 
 
-lI11I1I111,l1lIlI1I11l1,lI1lllI1=nil,nil,nil end;
 
-local function l11Illl1l(lIIl11ll1l1l) 
-local llIlIl1I1lIIl,l1Il11lI1llI=workspace.CurrentCamera,lIl1I1lI1Il();
-if (not llIlIl1I1lIIl) or (not l1Il11lI1llI) then 
+l111ll1Il1l:Toggle({Name=lI1I1ll1llIl("\45\185\162\117\73\223\68",20),Description=(lIIIlllIl1l and lI1I1ll1llIl("\130\97\113\148\167\155\244\35\142\253\173\244\245\19\147\220\122\25\70\27\118\53\65\192\26\63\191\193\42\184\4\60\158\135\214\111\16\160\211\23\229\137\96\3\220\83",253)) or lI1I1ll1llIl("\242\241\225\36\23\11\100\179\126\13\61\100\69\182\46\72\225\107\122\149\228\130\189\49\197\170\14\47\185\103\157\222\122\10\9\3\113\121\89\143\85\62\232\218\43\176\66\104\133\200\159\104",141),Flag=lI1I1ll1llIl("\129\234\15\28\10\236\142",75)});
+local l1lIl1lIlIl11,l1I1Il1ll,llllIl11l1l,ll1lIIIIlII1l;
+local function l1ll1lI1lIIl1() 
+ll1lIIIIlII1l=nil;
+for l1lll11IllII,ll1l1IIl in ipairs({l1lIl1lIlIl11,l1I1Il1ll,llllIl11l1l}) do 
+if ll1l1IIl then 
+ll1l1IIl:Destroy() end end;
+
+
+l1lIl1lIlIl11,l1I1Il1ll,llllIl11l1l=nil,nil,nil end;
+
+local function l1l1Il11I(l1l1l1I1Ill1) 
+local lIIl11lI1,l11llI11Il1l=workspace.CurrentCamera,l1lI11Il111ll();
+if (not lIIl11lI1) or (not l11llI11Il1l) then 
 return  end;
 
-local lllIlIl1I11=llIlIl1I1lIIl:ViewportPointToRay(lIIl11ll1l1l.X,lIIl11ll1l1l.Y);
-local l1IlI1lI1=RaycastParams.new();
-l1IlI1lI1.FilterType=Enum.RaycastFilterType.Exclude;
-l1IlI1lI1.FilterDescendantsInstances={lllI1llI.Character,llIlIl1I1lIIl};
-local lII1111l1I1Il=workspace:Raycast(lllIlIl1I11.Origin,lllIlIl1I11.Direction * 300,l1IlI1lI1);
-if not lII1111l1I1Il then 
+local l1lIIlI1II=lIIl11lI1:ViewportPointToRay(l1l1l1I1Ill1.X,l1l1l1I1Ill1.Y);
+local lIIlIIII=RaycastParams.new();
+lIIlIIII.FilterType=Enum.RaycastFilterType.Exclude;
+lIIlIIII.FilterDescendantsInstances={ll1lI1IIII1.Character,lIIl11lI1};
+local lllI1l1l1=workspace:Raycast(l1lIIlI1II.Origin,l1lIIlI1II.Direction * 300,lIIlIIII);
+if not lllI1l1l1 then 
 return  end;
 
-lll1lI11ll1I();
-lI1I1lIIlllI=lII1111l1I1Il.Position;
-local l1Ill1lII=llllIIIII1l(Color3.new(1,1,1),Vector3.new(0.4,0.4,0.4),CFrame.new(lII1111l1I1Il.Position));
-lI1lllI1=lI11IIlIIIllI(l11l1Il1lll("\65\64\138\242\78\163\250\255\51\183",174),{Parent=l1Ill1lII});
-l1lIlI1I11l1=lI11IIlIIIllI(l11l1Il1lll("\200\161\144\114\226\70\93\159\120\210",147),{Name=llIIlI1Il:GenerateGUID(false),Parent=l1Il11lI1llI});
-lI11I1I111=lI11IIlIIIllI(l11l1Il1lll("\23\198\238\239",178),{Attachment0=l1lIlI1I11l1,Attachment1=lI1lllI1,Width0=0.15,Width1=0.15,FaceCamera=true,Color=ColorSequence.new(llIIIIII1.Theme.Accent),LightEmission=1,Parent=l1Ill1lII});
-lI1lllI1=l1Ill1lII end;
+l1ll1lI1lIIl1();
+ll1lIIIIlII1l=lllI1l1l1.Position;
+local l1l1IlIIllll=llIlI11I(Color3.new(1,1,1),Vector3.new(0.4,0.4,0.4),CFrame.new(lllI1l1l1.Position));
+llllIl11l1l=lllII1lI1I1I(lI1I1ll1llIl("\139\31\87\132\186\59\172\45\72\176",180),{Parent=l1l1IlIIllll});
+l1I1Il1ll=lllII1lI1I1I(lI1I1ll1llIl("\167\236\26\13\25\232\134\208\87\128",75),{Name=llII1lIII1:GenerateGUID(false),Parent=l11llI11Il1l});
+l1lIl1lIlIl11=lllII1lI1I1I(lI1I1ll1llIl("\229\4\60\178",70),{Attachment0=l1I1Il1ll,Attachment1=llllIl11l1l,Width0=0.15,Width1=0.15,FaceCamera=true,Color=ColorSequence.new(l111II11I.Theme.Accent),LightEmission=1,Parent=l1l1IlIIllll});
+llllIl11l1l=l1l1IlIIllll end;
 
-lI11l11IIl(llIl11lIIl1I1.TouchTap:Connect(function(ll111ll1lI1I,llI1I11Il11l1) 
-if (l1IIlll1I11l.grapple and (not llI1I11Il11l1)) and ll111ll1lI1I[1] then 
-l11Illl1l(ll111ll1lI1I[1] + llII1l1I:GetGuiInset()) end end));
-
-
-lI11l11IIl(llIl11lIIl1I1.InputBegan:Connect(function(ll1ll11l1l,lIIl1l11III) 
-if ((l1IIlll1I11l.grapple and (not lIIl1l11III)) and (ll1ll11l1l.UserInputType == Enum.UserInputType.MouseButton1)) and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftAlt) then 
-l11Illl1l(llIl11lIIl1I1:GetMouseLocation()) end end));
+lIl11lIIl(l1IIl1lll1l.TouchTap:Connect(function(llllIIIlIlIIl,lII1IIlIlI) 
+if (lll1l11Il1ll1.grapple and (not lII1IIlIlI)) and llllIIIlIlIIl[1] then 
+l1l1Il11I(llllIIIlIlIIl[1] + l11lI1IIIllI1:GetGuiInset()) end end));
 
 
+lIl11lIIl(l1IIl1lll1l.InputBegan:Connect(function(l111l11I1Il,ll11I11I1l) 
+if ((lll1l11Il1ll1.grapple and (not ll11I11I1l)) and (l111l11I1Il.UserInputType == Enum.UserInputType.MouseButton1)) and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftAlt) then 
+l1l1Il11I(l1IIl1lll1l:GetMouseLocation()) end end));
 
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-local lII1l1IIll1I=lIl1I1lI1Il();
-if not lII1l1IIll1I then 
+
+
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+local llllIll1II=l1lI11Il111ll();
+if not llllIll1II then 
 return  end;
 
 
-if (llIIl1III and l1lIIllIII) and (os.clock() > lll11lI1I11) then 
-local function l111I11l1I(ll111ll11II1I) 
-return (ll111ll11II1I.Position - lII1l1IIll1I.Position).Magnitude < 4.5 end;
+if (lI1I11lll and lIIllI1lI) and (os.clock() > llllllIIII) then 
+local function llI11IlI(lIIII1II1IllI) 
+return (lIIII1II1IllI.Position - llllIll1II.Position).Magnitude < 4.5 end;
 
-local ll1I11lI1l1=(l111I11l1I(llIIl1III) and l1lIIllIII) or (l111I11l1I(l1lIIllIII) and llIIl1III);
-if ll1I11lI1l1 then 
-lll11lI1I11=os.clock() + 1.5;
-lII1l1IIll1I.CFrame=CFrame.new(ll1I11lI1l1.Position + Vector3.new(0,3.5,0)) * lII1l1IIll1I.CFrame.Rotation end end;
-
-
-
-for l11ll1l1,ll11I11II in ipairs(llIII1lI1Il1) do 
-local llII11111l1l=lII1l1IIll1I.Position - ll11I11II.Position;
-if ((((math.abs(llII11111l1l.X) < 3.5) and (math.abs(llII11111l1l.Z) < 3.5)) and (llII11111l1l.Y > 0)) and (llII11111l1l.Y < 5)) and (lII1l1IIll1I.AssemblyLinearVelocity.Y < 20) then 
-local l11l1l1I=lII1l1IIll1I.AssemblyLinearVelocity;
-lII1l1IIll1I.AssemblyLinearVelocity=Vector3.new(l11l1l1I.X,l1IIlll1I11l.padPower or 120,l11l1l1I.Z) end end;
+local l1Ill1I1Ill=(llI11IlI(lI1I11lll) and lIIllI1lI) or (llI11IlI(lIIllI1lI) and lI1I11lll);
+if l1Ill1I1Ill then 
+llllllIIII=os.clock() + 1.5;
+llllIll1II.CFrame=CFrame.new(l1Ill1I1Ill.Position + Vector3.new(0,3.5,0)) * llllIll1II.CFrame.Rotation end end;
 
 
 
-if lI1I1lIIlllI then 
-local lIlI1Ill=lI1I1lIIlllI - lII1l1IIll1I.Position;
-if (lIlI1Ill.Magnitude < 5) or (not l1IIlll1I11l.grapple) then 
-lll1lI11ll1I() else 
-
-lII1l1IIll1I.AssemblyLinearVelocity=lIlI1Ill.Unit * math.min(110,30 + (lIlI1Ill.Magnitude * 1.5)) end end end));
-
+for l1llllIl11111,lIIl1IIII11ll in ipairs(lIl1111I11I) do 
+local l1II1I11I1=llllIll1II.Position - lIIl1IIII11ll.Position;
+if ((((math.abs(l1II1I11I1.X) < 3.5) and (math.abs(l1II1I11I1.Z) < 3.5)) and (l1II1I11I1.Y > 0)) and (l1II1I11I1.Y < 5)) and (llllIll1II.AssemblyLinearVelocity.Y < 20) then 
+local llIII1I1II1ll=llllIll1II.AssemblyLinearVelocity;
+llllIll1II.AssemblyLinearVelocity=Vector3.new(llIII1I1II1ll.X,lll1l11Il1ll1.padPower or 120,llIII1I1II1ll.Z) end end;
 
 
-llIIIIII1:OnUnload(function() 
-lll1lI11ll1I();
-for llI1lIlllI1,ll1IlIll1 in ipairs(llIII1lI1Il1) do 
-ll1IlIll1:Destroy() end;
 
-if llIIl1III then 
-llIIl1III:Destroy() end;
+if ll1lIIIIlII1l then 
+local lII1I11III11=ll1lIIIIlII1l - llllIll1II.Position;
+if (lII1I11III11.Magnitude < 5) or (not lll1l11Il1ll1.grapple) then 
+l1ll1lI1lIIl1() else 
 
-if l1lIIllIII then 
-l1lIIllIII:Destroy() end end) end;
+llllIll1II.AssemblyLinearVelocity=lII1I11III11.Unit * math.min(110,30 + (lII1I11III11.Magnitude * 1.5)) end end end));
+
+
+
+l111II11I:OnUnload(function() 
+l1ll1lI1lIIl1();
+for l1lIl1lIl11I,l1l1IllIIl1 in ipairs(lIl1111I11I) do 
+l1l1IllIIl1:Destroy() end;
+
+if lI1I11lll then 
+lI1I11lll:Destroy() end;
+
+if lIIllI1lI then 
+lIIllI1lI:Destroy() end end) end;
 
 
 
@@ -860,422 +864,372 @@ l1lIIllIII:Destroy() end end) end;
 
 
 do 
-local l1I1II11Ill=ll11I1lllIl:Section(l11l1Il1lll("\73\133\145\56\200\227\235",159));
-l1I1II11Ill:Toggle({Name=l11l1Il1lll("\135\163\4\235\48\224\178\216\181\182\29\234\161",72),Description=l11l1Il1lll("\240\70\232\255\105\153\100\161\249\183\101\35\127\204\7\125\172\39\121\116\140\37\183\55\115\20\146\250\70\174\183\233\50\175\5\18\28\179\22\156\197\202\10\67\187\52\117\42\148\28\137",6),Flag=l11l1Il1lll("\222\155\174\69\75\192\12\93\171",77)});
-l1I1II11Ill:Toggle({Name=l11l1Il1lll("\24\31\62\255\169\112\156\205\219",189),Description=l11l1Il1lll("\101\26\115\211\19\167\163\49\150\196\42\14\77\169\160\11\202\197\131\98\253\53\41\132\97\182\122\54\19\206\48\203\125\61\1\179\98\207\221\31\228\71\157\168\135\79\64\232\181\229\186\76\145\74\72\255\11\212\13\16\51\249\209\110\141",51),Flag=l11l1Il1lll("\68\166\235\253\50\170\24\21",194),Keybind=Enum.KeyCode.V});
-local l1Il1lII;
-local lIlI1l11ll1=RaycastParams.new();
-lIlI1l11ll1.FilterType=Enum.RaycastFilterType.Exclude;
-lIlI1l11ll1.IgnoreWater=false;
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-local lI1III1I,l11llIlIl1=l1llll1lI1I1l(),lIl1I1lI1Il();
-if l1IIlll1I11l.waterWalk and l11llIlIl1 then 
-lIlI1l11ll1.FilterDescendantsInstances={lllI1llI.Character,workspace.CurrentCamera};
-local lllIIII11=workspace:Raycast(l11llIlIl1.Position,Vector3.new(0,- 12,0),lIlI1l11ll1);
-local lII1l1I11=lllIIII11 and ((lllIIII11.Material == Enum.Material.Water) or (lllIIII11.Instance and lllIIII11.Instance.Name:lower():find(l11l1Il1lll("\90\210\72\67\254",150))));
-if lII1l1I11 and (not llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftControl)) then 
-if not l1Il1lII then 
-l1Il1lII=lI11IIlIIIllI(l11l1Il1lll("\96\67\250\20",168),{Name=llIIlI1Il:GenerateGUID(false),Size=Vector3.new(10,1,10),Anchored=true,Transparency=1,CanQuery=false,Parent=workspace.CurrentCamera}) end;
+local lIlIlIl1Il=l11lI11II11I:Section(lI1I1ll1llIl("\173\185\170\103\30\87\42",205));
+lIlIlIl1Il:Toggle({Name=lI1I1ll1llIl("\253\201\218\55\7\102\19\144\114\92\187\134\7",157),Description=lI1I1ll1llIl("\2\116\1\241\72\120\247\121\228\124\209\244\208\151\14\131\190\245\144\90\173\228\36\15\142\191\70\45\201\245\158\55\64\29\108\220\61\82\133\132\24\129\62\20\84\111\124\212\198\142\224",209),Flag=lI1I1ll1llIl("\17\229\194\185\84\6\126\11\241",172)});
+lIlIlIl1Il:Toggle({Name=lI1I1ll1llIl("\204\122\206\187\50\87\79\184\180",9),Description=lI1I1ll1llIl("\118\119\113\236\197\144\254\43\181\111\200\115\174\18\167\204\57\168\225\29\107\2\116\190\2\125\152\171\48\181\23\12\174\144\131\204\244\184\192\5\135\172\63\85\164\52\135\239\70\72\24\243\199\61\85\133\40\31\175\205\80\194\118\105\158",13),Flag=lI1I1ll1llIl("\235\94\151\74\78\242\109\227",244),Keybind=Enum.KeyCode.V});
+local ll1I1II1II;
+local l1l1llIlI=RaycastParams.new();
+l1l1llIlI.FilterType=Enum.RaycastFilterType.Exclude;
+l1l1llIlI.IgnoreWater=false;
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+local lIII1lIIIl11l,lIlIl1I11l11I=l11l1IlI1I(),l1lI11Il111ll();
+if lll1l11Il1ll1.waterWalk and lIlIl1I11l11I then 
+l1l1llIlI.FilterDescendantsInstances={ll1lI1IIII1.Character,workspace.CurrentCamera};
+local l11llI1I=workspace:Raycast(lIlIl1I11l11I.Position,Vector3.new(0,- 12,0),l1l1llIlI);
+local lll1Il1l1Il1l=l11llI1I and ((l11llI1I.Material == Enum.Material.Water) or (l11llI1I.Instance and l11llI1I.Instance.Name:lower():find(lI1I1ll1llIl("\241\5\34\25\244",76))));
+if lll1Il1l1Il1l and (not l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftControl)) then 
+if not ll1I1II1II then 
+ll1I1II1II=lllII1lI1I1I(lI1I1ll1llIl("\226\185\80\57",190),{Name=llII1lIII1:GenerateGUID(false),Size=Vector3.new(10,1,10),Anchored=true,Transparency=1,CanQuery=false,Parent=workspace.CurrentCamera}) end;
 
-l1Il1lII.CFrame=CFrame.new(l11llIlIl1.Position.X,lllIIII11.Position.Y - 0.5,l11llIlIl1.Position.Z) elseif l1Il1lII then 
+ll1I1II1II.CFrame=CFrame.new(lIlIl1I11l11I.Position.X,l11llI1I.Position.Y - 0.5,lIlIl1I11l11I.Position.Z) elseif ll1I1II1II then 
 
-l1Il1lII:Destroy();
-l1Il1lII=nil end elseif l1Il1lII then 
-
-
-l1Il1lII:Destroy();
-l1Il1lII=nil end end));
+ll1I1II1II:Destroy();
+ll1I1II1II=nil end elseif ll1I1II1II then 
 
 
-
-lI11l11IIl(lIII1l1l.Stepped:Connect(function() 
-local ll1IIIl1Il=l1llll1lI1I1l();
-if (l1IIlll1I11l.autoWalk and ll1IIIl1Il) and (not l1IIlll1I11l.freecam) then 
-local l1I1l1llIl11=workspace.CurrentCamera.CFrame.LookVector;
-local l1lIlI1lI11l=Vector3.new(l1I1l1llIl11.X,0,l1I1l1llIl11.Z);
-if l1lIlI1lI11l.Magnitude > 0.01 then 
-ll1IIIl1Il:Move(l1lIlI1lI11l.Unit,false) end end end));
+ll1I1II1II:Destroy();
+ll1I1II1II=nil end end));
 
 
 
-llIIIIII1:OnUnload(function() 
-if l1Il1lII then 
-l1Il1lII:Destroy() end end) end;
+lIl11lIIl(lII1llIIIIlI.Stepped:Connect(function() 
+local ll1lIlIIIl1ll=l11l1IlI1I();
+if (lll1l11Il1ll1.autoWalk and ll1lIlIIIl1ll) and (not lll1l11Il1ll1.freecam) then 
+local lllII11II=workspace.CurrentCamera.CFrame.LookVector;
+local lIIII1Il1lI=Vector3.new(lllII11II.X,0,lllII11II.Z);
+if lIIII1Il1lI.Magnitude > 0.01 then 
+ll1lIlIIIl1ll:Move(lIIII1Il1lI.Unit,false) end end end));
+
+
+
+l111II11I:OnUnload(function() 
+if ll1I1II1II then 
+ll1I1II1II:Destroy() end end) end;
 
 
 
 
 
-local lIllIlI111l;
+local l1II11lIII1l;
 
 
 
 
 
 do 
-local lI11l11lII1=ll11I1lllIl:Section(l11l1Il1lll("\24\129\99\48\43\246\103\198\209\94\188\26\246\157\134",1));
-local l1ll1I1l=lI11l11lII1:Paragraph(l11l1Il1lll("\39\218\219\138\98\52\62\247\108\140\152\109\248\88\149\52\105\4\122\252\5\247\236\68\223\96",239),l11l1Il1lll("\223\108\216\222\92\227\75\193\155\196\71\77\189\246\166\164\84\147\91\71\225\1\199\3\2\33\234\147\99\132\195\154\220\79\224\184\60\160\44\182\176\183\122\98\201\14\84\10\165\54\110\99\140\48\177\47\108\71\222\234\66\190\183\243\59\227\24\30\85\167\68\148\209\201\11\67\180\40\39\104\129\28\159\141\37\202\147\67\84\124\187\158\99",38));
-local lllI11IlIl11,l11IllII1lI1l=l11l1Il1lll("\107\200\44",137),l11l1Il1lll("\159\97\139",181);
-local function llIII1lI() 
-l1ll1I1l:Set(l11l1Il1lll("\52\141\58\63\175\93\230\127\53\190\110",198) .. (lllI11IlIl11 .. (l11l1Il1lll("\230\148\122\190\241\19\113\145\105",27) .. l11IllII1lI1l))) end;
+local l11l1111l=l11lI11II11I:Section(lI1I1ll1llIl("\75\166\197\148\242\85\251\221\30\119\199\83\153\223\210",31));
+local l1I1llI1lIIIl=l11l1111l:Paragraph(lI1I1ll1llIl("\44\66\52\209\233\233\40\89\30\57\158\120\73\159\245\165\66\124\117\167\110\42\218\234\141\245",122),lI1I1ll1llIl("\61\78\33\224\13\146\72\105\246\31\227\138\34\93\63\202\182\177\130\121\208\240\36\171\111\250\78\116\252\207\218\116\62\109\25\134\45\81\175\158\93\108\222\165\86\101\77\228\199\148\247\93\189\193\18\7\129\28\250\205\221\245\174\29\89\65\97\160\4\86\199\188\60\146\47\4\171\131\62\134\227\190\198\51\148\187\112\107\185\39\159\249\124",225));
+local l11l1I1Illl,l1I1l11I1=lI1I1ll1llIl("\205\206\52",174),lI1I1ll1llIl("\88\151\139",214);
+local function llII1I11IlI1I() 
+l1I1llI1lIIIl:Set(lI1I1ll1llIl("\132\33\140\253\33\9\12\248\122\123\21",73) .. (l11l1I1Illl .. (lI1I1ll1llIl("\123\225\105\87\8\246\209\125\245",146) .. l1I1l11I1))) end;
 
-local l11lIIIlI1l={};
-local lllI1I111;
-local ll111l11=0;
-local function llIlI1lIII() 
-if lllI1I111 then 
-lllI1I111:Disconnect();
-lllI1I111=nil end;
+local lllI1I1II={};
+local lIIlI1I1II;
+local l1Il1lI1II11=0;
+local function ll1111llll1() 
+if lIIlI1I1II then 
+lIIlI1I1II:Disconnect();
+lIIlI1I1II=nil end;
 
-local lllll1l111ll1,lIlll1IIII1I=l11lIIIlI1l.real,l11lIIIlI1l.copy;
-l11lIIIlI1l.real,l11lIIIlI1l.copy=nil,nil;
-if not lllll1l111ll1 then 
+local lll1llIlI,ll11IlIlI1lI1=lllI1I1II.real,lllI1I1II.copy;
+lllI1I1II.real,lllI1I1II.copy=nil,nil;
+if not lll1llIlI then 
 return  end;
 
-local lIllIIIlll1I=(lIlll1IIII1I and lIlll1IIII1I:FindFirstChild(l11l1Il1lll("\48\130\217\193\4\16\184\67\89\97\134\3\168\139\34\220",12))) and lIlll1IIII1I.HumanoidRootPart.CFrame;
-if lllll1l111ll1.Parent then 
-lllI1llI.Character=lllll1l111ll1;
-local llllII11=lllll1l111ll1:FindFirstChild(l11l1Il1lll("\49\80\89\162\63\113\105\206\20\185\34\106\102\157\231\95",99));
-if llllII11 then 
-llllII11.Anchored=false;
-llllII11.AssemblyLinearVelocity=Vector3.zero;
-if lIllIIIlll1I then 
-llllII11.CFrame=lIllIIIlll1I end end;
+local lIIllIIll=(ll11IlIlI1lI1 and ll11IlIlI1lI1:FindFirstChild(lI1I1ll1llIl("\67\82\220\66\128\239\15\48\16\231\156\201\145\157\43\5",39))) and ll11IlIlI1lI1.HumanoidRootPart.CFrame;
+if lll1llIlI.Parent then 
+ll1lI1IIII1.Character=lll1llIlI;
+local l1I1I1ll=lll1llIlI:FindFirstChild(lI1I1ll1llIl("\115\54\19\182\129\86\124\195\103\243\157\124\26\49\200\177",242));
+if l1I1I1ll then 
+l1I1I1ll.Anchored=false;
+l1I1I1ll.AssemblyLinearVelocity=Vector3.zero;
+if lIIllIIll then 
+l1I1I1ll.CFrame=lIIllIIll end end;
 
 
-local lIl1IlI1ll=lllll1l111ll1:FindFirstChildOfClass(l11l1Il1lll("\152\82\224\83\82\233\11\214",149));
-if lIl1IlI1ll then 
-workspace.CurrentCamera.CameraSubject=lIl1IlI1ll end end;
+local l1II11IIl1l=lll1llIlI:FindFirstChildOfClass(lI1I1ll1llIl("\122\45\207\172\253\180\127\219",62));
+if l1II11IIl1l then 
+workspace.CurrentCamera.CameraSubject=l1II11IIl1l end end;
 
 
-if lIlll1IIII1I then 
-lIlll1IIII1I:Destroy() end;
+if ll11IlIlI1lI1 then 
+ll11IlIlI1lI1:Destroy() end;
 
-ll111l11=0;
-if lllI11IlIl11 ~= l11l1Il1lll("\194\248\49\16\166\78\19\90\159\26\236\162\52\221\119\179\183\101\163\166",14) then 
-lllI11IlIl11=l11l1Il1lll("\91\170\10",10) end;
+l1Il1lI1II11=0;
+if l11l1I1Illl ~= lI1I1ll1llIl("\84\4\241\223\193\53\63\37\11\221\17\125\171\150\10\59\193\185\67\73",155) then 
+l11l1I1Illl=lI1I1ll1llIl("\138\187\9",53) end;
 
-llIII1lI() end;
+llII1I11IlI1I() end;
 
 
-local function l11llIllI1I(llI11lII1) 
-if not l11lIIIlI1l.real then 
+local function l1IIIllII(lII11I1lIlIll) 
+if not lllI1I1II.real then 
 return  end;
 
-ll111l11=ll111l11 + 1;
-lllI11IlIl11=l11l1Il1lll("\232\114\49\235\35\49\150\39\67\24\224\100\177\168\28\237\1",236);
-llIII1lI();
-task.delay(llI11lII1,function() 
-ll111l11=math.max(ll111l11 - 1,0);
-if l11lIIIlI1l.real and (ll111l11 == 0) then 
-lllI11IlIl11=l11l1Il1lll("\90\78\253\251\166\184",112);
-llIII1lI() end end) end;
+l1Il1lI1II11=l1Il1lI1II11 + 1;
+l11l1I1Illl=lI1I1ll1llIl("\173\26\175\207\43\30\249\68\39\39\76\171\20\55\251\174\100",89);
+llII1I11IlI1I();
+task.delay(lII11I1lIlIll,function() 
+l1Il1lI1II11=math.max(l1Il1lI1II11 - 1,0);
+if lllI1I1II.real and (l1Il1lI1II11 == 0) then 
+l11l1I1Illl=lI1I1ll1llIl("\213\54\142\224\7\62",57);
+llII1I11IlI1I() end end) end;
 
 
 
-lIllIlI111l=function(l1l111lI1II1l) 
-if l1l111lI1II1l then 
-ll111l11=ll111l11 + 1;
-lllI11IlIl11=(l11lIIIlI1l.real and l11l1Il1lll("\178\178\12\228\186\136\118\191\8\68\145\99\201\93\32\13\155",128)) or lllI11IlIl11 else 
+l1II11lIII1l=function(llIIllI1) 
+if llIIllI1 then 
+l1Il1lI1II11=l1Il1lI1II11 + 1;
+l11l1I1Illl=(lllI1I1II.real and lI1I1ll1llIl("\5\185\215\35\227\254\29\37\67\101\167\20\54\139\169\50\236",106)) or l11l1I1Illl else 
 
-ll111l11=math.max(ll111l11 - 1,0);
-lllI11IlIl11=(l11lIIIlI1l.real and (((ll111l11 > 0) and l11l1Il1lll("\64\162\200\121\117\200\37\242\97\108\83\243\240\85\161\244\137",117)) or l11l1Il1lll("\110\255\105\58\19\210",219))) or lllI11IlIl11 end;
+l1Il1lI1II11=math.max(l1Il1lI1II11 - 1,0);
+l11l1I1Illl=(lllI1I1II.real and (((l1Il1lI1II11 > 0) and lI1I1ll1llIl("\249\33\244\194\10\49\190\91\238\206\39\255\243\2\103\48\48",51)) or lI1I1ll1llIl("\145\93\229\221\22\1",67))) or l11l1I1Illl end;
 
-llIII1lI() end;
+llII1I11IlI1I() end;
 
-local function llllIlI1lI() 
-local lI11I11lI11l1=lllI1llI.Character;
-local lIIIlI1lI=lI11I11lI11l1 and lI11I11lI11l1:FindFirstChildOfClass(l11l1Il1lll("\241\191\135\81\71\8\244\165",93));
-local l1I11II1IllIl=lI11I11lI11l1 and lI11I11lI11l1:FindFirstChild(l11l1Il1lll("\222\83\208\175\136\67\76\255\203\170\187\87\225\95\82\254",75));
-if ((not lIIIlI1lI) or (not l1I11II1IllIl)) or (lIIIlI1lI.Health <= 0) then 
+local function lllllllIll() 
+local l1I11IlIII=ll1lI1IIII1.Character;
+local lll11IIl=l1I11IlIII and l1I11IlIII:FindFirstChildOfClass(lI1I1ll1llIl("\110\177\155\125\136\254\182\195",236));
+local ll1l1I11Il1=l1I11IlIII and l1I11IlIII:FindFirstChild(lI1I1ll1llIl("\138\125\30\92\47\19\176\149\105\120\206\71\206\145\4\48",223));
+if ((not lll11IIl) or (not ll1l1I11Il1)) or (lll11IIl.Health <= 0) then 
 return false end;
 
-local llII11IIlll=l1I11II1IllIl.CFrame;
-lI11I11lI11l1.Archivable=true;
-local l11lllll1,ll1I1IllIIl=pcall(lI11I11lI11l1.Clone,lI11I11lI11l1);
-if (not l11lllll1) or (not ll1I1IllIIl) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\129\73\18\57\233\230\99\155\222",188),Content=l11l1Il1lll("\17\219\150\129\37\140\53\51\129\28\235\100\54\91\50\123\153\102\27\66\236\116\209\188\84\239\68\218\186\141\85\95\0\225\255\176\64\171\87\81\244\117\217\79\86",162),Type=l11l1Il1lll("\65\142\46\164\234",26)});
+local l1lIIlI1l1llI=ll1l1I11Il1.CFrame;
+l1I11IlIII.Archivable=true;
+local llIlll1l,lIl1lII111I=pcall(l1I11IlIII.Clone,l1I11IlIII);
+if (not llIlll1l) or (not lIl1lII111I) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\244\49\156\237\17\57\28\232\138",57),Content=lI1I1ll1llIl("\1\148\251\27\74\23\251\136\46\19\153\40\17\174\209\23\201\9\118\216\163\175\127\7\27\32\22\182\157\88\118\211\80\238\210\106\47\112\217\170\219\186\107\195\177",74),Type=lI1I1ll1llIl("\212\73\171\15\108",184)});
 return false end;
 
 
-local l1lIl1III1lI=CFrame.new(llII11IIlll.Position.X,llII11IIlll.Position.Y + 9000,llII11IIlll.Position.Z);
-l1I11II1IllIl.CFrame=l1lIl1III1lI;
-l1I11II1IllIl.Anchored=true;
-local lIIll11l1llI={};
-lllI1I111=lIII1l1l.Heartbeat:Connect(function() 
-if not l1I11II1IllIl.Parent then 
+local lIl11I1I=CFrame.new(l1lIIlI1l1llI.Position.X,l1lIIlI1l1llI.Position.Y + 9000,l1lIIlI1l1llI.Position.Z);
+ll1l1I11Il1.CFrame=lIl11I1I;
+ll1l1I11Il1.Anchored=true;
+local lI1lIlIlII1I1={};
+lIIlI1I1II=lII1llIIIIlI.Heartbeat:Connect(function() 
+if not ll1l1I11Il1.Parent then 
 return  end;
 
-local l1IllI1lIl=l11lIIIlI1l.copy and l11lIIIlI1l.copy:FindFirstChild(l11l1Il1lll("\102\129\128\66\191\242\245\63\155\25\23\182\142\31\135\194",175));
-if (ll111l11 > 0) and l1IllI1lIl then 
+local ll11II1I1I=lllI1I1II.copy and lllI1I1II.copy:FindFirstChild(lI1I1ll1llIl("\161\81\220\232\45\16\144\255\116\55\193\216\234\33\89\1",83));
+if (l1Il1lI1II11 > 0) and ll11II1I1I then 
 
-l1I11II1IllIl.CFrame=l1IllI1lIl.CFrame;
+ll1l1I11Il1.CFrame=ll11II1I1I.CFrame;
 return  end;
 
 
-if (l1I11II1IllIl.Position - l1lIl1III1lI.Position).Magnitude > 20 then 
-table.insert(lIIll11l1llI,os.clock());
-while lIIll11l1llI[1] and ((os.clock() - lIIll11l1llI[1]) > 5) do 
-table.remove(lIIll11l1llI,1) end;
+if (ll1l1I11Il1.Position - lIl11I1I.Position).Magnitude > 20 then 
+table.insert(lI1lIlIlII1I1,os.clock());
+while lI1lIlIlII1I1[1] and ((os.clock() - lI1lIlIlII1I1[1]) > 5) do 
+table.remove(lI1lIlIlII1I1,1) end;
 
-if (# lIIll11l1llI) >= 4 then 
-lllI11IlIl11=l11l1Il1lll("\134\80\243\104\51\25\34\123\151\122\79\22\253\114\215\238\19\237\65\222",218);
-llIII1lI();
-llIIIIII1:Notify({Title=l11l1Il1lll("\189\208\44\147\2\91\64\132\132",121),Content=l11l1Il1lll("\180\188\119\64\173\12\86\87\88\131\103\115\249\4\183\115\96\49\226\239\84\149\192\138\52\188\233\244\12\167\60\162\242\213\29\103\200\57\55\120\188\32\135\218\156\39\139\83\121\74\152\138\46\178\229\230\8\211\11\7\191\4\0\150\210\250\59\23\237\68\17\28\211",78),Type=l11l1Il1lll("\14\107\88\158\128\73\186",157)});
+if (# lI1lIlIlII1I1) >= 4 then 
+l11l1I1Illl=lI1I1ll1llIl("\167\145\96\64\222\66\246\172\24\33\102\248\159\208\190\32\50\12\210\246",21);
+llII1I11IlI1I();
+l111II11I:Notify({Title=lI1I1ll1llIl("\242\173\136\62\28\208\247\75\208",114),Content=lI1I1ll1llIl("\130\32\215\239\170\23\90\8\108\228\122\76\134\175\42\219\54\77\162\96\115\142\236\245\224\59\148\171\51\44\161\42\132\201\61\8\15\226\59\39\72\135\26\101\163\204\86\251\47\118\152\133\137\105\9\89\220\84\182\152\64\15\221\94\228\230\27\56\106\223\157\195\231",123),Type=lI1I1ll1llIl("\88\16\119\214\116\91\144",177)});
 task.defer(function() 
-if l1llllI1lll1l.invisible then 
-l1llllI1lll1l.invisible:Set(false) end end);
+if lllIIlllIIlIl.invisible then 
+lllIIlllIIlIl.invisible:Set(false) end end);
 
 
 return  end end;
 
 
-l1I11II1IllIl.CFrame=l1lIl1III1lI end);
+ll1l1I11Il1.CFrame=lIl11I1I end);
 
 
-ll1I1IllIIl.Name=lI11I11lI11l1.Name;
-for lI1lI1I1,lIllI11IIIll in ipairs(ll1I1IllIIl:GetDescendants()) do 
-if lIllI11IIIll:IsA(l11l1Il1lll("\43\84\183\86\241\111\98\238",115)) and (lIllI11IIIll.Name ~= l11l1Il1lll("\97\227\245\67\144\49\188\242\236\107\114\199\17\76\94\191",7)) then 
-lIllI11IIIll.Transparency=math.max(lIllI11IIIll.Transparency,0.5) end end;
+lIl1lII111I.Name=l1I11IlIII.Name;
+for ll1I11Ill1,lll11IlII11I in ipairs(lIl1lII111I:GetDescendants()) do 
+if lll11IlII11I:IsA(lI1I1ll1llIl("\19\186\10\165\238\45\252\224",88)) and (lll11IlII11I.Name ~= lI1I1ll1llIl("\102\44\106\14\204\92\98\185\163\20\118\212\142\77\92\64",192)) then 
+lll11IlII11I.Transparency=math.max(lll11IlII11I.Transparency,0.5) end end;
 
 
-ll1I1IllIIl.Parent=workspace;
-ll1I1IllIIl:PivotTo(llII11IIlll);
-lllI1llI.Character=ll1I1IllIIl;
-local lI11l111=ll1I1IllIIl:FindFirstChildOfClass(l11l1Il1lll("\201\74\168\200\198\32\188\254",209));
-workspace.CurrentCamera.CameraSubject=lI11l111;
-l11lIIIlI1l.real,l11lIIIlI1l.copy=lI11I11lI11l1,ll1I1IllIIl;
-lllI11IlIl11=l11l1Il1lll("\184\171\12\228\117\225",72);
-llIII1lI();
-lIIIlI1lI.Died:Once(function() 
-if l1llllI1lll1l.invisible and l1IIlll1I11l.invisible then 
-l1llllI1lll1l.invisible:Set(false) end end);
+lIl1lII111I.Parent=workspace;
+lIl1lII111I:PivotTo(l1lIIlI1l1llI);
+ll1lI1IIII1.Character=lIl1lII111I;
+local lIlI1II1=lIl1lII111I:FindFirstChildOfClass(lI1I1ll1llIl("\163\178\60\162\32\79\175\144",199));
+workspace.CurrentCamera.CameraSubject=lIlI1II1;
+lllI1I1II.real,lllI1I1II.copy=l1I11IlIII,lIl1lII111I;
+l11l1I1Illl=lI1I1ll1llIl("\109\229\134\124\95\78",26);
+llII1I11IlI1I();
+lll11IIl.Died:Once(function() 
+if lllIIlllIIlIl.invisible and lll1l11Il1ll1.invisible then 
+lllIIlllIIlIl.invisible:Set(false) end end);
 
 
 return true end;
 
-lI11l11lII1:Toggle({Name=l11l1Il1lll("\99\66\253\0\30\182\84\218\107\50\254\31\178\127\28\58\253\234\73\139\208",96),Description=l11l1Il1lll("\208\198\27\96\222\34\121\125\253\34\130\214\249\121\148\1\95\73\158\151\125\172\239\227\1\150\92\14\165\64\16\134\206\180\60\1\164\78\17\22\132\67\174\164\53\218\99\224\240\125\161\182\15\155\149\143\108\255\124\37\132\101\230\98\35\0\219\33\205\127\56\122\228\108\217\150\15\251\4\218\132\196\89\76\239\240\180",46),Flag=l11l1Il1lll("\64\20\44\201\202\71\136\212\43",205),Default=true});
-local ll11IlI1ll1=game:GetService(l11l1Il1lll("\144\160\55\200\105\242\69\124\171\151\11\208\142\134\117\188\53\48\158\105\243\106",88));
-lI11l11IIl(ll11IlI1ll1.PromptButtonHoldBegan:Connect(function() 
-if l1IIlll1I11l.invisible and l1IIlll1I11l.invisPeek then 
-l11llIllI1I(2) end end));
+l11l1111l:Toggle({Name=lI1I1ll1llIl("\171\62\55\234\148\67\196\13\109\196\176\147\116\81\79\53\21\182\131\65\90",148),Description=lI1I1ll1llIl("\39\195\200\92\222\125\100\151\226\169\92\93\102\102\246\93\136\76\109\235\29\243\146\105\94\61\130\165\250\191\114\218\249\113\239\125\228\81\12\252\219\136\48\47\106\5\193\124\39\184\146\10\111\132\168\69\115\84\226\206\155\154\68\254\212\5\8\157\77\160\37\144\251\231\7\29\16\100\230\6\83\193\170\48\143\47\73",150),Flag=lI1I1ll1llIl("\191\122\80\69\165\241\234\146\65",28),Default=true});
+local lIlIl11lll1l=game:GetService(lI1I1ll1llIl("\41\198\110\65\154\130\0\159\47\152\76\115\103\128\207\182\236\54\231\192\0\58",195));
+lIl11lIIl(lIlIl11lll1l.PromptButtonHoldBegan:Connect(function() 
+if lll1l11Il1ll1.invisible and lll1l11Il1ll1.invisPeek then 
+l1IIIllII(2) end end));
 
 
-lI11l11IIl(ll11IlI1ll1.PromptTriggered:Connect(function() 
-if l1IIlll1I11l.invisible and l1IIlll1I11l.invisPeek then 
-l11llIllI1I(1.2) end end));
+lIl11lIIl(lIlIl11lll1l.PromptTriggered:Connect(function() 
+if lll1l11Il1ll1.invisible and lll1l11Il1ll1.invisPeek then 
+l1IIIllII(1.2) end end));
 
 
-lI11l11lII1:Toggle({Name=l11l1Il1lll("\15\184\59\119\69\149\247\71\172",155),Description=l11l1Il1lll("\6\253\234\107\209\207\213\200\66\182\90\149\222\14\185\247\199\97\111\192\97\76\66\175\121\168\88\241\61\206\38\103\64\211\153\3\162\248\249\123\166\4\88\161\182\31\134\211\190\29\18\166\15\45\85\132\12\230\139\51\192\41\17\6\122\187\184\32\217\209\220\24\134\58\52\135\93\234\53\57\12\100\40\128\100\77\24\228\118\202\187\82\249\70\236\170\139\20\69\10\245\185\185\117",207),Flag=l11l1Il1lll("\144\203\194\42\162\247\226\70\163",227),Keybind=Enum.KeyCode.I,Callback=function(llIII111lI1I) 
-
-
-
-
-
-if llIII111lI1I then 
-if (not llllIlI1lI()) and l1llllI1lll1l.invisible then 
-l1llllI1lll1l.invisible:Set(false) end else 
-
-
-llIlI1lIII() end end});
+l11l1111l:Toggle({Name=lI1I1ll1llIl("\152\53\143\41\77\165\108\120\155",216),Description=lI1I1ll1llIl("\14\205\241\212\102\67\22\116\209\59\241\66\201\51\157\57\79\81\116\127\214\224\129\243\106\165\243\38\42\243\34\169\200\99\2\188\21\116\58\7\181\9\115\246\161\34\162\29\54\173\137\153\56\65\150\216\31\235\160\100\87\148\85\200\242\11\35\31\238\221\159\164\149\55\31\208\202\87\145\119\4\212\179\191\83\97\91\56\229\71\144\5\110\251\104\228\131\36\94\53\194\181\250\137",140),Flag=lI1I1ll1llIl("\99\38\32\213\180\192\191\124\192",61),Keybind=Enum.KeyCode.I,Callback=function(ll11I1Il1) 
 
 
 
 
 
-local lII1I1Ill;
-local lIIlll1I1=false;
-local l1llllIIll1I,l1II11l11ll=0,0;
-local l11lIlll1I,lIIlIlIlI1=nil,0;
-local function lII11III() 
-if lII1I1Ill then 
-lII1I1Ill:Disconnect();
-lII1I1Ill=nil end;
+if ll11I1Il1 then 
+if (not lllllllIll()) and lllIIlllIIlIl.invisible then 
+lllIIlllIIlIl.invisible:Set(false) end else 
 
-l11IllII1lI1l=l11l1Il1lll("\102\208\222",39);
-llIII1lI();
-local lI11IlIl1=l1llll1lI1I1l();
-if lI11IlIl1 then 
-pcall(lI11IlIl1.SetStateEnabled,lI11IlIl1,Enum.HumanoidStateType.Dead,true) end;
 
-if lIIlll1I1 then 
-lIIlll1I1=false;
-llIIIIII1:Notify({Title=l11l1Il1lll("\66\156\219\146\40\68\240\251",226),Content=l11l1Il1lll("\223\118\175\182\13\243\122\234\174\147\30\167\2\171\162\180\121\236\12\66\148\113\132\91\5\9\207\205\114\114\35\106\222\68\221\214\34",54),Type=l11l1Il1lll("\215\106\123\220",63)});
-local ll1I1l1IllIl=lllI1llI.Character;
-if ll1I1l1IllIl then 
-ll1I1l1IllIl:BreakJoints() end end end;
+ll1111llll1() end end});
 
 
 
-local function l1lI1lI1() 
-lII11III();
-local llIII1IlIl=l1llll1lI1I1l();
-if not llIII1IlIl then 
+
+
+local l1Il1II1llI;
+local lI1lIIIlI1I11=false;
+local lIIlIIll,llIllIllIlIII=0,0;
+local lI1111l1ll11,l11I1III111ll=nil,0;
+local function lIl1I1lI() 
+if l1Il1II1llI then 
+l1Il1II1llI:Disconnect();
+l1Il1II1llI=nil end;
+
+l1I1l11I1=lI1I1ll1llIl("\40\231\219",166);
+llII1I11IlI1I();
+local lIlIl111l1l1l=l11l1IlI1I();
+if lIlIl111l1l1l then 
+pcall(lIlIl111l1l1l.SetStateEnabled,lIlIl111l1l1l,Enum.HumanoidStateType.Dead,true) end;
+
+if lI1lIIIlI1I11 then 
+lI1lIIIlI1I11=false;
+l111II11I:Notify({Title=lI1I1ll1llIl("\240\30\9\207\0\187\46\213",86),Content=lI1I1ll1llIl("\123\129\2\57\226\200\87\178\8\127\206\152\149\32\30\91\221\27\225\141\91\74\137\67\227\229\31\50\37\217\159\133\186\115\48\25\141",147),Type=lI1I1ll1llIl("\51\22\0\3",109)});
+local lIIl1lIlI11II=ll1lI1IIII1.Character;
+if lIIl1lIlI11II then 
+lIIl1lIlI11II:BreakJoints() end end end;
+
+
+
+local function l1l1lI1Il1l1l() 
+lIl1I1lI();
+local lIIIIII1llIl1=l11l1IlI1I();
+if not lIIIIII1llIl1 then 
 return  end;
 
-l1llllIIll1I,l1II11l11ll=0,0;
-if l1IIlll1I11l.godStyle == l11l1Il1lll("\1\96\73\178\47\129\153\222\118\149\10\111\86",83) then 
+lIIlIIll,llIllIllIlIII=0,0;
+if lll1l11Il1ll1.godStyle == lI1I1ll1llIl("\3\70\131\38\17\230\204\83\133\31\117\153\170",130) then 
 
-local lI1llI1l=workspace.CurrentCamera;
-local lllIII1II1,lIllll1l=lI1llI1l.CFrame,lllI1llI.Character;
-local l11IlIll1I=llIII1IlIl:Clone();
-l11IlIll1I.Parent=lIllll1l;
-lllI1llI.Character=nil;
-l11IlIll1I:SetStateEnabled(Enum.HumanoidStateType.Dead,false);
-l11IlIll1I:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false);
-l11IlIll1I:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false);
-l11IlIll1I.BreakJointsOnDeath=false;
-llIII1IlIl:Destroy();
-lllI1llI.Character=lIllll1l;
-lI1llI1l.CameraSubject=l11IlIll1I;
+local lIIl1l11l=workspace.CurrentCamera;
+local llI1l11l,lI1lll1l1=lIIl1l11l.CFrame,ll1lI1IIII1.Character;
+local lIlll1111IIl1=lIIIIII1llIl1:Clone();
+lIlll1111IIl1.Parent=lI1lll1l1;
+ll1lI1IIII1.Character=nil;
+lIlll1111IIl1:SetStateEnabled(Enum.HumanoidStateType.Dead,false);
+lIlll1111IIl1:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false);
+lIlll1111IIl1:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false);
+lIlll1111IIl1.BreakJointsOnDeath=false;
+lIIIIII1llIl1:Destroy();
+ll1lI1IIII1.Character=lI1lll1l1;
+lIIl1l11l.CameraSubject=lIlll1111IIl1;
 task.wait();
-lI1llI1l.CFrame=lllIII1II1;
-l11IlIll1I.DisplayDistanceType=Enum.HumanoidDisplayDistanceType.None;
-local lIIIIIl1=lIllll1l:FindFirstChild(l11l1Il1lll("\4\221\150\159\100\159\49",162));
-if lIIIIIl1 then 
-lIIIIIl1.Disabled=true;
+lIIl1l11l.CFrame=llI1l11l;
+lIlll1111IIl1.DisplayDistanceType=Enum.HumanoidDisplayDistanceType.None;
+local lI1l1Il1=lI1lll1l1:FindFirstChild(lI1I1ll1llIl("\183\198\55\17\11\228\126",91));
+if lI1l1Il1 then 
+lI1l1Il1.Disabled=true;
 task.wait();
-lIIIIIl1.Disabled=false end;
+lI1l1Il1.Disabled=false end;
 
-l11IlIll1I.Health=l11IlIll1I.MaxHealth;
-lIIlll1I1=true;
-l11IllII1lI1l=l11l1Il1lll("\142\67\192\159\184\115\92\239\73\70\179\82\209",59);
-llIII1lI() else 
+lIlll1111IIl1.Health=lIlll1111IIl1.MaxHealth;
+lI1lIIIlI1I11=true;
+l1I1l11I1=lI1I1ll1llIl("\35\70\131\38\17\230\204\83\133\31\117\153\170",130);
+llII1I11IlI1I() else 
 
 
 
-pcall(llIII1IlIl.SetStateEnabled,llIII1IlIl,Enum.HumanoidStateType.Dead,false);
-l11IllII1lI1l=((l1IIlll1I11l.godStyle == l11l1Il1lll("\233\114\48\31",220)) and l11l1Il1lll("\252\118\216\217\92\86\147\147\152\129\79\79\233\243\231\166\66\208\87",38)) or l11l1Il1lll("\136\114\252\78\56\158\50\206\86\41\1",165);
-llIII1lI();
-local llIllIII=llIII1IlIl.Health;
-lII1I1Ill=lIII1l1l.Heartbeat:Connect(function(l11lll1lI11l) 
-local l1IIIIl11lll,l1l1lllII11=l1llll1lI1I1l(),lIl1I1lI1Il();
-if not l1IIIIl11lll then 
+pcall(lIIIIII1llIl1.SetStateEnabled,lIIIIII1llIl1,Enum.HumanoidStateType.Dead,false);
+l1I1l11I1=((lll1l11Il1ll1.godStyle == lI1I1ll1llIl("\238\132\241\87",49)) and lI1I1ll1llIl("\164\136\123\76\149\229\37\172\18\61\39\224\131\209\237\108\58\14\212",21)) or lI1I1ll1llIl("\82\125\103\160\195\145\173\44\250\206\20",13);
+llII1I11IlI1I();
+local l1l1lIl1=lIIIIII1llIl1.Health;
+l1Il1II1llI=lII1llIIIIlI.Heartbeat:Connect(function(ll1lII1l) 
+local l1l1ll1lI,ll1l1IlII1ll=l11l1IlI1I(),l1lI11Il111ll();
+if not l1l1ll1lI then 
 return  end;
 
 
-if (l1l1lllII11 and (l1IIIIl11lll.FloorMaterial ~= Enum.Material.Air)) and (l1IIIIl11lll.Health >= (l1IIIIl11lll.MaxHealth * 0.9)) then 
-lIIlIlIlI1=lIIlIlIlI1 + l11lll1lI11l;
-if lIIlIlIlI1 > 1 then 
-l11lIlll1I,lIIlIlIlI1=l1l1lllII11.CFrame,0 end end;
+if (ll1l1IlII1ll and (l1l1ll1lI.FloorMaterial ~= Enum.Material.Air)) and (l1l1ll1lI.Health >= (l1l1ll1lI.MaxHealth * 0.9)) then 
+l11I1III111ll=l11I1III111ll + ll1lII1l;
+if l11I1III111ll > 1 then 
+lI1111l1ll11,l11I1III111ll=ll1l1IlII1ll.CFrame,0 end end;
 
 
-if l1IIIIl11lll.Health < (llIllIII - 0.5) then 
-local l1I1IIIIl=llIllIII - l1IIIIl11lll.Health;
-if l1I1IIIIl >= (l1IIIIl11lll.MaxHealth * 0.15) then 
-l1II11l11ll=l1II11l11ll + 1 end;
+if l1l1ll1lI.Health < (l1l1lIl1 - 0.5) then 
+local l1II1I1I1Il=l1l1lIl1 - l1l1ll1lI.Health;
+if l1II1I1I1Il >= (l1l1ll1lI.MaxHealth * 0.15) then 
+llIllIllIlIII=llIllIllIlIII + 1 end;
 
-l1llllIIll1I=l1llllIIll1I + l1I1IIIIl end;
+lIIlIIll=lIIlIIll + l1II1I1I1Il end;
 
-if (l1IIIIl11lll.Health > 0) and (l1IIIIl11lll.Health < l1IIIIl11lll.MaxHealth) then 
-l1IIIIl11lll.Health=l1IIIIl11lll.MaxHealth end;
+if (l1l1ll1lI.Health > 0) and (l1l1ll1lI.Health < l1l1ll1lI.MaxHealth) then 
+l1l1ll1lI.Health=l1l1ll1lI.MaxHealth end;
 
-llIllIII=l1IIIIl11lll.Health;
-if (((l1IIlll1I11l.godLowEscape and l1l1lllII11) and l11lIlll1I) and (l1IIIIl11lll.Health > 0)) and (l1IIIIl11lll.Health < (l1IIIIl11lll.MaxHealth * 0.25)) then 
-l1l1lllII11.AssemblyLinearVelocity=Vector3.zero;
-l1l1lllII11.CFrame=l11lIlll1I end;
+l1l1lIl1=l1l1ll1lI.Health;
+if (((lll1l11Il1ll1.godLowEscape and ll1l1IlII1ll) and lI1111l1ll11) and (l1l1ll1lI.Health > 0)) and (l1l1ll1lI.Health < (l1l1ll1lI.MaxHealth * 0.25)) then 
+ll1l1IlII1ll.AssemblyLinearVelocity=Vector3.zero;
+ll1l1IlII1ll.CFrame=lI1111l1ll11 end;
 
-if ((l1IIlll1I11l.godStyle == l11l1Il1lll("\71\227\121\49",219)) and (l1II11l11ll >= 3)) and (not lIIlll1I1) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\140\161\77\151\85\69\244\13",132),Content=l11l1Il1lll("\52\5\195\194\122\126\103\35\222\19\223\201\97\141\90\196\192\178\108\92\224\75\67\82\88\131\127\115\238\2\161\33\48\44\235\241\88\213\135\249\58\186\232\229\68\173\58\164\160\192\17\51\229\62\122\123\179\44\133\146\156\39\147\18\64\10",222),Type=l11l1Il1lll("\116\237\74\89",166)});
+if ((lll1l11Il1ll1.godStyle == lI1I1ll1llIl("\23\189\74\115",251)) and (llIllIllIlIII >= 3)) and (not lI1lIIIlI1I11) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\97\55\202\140\215\47\79\16",139),Content=lI1I1ll1llIl("\62\57\43\237\144\220\237\105\38\77\220\252\72\222\108\27\170\174\164\83\42\9\41\248\64\61\92\102\231\113\215\158\58\80\67\222\178\183\205\115\194\228\43\16\109\254\76\59\138\220\217\124\111\124\16\209\107\82\166\135\85\148\37\173\74\54",77),Type=lI1I1ll1llIl("\219\54\69\98",175)});
 task.defer(function() 
-l1llllI1lll1l.godStyle:Set(l11l1Il1lll("\233\106\136\40\38\192\92\222\132\125\157\43\209",241)) end);
+lllIIlllIIlIl.godStyle:Set(lI1I1ll1llIl("\65\177\124\72\141\176\48\159\102\75\185\109\106",179)) end);
 
-l1II11l11ll=- 1000 end end);
+llIllIllIlIII=- 1000 end end);
 
 
 task.spawn(function() 
-while lII1I1Ill and lII1I1Ill.Connected do 
-l11IllII1lI1l=string.format(l11l1Il1lll("\5\164\125\32\187\150\48\142\22\105\65\149\141\7\248\229\176\3\172\31\29\161\71",101),((l1IIlll1I11l.godStyle == l11l1Il1lll("\19\50\141\80",16)) and l11l1Il1lll("\72\15\46\207\153\213\90\145\40\210\92\238\216\126\210\46\182\137\161",205)) or l11l1Il1lll("\137\58\196\229\252\7\213\22\11\173\65",177),math.floor(l1llllIIll1I));
-llIII1lI();
+while l1Il1II1llI and l1Il1II1llI.Connected do 
+l1I1l11I1=string.format(lI1I1ll1llIl("\7\91\242\31\52\203\68\227\232\34\22\154\249\4\127\196\178\220\35\64\18\28\211",46),((lll1l11Il1ll1.godStyle == lI1I1ll1llIl("\90\66\181\60",55)) and lI1I1ll1llIl("\3\29\230\114\99\233\81\111\47\228\220\83\169\12\58\140\189\155\105",110)) or lI1I1ll1llIl("\218\61\66\97\5\196\41\109\164\132\26",175),math.floor(lIIlIIll));
+llII1I11IlI1I();
 task.wait(1) end end) end end;
 
 
 
 
-lI11l11lII1:Toggle({Name=l11l1Il1lll("\170\28\152\198\33\203\144\6",86),Description=l11l1Il1lll("\21\170\11\30\28\166\13\128\219\132\172\212\253\20\105\102\148\83\139\137\62\207\135\67\73\122\254\128\34\198\146\218\26\130\33\51\175\26\164\91\53\229\34\55\149\27\11\5\238\120\252\180\9\226\125\239\172\135\30\170\2\254\165\250\117\230\77\90\136\124\159\19\56\17\195\194\115\116\46\46\141\64\203\199\124\196\93\208\192\160\118\86\173\8\91\91\78\208\101\117\188\50\129\115\119\43\234\163\21\143\210\216\35\186\242\225\12\173\32\227\239\210\24\51\223\46\100\106\188\52\130\133\156\45\139\6\25",230),Flag=l11l1Il1lll("\14\185\188\47\209\122\240",71),Callback=function(ll11lI11lll1) 
+l11l1111l:Toggle({Name=lI1I1ll1llIl("\109\228\231\101\20\156\5\77",84),Description=lI1I1ll1llIl("\110\49\201\196\154\50\66\6\18\148\195\142\211\160\7\135\47\232\73\115\120\155\200\197\224\42\177\218\12\50\188\91\161\217\35\233\233\78\43\29\124\181\13\45\251\239\37\164\21\67\254\142\143\118\242\169\197\23\209\176\108\74\203\123\142\253\15\0\14\232\208\149\113\129\44\24\221\192\64\207\54\123\137\189\186\16\18\86\105\240\185\140\3\124\245\90\245\139\103\47\122\230\142\181\190\123\197\185\123\251\124\249\88\1\240\219\138\57\47\37\6\194\87\41\177\154\10\107\199\175\64\95\26\185\196\128\208",139),Flag=lI1I1ll1llIl("\96\174\153\50\114\192\191",230),Callback=function(lI1IIllI1I1l) 
 
 
 
 
-if ll11lI11lll1 then 
-l1lI1lI1() else 
+if lI1IIllI1I1l then 
+l1l1lI1Il1l1l() else 
 
-lII11III();
-if (l1IIlll1I11l.godStyle == l11l1Il1lll("\85\246\65\87\146\123\205\87\80\23\217\194\109",166)) and l1llllI1lll1l.godStyle then 
-l1llllI1lll1l.godStyle:Set(l11l1Il1lll("\225\34\169\13",229),true) end end end});
-
-
+lIl1I1lI();
+if (lll1l11Il1ll1.godStyle == lI1I1ll1llIl("\141\57\79\185\148\143\131\241\251\208\41\150\191",218)) and lllIIlllIIlIl.godStyle then 
+lllIIlllIIlIl.godStyle:Set(lI1I1ll1llIl("\219\78\103\186",228),true) end end end});
 
 
-lI11l11lII1:Toggle({Name=l11l1Il1lll("\78\125\138\22\136\143\112\223\96\2\74\48\182\160\54",68),Description=l11l1Il1lll("\144\0\168\75\161\27\183\166\198\17\12\207\37\117\60\168\61\159\148\46\126\154\7\89\110\151\221\38\207\233\233\25\217\116\93\247\2\174\149\201\254\39\109\186\94\8\92\153\8\181\179\66\202\113\181\161\150\161\175\22\161\148\131\126\185\74\41\129\122\142\118\50\1\219\201\195\98\60\58\254\101\207",247),Flag=l11l1Il1lll("\2\252\187\158\74\252\113\77\231\125\204\78",130),Default=true});
-lI11l11lII1:Segmented({Name=l11l1Il1lll("\190\229\206\80\26\211\36\109\117",29),Description=l11l1Il1lll("\196\6\75\93\229\216\96\127\214\8\175\107\111\85\242\243\21\139\202\195\57\175\12\174\88\163\15\144\168\205\24\15\133\32\104\123\145\40\156\155\55\124\136\4\24\104\142\158\117\208\248\227\5\219\45\8\244\72\237\118\201\235\51\107\182\71\22\30\233\75\179\187\16\207\60\255\176\142\169\174\18\235",98),Flag=l11l1Il1lll("\23\11\202\240\105\98\43\47",222),Options={l11l1Il1lll("\239\1\25\204",47),l11l1Il1lll("\24\194\108\222\200\110\194\94\198\153\177",21),l11l1Il1lll("\120\87\229\1\222\64\21\60\130\196\126\142\195",168)},Default=l11l1Il1lll("\88\223\254\63",253),Callback=function() 
-if l1IIlll1I11l.godMode then 
-l1lI1lI1() end end});
 
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function(ll1llIlI11I) 
-if l11lIIIlI1l.copy and (ll1llIlI11I == l11lIIIlI1l.copy) then 
+l11l1111l:Toggle({Name=lI1I1ll1llIl("\119\43\193\172\227\190\54\200\255\52\227\47\225\91\29",62),Description=lI1I1ll1llIl("\195\77\195\92\118\230\115\168\142\97\87\48\210\185\191\148\110\210\255\57\169\103\227\87\38\231\134\217\56\69\106\5\138\57\54\224\213\83\145\199\182\87\54\69\169\196\223\229\91\248\216\85\29\140\81\175\222\209\244\233\86\120\0\98\234\7\66\150\173\115\178\60\73\171\146\60\149\240\185\194\54\130",244),Flag=lI1I1ll1llIl("\12\40\181\15\161\215\3\7\1\9\99\56",71),Default=true});
+l11l1111l:Segmented({Name=lI1I1ll1llIl("\137\214\131\175\49\231\210\17\52",32),Description=lI1I1ll1llIl("\224\94\221\127\46\143\170\165\124\13\84\111\245\186\159\85\49\211\92\225\146\120\38\116\210\166\244\180\50\194\245\201\161\120\254\89\26\255\214\193\93\121\115\0\130\71\99\184\209\8\110\193\174\12\71\82\254\205\150\146\83\228\222\109\18\159\0\188\34\156\249\225\58\74\71\123\170\97\68\136\182\51",168),Flag=lI1I1ll1llIl("\37\231\151\238\181\133\53\20",95),Options={lI1I1ll1llIl("\110\4\113\215",177),lI1I1ll1llIl("\243\242\64\223\106\24\214\168\189\91\40",151),lI1I1ll1llIl("\89\238\84\225\144\99\39\48\158\186\224\190\98",24)},Default=lI1I1ll1llIl("\192\126\253\95",136),Callback=function() 
+if lll1l11Il1ll1.godMode then 
+l1l1lI1Il1l1l() end end});
+
+
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function(lIII11llI1) 
+if lllI1I1II.copy and (lIII11llI1 == lllI1I1II.copy) then 
 return  end;
 
-if l1IIlll1I11l.godMode and (not lIIlll1I1) then 
-ll1llIlI11I:WaitForChild(l11l1Il1lll("\30\147\16\111\72\131\140\63",139),10);
-l1lI1lI1() end end));
+if lll1l11Il1ll1.godMode and (not lI1lIIIlI1I11) then 
+lIII11llI1:WaitForChild(lI1I1ll1llIl("\111\148\176\62\147\43\83\164",198),10);
+l1l1lI1Il1l1l() end end));
 
 
-llIIIIII1:OnUnload(function() 
-llIlI1lIII();
-if lII1I1Ill then 
-lII1I1Ill:Disconnect() end end) end;
-
-
-
-
-
-
-do 
-local llI1l1lIl1Il=ll11I1lllIl:Section(l11l1Il1lll("\6\148\18\122\67\143\145\50\182\235",139));
-local ll1lI111l={Enum.HumanoidStateType.FallingDown,Enum.HumanoidStateType.Ragdoll};
-local lIII1ll1l;
-local function ll1lII1lI(l1l1l1l1ll,ll1I1Il1ll) 
-for l1I11llI,ll11llI1l1ll1 in ipairs(ll1lI111l) do 
-l1l1l1l1ll:SetStateEnabled(ll11llI1l1ll1,ll1I1Il1ll) end end;
-
-
-llI1l1lIl1Il:Toggle({Name=l11l1Il1lll("\12\189\232\239\1\182\53\164\228\219\18\127",246),Description=l11l1Il1lll("\245\165\157\16\91\14\238\170\240\229\58\18\101\233\23\146\74\27\52\135\205\55\143\212\96\220\83\237\207\125\151\38\249\133\188\117\123\167\18\83\16\181\204\117\120\201\46\190\44\126",93),Flag=l11l1Il1lll("\122\112\173\46\186\155\39\60\151\27\88",84),Callback=function(lII1lIIIll1ll) 
-
-
-
-
-if (not lII1lIIIll1ll) and lIII1ll1l then 
-ll1lII1lI(lIII1ll1l,true);
-lIII1ll1l=nil end end});
-
-
-
-llI1l1lIl1Il:Toggle({Name=l11l1Il1lll("\209\9\185\27\81\160\78\27\135\221",213),Description=l11l1Il1lll("\77\208\50\9\90\166\38\113\36\108\253\202\14\118\90\157\227\15\165\245\249\38\160\24\7\30\185\27\159\149\214\72\17\170\86\97\40\128\7\218\130\34\195\100\6\2\107\183\132",81),Flag=l11l1Il1lll("\103\248\121\55\48\208\60\133\110",219)});
-lI11l11IIl(lIII1l1l.Stepped:Connect(function() 
-local lII1lll111Ill,l11I1I1I1II11=l1llll1lI1I1l(),lIl1I1lI1Il();
-if (l1IIlll1I11l.antiRagdoll and lII1lll111Ill) and (lIII1ll1l ~= lII1lll111Ill) then 
-lIII1ll1l=lII1lll111Ill;
-ll1lII1lI(lII1lll111Ill,false);
-if (lII1lll111Ill:GetState() == Enum.HumanoidStateType.FallingDown) or (lII1lll111Ill:GetState() == Enum.HumanoidStateType.Ragdoll) then 
-lII1lll111Ill:ChangeState(Enum.HumanoidStateType.GettingUp) end end;
-
-
-if l1IIlll1I11l.antiFling then 
-
-for lIII1lIll1l1I,lIlIl1I1lllI in ipairs(ll11I11l1lll1:GetPlayers()) do 
-if (lIlIl1I1lllI ~= lllI1llI) and lIlIl1I1lllI.Character then 
-for llIlI111I1II,lIl1lI1lII in ipairs(lIlIl1I1lllI.Character:GetChildren()) do 
-if lIl1lI1lII:IsA(l11l1Il1lll("\207\114\175\163\60\229\102\247",54)) and lIl1lI1lII.CanCollide then 
-lIl1lI1lII.CanCollide=false end end end end;
-
-
-
-
-if l11I1I1I1II11 and (l11I1I1I1II11.AssemblyAngularVelocity.Magnitude > 40) then 
-l11I1I1I1II11.AssemblyAngularVelocity=Vector3.zero end end end)) end;
-
+l111II11I:OnUnload(function() 
+ll1111llll1();
+if l1Il1II1llI then 
+l1Il1II1llI:Disconnect() end end) end;
 
 
 
@@ -1283,126 +1237,176 @@ l11I1I1I1II11.AssemblyAngularVelocity=Vector3.zero end end end)) end;
 
 
 do 
-local lI111II1IlI=ll11I1lllIl:Section(l11l1Il1lll("\67\187\187\38\194",143));
-local lIIIlIl1I1={Enum.HumanoidStateType.Climbing,Enum.HumanoidStateType.FallingDown,Enum.HumanoidStateType.Flying,Enum.HumanoidStateType.Freefall,Enum.HumanoidStateType.GettingUp,Enum.HumanoidStateType.Jumping,Enum.HumanoidStateType.Landed,Enum.HumanoidStateType.Running,Enum.HumanoidStateType.Seated};
+local l11lllllI11=l11lI11II11I:Section(lI1I1ll1llIl("\254\171\232\155\71\208\255\52\30\149",64));
+local lII1lll1IlIII={Enum.HumanoidStateType.FallingDown,Enum.HumanoidStateType.Ragdoll};
+local lI11lI1lIll;
+local function lI1IIIII(lI11IIl1I1l,l11II1IlI) 
+for l1IlI1IllIll,llllI1I11llI in ipairs(lII1lll1IlIII) do 
+lI11IIl1I1l:SetStateEnabled(llllI1I11llI,l11II1IlI) end end;
+
+
+l11lllllI11:Toggle({Name=lI1I1ll1llIl("\186\237\74\254\130\11\52\128\17\179\222\36",50),Description=lI1I1ll1llIl("\242\166\224\255\96\202\232\198\161\201\62\16\55\243\203\132\77\56\105\72\214\19\105\184\209\16\119\207\189\71\75\80\254\198\129\154\64\163\212\63\65\153\8\183\42\211\242\232\43\93",80),Flag=lI1I1ll1llIl("\142\223\177\145\15\20\208\207\66\195\118",113),Callback=function(lIIlI1lI11l) 
 
 
 
 
-local lll1IIIIlI;
-local function llI1ll11Il1l1() 
-if lll1IIIIlI then 
-for lll1IIl1l,lll1ll1I1I in ipairs(lIIIlIl1I1) do 
-lll1IIIIlI:SetStateEnabled(lll1ll1I1I,true) end;
-
-lll1IIIIlI:ChangeState(Enum.HumanoidStateType.Freefall);
-lll1IIIIlI=nil end;
-
-workspace.Gravity=(l1IIlll1I11l.gravityOn and l1IIlll1I11l.gravity) or lI11lllIIIIl.gravity end;
-
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\106\18\29\238\49\183\174\74\231\127\255",35),Description=l11l1Il1lll("\150\77\90\251\65\191\165\88\210\38\234\37\78\157\82\15\35\180\236\109\136\202\212\222\91\243\182\2\179\49\163\243\158\115\117\214\51\72\12\191\49\131\40\209\47\131\32\116\79\212\129\76\190\246\239",95),Flag=l11l1Il1lll("\199\59\133\22",138),Callback=function(l1lIlIll) 
+if (not lIIlI1lI11l) and lI11lI1lIll then 
+lI1IIIII(lI11lI1lIll,true);
+lI11lI1lIll=nil end end});
 
 
 
+l11lllllI11:Toggle({Name=lI1I1ll1llIl("\236\65\238\157\95\38\34\221\145\198",41),Description=lI1I1ll1llIl("\90\103\137\252\184\89\8\78\105\70\102\201\108\107\241\94\244\216\126\32\59\217\174\231\170\52\194\248\61\168\125\171\70\29\237\212\138\63\41\37\15\200\88\103\164\223\0\116\211",187),Flag=lI1I1ll1llIl("\75\70\66\181\225\229\148\94\226",29)});
+lIl11lIIl(lII1llIIIIlI.Stepped:Connect(function() 
+local llII1IIIIl,lI1lIl11=l11l1IlI1I(),l1lI11Il111ll();
+if (lll1l11Il1ll1.antiRagdoll and llII1IIIIl) and (lI11lI1lIll ~= llII1IIIIl) then 
+lI11lI1lIll=llII1IIIIl;
+lI1IIIII(llII1IIIIl,false);
+if (llII1IIIIl:GetState() == Enum.HumanoidStateType.FallingDown) or (llII1IIIIl:GetState() == Enum.HumanoidStateType.Ragdoll) then 
+llII1IIIIl:ChangeState(Enum.HumanoidStateType.GettingUp) end end;
 
-if not l1lIlIll then 
-llI1ll11Il1l1() end end});
+
+if lll1l11Il1ll1.antiFling then 
+
+for ll1Il1II1IlI,lll111I11l1I in ipairs(lllIlllIllI1I:GetPlayers()) do 
+if (lll111I11l1I ~= ll1lI1IIII1) and lll111I11l1I.Character then 
+for l1lIII1IlI1l,l11lIlllI in ipairs(lll111I11l1I.Character:GetChildren()) do 
+if l11lIlllI:IsA(lI1I1ll1llIl("\213\48\254\106\221\85\24\228",118)) and l11lIlllI.CanCollide then 
+l11lIlllI.CanCollide=false end end end end;
 
 
 
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\59\32\58\150\33\7\25\230\105",255),Description=l11l1Il1lll("\216\3\187\123\26\37\229\224\37\49\8\146\15\94\249\238\87\220\58\164\234\156\127\116\192\99\93\75\178\51\144\46\213\63\204\2\103\89\214\156\68\191\244\178\10\173\18\94\165\252\16\142\220\251\3",170),Flag=l11l1Il1lll("\225\120\219\78\50\41\203\203",186)});
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\55\190\67\228",233),Description=l11l1Il1lll("\64\246\56\47\153\105\180\113\41\7\213\115\47\188\119\9\237\106\194\197\92\237\75\198\130\196\77\75\252\233\166\169\89\214\78",182),Flag=l11l1Il1lll("\83\167\52\140",101)});
-lI111II1IlI:Slider({Name=l11l1Il1lll("\58\69\173\93\129\125\96\255\19\162",115),Flag=l11l1Il1lll("\49\39\128\97\0\22\244\122\196",0),Min=1,Max=40,Default=12});
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\24\107\125\142\16\138\137\37\200\214\30\78\115\185\145",67),Description=l11l1Il1lll("\46\24\190\15\1\111\130\20\224\16\239\144\83\239\73\109\182\180\89\202\147\214\110\157\112\49\132\111\231\124\124\28\45\32\135\47\42\9\228\109\128\221\15\254\0\222\162\129\95\70\237\246\172\184\82",32),Flag=l11l1Il1lll("\21\80\179\23\162\194\199\13\5\144\75",249)});
-lI111II1IlI:Slider({Name=l11l1Il1lll("\255\106\116\222\32\89\69\164\55\198\123\194\43\139\33",63),Flag=l11l1Il1lll("\145\140\33\205\163\31\89\125\134",104),Min=0,Max=300,Default=100,Increment=5,Suffix=l11l1Il1lll("\51",203)});
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\108\129\131\77\168\189\244\52\185",175),Description=l11l1Il1lll("\221\231\76\169\37\162\188\202\107\100\194\111\209\145\241\20\133\151\200\35\192\21\121\69\130\142\55\184\163\225\9\166\28\7\232\89\31\154\156\245\13\1\172",8),Flag=l11l1Il1lll("\162\95\210\114",133)});
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\33\218\68\26\51",187),Description=l11l1Il1lll("\100\243\252\75\139\51\245\228\215\119\118\147\131\154\12\141\56\138\100\146\61\130\42\113\66\141\193\3\189\244\247\62\233\23\88\178\191\12\148\213\246\17\9\182",7),Flag=l11l1Il1lll("\185\72\84\247\4",95)});
-lI111II1IlI:Slider({Name=l11l1Il1lll("\145\10\148\234\195\76\3\186\53\105\52\144\1\155\133\46",11),Flag=l11l1Il1lll("\51\192\101\255\77\95\166\174\32\215",106),Min=2,Max=40,Default=8,Suffix=l11l1Il1lll("\77\128\8\73\191",214)});
-lI111II1IlI:Toggle({Name=l11l1Il1lll("\10\162\0\26\28\183\8\154\221\198",230),Description=l11l1Il1lll("\112\222\147\136\10\77\248\20\160\238\235\0\24\125\241\4\163\7\13\62\238\224\33\150\155\201\216\75\228\186\84\151\120\180\248\169\103\125\145\52\95\92\168\62\127\98\196\104\157\55\36\89\142",76),Flag=l11l1Il1lll("\247\22\145\46\47\186\91\239\123",197)});
-lI111II1IlI:Button({Name=l11l1Il1lll("\156\70\244\18\88\233\21\220",149),Description=l11l1Il1lll("\156\109\171\176\93\194\136\159\127\179\63\46\141\118\245\96\52\17\204\115\139\103\54\46\189\108\194\150\8\252\65\147\151\150\65\86\243\255",126),Action=l11l1Il1lll("\181\235\211",29),Callback=function() 
-local ll1lI1lIII,l1Ill11lIlI1I=l1llll1lI1I1l(),lIl1I1lI1Il();
-if ll1lI1lIII and l1Ill11lIlI1I then 
-ll1lI1lIII.Sit=true;
+
+if lI1lIl11 and (lI1lIl11.AssemblyAngularVelocity.Magnitude > 40) then 
+lI1lIl11.AssemblyAngularVelocity=Vector3.zero end end end)) end;
+
+
+
+
+
+
+
+do 
+local ll11lI1Ill=l11lI11II11I:Section(lI1I1ll1llIl("\134\136\7\134\221",231));
+local l1I111llI1Il={Enum.HumanoidStateType.Climbing,Enum.HumanoidStateType.FallingDown,Enum.HumanoidStateType.Flying,Enum.HumanoidStateType.Freefall,Enum.HumanoidStateType.GettingUp,Enum.HumanoidStateType.Jumping,Enum.HumanoidStateType.Landed,Enum.HumanoidStateType.Running,Enum.HumanoidStateType.Seated};
+
+
+
+
+local lI1llIIll1I;
+local function llIlIIllI() 
+if lI1llIIll1I then 
+for llIII1II,l1IlII1IlIIl1 in ipairs(l1I111llI1Il) do 
+lI1llIIll1I:SetStateEnabled(l1IlII1IlIIl1,true) end;
+
+lI1llIIll1I:ChangeState(Enum.HumanoidStateType.Freefall);
+lI1llIIll1I=nil end;
+
+workspace.Gravity=(lll1l11Il1ll1.gravityOn and lll1l11Il1ll1.gravity) or lII1lllI.gravity end;
+
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\141\222\158\146\18\234\213\109\0\130\27",48),Description=lI1I1ll1llIl("\42\1\116\53\1\174\16\34\240\151\131\100\94\67\161\141\159\56\2\163\200\27\161\164\121\66\159\3\163\239\16\49\98\255\155\216\179\153\121\5\211\242\1\208\127\29\147\182\179\24\47\66\62\231\90",127),Flag=lI1I1ll1llIl("\174\8\163\201",89),Callback=function(lIIIl1IlII1l1) 
+
+
+
+
+if not lIIIl1IlII1l1 then 
+llIlIIllI() end end});
+
+
+
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\215\220\37\72\83\17\195\114\71",158),Description=lI1I1ll1llIl("\83\46\66\200\63\44\244\208\29\29\221\36\168\165\147\116\28\17\35\23\175\213\78\68\216\15\232\157\21\40\58\148\158\210\245\113\194\16\135\236\124\211\97\68\237\214\184\4\46\49\9\253\89\114\178",129),Flag=lI1I1ll1llIl("\206\227\118\230\68\21\235\196",135)});
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\17\56\219\147",78),Description=lI1I1ll1llIl("\47\13\119\52\84\177\89\35\242\196\42\243\188\167\246\183\130\113\13\190\145\21\166\180\121\7\210\75\143\242\7\55\54\237\129",127),Flag=lI1I1ll1llIl("\40\7\104\253",119)});
+ll11lI1Ill:Slider({Name=lI1I1ll1llIl("\184\183\56\173\110\83\182\145\135\140",199),Flag=lI1I1ll1llIl("\234\36\136\183\64\63\172\46\146",35),Min=1,Max=40,Default=12});
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\152\122\200\244\50\251\96\228\88\72\237\204\207\53\63",99),Description=lI1I1ll1llIl("\187\94\90\143\95\253\249\27\98\138\5\221\240\187\99\202\3\210\189\106\205\36\21\242\146\171\78\34\100\40\182\91\120\166\99\175\116\219\159\98\2\71\165\179\163\138\72\230\234\32\9\150\242\74\41",22),Flag=lI1I1ll1llIl("\71\54\199\193\233\48\78\16\29\251\111",139)});
+ll11lI1Ill:Slider({Name=lI1I1ll1llIl("\248\26\168\148\82\91\192\68\248\168\13\44\47\213\159",3),Flag=lI1I1ll1llIl("\172\33\147\249\1\16\11\241\123",73),Min=0,Max=300,Default=100,Increment=5,Suffix=lI1I1ll1llIl("\238",231)});
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\109\4\107\214\100\21\159\132\29",177),Description=lI1I1ll1llIl("\166\246\42\142\170\4\101\165\44\191\201\120\184\215\74\94\62\70\174\4\111\243\192\42\165\21\124\143\202\135\114\12\167\214\78\190\144\124\5\218\74\154\231",34),Flag=lI1I1ll1llIl("\116\188\137\156",220)});
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\114\240\155\108\47",42),Description=lI1I1ll1llIl("\187\205\58\21\31\253\59\55\64\151\26\105\65\8\25\157\7\116\130\204\137\108\4\66\213\13\237\217\95\70\194\78\182\233\94\44\43\194\154\198\161\113\37\12",91),Flag=lI1I1ll1llIl("\172\139\24\135\203",231)});
+ll11lI1Ill:Slider({Name=lI1I1ll1llIl("\193\8\63\24\227\209\217\166\150\55\83\198\217\70\212\124",76),Flag=lI1I1ll1llIl("\113\100\151\184\175\99\11\64\44\224",187),Min=2,Max=40,Default=8,Suffix=lI1I1ll1llIl("\117\30\203\188\86",133)});
+ll11lI1Ill:Toggle({Name=lI1I1ll1llIl("\86\234\101\220\206\127\82\77\195\187",8),Description=lI1I1ll1llIl("\54\96\48\119\242\17\50\158\170\107\11\199\14\139\159\136\133\185\174\193\22\156\235\124\17\204\56\140\242\76\26\27\190\138\219\86\159\33\91\254\213\89\200\121\105\148\170\228\123\9\7\38\246",144),Flag=lI1I1ll1llIl("\10\126\198\168\97\124\87\169\205",249)});
+ll11lI1Ill:Button({Name=lI1I1ll1llIl("\155\112\52\239\41\155\221\62",54),Description=lI1I1ll1llIl("\206\225\23\78\67\114\169\26\85\193\190\55\156\54\91\163\134\125\144\173\181\247\55\139\247\126\35\239\57\156\207\112\5\26\253\104\45\79",142),Action=lI1I1ll1llIl("\7\82\151",130),Callback=function() 
+local l1IIlIIlI1I,ll1ll1I11=l11l1IlI1I(),l1lI11Il111ll();
+if l1IIlIIlI1I and ll1ll1I11 then 
+l1IIlIIlI1I.Sit=true;
 task.wait(0.1);
-l1Ill11lIlI1I.CFrame=l1Ill11lIlI1I.CFrame * CFrame.Angles(math.rad(90),0,0) end end});
+ll1ll1I11.CFrame=ll1ll1I11.CFrame * CFrame.Angles(math.rad(90),0,0) end end});
 
 
-lI111II1IlI:Button({Name=l11l1Il1lll("\219\142\208\176\62\32\182\89",252),Description=l11l1Il1lll("\209\254\93\188\179\223\62\170\18\82\91\184\1\141\237\203\6\2\171\127\116\126\132\61\149\148\45\210\208\22\83\109\194\150\59\202",192),Action=l11l1Il1lll("\139\62\96",172),Callback=function() 
-local l1lI1111ll1l=l1llll1lI1I1l();
-if l1lI1111ll1l then 
-l1lI1111ll1l.Sit=true end end});
+ll11lI1Ill:Button({Name=lI1I1ll1llIl("\177\129\102\189\167\196\17\161",238),Description=lI1I1ll1llIl("\246\244\219\240\53\254\93\25\232\152\197\68\54\107\12\195\65\104\173\211\242\127\199\174\79\94\83\174\135\240\146\69\165\220\61\6",117),Action=lI1I1ll1llIl("\233\114\71",196),Callback=function() 
+local lII1IllI1ll=l11l1IlI1I();
+if lII1IllI1ll then 
+lII1IllI1ll.Sit=true end end});
 
 
 
-local lIlI1ll11=RaycastParams.new();
-lIlI1ll11.FilterType=Enum.RaycastFilterType.Exclude;
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-local ll1111111III1,l1IIIlllII11=l1llll1lI1I1l(),lIl1I1lI1Il();
-if (((not ll1111111III1) or (not l1IIIlllII11)) or l1IIlll1I11l.fly) or l1IIlll1I11l.swim then 
+local l1111l1IllI=RaycastParams.new();
+l1111l1IllI.FilterType=Enum.RaycastFilterType.Exclude;
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+local llll1l1l,lII1l1IIl1=l11l1IlI1I(),l1lI11Il111ll();
+if (((not llll1l1l) or (not lII1l1IIl1)) or lll1l11Il1ll1.fly) or lll1l11Il1ll1.swim then 
 return  end;
 
-local lIl11llllIl1l=ll1111111III1.MoveDirection.Magnitude > 0;
-if (l1IIlll1I11l.bhop and lIl11llllIl1l) and (ll1111111III1.FloorMaterial ~= Enum.Material.Air) then 
-ll1111111III1:ChangeState(Enum.HumanoidStateType.Jumping) end;
+local lll1lI1I=llll1l1l.MoveDirection.Magnitude > 0;
+if (lll1l11Il1ll1.bhop and lll1lI1I) and (llll1l1l.FloorMaterial ~= Enum.Material.Air) then 
+llll1l1l:ChangeState(Enum.HumanoidStateType.Jumping) end;
 
-local lI11111lI1=l1IIIlllII11.AssemblyLinearVelocity;
-if l1IIlll1I11l.glide and (lI11111lI1.Y < (- (l1IIlll1I11l.glideSpeed or 8))) then 
-l1IIIlllII11.AssemblyLinearVelocity=Vector3.new(lI11111lI1.X,- (l1IIlll1I11l.glideSpeed or 8),lI11111lI1.Z) end;
+local l1lIl1ll=lII1l1IIl1.AssemblyLinearVelocity;
+if lll1l11Il1ll1.glide and (l1lIl1ll.Y < (- (lll1l11Il1ll1.glideSpeed or 8))) then 
+lII1l1IIl1.AssemblyLinearVelocity=Vector3.new(l1lIl1ll.X,- (lll1l11Il1ll1.glideSpeed or 8),l1lIl1ll.Z) end;
 
-if l1IIlll1I11l.wallClimb and lIl11llllIl1l then 
-lIlI1ll11.FilterDescendantsInstances={lllI1llI.Character,workspace.CurrentCamera};
-local lI1Il1l1Il=workspace:Raycast(l1IIIlllII11.Position,ll1111111III1.MoveDirection * 2.6,lIlI1ll11);
-if lI1Il1l1Il and lI1Il1l1Il.Instance.CanCollide then 
-l1IIIlllII11.AssemblyLinearVelocity=Vector3.new(lI11111lI1.X,math.max(ll1111111III1.WalkSpeed,16),lI11111lI1.Z) end end end));
-
-
+if lll1l11Il1ll1.wallClimb and lll1lI1I then 
+l1111l1IllI.FilterDescendantsInstances={ll1lI1IIII1.Character,workspace.CurrentCamera};
+local llIllll1l1=workspace:Raycast(lII1l1IIl1.Position,llll1l1l.MoveDirection * 2.6,l1111l1IllI);
+if llIllll1l1 and llIllll1l1.Instance.CanCollide then 
+lII1l1IIl1.AssemblyLinearVelocity=Vector3.new(l1lIl1ll.X,math.max(llll1l1l.WalkSpeed,16),l1lIl1ll.Z) end end end));
 
 
-local llI1lIl1l;
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function(lI1ll1Il1) 
-local ll1l1ll1l,l1Il1lIIll1II=l1llll1lI1I1l(),lIl1I1lI1Il();
-if (not ll1l1ll1l) or (not l1Il1lIIll1II) then 
+
+
+local l11I1lll;
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function(lI11III1l11I1) 
+local lll11II11111,lIl111IIlIlI1=l11l1IlI1I(),l1lI11Il111ll();
+if (not lll11II11111) or (not lIl111IIlIlI1) then 
 return  end;
 
-if l1IIlll1I11l.swim and (not l1IIlll1I11l.fly) then 
-if lll1IIIIlI ~= ll1l1ll1l then 
-lll1IIIIlI=ll1l1ll1l;
-for ll11lIlIII1ll,l11IIIll1llI in ipairs(lIIIlIl1I1) do 
-ll1l1ll1l:SetStateEnabled(l11IIIll1llI,false) end end;
+if lll1l11Il1ll1.swim and (not lll1l11Il1ll1.fly) then 
+if lI1llIIll1I ~= lll11II11111 then 
+lI1llIIll1I=lll11II11111;
+for lllll1l1lI1ll,lIlll11l1 in ipairs(l1I111llI1Il) do 
+lll11II11111:SetStateEnabled(lIlll11l1,false) end end;
 
 
 workspace.Gravity=0;
-if ll1l1ll1l:GetState() ~= Enum.HumanoidStateType.Swimming then 
-ll1l1ll1l:ChangeState(Enum.HumanoidStateType.Swimming) end end;
+if lll11II11111:GetState() ~= Enum.HumanoidStateType.Swimming then 
+lll11II11111:ChangeState(Enum.HumanoidStateType.Swimming) end end;
 
 
-local lll1IIII1l1l=ll1l1ll1l:GetState();
-if (l1IIlll1I11l.edgeJump and (lll1IIII1l1l == Enum.HumanoidStateType.Freefall)) and ((llI1lIl1l == Enum.HumanoidStateType.Running) or (llI1lIl1l == Enum.HumanoidStateType.RunningNoPhysics)) then 
-ll1l1ll1l:ChangeState(Enum.HumanoidStateType.Jumping) end;
+local llII1II11l=lll11II11111:GetState();
+if (lll1l11Il1ll1.edgeJump and (llII1II11l == Enum.HumanoidStateType.Freefall)) and ((l11I1lll == Enum.HumanoidStateType.Running) or (l11I1lll == Enum.HumanoidStateType.RunningNoPhysics)) then 
+lll11II11111:ChangeState(Enum.HumanoidStateType.Jumping) end;
 
-llI1lIl1l=lll1IIII1l1l;
-if l1IIlll1I11l.spin and (not l1IIlll1I11l.shiftLock) then 
-l1Il1lIIll1II.CFrame=l1Il1lIIll1II.CFrame * CFrame.Angles(0,(l1IIlll1I11l.spinSpeed or 12) * lI1ll1Il1,0) end end));
+l11I1lll=llII1II11l;
+if lll1l11Il1ll1.spin and (not lll1l11Il1ll1.shiftLock) then 
+lIl111IIlIlI1.CFrame=lIl111IIlIlI1.CFrame * CFrame.Angles(0,(lll1l11Il1ll1.spinSpeed or 12) * lI11III1l11I1,0) end end));
 
 
 task.spawn(function() 
-local l11Il1I1=false;
-while llIIIIII1.Window == lI11II1llI1 do 
-local lI1lII1I111II=l1llll1lI1I1l();
-local lIl1II111ll=lI1lII1I111II and lI1lII1I111II:FindFirstChildOfClass(l11l1Il1lll("\69\242\85\198\153\168\73\73",58));
-if lIl1II111ll and (l1IIlll1I11l.animSpeedOn or l11Il1I1) then 
-local llI11IIIIll=(l1IIlll1I11l.animSpeedOn and ((l1IIlll1I11l.animSpeed or 100) / 100)) or 1;
-for l1ll11l1lll1,l111IlII11lI in ipairs(lIl1II111ll:GetPlayingAnimationTracks()) do 
-l111IlII11lI:AdjustSpeed(llI11IIIIll) end;
+local ll11I1ll1111=false;
+while l111II11I.Window == l1l1Ill1 do 
+local l1I11IlI1=l11l1IlI1I();
+local ll1lllllIl=l1I11IlI1 and l1I11IlI1:FindFirstChildOfClass(lI1I1ll1llIl("\68\226\139\117\91\84\197\167",26));
+if ll1lllllIl and (lll1l11Il1ll1.animSpeedOn or ll11I1ll1111) then 
+local lllI11II1=(lll1l11Il1ll1.animSpeedOn and ((lll1l11Il1ll1.animSpeed or 100) / 100)) or 1;
+for lI11I1Il11I,llI11Il1I1 in ipairs(ll1lllllIl:GetPlayingAnimationTracks()) do 
+llI11Il1I1:AdjustSpeed(lllI11II1) end;
 
-l11Il1I1=l1IIlll1I11l.animSpeedOn == true end;
+ll11I1ll1111=lll1l11Il1ll1.animSpeedOn == true end;
 
 task.wait(0.15) end end);
 
 
-llIIIIII1:OnUnload(function() 
-if l1IIlll1I11l.swim then 
-llI1ll11Il1l1() end end) end;
+l111II11I:OnUnload(function() 
+if lll1l11Il1ll1.swim then 
+llIlIIllI() end end) end;
 
 
 
@@ -1417,161 +1421,159 @@ llI1ll11Il1l1() end end) end;
 
 
 do 
-local function l1IIIl1l() 
-local l1IllllI=lI11II1llI1:Tab({Name=l11l1Il1lll("\162\219\50\147\18\94\71",121),Icon=llIIIIII1.IconIds.navigation,Hint=l11l1Il1lll("\148\156\91\243\27\238\191\179\126\239\73\22\133\123\209\20\2\1\142\199\111\114\49\35\195\84",110)});
-local lI11Il1II1=llIIIIII1.IconIds;
-local l1l111Il=Color3.new(1,1,1);
+local function lI1Ill1lIlI() 
+local llIIl1lI1I=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\204\94\123\188\106\239\116",228),Icon=l111II11I.IconIds.navigation,Hint=lI1I1ll1llIl("\210\144\107\108\44\197\163\252\186\120\196\185\42\224\124\172\68\13\190\216\216\57\45\108\7\195",43)});
+local lllI1I111l=l111II11I.IconIds;
+local ll11lIl1IIlI1=Color3.new(1,1,1);
 
 
 
 
-local llIlIIlI1lIl1={seat=nil,model=nil,root=nil,loose={},all={},refreshed=0};
-local function l1II1I1IllI(l11l1III) 
-local ll1llI11l1l1l=Vector3.new(l11l1III.X,0,l11l1III.Z);
-return ((ll1llI11l1l1l.Magnitude > 0.01) and ll1llI11l1l1l.Unit) or Vector3.new(0,0,- 1) end;
+local lII1Illl={seat=nil,model=nil,root=nil,loose={},all={},refreshed=0};
+local function l1ll1II1I1(ll1I111I) 
+local lI1ll1I111lI=Vector3.new(ll1I111I.X,0,ll1I111I.Z);
+return ((lI1ll1I111lI.Magnitude > 0.01) and lI1ll1I111lI.Unit) or Vector3.new(0,0,- 1) end;
 
-local function lI11lIll1II(ll1IIlII) 
-local l1I1lIII=ll1IIlII:FindFirstAncestorOfClass(l11l1Il1lll("\237\221\28\245\76",56)) or ll1IIlII.Parent;
+local function llI1II11l1(lll11Ill11lIl) 
+local l1lIllllll=lll11Ill11lIl:FindFirstAncestorOfClass(lI1I1ll1llIl("\199\167\178\89\43",189)) or lll11Ill11lIl.Parent;
 
-while (((l1I1lIII and l1I1lIII.Parent) and (l1I1lIII.Parent ~= workspace)) and l1I1lIII.Parent:IsA(l11l1Il1lll("\109\184\57\135\96",101))) and ((# l1I1lIII.Parent:GetChildren()) <= 40) do 
-l1I1lIII=l1I1lIII.Parent end;
+while (((l1lIllllll and l1lIllllll.Parent) and (l1lIllllll.Parent ~= workspace)) and l1lIllllll.Parent:IsA(lI1I1ll1llIl("\182\236\90\242\195",50))) and ((# l1lIllllll.Parent:GetChildren()) <= 40) do 
+l1lIllllll=l1lIllllll.Parent end;
 
-return l1I1lIII end;
+return l1lIllllll end;
 
-local function l1IIlII11() 
-local lIll1lII1l1=l1llll1lI1I1l();
-local llll1l1llI1=lIll1lII1l1 and lIll1lII1l1.SeatPart;
-if not (llll1l1llI1 and llll1l1llI1:IsDescendantOf(workspace)) then 
-llIlIIlI1lIl1.seat,llIlIIlI1lIl1.model,llIlIIlI1lIl1.root,llIlIIlI1lIl1.loose,llIlIIlI1lIl1.all=nil,nil,nil,{},{};
+local function l1I11lIl11IlI() 
+local l1IlIll1l=l11l1IlI1I();
+local lI1Il1Il1ll=l1IlIll1l and l1IlIll1l.SeatPart;
+if not (lI1Il1Il1ll and lI1Il1Il1ll:IsDescendantOf(workspace)) then 
+lII1Illl.seat,lII1Illl.model,lII1Illl.root,lII1Illl.loose,lII1Illl.all=nil,nil,nil,{},{};
 return nil end;
 
-if (llll1l1llI1 ~= llIlIIlI1lIl1.seat) or ((os.clock() - llIlIIlI1lIl1.refreshed) > 2) then 
-llIlIIlI1lIl1.seat,llIlIIlI1lIl1.refreshed=llll1l1llI1,os.clock();
-llIlIIlI1lIl1.model=lI11lIll1II(llll1l1llI1);
-llIlIIlI1lIl1.root=llll1l1llI1.AssemblyRootPart or llll1l1llI1;
-local lI111lI111I,ll1111lll={},{};
-if llIlIIlI1lIl1.model then 
-for ll11ll1l1I,l1l1lI1l1lI in ipairs(llIlIIlI1lIl1.model:GetDescendants()) do 
-if l1l1lI1l1lI:IsA(l11l1Il1lll("\96\86\250\10\99\167\67\203",96)) then 
-if (# ll1111lll) < 500 then 
-table.insert(ll1111lll,l1l1lI1l1lI) end;
+if (lI1Il1Il1ll ~= lII1Illl.seat) or ((os.clock() - lII1Illl.refreshed) > 2) then 
+lII1Illl.seat,lII1Illl.refreshed=lI1Il1Il1ll,os.clock();
+lII1Illl.model=llI1II11l1(lI1Il1Il1ll);
+lII1Illl.root=lI1Il1Il1ll.AssemblyRootPart or lI1Il1Il1ll;
+local l1I1lIlIl,l11lIIIIII={},{};
+if lII1Illl.model then 
+for lIl1l1lI1IlII,lI11lI1IllI1l in ipairs(lII1Illl.model:GetDescendants()) do 
+if lI11lI1IllI1l:IsA(lI1I1ll1llIl("\132\217\61\233\202\1\121\33",107)) then 
+if (# l11lIIIIII) < 500 then 
+table.insert(l11lIIIIII,lI11lI1IllI1l) end;
 
-if ((not l1l1lI1l1lI.Anchored) and (l1l1lI1l1lI.AssemblyRootPart ~= llIlIIlI1lIl1.root)) and ((# lI111lI111I) < 60) then 
-table.insert(lI111lI111I,l1l1lI1l1lI) end end end end;
-
-
-
-
-llIlIIlI1lIl1.loose,llIlIIlI1lIl1.all=lI111lI111I,ll1111lll end;
-
-return llll1l1llI1 end;
+if ((not lI11lI1IllI1l.Anchored) and (lI11lI1IllI1l.AssemblyRootPart ~= lII1Illl.root)) and ((# l1I1lIlIl) < 60) then 
+table.insert(l1I1lIlIl,lI11lI1IllI1l) end end end end;
 
 
 
 
-local llIIlIlIIl={l11l1Il1lll("\32\84\106\149\141\3\197\131\239\3\137\46\9",141),l11l1Il1lll("\93\61\22\252\117\218\220\31",19),l11l1Il1lll("\7\21\205",238),l11l1Il1lll("\220\111\54\31\206\219\141\114",220)};
-local lllI1ll1I={l11l1Il1lll("\16\107\100\150\5\173\148\47\195\132",67),l11l1Il1lll("\74\222\239\53\59",253),l11l1Il1lll("\38\215\234\231\7",178)};
-local function lllI11IIlI(ll1Illl1111) 
-local llll1ll1llI=llIlIIlI1lIl1.model;
-if not llll1ll1llI then 
+lII1Illl.loose,lII1Illl.all=l1I1lIlIl,l11lIIIIII end;
+
+return lI1Il1Il1ll end;
+
+
+
+
+local l1Il1lIl={lI1I1ll1llIl("\192\42\225\220\23\11\177\9\169\204\58\224\255",51),lI1I1ll1llIl("\239\255\83\220\106\4\154\161",151),lI1I1ll1llIl("\174\69\194",83),lI1I1ll1llIl("\134\112\17\162\197\24\165\164",239)};
+local lI11IIIlI={lI1I1ll1llIl("\15\86\190\121\110\179\255\176\252\38",235),lI1I1ll1llIl("\213\140\107\41\40",43),lI1I1ll1llIl("\122\176\116\76\145",179)};
+local function llIlll1l1(l1ll11IIll111) 
+local lIII1lIIIIIl=lII1Illl.model;
+if not lIII1lIIIIIl then 
 return 0 end;
 
-for l11lII11,l1I111I1I in ipairs(ll1Illl1111) do 
-local lI11lIl1=llll1ll1llI:GetAttribute(l1I111I1I);
-if (type(lI11lIl1) == l11l1Il1lll("\172\162\4\237\182\148",128)) and (math.abs(lI11lIl1) > 0.05) then 
-return math.clamp(lI11lIl1,- 1,1) end end;
+for l1IlllIlIl1,l111ll1lll in ipairs(l1ll11IIll111) do 
+local lI11I1ll11=lIII1lIIIIIl:GetAttribute(l111ll1lll);
+if (type(lI11I1ll11) == lI1I1ll1llIl("\220\45\78\111\20\222",175)) and (math.abs(lI11I1ll11) > 0.05) then 
+return math.clamp(lI11I1ll11,- 1,1) end end;
 
 
-local l1II1I111Ill=llll1ll1llI:FindFirstChild(l11l1Il1lll("\112\23\129\203\243\47",251)) or llll1ll1llI;
-for l111l11I1,llIl1II1l in ipairs(ll1Illl1111) do 
-local lIll1lIIIl1l=l1II1I111Ill:FindFirstChild(llIl1II1l);
-if (lIll1lIIIl1l and lIll1lIIIl1l:IsA(l11l1Il1lll("\23\147\101\208\43\156\19\103\66\129\136",119))) and (math.abs(lIll1lIIIl1l.Value) > 0.05) then 
-return math.clamp(lIll1lIIIl1l.Value,- 1,1) end end;
+local llIl1lII1I=lIII1lIIIIIl:FindFirstChild(lI1I1ll1llIl("\208\5\58\9\227\130",76)) or lIII1lIIIIIl;
+for l1ll1Il1lll,llI11lI1l in ipairs(l1ll11IIll111) do 
+local l1Illll1Il=llIl1lII1I:FindFirstChild(llI11lI1l);
+if (l1Illll1Il and l1Illll1Il:IsA(lI1I1ll1llIl("\155\152\82\113\192\69\212\157\102\61\51",5))) and (math.abs(l1Illll1Il.Value) > 0.05) then 
+return math.clamp(l1Illll1Il.Value,- 1,1) end end;
 
 
 return 0 end;
 
-local function llllIIIllII1() 
-return (not llIl11lIIl1I1:GetFocusedTextBox()) and (not (getgenv and getgenv().NOC_TEST_TOUCHONLY)) end;
+local function lll11l1II1lIl() 
+return (not l1IIl1lll1l:GetFocusedTextBox()) and (not (getgenv and getgenv().NOC_TEST_TOUCHONLY)) end;
 
-local function l1lllIIIlIII(l1IlIlIlIl,l1l1IlI1) 
-local ll1I1I11I1l1,lI1I1IlIl=0,0;
-if l1IlIlIlIl:IsA(l11l1Il1lll("\207\67\32\155\109\194\96\21\11\213\217",183)) then 
-ll1I1I11I1l1,lI1I1IlIl=l1IlIlIlIl.ThrottleFloat,l1IlIlIlIl.SteerFloat end;
+local function l1l1llIll(lIl1l1I1l,lI1Ill1l) 
+local l1llI1l1Ill,lI1l1IlI1I=0,0;
+if lIl1l1I1l:IsA(lI1I1ll1llIl("\48\225\222\181\69\61\122\52\255\90\103",172)) then 
+l1llI1l1Ill,lI1l1IlI1I=lIl1l1I1l.ThrottleFloat,lIl1l1I1l.SteerFloat end;
 
-if math.abs(ll1I1I11I1l1) < 0.05 then 
-ll1I1I11I1l1=lllI11IIlI(llIIlIlIIl);
-if (llIlIIlI1lIl1.model and (llIlIIlI1lIl1.model:GetAttribute(l11l1Il1lll("\83\218\51\76\90\188\48",81)) == true)) and (ll1I1I11I1l1 > 0) then 
-ll1I1I11I1l1=- ll1I1I11I1l1 end end;
-
-
-if math.abs(lI1I1IlIl) < 0.05 then 
-lI1I1IlIl=lllI11IIlI(lllI1ll1I) end;
-
-local lI1II1llI11ll=llIlIIlI1lIl1.model;
-llIlIIlI1lIl1.steerKnown=(l1IlIlIlIl:IsA(l11l1Il1lll("\118\178\53\139\111\218\55\177\28\107\94",101)) or (lI1II1llI11ll and (((lI1II1llI11ll:GetAttribute(l11l1Il1lll("\186\34\61\135\76",199)) ~= nil) or (lI1II1llI11ll:GetAttribute(l11l1Il1lll("\80\43\36\214\69\237\212\111\131\68",3)) ~= nil)) or (lI1II1llI11ll:FindFirstChild(l11l1Il1lll("\167\46\217\140\157\12",161)) and (lI1II1llI11ll.Values:FindFirstChild(l11l1Il1lll("\90\194\221\103\236",39)) ~= nil))))) or false;
-
-if l1l1IlI1.MoveDirection.Magnitude > 0.1 then 
-local ll1IIlI11,lIlIIIllI=l1II1I1IllI(l1IlIlIlIl.CFrame.LookVector),l1II1I1IllI(l1IlIlIlIl.CFrame.RightVector);
-if math.abs(ll1I1I11I1l1) < 0.05 then 
-ll1I1I11I1l1=math.clamp(l1l1IlI1.MoveDirection:Dot(ll1IIlI11),- 1,1) end;
-
-if (math.abs(lI1I1IlIl) < 0.05) and (math.abs(l1l1IlI1.MoveDirection:Dot(lIlIIIllI)) > 0.3) then 
-lI1I1IlIl=l1l1IlI1.MoveDirection:Dot(lIlIIIllI) end end;
+if math.abs(l1llI1l1Ill) < 0.05 then 
+l1llI1l1Ill=llIlll1l1(l1Il1lIl);
+if (lII1Illl.model and (lII1Illl.model:GetAttribute(lI1I1ll1llIl("\144\109\5\88\51\15\188",223)) == true)) and (l1llI1l1Ill > 0) then 
+l1llI1l1Ill=- l1llI1l1Ill end end;
 
 
-if llllIIIllII1() then 
-if math.abs(ll1I1I11I1l1) < 0.05 then 
-if llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.W) or llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.Up) then 
-ll1I1I11I1l1=1 elseif llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.S) or llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.Down) then 
+if math.abs(lI1l1IlI1I) < 0.05 then 
+lI1l1IlI1I=llIlll1l1(lI11IIIlI) end;
 
-ll1I1I11I1l1=- 1 end end;
+local lII1IlIlIl=lII1Illl.model;
+lII1Illl.steerKnown=(lIl1l1I1l:IsA(lI1I1ll1llIl("\81\164\149\22\126\200\191\115\119\89\182",230)) or (lII1IlIlIl and (((lII1IlIlIl:GetAttribute(lI1I1ll1llIl("\73\76\67\201\165",45)) ~= nil) or (lII1IlIlIl:GetAttribute(lI1I1ll1llIl("\44\51\159\182\33\148\6\73\191\138",181)) ~= nil)) or (lII1IlIlIl:FindFirstChild(lI1I1ll1llIl("\239\21\173\140\86\92",3)) and (lII1IlIlIl.Values:FindFirstChild(lI1I1ll1llIl("\113\92\183\184\241",46)) ~= nil))))) or false;
+
+if lI1Ill1l.MoveDirection.Magnitude > 0.1 then 
+local lI11lIIl,lIlIIl1II1II=l1ll1II1I1(lIl1l1I1l.CFrame.LookVector),l1ll1II1I1(lIl1l1I1l.CFrame.RightVector);
+if math.abs(l1llI1l1Ill) < 0.05 then 
+l1llI1l1Ill=math.clamp(lI1Ill1l.MoveDirection:Dot(lI11lIIl),- 1,1) end;
+
+if (math.abs(lI1l1IlI1I) < 0.05) and (math.abs(lI1Ill1l.MoveDirection:Dot(lIlIIl1II1II)) > 0.3) then 
+lI1l1IlI1I=lI1Ill1l.MoveDirection:Dot(lIlIIl1II1II) end end;
 
 
-if math.abs(lI1I1IlIl) < 0.05 then 
-if llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.D) or llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.Right) then 
-lI1I1IlIl=1 elseif llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.A) or llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.Left) then 
+if lll11l1II1lIl() then 
+if math.abs(l1llI1l1Ill) < 0.05 then 
+if l1IIl1lll1l:IsKeyDown(Enum.KeyCode.W) or l1IIl1lll1l:IsKeyDown(Enum.KeyCode.Up) then 
+l1llI1l1Ill=1 elseif l1IIl1lll1l:IsKeyDown(Enum.KeyCode.S) or l1IIl1lll1l:IsKeyDown(Enum.KeyCode.Down) then 
 
-lI1I1IlIl=- 1 end end end;
+l1llI1l1Ill=- 1 end end;
 
 
+if math.abs(lI1l1IlI1I) < 0.05 then 
+if l1IIl1lll1l:IsKeyDown(Enum.KeyCode.D) or l1IIl1lll1l:IsKeyDown(Enum.KeyCode.Right) then 
+lI1l1IlI1I=1 elseif l1IIl1lll1l:IsKeyDown(Enum.KeyCode.A) or l1IIl1lll1l:IsKeyDown(Enum.KeyCode.Left) then 
 
-return ll1I1I11I1l1,lI1I1IlIl end;
-
-local lllII1II11I1=RaycastParams.new();
-lllII1II11I1.FilterType=Enum.RaycastFilterType.Exclude;
-local function lII1IIIllIl1I(ll1I1Il1III,l111l1IllI) 
-lllII1II11I1.FilterDescendantsInstances={llIlIIlI1lIl1.model,lllI1llI.Character};
-local llll11llI=workspace:Raycast(ll1I1Il1III.Position,Vector3.new(0,- (l111l1IllI or 400),0),lllII1II11I1);
-return (llll11llI and (ll1I1Il1III.Position.Y - llll11llI.Position.Y)) or (l111l1IllI or 400) end;
+lI1l1IlI1I=- 1 end end end;
 
 
 
+return l1llI1l1Ill,lI1l1IlI1I end;
 
-
-local l1I1111lIII,llll1IlIIl1l,llll11IIIllI;
-local function lIl111ll1I() 
-for l1l11Illl,lIl1Il1l1I in ipairs({llll1IlIIl1l,llll11IIIllI,l1I1111lIII}) do 
-if lIl1Il1l1I then 
-pcall(lIl1Il1l1I.Destroy,lIl1Il1l1I) end end;
-
-
-l1I1111lIII,llll1IlIIl1l,llll11IIIllI=nil,nil,nil end;
-
-local function l1llII1I(l1II1lIl1) 
-lIl111ll1I();
-l1I1111lIII=lI11IIlIIIllI(l11l1Il1lll("\168\206\238\1\26\191\64\20\110\131",13),{Name=l11l1Il1lll("\15\144\102\63\13\231\84\174\176",17),Parent=l1II1lIl1});
-llll1IlIIl1l=lI11IIlIIIllI(l11l1Il1lll("\78\126\199\42\114\84\135\58\140\157\219\57\148\6",64),{Attachment0=l1I1111lIII,MaxForce=math.huge,VelocityConstraintMode=Enum.VelocityConstraintMode.Vector,RelativeTo=Enum.ActuatorRelativeTo.World,VectorVelocity=l1II1lIl1.AssemblyLinearVelocity,Parent=l1II1lIl1});
+local llllI1l1IIllI=RaycastParams.new();
+llllI1l1IIllI.FilterType=Enum.RaycastFilterType.Exclude;
+local function l1I1ll11(llllI1II,lI1I1lIl11lI) 
+llllI1l1IIllI.FilterDescendantsInstances={lII1Illl.model,ll1lI1IIII1.Character};
+local l11I1lII=workspace:Raycast(llllI1II.Position,Vector3.new(0,- (lI1I1lIl11lI or 400),0),llllI1l1IIllI);
+return (l11I1lII and (llllI1II.Position.Y - l11I1lII.Position.Y)) or (lI1I1lIl11lI or 400) end;
 
 
 
 
 
+local ll1II1ll1,lII1l11lll,lIII11l1;
+local function llIIlIII11() 
+for ll1l1llIl1Il,lllI1111Ill1l in ipairs({lII1l11lll,lIII11l1,ll1II1ll1}) do 
+if lllI1111Ill1l then 
+pcall(lllI1111Ill1l.Destroy,lllI1111Ill1l) end end;
 
 
-llll11IIIllI=lI11IIlIIIllI(l11l1Il1lll("\193\216\23\116\195\4\101\115\184\45\152\151\200\61\139\29",46),{Attachment0=l1I1111lIII,Mode=Enum.OrientationAlignmentMode.OneAttachment,MaxTorque=math.huge,MaxAngularVelocity=math.huge,Responsiveness=30,RigidityEnabled=true,CFrame=CFrame.lookAt(Vector3.zero,l1II1I1IllI(l1II1lIl1.CFrame.LookVector)),Parent=l1II1lIl1}) end;
+ll1II1ll1,lII1l11lll,lIII11l1=nil,nil,nil end;
+
+local function ll1lIlIII11l(l111llI11Il) 
+llIIlIII11();
+ll1II1ll1=lllII1lI1I1I(lI1I1ll1llIl("\39\240\194\189\69\57\114\2\244\79",172),{Name=lI1I1ll1llIl("\212\215\197\122\50\113\44\212\65",173),Parent=l111llI11Il});
+lII1l11lll=lllII1lI1I1I(lI1I1ll1llIl("\7\14\159\6\79\50\240\241\238\39\80\20\117\197",103),{Attachment0=ll1II1ll1,MaxForce=math.huge,VelocityConstraintMode=Enum.VelocityConstraintMode.Vector,RelativeTo=Enum.ActuatorRelativeTo.World,VectorVelocity=l111llI11Il.AssemblyLinearVelocity,Parent=l111llI11Il});
 
 
+
+
+
+
+
+lIII11l1=lllII1lI1I1I(lI1I1ll1llIl("\164\177\6\36\187\8\128\197\63\22\18\13\99\48\66\142",53),{Attachment0=ll1II1ll1,Mode=Enum.OrientationAlignmentMode.OneAttachment,MaxTorque=math.huge,MaxAngularVelocity=math.huge,Responsiveness=30,RigidityEnabled=true,CFrame=CFrame.lookAt(Vector3.zero,l1ll1II1I1(l111llI11Il.CFrame.LookVector)),Parent=l111llI11Il}) end;
 
 
 
@@ -1581,58 +1583,35 @@ llll11IIIllI=lI11IIlIIIllI(l11l1Il1lll("\193\216\23\116\195\4\101\115\184\45\152
 
 
 
-local function ll1I11I11l(lIl1l11I11Il) 
-if not (((llll1IlIIl1l and llll1IlIIl1l.Parent) and l1I1111lIII) and (l1I1111lIII.Parent == lIl1l11I11Il)) then 
-l1llII1I(lIl1l11I11Il) end end;
+
+
+local function l11II1I1(lI1II1IIl1lIl) 
+if not (((lII1l11lll and lII1l11lll.Parent) and ll1II1ll1) and (ll1II1ll1.Parent == lI1II1IIl1lIl)) then 
+ll1lIlIII11l(lI1II1IIl1lIl) end end;
 
 
 
-local llIIIlI11=game:GetService(l11l1Il1lll("\19\218\141\134\112\138\56\23\138\76\233\127\21\29\40\58\146\102\29",162));
-local function l1l1II1I1I(lI1l1l1lIl1) 
-if not lI1l1l1lIl1.Anchored then 
+local lIIIII1IlI=game:GetService(lI1I1ll1llIl("\63\205\67\125\182\158\21\82\200\168\91\88\119\161\197\148\158\81\243",211));
+local function lII1II1Il(l1111lIll11) 
+if not l1111lIll11.Anchored then 
 return true end;
 
 pcall(function() 
-llIIIlI11:SendKeyEvent(true,Enum.KeyCode.W,false,game) end);
+lIIIII1IlI:SendKeyEvent(true,Enum.KeyCode.W,false,game) end);
 
-local lI1I1I1111=os.clock();
-while lI1l1l1lIl1.Anchored and ((os.clock() - lI1I1I1111) < 1.5) do 
+local l1llIll1l1=os.clock();
+while l1111lIll11.Anchored and ((os.clock() - l1llIll1l1) < 1.5) do 
 task.wait() end;
 
 pcall(function() 
-llIIIlI11:SendKeyEvent(false,Enum.KeyCode.W,false,game) end);
+lIIIII1IlI:SendKeyEvent(false,Enum.KeyCode.W,false,game) end);
 
-return not lI1l1l1lIl1.Anchored end;
+return not l1111lIll11.Anchored end;
 
-local function l111IlI1l1() 
-for lI111IlI11,lIl1IlIl1 in ipairs(llIlIIlI1lIl1.loose) do 
-if lIl1IlIl1.Parent then 
-lIl1IlIl1.AssemblyAngularVelocity=Vector3.zero end end end;
-
-
-
-
-
-
-
-local l111lI1I1I1l=getmetatable(l1IllllI);
-local l1I1l1Illll1l;
-local l1Illll1III={};
-local function llII1l1l1() 
-if l1I1l1Illll1l then 
-l1I1l1Illll1l.Visible=false;
-l1I1l1Illll1l=nil end end;
-
-
-local function lI11lI1l11I1I(lIl11111111I1,l1I1lIll11ll,l111lIIl,l11I1lI111) 
-local lIlIlll11ll1l=lI11IIlIIIllI(l11l1Il1lll("\45\209\125\236\189\176\167\185\16\239",90),{BackgroundTransparency=1,Image=l1I1lIll11ll,Size=UDim2.new(0,l111lIIl,0,l111lIIl),ScaleType=Enum.ScaleType.Fit,Parent=lIl11111111I1});
-llIllI11I1I(lIlIlll11ll1l,l11l1Il1lll("\15\187\44\121\83\191\250\71\166\231\151",155),l11I1lI111 or l11l1Il1lll("\148\145\70\167",110));
-return lIlIlll11ll1l end;
-
-local function lIIll11111(lIIl1llI,l11l1IlIllI) 
-local lIIIIIIIlII1l=workspace.CurrentCamera.ViewportSize;
-local lIIIIIIlI1ll=math.min(330,lIIIIIIIlII1l.Y - 70);
-local lII1IlI11=lI11IIlIIIllI(l11l1Il1lll("\151\29\244\180\189",129),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,math.min(320,lIIIIIIIlII1l.X - 40),0,lIIIIIIlI1ll),BackgroundTransparency=0.08,Visible=false,Parent=llIIIIII1.Gui});
+local function l1I1III1() 
+for llllII1II1ll,lllI1l11l in ipairs(lII1Illl.loose) do 
+if lllI1l11l.Parent then 
+lllI1l11l.AssemblyAngularVelocity=Vector3.zero end end end;
 
 
 
@@ -1640,22 +1619,47 @@ local lII1IlI11=lI11IIlIIIllI(l11l1Il1lll("\151\29\244\180\189",129),{AnchorPoin
 
 
 
-llIllI11I1I(lII1IlI11,l11l1Il1lll("\194\243\123\155\39\173\131\189\124\99\250\16\79\89\179\156",24),l11l1Il1lll("\57\31\154\12\175\168\15\205\118\243",52));
-l1llIIIIIl11(lII1IlI11,18);
-lI11IIlIIIllI(l11l1Il1lll("\161\247\9\142\3\93\73\141",121),{Thickness=1,Color=l1l111Il,Transparency=0.78,Parent=lII1IlI11});
-local l1ll1lI11l=lI11IIlIIIllI(l11l1Il1lll("\153\54\100\114\238\49\160\55\111\90",118),{Size=UDim2.new(1,0,0,46),Text=l11l1Il1lll("",252),AutoButtonColor=false,BackgroundTransparency=1,Parent=lII1IlI11});
-local lII1I111Il=lI11lI1l11I1I(l1ll1lI11l,l11l1IlIllI,18,l11l1Il1lll("\65\148\30\167\130\34",69));
-lII1I111Il.Position=UDim2.new(0,16,0.5,- 9);
-local lI1Illl1I1=lI11IIlIIIllI(l11l1Il1lll("\177\118\39\38\233\106\214\219\104",2),{Size=UDim2.new(1,- 100,1,0),Position=UDim2.new(0,44,0,0),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=15,TextXAlignment=Enum.TextXAlignment.Left,Text=lIIl1llI,Parent=l1ll1lI11l});
-llIllI11I1I(lI1Illl1I1,l11l1Il1lll("\245\122\157\61\11\192\89\213\214\61",241),l11l1Il1lll("\245\122\157\61",241));
-local ll1lIlI1l1l=lI11IIlIIIllI(l11l1Il1lll("\47\27\129\19\138\175\20\204\119\249",52),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,34,0,34),Position=UDim2.new(1,- 8,0.5,0),Text=l11l1Il1lll("",253),AutoButtonColor=false,Parent=l1ll1lI11l});
-llIllI11I1I(ll1lIlI1l1l,l11l1Il1lll("\208\230\90\148\196\196\46\90\254\230\107\175\60\160\238\139",208),l11l1Il1lll("\215\91\184\12\160\225\215",9));
-l1llIIIIIl11(ll1lIlI1l1l,17);
-local lIIl11ll=lI11lI1l11I1I(ll1lIlI1l1l,lI11Il1II1.x,16,l11l1Il1lll("\199\107\152\14\180\234\182",25));
-lIIl11ll.Position=UDim2.new(0.5,- 8,0.5,- 8);
-ll1lIlI1l1l.MouseButton1Click:Connect(llII1l1l1);
-llIllI11I1I(lI11IIlIIIllI(l11l1Il1lll("\159\152\171\125\108",61),{Size=UDim2.new(1,- 24,0,1),Position=UDim2.new(0,12,0,46),BorderSizePixel=0,Parent=lII1IlI11}),l11l1Il1lll("\31\162\15\29\91\166\11\134\222\192\45\12\177\52\117\57",230),l11l1Il1lll("\211\192\12\124\198\46",46));
-local l1111lI111=lI11IIlIIIllI(l11l1Il1lll("\11\180\230\175\102\115\216\41\76\104\187\54\117\111",44),{Size=UDim2.new(1,0,1,- 50),Position=UDim2.new(0,0,0,48),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=3,AutomaticCanvasSize=Enum.AutomaticSize.Y,CanvasSize=UDim2.new(),Parent=lII1IlI11});
+local llI1l1II11=getmetatable(llIIl1lI1I);
+local llI1lll1;
+local ll11II11111l1={};
+local function lIl11111I1I() 
+if llI1lll1 then 
+llI1lll1.Visible=false;
+llI1lll1=nil end end;
+
+
+local function l11I1II1l1I1I(lIll111Illl,llIlllIIl1I1l,l1l1lll1l1II,llI1l1I1l11) 
+local lIIlII1l1lII=lllII1lI1I1I(lI1I1ll1llIl("\76\225\131\127\95\108\203\183\254\143",26),{BackgroundTransparency=1,Image=llIlllIIl1I1l,Size=UDim2.new(0,l1l1lll1l1II,0,l1l1lll1l1II),ScaleType=Enum.ScaleType.Fit,Parent=lIll111Illl});
+lI11ll1lIIlII(lIIlII1l1lII,lI1I1ll1llIl("\240\25\160\158\86\108\198\71\249\250\77",3),llI1l1I1l11 or lI1I1ll1llIl("\18\193\238\200",140));
+return lIIlII1l1lII end;
+
+local function l1I1I1I11(lllIIlI1IIII,lII1lIl1) 
+local ll1lllll1I=workspace.CurrentCamera.ViewportSize;
+local lIlI111I=math.min(330,ll1lllll1I.Y - 70);
+local lI1IIlI1I1lI=lllII1lI1I1I(lI1I1ll1llIl("\224\170\79\65\95",11),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,math.min(320,ll1lllll1I.X - 40),0,lIlI111I),BackgroundTransparency=0.08,Visible=false,Parent=l111II11I.Gui});
+
+
+
+
+
+
+
+lI11ll1lIIlII(lI1IIlI1I1lI,lI1I1ll1llIl("\95\222\105\15\229\194\177\81\33\117\38\247\81\122\165\56",153),lI1I1ll1llIl("\141\240\134\115\218\231\56\254\99\235",81));
+lIlll1ll1l1I1(lI1IIlI1I1lI,18);
+lllII1lI1I1I(lI1I1ll1llIl("\47\17\21\248\133\214\166\101",77),{Thickness=1,Color=ll11lIl1IIlI1,Transparency=0.78,Parent=lI1IIlI1I1lI});
+local lIlIlI1lII1Il=lllII1lI1I1I(lI1I1ll1llIl("\170\236\175\235\16\150\175\25\46\165",16),{Size=UDim2.new(1,0,0,46),Text=lI1I1ll1llIl("",80),AutoButtonColor=false,BackgroundTransparency=1,Parent=lI1IIlI1I1lI});
+local ll1ll1I1II1l1=l11I1II1l1I1I(lIlIlI1lII1Il,lII1lIl1,18,lI1I1ll1llIl("\48\152\250\69\48\216",120));
+ll1ll1I1II1l1.Position=UDim2.new(0,16,0.5,- 9);
+local llIllII111IIl=lllII1lI1I1I(lI1I1ll1llIl("\59\84\61\12\145\148\85\78\193",241),{Size=UDim2.new(1,- 100,1,0),Position=UDim2.new(0,44,0,0),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=15,TextXAlignment=Enum.TextXAlignment.Left,Text=lllIIlI1IIII,Parent=lIlIlI1lII1Il});
+lI11ll1lIIlII(llIllII111IIl,lI1I1ll1llIl("\130\113\94\88\149\206\227\152\88\184",28),lI1I1ll1llIl("\78\222\235\33",100));
+local l1l1II1lll=lllII1lI1I1I(lI1I1ll1llIl("\109\145\57\13\241\218\93\223\121\102",131),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,34,0,34),Position=UDim2.new(1,- 8,0.5,0),Text=lI1I1ll1llIl("",188),AutoButtonColor=false,Parent=lIlIlI1lII1Il});
+lI11ll1lIIlII(l1l1II1lll,lI1I1ll1llIl("\196\153\109\39\61\210\164\224\183\112\226\246\63\224\123\184",43),lI1I1ll1llIl("\18\190\59\150\207\63\27",72));
+lIlll1ll1l1I1(l1l1II1lll,17);
+local l11111l1=l11I1II1l1I1I(l1l1II1lll,lllI1I111l.x,16,lI1I1ll1llIl("\104\54\28\131\138\65\97",242));
+l11111l1.Position=UDim2.new(0.5,- 8,0.5,- 8);
+l1l1II1lll.MouseButton1Click:Connect(lIl11111I1I);
+lI11ll1lIIlII(lllII1lI1I1I(lI1I1ll1llIl("\155\13\171\201\39",89),{Size=UDim2.new(1,- 24,0,1),Position=UDim2.new(0,12,0,46),BorderSizePixel=0,Parent=lI1IIlI1I1lI}),lI1I1ll1llIl("\197\32\30\148\250\86\53\213\252\220\1\66\31\20\196\44",102),lI1I1ll1llIl("\145\188\64\18\72\46",206));
+local l1lIIl1I=lllII1lI1I1I(lI1I1ll1llIl("\21\91\188\99\118\140\226\187\254\18\147\184\126\42",235),{Size=UDim2.new(1,0,1,- 50),Position=UDim2.new(0,0,0,48),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=3,AutomaticCanvasSize=Enum.AutomaticSize.Y,CanvasSize=UDim2.new(),Parent=lI1IIlI1I1lI});
 
 
 
@@ -1665,571 +1669,571 @@ local l1111lI111=lI11IIlIIIllI(l11l1Il1lll("\11\180\230\175\102\115\216\41\76\10
 
 
 
-llIllI11I1I(l1111lI111,l11l1Il1lll("\199\125\136\53\189\254\128\105\115\246\40\72\79\170\22\117\104\193\56\217",25),l11l1Il1lll("\169\80\203",59));
-lIlIl11lIII(l1111lI111,6);
-llIIIIII1.Pad(l1111lI111,10,12,2,14);
-llIIIIII1.Draggable(l1ll1lI11l,lII1IlI11);
-local lI11Il1lIl=setmetatable({Window=lI11II1llI1,Name=lIIl1llI,Hint=l11l1Il1lll("",138),_sections={},_page=l1111lI111},l111lI1I1I1l);
-l1Illll1III[lIIl1llI]=lII1IlI11;
-return lI11Il1lIl,lII1IlI11 end;
+lI11ll1lIIlII(l1lIIl1I,lI1I1ll1llIl("\57\11\4\243\139\37\127\145\55\52\226\194\82\194\81\99\150\183\180\63",93),lI1I1ll1llIl("\250\122\20",170));
+l1IlIll1I(l1lIIl1I,6);
+l111II11I.Pad(l1lIIl1I,10,12,2,14);
+l111II11I.Draggable(lIlIlI1lII1Il,lI1IIlI1I1lI);
+local lI1111lIIlI=setmetatable({Window=l1l1Ill1,Name=lllIIlI1IIII,Hint=lI1I1ll1llIl("",122),_sections={},_page=l1lIIl1I},llI1l1II11);
+ll11II11111l1[lllIIlI1IIII]=lI1IIlI1I1lI;
+return lI1111lIIlI,lI1IIlI1I1lI end;
 
-local function l11I1l1lI(l1lIlIIIII1I1) 
-if l1I1l1Illll1l == l1lIlIIIII1I1 then 
-llII1l1l1();
+local function llIlIlIIl1l(llllllII) 
+if llI1lll1 == llllllII then 
+lIl11111I1I();
 return  end;
 
-llII1l1l1();
-l1I1l1Illll1l=l1lIlIIIII1I1;
-l1lIlIIIII1I1.Visible=true;
-local ll1ll11Il1=l1lIlIIIII1I1:FindFirstChildOfClass(l11l1Il1lll("\49\245\79\232\185\144\163",90)) or lI11IIlIIIllI(l11l1Il1lll("\131\47\174\237\199\0\0",11),{Parent=l1lIlIIIII1I1});
-ll1ll11Il1.Scale=0.92;
-llIIIIII1.Tween(ll1ll11Il1,TweenInfo.new(0.25,Enum.EasingStyle.Back),{Scale=1}) end;
+lIl11111I1I();
+llI1lll1=llllllII;
+llllllII.Visible=true;
+local lI1IIIl11Il1l=llllllII:FindFirstChildOfClass(lI1I1ll1llIl("\199\49\80\14\112\160\12",143)) or lllII1lI1I1I(lI1I1ll1llIl("\142\190\210\112\223\188\115",247),{Parent=llllllII});
+lI1IIIl11Il1l.Scale=0.92;
+l111II11I.Tween(lI1IIIl11Il1l,TweenInfo.new(0.25,Enum.EasingStyle.Back),{Scale=1}) end;
 
 
 
 
 
-local l1ll1I1lll1II=l1IllllI:Section(l11l1Il1lll("",208));
-local lI1IIIlI1111I=l1ll1I1lll1II:Paragraph(l11l1Il1lll("\122\163\76\141\237\196\31\8\201\54",10),l11l1Il1lll("\74\44\32\131\88\208\128\107\198\85\204\140\250\60\87\228\8\65\228\92\211\46\96\246\23\168\56\64\102\216\228\75\217\196\148\32\176\236\228\10\178\57\237\241\198\25\123\139\32\97\87\243\50\139\132\206\63\136\26\125\8",3));
-local lllI11l1ll1I=l1IllllI:Section(l11l1Il1lll("\195\22\94\70\176\217\113\109",98));
-local lI1l1I111lI=lllI11l1ll1I:Custom(0);
-local l11l1l1I1=lI11IIlIIIllI(l11l1Il1lll("\81\213\123\217\145\184\106\90\236\12\186\182",58),{CellSize=UDim2.new(0.333,- 6,0,78),CellPadding=UDim2.new(0,8,0,8),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lI1l1I111lI});
-lI1l1I111lI.AutomaticSize=Enum.AutomaticSize.Y;
-local lIl1l1Il={};
-local function ll11l1llI1l1(lIlI1llI1,lIllI1lIl,l11ll11111,l1II1llIlI,ll1l11Il1I,llll1IlIll1II) 
-local l1l1lII1=lI11IIlIIIllI(l11l1Il1lll("\74\129\133\39\227\248\248\31\150\40",159),{Text=l11l1Il1lll("",102),AutoButtonColor=false,LayoutOrder=lIllI1lIl,Parent=lIlI1llI1});
-llIllI11I1I(l1l1lII1,l11l1Il1lll("\179\46\214\146\159\13\138\63\58\186\121\245\125\61\240\123",161),l11l1Il1lll("\243\34\175\4\237\85\183",229));
-l1llIIIIIl11(l1l1lII1,14);
-local lIl11lllIl1=llIIIIII1.Stroke(l1l1lII1,l11l1Il1lll("\227\51\95\253\247\67",245));
-local l1I111l11=lI11lI1l11I1I(l1l1lII1,l1II1llIlI,20,l11l1Il1lll("\107\194\150\180\79\71\229",76));
-l1I111l11.Position=UDim2.new(0,12,0,12);
-local lIl1IIlll=lI11IIlIIIllI(l11l1Il1lll("\26\241\245\119\189\220\222\222\69",207),{Size=UDim2.new(1,- 20,0,16),Position=UDim2.new(0,12,0,40),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=12,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,Text=l11ll11111,Parent=l1l1lII1});
-llIllI11I1I(lIl1IIlll,l11l1Il1lll("\100\162\213\102\95\201\46\189\59\41",117),l11l1Il1lll("\12\178\236\180",44));
-local llIlllIIlII=lI11IIlIIIllI(l11l1Il1lll("\132\167\16\244\92\238\190\157\174",72),{Size=UDim2.new(1,- 20,0,12),Position=UDim2.new(0,12,0,57),BackgroundTransparency=1,Font=Enum.Font.Gotham,TextSize=10,TextXAlignment=Enum.TextXAlignment.Left,Text=l11l1Il1lll("\154\69\105",50),Parent=l1l1lII1});
-llIllI11I1I(llIlllIIlII,l11l1Il1lll("\237\175\146\68\106\8\241\174\162\20",93),l11l1Il1lll("\57\75\174\31\149",249));
+local lI11IllIl1l=llIIl1lI1I:Section(lI1I1ll1llIl("",6));
+local l1111I1I111=lI11IllIl1l:Paragraph(lI1I1ll1llIl("\143\36\233\6\75\180\151\135\130\252",200),lI1I1ll1llIl("\248\238\101\163\103\14\166\213\130\75\50\111\77\188\91\126\186\131\161\124\204\240\102\72\83\182\198\163\209\120\232\241\107\6\209\0\79\50\194\180\246\39\19\18\113\217\119\17\146\163\18\211\45\85\66\112\123\150\228\158\191",135));
+local lIll11lIIIII=llIIl1lI1I:Section(lI1I1ll1llIl("\248\172\246\171\103\209\254\222",80));
+local lI1III11llIII=lIll11lIIIII:Custom(0);
+local ll1I1Illl11=lllII1lI1I1I(lI1I1ll1llIl("\151\65\52\79\40\24\149\144\66\120\212\71",223),{CellSize=UDim2.new(0.333,- 6,0,78),CellPadding=UDim2.new(0,8,0,8),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lI1III11llIII});
+lI1III11llIII.AutomaticSize=Enum.AutomaticSize.Y;
+local lI1l1II1l={};
+local function l111lIl1ll(lI1I11l1l,ll1I111l11lI,l11l1lI1111II,lII11IlllIl1,lIll1ll1,l1lIIlIl1l) 
+local lIlIllII1IlIl=lllII1lI1I1I(lI1I1ll1llIl("\115\132\165\43\191\49\78\180\157\118",198),{Text=lI1I1ll1llIl("",241),AutoButtonColor=false,LayoutOrder=ll1I111l11lI,Parent=lI1I11l1l});
+lI11ll1lIIlII(lIlIllII1IlIl,lI1I1ll1llIl("\100\57\205\199\221\50\68\0\23\208\66\86\159\128\27\216",139),lI1I1ll1llIl("\105\238\193\19\8\128\20",68));
+lIlll1ll1l1I1(lIlIllII1IlIl,14);
+local l111lIIl1=l111II11I.Stroke(lIlIllII1IlIl,lI1I1ll1llIl("\220\165\215\55\150\176",17));
+local l1I111l11Il1=l11I1II1l1I1I(lIlIllII1IlIl,lII11IlllIl1,20,lI1I1ll1llIl("\150\136\109\119\208\95\230",21));
+l1I111l11Il1.Position=UDim2.new(0,12,0,12);
+local lIIl11llllIlI=lllII1lI1I1I(lI1I1ll1llIl("\165\30\97\212\146\77\76\81\178",248),{Size=UDim2.new(1,- 20,0,16),Position=UDim2.new(0,12,0,40),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=12,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,Text=l11l1lI1111II,Parent=lIlIllII1IlIl});
+lI11ll1lIIlII(lIIl11llllIlI,lI1I1ll1llIl("\82\29\246\184\153\79\39\122\43\167",171),lI1I1ll1llIl("\107\4\109\188",161));
+local lIlI1II1llIl=lllII1lI1I1I(lI1I1ll1llIl("\166\125\27\185\253\13\171\164\103",239),{Size=UDim2.new(1,- 20,0,12),Position=UDim2.new(0,12,0,57),BackgroundTransparency=1,Font=Enum.Font.Gotham,TextSize=10,TextXAlignment=Enum.TextXAlignment.Left,Text=lI1I1ll1llIl("\170\187\9",53),Parent=lIlIllII1IlIl});
+lI11ll1lIIlII(lIlI1II1llIl,lI1I1ll1llIl("\197\126\193\116\61\227\162\187\76\122",152),lI1I1ll1llIl("\103\93\66\185\195",29));
 
-local lI11I1IlIlI=lI11IIlIIIllI(l11l1Il1lll("\98\227\101\218\196\57\49\143\86\11",235),{AnchorPoint=Vector2.new(1,0),Size=UDim2.new(0,34,0,20),Position=UDim2.new(1,- 10,0,12),Text=l11l1Il1lll("",107),AutoButtonColor=false,Parent=l1l1lII1});
-llIllI11I1I(lI11I1IlIlI,l11l1Il1lll("\43\84\167\88\198\124\127\239\24\162\30\1\42\227\247\8",115),l11l1Il1lll("\239\242\56",14));
-l1llIIIIIl11(lI11I1IlIlI,10);
-local lll1IlII1II=lI11IIlIIIllI(l11l1Il1lll("\205\252\8\154\29",196),{Size=UDim2.new(0,16,0,16),Position=UDim2.new(0,2,0.5,- 8),BackgroundColor3=l1l111Il,Parent=lI11I1IlIlI});
-l1llIIIIIl11(lll1IlII1II,8);
-local ll1IlII1=lI11IIlIIIllI(l11l1Il1lll("\86\54\239\238\88",190),{Size=UDim2.new(1,0,1,0),BackgroundColor3=l1l111Il,BackgroundTransparency=1,Parent=lI11I1IlIlI});
-l1llIIIIIl11(ll1IlII1,10);
-llIIIIII1.AccentGradient(ll1IlII1);
-lll1IlII1II.ZIndex=2;
-lI11I1IlIlI.Visible=ll1l11Il1I ~= nil;
-l1l1lII1.MouseButton1Click:Connect(function() 
-l11I1l1lI(llll1IlIll1II) end);
+local llIlI1IlIlII=lllII1lI1I1I(lI1I1ll1llIl("\63\118\182\19\29\156\177\35\170\34",162),{AnchorPoint=Vector2.new(1,0),Size=UDim2.new(0,34,0,20),Position=UDim2.new(1,- 10,0,12),Text=lI1I1ll1llIl("",223),AutoButtonColor=false,Parent=lIlIllII1IlIl});
+lI11ll1lIIlII(llIlI1IlIlII,lI1I1ll1llIl("\233\230\114\232\105\18\233\193\204\76\16\114\13\243\75\34",135),lI1I1ll1llIl("\84\5\248",210));
+lIlll1ll1l1I1(llIlI1IlIlII,10);
+local llIlI1Ill=lllII1lI1I1I(lI1I1ll1llIl("\203\125\219\185\119",9),{Size=UDim2.new(0,16,0,16),Position=UDim2.new(0,2,0.5,- 8),BackgroundColor3=ll11lIl1IIlI1,Parent=llIlI1IlIlII});
+lIlll1ll1l1I1(llIlI1Ill,8);
+local l1IIII1ll1lI1=lllII1lI1I1I(lI1I1ll1llIl("\68\186\210\144\228",31),{Size=UDim2.new(1,0,1,0),BackgroundColor3=ll11lIl1IIlI1,BackgroundTransparency=1,Parent=llIlI1IlIlII});
+lIlll1ll1l1I1(l1IIII1ll1lI1,10);
+l111II11I.AccentGradient(l1IIII1ll1lI1);
+llIlI1Ill.ZIndex=2;
+llIlI1IlIlII.Visible=lIll1ll1 ~= nil;
+lIlIllII1IlIl.MouseButton1Click:Connect(function() 
+llIlIlIIl1l(l1lIIlIl1l) end);
 
-lI11I1IlIlI.MouseButton1Click:Connect(function() 
-if ll1l11Il1I and l1llllI1lll1l[ll1l11Il1I] then 
-l1llllI1lll1l[ll1l11Il1I]:Set(not l1IIlll1I11l[ll1l11Il1I]) end end);
-
-
-local l11I111I1ll1={flag=ll1l11Il1I,sub=llIlllIIlII,ic=l1I111l11,fill=ll1IlII1,knob=lll1IlII1II,stroke=lIl11lllIl1,on=nil};
-table.insert(lIl1l1Il,l11I111I1ll1);
-return l1l1lII1 end;
-
-local function l1Il1lIllII() 
-for llIlIII1II,lIl1II1l in ipairs(lIl1l1Il) do 
-if lIl1II1l.flag then 
-local l1I1l1lIIl=l1IIlll1I11l[lIl1II1l.flag] == true;
-if l1I1l1lIIl ~= lIl1II1l.on then 
-lIl1II1l.on=l1I1l1lIIl;
-llIIIIII1.Tween(lIl1II1l.fill,nil,{BackgroundTransparency=(l1I1l1lIIl and 0) or 1});
-llIIIIII1.Tween(lIl1II1l.knob,nil,{Position=(l1I1l1lIIl and UDim2.new(1,- 18,0.5,- 8)) or UDim2.new(0,2,0.5,- 8)});
-lIl1II1l.ic.ImageColor3=(l1I1l1lIIl and llIIIIII1.Theme.Accent) or llIIIIII1.Theme.SubText;
-lIl1II1l.sub.Text=(l1I1l1lIIl and l11l1Il1lll("\127\76",168)) or l11l1Il1lll("\134\16\30",231);
-lIl1II1l.sub.TextColor3=(l1I1l1lIIl and llIIIIII1.Theme.Accent) or llIIIIII1.Theme.Muted end end end end;
+llIlI1IlIlII.MouseButton1Click:Connect(function() 
+if lIll1ll1 and lllIIlllIIlIl[lIll1ll1] then 
+lllIIlllIIlIl[lIll1ll1]:Set(not lll1l11Il1ll1[lIll1ll1]) end end);
 
 
+local lIlIIlI1={flag=lIll1ll1,sub=lIlI1II1llIl,ic=l1I111l11Il1,fill=l1IIII1ll1lI1,knob=llIlI1Ill,stroke=l111lIIl1,on=nil};
+table.insert(lI1l1II1l,lIlIIlI1);
+return lIlIllII1IlIl end;
+
+local function ll11II1l1ll() 
+for llIII1III1I,lllll1Il in ipairs(lI1l1II1l) do 
+if lllll1Il.flag then 
+local l11I1IlI1=lll1l11Il1ll1[lllll1Il.flag] == true;
+if l11I1IlI1 ~= lllll1Il.on then 
+lllll1Il.on=l11I1IlI1;
+l111II11I.Tween(lllll1Il.fill,nil,{BackgroundTransparency=(l11I1IlI1 and 0) or 1});
+l111II11I.Tween(lllll1Il.knob,nil,{Position=(l11I1IlI1 and UDim2.new(1,- 18,0.5,- 8)) or UDim2.new(0,2,0.5,- 8)});
+lllll1Il.ic.ImageColor3=(l11I1IlI1 and l111II11I.Theme.Accent) or l111II11I.Theme.SubText;
+lllll1Il.sub.Text=(l11I1IlI1 and lI1I1ll1llIl("\82\209",153)) or lI1I1ll1llIl("\221\222\36",158);
+lllll1Il.sub.TextColor3=(l11I1IlI1 and l111II11I.Theme.Accent) or l111II11I.Theme.Muted end end end end;
 
 
 
 
 
 
-local l11I1llI11l,l11I11lI1l1=lIIll11111(l11l1Il1lll("\199\83\188",209),lI11Il1II1.plane);
-local l1l1I1II1ll=l11I1llI11l:Section(l11l1Il1lll("",40));
-l1l1I1II1ll:Toggle({Name=l11l1Il1lll("\55\163\76",33),Description=l11l1Il1lll("\96\251\1\186\232\91\221\95\4\200\38\147\13\66\0\215\242\68\176\237\152\222\75\238\180\107\138\117\181\253\181\102\33\221\48\93\92\160\59\105\36\217\34\131\45\103\18\156\227\70\163\240\246\56",113),Flag=l11l1Il1lll("\198\34\69\212\240\95\141\60",245)});
-l1l1I1II1ll:Slider({Name=l11l1Il1lll("\86\110\209\96\163\63\121\93\230",136),Flag=l11l1Il1lll("\246\209\22\85\193\50\68\106\184\38\136",46),Min=10,Max=1000,Default=150,Increment=10});
-local lllI1llII111=l11I1llI11l:Section(l11l1Il1lll("\169\145\26\140\45\46",180));
-lllI1llII111:Slider({Name=l11l1Il1lll("\84\249\110\53\19\200\117\137\102\58\23\231",219),Description=l11l1Il1lll("\97\26\115\211\12\187\179\50\150\96\252\93\114\169\183\91\235\170\183\72\212\10\96\135\103\253\104\45\86\197\58\158\41\51\8\234",51),Flag=l11l1Il1lll("\246\18\149\16\3\181\89\231\109",197),Min=1.5,Max=5,Default=2,Increment=0.5,Suffix=l11l1Il1lll("\102",159)});
-lllI1llII111:Slider({Name=l11l1Il1lll("\132\9\158\229\195\24\69\168\52\106\123\151\25\144\133\57\213",11),Description=l11l1Il1lll("\57\160\66\89\9\138\12\169\191\50\195\58\229\186\103\232\179\16\230\130\141\123\181\49\45\141\97\217\33\43\28",33),Flag=l11l1Il1lll("\255\83\80\208\113\221\94\19\42\246\220\126\145",167),Min=1,Max=10,Default=4});
-local l1lIllI11=l11I1llI11l:Section(l11l1Il1lll("\11\44\136\2\87\114\149",122));
-l1lIllI11:Segmented({Name=l11l1Il1lll("\128\89\254\117\136\251\63\63\173",234),Description=l11l1Il1lll("\205\219\8\118\192\46\121\110\231\99\138\151\223\49\151\83\71\76\139\145\56\251\254\229\24\211\26\10\181\10\84\160\193\249\59\1\172\17\87\28\156\0\169\165\124\195\108\246\162\97\238\186\18\206\199\134\98\252\55",46),Flag=l11l1Il1lll("\83\182\247\212\9\178\32\11\182\178",194),Options={l11l1Il1lll("\196\89\78\231\115\219\91\2",167),l11l1Il1lll("\115\67\229\5\194\78",168)},Default=l11l1Il1lll("\244\165\156\85\68\2\243\181",93)});
-l1lIllI11:Toggle({Name=l11l1Il1lll("\118\94\229\27\19\177\89\218\110\50\251\28\169\50\14\33\252\224",96),Flag=l11l1Il1lll("\102\130\37\180\144\63\246\155\5\78",85),Default=true});
-l1lIllI11:Toggle({Name=l11l1Il1lll("\54\152\215\204\3\15\241\80\99\103\133\18\216\140\60\209\97\9\67",12),Description=l11l1Il1lll("\131\95\6\82\241\3\166\177\17\219\116\171\175\157\170\183\6\163\142\140\113\187\70\59\157\96\200\82\38\11\197\139\205\124\49\62\220\43\221\208\36\232\84\206\216\189\79\73\188",34),Flag=l11l1Il1lll("\159\51\48\172\81\253\121\63\14",199)});
+
+
+local ll1llI1lII1l,lll1Ill1IlI=l1I1I1I11(lI1I1ll1llIl("\183\23\96",248),lllI1I111l.plane);
+local lIIllIllI=ll1llI1lII1l:Section(lI1I1ll1llIl("",15));
+lIIllIllI:Toggle({Name=lI1I1ll1llIl("\212\20\122",143),Description=lI1I1ll1llIl("\36\72\38\203\186\244\34\80\91\69\242\78\3\217\135\40\182\23\119\156\42\113\148\225\203\230\62\200\187\6\50\185\101\174\215\44\14\15\4\102\123\84\182\30\35\252\149\35\167\21\100\129\132\151",122),Flag=lI1I1ll1llIl("\124\206\11\227\245\106\206\102",116)});
+lIIllIllI:Slider({Name=lI1I1ll1llIl("\233\157\252\24\238\197\18\14\137",49),Flag=lI1I1ll1llIl("\211\248\199\197\121\254\97\28\255\221\194",117),Min=10,Max=1000,Default=150,Increment=10});
+local lIlIll1lI11Il=ll1llI1lII1l:Section(lI1I1ll1llIl("\155\107\50\2\198\235",115));
+lIlIll1lI11Il:Slider({Name=lI1I1ll1llIl("\151\146\108\72\208\83\178\238\21\55\53\248",21),Description=lI1I1ll1llIl("\215\174\194\72\160\176\100\83\157\57\139\247\22\53\12\164\189\254\134\179\24\33\151\198\76\196\127\7\210\185\161\65\95\71\57\241",1),Flag=lI1I1ll1llIl("\179\152\103\113\218\68\249\233\14",21),Min=1.5,Max=5,Default=2,Increment=0.5,Suffix=lI1I1ll1llIl("\1",195)});
+lIlIll1lI11Il:Slider({Name=lI1I1ll1llIl("\189\222\166\147\56\1\151\216\64\192\117\0\154\174\171\71\12",113),Description=lI1I1ll1llIl("\6\86\16\47\179\102\66\158\186\55\128\96\74\164\107\52\140\230\180\244\55\151\251\6\40\168\34\131\142\53\16",160),Flag=lI1I1ll1llIl("\77\114\201\97\241\147\29\33\38\234\162\192\161",23),Min=1,Max=10,Default=4});
+local l1l11lI1IIll=ll1llI1lII1l:Section(lI1I1ll1llIl("\6\244\165\128\76\113\234",243));
+l1l11lI1IIll:Segmented({Name=lI1I1ll1llIl("\210\17\36\18\166\134\214\179\146",76),Description=lI1I1ll1llIl("\8\163\212\61\23\5\4\97\97\3\184\22\44\252\198\103\162\20\119\154\143\208\99\10\190\147\8\171\134\39\5\244\68\129\231\10\59\122\170\147\218\160\155\36\79\206\253\66\199\121\82\241\165\165\26\41\68\60\229",90),Flag=lI1I1ll1llIl("\131\57\90\142\102\105\174\240\153\253",234),Options={lI1I1ll1llIl("\215\84\101\176\100\230\127\204",228),lI1I1ll1llIl("\253\168\250\186\96\194",80)},Default=lI1I1ll1llIl("\111\71\164\184\238\142\72\251",46)});
+l1l11lI1IIll:Toggle({Name=lI1I1ll1llIl("\142\18\63\225\233\52\185\29\120\244\133\128\127\12\173\222\4\172",164),Flag=lI1I1ll1llIl("\131\57\90\142\102\105\174\236\135\231",234),Default=true});
+l1l11lI1IIll:Toggle({Name=lI1I1ll1llIl("\133\220\13\171\150\121\5\192\77\133\238\29\122\38\230\140\210\173\153",2),Description=lI1I1ll1llIl("\249\141\236\104\153\205\21\52\168\24\162\132\53\17\242\8\124\113\68\182\25\117\245\190\36\163\30\125\188\135\157\52\183\174\219\4\180\229\110\85\157\43\130\225\66\49\23\246\198",33),Flag=lI1I1ll1llIl("\176\65\126\114\169\210\147\238\74",12)});
 
 
 
 
-local ll111Il11ll,l1l1l1I1=lIIll11111(l11l1Il1lll("\42\85\81\166\53\62\38\138\8\191\57\108\89",99),lI11Il1II1.gauge);
-local ll11IlIlI1I1=ll111Il11ll:Section(l11l1Il1lll("",78));
-ll11IlIlI1I1:Toggle({Name=l11l1Il1lll("\22\195\154\151\97\203\114\126\170\85\232\121\55",162),Description=l11l1Il1lll("\232\145\224\0\193\12\31\149\101\210\49\142\200\5\17\169\118\73\84\193\67\159\139\47\166\119\227\186\214\127\135\62\192\134\161\51\227\91\68\142\121\200\78",179),Flag=l11l1Il1lll("\107\230\68\101\140\113\193\87\63\10",166)});
-local lI11I1llllIII=ll111Il11ll:Section(l11l1Il1lll("\226\56\178\17\248",229));
-lI11I1llllIII:Slider({Name=l11l1Il1lll("\234\107\109\147\50\93\73\174\61",63),Description=l11l1Il1lll("\19\128\122\42\44\191\100\206\208\13\186\73\193\151\135\76\1\234\21\233\188\64\149\78\76\231\25",1),Flag=l11l1Il1lll("\147\118\55\31\196\115",2),Min=50,Max=1500,Default=450,Increment=10});
-lI11I1llllIII:Slider({Name=l11l1Il1lll("\151\5\158\235\202\9\23\186\45\108\123\141",11),Flag=l11l1Il1lll("\35\198\231\195\22\152\33\2",178),Min=10,Max=400,Default=70,Increment=10});
-lI11I1llllIII:Toggle({Name=l11l1Il1lll("\189\239\222\21\10\211\125\102\113\148\109\147\137\50\205\159\8\78\115\131\152\59\193\136",29),Description=l11l1Il1lll("\214\237\90\224\55\174\241\221\113\55\222\39\124\85\180\127\135\147\203\112\144\26\104\73\158\199\58\190\237\177\21\239\18\7\232\82\21\142\216",8),Flag=l11l1Il1lll("\118\81\150\210\88\191\248\221\60\176",174),Default=true});
-local llllII1l=ll111Il11ll:Section(l11l1Il1lll("\229\199\61\165\247",228));
-llllII1l:Slider({Name=l11l1Il1lll("\16\205\201\97\142\109\60\196\78\227\218",223),Flag=l11l1Il1lll("\88\145\133\109\184\233\238\52\153\25\15\167\172",175),Min=120,Max=400,Default=200,Suffix=l11l1Il1lll("\183",208),Increment=10});
-local l11IllII=ll111Il11ll:Section(l11l1Il1lll("\243\125\148\210\221\204",225));
-l11IllII:Toggle({Name=l11l1Il1lll("\224\210\125\155\214\52\145\93\242\243\115\149\51",224),Description=l11l1Il1lll("\10\146\103\194\61\206\40\115\77\156\205\69\176\238\232\62\187\86\15\170\187\16\213\207\241\17\93\191\68\121\44\140\22\230\135\32\142\124\0\80\107\166\190\38",119),Flag=l11l1Il1lll("\246\209\22\81\223\42\124\127",46)});
+local lIllI11llIlIl,l1I111IIll11l=l1I1I1I11(lI1I1ll1llIl("\185\59\38\224\221\19\135\72\72\141\162\142\105",148),lllI1I111l.gauge);
+local lll111Il=lIllI11llIlIl:Section(lI1I1ll1llIl("",240));
+lll111Il:Toggle({Name=lI1I1ll1llIl("\102\125\186\150\225\55\132\252\100\65\66\174\200",229),Description=lI1I1ll1llIl("\187\188\162\127\87\123\2\207\134\185\19\51\235\126\214\174\69\100\118\254\149\232\150\85\133\252\193\231\53\196\96\57\211\235\227\12\53\108\25\212\90\99\172",205),Flag=lI1I1ll1llIl("\80\61\198\255\202\37\78\17\54\218",139)});
+local lllI11llIl=lIllI11llIlIl:Section(lI1I1ll1llIl("\205\190\202\43\137",17));
+lllI11llIl:Slider({Name=lI1I1ll1llIl("\110\244\195\85\26\147\20\189\210",68),Description=lI1I1ll1llIl("\180\27\41\63\194\225\206\179\110\216\67\214\233\118\228\108\70\241\198\252\82\62\63\19\242\82\96",60),Flag=lI1I1ll1llIl("\252\173\190\113\38\81",189),Min=50,Max=1500,Default=450,Increment=10});
+lllI11llIl:Slider({Name=lI1I1ll1llIl("\180\174\124\86\169\50\144\253\30\1\25\242",37),Flag=lI1I1ll1llIl("\199\94\177\33\125\143\139\152",184),Min=10,Max=400,Default=70,Increment=10});
+lllI11llIl:Toggle({Name=lI1I1ll1llIl("\78\206\23\192\250\103\161\111\7\247\150\189\83\37\112\10\251\79\122\182\104\239\125\193",116),Description=lI1I1ll1llIl("\35\50\157\227\50\166\31\73\169\216\145\132\248\170\200\64\146\172\108\19\181\50\134\253\6\72\21\253\137\110\73\208\39\24\175\209\80\198\118",181),Flag=lI1I1ll1llIl("\44\29\14\45\98\45\66\167\20\62",109),Default=true});
+local lI1l11I11=lIllI11llIlIl:Section(lI1I1ll1llIl("\44\1\230\111\44",110));
+lI1l11I11:Slider({Name=lI1I1ll1llIl("\123\245\134\122\37\112\202\170\220\182\124",42),Flag=lI1I1ll1llIl("\192\141\118\114\67\164\169\234\185\75\198\236\49",27),Min=120,Max=400,Default=200,Suffix=lI1I1ll1llIl("\108",243),Increment=10});
+local lIIIlI11I1I1I=lIllI11llIlIl:Section(lI1I1ll1llIl("\140\203\134\228\39\224",32));
+lIIIlI11I1I1I:Toggle({Name=lI1I1ll1llIl("\248\253\242\56\82\11\45\162\103\76\148\182\22",141),Description=lI1I1ll1llIl("\237\189\248\175\97\131\246\216\226\99\169\86\15\239\202\193\92\121\112\7\199\93\43\164\158\14\57\204\187\88\14\83\177\137\152\141\18\241\222\59\4\153\26\181",80),Flag=lI1I1ll1llIl("\196\61\75\79\3\205\98\100",175)});
 
 
 
 
-local llllll1llll,lII11l11l=lIIll11111(l11l1Il1lll("\206\110\195\221\25\180\2\147\164\145\92\77\238",38),lI11Il1II1.wind);
-local llll1I1llII=llllll1llll:Section(l11l1Il1lll("",39));
-llll1I1llII:Toggle({Name=l11l1Il1lll("\19\25\209\56\136\43\113\122\201\118\222\216\15",238),Description=l11l1Il1lll("\184\238\206\3\73\211\53\100\48\180\0\189\183\3\130\144\28\78\110\143\151\119\204\159\228\87\137\42\9\246\70\247\107\196\227\62\46\231\85\4\28\247\8\160\175\70\224\119\229\181\141",29),Flag=l11l1Il1lll("\150\151\208\20\146\22\106\92\189\137",120)});
-local l1IIll1lIlll=llllll1llll:Section(l11l1Il1lll("\202\71\101\187\172\103\155\193\148\114\158\38",125));
-l1IIll1lIlll:Toggle({Name=l11l1Il1lll("\99\170\194\121\121\134\100\242\45\111\73\244",117),Description=l11l1Il1lll("\210\209\31\127\141\41\98\104\179\44\153\130\134\116\144\27\85\4\141\130\47\251\239\229\1\151\15\70\191\80\29\143\204\180\63\29\169\11\4\10\148\13\191\246\53\192\119\179\167\108\171\166\17\200\203\202\126\252\124\50\132\97\180\100\33\25\219\115\128\106\60\63\238\35\197\194\15\180\75\196\158\196\93\78\242\240\162\234\89\219\93\82\172\1\194\70\18\45\241\221\104\203\196\223\216\80\172\190\111\149\41\182\176\165\125\35\201\19\66\10\158\30\83\77\233\100\182\54\116\64\145\253\4",46),Flag=l11l1Il1lll("\226\123\146\9\188\253\169\109\78\209",25)});
-l1IIll1lIlll:Slider({Name=l11l1Il1lll("\227\201\1\8\184\123\102\103\130\6\146\146",30),Description=l11l1Il1lll("\53\169\159\114\218\97\69\78\103\179\165\99\153\149\147\12\201\62\57\144\90\190\97\62\27\100\42\155\100\8\0\248\57\213\184\27\224\7",87),Flag=l11l1Il1lll("\148\146\33\252\158\233\26\154\12\55\174\85\236",160),Min=1,Max=10,Default=6});
-l1IIll1lIlll:Toggle({Name=l11l1Il1lll("\1\36\136\25\89\60\149\150\58\200\234\162\26\149\100\3\173\12\255\120\218\233\51\37",122),Description=l11l1Il1lll("\44\159\15\9\236\80\1\145\206\231\126\6\189\11\3\18\152\67\175\183\46\147\119\179\163\105\161\168\24\155\130\140\107\246\63\50\159\36\251\109\96\13\209\38\159\43\36\57\239\102\201\216\92\251\74\223\137\196\6\76\233\243\162\184\94\147\88\73\226\67\192\3\19\49\251\147\121\131\222\201\157\83\237\228\104\221",214),Flag=l11l1Il1lll("\237\251\49\148\5\21\171\189\52\152\215\193\6",212)});
-local l1l1I1Il1=llllll1llll:Section(l11l1Il1lll("\61\64\182\93\210",115));
-l1l1I1Il1:Toggle({Name=l11l1Il1lll("\87\198\43\152\49\34\70\141\227\65\166",137),Description=l11l1Il1lll("\101\250\7\87\75\31\209\99\115\246\14\191\35\50\35\230\229\31\161\198\205\60\187\189\240\14\185\6\168\230\215\88\102\198\49\124\56\182\43\202\151\209\40\148\20\64\81",97),Flag=l11l1Il1lll("\182\183\48\227\104\254\94\120",88)});
-l1l1I1Il1:Slider({Name=l11l1Il1lll("\7\196\109\233\88\44\162\190\55\221\223\129\113\153\49\48\131\72\244",106),Flag=l11l1Il1lll("\143\239\194\35\1\198\47\113\64\136\58\151\142",29),Min=10,Max=100,Default=50,Suffix=l11l1Il1lll("\164",209)});
-l1l1I1Il1:Toggle({Name=l11l1Il1lll("\131\88\207\108\73\228\82\160\43\11\33\245",133),Description=l11l1Il1lll("\170\42\7\165\93\174\129\201\249\58\109\162\17\31\21\143\73\191\182\66\202\119\242\190\138\228\169\6\243\131\159\43\237\71\35\151\96\142\113\41\1\148\203\130\98\41",215),Flag=l11l1Il1lll("\178\185\20\168\215\238\8\30\167\97\125\99\158\30",250)});
-l1l1I1Il1:Slider({Name=l11l1Il1lll("\165\89\223\144\179\110\21\248\25\80\161\87",59),Flag=l11l1Il1lll("\109\123\177\4\135\136\46\61\138\36\68\69\143\155",84),Min=40,Max=400,Default=120,Increment=10});
-local lIIIlI1111I=llllll1llll:Section(l11l1Il1lll("\201\94\171\205\196\38\187\253",209));
-lIIIlI1111I:Toggle({Name=l11l1Il1lll("\151\118\167\179\93\218\148\153\100\224\40",126),Description=l11l1Il1lll("\190\104\205\33\53\130\103\229\104\35\9\96\42\155\100\53\9\249\122\130\173\2\178\74\208\173\130\16\90\23\248\164\180",181),Flag=l11l1Il1lll("\183\26\237\174\154\102\229",145)});
-lIIIlI1111I:Toggle({Name=l11l1Il1lll("\27\211\129\181\104\102\239\16\27\95\74\212\97\105\212",60),Description=l11l1Il1lll("\174\23\163\166\47\148\119\227\185\106\227\172\8\207\148\202\122\251\57\40\204\125\251\118\96\24\219\39\205\108\56\122\242\101\140\197\8\241\65\193\153\138\73",70),Flag=l11l1Il1lll("\240\115\229\141\130\89\176\25\200\166\151\122\242\90",91)});
-lIIIlI1111I:Toggle({Name=l11l1Il1lll("\195\176\111\97\212\23\78\94\180",62),Description=l11l1Il1lll("\57\230\156\145\53\233\75\34\152\101\194\92\104\13\216\207\197\113\48\39\203\104\221\208\99",146),Flag=l11l1Il1lll("\50\139\98\249\117\35\16\212\52",201)});
-lIIIlI1111I:Toggle({Name=l11l1Il1lll("\5\41\136\4\24\122\138\146\37",122),Description=l11l1Il1lll("\34\18\173\44\35\98\137\42\208\129\41\210\208\13\93\123\137\215\38\193\211\239\5\140\96\37\176\85\229\115\223",48),Flag=l11l1Il1lll("\87\250\13\156\184\93\220\93\76\250",113)});
+local lll11Il1I11,l1l1llI1I1II=l1I1I1I11(lI1I1ll1llIl("\164\92\66\196\72\180\172\80\22\61\192\147\208",22),lllI1I111l.wind);
+local lllIII1I1I=lll11Il1I11:Section(lI1I1ll1llIl("",74));
+lllIII1I1I:Toggle({Name=lI1I1ll1llIl("\152\138\30\136\203\224\0\52\86\189\193\147\242",231),Description=lI1I1ll1llIl("\246\21\9\156\77\160\34\213\162\219\63\114\40\78\230\13\82\149\169\48\147\100\91\174\150\56\150\229\182\187\34\138\165\127\36\161\42\212\194\53\14\24\247\111\48\11\132\42\43\238\202",86),Flag=lI1I1ll1llIl("\136\236\191\219\32\138\189\25\14\165",16)});
+local ll1IlIll=lll11Il1I11:Section(lI1I1ll1llIl("\21\201\249\215\35\17\89\39\222\110\64\129",140));
+ll1IlIll:Toggle({Name=lI1I1ll1llIl("\24\10\158\8\75\96\128\180\230\61\64\9",103),Description=lI1I1ll1llIl("\25\2\144\15\14\34\211\230\236\39\70\9\59\156\109\89\158\247\2\146\44\16\94\107\126\156\240\205\226\56\128\205\7\103\176\45\170\128\53\4\11\6\96\125\72\168\10\113\236\223\36\182\18\99\250\196\129\119\67\185\217\9\233\166\106\74\212\3\131\225\13\49\49\168\154\201\178\220\54\6\213\183\82\222\113\27\147\228\166\80\34\89\113\233\95\132\89\126\254\109\235\192\117\81\71\219\243\181\146\125\212\244\123\22\114\179\74\56\243\132\225\21\108\70\52\140\107\116\191\147\30\141\135",103),Flag=lI1I1ll1llIl("\235\90\226\183\111\95\53\193\128\255",25)});
+ll1IlIll:Slider({Name=lI1I1ll1llIl("\228\28\2\132\8\244\43\221\237\253\28\73",86),Description=lI1I1ll1llIl("\103\104\230\35\250\143\38\92\75\207\187\189\201\116\214\230\123\31\96\225\90\112\226\204\215\120\84\101\20\201\101\114\235\148\1\138\192\233",7),Flag=lI1I1ll1llIl("\208\33\30\207\11\126\52\66\150\30\37\240\165",108),Min=1,Max=10,Default=6});
+ll1IlIll:Toggle({Name=lI1I1ll1llIl("\191\35\7\199\200\3\194\117\25\159\163\236\89\47\15\58\243\11\144\70\107\246\100\230",132),Description=lI1I1ll1llIl("\195\228\1\82\67\127\179\29\73\146\253\42\141\100\78\168\151\56\129\236\161\188\37\223\164\124\34\164\40\212\207\54\4\13\241\105\48\11\137\33\103\248\210\74\175\68\105\131\160\157\103\3\19\212\24\179\142\17\5\192\89\252\239\2\49\104\214\146\205\236\114\143\20\196\248\63\201\108\19\243\146\168\67\63\103\114",142),Flag=lI1I1ll1llIl("\157\162\57\144\35\79\173\145\174\135\240\188\205",199)});
+local lIIIlllIl1=lll11Il1I11:Section(lI1I1ll1llIl("\201\74\248\138\113",25));
+lIIIlllIl1:Toggle({Name=lI1I1ll1llIl("\249\192\215\46\87\41\9\197\119\83\188",157),Description=lI1I1ll1llIl("\210\17\36\18\245\209\203\174\157\51\7\208\219\3\208\118\18\212\162\163\83\50\65\112\254\11\144\73\112\247\100\168\145\109\82\57\134\184\241\199\121\212\225\59\236\113\226",76),Flag=lI1I1ll1llIl("\107\218\98\55\234\209\172\84",153)});
+lIIIlllIl1:Slider({Name=lI1I1ll1llIl("\205\129\214\77\130\99\15\248\211\69\137\99\122\142\187\170\105\13\79",112),Flag=lI1I1ll1llIl("\136\236\191\204\58\130\169\29\17\164\62\149\220",16),Min=10,Max=100,Default=50,Suffix=lI1I1ll1llIl("\46",39)});
+lIIIlllIl1:Toggle({Name=lI1I1ll1llIl("\98\196\91\254\235\14\126\38\252\152\204\170",40),Description=lI1I1ll1llIl("\8\27\110\228\77\112\242\203\197\54\3\108\81\206\96\117\235\142\31\195\218\169\65\124\118\232\199\136\243\82\234\145\15\54\138\22\176\144\194\235\253\88\101\12\98\184",119),Flag=lI1I1ll1llIl("\240\1\62\63\233\131\209\162\136\25\1\212\194\70",76)});
+lIIIlllIl1:Slider({Name=lI1I1ll1llIl("\88\88\179\61\155\226\118\23\2\253\134\41",55),Flag=lI1I1ll1llIl("\99\217\186\107\69\66\180\192\249\160\94\226\218\45",10),Min=40,Max=400,Default=120,Increment=10});
+local llIIllIIll11=lll11Il1I11:Section(lI1I1ll1llIl("\214\136\217\91\158\42\21\234",112));
+llIIllIIll11:Toggle({Name=lI1I1ll1llIl("\181\106\139\253\243\250\37\140\190\98\57",254),Description=lI1I1ll1llIl("\85\88\225\32\151\244\51\19\19\225\144\109\66\128\32\37\226\201\86\131\15\116\198\188\171\111\27\29\50\12\188\148\95",55),Flag=lI1I1ll1llIl("\135\30\113\231\172\69\94",248)});
+llIIllIIll11:Toggle({Name=lI1I1ll1llIl("\49\28\247\120\49\66\136\40\103\224\206\76\180\23\110",110),Description=lI1I1ll1llIl("\22\184\205\40\9\64\25\101\50\77\243\24\58\237\198\103\162\20\119\134\202\137\117\16\235\223\11\179\223\110\74\151\74\138\162\11\46\37\239\135\210\173\153",90),Flag=lI1I1ll1llIl("\23\142\1\131\58\217\251\246\15\74\20\102\177\103",104)});
+llIIllIIll11:Toggle({Name=lI1I1ll1llIl("\136\215\63\149\166\117\92\179\44",18),Description=lI1I1ll1llIl("\165\65\194\250\99\13\150\247\74\49\192\203\154\33\69\17\89\214\110\76\157\140\0\133\49",83),Flag=lI1I1ll1llIl("\113\164\149\44\105\197\184\76\119",230)});
+llIIllIIll11:Toggle({Name=lI1I1ll1llIl("\118\132\153\0\205\50\166\89\114",214),Description=lI1I1ll1llIl("\75\66\181\32\222\228\62\1\82\251\130\63\17\142\40\34\224\135\94\205\78\105\146\167\226\127\27\88\36\16\170",55),Flag=lI1I1ll1llIl("\65\148\133\58\157\38\163\87\106\124",214)});
 
 
 
 
-local lllIlI1I1II,lI11l1lIIIIl=lIIll11111(l11l1Il1lll("\26\200\133\180\105\123\228\5",60),lI11Il1II1.rocket);
-local lll11ll1=lllIlI1I1II:Section(l11l1Il1lll("",0));
-lll11ll1:Toggle({Name=l11l1Il1lll("\224\200\120\123\48\34\196\125",240),Description=l11l1Il1lll("\136\120\116\234\31\90\28\88\200\100\34\130\42\159\30\83\30\203\219\117\237\141\248\3\139\51\219\102\226\78\151\201\226\56\65\131\25\82\74\158\27\214\153\44\58\222\6\89\120\144\221\63\192\227\232\2\151\33",79),Flag=l11l1Il1lll("\2\233\68\233\167\141\82\88\17\246\173",74)});
-local lIlllII111=lllIlI1I1II:Section(l11l1Il1lll("\147\79\102\101\157\15",50));
-lIlllII111:Slider({Name=l11l1Il1lll("\102\161\234\251\22\174\84\13\180\185\25\143",194),Flag=l11l1Il1lll("\2\227\62\162\185\3\230",53),Min=40,Max=1000,Default=160,Increment=10});
-lIlllII111:Slider({Name=l11l1Il1lll("\246\62\112\125\145\35\154\155\55\47",66),Description=l11l1Il1lll("\37\90\179\19\156\46\118\246\25\167\41\23\106\172\237\82\158\205\148\126\241\237\238\75\182\38\180",115),Flag=l11l1Il1lll("\64\67\216\252\160\179\77",112),Min=10,Max=200,Default=50,Increment=5});
-lIlllII111:Slider({Name=l11l1Il1lll("\19\49\239\98\218\154\104\253\81\208\156\148",20),Flag=l11l1Il1lll("\31\151\52\9\186\65\6",214),Min=3,Max=80,Default=12});
-lIlllII111:Slider({Name=l11l1Il1lll("\213\87\183\220\219\59\245\234\235\89\175\24",209),Flag=l11l1Il1lll("\139\34\60\186\92\251\150\210",215),Min=120,Max=500,Default=220,Suffix=l11l1Il1lll("\188",125),Increment=10});
-lIlllII111:Slider({Name=l11l1Il1lll("\28\197\211\120\136\35\43",223),Flag=l11l1Il1lll("\35\139\87\56\54\244",1),Min=0,Max=60,Default=28,Suffix=l11l1Il1lll("\66\4",46)});
-local lll11ll11lIl=lllIlI1I1II:Section(l11l1Il1lll("\89\214\73\39\9\194\214",203));
-lll11ll11lIl:Toggle({Name=l11l1Il1lll("\64\8\72\116\250\167\36\222\156\150\13",124),Description=l11l1Il1lll("\128\171\76\199\75\10\249\28\187\7\12\53\243\232\105\131\155\223\219\72\254\255\0\140\48\178\180\167\120\112\196\41\79",132),Flag=l11l1Il1lll("\146\150\240\63\150\26\126\96\157\139\61",120),Default=true});
-lll11ll11lIl:Toggle({Name=l11l1Il1lll("\129\25\14\167\172\94\147\218\241\5\9",231),Flag=l11l1Il1lll("\75\1\54\236\115",35),Default=true});
-lll11ll11lIl:Segmented({Name=l11l1Il1lll("\207\235\43\169\72\13\169\172\16",212),Flag=l11l1Il1lll("\12\32\9\134\115\3",255),Options={l11l1Il1lll("\221\237\94\165\61\170\242\204",8),l11l1Il1lll("\147\70\224\87\78\231",149)},Default=l11l1Il1lll("\124\224\3\92\85\90\203\126",97)});
+local lIlIIIlIlIIl,lIIIllI11=l1I1I1I11(lI1I1ll1llIl("\71\66\158\183\22\131\39\78",197),lllI1I111l.rocket);
+local ll1l11llIIII=lIlIIIlIlIIl:Section(lI1I1ll1llIl("",225));
+ll1l11llIIII:Toggle({Name=lI1I1ll1llIl("\151\146\110\71\198\83\247\254",21),Description=lI1I1ll1llIl("\12\135\218\12\55\180\97\171\199\54\76\188\50\80\20\98\250\52\21\211\229\99\133\48\68\129\181\184\58\65\157\248\38\135\239\37\113\252\119\173\212\68\55\18\226\209\204\168\156\47\83\217\200\77\213\113\24\147",52),Flag=lI1I1ll1llIl("\36\221\171\255\190\109\205\18\223\226\99",79)});
+local lI1IlI1lll1=lIlIIIlIlIIl:Section(lI1I1ll1llIl("\125\47\23\176\135\77",242));
+lI1IlI1lll1:Slider({Name=lI1I1ll1llIl("\214\78\39\193\217\213\122\86\123\22\203\99",138),Flag=lI1I1ll1llIl("\251\32\194\217\6\58\189",51),Min=40,Max=1000,Default=160,Increment=10});
+lI1IlI1lll1:Slider({Name=lI1I1ll1llIl("\197\57\9\3\226\137\33\82\153\56",92),Description=lI1I1ll1llIl("\158\151\117\77\14\155\16\179\152\80\89\214\1\180\226\25\37\32\146\192\131\184\104\206\23\209\228",222),Flag=lI1I1ll1llIl("\83\207\104\243\237\25\50",40),Min=10,Max=200,Default=50,Increment=5});
+lI1IlI1lll1:Slider({Name=lI1I1ll1llIl("\241\27\183\156\65\15\193\78\255\239\22\40",3),Flag=lI1I1ll1llIl("\124\29\111\32\244\182\153",224),Min=3,Max=80,Default=12});
+lI1IlI1lll1:Slider({Name=lI1I1ll1llIl("\150\96\1\72\50\8\249\129\84\96\196\65",223),Flag=lI1I1ll1llIl("\251\32\197\193\17\42\170\15",51),Min=120,Max=500,Default=220,Suffix=lI1I1ll1llIl("\210",22),Increment=10});
+lI1IlI1lll1:Slider({Name=lI1I1ll1llIl("\151\140\81\120\204\89\229",5),Flag=lI1I1ll1llIl("\79\187\40\101\140\187",185),Min=0,Max=60,Default=28,Suffix=lI1I1ll1llIl("\36\180",44)});
+local lI111IlI1=lIlIIIlIlIIl:Section(lI1I1ll1llIl("\192\161\209\49\146\187\100",17));
+lI111IlI1:Toggle({Name=lI1I1ll1llIl("\14\203\250\216\102\89\26\110\221\115\71",140),Description=lI1I1ll1llIl("\20\100\16\216\126\37\174\143\14\63\194\161\75\119\86\176\143\144\231\87\235\208\87\31\133\10\250\211\192\239\251\26\91",193),Flag=lI1I1ll1llIl("\59\224\153\134\85\122\235\115\233\148\106",243),Default=true});
+lI111IlI1:Toggle({Name=lI1I1ll1llIl("\41\132\31\181\60\156\248\232\33\88\19",104),Flag=lI1I1ll1llIl("\4\76\156\147\136",219),Default=true});
+lI111IlI1:Segmented({Name=lI1I1ll1llIl("\98\29\236\210\138\39\50\113\1",155),Flag=lI1I1ll1llIl("\165\117\25\186\63\154",54),Options={lI1I1ll1llIl("\230\188\120\194\242\204\235\99",98),lI1I1ll1llIl("\25\154\190\112\59\162",36)},Default=lI1I1ll1llIl("\47\7\101\56\76\185\23\37",127)});
 
 
 
 
-local lIlllIIlII1I,l1lI1l11=lIIll11111(l11l1Il1lll("\101\251\30\165\81\11\62\247\197",169),lI11Il1II1.navigation);
-local lI111lll1llI=lIlllIIlII1I:Section(l11l1Il1lll("",113));
-lI111lll1llI:Toggle({Name=l11l1Il1lll("\88\211\188\29\254\71\233\169\154",55),Description=l11l1Il1lll("\88\194\172\1\174\124\192\133\206\85\67\7\177\141\144\90\208\22\90\247\106\202\90\24\45\138\157\65\132\46\35\217\93\166\201\50\156\33\208\146\171\56\45\247\25\88\82\27\221\126\125\130\29\191\39\54\76\225\237\86\160\217\223\107\176\18",55),Flag=l11l1Il1lll("\66\169\4\186\253\216\25\36\203",10)});
-local lI11I111II=lI111lll1llI:Paragraph(l11l1Il1lll("\6\200\196\162\117\122\245\18",60),l11l1Il1lll("\95\111\153\87\170\175\19\136\127\15\77\124\191\239\37\197\146\136\16\137\47\118\192\92\234\126\34\229\106\38\158\114\25\78\251\120\173\190\21\164\8\243\165\128\26\125\36\212\251\191\126\230\65\84\160\108\215\23\7\1\220\218\49\142\63\96",68));
-local lIlI11lI1I=lIlllIIlII1I:Section(l11l1Il1lll("\34\13\189\84\21\156",232));
-local l1lII1II111=lIlI11lI1I:Dropdown({Name=l11l1Il1lll("\67\192\32\109\125",65),Flag=l11l1Il1lll("\56\117\70\140\4\138\133",67),Options={},Default=nil});
-local llI1l1111l=lIlI11lI1I:Input({Name=l11l1Il1lll("\47\134\34\55\177\81\164\103\63",198),Flag=l11l1Il1lll("\40\106\104\229\247\86\160\244",173),Placeholder=l11l1Il1lll("\228\17\162\135\136\13\180\244\239\14\166\5\174\242",209)});
-local l11lIIlIII=lIlllIIlII1I:Section(l11l1Il1lll("\242\111\128\44\44",241));
-l11lIIlIII:Segmented({Name=l11l1Il1lll("\43\135\209\197\14\95\188\72\111\107",12),Description=l11l1Il1lll("\114\224\5\64\2\31\220\101\97\236\90\168\52\113\45\250\229\90\161\137\219\63\176\255\224\0\234\44\168\250\215\28\43\143\38\120\117\186\101\153\132\219\63\158\81\87\84\141\147\38\210\225\237\29\144\84\68\141\69\250\152\130\234\98\81\182\90\12\10\223\22\186\177\59\222\58\229\187\111\173\178\95\241\129\141\47\248\47\40\154\99\218\109\43\23\202",97),Flag=l11l1Il1lll("\8\74\73\144\156\50\201\188\239\19\152",141),Options={l11l1Il1lll("\181\41\173\151",43),l11l1Il1lll("\2\53\132\14\92",122),l11l1Il1lll("\58\101\90\137\201\95",157)},Default=l11l1Il1lll("\154\234\228\26",195)});
-l11lIIlIII:Slider({Name=l11l1Il1lll("\48\175\37\11\34\172\246\75\156\192\208",171),Flag=l11l1Il1lll("\73\247\130\153\66\74\5",92),Min=20,Max=1000,Default=150,Increment=10});
-l11lIIlIII:Slider({Name=l11l1Il1lll("\253\50\65\230\245\86\174\59\172\232",245),Flag=l11l1Il1lll("\49\50\165\117\252\123",200),Min=0.5,Max=4,Default=1.5,Increment=0.25,Suffix=l11l1Il1lll("\54",207)});
-l11lIIlIII:Toggle({Name=l11l1Il1lll("\243\39\184\7\232\22\190\11\148\227\222",229),Flag=l11l1Il1lll("\97\135\49\171\129\63\198\77\247",69)});
-l11lIIlIII:Slider({Name=l11l1Il1lll("\21\182\236\224\121\111\212\34\79",44),Flag=l11l1Il1lll("\175\100\65\234\28\84\72",79),Min=30,Max=1000,Default=300,Increment=10});
-local llIl111l=lIlllIIlII1I:Section(l11l1Il1lll("\45\176\74\121",49));
-llIl111l:Segmented({Name=l11l1Il1lll("\23\28\219\61\205\127\63\63\189\113\195\195\8\241\4\214\158\128\93",238),Flag=l11l1Il1lll("\148\115\35\13\250\107",18),Options={l11l1Il1lll("\158\39\115\118",118),l11l1Il1lll("\36\229\66\220\229\156\89\69\2",74),l11l1Il1lll("\150\11\250\79\224\182",73)},Default=l11l1Il1lll("\101\242\114\222",235)});
-llIl111l:Segmented({Name=l11l1Il1lll("\219\83\72\231\127\202\15\86\60\197\222\120\193\57\35\139\74\242\201\96\154\110\199\159",167),Flag=l11l1Il1lll("\100\131\237\215\49\94\230\240",226),Options={l11l1Il1lll("\176\126\197\77\33\2\209",202),l11l1Il1lll("\97\166\195\199\37\180\22\250",210)},Default=l11l1Il1lll("\18\148\20\120\79\130\130",139)});
-llIl111l:Toggle({Name=l11l1Il1lll("\99\159\115\206\17\19\22\136\213\119\128\105\45\193\81",185),Flag=l11l1Il1lll("\231\102\218\191\159\72\154\5",91)});
-llIl111l:Slider({Name=l11l1Il1lll("\193\71\212\186\198\88\76\246\252",75),Flag=l11l1Il1lll("\212\51\120\67\188\47",82),Min=1,Max=60,Default=3,Suffix=l11l1Il1lll("\100\47",122)});
-llIl111l:Toggle({Name=l11l1Il1lll("\199\231\4\158\12\74\188\71\231\151\215",196),Flag=l11l1Il1lll("\53\174\118\245\126\34\241\7\47",217)});
-llIl111l:Slider({Name=l11l1Il1lll("\98\155\130\83\162",175),Flag=l11l1Il1lll("\184\22\196\93\161\30\182",247),Min=1,Max=200,Default=10});
-llIl111l:Toggle({Name=l11l1Il1lll("\158\39\115\118\140\37\178\55\101\70\222\231\68\166\242",118),Flag=l11l1Il1lll("\74\94\157\62\117\111\255\38",100)});
-llIl111l:Slider({Name=l11l1Il1lll("\141\187\54\197\116\250\95",88),Flag=l11l1Il1lll("\17\20\250\202\112\126",222),Min=1,Max=240,Default=30});
-local l1IlII11I=lIlllIIlII1I:Section(l11l1Il1lll("\254\127\129\208\215\209\86",225));
-l1IlII11I:Toggle({Name=l11l1Il1lll("\200\121\238\178\159\76\245\15\252\167\141\125\230\14\81\143\98\201\77\39\10\195\209",91),Description=l11l1Il1lll("\228\192\17\230\69\204\236\156\90\85\246\234\164\190\1\238\94\91\252\8\217\65\27\120\203\217\41\155\219\35\145\72\225\235",56),Flag=l11l1Il1lll("\21\252\98\212\171\128\95\91",74),Default=true});
-l1IlII11I:Toggle({Name=l11l1Il1lll("\156\177\57\243\71\26\244\112\221\23\7\20\203\205\101\199\45\39\219\68\204",148),Description=l11l1Il1lll("\187\129\121\166\236\227\70\189\21\66\174\65\2\207\218\234\13\26\233\88\27\99\131\26\224\166\48\213\32\237\67\125\166\162\89\221\134\145\104\129\35",176),Flag=l11l1Il1lll("\116\147\8\45\230\79\229\220\96",242),Default=true});
-l1IlII11I:Toggle({Name=l11l1Il1lll("\253\155\177\69\25\248\27\84\178\23\201\109\12\229\6\173\41",77),Description=l11l1Il1lll("\88\104\192\12\87\95\162\196\60\34\207\33\163\111\115\74\162\213\123\142\216\227\113\172\20\29\72\163\64\139\228\205\82\6\172\43\108\102\136\35\159\150\104\136\156\6\87\125\194\150\105\251\150\245\29\158\105",80),Flag=l11l1Il1lll("\225\7\169\35\7\179\93\244\124\216",197),Default=true});
-l1IlII11I:Toggle({Name=l11l1Il1lll("\11\191\251\183\42\109\222\50\95\75\233\59\113\100\213",44),Description=l11l1Il1lll("\229\92\187\39\119\75\239\245\82\227\195\203\59\190\68\239\88\163\2\156\168\216\30\14\133\33\112\103\145\46\212\214\43\50\144\18\24\101\137\142\117\208\234\231\85\146\48\71",154),Flag=l11l1Il1lll("\224\79\149\219\205\57\188\255\243",209)});
+local l1lllIIl1,lII1l11l11ll=l1I1I1I11(lI1I1ll1llIl("\203\189\162\83\55\64\49\255\81",189),lllI1I111l.navigation);
+local lI1l1lIllll=l1lllIIl1:Section(lI1I1ll1llIl("",106));
+lI1l1lIllll:Toggle({Name=lI1I1ll1llIl("\19\13\246\130\195\82\154\48\3",94),Description=lI1I1ll1llIl("\186\231\90\228\143\43\16\164\85\189\220\44\170\192\54\68\50\51\172\18\43\157\170\57\182\98\2\138\159\131\133\231\191\131\63\215\189\118\64\179\48\208\178\28\2\21\244\197\63\91\139\103\28\232\215\23\215\9\114\157\187\180\121\85\82\55",50),Flag=lI1I1ll1llIl("\93\54\230\102\106\93\106\216\107",226)});
+local l1IIIlI11IlIl=lI1l1lIllll:Paragraph(lI1I1ll1llIl("\244\247\166\62\88\12\121\165",141),lI1I1ll1llIl("\5\186\9\224\236\9\205\180\9\97\62\115\183\67\63\159\168\61\160\30\73\240\222\128\156\240\177\202\66\138\164\104\67\155\43\143\235\24\11\88\190\157\214\79\210\17\62\206\129\74\206\113\103\146\254\176\97\89\84\46\244\182\203\84\101\181",88));
+local lIIIlll1l1lI=l1lllIIl1:Section(lI1I1ll1llIl("\5\254\184\59\168\7",182));
+local l1lIII1lI=lIIIlll1l1lI:Dropdown({Name=lI1I1ll1llIl("\245\14\40\171\24",70),Flag=lI1I1ll1llIl("\188\15\152\203\55\4\251",89),Options={},Default=nil});
+local lIlIII11lII=lIIIlll1l1lI:Input({Name=lI1I1ll1llIl("\179\14\135\49\163\89\62\112\161",232),Flag=lI1I1ll1llIl("\218\231\115\214\112\17\155\161",151),Placeholder=lI1I1ll1llIl("\79\165\228\107\89\177\0\70\45\132\250\211\41\65",84)});
+local l1l1IlI1=l1lllIIl1:Section(lI1I1ll1llIl("\117\180\147\121\130",236));
+l1l1IlI1:Segmented({Name=lI1I1ll1llIl("\249\123\102\160\157\83\140\199\162\65",212),Description=lI1I1ll1llIl("\88\88\177\42\196\176\47\11\7\234\195\63\84\143\38\51\239\194\85\131\29\112\131\177\166\38\83\123\40\4\188\149\1\55\210\82\243\149\86\55\34\221\166\201\241\105\223\4\217\254\102\235\107\18\227\154\130\107\60\109\24\188\65\43\251\142\238\102\204\240\101\84\87\189\199\173\133\69\228\228\56\71\133\11\75\96\203\225\238\60\90\13\109\213\124\67",55),Flag=lI1I1ll1llIl("\155\43\32\197\204\70\213\85\25\144\163",132),Options={lI1I1ll1llIl("\241\55\83\116",175),lI1I1ll1llIl("\100\193\171\248\133",63),lI1I1ll1llIl("\177\119\146\244\243\227",254)},Default=lI1I1ll1llIl("\166\178\31\58",53)});
+l1l1IlI1:Slider({Name=lI1I1ll1llIl("\163\197\186\93\126\32\185\197\158\230\90",250),Flag=lI1I1ll1llIl("\39\72\136\101\98\133\239",235),Min=20,Max=1000,Default=150,Increment=10});
+l1l1IlI1:Slider({Name=lI1I1ll1llIl("\79\189\223\137\232\76\245\216\30\37",31),Flag=lI1I1ll1llIl("\72\148\60\60\239\203",147),Min=0.5,Max=4,Default=1.5,Increment=0.25,Suffix=lI1I1ll1llIl("\2",77)});
+l1l1IlI1:Toggle({Name=lI1I1ll1llIl("\197\248\27\57\46\144\151\204\164\109\37",59),Flag=lI1I1ll1llIl("\131\152\223\180\204\53\141\158\117",255)});
+l1l1IlI1:Slider({Name=lI1I1ll1llIl("\240\62\146\164\17\32\27\225\139",57),Flag=lI1I1ll1llIl("\218\179\178\62\2\208\225",114),Min=30,Max=1000,Default=300,Increment=10});
+local l1IIlIll=l1lllIIl1:Section(lI1I1ll1llIl("\62\247\13\125",126));
+l1IIlIll:Segmented({Name=lI1I1ll1llIl("\152\249\128\118\157\225\63\238\45\253\85\33\230\197\142\49\49\101\6",81),Flag=lI1I1ll1llIl("\235\91\175\74\118\227",244),Options={lI1I1ll1llIl("\129\140\109\29",222),lI1I1ll1llIl("\54\237\216\187\11\33\112\9\253",172),lI1I1ll1llIl("\128\157\114\8\82\207",222)},Default=lI1I1ll1llIl("\130\47\150\48",216)});
+l1IIlIll:Segmented({Name=lI1I1ll1llIl("\64\93\178\200\146\143\12\191\213\16\14\132\77\160\37\144\241\252\19\79\23\43\164\22",30),Flag=lI1I1ll1llIl("\191\217\165\154\70\246\201\35",48),Options={lI1I1ll1llIl("\205\54\248\223\10\49\190",51),lI1I1ll1llIl("\82\129\186\153\118\30\77\51",204)},Default=lI1I1ll1llIl("\227\19\52\169\20\170\221",70)});
+l1IIlIll:Toggle({Name=lI1I1ll1llIl("\240\0\52\171\93\165\206\96\6\240\7\45\54\117\178",70),Flag=lI1I1ll1llIl("\222\145\194\41\132\209\40\53",33)});
+l1IIlIll:Slider({Name=lI1I1ll1llIl("\69\89\171\217\211\143\95\242\210",30),Flag=lI1I1ll1llIl("\70\145\138\62\148\48",198),Min=1,Max=60,Default=3,Suffix=lI1I1ll1llIl("\42\216",116)});
+l1IIlIll:Toggle({Name=lI1I1ll1llIl("\75\168\144\22\105\132\182\79\125\72\177",230),Flag=lI1I1ll1llIl("\90\51\50\184\128\73\102\232\91",242)});
+l1IIlIll:Slider({Name=lI1I1ll1llIl("\142\167\93\13\80",206),Flag=lI1I1ll1llIl("\182\97\1\160\34\132\217",54),Min=1,Max=200,Default=10});
+l1IIlIll:Toggle({Name=lI1I1ll1llIl("\152\147\30\147\142\161\64\96\103\186\147\137\232\81\252",231),Flag=lI1I1ll1llIl("\212\108\38\225\167\181\117\43",170)});
+l1IIlIll:Slider({Name=lI1I1ll1llIl("\31\17\236\152\199\94\133",94),Flag=lI1I1ll1llIl("\192\91\253\121\99\153",168),Min=1,Max=240,Default=30});
+local llIIllll=l1lllIIl1:Section(lI1I1ll1llIl("\221\8\119\4\126\162\26",143));
+llIIllll:Toggle({Name=lI1I1ll1llIl("\152\39\221\240\227\0\27\1\124\182\120\71\132\255\56\142\50\87\190\101\118\143\255",123),Description=lI1I1ll1llIl("\193\207\38\21\144\20\242\56\210\234\233\57\80\17\45\161\123\84\139\187\12\153\37\28\163\102\54\136\239\140\189\39\132\164",85),Flag=lI1I1ll1llIl("\55\184\112\115\105\156\210\149",251),Default=true});
+llIIllll:Toggle({Name=lI1I1ll1llIl("\205\167\246\72\40\9\41\248\64\61\92\119\244\117\198\204\124\81\84\223\163",189),Description=lI1I1ll1llIl("\175\98\22\37\201\164\184\149\127\155\245\52\251\35\247\74\57\249\134\219\62\68\125\18\138\127\107\160\217\1\142\221\178\65\54\94\163\214\150\233\73",44),Flag=lI1I1ll1llIl("\228\205\8\12\166\19\179\62\206",85),Default=true});
+llIIllll:Toggle({Name=lI1I1ll1llIl("\33\189\217\45\170\255\12\96\25\51\186\8\127\154\177\56\181",106),Description=lI1I1ll1llIl("\224\199\207\47\83\96\30\219\41\29\168\130\6\199\61\190\26\90\84\141\252\188\173\51\225\194\15\32\197\3\170\217\106\233\227\8\104\25\116\188\10\41\207\235\57\174\25\73\250\153\198\184\242\170\193\1\220",157),Flag=lI1I1ll1llIl("\188\15\158\197\41\21\241\18\106\35",89),Default=true});
+llIIllll:Toggle({Name=lI1I1ll1llIl("\222\103\213\163\50\82\65\161\171\228\213\68\228\235\34",9),Description=lI1I1ll1llIl("\83\216\228\129\254\59\128\207\12\103\189\42\160\197\102\21\14\7\125\58\1\168\17\52\187\197\46\166\10\117\246\204\157\118\15\180\145\21\166\180\43\84\212\70\206\233\18\125",15),Flag=lI1I1ll1llIl("\80\203\9\146\251\26\7\17\233",56)});
 
 
 
 
-local lIlIlII1l,lI111I1Il=lIIll11111(l11l1Il1lll("\117\233\115\218\244\35\41\136",235),lI11Il1II1.sliders);
-local llI111Ill1=lIlIlII1l:Section(l11l1Il1lll("\114\81\154\151\50\181\244",158));
-llI111Ill1:Toggle({Name=l11l1Il1lll("\141\4\17\180\183\16\146\150\252\17\9\167\78\99\127",231),Description=l11l1Il1lll("\163\119\136\55\56\198\102\251\122\42\22\33\32\215\108\63\4\183\111\205\185\24\246\2\219\191\158\68\70\9\238\225\167\79\228\94\89\166\6\192\64\12\51\206\222",181),Flag=l11l1Il1lll("\120\177\165\19\208\153",143),Default=true});
-llI111Ill1:Toggle({Name=l11l1Il1lll("\148\56\119\43\170\253\68\179\223\193\39\164",172),Description=l11l1Il1lll("\249\96\251\20\38\168\183\26\222\197\149\109\232\126\36\152\111\224\100\48\17\156\55\158\125\33\11\253\33\218\223\90\251\73\203\171\198\69\81",107),Flag=l11l1Il1lll("\14\146\220\240\11\27\157\72\104\101\140\19",12),Default=true});
-llI111Ill1:Toggle({Name=l11l1Il1lll("\67\159\214\213\45\95\180\253\75\146\40\185\247\208\117",226),Description=l11l1Il1lll("\255\111\45\28\223\143\135\123\34\55\247\96\132\154\116\240\93\151\147\129\71\90\182\20\235\169\72\196\20\10\242\26\169\76\1\112\251\225\101\215\200\202\220\66\250\243\78\159\120\191\253\164\111\63\208\41\79\14\135\24\91\94\229\26\166\2\35\67\218\133\78\174\232\234\48\164\3\90\161\182\28\215\214\213\30\11\190\73\120\46\157\22\147\143\112\220\96\2\77\98\250\191\45\214\152\155",220),Flag=l11l1Il1lll("\207\99\64\212\2\167\66\14\58\193\196",151),Default=true});
-llI111Ill1:Toggle({Name=l11l1Il1lll("\46\24\170\68\83\101\144\18\165\160\57\144\122\240\67\101\242\176\17\214\143\147\33\137\60\59\129\110\247",32),Description=l11l1Il1lll("\151\168\19\155\203\188\18\19\176\3\108\99\152\30\182\143\116\198\121\246\88\101\184\172\101\199\144\210\99\130\38\45\144\28\236\110\42\15\41\53\213\116\7\7\251\59\221\161\1\172\89\200\173\204\66\67\0\179\181\189\92\248\64\87\231\119\156\74\22\56\134\218\53\129\58\54\193\84\234\142\96\131\43\190\156\164\115\121",250),Flag=l11l1Il1lll("\148\146\33\245\156\233\28\179\47\49\179",160),Default=true});
-llI111Ill1:Toggle({Name=l11l1Il1lll("\35\20\203\198\121\59\35\35\222\67\208\199\117",222),Description=l11l1Il1lll("\129\183\28\218\135\218\33\136\53\35\154\32\241\97\56\88\35\59\157\102\39\19\245\122\128\208\23\232\0\151\163\142\84\7\240\249\227\162\73\234\16\69\233\13\213\15\29\52\208\210\104\139\202\102\194\87\239\229\107\208\57\176\153\186\50\116\201\26\70\82\232",144),Flag=l11l1Il1lll("\75\198\100\69\244\27\179\16\124\49\253\247\88\137",134)});
-llI111Ill1:Segmented({Name=l11l1Il1lll("\6\155\126\222\110\44\82\203\56\149\112",201),Flag=l11l1Il1lll("\23\186\77\89\105\139\38\147\158\43",49),Options={l11l1Il1lll("\155\74\5\60\246",188),l11l1Il1lll("\135\245\200\109\120\219",45),l11l1Il1lll("\69\215\202\101\251",39)},Default=l11l1Il1lll("\202\115\206\70\25\48",186)});
-local l111IIII=lIlIlII1l:Section(l11l1Il1lll("\64\131\35\183\155",42));
-l111IIII:Toggle({Name=l11l1Il1lll("\5\131\28\122\6\128\138\56\178",139),Description=l11l1Il1lll("\80\53\15\96\58\150\99\118\20\183\119\215\161\6\178\77\204\190\202\95\79\71\233\169\181\7\238\83\78\166\0\203\9\27\57\195\208\115\136\223\52\151\21\246\196\115\210\37\184\135\175\55\122\167\56\89\89\179\141\112\105\210\54\189\39\58\73\244\240\91\161\177\215\56\175\9\255\31",237),Flag=l11l1Il1lll("\118\146\21\145\137\55\198\78\246\73\97",69),Default=true});
-local ll1llII1=lIlIlII1l:Section(l11l1Il1lll("\218\183\155\178\173\87\254\180\148\98\237",109));
+local lII11l1I11,ll11IIlI1lI1=l1I1I1I11(lI1I1ll1llIl("\29\70\25\11\192\108\87\190",176),lllI1I111l.sliders);
+local l1l11IIlI1l=lII11l1I11:Section(lI1I1ll1llIl("\240\173\86\57\124\53\229",190));
+l1l11IIlI1l:Toggle({Name=lI1I1ll1llIl("\22\10\235\155\218\85\145\127\21\196\217\91\194\122\121",94),Description=lI1I1ll1llIl("\85\8\235\169\190\0\47\124\42\228\77\120\170\47\232\101\210\200\108\83\95\190\191\165\139\81\197\253\44\17\138\187\81\48\199\192\223\96\79\7\16\194\104\87\148",171),Flag=lI1I1ll1llIl("\168\204\159\175\83\231",48),Default=true});
+l1l11IIlI1l:Toggle({Name=lI1I1ll1llIl("\113\176\9\111\194\178\139\112\27\94\43\11",185),Description=lI1I1ll1llIl("\52\49\135\73\254\212\196\229\245\88\98\3\104\236\13\83\130\177\56\173\41\0\164\129\150\156\252\179\129\40\150\241\118\88\183\54\222\249\34",87),Flag=lI1I1ll1llIl("\173\146\233\67\223\180\90\75\81\179\198\233",247),Default=true});
+l1l11IIlI1l:Toggle({Name=lI1I1ll1llIl("\92\215\250\50\225\119\177\91\57\250\210\222\57\77\124",100),Description=lI1I1ll1llIl("\48\201\244\115\216\36\28\236\203\177\76\42\63\123\226\87\114\241\106\238\96\209\205\99\2\79\179\174\175\203\68\253\230\42\24\223\252\74\62\128\225\204\39\72\1\18\216\120\23\153\132\11\136\116\171\94\102\40\188\242\160\223\19\189\233\36\122\172\93\174\213\57\1\236\11\110\56\59\183\17\51\177\175\58\185\0\69\190\145\200\102\252\168\206\70\187\175\100\84\205\125\148\246\1\49\29",134),Flag=lI1I1ll1llIl("\157\246\38\161\179\0\34\191\49\153\235",34),Default=true});
+l1l11IIlI1l:Toggle({Name=lI1I1ll1llIl("\7\92\141\44\95\234\196\90\192\30\99\216\160\175\101\24\27\52\22\190\131\92\53\193\89\229\155\102\45",130),Description=lI1I1ll1llIl("\97\44\205\189\224\251\98\215\242\113\238\110\224\81\24\241\130\194\39\48\115\2\200\104\39\181\146\95\123\205\168\83\102\24\178\200\129\136\89\241\151\6\5\138\3\244\51\223\247\168\7\78\6\43\178\7\66\193\183\48\132\55\78\169\145\115\194\236\189\255\118\158\247\115\56\187\57\155\196\112\22\7\245\120\55\67\131\61",62),Flag=lI1I1ll1llIl("\124\45\62\230\168\198\176\92\202\254\196",61),Default=true});
+l1l11IIlI1l:Toggle({Name=lI1I1ll1llIl("\253\169\226\138\70\147\239\52\2\139\245\65\39",64),Description=lI1I1ll1llIl("\145\184\87\24\71\103\166\72\130\64\111\191\92\234\158\32\83\52\214\164\231\174\114\218\183\51\226\119\173\28\5\246\196\136\59\59\35\31\206\106\39\166\156\18\120\132\187\76\96\93\163\201\138\219\69\247\216\6\30\207\20\187\63\194\162\251\2\88\6\111\239",206),Flag=lI1I1ll1llIl("\164\157\106\62\91\212\1\156\155\68\94\219\72\230",222)});
+l1l11IIlI1l:Segmented({Name=lI1I1ll1llIl("\0\61\198\137\204\165\38\220\14\219\248",78),Flag=lI1I1ll1llIl("\65\148\133\63\140\48\153\89\120\109",214),Options={lI1I1ll1llIl("\170\89\224\213\31",67),lI1I1ll1llIl("\171\195\176\85\123\108",250),lI1I1ll1llIl("\215\214\51\180\27",183)},Default=lI1I1ll1llIl("\167\75\195\228\34\19",83)});
+local l1llllIII=lII11l1I11:Section(lI1I1ll1llIl("\237\27\174\149\64",3));
+l1llllIII:Toggle({Name=lI1I1ll1llIl("\165\17\39\56\150\173\192\180\97",60),Description=lI1I1ll1llIl("\132\16\191\132\33\17\240\67\123\113\79\173\16\37\183\164\56\187\90\123\180\192\154\124\250\225\214\9\191\229\101\66\157\62\137\231\11\52\27\234\155\145\237\140\53\16\151\204\76\194\127\83\129\224\139\76\22\85\117\234\88\145\83\116\243\31\249\144\107\92\50\132\184\254\151\115\206\188",89),Flag=lI1I1ll1llIl("\220\110\107\150\156\18\149\228\169\71\125",212),Default=true});
+local lIl1I1l1ll=lII11l1I11:Section(lI1I1ll1llIl("\30\162\27\102\166\192\157\113\235\180\197",201));
 
 
 
 
-local l111lII1Il1,l1l1llllII=lIIll11111(l11l1Il1lll("\56\37\47\158\104\3\11\171\109\201\167\30\253",255),lI11Il1II1.layers);
-local l1I1lllIl1=l111lII1Il1:Section(l11l1Il1lll("",39));
-l1I1lllIl1:Toggle({Name=l11l1Il1lll("\182\131\58\205\153\1\91\56\150\152\38\195\128",104),Description=l11l1Il1lll("\249\83\16\19\138\222\49\170\10\28\226\23\218\223\100\156\39\201\196\167\114\102\237\18\27\76\92\196\103\104\196\17\182\48\52\33\170\237\94\178\223\203",204),Flag=l11l1Il1lll("\195\38\71\100\180\41\137\65\218",82)});
-l1I1lllIl1:Paragraph(l11l1Il1lll("\161\57\47\194\115\223\71\29\94\51\50\129\106\30",199),l11l1Il1lll("\62\93\173\95\196\46\98\255\21\169\47\10\47\226\226\23\217\209\213\51\241\211\193\120\141\118\172\234\150\29\53\216\61\122\84\243\105\158\153\217\61\147\13\34\6\136\128\55\176\243\241\17\136\87\78\234\105\24\205\204\243\44\25\170\80\85\112\155\4\238\179\59\196\38\238\90\105\188\182\91\205\141\145\113\244\114\96\157\103\255\121\45\90\156\52\133\109\117\7\242\111\142\192\8\243\85\206\238\146\68\64\187\247\160\181\81\211\71\0\227\8\194\72\12\55\255\193\43\153\199\43\222\81\250\176\124\153\52\253\151\169\121\43",115));
-local lIII1llIl1l1=l111lII1Il1:Section(l11l1Il1lll("\161\160\62\86\236\8\95\26\80\194\126\125",78));
-lIII1llIl1l1:Slider({Name=l11l1Il1lll("\203\99\59\240\106\57\158\117",236),Flag=l11l1Il1lll("\84\74\206\254\170\162",112),Min=0,Max=30,Default=3,Suffix=l11l1Il1lll("\84\255",74)});
-lIII1llIl1l1:Toggle({Name=l11l1Il1lll("\153\231\193\32\178\78\30\95\183\20\159\247\134\28\23\180\52\117\96",211),Description=l11l1Il1lll("\34\21\188\44\112\115\146\111\132\138\45\128\147\3\83\107\135\132\61\143\182\166\94\223\41\60\172\85\242\126\207\252\114\55\139\80\14\6\245",48),Flag=l11l1Il1lll("\150\137\103\77\233\254\181\171\78\199",94),Default=true});
-lIII1llIl1l1:Slider({Name=l11l1Il1lll("\61\129\19\11\188\80\84\145\193\250\57\22",214),Flag=l11l1Il1lll("\211\46\125\67\187\60\129",82),Min=5,Max=60,Default=20,Suffix=l11l1Il1lll("\176\241\92\181\52\188",8)});
+local llII1Il1,l1l111llIl1II=l1I1I1I11(lI1I1ll1llIl("\3\28\253\206\92\201\117\44\142\183\169\96\4",149),lllI1I111l.layers);
+local lIIl1I111I=llII1Il1:Section(lI1I1ll1llIl("",49));
+lIIl1I111I:Toggle({Name=lI1I1ll1llIl("\68\169\193\144\232\82\254\145\15\56\142\31\173",31),Description=lI1I1ll1llIl("\107\76\82\175\135\232\221\125\196\239\4\67\151\18\166\56\213\246\166\59\95\16\97\165\53\95\154\176\10\133\38\85\164\111\54\157\167\155\242\37\145\184",29),Flag=lI1I1ll1llIl("\205\166\150\17\14\203\248\104\219",114)});
+lIIl1I111I:Paragraph(lI1I1ll1llIl("\221\194\8\115\168\54\144\247\106\255\249\14\108\26",69),lI1I1ll1llIl("\29\131\202\9\60\243\51\173\197\43\4\248\15\127\56\11\250\15\50\229\233\14\144\42\93\244\135\152\54\0\239\196\30\164\179\37\17\195\72\139\237\17\38\80\166\149\218\171\147\45\22\199\208\10\159\56\57\154\230\190\83\49\67\54\243\11\151\77\124\179\98\233\148\36\69\40\201\161\236\199\110\211\246\39\236\47\177\79\55\253\210\223\122\1\110\25\206\43\96\164\151\83\145\218\163\87\101\28\178\217\154\167\84\254\210\7\11\154\81\177\216\192\227\254\23\98\27\55\186\25\76\136\169\39\225\46\73\182\214\101\137\228\241",52));
+local l1l11ll1I1I=llII1Il1:Section(lI1I1ll1llIl("\154\131\161\118\223\179\126\4\95\185\209\230",247));
+l1l11ll1I1I:Slider({Name=lI1I1ll1llIl("\178\31\134\32\238\90\113\118",232),Flag=lI1I1ll1llIl("\33\236\234\94\180\16",166),Min=0,Max=30,Default=3,Suffix=lI1I1ll1llIl("\66\27",110)});
+l1l11ll1I1I:Toggle({Name=lI1I1ll1llIl("\113\217\76\227\253\92\48\33\239\139\197\182\34\35\25\210\252\107\205",40),Description=lI1I1ll1llIl("\91\1\203\116\76\172\150\87\145\196\167\24\121\108\165\198\158\240\74\183\234\89\122\199\28\178\198\45\248\241\25\113\75\99\188\8\50\153\177",194),Flag=lI1I1ll1llIl("\223\25\136\151\71\74\219\74\245\252",3),Default=true});
+l1l11ll1I1I:Slider({Name=lI1I1ll1llIl("\17\185\38\157\222\40\94\22\15\119\32\74",72),Flag=lI1I1ll1llIl("\112\101\172\189\164\87\30",187),Min=5,Max=60,Default=20,Suffix=lI1I1ll1llIl("\107\20\133\22\74\51",103)});
 
 
-ll11l1llI1l1(lI1l1I111lI,1,l11l1Il1lll("\115\175\214",210),lI11Il1II1.plane,l11l1Il1lll("\94\226\172\182\86\86\46\249",92),l11I11lI1l1);
-ll11l1llI1l1(lI1l1I111lI,2,l11l1Il1lll("\177\135\44\202\151\166\87\223\14\59\172\66\239",160),lI11Il1II1.gauge,l11l1Il1lll("\102\33\230\208\77\158\194\206\2\189",190),l1l1l1I1);
-ll11l1llI1l1(lI1l1I111lI,3,l11l1Il1lll("\81\122\198\36\118\6\247\127\180\135\202\62\147",64),lI11Il1II1.wind,l11l1Il1lll("\214\50\181\38\254\95\180\22\182\228",229),lII11l11l);
-ll11l1llI1l1(lI1l1I111lI,4,l11l1Il1lll("\25\33\200\83\203\222\117\154",4),lI11Il1II1.rocket,l11l1Il1lll("\151\58\205\219\231\14\145\9\16\171\88",177),lI11l1lIIIIl);
-ll11l1llI1l1(lI1l1I111lI,5,l11l1Il1lll("\177\145\90\76\237\242\171\165\89",94),lI11Il1II1.navigation,l11l1Il1lll("\118\119\240\49\181\43\3\7\252",152),l1lI1l11);
-ll11l1llI1l1(lI1l1I111lI,6,l11l1Il1lll("\186\202\218\55\163\241\236\89",227),lI11Il1II1.sliders,nil,lI111I1Il);
-local lIll111I11I=l1IllllI:Section(l11l1Il1lll("\227\142\25\76\119\175",123));
-local llIlII11=lIll111I11I:Custom(0);
-lI11IIlIIIllI(l11l1Il1lll("\145\39\205\88\232\166\190\89\168\0\224\173",73),{CellSize=UDim2.new(0.333,- 6,0,78),CellPadding=UDim2.new(0,8,0,8),SortOrder=Enum.SortOrder.LayoutOrder,Parent=llIlII11});
-llIlII11.AutomaticSize=Enum.AutomaticSize.Y;
-ll11l1llI1l1(llIlII11,1,l11l1Il1lll("\175\212\54\222\72\224\247\58\130\41\178\130\181",243),lI11Il1II1.layers,l11l1Il1lll("\152\81\69\37\240\175\177\84\231",111),l1l1llllII);
+l111lIl1ll(lI1III11llIII,1,lI1I1ll1llIl("\99\113\86",245),lllI1I111l.plane,lI1I1ll1llIl("\228\221\42\107\31\2\249\113",158),lll1Ill1IlI);
+l111lIl1ll(lI1III11llIII,2,lI1I1ll1llIl("\46\111\207\161\70\48\24\228\225\152\241\74\242",249),lllI1I111l.gauge,lI1I1ll1llIl("\61\86\134\20\15\236\192\83\234\2",130),l1I111IIll11l);
+l111lIl1ll(lI1III11llIII,3,lI1I1ll1llIl("\61\116\40\68\135\83\109\189\229\78\171\14\109",128),lllI1I111l.wind,lI1I1ll1llIl("\108\93\78\232\165\240\139\84\250\227",45),l1l1llI1I1II);
+l111lIl1ll(lI1III11llIII,4,lI1I1ll1llIl("\61\94\36\28\174\129\82\89",241),lllI1I111l.rocket,lI1I1ll1llIl("\221\226\121\209\97\1\226\199\214\77\33",135),lIIIllI11);
+l111lIl1ll(lI1III11llIII,5,lI1I1ll1llIl("\19\205\183\194\161\101\197\14\223",79),lllI1I111l.navigation,lI1I1ll1llIl("\48\93\166\77\111\148\228\154\247",235),lII1l11l11ll);
+l111lIl1ll(lI1III11llIII,6,lI1I1ll1llIl("\137\103\120\136\245\134\241\35",253),lllI1I111l.sliders,nil,ll11IIlI1lI1);
+local lIIl1lll11llI=llIIl1lI1I:Section(lI1I1ll1llIl("\231\80\39\111\0\239",191));
+local l111Il1l1=lIIl1lll11llI:Custom(0);
+lllII1lI1I1I(lI1I1ll1llIl("\47\146\180\71\64\199\125\249\143\27\51\56",4),{CellSize=UDim2.new(0.333,- 6,0,78),CellPadding=UDim2.new(0,8,0,8),SortOrder=Enum.SortOrder.LayoutOrder,Parent=l111Il1l1});
+l111Il1l1.AutomaticSize=Enum.AutomaticSize.Y;
+l111lIl1ll(l111Il1l1,1,lI1I1ll1llIl("\127\149\51\20\218\193\78\139\98\103\145\176\185",131),lllI1I111l.layers,lI1I1ll1llIl("\51\169\202\30\27\18\7\90\53",90),l1l111llIl1II);
 
 
 do 
-local l1Il1l1I={};
-for lI11IllIl1,l11111II in ipairs(lI11II1llI1._index) do 
-local lIll1l1Il1lI=false;
-for ll1ll11111,lIlII11l1lIl in pairs(l1Illll1III) do 
-if l11111II.Frame:IsDescendantOf(lIlII11l1lIl) then 
-lIll1l1Il1lI=true end end;
+local l111I1I1Il1II={};
+for llI1l1III,lIIllI1I in ipairs(l1l1Ill1._index) do 
+local l11I1lI1=false;
+for l1ll1l1lII,ll11lIlIl1 in pairs(ll11II11111l1) do 
+if lIIllI1I.Frame:IsDescendantOf(ll11lIlIl1) then 
+l11I1lI1=true end end;
 
 
-if lIll1l1Il1lI then 
-table.insert(l1Il1l1I,{Name=l11111II.Name,Tab=l1IllllI,Section=(l11111II.Tab and l11111II.Tab.Name) or l11l1Il1lll("\235\70\228\255\127\152\33",6),Frame=lI1l1I111lI}) else 
+if l11I1lI1 then 
+table.insert(l111I1I1Il1II,{Name=lIIllI1I.Name,Tab=llIIl1lI1I,Section=(lIIllI1I.Tab and lIIllI1I.Tab.Name) or lI1I1ll1llIl("\87\238\97\217\141\112\91",8),Frame=lI1III11llIII}) else 
 
-table.insert(l1Il1l1I,l11111II) end end;
-
-
-lI11II1llI1._index=l1Il1l1I end;
+table.insert(l111I1I1Il1II,lIIllI1I) end end;
 
 
+l1l1Ill1._index=l111I1I1Il1II end;
 
 
 
-local ll1lllIlI={n2o=false,brake=false,up=false,down=false,thrust=false,rocket=false};
-local llll1lI1l1=llIIIIII1.Folder .. l11l1Il1lll("\33\162\168\43\216\158\144\30\182\58\57\155\81\235\97\120\20\55\50\157",143);
-local lI11llll111l=llIIIIII1:ReadJSON(llll1lI1l1);
-if type(lI11llll111l) ~= l11l1Il1lll("\61\151\154\46\59",103) then 
-lI11llll111l={} end;
 
-local lIII1lI11=false;
-local lI11IIlIl11=l11l1Il1lll("",118);
-local lIlI11l1I1llI=lI11IIlIIIllI(l11l1Il1lll("\238\117\37\29\223",220),{Name=l11l1Il1lll("\93\212\161\4\235\102\240\162",55),Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Visible=false,Parent=llIIIIII1.Gui});
-local l1l11l1l={};
-local ll1llII1ll=1;
-local l1l1IlllIlIll={};
-local function lI1IllIll11() 
+
+local l1IIlI1ll1Ill={n2o=false,brake=false,up=false,down=false,thrust=false,rocket=false};
+local lll1I1IlllI1I=l111II11I.Folder .. lI1I1ll1llIl("\42\250\135\112\83\67\198\176\196\143\127\206\224\44\1\41\255\79\61\198",26);
+local lllIIlll=l111II11I:ReadJSON(lll1I1IlllI1I);
+if type(lllIIlll) ~= lI1I1ll1llIl("\161\140\93\127\192",5) then 
+lllIIlll={} end;
+
+local lI1IlII1l1l1l=false;
+local lIllI1lIIIl=lI1I1ll1llIl("",61);
+local l1111l1I1ll1=lllII1lI1I1I(lI1I1ll1llIl("\119\201\56\141\251",56),{Name=lI1I1ll1llIl("\171\195\172\142\56\61\194\207",113),Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Visible=false,Parent=l111II11I.Gui});
+local l1lllIl1Ill11={};
+local llllIIlIl1l=1;
+local lIII1ll11l={};
+local function l11l1lIl1() 
 return (workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize) or Vector2.new(832,440) end;
 
 
-local l1llIlI1lIlI=false;
-local function l1l1l1II1II1(lIIIllI1l1l11) 
-return (l1llIlI1lIlI and (lIIIllI1l1l11 .. l11l1Il1lll("\9\124",173))) or lIIIllI1l1l11 end;
+local lII11Illll11=false;
+local function l1l1IIIl(l1III1l1II1I) 
+return (lII11Illll11 and (l1III1l1II1I .. lI1I1ll1llIl("\191\199",97))) or l1III1l1II1I end;
 
-local function ll111III111(lIl11II1) 
-local lII1I1Il1=l1l11l1l[lIl11II1];
-local llIII1I1l11I=lI11llll111l[l1l1l1II1II1(lIl11II1)];
-if ((type(llIII1I1l11I) == l11l1Il1lll("\240\79\168\6\164",9)) and tonumber(llIII1I1l11I[1])) and tonumber(llIII1I1l11I[2]) then 
-local lII1II1l1II=lI1IllIll11();
-lII1I1Il1.gui.Position=UDim2.new(0,math.clamp(llIII1I1l11I[1],20,lII1II1l1II.X - 20),0,math.clamp(llIII1I1l11I[2],20,lII1II1l1II.Y - 20)) else 
+local function llIll1Il(lIIlIll1IlIl1) 
+local lIl111l1I1=l1lllIl1Ill11[lIIlIll1IlIl1];
+local l1IlIII11I11=lllIIlll[l1l1IIIl(lIIlIll1IlIl1)];
+if ((type(l1IlIII11I11) == lI1I1ll1llIl("\77\149\35\21\214",131)) and tonumber(l1IlIII11I11[1])) and tonumber(l1IlIII11I11[2]) then 
+local lIIIIIl1l=l11l1lIl1();
+lIl111l1I1.gui.Position=UDim2.new(0,math.clamp(l1IlIII11I11[1],20,lIIIIIl1l.X - 20),0,math.clamp(l1IlIII11I11[2],20,lIIIIIl1l.Y - 20)) else 
 
-lII1I1Il1.gui.Position=(l1llIlI1lIlI and lII1I1Il1.fdefault) or lII1I1Il1.default end end;
-
-
-
-local function l1IIIlll1Ill(l11Il1ll,lll1llII,lllIIIlIII,lll11lIlI) 
-lll1llII.AnchorPoint=Vector2.new(0.5,0.5);
-local l11lI11ll1II=lI11IIlIIIllI(l11l1Il1lll("\245\221\13\7\191\68\28\31",14),{Thickness=2,Color=l1l111Il,Transparency=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=lll1llII});
-l1l11l1l[l11Il1ll]={gui=lll1llII,default=lllIIIlIII,editStroke=l11lI11ll1II,show=lll11lIlI};
-ll111III111(l11Il1ll);
-local l1l1lll1ll1,lI1I1I1lll1ll,l1I1llIII;
-lll1llII.InputBegan:Connect(function(ll11lIll1I) 
-if lIII1lI11 and ((ll11lIll1I.UserInputType == Enum.UserInputType.Touch) or (ll11lIll1I.UserInputType == Enum.UserInputType.MouseButton1)) then 
-local llI1llllII1=lI1IllIll11();
-local l1I111ll1I=lll1llII.Position;
-l1l1lll1ll1,lI1I1I1lll1ll=ll11lIll1I,ll11lIll1I.Position;
-l1I1llIII=Vector2.new((l1I111ll1I.X.Scale * llI1llllII1.X) + l1I111ll1I.X.Offset,(l1I111ll1I.Y.Scale * llI1llllII1.Y) + l1I111ll1I.Y.Offset) end end);
-
-
-lI11l11IIl(llIl11lIIl1I1.InputChanged:Connect(function(l1IIIlIII) 
-if l1l1lll1ll1 and ((l1IIIlIII == l1l1lll1ll1) or (l1IIIlIII.UserInputType == Enum.UserInputType.MouseMovement)) then 
-local l1I11IlI1II=lI1IllIll11();
-local lllIlI1l=l1I1llIII + Vector2.new(l1IIIlIII.Position.X - lI1I1I1lll1ll.X,l1IIIlIII.Position.Y - lI1I1I1lll1ll.Y);
-lll1llII.Position=UDim2.new(0,math.clamp(lllIlI1l.X,20,l1I11IlI1II.X - 20),0,math.clamp(lllIlI1l.Y,20,l1I11IlI1II.Y - 20)) end end));
-
-
-lI11l11IIl(llIl11lIIl1I1.InputEnded:Connect(function(l1I1ll1l1I) 
-if l1l1lll1ll1 and ((l1I1ll1l1I == l1l1lll1ll1) or (l1I1ll1l1I.UserInputType == Enum.UserInputType.MouseButton1)) then 
-l1l1lll1ll1=nil;
-local l1l1l1lIlIlI=lI1IllIll11();
-local l1I1Il1IIIllI=lll1llII.Position;
-local lIll1lII1ll=Vector2.new((l1I1Il1IIIllI.X.Scale * l1l1l1lIlIlI.X) + l1I1Il1IIIllI.X.Offset,(l1I1Il1IIIllI.Y.Scale * l1l1l1lIlIlI.Y) + l1I1Il1IIIllI.Y.Offset);
-if (lIll1lII1ll - l1I1llIII).Magnitude > 4 then 
-lI11llll111l[l1l1l1II1II1(l11Il1ll)]={math.floor(lIll1lII1ll.X),math.floor(lIll1lII1ll.Y)};
-llIIIIII1:WriteJSON(llll1lI1l1,lI11llll111l) else 
-
-lll1llII.Position=UDim2.new(0,l1I1llIII.X,0,l1I1llIII.Y) end end end));
+lIl111l1I1.gui.Position=(lII11Illll11 and lIl111l1I1.fdefault) or lIl111l1I1.default end end;
 
 
 
-return lll1llII end;
+local function l1l1lIII(l11Illll1IIl,ll11111IIII1,llIIlI1I1llI,ll11Il1I) 
+ll11111IIII1.AnchorPoint=Vector2.new(0.5,0.5);
+local lIIlIl1I1ll=lllII1lI1I1I(lI1I1ll1llIl("\62\14\130\55\188\207\45\17",71),{Thickness=2,Color=ll11lIl1IIlI1,Transparency=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=ll11111IIII1});
+l1lllIl1Ill11[l11Illll1IIl]={gui=ll11111IIII1,default=llIIlI1I1llI,editStroke=lIIlIl1I1ll,show=ll11Il1I};
+llIll1Il(l11Illll1IIl);
+local lII1IIIIllI1I,lll111III,lIIll1I1;
+ll11111IIII1.InputBegan:Connect(function(ll11l1Illl) 
+if lI1IlII1l1l1l and ((ll11l1Illl.UserInputType == Enum.UserInputType.Touch) or (ll11l1Illl.UserInputType == Enum.UserInputType.MouseButton1)) then 
+local l1l11lIl=l11l1lIl1();
+local l1IIIllllllI1=ll11111IIII1.Position;
+lII1IIIIllI1I,lll111III=ll11l1Illl,ll11l1Illl.Position;
+lIIll1I1=Vector2.new((l1IIIllllllI1.X.Scale * l1l11lIl.X) + l1IIIllllllI1.X.Offset,(l1IIIllllllI1.Y.Scale * l1l11lIl.Y) + l1IIIllllllI1.Y.Offset) end end);
 
-local function l1IIllI1l1(lI1II1l1Il) 
-local lI1ll1l1l1llI=lI11IIlIIIllI(l11l1Il1lll("\128\59\194\110\211\167\118\188\174\17",89),{Size=UDim2.new(0,lI1II1l1Il,0,lI1II1l1Il),Text=l11l1Il1lll("",181),AutoButtonColor=false,BackgroundTransparency=0.3,Parent=lIlI11l1I1llI});
-llIllI11I1I(lI1ll1l1l1llI,l11l1Il1lll("\211\78\182\242\255\45\170\31\26\90\153\21\157\221\208\91",193),l11l1Il1lll("\226\245\61\24\170\89\24\15\147\7",14));
-l1llIIIIIl11(lI1ll1l1l1llI,lI1II1l1Il / 2);
-lI11IIlIIIllI(l11l1Il1lll("\179\127\254\138\164\115\94\238",59),{Thickness=1,Color=l1l111Il,Transparency=0.72,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=lI1ll1l1l1llI});
-local lI1llIII=lI11IIlIIIllI(l11l1Il1lll("\235\65\221\203\105",22),{Size=UDim2.new(1,0,1,0),BackgroundColor3=l1l111Il,BorderSizePixel=0,Parent=lI1ll1l1l1llI});
-l1llIIIIIl11(lI1llIII,lI1II1l1Il / 2);
-lI11IIlIIIllI(l11l1Il1lll("\229\14\106\224\253\66\171\55\167\238",245),{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.86),NumberSequenceKeypoint.new(0.5,1),NumberSequenceKeypoint.new(1,1)}),Parent=lI1llIII});
-table.insert(l1l1IlllIlIll,lI11IIlIIIllI(l11l1Il1lll("\28\191\171\33\63\146\16",103),{Parent=lI1ll1l1l1llI}));
-return lI1ll1l1l1llI end;
+
+lIl11lIIl(l1IIl1lll1l.InputChanged:Connect(function(l111I1IIl) 
+if lII1IIIIllI1I and ((l111I1IIl == lII1IIIIllI1I) or (l111I1IIl.UserInputType == Enum.UserInputType.MouseMovement)) then 
+local l111I1llIl1I=l11l1lIl1();
+local lI1lllI111=lIIll1I1 + Vector2.new(l111I1IIl.Position.X - lll111III.X,l111I1IIl.Position.Y - lll111III.Y);
+ll11111IIII1.Position=UDim2.new(0,math.clamp(lI1lllI111.X,20,l111I1llIl1I.X - 20),0,math.clamp(lI1lllI111.Y,20,l111I1llIl1I.Y - 20)) end end));
+
+
+lIl11lIIl(l1IIl1lll1l.InputEnded:Connect(function(l111l1lII1) 
+if lII1IIIIllI1I and ((l111l1lII1 == lII1IIIIllI1I) or (l111l1lII1.UserInputType == Enum.UserInputType.MouseButton1)) then 
+lII1IIIIllI1I=nil;
+local ll1ll1llII=l11l1lIl1();
+local lIll11lIlIllI=ll11111IIII1.Position;
+local lIIl11lII1III=Vector2.new((lIll11lIlIllI.X.Scale * ll1ll1llII.X) + lIll11lIlIllI.X.Offset,(lIll11lIlIllI.Y.Scale * ll1ll1llII.Y) + lIll11lIlIllI.Y.Offset);
+if (lIIl11lII1III - lIIll1I1).Magnitude > 4 then 
+lllIIlll[l1l1IIIl(l11Illll1IIl)]={math.floor(lIIl11lII1III.X),math.floor(lIIl11lII1III.Y)};
+l111II11I:WriteJSON(lll1I1IlllI1I,lllIIlll) else 
+
+ll11111IIII1.Position=UDim2.new(0,lIIll1I1.X,0,lIIll1I1.Y) end end end));
 
 
 
-local llIII11lI11l1=lI11IIlIIIllI(l11l1Il1lll("\178\126\205\86\45",202),{Size=UDim2.new(0,176,0,56),BackgroundTransparency=0.3,Parent=lIlI11l1I1llI});
-llIllI11I1I(llIII11lI11l1,l11l1Il1lll("\83\206\54\114\127\173\42\159\154\218\25\149\29\93\80\219",65),l11l1Il1lll("\176\134\58\180\228\228\14\186\30\6",176));
-l1llIIIIIl11(llIII11lI11l1,28);
-lI11IIlIIIllI(l11l1Il1lll("\12\175\91\198\60\129\46\99",119),{Thickness=1,Color=l1l111Il,Transparency=0.72,Parent=llIII11lI11l1});
-table.insert(l1l1IlllIlIll,lI11IIlIIIllI(l11l1Il1lll("\35\143\14\13\39\224\224",171),{Parent=llIII11lI11l1}));
-local lll111lI1=lI11IIlIIIllI(l11l1Il1lll("\109\227\208\102\162\47\199\131\162",23),{Size=UDim2.new(0,76,0,34),Position=UDim2.new(0,14,0,5),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=30,TextXAlignment=Enum.TextXAlignment.Right,Text=l11l1Il1lll("\221",86),Parent=llIII11lI11l1});
-llIllI11I1I(lll111lI1,l11l1Il1lll("\253\159\162\84\122\248\1\94\178\4",77),l11l1Il1lll("\218\49\53\183",15));
-local llIIIlll1lI=lI11IIlIIIllI(l11l1Il1lll("\48\171\82\254\173\195\240\61\29",233),{Size=UDim2.new(0,76,0,12),Position=UDim2.new(0,14,0,38),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=9,TextXAlignment=Enum.TextXAlignment.Right,Text=l11l1Il1lll("\93\235\18\6",203),Parent=llIII11lI11l1});
-llIllI11I1I(llIIIlll1lI,l11l1Il1lll("\65\134\55\54\246\84\232\193\102\223",242),l11l1Il1lll("\198\22\173\150\80\195\112",114));
-local l1I1l1lI1I1l1=lI11IIlIIIllI(l11l1Il1lll("\237\175\146\68\101\6\255\164\188",93),{Size=UDim2.new(0,72,0,11),Position=UDim2.new(0,98,0,39),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=9,TextXAlignment=Enum.TextXAlignment.Left,Text=l11l1Il1lll("",216),Parent=llIII11lI11l1});
-llIllI11I1I(l1I1l1lI1I1l1,l11l1Il1lll("\84\119\224\4\131\48\0\39\224\180",152),l11l1Il1lll("\136\246\199\54\175\26",211));
-local l1II11llI1l={};
-for lllIlllll,lIIIlI1lIIll1 in ipairs({l11l1Il1lll("\244",41),l11l1Il1lll("\246",41),l11l1Il1lll("\176",127),l11l1Il1lll("\109",51)}) do 
-local l1lII11l11l=lI11IIlIIIllI(l11l1Il1lll("\194\67\197\186\170\77\71\254\245",75),{Size=UDim2.new(0,14,0,16),Position=UDim2.new(0,98 + ((lllIlllll - 1) * 16),0,14),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=12,Text=lIIIlI1lIIll1,Parent=llIII11lI11l1});
-l1lII11l11l.TextColor3=Color3.fromRGB(105,109,122);
-l1II11llI1l[lIIIlI1lIIll1]=l1lII11l11l end;
+return ll11111IIII1 end;
 
-local l11I11I1l;
-local function lll1IlI1lI11l(lI1Il1Il11I1l) 
-if lI1Il1Il11I1l == l11I11I1l then 
+local function l1l1IIIlI(llIIIlIIl) 
+local l1l1IIl1l1II=lllII1lI1I1I(lI1I1ll1llIl("\142\157\158\152\213\172\217\20\154\163",237),{Size=UDim2.new(0,llIIIlIIl,0,llIIIlIIl),Text=lI1I1ll1llIl("",52),AutoButtonColor=false,BackgroundTransparency=0.3,Parent=l1111l1I1ll1});
+lI11ll1lIIlII(l1l1IIl1l1II,lI1I1ll1llIl("\84\105\157\183\173\66\20\80\39\224\146\134\79\112\235\8",187),lI1I1ll1llIl("\23\157\241\3\13\2\245\144\37\87",74));
+lIlll1ll1l1I1(l1l1IIl1l1II,llIIIlIIl / 2);
+lllII1lI1I1I(lI1I1ll1llIl("\58\120\22\12\175\154\92\78",241),{Thickness=1,Color=ll11lIl1IIlI1,Transparency=0.72,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=l1l1IIl1l1II});
+local lll1IIl1lI=lllII1lI1I1I(lI1I1ll1llIl("\255\6\160\148\86",3),{Size=UDim2.new(1,0,1,0),BackgroundColor3=ll11lIl1IIlI1,BorderSizePixel=0,Parent=l1l1IIl1l1II});
+lIlll1ll1l1I1(lll1IIl1lI,llIIIlIIl / 2);
+lllII1lI1I1I(lI1I1ll1llIl("\162\120\106\221\76\240\227\21\44\60",22),{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.86),NumberSequenceKeypoint.new(0.5,1),NumberSequenceKeypoint.new(1,1)}),Parent=lll1IIl1lI});
+table.insert(lIII1ll11l,lllII1lI1I1I(lI1I1ll1llIl("\8\182\25\71\163\156\123",217),{Parent=l1l1IIl1l1II}));
+return l1l1IIl1l1II end;
+
+
+
+local lI1I1IIIl=lllII1lI1I1I(lI1I1ll1llIl("\192\138\111\33\63",43),{Size=UDim2.new(0,176,0,56),BackgroundTransparency=0.3,Parent=l1111l1I1ll1});
+lI11ll1lIIlII(lI1I1IIIl,lI1I1ll1llIl("\151\140\92\120\194\69\237\137\100\44\21\211\171\198\175\35",5),lI1I1ll1llIl("\175\14\185\223\213\242\225\1\81\5",105));
+lIlll1ll1l1I1(lI1I1IIIl,28);
+lllII1lI1I1I(lI1I1ll1llIl("\208\244\28\23\135\8\185\41",85),{Thickness=1,Color=ll11lIl1IIlI1,Transparency=0.72,Parent=lI1I1IIIl});
+table.insert(lIII1ll11l,lllII1lI1I1I(lI1I1ll1llIl("\42\104\6\235\76\137\66",225),{Parent=lI1I1IIIl}));
+local l11l1I11I=lllII1lI1I1I(lI1I1ll1llIl("\238\253\254\56\123\24\111\165\121",141),{Size=UDim2.new(0,76,0,34),Position=UDim2.new(0,14,0,5),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=30,TextXAlignment=Enum.TextXAlignment.Right,Text=lI1I1ll1llIl("\30",192),Parent=lI1I1IIIl});
+lI11ll1lIIlII(l11l1I11I,lI1I1ll1llIl("\170\236\175\235\17\140\183\2\51\248",16),lI1I1ll1llIl("\111\114\217\71",23));
+local l11I1IlIl=lllII1lI1I1I(lI1I1ll1llIl("\62\174\187\113\117\210\67\141\234",20),{Size=UDim2.new(0,76,0,12),Position=UDim2.new(0,14,0,38),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=9,TextXAlignment=Enum.TextXAlignment.Right,Text=lI1I1ll1llIl("\112\14\81\159",242),Parent=lI1I1IIIl});
+lI11ll1lIIlII(l11I1IlIl,lI1I1ll1llIl("\95\66\201\87\173\239\10\59\48\187",39),lI1I1ll1llIl("\56\102\172\51\58\145\177",162));
+local l1ll1I1IllIll=lllII1lI1I1I(lI1I1ll1llIl("\33\40\231\199\9\182\0\121\134",165),{Size=UDim2.new(0,72,0,11),Position=UDim2.new(0,98,0,39),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=9,TextXAlignment=Enum.TextXAlignment.Left,Text=lI1I1ll1llIl("",27),Parent=lI1I1IIIl});
+lI11ll1lIIlII(l1ll1I1IllIll,lI1I1ll1llIl("\182\141\235\169\226\51\149\190\105\4",255),lI1I1ll1llIl("\51\251\1\104\61\111",126));
+local l1llIIlIl1lI={};
+for lI11l1Illl11,lIlllll111Il1 in ipairs({lI1I1ll1llIl("\79",129),lI1I1ll1llIl("\92",224),lI1I1ll1llIl("\131",73),lI1I1ll1llIl("\223",183)}) do 
+local lIl1Ill11IIl1=lllII1lI1I1I(lI1I1ll1llIl("\82\129\174\136\74\16\93\34\22",204),{Size=UDim2.new(0,14,0,16),Position=UDim2.new(0,98 + ((lI11l1Illl11 - 1) * 16),0,14),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=12,Text=lIlllll111Il1,Parent=lI1I1IIIl});
+lIl1Ill11IIl1.TextColor3=Color3.fromRGB(105,109,122);
+l1llIIlIl1lI[lIlllll111Il1]=lIl1Ill11IIl1 end;
+
+local llIlI1I1;
+local function lIllIIl11Il1I(lII1lI11II) 
+if lII1lI11II == llIlI1I1 then 
 return  end;
 
-l11I11I1l=lI1Il1Il11I1l;
-for lIIl11lllI1,lII1IIl1lIl1I in pairs(l1II11llI1l) do 
-lII1IIl1lIl1I.TextColor3=((lIIl11lllI1 == lI1Il1Il11I1l) and llIIIIII1.Theme.Text) or Color3.fromRGB(105,109,122);
-lII1IIl1lIl1I.TextSize=((lIIl11lllI1 == lI1Il1Il11I1l) and 14) or 12 end end;
+llIlI1I1=lII1lI11II;
+for ll1llII1Il,l11Illl1I in pairs(l1llIIlIl1lI) do 
+l11Illl1I.TextColor3=((ll1llII1Il == lII1lI11II) and l111II11I.Theme.Text) or Color3.fromRGB(105,109,122);
+l11Illl1I.TextSize=((ll1llII1Il == lII1lI11II) and 14) or 12 end end;
 
 
 
 
-local ll1lIIll1II={};
-local function lI11Il1II(ll11lII1Il,lIII1l11IlI,lIll1IIl,llII1IlIl,l1lllIllI1l,lIIl1Illl1,l11Il1lIlIIII) 
-local l1Il1I111=l1IIllI1l1(62);
-local lIIIIlIlI=lI11IIlIIIllI(l11l1Il1lll("\178\204\59\151\20",121),{Size=UDim2.new(1,0,1,0),BackgroundColor3=l1l111Il,BackgroundTransparency=1,ZIndex=2,Parent=l1Il1I111});
-l1llIIIIIl11(lIIIIlIlI,31);
-llIIIIII1.AccentGradient(lIIIIlIlI,45);
-local llIlIlIlI1=lI11IIlIIIllI(l11l1Il1lll("\134\134\95\190\8",110),{AnchorPoint=Vector2.new(0.5,0),Size=UDim2.new(0,22,0,22),Position=UDim2.new(0.5,0,0,12),BackgroundTransparency=1,ZIndex=3,Parent=l1Il1I111});
-local l1l1lIl1I={};
-if type(lIII1l11IlI) == l11l1Il1lll("\102\103\246\19\180\54\3\38",152) then 
-l1l1lIl1I=lIII1l11IlI(llIlIlIlI1) or {} else 
+local l1I11IIIIlIl={};
+local function l1lIIlII1(ll1Il1Il1I,lIIllIII1ll,ll11IlIII,lllll1I1II1II,l1111lll11ll,l11IllIIl1,lIIIIIII1I) 
+local l1lI1II11=l1l1IIIlI(62);
+local lll11lllI1=lllII1lI1I1I(lI1I1ll1llIl("\135\57\168\29\75",200),{Size=UDim2.new(1,0,1,0),BackgroundColor3=ll11lIl1IIlI1,BackgroundTransparency=1,ZIndex=2,Parent=l1lI1II11});
+lIlll1ll1l1I1(lll11lllI1,31);
+l111II11I.AccentGradient(lll11lllI1,45);
+local l111l1Il1I1=lllII1lI1I1I(lI1I1ll1llIl("\155\13\171\201\39",89),{AnchorPoint=Vector2.new(0.5,0),Size=UDim2.new(0,22,0,22),Position=UDim2.new(0.5,0,0,12),BackgroundTransparency=1,ZIndex=3,Parent=l1lI1II11});
+local l1IIl1l1l={};
+if type(lIIllIII1ll) == lI1I1ll1llIl("\196\93\61\126\21\245\86\127",191) then 
+l1IIl1l1l=lIIllIII1ll(l111l1Il1I1) or {} else 
 
-local l1lIIllI111=lI11IIlIIIllI(l11l1Il1lll("\153\175\9\231\117\195\189\154\167\187",72),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Image=lIII1l11IlI,ZIndex=3,Parent=llIlIlIlI1});
-l1lIIllI111.ImageColor3=llIIIIII1.Theme.Text;
-l1l1lIl1I={l1lIIllI111} end;
+local ll11l11I1II=lllII1lI1I1I(lI1I1ll1llIl("\43\5\114\58\68\144\24\51\254\219",127),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Image=lIIllIII1ll,ZIndex=3,Parent=l111l1Il1I1});
+ll11l11I1II.ImageColor3=l111II11I.Theme.Text;
+l1IIl1l1l={ll11l11I1II} end;
 
-local lIll111ll=lI11IIlIIIllI(l11l1Il1lll("\4\225\54\55\177\90\5\15\225",254),{Size=UDim2.new(1,0,0,12),Position=UDim2.new(0,0,0,38),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=8,Text=lIll1IIl,ZIndex=3,Parent=l1Il1I111});
-llIllI11I1I(lIll111ll,l11l1Il1lll("\130\3\133\250\229\3\9\180\43\54",11),l11l1Il1lll("\58\64\166\103\196\118\100",115));
-local ll1ll1lll1II=l1Il1I111:FindFirstChildOfClass(l11l1Il1lll("\213\62\174\33\13\186\87",197));
-local ll1II1lI=false;
-local function l111IIl11(lII1IIl1I1l) 
-local lI11IlIl=(lII1IIl1I1l and llIIIIII1.Theme.OnAccent) or llIIIIII1.Theme.Text;
-for ll11III1llll,l1IIllll11 in ipairs(l1l1lIl1I) do 
-if l1IIllll11:IsA(l11l1Il1lll("\112\39\11\215\204\171\124\35\53\203",221)) then 
-l1IIllll11.ImageColor3=lI11IlIl elseif l1IIllll11:IsA(l11l1Il1lll("\48\218\140\166\87\228\95\91",130)) then 
+local l11Il11Illl=lllII1lI1I1I(lI1I1ll1llIl("\189\65\201\253\15\30\155\254\74",83),{Size=UDim2.new(1,0,0,12),Position=UDim2.new(0,0,0,38),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=8,Text=ll11IlIII,ZIndex=3,Parent=l1lI1II11});
+lI11ll1lIIlII(l11Il11Illl,lI1I1ll1llIl("\111\38\6\163\172\86\121\200\71\175",242),lI1I1ll1llIl("\162\14\123\244\187\84\90",248));
+local ll1llI1I=l1lI1II11:FindFirstChildOfClass(lI1I1ll1llIl("\200\118\217\135\99\92\59",25));
+local l11Il1IIllll=false;
+local function lll1IllII1(lllIllI1llII) 
+local l1Il1111lIlll=(lllIllI1llII and l111II11I.Theme.OnAccent) or l111II11I.Theme.Text;
+for lIlIIIlI1,lI1I11l1I1I11 in ipairs(l1IIl1l1l) do 
+if lI1I11l1I1I11:IsA(lI1I1ll1llIl("\210\142\127\208\234\21\20\101\240\80",82)) then 
+lI1I11l1I1I11.ImageColor3=l1Il1111lIlll elseif lI1I11l1I1I11:IsA(lI1I1ll1llIl("\255\66\80\177\139\28\138\205",212)) then 
 
-l1IIllll11.Color=lI11IlIl elseif l1IIllll11:IsA(l11l1Il1lll("\163\73\245\68\58\22\35\56\129",218)) and (l1IIllll11:GetAttribute(l11l1Il1lll("\223\9\169\43",170)) ~= true) then 
+lI1I11l1I1I11.Color=l1Il1111lIlll elseif lI1I11l1I1I11:IsA(lI1I1ll1llIl("\208\36\228\64\239\94\15\243\214",118)) and (lI1I11l1I1I11:GetAttribute(lI1I1ll1llIl("\254\232\58\3",101)) ~= true) then 
 
-l1IIllll11.BackgroundColor3=lI11IlIl end end;
+lI1I11l1I1I11.BackgroundColor3=l1Il1111lIlll end end;
 
 
-lIll111ll.TextColor3=(lII1IIl1I1l and llIIIIII1.Theme.OnAccent) or llIIIIII1.Theme.SubText end;
+l11Il11Illl.TextColor3=(lllIllI1llII and l111II11I.Theme.OnAccent) or l111II11I.Theme.SubText end;
 
-l111IIl11(false);
-ll1lIIll1II[ll11lII1Il]=function(lIII11II) 
-if lIII11II == ll1II1lI then 
+lll1IllII1(false);
+l1I11IIIIlIl[ll1Il1Il1I]=function(llIll1III1I) 
+if llIll1III1I == l11Il1IIllll then 
 return  end;
 
-ll1II1lI=lIII11II;
-llIIIIII1.Tween(lIIIIlIlI,nil,{BackgroundTransparency=(lIII11II and 0) or 1});
-l111IIl11(lIII11II) end;
+l11Il1IIllll=llIll1III1I;
+l111II11I.Tween(lll11lllI1,nil,{BackgroundTransparency=(llIll1III1I and 0) or 1});
+lll1IllII1(llIll1III1I) end;
 
-local l1lIlIl1;
-local llIIIl111lll1=0;
-l1Il1I111.InputBegan:Connect(function(lI1l11lll) 
-if lIII1lI11 then 
+local l11IlIII1lI;
+local lI11I111l=0;
+l1lI1II11.InputBegan:Connect(function(lIIl1I1l1I1l1) 
+if lI1IlII1l1l1l then 
 return  end;
 
-if (lI1l11lll.UserInputType == Enum.UserInputType.Touch) or (lI1l11lll.UserInputType == Enum.UserInputType.MouseButton1) then 
+if (lIIl1I1l1I1l1.UserInputType == Enum.UserInputType.Touch) or (lIIl1I1l1I1l1.UserInputType == Enum.UserInputType.MouseButton1) then 
 
 
-if (os.clock() - llIIIl111lll1) < 0.25 then 
+if (os.clock() - lI11I111l) < 0.25 then 
 return  end;
 
-llIIIl111lll1=os.clock();
-l1lIlIl1=lI1l11lll;
-llIIIIII1.Tween(ll1ll1lll1II,TweenInfo.new(0.06),{Scale=ll1llII1ll * 0.9});
-lIIl1Illl1() end end);
+lI11I111l=os.clock();
+l11IlIII1lI=lIIl1I1l1I1l1;
+l111II11I.Tween(ll1llI1I,TweenInfo.new(0.06),{Scale=llllIIlIl1l * 0.9});
+l11IllIIl1() end end);
 
 
 
-lI11l11IIl(llIl11lIIl1I1.InputEnded:Connect(function(lI11Il1lll1l) 
-if l1lIlIl1 and ((lI11Il1lll1l == l1lIlIl1) or ((lI11Il1lll1l.UserInputType == Enum.UserInputType.MouseButton1) and (l1lIlIl1.UserInputType == Enum.UserInputType.MouseButton1))) then 
-l1lIlIl1=nil;
-llIIIIII1.Tween(ll1ll1lll1II,TweenInfo.new(0.14,Enum.EasingStyle.Back),{Scale=ll1llII1ll});
-if l11Il1lIlIIII then 
-l11Il1lIlIIII() end end end));
+lIl11lIIl(l1IIl1lll1l.InputEnded:Connect(function(lllII1l11) 
+if l11IlIII1lI and ((lllII1l11 == l11IlIII1lI) or ((lllII1l11.UserInputType == Enum.UserInputType.MouseButton1) and (l11IlIII1lI.UserInputType == Enum.UserInputType.MouseButton1))) then 
+l11IlIII1lI=nil;
+l111II11I.Tween(ll1llI1I,TweenInfo.new(0.14,Enum.EasingStyle.Back),{Scale=llllIIlIl1l});
+if lIIIIIII1I then 
+lIIIIIII1I() end end end));
 
 
 
-l1IIIlll1Ill(ll11lII1Il,l1Il1I111,llII1IlIl,l1lllIllI1l);
-return l1Il1I111 end;
+l1l1lIII(ll1Il1Il1I,l1lI1II11,lllll1I1II1II,l1111lll11ll);
+return l1lI1II11 end;
 
 
-local function l1lIlIII(lllllIIll1l) 
-return function(llI1I1ll1I1) 
-local llIl1IlI111l=lI11IIlIIIllI(l11l1Il1lll("\178\204\59\151\20",121),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,14,0,14),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=lllllIIll1l,ZIndex=4,Parent=llI1I1ll1I1});
-llIl1IlI111l:SetAttribute(l11l1Il1lll("\194\176\129\99",147),true);
-l1llIIIIIl11(llIl1IlI111l,7);
+local function lIIlI1111IIl(lI11lIII1) 
+return function(lIlI1I11Il) 
+local l1l1Il11ll=lllII1lI1I1I(lI1I1ll1llIl("\131\143\110\78\208",21),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,14,0,14),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=lI11lIII1,ZIndex=4,Parent=lIlI1I11Il});
+l1l1Il11ll:SetAttribute(lI1I1ll1llIl("\74\238\108\192",8),true);
+lIlll1ll1l1I1(l1l1Il11ll,7);
 return {} end end;
 
 
-local function lIII11II1111(l11IIIll) 
-local l1I1Il1IllI=lI11IIlIIIllI(l11l1Il1lll("\207\168\155\173\188",109),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,13,0,13),Position=UDim2.new(0.5,0,0.5,0),ZIndex=4,Parent=l11IIIll});
-l1llIIIIIl11(l1I1Il1IllI,3);
-return {l1I1Il1IllI} end;
+local function lIlIlI1I1II(ll1l1l1lll11I) 
+local lI1l1lI1l=lllII1lI1I1I(lI1I1ll1llIl("\89\51\84\133\40",129),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,13,0,13),Position=UDim2.new(0.5,0,0.5,0),ZIndex=4,Parent=ll1l1l1lll11I});
+lIlll1ll1l1I1(lI1l1lI1l,3);
+return {lI1l1lI1l} end;
 
 
 
-local function lIIl111I1II() 
-return (((l1IIlll1I11l.vehFlyOn or l1IIlll1I11l.vehSpeedOn) or l1IIlll1I11l.vehDriftOn) or l1IIlll1I11l.vehRoadster) or l1IIlll1I11l.vehAutoOn end;
+local function lIII1Il11II() 
+return (((lll1l11Il1ll1.vehFlyOn or lll1l11Il1ll1.vehSpeedOn) or lll1l11Il1ll1.vehDriftOn) or lll1l11Il1ll1.vehRoadster) or lll1l11Il1ll1.vehAutoOn end;
 
-local lIII1111Il={flying=false,rd=nil,ap=nil,recording=false};
-local function l111I1I1I1l1() 
-return (lIII1111Il.flying or (lIII1111Il.rd and lIII1111Il.rd.flying)) or false end;
+local l1II1111Illll={flying=false,rd=nil,ap=nil,recording=false};
+local function lIlIIlIII1() 
+return (l1II1111Illll.flying or (l1II1111Illll.rd and l1II1111Illll.rd.flying)) or false end;
 
 
 
-local function lll1IIll1(ll1IlI11Il1I1) 
-return UDim2.new(1,- 40,0,92 + ((ll1IlI11Il1I1 - 1) * 68)) end;
+local function l1l11l1I1l(l1II11IIII) 
+return UDim2.new(1,- 40,0,92 + ((l1II11IIII - 1) * 68)) end;
 
-local function l1lII1lI1I(l1I1Illl) 
-return UDim2.new(1,- 112,0,92 + ((l1I1Illl - 1) * 68)) end;
+local function ll1lIII11lII(lII11ll11) 
+return UDim2.new(1,- 112,0,92 + ((lII11ll11 - 1) * 68)) end;
 
-local lI11IllI1,lI1IlIl1I1I,l1lIlI1I1l1Il,lll1Ill1I1,llIlI1ll1Il11;
-lI11Il1II(l11l1Il1lll("\143\217\61",243),lI11Il1II1.plane,l11l1Il1lll("\211\47\150",114),lll1IIll1(1),function() return l1IIlll1I11l.vehFlyOn end,function() 
-if lI11IllI1 then 
-lI11IllI1() end end);
+local llIl111IIIlll,lll1lll11,lI1Il1l1,lIIllIlIIl1ll,l1I1l1Ill1I1l;
+l1lIIlII1(lI1I1ll1llIl("\4\4\106",127),lllI1I111l.plane,lI1I1ll1llIl("\3\128\251",90),l1l11l1I1l(1),function() return lll1l11Il1ll1.vehFlyOn end,function() 
+if llIl111IIIlll then 
+llIl111IIIlll() end end);
 
 
-lI11Il1II(l11l1Il1lll("\66\75\141\136\56\175",158),lI11Il1II1.flame,l11l1Il1lll("\155\57\59\137\155\42",231),lll1IIll1(2),function() return l1IIlll1I11l.vehFlyOn and lIII1111Il.flying end,function() ll1lllIlI.rocket=true end,function() ll1lllIlI.rocket=false end);
-lI11Il1II(l11l1Il1lll("\206\166\49",14),lI11Il1II1.wind,l11l1Il1lll("\23\35\30\194\198",189),lll1IIll1(2),function() return l1IIlll1I11l.vehSpeedOn and (not l111I1I1I1l1()) end,function() ll1lllIlI.n2o=true end,function() ll1lllIlI.n2o=false end);
-lI11Il1II(l11l1Il1lll("\251\69\101\163\189",125),lI11Il1II1[l11l1Il1lll("\171\79\1\38\232\224\111\132\150\203\201",188)],l11l1Il1lll("\59\106\123\144\5",99),lll1IIll1(3),function() return l1IIlll1I11l.vehSpeedOn and (not l111I1I1I1l1()) end,function() 
-l1llllI1lll1l.vehBoost:Set(not l1IIlll1I11l.vehBoost) end);
+l1lIIlII1(lI1I1ll1llIl("\56\231\245\23\98\29",125),lllI1I111l.flame,lI1I1ll1llIl("\236\134\212\148\87\247",80),l1l11l1I1l(2),function() return lll1l11Il1ll1.vehFlyOn and l1II1111Illll.flying end,function() l1IIlI1ll1Ill.rocket=true end,function() l1IIlI1ll1Ill.rocket=false end);
+l1lIIlII1(lI1I1ll1llIl("\71\214\30",147),lllI1I111l.wind,lI1I1ll1llIl("\52\146\167\103\102",4),l1l11l1I1l(2),function() return lll1l11Il1ll1.vehSpeedOn and (not lIlIIlIII1()) end,function() l1IIlI1ll1Ill.n2o=true end,function() l1IIlI1ll1Ill.n2o=false end);
+l1lIIlII1(lI1I1ll1llIl("\253\174\218\27\185",1),lllI1I111l[lI1I1ll1llIl("\69\48\203\218\200\47\69\6\84\193\113",139)],lI1I1ll1llIl("\185\152\46\160\10",215),l1l11l1I1l(3),function() return lll1l11Il1ll1.vehSpeedOn and (not lIlIIlIII1()) end,function() 
+lllIIlllIIlIl.vehBoost:Set(not lll1l11Il1ll1.vehBoost) end);
 
-lI11Il1II(l11l1Il1lll("\38\46\157\0\93",122),lIII11II1111,l11l1Il1lll("\11\72\123\203\220",173),lll1IIll1(4),function() return (l1IIlll1I11l.vehSpeedOn and (not l111I1I1I1l1())) or l111I1I1I1l1() end,function() ll1lllIlI.brake=true end,function() ll1lllIlI.brake=false end);
-lI11Il1II(l11l1Il1lll("\243\21\184\27\15\163",213),lI11Il1II1.timer,l11l1Il1lll("\195\37\168\11\63\147",197),l1lII1lI1I(4),function() return l1IIlll1I11l.vehSpeedOn and (not l111I1I1I1l1()) end,function() 
-lIII1111Il.cruise=not lIII1111Il.cruise;
-lIII1111Il.cruiseSpeed=0 end);
+l1lIIlII1(lI1I1ll1llIl("\148\218\63\23\15",91),lIlIlI1I1II,lI1I1ll1llIl("\120\74\71\135\242",13),l1l11l1I1l(4),function() return (lll1l11Il1ll1.vehSpeedOn and (not lIlIIlIII1())) or lIlIIlIII1() end,function() l1IIlI1ll1Ill.brake=true end,function() l1IIlI1ll1Ill.brake=false end);
+l1lIIlII1(lI1I1ll1llIl("\149\218\43\21\25\245",91),lllI1I111l.timer,lI1I1ll1llIl("\200\161\123\206\236\12",66),ll1lIII11lII(4),function() return lll1l11Il1ll1.vehSpeedOn and (not lIlIIlIII1()) end,function() 
+l1II1111Illll.cruise=not l1II1111Illll.cruise;
+l1II1111Illll.cruiseSpeed=0 end);
 
 
-lI11Il1II(l11l1Il1lll("\1\10\182\52\102",48),lI11Il1II1.cloud,l11l1Il1lll("\149\27\130\213\243",27),l1lII1lI1I(5),function() return l1IIlll1I11l.vehDriftOn and (not l111I1I1I1l1()) end,function() 
-l1llllI1lll1l.vehSmokeOn:Set(not l1IIlll1I11l.vehSmokeOn) end);
+l1lIIlII1(lI1I1ll1llIl("\248\158\65\236\218",66),lllI1I111l.cloud,lI1I1ll1llIl("\193\53\76\38\84",143),ll1lIII11lII(5),function() return lll1l11Il1ll1.vehDriftOn and (not lIlIIlIII1()) end,function() 
+lllIIlllIIlIl.vehSmokeOn:Set(not lll1l11Il1ll1.vehSmokeOn) end);
 
-lI11Il1II(l11l1Il1lll("\149\130",120),lI11Il1II1[l11l1Il1lll("\154\226\207\6\27\200\51\44\101\151",29)],l11l1Il1lll("\149\130",88),l1lII1lI1I(1),function() return l111I1I1I1l1() end,function() ll1lllIlI.up=true end,function() ll1lllIlI.up=false end);
-lI11Il1II(l11l1Il1lll("\0\161\93\228",233),lI11Il1II1[l11l1Il1lll("\241\239\92\137\209\217\47\2\244\237\95\174",208)],l11l1Il1lll("\133\48\210\167",145),l1lII1lI1I(2),function() return l111I1I1I1l1() end,function() ll1lllIlI.down=true end,function() ll1lllIlI.down=false end);
-lI11Il1II(l11l1Il1lll("\43\90\114\143\8",67),lI11Il1II1.rocket,l11l1Il1lll("\89\210\23\3\204\75\210\69",182),lll1IIll1(1),function() return l1IIlll1I11l.vehRoadster end,function() 
-if lI1IlIl1I1I then 
-lI1IlIl1I1I() end end);
+l1lIIlII1(lI1I1ll1llIl("\95\88",29),lllI1I111l[lI1I1ll1llIl("\248\223\36\165\12\127\184\201\135\104",183)],lI1I1ll1llIl("\112\77",245),ll1lIII11lII(1),function() return lIlIIlIII1() end,function() l1IIlI1ll1Ill.up=true end,function() l1IIlI1ll1Ill.up=false end);
+l1lIIlII1(lI1I1ll1llIl("\37\164\62\158",72),lllI1I111l[lI1I1ll1llIl("\49\208\166\219\163\99\199\76\207\232\102\237",79)],lI1I1ll1llIl("\97\82\120\77",245),ll1lIII11lII(2),function() return lIlIIlIII1() end,function() l1IIlI1ll1Ill.down=true end,function() l1IIlI1ll1Ill.down=false end);
+l1lIIlII1(lI1I1ll1llIl("\232\231\192\64\46",173),lllI1I111l.rocket,lI1I1ll1llIl("\146\101\93\121\230\254\185\193",12),l1l11l1I1l(1),function() return lll1l11Il1ll1.vehRoadster end,function() 
+if lll1lll11 then 
+lll1lll11() end end);
 
 
-lI11Il1II(l11l1Il1lll("\106\200\160\104\184\170\2\243",108),lI11Il1II1.flame,l11l1Il1lll("\26\220\223\86\162\233",207),lll1IIll1(2),function() return (l1IIlll1I11l.vehRoadster and lIII1111Il.rd) and lIII1111Il.rd.flying end,function() ll1lllIlI.thrust=true end,function() ll1lllIlI.thrust=false end);
-lI11Il1II(l11l1Il1lll("\198\19\158\20\100\64",138),lI11Il1II1[l11l1Il1lll("\207\76\248\247\104\145\105\176\231",6)],l11l1Il1lll("\44\11\17\191",255),lll1IIll1(3),function() return (l1IIlll1I11l.vehRoadster and lIII1111Il.rd) and lIII1111Il.rd.flying end,function() 
-local l1lIl1l1ll=lIII1111Il.rd;
-if (l1lIl1l1ll and l1lIl1l1ll.flying) and (not l1lIl1l1ll.rollStart) then 
-l1lIl1l1ll.rollStart=os.clock();
-l1lIl1l1ll.rollDir=((math.random() < 0.5) and (- 1)) or 1 end end);
+l1lIIlII1(lI1I1ll1llIl("\36\203\210\196\36\84\124\3",156),lllI1I111l.flame,lI1I1ll1llIl("\34\96\140\169\185\68",219),l1l11l1I1l(2),function() return (lll1l11Il1ll1.vehRoadster and l1II1111Illll.rd) and l1II1111Illll.rd.flying end,function() l1IIlI1ll1Ill.thrust=true end,function() l1IIlI1ll1Ill.thrust=false end);
+l1lIIlII1(lI1I1ll1llIl("\216\247\196\51\75\101",157),lllI1I111l[lI1I1ll1llIl("\87\114\91\98\225\98\159\143\109",245)],lI1I1ll1llIl("\111\144\38\72",185),l1l11l1I1l(3),function() return (lll1l11Il1ll1.vehRoadster and l1II1111Illll.rd) and l1II1111Illll.rd.flying end,function() 
+local ll1II1l1=l1II1111Illll.rd;
+if (ll1II1l1 and ll1II1l1.flying) and (not ll1II1l1.rollStart) then 
+ll1II1l1.rollStart=os.clock();
+ll1II1l1.rollDir=((math.random() < 0.5) and (- 1)) or 1 end end);
 
 
-lI11Il1II(l11l1Il1lll("\127\204\52\41\154\97\230",182),lI11Il1II1.anchor,l11l1Il1lll("\217\96\131\220\202",193),l1lII1lI1I(4),function() return (l1IIlll1I11l.vehRoadster and lIII1111Il.rd) and lIII1111Il.rd.flying end,function() 
-l1llllI1lll1l.rdHoverHold:Set(not l1IIlll1I11l.rdHoverHold) end);
+l1lIIlII1(lI1I1ll1llIl("\180\123\126\83\176\212\141",12),lllI1I111l.anchor,lI1I1ll1llIl("\13\50\217\230\103",149),ll1lIII11lII(4),function() return (lll1l11Il1ll1.vehRoadster and l1II1111Illll.rd) and l1II1111Illll.rd.flying end,function() 
+lllIIlllIIlIl.rdHoverHold:Set(not lll1l11Il1ll1.rdHoverHold) end);
 
-local function lIl1l1l111(llIlIIllI1I1) 
-local l1lIl1ll111lI=lIII1111Il.rd;
-if ((l1lIl1ll111lI and l1lIl1ll111lI.flying) and (not l1lIl1ll111lI.flipStart)) and (not l1lIl1ll111lI.rollStart) then 
-l1lIl1ll111lI.flipStart,l1lIl1ll111lI.flipDir=os.clock(),llIlIIllI1I1 end end;
+local function l1II1II1l1(l1Il11Il) 
+local lIIl1111lI=l1II1111Illll.rd;
+if ((lIIl1111lI and lIIl1111lI.flying) and (not lIIl1111lI.flipStart)) and (not lIIl1111lI.rollStart) then 
+lIIl1111lI.flipStart,lIIl1111lI.flipDir=os.clock(),l1Il11Il end end;
 
 
-lI11Il1II(l11l1Il1lll("\51\160\99\5\1\255\115",17),lI11Il1II1[l11l1Il1lll("\0\2\191\45\102\101\137\98\147\149",48)],l11l1Il1lll("\150\117\194\124\104\166\36\254\96\42",149),l1lII1lI1I(5),function() return (l1IIlll1I11l.vehRoadster and lIII1111Il.rd) and lIII1111Il.rd.flying end,function() 
-lIl1l1l111(- 1) end);
+l1lIIlII1(lI1I1ll1llIl("\195\100\191\12\119\156\136",184),lllI1I111l[lI1I1ll1llIl("\131\30\127\210\187\95\70\25\189\222",248)],lI1I1ll1llIl("\67\111\128\173\33\199\20\128\115\72",213),ll1lIII11lII(5),function() return (lll1l11Il1ll1.vehRoadster and l1II1111Illll.rd) and l1II1111Illll.rd.flying end,function() 
+l1II1II1l1(- 1) end);
 
-lI11Il1II(l11l1Il1lll("\154\24\98\92\147\159\67",156),lI11Il1II1[l11l1Il1lll("\155\208\52\214\64\250",243)],l11l1Il1lll("\25\31\218\76\136\252\76\209\104",20),lll1IIll1(5),function() return (l1IIlll1I11l.vehRoadster and lIII1111Il.rd) and lIII1111Il.rd.flying end,function() 
-lIl1l1l111(1) end);
+l1lIIlII1(lI1I1ll1llIl("\51\148\47\156\199\44\28",72),lllI1I111l[lI1I1ll1llIl("\151\184\31\38\180\51",53)],lI1I1ll1llIl("\191\222\105\15\130\214\242\13\127",121),l1l11l1I1l(5),function() return (lll1l11Il1ll1.vehRoadster and l1II1111Illll.rd) and l1II1111Illll.rd.flying end,function() 
+l1II1II1l1(1) end);
 
 
 
-local llI1lIIll={vec=Vector2.zero,input=nil};
-local lll1I1l1I=130;
+local lIllIIIIll1={vec=Vector2.zero,input=nil};
+local l1111lIIllI1I=130;
 
-local lIIlIIll=lI11IIlIIIllI(l11l1Il1lll("\205\160\172\87\243\75\84\254\9\216",131),{Size=UDim2.new(0,lll1I1l1I,0,lll1I1l1I),Text=l11l1Il1lll("",90),AutoButtonColor=false,BackgroundTransparency=0.35,Parent=lIlI11l1I1llI});
-llIllI11I1I(lIIlIIll,l11l1Il1lll("\76\181\174\40\214\143\147\14\135\50\27\141\82\241\103\101",143),l11l1Il1lll("\108\149\142\72\182\239\243\46\167\18",175));
-l1llIIIIIl11(lIIlIIll,lll1I1l1I / 2);
-lI11IIlIIIllI(l11l1Il1lll("\132\38\198\173\170\112\238\79",129),{Thickness=1,Color=l1l111Il,Transparency=0.7,Parent=lIIlIIll});
-local llllIIIIIlll=lI11IIlIIIllI(l11l1Il1lll("\166\101\252\79\41",165),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0.62,0,0.62,0),Position=UDim2.new(0.5,0,0.5,0),BackgroundTransparency=1,Parent=lIIlIIll});
-l1llIIIIIl11(llllIIIIIlll,lll1I1l1I);
-lI11IIlIIIllI(l11l1Il1lll("\229\235\91\148\66\192\151\189",40),{Thickness=1,Color=l1l111Il,Transparency=0.85,Parent=llllIIIIIlll});
-local lIIII1l11I11=lI11IIlIIIllI(l11l1Il1lll("\94\229\181\109\175",108),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,54,0,54),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=l1l111Il,ZIndex=2,Parent=lIIlIIll});
-l1llIIIIIl11(lIIII1l11I11,27);
-llIIIIII1.AccentGradient(lIIII1l11I11,45);
-table.insert(l1l1IlllIlIll,lI11IIlIIIllI(l11l1Il1lll("\188\252\23\208\64\226\245",243),{Parent=lIIlIIll}));
-lIIlIIll.InputBegan:Connect(function(lllIII1II) 
-if (not lIII1lI11) and ((lllIII1II.UserInputType == Enum.UserInputType.Touch) or (lllIII1II.UserInputType == Enum.UserInputType.MouseButton1)) then 
-llI1lIIll.input=lllIII1II end end);
+local l1I11III=lllII1lI1I1I(lI1I1ll1llIl("\114\161\142\104\164\228\171\211\53\149",236),{Size=UDim2.new(0,l1111lIIllI1I,0,l1111lIIllI1I),Text=lI1I1ll1llIl("",0),AutoButtonColor=false,BackgroundTransparency=0.35,Parent=l1111l1I1ll1});
+lI11ll1lIIlII(l1I11III,lI1I1ll1llIl("\141\240\134\115\218\231\56\254\99\235\121\59\254\207\220\103",81),lI1I1ll1llIl("\248\122\80\158\142\17\158\45\88\80",196));
+lIlll1ll1l1I1(l1I11III,l1111lIIllI1I / 2);
+lllII1lI1I1I(lI1I1ll1llIl("\95\226\48\209\235\124\234\109",116),{Thickness=1,Color=ll11lIl1IIlI1,Transparency=0.7,Parent=l1I11III});
+local l11Il11IIl=lllII1lI1I1I(lI1I1ll1llIl("\176\6\39\33\211",60),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0.62,0,0.62,0),Position=UDim2.new(0.5,0,0.5,0),BackgroundTransparency=1,Parent=l1I11III});
+lIlll1ll1l1I1(l11Il11IIl,l1111lIIllI1I);
+lllII1lI1I1I(lI1I1ll1llIl("\48\20\188\183\39\168\25\73",181),{Thickness=1,Color=ll11lIl1IIlI1,Transparency=0.85,Parent=l11Il11IIl});
+local ll1lI1llI1I=lllII1lI1I1I(lI1I1ll1llIl("\112\70\103\97\147",252),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,54,0,54),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=ll11lIl1IIlI1,ZIndex=2,Parent=l1I11III});
+lIlll1ll1l1I1(ll1lI1llI1I,27);
+l111II11I.AccentGradient(ll1lI1llI1I,45);
+table.insert(lIII1ll11l,lllII1lI1I1I(lI1I1ll1llIl("\14\62\82\240\95\60\243",119),{Parent=l1I11III}));
+l1I11III.InputBegan:Connect(function(llIIll11l) 
+if (not lI1IlII1l1l1l) and ((llIIll11l.UserInputType == Enum.UserInputType.Touch) or (llIIll11l.UserInputType == Enum.UserInputType.MouseButton1)) then 
+lIllIIIIll1.input=llIIll11l end end);
 
 
-lI11l11IIl(llIl11lIIl1I1.InputChanged:Connect(function(l1IIlI111) 
-if llI1lIIll.input and ((l1IIlI111 == llI1lIIll.input) or ((l1IIlI111.UserInputType == Enum.UserInputType.MouseMovement) and (llI1lIIll.input.UserInputType == Enum.UserInputType.MouseButton1))) then 
-local llIIIIll=lIIlIIll.AbsolutePosition + (lIIlIIll.AbsoluteSize / 2);
-local l1lI1lllllIIl=Vector2.new(l1IIlI111.Position.X,l1IIlI111.Position.Y) - llIIIIll;
-local l1lI11I1II1=lIIlIIll.AbsoluteSize.X / 2;
-if l1lI1lllllIIl.Magnitude > l1lI11I1II1 then 
-l1lI1lllllIIl=l1lI1lllllIIl.Unit * l1lI11I1II1 end;
+lIl11lIIl(l1IIl1lll1l.InputChanged:Connect(function(llIlIlI111Il) 
+if lIllIIIIll1.input and ((llIlIlI111Il == lIllIIIIll1.input) or ((llIlIlI111Il.UserInputType == Enum.UserInputType.MouseMovement) and (lIllIIIIll1.input.UserInputType == Enum.UserInputType.MouseButton1))) then 
+local lIIlI1I1llI=l1I11III.AbsolutePosition + (l1I11III.AbsoluteSize / 2);
+local l1I1lI1lI1lII=Vector2.new(llIlIlI111Il.Position.X,llIlIlI111Il.Position.Y) - lIIlI1I1llI;
+local l11II1l1Il=l1I11III.AbsoluteSize.X / 2;
+if l1I1lI1lI1lII.Magnitude > l11II1l1Il then 
+l1I1lI1lI1lII=l1I1lI1lI1lII.Unit * l11II1l1Il end;
 
-llI1lIIll.vec=l1lI1lllllIIl / l1lI11I1II1;
-lIIII1l11I11.Position=UDim2.new(0.5,l1lI1lllllIIl.X,0.5,l1lI1lllllIIl.Y) end end));
+lIllIIIIll1.vec=l1I1lI1lI1lII / l11II1l1Il;
+ll1lI1llI1I.Position=UDim2.new(0.5,l1I1lI1lI1lII.X,0.5,l1I1lI1lI1lII.Y) end end));
 
 
-lI11l11IIl(llIl11lIIl1I1.InputEnded:Connect(function(ll1I1I1IlI1I1) 
-if llI1lIIll.input and ((ll1I1I1IlI1I1 == llI1lIIll.input) or (ll1I1I1IlI1I1.UserInputType == Enum.UserInputType.MouseButton1)) then 
-llI1lIIll.input=nil;
-llI1lIIll.vec=Vector2.zero;
-llIIIIII1.Tween(lIIII1l11I11,TweenInfo.new(0.15,Enum.EasingStyle.Back),{Position=UDim2.new(0.5,0,0.5,0)}) end end));
+lIl11lIIl(l1IIl1lll1l.InputEnded:Connect(function(ll1lllIIIl) 
+if lIllIIIIll1.input and ((ll1lllIIIl == lIllIIIIll1.input) or (ll1lllIIIl.UserInputType == Enum.UserInputType.MouseButton1)) then 
+lIllIIIIll1.input=nil;
+lIllIIIIll1.vec=Vector2.zero;
+l111II11I.Tween(ll1lI1llI1I,TweenInfo.new(0.15,Enum.EasingStyle.Back),{Position=UDim2.new(0.5,0,0.5,0)}) end end));
 
 
-l1IIIlll1Ill(l11l1Il1lll("\154\141\49",104),lIIlIIll,UDim2.new(0,115,1,- 100),function() return l1llIlI1lIlI end);
-lI11Il1II(l11l1Il1lll("\208\210\106",224),l1lIlIII(Color3.fromRGB(255,72,88)),l11l1Il1lll("\59\127\89",141),UDim2.new(0.5,- 130,0,104),function() return l1IIlll1I11l.vehAutoOn and (not (lIII1111Il.ap and lIII1111Il.ap.playing)) end,function() 
-if l1lIlI1I1l1Il then 
-l1lIlI1I1l1Il() end end);
+l1l1lIII(lI1I1ll1llIl("\243\59\152",35),l1I11III,UDim2.new(0,115,1,- 100),function() return lII11Illll11 end);
+l1lIIlII1(lI1I1ll1llIl("\133\84\78",22),lIIlI1111IIl(Color3.fromRGB(255,72,88)),lI1I1ll1llIl("\116\129\181",236),UDim2.new(0.5,- 130,0,104),function() return lll1l11Il1ll1.vehAutoOn and (not (l1II1111Illll.ap and l1II1111Illll.ap.playing)) end,function() 
+if lI1Il1l1 then 
+lI1Il1l1() end end);
 
 
-lI11Il1II(l11l1Il1lll("\38\138\28\119",139),lI11Il1II1[l11l1Il1lll("\24\180\154\61\217\35\23\79\105\188\185",87)],l11l1Il1lll("\217\153\165\74",147),UDim2.new(0.5,- 198,0,104),function() return l1IIlll1I11l.vehAutoOn and (not lIII1111Il.recording) end,function() 
-if lll1Ill1I1 then 
-lll1Ill1I1() end end);
+l1lIIlII1(lI1I1ll1llIl("\7\221\204\86",150),lllI1I111l[lI1I1ll1llIl("\54\227\191\32\186\89\88\185\133\128\102",182)],lI1I1ll1llIl("\218\103\162\124",244),UDim2.new(0.5,- 198,0,104),function() return lll1l11Il1ll1.vehAutoOn and (not l1II1111Illll.recording) end,function() 
+if lIIllIlIIl1ll then 
+lIIllIlIIl1ll() end end);
 
 
-lI11Il1II(l11l1Il1lll("\9\175\88\225",233),lI11Il1II1[l11l1Il1lll("\185\63\202\55\225\187\108",89)],l11l1Il1lll("\144\2\190\189",102),UDim2.new(0.5,- 266,0,104),function() return (l1IIlll1I11l.vehAutoOn and l1IIlll1I11l.vehFarmOn) and lIII1111Il.recording end,function() 
-if llIlI1ll1Il11 then 
-llIlI1ll1Il11() end end);
+l1lIIlII1(lI1I1ll1llIl("\216\236\45\24",101),lllI1I111l[lI1I1ll1llIl("\198\178\126\138\239\192\235",98)],lI1I1ll1llIl("\240\30\184\207",57),UDim2.new(0.5,- 266,0,104),function() return (lll1l11Il1ll1.vehAutoOn and lll1l11Il1ll1.vehFarmOn) and l1II1111Illll.recording end,function() 
+if l1I1l1Ill1I1l then 
+l1I1l1Ill1I1l() end end);
 
 
-l1IIIlll1Ill(l11l1Il1lll("\7\162\95\249\149\199\224",233),llIII11lI11l1,UDim2.new(0.5,0,0,104),function() return l1IIlll1I11l.vehShowCluster == true end);
+l1l1lIII(lI1I1ll1llIl("\185\148\147\159\227\188\223",237),lI1I1IIIl,UDim2.new(0.5,0,0,104),function() return lll1l11Il1ll1.vehShowCluster == true end);
 
-local lIlIl1II={joy=UDim2.new(0,115,1,- 100),r_thrust=UDim2.new(1,- 152,1,- 55),rocket=UDim2.new(1,- 152,1,- 55),brake=UDim2.new(1,- 247,1,- 45),up=UDim2.new(1,- 42,1,- 170),down=UDim2.new(1,- 112,1,- 170),r_fly=UDim2.new(1,- 42,0,130),fly=UDim2.new(1,- 42,0,130),r_roll=UDim2.new(1,- 112,0,130),r_flipf=UDim2.new(1,- 182,0,130),r_flipb=UDim2.new(1,- 252,0,130),r_hover=UDim2.new(1,- 112,0,200),rec=UDim2.new(0.5,- 40,0,92),play=UDim2.new(0.5,30,0,92),mark=UDim2.new(0.5,100,0,92)};
+local llll1IlIIII1={joy=UDim2.new(0,115,1,- 100),r_thrust=UDim2.new(1,- 152,1,- 55),rocket=UDim2.new(1,- 152,1,- 55),brake=UDim2.new(1,- 247,1,- 45),up=UDim2.new(1,- 42,1,- 170),down=UDim2.new(1,- 112,1,- 170),r_fly=UDim2.new(1,- 42,0,130),fly=UDim2.new(1,- 42,0,130),r_roll=UDim2.new(1,- 112,0,130),r_flipf=UDim2.new(1,- 182,0,130),r_flipb=UDim2.new(1,- 252,0,130),r_hover=UDim2.new(1,- 112,0,200),rec=UDim2.new(0.5,- 40,0,92),play=UDim2.new(0.5,30,0,92),mark=UDim2.new(0.5,100,0,92)};
 
 
 
@@ -2242,960 +2246,960 @@ local lIlIl1II={joy=UDim2.new(0,115,1,- 100),r_thrust=UDim2.new(1,- 152,1,- 55),
 
 
 
-for lI111ll1IIl1,lIlIl11II1 in pairs(lIlIl1II) do 
-if l1l11l1l[lI111ll1IIl1] then 
-l1l11l1l[lI111ll1IIl1].fdefault=lIlIl11II1 end end;
+for lIlIIII1l1,lI1lIIII in pairs(llll1IlIIII1) do 
+if l1lllIl1Ill11[lIlIIII1l1] then 
+l1lllIl1Ill11[lIlIIII1l1].fdefault=lI1lIIII end end;
 
 
-for lIll1llI1,l1II1I1l11 in ipairs({l11l1Il1lll("\119\172\203\218\55\94\231\234",226),l11l1Il1lll("\114\152\30\169\137\34",69)}) do 
-local llIlI111lI=l1l11l1l[l1II1I1l11] and l1l11l1l[l1II1I1l11].gui;
-if llIlI111lI then 
-llIlI111lI.Size=UDim2.new(0,80,0,80);
-for llI1IlIIIl,lI1IIIlIllIll in ipairs(llIlI111lI:GetDescendants()) do 
-if lI1IIIlIllIll:IsA(l11l1Il1lll("\140\163\137\127\123\233\24\83",61)) and (lI1IIIlIllIll.CornerRadius.Offset >= 20) then 
-lI1IIIlIllIll.CornerRadius=UDim.new(0.5,0) end end;
+for lllIll111II1I,l1II11lII in ipairs({lI1I1ll1llIl("\41\40\117\251\76\37\229\208",119),lI1I1ll1llIl("\24\7\21\247\130\61",93)}) do 
+local ll111I1IIl1l=l1lllIl1Ill11[l1II11lII] and l1lllIl1Ill11[l1II11lII].gui;
+if ll111I1IIl1l then 
+ll111I1IIl1l.Size=UDim2.new(0,80,0,80);
+for lI11llIlIII,l1llI1l1ll in ipairs(ll111I1IIl1l:GetDescendants()) do 
+if l1llI1l1ll:IsA(lI1I1ll1llIl("\95\226\32\202\235\125\228\122",116)) and (l1llI1l1ll.CornerRadius.Offset >= 20) then 
+l1llI1l1ll.CornerRadius=UDim.new(0.5,0) end end;
 
 
-local l1l1llIII1lI=llIlI111lI:FindFirstChildOfClass(l11l1Il1lll("\51\255\110\17\36\242\208\121",187));
-if l1l1llIII1lI then 
-l1l1llIII1lI.CornerRadius=UDim.new(0.5,0) end end end;
+local lllIl1l1I=ll111I1IIl1l:FindFirstChildOfClass(lI1I1ll1llIl("\238\138\189\56\29\215\240\85",114));
+if lllIl1l1I then 
+lllIl1l1I.CornerRadius=UDim.new(0.5,0) end end end;
 
 
 
 
 
-local l11I1Il11l=l1IIllI1l1(38);
-local llIIlIlI=lI11IIlIIIllI(l11l1Il1lll("\134\69\220\111\73",133),{AnchorPoint=Vector2.new(0.5,0),Size=UDim2.new(0,14,0,10),Position=UDim2.new(0.5,0,0.5,- 1),ZIndex=3,Parent=l11I1Il11l});
-llIllI11I1I(llIIlIlI,l11l1Il1lll("\255\66\239\253\123\134\43\166\254\160\77\108\209\20\85\25",6),l11l1Il1lll("\221\176\156\103",147));
-l1llIIIIIl11(llIIlIlI,3);
-local ll1I11l1ll=lI11IIlIIIllI(l11l1Il1lll("\175\199\37\222\68",243),{AnchorPoint=Vector2.new(0.5,1),Size=UDim2.new(0,10,0,12),Position=UDim2.new(0.5,0,0.5,3),BackgroundTransparency=1,ZIndex=2,Parent=l11I1Il11l});
-l1llIIIIIl11(ll1I11l1ll,5);
-local lI1I11lI1111=lI11IIlIIIllI(l11l1Il1lll("\147\31\158\234\196\19\126\206",27),{Thickness=2,Parent=ll1I11l1ll});
-llIllI11I1I(lI1I11lI1111,l11l1Il1lll("\205\59\33\172\67",15),l11l1Il1lll("\26\241\245\119",207));
-l1IIIlll1Ill(l11l1Il1lll("\188\173\11\235",72),l11I1Il11l,UDim2.new(1,- 112,0,92),function() return true end);
-l1l11l1l.lock.fdefault=UDim2.new(1,- 182,0,200);
-local function lI1lll1111l(l11ll1I111I1,ll1l1lll11IlI) 
-lIII1lI11=l11ll1I111I1;
-llIIIIII1.Tween(ll1I11l1ll,nil,{Position=(l11ll1I111I1 and UDim2.new(0.5,4,0.5,- 1)) or UDim2.new(0.5,0,0.5,3)});
-llIIlIlI.BackgroundColor3=(l11ll1I111I1 and llIIIIII1.Theme.Accent) or llIIIIII1.Theme.Text;
-for l1l11ll1l,lIIIlIIllll in pairs(l1l11l1l) do 
-lIIIlIIllll.editStroke.Transparency=(l11ll1I111I1 and 0.15) or 1;
-lIIIlIIllll.editStroke.Color=llIIIIII1.Theme.Accent end;
+local lIIIII1Ill1=l1l1IIIlI(38);
+local llIII1IIIl=lllII1lI1I1I(lI1I1ll1llIl("\12\153\194\8\60",52),{AnchorPoint=Vector2.new(0.5,0),Size=UDim2.new(0,14,0,10),Position=UDim2.new(0.5,0,0.5,- 1),ZIndex=3,Parent=lIIIII1Ill1});
+lI11ll1lIIlII(llIII1IIIl,lI1I1ll1llIl("\100\57\205\199\221\50\68\0\23\208\66\86\159\128\27\216",139),lI1I1ll1llIl("\91\52\93\172",145));
+lIlll1ll1l1I1(llIII1IIIl,3);
+local l1I1I11l1I=lllII1lI1I1I(lI1I1ll1llIl("\19\31\222\254\64",133),{AnchorPoint=Vector2.new(0.5,1),Size=UDim2.new(0,10,0,12),Position=UDim2.new(0.5,0,0.5,3),BackgroundTransparency=1,ZIndex=2,Parent=lIIIII1Ill1});
+lIlll1ll1l1I1(l1I1I11l1I,5);
+local l1lIl1I1=lllII1lI1I1I(lI1I1ll1llIl("\112\84\124\119\231\104\217\137",245),{Thickness=2,Parent=l1I1I11l1I});
+lI11ll1lIIlII(l1lIl1I1,lI1I1ll1llIl("\65\103\158\210\145",14),lI1I1ll1llIl("\11\100\13\220",193));
+l1l1lIII(lI1I1ll1llIl("\185\130\92\120",5),lIIIII1Ill1,UDim2.new(1,- 112,0,92),function() return true end);
+l1lllIl1Ill11.lock.fdefault=UDim2.new(1,- 182,0,200);
+local function llIll11Il1I(lI1lllI1II1,ll11lIIlII1I) 
+lI1IlII1l1l1l=lI1lllI1II1;
+l111II11I.Tween(l1I1I11l1I,nil,{Position=(lI1lllI1II1 and UDim2.new(0.5,4,0.5,- 1)) or UDim2.new(0.5,0,0.5,3)});
+llIII1IIIl.BackgroundColor3=(lI1lllI1II1 and l111II11I.Theme.Accent) or l111II11I.Theme.Text;
+for ll1ll1II,ll111I111 in pairs(l1lllIl1Ill11) do 
+ll111I111.editStroke.Transparency=(lI1lllI1II1 and 0.15) or 1;
+ll111I111.editStroke.Color=l111II11I.Theme.Accent end;
 
-if l11ll1I111I1 and (not ll1l1lll11IlI) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\4\117\76\229\185\85\184\229\212\56\179\17",173),Content=l11l1Il1lll("\1\193\158\149\37\138\58\39\196\94\233\127\44\19\40\117\213\87\14\18\181\111\204\171\84\224\67\216\163\204\87\76\4\250\177\242\82\227\81\80\164\101\211\94\95\46\195\155\113\140\33\39\155",162),Type=l11l1Il1lll("\31\168\59\1",171),Force=true}) end;
+if lI1lllI1II1 and (not ll11lIIlII1I) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\182\236\72\242\143\27\32\147\1\179\220\59",50),Content=lI1I1ll1llIl("\191\241\95\240\143\24\59\158\85\190\199\60\254\255\20\43\75\71\175\23\127\157\173\50\229\32\77\187\145\192\139\242\186\202\48\215\184\113\80\169\117\133\253\29\77\2\255\197\47\92\128\34\81",50),Type=lI1I1ll1llIl("\191\122\64\67",28),Force=true}) end;
 
-if l1llllI1lll1l.vehPadLocked and (l1llllI1lll1l.vehPadLocked.Value == l11ll1I111I1) then 
-l1llllI1lll1l.vehPadLocked:Set(not l11ll1I111I1,true);
-l1IIlll1I11l.vehPadLocked=not l11ll1I111I1;
-lI11II1llI1:_queueSave() end end;
+if lllIIlllIIlIl.vehPadLocked and (lllIIlllIIlIl.vehPadLocked.Value == lI1lllI1II1) then 
+lllIIlllIIlIl.vehPadLocked:Set(not lI1lllI1II1,true);
+lll1l11Il1ll1.vehPadLocked=not lI1lllI1II1;
+l1l1Ill1:_queueSave() end end;
 
 
-l11I1Il11l.MouseButton1Click:Connect(function() 
-lI1lll1111l(not lIII1lI11) end);
+lIIIII1Ill1.MouseButton1Click:Connect(function() 
+llIll11Il1I(not lI1IlII1l1l1l) end);
 
-l1llllI1lll1l.vehPadLocked.Callback=function(lI1lllllll) 
-if lIII1lI11 == lI1lllllll then 
-lI1lll1111l(not lI1lllllll,true) end end;
+lllIIlllIIlIl.vehPadLocked.Callback=function(l1l1I11IIlIIl) 
+if lI1IlII1l1l1l == l1l1I11IIlIIl then 
+llIll11Il1I(not l1l1I11IIlIIl,true) end end;
 
 
-l1llllI1lll1l.vehPadSize.Callback=function(lII111l1II11I) 
-ll1llII1ll=({Small=0.82,Normal=1,Large=1.18})[lII111l1II11I] or 1;
-for llIllIll,ll1l1lIll in ipairs(l1l1IlllIlIll) do 
-ll1l1lIll.Scale=ll1llII1ll end end;
+lllIIlllIIlIl.vehPadSize.Callback=function(lIl1IlI1) 
+llllIIlIl1l=({Small=0.82,Normal=1,Large=1.18})[lIl1IlI1] or 1;
+for llI1IIll,lI11Il1lI1l1 in ipairs(lIII1ll11l) do 
+lI11Il1lI1l1.Scale=llllIIlIl1l end end;
 
 
-llI111Ill1:Button({Name=l11l1Il1lll("\67\202\38\124\108\255\39\159\128\202\53\148\81\94\67\145\142\42\209",65),Action=l11l1Il1lll("\38\91\169\31\133",249),Callback=function() 
-lI11llll111l={};
-llIIIIII1:WriteJSON(llll1lI1l1,lI11llll111l);
-for lIlI11111Il in pairs(l1l11l1l) do 
-ll111III111(lIlI11111Il) end;
+l1l11IIlI1l:Button({Name=lI1I1ll1llIl("\216\173\165\89\51\9\63\229\81\105\64\109\181\107\211\149\117\77\82",189),Action=lI1I1ll1llIl("\140\204\132\154\70",48),Callback=function() 
+lllIIlll={};
+l111II11I:WriteJSON(lll1I1IlllI1I,lllIIlll);
+for l111lII1 in pairs(l1lllIl1Ill11) do 
+llIll1Il(l111lII1) end;
 
-lI11IIlIl11=l11l1Il1lll("",141) end});
+lIllI1lIIIl=lI1I1ll1llIl("",210) end});
 
 
 
-local lllII11l=lI11IIlIIIllI(l11l1Il1lll("\250\17\21\215\29\124\126\190\37",47),{AnchorPoint=Vector2.new(0.5,1),Size=UDim2.new(0,150,0,34),Position=UDim2.new(0.5,0,1,- 14),BackgroundTransparency=0.2,Font=Enum.Font.GothamBlack,TextSize=15,Text=l11l1Il1lll("",192),Visible=false,Parent=llIIIIII1.Gui});
-llIllI11I1I(lllII11l,l11l1Il1lll("\27\11\41\251\238\117\146\212\222\35\110\253\240\73\176\97",189),l11l1Il1lll("\150\63\217\113\246\160\109\189\175\27",89));
-llIllI11I1I(lllII11l,l11l1Il1lll("\100\162\213\102\95\201\46\189\59\41",117),l11l1Il1lll("\209\22\71\70",98));
-l1llIIIIIl11(lllII11l,17);
-llIIIIII1.Stroke(lllII11l,l11l1Il1lll("\253\0\31\204\58\120",47));
+local l1l1IIIlIIl=lllII1lI1I1I(lI1I1ll1llIl("\225\232\39\7\73\246\64\57\198",101),{AnchorPoint=Vector2.new(0.5,1),Size=UDim2.new(0,150,0,34),Position=UDim2.new(0.5,0,1,- 14),BackgroundTransparency=0.2,Font=Enum.Font.GothamBlack,TextSize=15,Text=lI1I1ll1llIl("",133),Visible=false,Parent=l111II11I.Gui});
+lI11ll1lIIlII(l1l1IIIlIIl,lI1I1ll1llIl("\197\32\30\148\250\86\53\213\252\220\1\66\31\20\196\44",102),lI1I1ll1llIl("\183\61\81\163\109\98\149\240\133\247",234));
+lI11ll1lIIlII(l1l1IIIlIIl,lI1I1ll1llIl("\177\184\23\55\150\40\158\195\40\75",53),lI1I1ll1llIl("\214\45\75\9",159));
+lIlll1ll1l1I1(l1l1IIIlIIl,17);
+l111II11I.Stroke(l1l1IIIlIIl,lI1I1ll1llIl("\138\96\211\246\56\234",99));
 
 
 
-local ll1IllIII1II=game:GetService(l11l1Il1lll("\55\17\199\240\120\105\49\35\206\86",222));
-local function lIIlI11lIIlll(l111l1111,lI11lI1llI1) 
-local lI1I1II111I=ll1IllIII1II:GetGuiInset();
-local lIllI11I,lIIl11111I=pcall(function() 
-return lllI1llI.PlayerGui:GetGuiObjectsAtPosition(l111l1111,lI11lI1llI1 - lI1I1II111I.Y) end);
+local lI1l1lI1I1l=game:GetService(lI1I1ll1llIl("\98\104\70\80\240\117\196\133\121\93",245));
+local function ll1Ill1I11Il(l1IIlI1I,lIIll1l11) 
+local llIll1Ill1l1=lI1l1lI1I1l:GetGuiInset();
+local lI1I1I111l,lll11ll1l=pcall(function() 
+return ll1lI1IIII1.PlayerGui:GetGuiObjectsAtPosition(l1IIlI1I,lIIll1l11 - llIll1Ill1l1.Y) end);
 
-if not lIllI11I then 
+if not lI1I1I111l then 
 return false end;
 
-local l11llI1I=lI1IllIll11();
-for l11ll11IIIll1,lllI11l11I1l in ipairs(lIIl11111I) do 
-local l1lI1II1I=lllI11l11I1l.AbsoluteSize;
+local lI111lI1l1lll=l11l1lIl1();
+for llI11I1ll111,lIl1111IlIl1I in ipairs(lll11ll1l) do 
+local lIl11llI1I1=lIl1111IlIl1I.AbsoluteSize;
 
-if (lllI11l11I1l.Visible and (l1lI1II1I.X < (l11llI1I.X * 0.5))) and (l1lI1II1I.Y < (l11llI1I.Y * 0.6)) then 
-if lllI11l11I1l:IsA(l11l1Il1lll("\6\138\108\43\29\251\97\181\170",17)) then 
+if (lIl1111IlIl1I.Visible and (lIl11llI1I1.X < (lI111lI1l1lll.X * 0.5))) and (lIl11llI1I1.Y < (lI111lI1l1lll.Y * 0.6)) then 
+if lIl1111IlIl1I:IsA(lI1I1ll1llIl("\197\61\90\63\116\200\109\94\149",159)) then 
 return true end;
 
-local l1II1IIll1I1=lllI11l11I1l.BackgroundTransparency < 0.6;
-if ((lllI11l11I1l:IsA(l11l1Il1lll("\13\49\157\12\93\80\135\153\48\207",122)) or lllI11l11I1l:IsA(l11l1Il1lll("\169\159\217\55\133\61\121\92\134\136\55",120))) and (lllI11l11I1l.Image ~= l11l1Il1lll("",17))) and (lllI11l11I1l.ImageTransparency < 0.6) then 
-l1II1IIll1I1=true end;
+local lll1lI1II1lll=lIl1111IlIl1I.BackgroundTransparency < 0.6;
+if ((lIl1111IlIl1I:IsA(lI1I1ll1llIl("\254\28\12\136\8\152\43\210\231\228",86)) or lIl1111IlIl1I:IsA(lI1I1ll1llIl("\111\53\207\203\223\2\94\1\13\219\111",139))) and (lIl1111IlIl1I.Image ~= lI1I1ll1llIl("",171))) and (lIl1111IlIl1I.ImageTransparency < 0.6) then 
+lll1lI1II1lll=true end;
 
-if ((lllI11l11I1l:IsA(l11l1Il1lll("\0\187\66\238\93\51\224\45\45",217)) or lllI11l11I1l:IsA(l11l1Il1lll("\245\122\157\61\10\218\65\206\203\96",241))) and (lllI11l11I1l.Text ~= l11l1Il1lll("",159))) and (lllI11l11I1l.TextTransparency < 0.6) then 
-l1II1IIll1I1=true end;
+if ((lIl1111IlIl1I:IsA(lI1I1ll1llIl("\33\40\231\199\9\182\0\121\134",165)) or lIl1111IlIl1I:IsA(lI1I1ll1llIl("\210\1\46\8\196\132\203\179\149\53",76))) and (lIl1111IlIl1I.Text ~= lI1I1ll1llIl("",98))) and (lIl1111IlIl1I.TextTransparency < 0.6) then 
+lll1lI1II1lll=true end;
 
-if l1II1IIll1I1 then 
+if lll1lI1II1lll then 
 return true end end end;
 
 
 
-return lI11lI1llI1 < (lI1I1II111I.Y + 8) end;
+return lIIll1l11 < (llIll1Ill1l1.Y + 8) end;
 
-local function ll1l111Il1I1(ll1Il111lI1I,l1I11III,lIll11I1II,l1lI11III11Il) 
-for lI11lI1lII1l,l1ll1II1 in ipairs(l1lI11III11Il) do 
-if (Vector2.new(ll1Il111lI1I,l1I11III) - l1ll1II1).Magnitude < ((lIll11I1II * 2) + 4) then 
+local function lIl1lII1(llIIIIIIlIlll,lIllIIII,l1III1l111I,lI111lI1lI111) 
+for lIIlIIllI,l1Ill1lI11II in ipairs(lI111lI1lI111) do 
+if (Vector2.new(llIIIIIIlIlll,lIllIIII) - l1Ill1lI11II).Magnitude < ((l1III1l111I * 2) + 4) then 
 return false end end;
 
 
-for l1l1I1l1IIIl,l1IIIlIl1l in ipairs({Vector2.new(0,0),Vector2.new(- lIll11I1II,- lIll11I1II),Vector2.new(lIll11I1II,- lIll11I1II),Vector2.new(- lIll11I1II,lIll11I1II),Vector2.new(lIll11I1II,lIll11I1II)}) do 
-if lIIlI11lIIlll(ll1Il111lI1I + (l1IIIlIl1l.X * 0.8),l1I11III + (l1IIIlIl1l.Y * 0.8)) then 
+for llI1Il11,l1l1I1l1l1ll in ipairs({Vector2.new(0,0),Vector2.new(- l1III1l111I,- l1III1l111I),Vector2.new(l1III1l111I,- l1III1l111I),Vector2.new(- l1III1l111I,l1III1l111I),Vector2.new(l1III1l111I,l1III1l111I)}) do 
+if ll1Ill1I11Il(llIIIIIIlIlll + (l1l1I1l1l1ll.X * 0.8),lIllIIII + (l1l1I1l1l1ll.Y * 0.8)) then 
 return false end end;
 
 
 return true end;
 
-local lll1l11II111={l11l1Il1lll("\43\144\124",17),l11l1Il1lll("\227\254\109\131\52\186\158",24),l11l1Il1lll("\60\235\45\40",254),l11l1Il1lll("\180\171\0",144),l11l1Il1lll("\57\17\207\91\193",4),l11l1Il1lll("\178\88\222\105\73\226",133),l11l1Il1lll("\3\193\19",214),l11l1Il1lll("\214\35\168\35\106\73\245\239",154),l11l1Il1lll("\220\107\114\192\53",63),l11l1Il1lll("\51\160\119\6\4\227",17),l11l1Il1lll("\114\77\254\28\169\47\10",152),l11l1Il1lll("\39\252\233\238\28\139\38",178),l11l1Il1lll("\57\44\248\108\205",20),l11l1Il1lll("\40\51\246\108\205",20),l11l1Il1lll("\10\72\111\137\138\50",141),l11l1Il1lll("\226\56\165\29\10\163\80",213),l11l1Il1lll("\52\143",17),l11l1Il1lll("\41\188\235\232",246),l11l1Il1lll("\86\235\9",169),l11l1Il1lll("\238\8\28\170",31),l11l1Il1lll("\240\98\222\221",38)};
-local function l11IIIl11ll1() 
-local ll1lI1IllI=lI1IllIll11();
-local l11Ill1l1Ill1={};
+local lI1I1l1Ill1l={lI1I1ll1llIl("\241\216\56",183),lI1I1ll1llIl("\85\4\235\207\222\53\41",155),lI1I1ll1llIl("\17\112\201\175",249),lI1I1ll1llIl("\220\119\74",196),lI1I1ll1llIl("\67\228\63\140\231",56),lI1I1ll1llIl("\41\24\98\248\91\36",119),lI1I1ll1llIl("\96\75\72",224),lI1I1ll1llIl("\77\62\97\160\31\80\148\175",161),lI1I1ll1llIl("\59\251\78\106\167",227),lI1I1ll1llIl("\132\43\52\35\218\173",60),lI1I1ll1llIl("\119\211\132\116\83\80\204",26),lI1I1ll1llIl("\104\228\245\57\224\115\243",100),lI1I1ll1llIl("\231\207\46\8\144",85),lI1I1ll1llIl("\68\156\130\4\136",214),lI1I1ll1llIl("\44\99\16\241\78\112",209),lI1I1ll1llIl("\244\167\102\35\44\197\185",43),lI1I1ll1llIl("\31\24",93),lI1I1ll1llIl("\99\174\138\17",230),lI1I1ll1llIl("\253\180\198",17),lI1I1ll1llIl("\138\55\18\204",132),lI1I1ll1llIl("\230\146\92\236",66)};
+local function l1llIII11IlI() 
+local ll1II1II1II=l11l1lIl1();
+local llI1lIl1lII1={};
 
-local l1III1Il1=lI11II1llI1._float;
-if l1III1Il1 and l1III1Il1.Visible then 
-local lI111Ill1=l1III1Il1.Position;
-local lIIllIIl11l=((lI111Ill1.X.Scale * ll1lI1IllI.X) + lI111Ill1.X.Offset) + (l1III1Il1.AbsoluteSize.X / 2);
-local l1I11111II1I=((lI111Ill1.Y.Scale * ll1lI1IllI.Y) + lI111Ill1.Y.Offset) + (l1III1Il1.AbsoluteSize.Y / 2);
-table.insert(l11Ill1l1Ill1,Vector2.new(lIIllIIl11l,l1I11111II1I));
-table.insert(l11Ill1l1Ill1,Vector2.new(lIIllIIl11l,l1I11111II1I + 20)) end;
+local lIll11l1ll11=l1l1Ill1._float;
+if lIll11l1ll11 and lIll11l1ll11.Visible then 
+local lI1llII1Ill11=lIll11l1ll11.Position;
+local ll11II1l1Il=((lI1llII1Ill11.X.Scale * ll1II1II1II.X) + lI1llII1Ill11.X.Offset) + (lIll11l1ll11.AbsoluteSize.X / 2);
+local lIll1Ill=((lI1llII1Ill11.Y.Scale * ll1II1II1II.Y) + lI1llII1Ill11.Y.Offset) + (lIll11l1ll11.AbsoluteSize.Y / 2);
+table.insert(llI1lIl1lII1,Vector2.new(ll11II1l1Il,lIll1Ill));
+table.insert(llI1lIl1lII1,Vector2.new(ll11II1l1Il,lIll1Ill + 20)) end;
 
-for llllIlIlIlll,l1lIlllll in ipairs(lll1l11II111) do 
-local llI1llll1=l1l11l1l[l1lIlllll];
-if llI1llll1 and (not llI1llll1.gui.Visible) then 
-llI1llll1=nil end;
+for llI111l1l1l1,lll111111l in ipairs(lI1I1l1Ill1l) do 
+local l1lIl1l1lI=l1lllIl1Ill11[lll111111l];
+if l1lIl1l1lI and (not l1lIl1l1lI.gui.Visible) then 
+l1lIl1l1lI=nil end;
 
-if llI1llll1 and (not lI11llll111l[l1l1l1II1II1(l1lIlllll)]) then 
-ll111III111(l1lIlllll);
-local lll1111l1=llI1llll1.gui.Position;
-local lI1IlIlI1I,ll1I1lIl=(lll1111l1.X.Scale * ll1lI1IllI.X) + lll1111l1.X.Offset,(lll1111l1.Y.Scale * ll1lI1IllI.Y) + lll1111l1.Y.Offset;
-local ll1I1lIIlII1I=math.max(llI1llll1.gui.AbsoluteSize.X,llI1llll1.gui.AbsoluteSize.Y) / 2;
-if not ll1l111Il1I1(lI1IlIlI1I,ll1I1lIl,ll1I1lIIlII1I,l11Ill1l1Ill1) then 
+if l1lIl1l1lI and (not lllIIlll[l1l1IIIl(lll111111l)]) then 
+llIll1Il(lll111111l);
+local l1ll111II=l1lIl1l1lI.gui.Position;
+local lI111lIllIl,ll1ll1l1l=(l1ll111II.X.Scale * ll1II1II1II.X) + l1ll111II.X.Offset,(l1ll111II.Y.Scale * ll1II1II1II.Y) + l1ll111II.Y.Offset;
+local l11IIllIl=math.max(l1lIl1l1lI.gui.AbsoluteSize.X,l1lIl1l1lI.gui.AbsoluteSize.Y) / 2;
+if not lIl1lII1(lI111lIllIl,ll1ll1l1l,l11IIllIl,llI1lIl1lII1) then 
 
-local llll111I1;
-for lIIlI1l11l=1,8 do 
-for lIII1lIII11l=0,11 do 
-local lll1II1I=((lIII1lIII11l / 12) * math.pi) * 2;
-local llII1Ill1I1I,l11l1lIllIIII=lI1IlIlI1I + ((math.cos(lll1II1I) * lIIlI1l11l) * 34),ll1I1lIl + ((math.sin(lll1II1I) * lIIlI1l11l) * 34);
-if ((((llII1Ill1I1I > (ll1I1lIIlII1I + 4)) and (llII1Ill1I1I < ((ll1lI1IllI.X - ll1I1lIIlII1I) - 4))) and (l11l1lIllIIII > (ll1I1lIIlII1I + 4))) and (l11l1lIllIIII < ((ll1lI1IllI.Y - ll1I1lIIlII1I) - 4))) and ll1l111Il1I1(llII1Ill1I1I,l11l1lIllIIII,ll1I1lIIlII1I,l11Ill1l1Ill1) then 
-llll111I1=Vector2.new(llII1Ill1I1I,l11l1lIllIIII);
+local lIlI1I1Il11I;
+for llIIllllll=1,8 do 
+for lllllIllIl=0,11 do 
+local lllI11lll=((lllllIllIl / 12) * math.pi) * 2;
+local lIIl1lIIll11I,lIl111I1=lI111lIllIl + ((math.cos(lllI11lll) * llIIllllll) * 34),ll1ll1l1l + ((math.sin(lllI11lll) * llIIllllll) * 34);
+if ((((lIIl1lIIll11I > (l11IIllIl + 4)) and (lIIl1lIIll11I < ((ll1II1II1II.X - l11IIllIl) - 4))) and (lIl111I1 > (l11IIllIl + 4))) and (lIl111I1 < ((ll1II1II1II.Y - l11IIllIl) - 4))) and lIl1lII1(lIIl1lIIll11I,lIl111I1,l11IIllIl,llI1lIl1lII1) then 
+lIlI1I1Il11I=Vector2.new(lIIl1lIIll11I,lIl111I1);
 break end end;
 
 
-if llll111I1 then 
+if lIlI1I1Il11I then 
 break end end;
 
 
-if llll111I1 then 
-lI1IlIlI1I,ll1I1lIl=llll111I1.X,llll111I1.Y;
-llI1llll1.gui.Position=UDim2.new(0,lI1IlIlI1I,0,ll1I1lIl) end end;
+if lIlI1I1Il11I then 
+lI111lIllIl,ll1ll1l1l=lIlI1I1Il11I.X,lIlI1I1Il11I.Y;
+l1lIl1l1lI.gui.Position=UDim2.new(0,lI111lIllIl,0,ll1ll1l1l) end end;
 
 
-table.insert(l11Ill1l1Ill1,Vector2.new(lI1IlIlI1I,ll1I1lIl)) elseif llI1llll1 then 
+table.insert(llI1lIl1lII1,Vector2.new(lI111lIllIl,ll1ll1l1l)) elseif l1lIl1l1lI then 
 
-local llllIlIlII1I=llI1llll1.gui.Position;
-table.insert(l11Ill1l1Ill1,Vector2.new((llllIlIlII1I.X.Scale * ll1lI1IllI.X) + llllIlIlII1I.X.Offset,(llllIlIlII1I.Y.Scale * ll1lI1IllI.Y) + llllIlIlII1I.Y.Offset)) end end end;
-
-
-
+local lI1lI1l1lI=l1lIl1l1lI.gui.Position;
+table.insert(llI1lIl1lII1,Vector2.new((lI1lI1l1lI.X.Scale * ll1II1II1II.X) + lI1lI1l1lI.X.Offset,(lI1lI1l1lI.Y.Scale * ll1II1II1II.Y) + lI1lI1l1lI.Y.Offset)) end end end;
 
 
 
-local lII1IIIl1lIIl={l11l1Il1lll("\6\15\171\48\119\98\141\42",48),l11l1Il1lll("\170\85\5\59\255",188),l11l1Il1lll("\70\149\131\71\179\239\253\48\172",175),l11l1Il1lll("\206\148\247",179),l11l1Il1lll("\194\193\24\6\175\40\98",30),l11l1Il1lll("\181\86\27\19\233",34),l11l1Il1lll("\97\115\220\26\81",80),l11l1Il1lll("\206\19\165\56\108\85\229\240",154),l11l1Il1lll("\104\52\27\44\54\144",237),l11l1Il1lll("\181\61\217\127\253\183\112\169\181",89),l11l1Il1lll("\96\189\185\49\222",143),l11l1Il1lll("\2\29\87\163\20",248),l11l1Il1lll("\77\8\51\198\205",205),l11l1Il1lll("\22\235\20",53)};
-local lI1IIll11I={l11l1Il1lll("\115\44\239\240\78\146\212",190),l11l1Il1lll("\6\1\198\202\126\119\34",222),l11l1Il1lll("\137\1\149\144\41",86),l11l1Il1lll("\253\88\99\166\160\41\218",125),l11l1Il1lll("\248\255\43",212),l11l1Il1lll("\78\220\82\82\254\11\216",150),l11l1Il1lll("\42\150\109\215\42\129\40\99\90\145\159",119),l11l1Il1lll("\165\18\152\235\212",11),l11l1Il1lll("\164\59\222\123\253",89),l11l1Il1lll("\237\24\159\43\0\179",197)};
-local llIll11lII1ll={l11l1Il1lll("\159\18\152\143\35",86),l11l1Il1lll("\255\242\74\150\192",208),l11l1Il1lll("\166\171\71\194",132),l11l1Il1lll("\131\138\39\208",104),l11l1Il1lll("\43\163\251\178\111",44),l11l1Il1lll("\224\187\146\118\239\90\95\136\111",147),l11l1Il1lll("\12\15\251\118\191\175",36),l11l1Il1lll("\132\219\234",13),l11l1Il1lll("\161\191\8\251",128),l11l1Il1lll("\177\178\29\251\186\136\118",128),l11l1Il1lll("\59\147\143\35\44\154",103),l11l1Il1lll("\253\89\72\224\127\204",167),l11l1Il1lll("\122\201\92\42\15\194\194",203),l11l1Il1lll("\6\168\240\217\28",28),l11l1Il1lll("\213\99\73\246\11\188",151),l11l1Il1lll("\205\251\48\22\180",14),l11l1Il1lll("\218\132\135\107",163),l11l1Il1lll("\244\6\90\65\177",98),l11l1Il1lll("\74\8\63\215",205),l11l1Il1lll("\196\50\188\14\233\68",229),l11l1Il1lll("\166\187\69\195\81\90\252\1\173\85",132)};
-local llII1I111={};
-local l1I1llII1={};
-local function lll111II(l1II11I11,l1lIIII1I) 
-for llI11lIl11l1l,l111I1lI in ipairs(l1lIIII1I) do 
-if string.find(l1II11I11,l111I1lI,1,true) then 
+
+
+
+local lI1I1l11I1II={lI1I1ll1llIl("\251\185\215\55\137\161\123\46",17),lI1I1ll1llIl("\47\189\27\127\183",201),lI1I1ll1llIl("\167\240\139\124\223\231\54\224\104",81),lI1I1ll1llIl("\125\89\85",45),lI1I1ll1llIl("\240\237\4\88\17\120\163",142),lI1I1ll1llIl("\150\253\10\13\22",75),lI1I1ll1llIl("\149\236\11\9\8",75),lI1I1ll1llIl("\93\158\148\28\153\61\169\91",214),lI1I1ll1llIl("\118\191\108\227\98\211",246),lI1I1ll1llIl("\36\175\193\61\22\5\24\116\47",90),lI1I1ll1llIl("\88\93\114\126\153",252),lI1I1ll1llIl("\105\28\193\116\75",194),lI1I1ll1llIl("\17\174\219\46\254",106),lI1I1ll1llIl("\28\183\138",4)};
+local l1I11I11I11I1={lI1I1ll1llIl("\102\228\131\107\73\73\217",26),lI1I1ll1llIl("\59\170\18\125\177\140\139",201),lI1I1ll1llIl("\2\246\223\170\67",172),lI1I1ll1llIl("\237\54\248\223\10\49\190",51),lI1I1ll1llIl("\61\72\5",176),lI1I1ll1llIl("\241\23\109\25\99\163\5",143),lI1I1ll1llIl("\98\235\92\229\154\99\35\49\202\172\229",24),lI1I1ll1llIl("\13\125\50\122\160",144),lI1I1ll1llIl("\213\248\203\226\121",117),lI1I1ll1llIl("\38\92\140\46\19\236",130)};
+local l1llIl11l={lI1I1ll1llIl("\92\56\99\6\205",192),lI1I1ll1llIl("\144\234\89\45\193",121),lI1I1ll1llIl("\27\77\176\137",219),lI1I1ll1llIl("\78\183\5\116",185),lI1I1ll1llIl("\72\55\17\165\138",242),lI1I1ll1llIl("\252\195\9\54\139\3\173\206\51",69),lI1I1ll1llIl("\201\184\245\142\69\214",64),lI1I1ll1llIl("\40\173\210",90),lI1I1ll1llIl("\228\41\28\139",102),lI1I1ll1llIl("\168\146\245\103\215\190\113",247),lI1I1ll1llIl("\9\50\150\18\172\212",87),lI1I1ll1llIl("\111\88\177\49\159\226",55),lI1I1ll1llIl("\199\188\111\195\246\199\226",98),lI1I1ll1llIl("\213\172\138\62\9",114),lI1I1ll1llIl("\38\237\247\24\98\27",125),lI1I1ll1llIl("\194\158\235\93\228",49),lI1I1ll1llIl("\117\105\141\180",187),lI1I1ll1llIl("\195\45\70\126\5",175),lI1I1ll1llIl("\86\238\151\127",42),lI1I1ll1llIl("\243\52\236\99\232\70",118),lI1I1ll1llIl("\47\61\222\137\202\187\106\198\2\211",78)};
+local l1l11I111I11l={};
+local lIllllI1lIlII={};
+local function lI1llllI(lIIlIl1l1IIIl,lI1IllI11l) 
+for l11IIl11l1,lII11IIIl1IIl in ipairs(lI1IllI11l) do 
+if string.find(lIIlIl1l1IIIl,lII11IIIl1IIl,1,true) then 
 return true end end;
 
 
 return false end;
 
-local function lIll1111l(lll1lIll1l) 
-local lIIl1Il1llI=string.lower(lll1lIll1l.Name);
-local ll1IlI1I=string.lower(lll1lIll1l:GetFullName());
-if lll111II(ll1IlI1I,llIll11lII1ll) then 
+local function l1111Il11l1(lIll1IllI1lI) 
+local l1IllI11l1II1=string.lower(lIll1IllI1lI.Name);
+local lI1lllllII1=string.lower(lIll1IllI1lI:GetFullName());
+if lI1llllI(lI1lllllII1,l1llIl11l) then 
 return false end;
 
-if lll111II(lIIl1Il1llI,lII1IIIl1lIIl) then 
+if lI1llllI(l1IllI11l1II1,lI1I1l11I1II) then 
 
-if (((string.find(lIIl1Il1llI,l11l1Il1lll("\219\138\155\112\229",163),1,true) or string.find(lIIl1Il1llI,l11l1Il1lll("\79\250\225",7),1,true)) or string.find(lIIl1Il1llI,l11l1Il1lll("\253\88\99\182\189",125),1,true)) and (not lll111II(ll1IlI1I,lI1IIll11I))) and (not lll1lIll1l:IsA(l11l1Il1lll("\199\2\148\0\25\162\70\237\119",197))) then 
+if (((string.find(l1IllI11l1II1,lI1I1ll1llIl("\144\119\141\254\167",254),1,true) or string.find(l1IllI11l1II1,lI1I1ll1llIl("\141\171\40",199),1,true)) or string.find(l1IllI11l1II1,lI1I1ll1llIl("\235\163\204\62\137",17),1,true)) and (not lI1llllI(lI1lllllII1,l1I11I11I11I1))) and (not lIll1IllI1lI:IsA(lI1I1ll1llIl("\242\105\27\202\191\164\78\42\69",170))) then 
 
 return false end;
 
 return true end;
 
-if (((((lIIl1Il1llI == l11l1Il1lll("\190\162\31\203",144)) or (lIIl1Il1llI == l11l1Il1lll("\43\108\115\139\5",67))) or (lIIl1Il1llI == l11l1Il1lll("\119\103",64))) or (lIIl1Il1llI == l11l1Il1lll("\109\217\207\108",39))) and lll1lIll1l:IsA(l11l1Il1lll("\231\225\55\49\184\95\3\21\147",14))) and lll111II(ll1IlI1I,lI1IIll11I) then 
+if (((((l1IllI11l1II1 == lI1I1ll1llIl("\129\10\188\192",105)) or (l1IllI11l1II1 == lI1I1ll1llIl("\137\234\89\255\219",50))) or (l1IllI11l1II1 == lI1I1ll1llIl("\251\137",96))) or (l1IllI11l1II1 == lI1I1ll1llIl("\111\72\198\77",39))) and lIll1IllI1lI:IsA(lI1I1ll1llIl("\241\193\239\206\3\117\27\120\164",124))) and lI1llllI(lI1lllllII1,l1I11I11I11I1) then 
 return true end;
 
 return false end;
 
-local function lIIlllIl1() 
-local lIl1ll1II=lllI1llI:FindFirstChild(l11l1Il1lll("\97\227\20\64\93\77\226\127\125",97));
-if not lIl1ll1II then 
+local function lllI1II1I() 
+local l111111lIIll1=ll1lI1IIII1:FindFirstChild(lI1I1ll1llIl("\109\179\11\125\135\162\185\113\6",185));
+if not l111111lIIll1 then 
 return  end;
 
-local lIlIllI11I=lI1IllIll11();
-for lI1I1III1II1,llll1llI1ll1 in ipairs(lIl1ll1II:GetDescendants()) do 
-if ((llll1llI1ll1:IsA(l11l1Il1lll("\223\98\61\207\40\53\148\100\31",236)) and llll1llI1ll1.Visible) and (llll1llI1ll1.AbsoluteSize.X < (lIlIllI11I.X * 0.45))) and lIll1111l(llll1llI1ll1) then 
-if llII1I111[llll1llI1ll1] == nil then 
-llII1I111[llll1llI1ll1]=true end;
+local l11IIl11I=l11l1lIl1();
+for llII1l11lI,l1I1l111l1I11 in ipairs(l111111lIIll1:GetDescendants()) do 
+if ((l1I1l111l1I11:IsA(lI1I1ll1llIl("\29\13\15\35\117\51\72\131\1",109)) and l1I1l111l1I11.Visible) and (l1I1l111l1I11.AbsoluteSize.X < (l11IIl11I.X * 0.45))) and l1111Il11l1(l1I1l111l1I11) then 
+if l1l11I111I11l[l1I1l111l1I11] == nil then 
+l1l11I111I11l[l1I1l111l1I11]=true end;
 
-llll1llI1ll1.Visible=false end end;
-
-
-local lIIl111lIIIl1=lIl1ll1II:FindFirstChild(l11l1Il1lll("\105\204\121\117\244\51\177\58",134));
-if (lIIl111lIIIl1 and lIIl111lIIIl1:IsA(l11l1Il1lll("\6\192\253\231\16\149\3\27\189",178))) and lIIl111lIIIl1.Enabled then 
-l1I1llII1[lIIl111lIIIl1]=true;
-lIIl111lIIIl1.Enabled=false end end;
+l1I1l111l1I11.Visible=false end end;
 
 
-local function l1IIIIIl1I() 
-for lIIl11I1l in pairs(llII1I111) do 
-if lIIl11I1l.Parent then 
-lIIl11I1l.Visible=true end end;
+local l1II1l1IIl=l111111lIIll1:FindFirstChild(lI1I1ll1llIl("\65\211\167\75\66\119\175\204",10));
+if (l1II1l1IIl and l1II1l1IIl:IsA(lI1I1ll1llIl("\129\155\112\8\86\213\49\170\158",222))) and l1II1l1IIl.Enabled then 
+lIllllI1lIlII[l1II1l1IIl]=true;
+l1II1l1IIl.Enabled=false end end;
 
 
-for l111I1l1 in pairs(l1I1llII1) do 
-if l111I1l1.Parent then 
-l111I1l1.Enabled=true end end;
+local function lII1lIIlIlI1() 
+for ll1Il1Il in pairs(l1l11I111I11l) do 
+if ll1Il1Il.Parent then 
+ll1Il1Il.Visible=true end end;
 
 
-llII1I111,l1I1llII1={},{} end;
+for lll1IlI1l in pairs(lIllllI1lIlII) do 
+if lll1IlI1l.Parent then 
+lll1IlI1l.Enabled=true end end;
 
 
-
-local ll1IIIIl11l1=ll111Il11ll:Section(l11l1Il1lll("\128\184\6\252\167\198\98\232\73\70\155\120",128));
-ll1IIIIl11l1:Toggle({Name=l11l1Il1lll("\162\187\113\64\249\75\88\84",78),Description=l11l1Il1lll("\77\133\144\54\129\236\255\75\141\46\13\242\108\193\170\245\218\116\47\182\69\9\19\149",159),Flag=l11l1Il1lll("\8\33\53\177\110\2\31\255",255)});
+l1l11I111I11l,lIllllI1lIlII={},{} end;
 
 
 
-
-l111IIII:Button({Name=l11l1Il1lll("\176\125\44\38\208\104\223",2),Description=l11l1Il1lll("\232\103\140\62\210\194\166\112\84\175\22\88\74\31\196\42\120\247\14\174\61\119\98\233\239\91\229\218\205\59\166\186\237\90\234\6\164\244\215\20",41),Action=l11l1Il1lll("\123\154\158\87\164\254\247",175),Callback=function() 
-local llll1Il11=l1IIlII11();
-local ll11lII1I11I=llIlIIlI1lIl1.root;
-if (llll1Il11 and ll11lII1I11I) and (not ll11lII1I11I.Anchored) then 
-local lIlII11l=l1II1I1IllI(llll1Il11.CFrame.LookVector);
-ll11lII1I11I.AssemblyLinearVelocity,ll11lII1I11I.AssemblyAngularVelocity=Vector3.zero,Vector3.zero;
-ll11lII1I11I.CFrame=CFrame.lookAt(ll11lII1I11I.Position + Vector3.new(0,6,0),(ll11lII1I11I.Position + Vector3.new(0,6,0)) + lIlII11l) else 
-
-llIIIIII1:Notify({Title=l11l1Il1lll("\191\208\44\218\66\226\245",243),Content=l11l1Il1lll("\202\67\126\240\160\41\157\128\208\100\140\32\124\146\106\243\125\122\19\51\55\208\121\113\16\246\111\201\169\18\178\68\208\184\153\68\7",125),Type=l11l1Il1lll("\65\231\111\192\239\34\34",235)}) end end});
+local lIIl11lIlI1I=lIllI11llIlIl:Section(lI1I1ll1llIl("\80\87\173\222\135\219\69\232\222\5\14\135",30));
+lIIl11lIlI1I:Toggle({Name=lI1I1ll1llIl("\105\60\225\84\107\9\106\249",226),Description=lI1I1ll1llIl("\121\73\91\185\135\232\142\16\241\213\42\67\183\40\157\31\238\184\228\57\67\13\98\174",29),Flag=lI1I1ll1llIl("\236\94\123\151\102\236\98\204",228)});
 
 
-local l1111ll1lIIl=ll1llII1:Paragraph(l11l1Il1lll("\149\59\172\236\194\92\102\206\61\96\84",27),l11l1Il1lll("\42\175\156\114\199\96\69\95\97\161\191\99\210\156\142\91\136\56\60\194\74\255\101\118\45\39\60\157\59\77\34\196\90\242\157\32\192\107\165\180\139\85\73\16\177\181\179\108\169\66\80\235\109\158\82\23\51\193\154\96\193\46\45\217\74\166\223\125\156\37\133\135\160\112\45\240\4\90\91\94\218\98\107\130\10\182\48\54\92\225\238\71\225\222\201\63\173\15\230\85\189\64",87));
-local l111ll1Il1;
-ll1llII1:Button({Name=l11l1Il1lll("\55\223\125\229\248\136\174\178\6\163\136\131\120\254\3\61\212\111\205\73",90),Action=l11l1Il1lll("\17\52\136\97",0),Callback=function() 
-local lIl1lIl1IlI1=l1IIlII11();
-local lIIIII1I1I,l1II1lIl1l1Il=llIlIIlI1lIl1.model,llIlIIlI1lIl1.root;
-if not ((lIl1lIl1IlI1 and lIIIII1I1I) and l1II1lIl1l1Il) then 
-l1111ll1lIIl:Set(l11l1Il1lll("\202\75\41\128\122\142\118\35\26\193\221",183),l11l1Il1lll("\222\122\168\230\5\234\52\226\224\151\95\161\77\237\190\168\110\247\0\22\136\124\193\93\80\23\205\194\115\53",54));
+
+
+l1llllIII:Button({Name=lI1I1ll1llIl("\94\73\194\87\155\227\13",39),Description=lI1I1ll1llIl("\67\56\67\172\14\117\227\163\40\239\25\117\160\192\143\52\243\168\193\28\161\160\39\90\211\59\202\247\7\36\13\164\134\197\229\148\56\3\210\199",145),Action=lI1I1ll1llIl("\24\161\9\96\167\131\133",201),Callback=function() 
+local l1llIlIlII1I=l1I11lIl11IlI();
+local l1ll1I111lII=lII1Illl.root;
+if (l1llIlIlII1I and l1ll1I111lII) and (not l1ll1I111lII.Anchored) then 
+local llII1Ill11I=l1ll1II1I1(l1llIlIlII1I.CFrame.LookVector);
+l1ll1I111lII.AssemblyLinearVelocity,l1ll1I111lII.AssemblyAngularVelocity=Vector3.zero,Vector3.zero;
+l1ll1I111lII.CFrame=CFrame.lookAt(l1ll1I111lII.Position + Vector3.new(0,6,0),(l1ll1I111lII.Position + Vector3.new(0,6,0)) + llII1Ill11I) else 
+
+l111II11I:Notify({Title=lI1I1ll1llIl("\84\173\219\148\226\80\252",31),Content=lI1I1ll1llIl("\182\197\182\24\115\110\234\212\219\224\95\229\143\13\61\134\1\252\219\59\228\183\14\37\27\114\188\12\58\141\229\49\172\62\81\172\212",250),Type=lI1I1ll1llIl("\5\249\145\35\88\130\46",111)}) end end});
+
+
+local lllI1I1lll1Il=lIl1I1l1ll:Paragraph(lI1I1ll1llIl("\129\149\99\31\71\155\5\186\131\68\93",222),lI1I1ll1llIl("\54\69\54\152\243\238\106\76\20\118\204\55\76\152\167\71\148\50\86\232\126\113\138\165\184\240\47\137\229\73\11\152\6\152\247\10\52\37\74\103\62\66\186\4\111\241\218\48\245\8\122\129\153\208\125\4\166\214\73\180\223\106\68\197\86\204\245\23\40\43\170\148\213\167\222\36\26\222\242\66\198\104\1\168\190\184\95\101\73\54\253\83\63\90\96\227\113\229\140\127\73\14",122));
+local l1IlIlll1;
+lIl1I1l1ll:Button({Name=lI1I1ll1llIl("\54\62\142\173\117\179\26\69\169\216\129\141\250\188\138\19\213\174\126\65",181),Action=lI1I1ll1llIl("\102\255\147\102",42),Callback=function() 
+local ll1II1II1l1=l1I11lIl11IlI();
+local llI1IIllIl,lIll1lIl1IIl1=lII1Illl.model,lII1Illl.root;
+if not ((ll1II1II1l1 and llI1IIllIl) and lIll1lIl1IIl1) then 
+lllI1I1lll1Il:Set(lI1I1ll1llIl("\157\212\134\253\54\179\216\24\37\174\9",32),lI1I1ll1llIl("\33\241\22\45\58\117\246\30\119\242\172\61\237\18\67\162\145\156\62\189\183\195\3\161\231\114\94\222\51\202",126));
 return  end;
 
-local llIIl1lIl1I,ll1lIII1llIl={},{};
-local lI1111I1I1=(lIIIII1I1I:GetAttribute(l11l1Il1lll("\148\45\156\131\200\0\140\1\95\80\154\143\56",102)) ~= nil) or (lIIIII1I1I:GetAttribute(l11l1Il1lll("\86\127\219\32\103\82\189\58",64)) ~= nil);
-local l1I1Illl1III=(lIIIII1I1I:FindFirstChild(l11l1Il1lll("\176\87\193\139\179\111",59)) ~= nil) and (lIIIII1I1I.Values:FindFirstChild(l11l1Il1lll("\31\38\219\88\204\222\124\141",4)) ~= nil);
-local l1II1II11=false;
-for lIlllIIll1l1,lllI1ll1l1II in ipairs(l1II1lIl1l1Il:GetChildren()) do 
-if (lllI1ll1l1II:IsA(l11l1Il1lll("\24\241\238\119\158\207\250\212\91\245\253",207)) or lllI1ll1l1II:IsA(l11l1Il1lll("\10\200\128\169\76\106\237\24\88\87\77\222",60))) or lllI1ll1l1II:IsA(l11l1Il1lll("\15\188\248\255\106\171\38\160\229",246)) then 
-l1II1II11=true end end;
+local lIIlI1Il11l,lI1IIllll={},{};
+local llll1I1l111=(llI1IIllIl:GetAttribute(lI1I1ll1llIl("\34\125\190\18\43\189\173\37\170\56\86\180\159",162)) ~= nil) or (llI1IIllIl:GetAttribute(lI1I1ll1llIl("\134\144\112\2\71\207\26\186",222)) ~= nil);
+local l11llIl11=(llI1IIllIl:FindFirstChild(lI1I1ll1llIl("\237\162\146\34\10\202",114)) ~= nil) and (llI1IIllIl.Values:FindFirstChild(lI1I1ll1llIl("\130\32\204\243\254\4\87\0",123)) ~= nil);
+local l1lIIII1lIll=false;
+for l11l11llI,lIIl1l1IlI in ipairs(lIll1lIl1IIl1:GetChildren()) do 
+if (lIIl1l1IlI:IsA(lI1I1ll1llIl("\173\230\93\227\192\11\19\136\7\191\215",50)) or lIIl1l1IlI:IsA(lI1I1ll1llIl("\63\112\206\189\116\117\82\171\204\152\241\65",249))) or lIIl1l1IlI:IsA(lI1I1ll1llIl("\73\28\202\126\121\166\151\20\128",194)) then 
+l1lIIII1lIll=true end end;
 
 
-if lI1111I1I1 then 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\16\136\120\199\58\206\54\114\65\134\136\71\241\242\242\123\189\30\29\226\189\31\135\150\182\32\15\186\87\100\98\140\89\131\133\34\199\124\0\6\125\160\180\47\212\212",119)) elseif l1I1Illl1III then 
+if llll1I1l111 then 
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\79\138\166\137\114\81\76\51\21\169\150\81\9\204\95\184\130\28\35\108\213\160\221\247\34\239\17\204\239\122\239\111\70\193\219\172\79\35\122\71\233\79\106\185\108\170",204)) elseif l11llIl11 then 
 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\42\67\202\127\185\185\3\225\91\167\183\132\67\67\4\183\184\191\107",36)) elseif lIl1lIl1IlI1:IsA(l11l1Il1lll("\214\18\149\43\15\186\87\209\124\203\254",197)) then 
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\235\133\245\52\70\122\14\217\118\29\188\151\12\139\55\236\89\121\116",157)) elseif ll1II1II1l1:IsA(lI1I1ll1llIl("\244\77\59\116\2\240\92\66\190\150\245",191)) then 
 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\36\163\58\27\42\237\247\27\143\192\220\42\178\242\229\10\181\51\172\234",171)) else 
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\139\113\198\236\63\238\123\171\64\13\246\213\201\60\62\37\26\193\80\125",99)) else 
 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\66\202\54\93\71\162\117\105\97\207\62",81)) end;
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\150\9\97\156\133\157\58\22\174\210\26",202)) end;
 
-if l1II1II11 then 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\15\230\238\98\149\216\156\203\65\239\235\75\157\45\245\190\217\101\112\214\97\93\89\184\49\131\123\146\58\134\32\38\77\149\159\10",207)) end;
+if l1lIIII1lIll then 
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\243\170\65\44\119\62\182\79\127\168\126\230\110\199\202\56\69\73\191\184\163\155\83\252\239\36\14\223\233\76\63\128\241\217\48\4",190)) end;
 
-ll1lIII1llIl.vehAutoGas=not (lI1111I1I1 or l1I1Illl1III);
-if not ll1lIII1llIl.vehAutoGas then 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\121\229\238\19\177\200\200\42\181\70\250\87\175\10\164\228\194\17\87\131\48\104\104\180\105\145\153\49\126\144\26\66\62\138\152\54\197\232\232",191)) else 
+lI1IIllll.vehAutoGas=not (llll1I1l111 or l11llIl11);
+if not lI1IIllll.vehAutoGas then 
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\177\201\45\92\26\245\127\36\69\196\3\44\226\219\88\185\10\125\212\204\155\117\31\90\153\19\160\138\19\65\198\95\182\230\27\57\46\213\159",91)) else 
 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\115\159\105\154\65\23\6\201\205\63\141\32\44\203\80\212\158\46\139\63\213\141\242\127\80\252\85\75\93\92\202\103\121\251\20\190\52\118",185)) end;
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\66\237\145\56\74\69\206\180\247\195\118\222\235\61\16\105\175\28\51\221\222\223\122\66\106\0\142\117\90\170\138\26\136\201\172\92\127\100",26)) end;
 
-local l1l1llI1l1l=tonumber(lIIIII1I1I:GetAttribute(l11l1Il1lll("\149\54\108\19\250\250\84\163",172)));
-if l1l1llI1l1l then 
-ll1lIII1llIl.vehMax=math.clamp(math.floor((l1l1llI1l1l * 1.5) / 10) * 10,50,1500);
-table.insert(llIIl1lIl1I,l11l1Il1lll("\33\215\64\27\118\232\218\123\201\198\52\214\68\234\176",187) .. (l1l1llI1l1l .. (l11l1Il1lll("\206\158\56\149\30\65\86\200\149\48\133",121) .. ll1lIII1llIl.vehMax))) end;
+local lIl1III1I=tonumber(llI1IIllIl:GetAttribute(lI1I1ll1llIl("\159\89\59\126\33\233\76\133",207)));
+if lIl1III1I then 
+lI1IIllll.vehMax=math.clamp(math.floor((lIl1III1I * 1.5) / 10) * 10,50,1500);
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\90\222\103\1\162\196\177\84\111\98\21\253\88\113\247",153) .. (lIl1III1I .. (lI1I1ll1llIl("\3\212\35\22\220\220\93\139\98\103\222",131) .. lI1IIllll.vehMax))) end;
 
-if l1II1lIl1l1Il.Anchored then 
-table.insert(llIIl1lIl1I,l11l1Il1lll("\158\117\127\232\20\89\28\88\200\100\107\130\31\172\48\54\88\246\242\73\164\195\150\107\189\20\225\68\171\78\167\227\200\27\31\198\113\123\112\162\32\152\159",79)) end;
+if lIll1lIl1IIl1.Anchored then 
+table.insert(lIIlI1Il11l,lI1I1ll1llIl("\94\24\85\36\231\183\203\94\112\233\74\160\159\126\43\116\216\187\248\165\119\205\161\141\229\121\224\70\11\188\220\193\72\54\117\10\130\85\103\164\152\21\126",224)) end;
 
-local llI1lI111111I=l11l1Il1lll("",41);
+local llIlllIlIII11=lI1I1ll1llIl("",181);
 if isnetworkowner then 
-local l1l11lIl1III,llllIlllI=pcall(isnetworkowner,l1II1lIl1l1Il);
-llI1lI111111I=(l1l11lIl1III and ((llllIlllI and l11l1Il1lll("\41\13\189\0\19\128\210\236\16\24\165\15\26\114\130\95\176\186\33\195\105\252\95",232)) or l11l1Il1lll("\52\212\101\248\177\159\181\251\7\246\129\194\122\245\4\58\156\105\140\72\45\30\192\206\151\41\127\48\202\100\199\202\119\188\81\202\129\252\72\84\225\67\184\173\71\208",90))) or l11l1Il1lll("",54);
-table.insert(llIIl1lIl1I,llI1lI111111I) end;
+local lIIIl1l1l1I1,lll1l1llI11=pcall(isnetworkowner,lIll1lIl1IIl1);
+llIlllIlIII11=(lIIIl1l1l1I1 and ((lll1l1llI11 and lI1I1ll1llIl("\144\107\36\73\192\240\119\207\116\23\226\236\179\84\56\53\41\252\88\106\186\108\250",115)) or lI1I1ll1llIl("\17\163\48\131\199\63\13\68\28\108\41\15\141\29\107\233\217\94\249\19\123\158\152\145\108\83\23\221\29\172\136\121\82\139\68\241\247\92\48\43\250\217\208\160\112\56",72))) or lI1I1ll1llIl("",194);
+table.insert(lIIlI1Il11l,llIlllIlIII11) end;
 
-ll1lIII1llIl.vehGrip=true;
-l111ll1Il1=ll1lIII1llIl;
-l1111ll1lIIl:Set(l11l1Il1lll("\91\236\89\88\152",166),l11l1Il1lll("\11\45\154",45) .. table.concat(llIIl1lIl1I,l11l1Il1lll("\247\161\123\246",70))) end});
+lI1IIllll.vehGrip=true;
+l1IlIlll1=lI1IIllll;
+lllI1I1lll1Il:Set(lI1I1ll1llIl("\123\176\31\106\134",185),lI1I1ll1llIl("\139\51\241",243) .. table.concat(lIIlI1Il11l,lI1I1ll1llIl("\187\249\110\64",184))) end});
 
-ll1llII1:Button({Name=l11l1Il1lll("\136\234\202\108\96\151\62\100\71\176\56\145\120\223\61\140\10",45),Action=l11l1Il1lll("\23\150\13\98\95",139),Callback=function() 
-if not l111ll1Il1 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\5\139\28\124\82\204\150\62\173\240\228",139),Content=l11l1Il1lll("\65\100\216\17\3\80\168\221\99\118\134",80),Type=l11l1Il1lll("\87\117\172\157\36\197\144",142)});
+lIl1I1l1ll:Button({Name=lI1I1ll1llIl("\219\200\214\64\46\57\30\213\82\106\186\128\241\126\205\178\89",173),Action=lI1I1ll1llIl("\75\56\38\208\190",61),Callback=function() 
+if not l1IlIlll1 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\41\53\39\254\131\153\190\101\33\24\207",77),Content=lI1I1ll1llIl("\104\32\31\185\207\95\124\213\70\232\220",242),Type=lI1I1ll1llIl("\17\229\196\178\79\63\120",172)});
 return  end;
 
-for lIl1I11l1lIl,lllIl11I1I11 in pairs(l111ll1Il1) do 
-if l1llllI1lll1l[lIl1I11l1lIl] then 
-l1llllI1lll1l[lIl1I11l1lIl]:Set(lllIl11I1I11) end end;
+for lIII1111I1III,l1I1IlIll11l in pairs(l1IlIlll1) do 
+if lllIIlllIIlIl[lIII1111I1III] then 
+lllIIlllIIlIl[lIII1111I1III]:Set(l1I1IlIll11l) end end;
 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\51\31\89\162\20\223\255\205\6\18\169",248),Content=l11l1Il1lll("\103\169\24\143\225\194\17\24\133\50\111\98\137\34\145\154\100\58\147\25\24\104\142\146\38\131\232\227\24\158\106",10),Type=l11l1Il1lll("\83\71\155\115\197\76\63",184)}) end});
+l111II11I:Notify({Title=lI1I1ll1llIl("\109\36\118\45\230\3\104\72\117\254\121",208),Content=lI1I1ll1llIl("\177\141\102\233\170\197\1\188\231\96\77\207\49\141\255\4\114\30\237\159\147\79\158\54\4\145\202\78\192\113\36",238),Type=lI1I1ll1llIl("\5\129\165\175\83\50\92",188)}) end});
 
 
 
 
 
-local llll1l1I1l={vel=Vector3.zero,yaw=nil};
-lI11IllI1=function() 
-local l1I11IIl=l1IIlII11();
-local llI1II1I=llIlIIlI1lIl1.root;
-if lIII1111Il.flying then 
-lIII1111Il.flying=false;
-lIl111ll1I();
+local lI111III1l1={vel=Vector3.zero,yaw=nil};
+llIl111IIIlll=function() 
+local lIII1l11lIl=l1I11lIl11IlI();
+local l1l1ll1l1I=lII1Illl.root;
+if l1II1111Illll.flying then 
+l1II1111Illll.flying=false;
+llIIlIII11();
 return  end;
 
-if not (l1I11IIl and llI1II1I) then 
+if not (lIII1l11lIl and l1l1ll1l1I) then 
 return  end;
 
-if not l1l1II1I1I(llI1II1I) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\118\171\212",117),Content=l11l1Il1lll("\90\33\5\225\117\142\212\8\255\80\212\160\129\12\67\242\235\182\160\25\145\74\72\227\21\150\74\31\59\249\149\109\155\208\33\201\68\253\176\106\151\52\182\139\162\44\102\218\11\86\26",19),Type=l11l1Il1lll("\55\21\204\61\132\101\48",238),Force=true});
+if not lII1II1Il(l1l1ll1l1I) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\140\100\111",253),Content=lI1I1ll1llIl("\245\48\23\238\18\49\59\85\179\13\58\251\174\99\183\17\100\167\146\214\54\21\167\222\25\235\164\100\84\214\1\142\244\1\51\6\227\130\159\183\155\41\24\208\205\3\210\121\4\135\232",108),Type=lI1I1ll1llIl("\65\9\236\210\195\62\60",155),Force=true});
 return  end;
 
-lIII1111Il.flying=true;
-llll1l1I1l.vel=llI1II1I.AssemblyLinearVelocity;
-llll1l1I1l.yaw=l1II1I1IllI(llI1II1I.CFrame.LookVector);
-llll1l1I1l.rocket=1;
-l1llII1I(llI1II1I) end;
+l1II1111Illll.flying=true;
+lI111III1l1.vel=l1l1ll1l1I.AssemblyLinearVelocity;
+lI111III1l1.yaw=l1ll1II1I1(l1l1ll1l1I.CFrame.LookVector);
+lI111III1l1.rocket=1;
+ll1lIlIII11l(l1l1ll1l1I) end;
 
-local function lIll11I1l1(l1I11lIIII,l1IlI1111lIIl,llI11llIl) 
-local l1llI1lll1=Vector3.zero;
-local lI1Il1IIl1l1,ll11l1IIlIIl=l1II1I1IllI(llI11llIl.CFrame.LookVector),l1II1I1IllI(llI11llIl.CFrame.RightVector);
-if llI1lIIll.vec.Magnitude > 0.08 then 
+local function l1l1lII1I(llI11llI1l,l1Il111I1,llI111ll) 
+local lII1lllI1=Vector3.zero;
+local llII1lIl,l1lIlI1lIIII=l1ll1II1I1(llI111ll.CFrame.LookVector),l1ll1II1I1(llI111ll.CFrame.RightVector);
+if lIllIIIIll1.vec.Magnitude > 0.08 then 
 
-local lIIlII1l=llI1lIIll.vec;
-local l1l11llIIll=math.clamp((lIIlII1l.Magnitude - 0.08) / 0.92,0,1);
-l1llI1lll1=((lI1Il1IIl1l1 * (- lIIlII1l.Y)) + (ll11l1IIlIIl * lIIlII1l.X)).Unit * l1l11llIIll elseif l1IlI1111lIIl.MoveDirection.Magnitude > 0.1 then 
+local lI1I1lI1Il11=lIllIIIIll1.vec;
+local llIIIlllI=math.clamp((lI1I1lI1Il11.Magnitude - 0.08) / 0.92,0,1);
+lII1lllI1=((llII1lIl * (- lI1I1lI1Il11.Y)) + (l1lIlI1lIIII * lI1I1lI1Il11.X)).Unit * llIIIlllI elseif l1Il111I1.MoveDirection.Magnitude > 0.1 then 
 
-l1llI1lll1=l1IlI1111lIIl.MoveDirection else 
+lII1lllI1=l1Il111I1.MoveDirection else 
 
-local l1IlIlI1lI1,l11l1lII=l1lllIIIlIII(l1I11lIIII,l1IlI1111lIIl);
-if (math.abs(l1IlIlI1lI1) > 0.05) or (math.abs(l11l1lII) > 0.05) then 
-l1llI1lll1=(lI1Il1IIl1l1 * l1IlIlI1lI1) + (ll11l1IIlIIl * l11l1lII) end end;
-
-
-local lI1l1ll11=0;
-if ((llllIIIllII1() and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.Space)) or llIll1IIlI) or ll1lllIlI.up then 
-lI1l1ll11=lI1l1ll11 + 1 end;
-
-if ((llllIIIllII1() and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftControl)) or ll111IIlIIIl) or ll1lllIlI.down then 
-lI1l1ll11=lI1l1ll11 - 1 end;
-
-l1llI1lll1=l1llI1lll1 + Vector3.new(0,lI1l1ll11,0);
-return ((l1llI1lll1.Magnitude > 1) and l1llI1lll1.Unit) or l1llI1lll1 end;
-
-local function lIl11ll111I(l1111l1l1I,ll1lIlIlI1Il1,l11l1llI1,llllI1II1II) 
-ll1I11I11l(llllI1II1II);
-local l11l11II1l=workspace.CurrentCamera;
-local lI1I1l1IIII=lIll11I1l1(ll1lIlIlI1Il1,l11l1llI1,l11l11II1l);
-local lll1I1ll=ll1lllIlI.rocket or (llllIIIllII1() and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftShift));
-local l1Il11I1I11=(lll1I1ll and (l1IIlll1I11l.vehRocket or 2)) or 1;
-llll1l1I1l.rocket=(llll1l1I1l.rocket or 1) + ((l1Il11I1I11 - (llll1l1I1l.rocket or 1)) * math.min(l1111l1l1I * (l1IIlll1I11l.vehRocketRamp or 4),1));
-local llI1IIIl=(l1IIlll1I11l.vehFlySpeed or 150) * llll1l1I1l.rocket;
-if ll1lllIlI.brake then 
-lI1I1l1IIII=Vector3.zero end;
-
-llll1l1I1l.vel=llll1l1I1l.vel:Lerp(lI1I1l1IIII * llI1IIIl,math.min(l1111l1l1I * ((ll1lllIlI.brake and 8) or 5),1));
-llll1IlIIl1l.VectorVelocity=llll1l1I1l.vel;
-local lIIl1IIIlllI=Vector3.new(lI1I1l1IIII.X,0,lI1I1l1IIII.Z);
-if l1IIlll1I11l.vehFlyTurn == l11l1Il1lll("\103\239\7\175\83\3",169) then 
-llll1l1I1l.yaw=l1II1I1IllI(l11l11II1l.CFrame.LookVector) elseif lIIl1IIIlllI.Magnitude > 0.15 then 
-
-llll1l1I1l.yaw=l1II1I1IllI((llll1l1I1l.yaw or lIIl1IIIlllI.Unit):Lerp(lIIl1IIIlllI.Unit,math.min(l1111l1l1I * 4,1))) end;
-
-local lIlll11lll1=((l1IIlll1I11l.vehFlyTilt ~= false) and (math.clamp(llll1l1I1l.vel.Y / math.max(llI1IIIl,1),- 1,1) * math.rad(25))) or 0;
-llll11IIIllI.CFrame=CFrame.lookAt(Vector3.zero,llll1l1I1l.yaw or Vector3.new(0,0,- 1)) * CFrame.Angles(lIlll11lll1,0,0);
-l111IlI1l1();
-l1I1l1lI1I1l1.Text=((llll1l1I1l.rocket > 1.05) and string.format(l11l1Il1lll("\137\145\90\204\109\110\160\61\150\6\18\24",148),llll1l1I1l.rocket)) or l11l1Il1lll("",142) end;
+local lII1I11IlI1lI,lIlIlllll1I11=l1l1llIll(llI11llI1l,l1Il111I1);
+if (math.abs(lII1I11IlI1lI) > 0.05) or (math.abs(lIlIlllll1I11) > 0.05) then 
+lII1lllI1=(llII1lIl * lII1I11IlI1lI) + (l1lIlI1lIIII * lIlIlllll1I11) end end;
 
 
+local llIlllIIIl=0;
+if ((lll11l1II1lIl() and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.Space)) or l1llI1l1lI1) or l1IIlI1ll1Ill.up then 
+llIlllIIIl=llIlllIIIl + 1 end;
+
+if ((lll11l1II1lIl() and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftControl)) or l11l111llll) or l1IIlI1ll1Ill.down then 
+llIlllIIIl=llIlllIIIl - 1 end;
+
+lII1lllI1=lII1lllI1 + Vector3.new(0,llIlllIIIl,0);
+return ((lII1lllI1.Magnitude > 1) and lII1lllI1.Unit) or lII1lllI1 end;
+
+local function l111I11IIlI(ll1I1llIIIl1I,l1l11IllI1Il,lIll1I1Il,lIIll111I11l) 
+l11II1I1(lIIll111I11l);
+local l11I1IllI11lI=workspace.CurrentCamera;
+local ll1IIllI1lI=l1l1lII1I(l1l11IllI1Il,lIll1I1Il,l11I1IllI11lI);
+local ll1ll1lIl=l1IIlI1ll1Ill.rocket or (lll11l1II1lIl() and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftShift));
+local l1I1l1I11l11I=(ll1ll1lIl and (lll1l11Il1ll1.vehRocket or 2)) or 1;
+lI111III1l1.rocket=(lI111III1l1.rocket or 1) + ((l1I1l1I11l11I - (lI111III1l1.rocket or 1)) * math.min(ll1I1llIIIl1I * (lll1l11Il1ll1.vehRocketRamp or 4),1));
+local l1l1l1IllI=(lll1l11Il1ll1.vehFlySpeed or 150) * lI111III1l1.rocket;
+if l1IIlI1ll1Ill.brake then 
+ll1IIllI1lI=Vector3.zero end;
+
+lI111III1l1.vel=lI111III1l1.vel:Lerp(ll1IIllI1lI * l1l1l1IllI,math.min(ll1I1llIIIl1I * ((l1IIlI1ll1Ill.brake and 8) or 5),1));
+lII1l11lll.VectorVelocity=lI111III1l1.vel;
+local llIIll1I1=Vector3.new(ll1IIllI1lI.X,0,ll1IIllI1lI.Z);
+if lll1l11Il1ll1.vehFlyTurn == lI1I1ll1llIl("\241\185\79\40\97\58",190) then 
+lI111III1l1.yaw=l1ll1II1I1(l11I1IllI11lI.CFrame.LookVector) elseif llIIll1I1.Magnitude > 0.15 then 
+
+lI111III1l1.yaw=l1ll1II1I1((lI111III1l1.yaw or llIIll1I1.Unit):Lerp(llIIll1I1.Unit,math.min(ll1I1llIIIl1I * 4,1))) end;
+
+local llIl11I1lllI1=((lll1l11Il1ll1.vehFlyTilt ~= false) and (math.clamp(lI111III1l1.vel.Y / math.max(l1l1l1IllI,1),- 1,1) * math.rad(25))) or 0;
+lIII11l1.CFrame=CFrame.lookAt(Vector3.zero,lI111III1l1.yaw or Vector3.new(0,0,- 1)) * CFrame.Angles(llIl11I1lllI1,0,0);
+l1I1III1();
+l1ll1I1IllIll.Text=((lI111III1l1.rocket > 1.05) and string.format(lI1I1ll1llIl("\101\190\174\36\168\0\234\21\44\57\148\197",214),lI111III1l1.rocket)) or lI1I1ll1llIl("",195) end;
 
 
 
-local lIIlIlllI1l={flying=false,phase=nil,targetH=10,vel=Vector3.zero,yaw=nil,bank=0,rollStart=nil,rest=3};
-lIII1111Il.rd=lIIlIlllI1l;
-lI1IlIl1I1I=function() 
-local l1Il1lIlllIl1=l1IIlII11();
-local lll1IlllI=llIlIIlI1lIl1.root;
-if not (l1Il1lIlllIl1 and lll1IlllI) then 
+
+
+local l1lIIIl1={flying=false,phase=nil,targetH=10,vel=Vector3.zero,yaw=nil,bank=0,rollStart=nil,rest=3};
+l1II1111Illll.rd=l1lIIIl1;
+lll1lll11=function() 
+local lII1lll111l1=l1I11lIl11IlI();
+local l1l1l1Il1II=lII1Illl.root;
+if not (lII1lll111l1 and l1l1l1Il1II) then 
 return  end;
 
-if lIIlIlllI1l.flying then 
-lIIlIlllI1l.phase=l11l1Il1lll("\85\43\4\212\192\137\122",221);
+if l1lIIIl1.flying then 
+l1lIIIl1.phase=lI1I1ll1llIl("\107\160\147\27\116\202\189",230);
 return  end;
 
-if not l1l1II1I1I(lll1IlllI) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\130\107\175\167\14\207\130\152",126),Content=l11l1Il1lll("\23\154\107\216\117\98\22\202\56\153\124\55\63\191\99\195\198\13\238\0\145\134\138\65\82\191\2\168\165\74\149\92\86\235\15\176\68\17\114\232\208\125\158\220\220\159\70\235\230\109\212",201),Type=l11l1Il1lll("\51\61\142\5\81\114\129",122),Force=true});
+if not lII1II1Il(l1l1l1Il1II) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\249\188\111\195\236\221\224\101",98),Content=lI1I1ll1llIl("\250\16\144\187\119\31\221\41\143\238\7\2\29\160\141\220\75\135\53\67\147\219\65\194\101\40\153\189\167\85\91\67\59\225\180\147\70\108\185\75\231\138\101\41\62\128\168\244\171\103\143",19),Type=lI1I1ll1llIl("\138\254\88\42\203\254\217",121),Force=true});
 return  end;
 
-lIIlIlllI1l.rest=math.clamp(lII1IIIllIl1I(lll1IlllI),0.5,8);
-lIIlIlllI1l.flying,lIIlIlllI1l.phase=true,l11l1Il1lll("\4\5\197\198\114\125\33",222);
-lIIlIlllI1l.targetH=lIIlIlllI1l.rest + (l1IIlll1I11l.rdHover or 12);
-lIIlIlllI1l.vel=lll1IlllI.AssemblyLinearVelocity;
-lIIlIlllI1l.yaw=l1II1I1IllI(lll1IlllI.CFrame.LookVector);
-lIIlIlllI1l.bank,lIIlIlllI1l.rollStart=0,nil;
-l1llII1I(lll1IlllI) end;
+l1lIIIl1.rest=math.clamp(l1I1ll11(l1l1l1Il1II),0.5,8);
+l1lIIIl1.flying,l1lIIIl1.phase=true,lI1I1ll1llIl("\51\224\214\90\178\2\124",166);
+l1lIIIl1.targetH=l1lIIIl1.rest + (lll1l11Il1ll1.rdHover or 12);
+l1lIIIl1.vel=l1l1l1Il1II.AssemblyLinearVelocity;
+l1lIIIl1.yaw=l1ll1II1I1(l1l1l1Il1II.CFrame.LookVector);
+l1lIIIl1.bank,l1lIIIl1.rollStart=0,nil;
+ll1lIlIII11l(l1l1l1Il1II) end;
 
-local function lIllI11Ill(lIlI11Ill11ll,lIIll1l1I,llllI1Il,lII111l1I) 
-ll1I11I11l(lII111l1I);
-local ll1llllIlIl1=workspace.CurrentCamera;
-local l1Illllll1IlI=lII1IIIllIl1I(lII111l1I);
-local lII1I1II11l=lIll11I1l1(lIIll1l1I,llllI1Il,ll1llllIlIl1);
-local ll1l11IIlIl=Vector3.new(lII1I1II11l.X,0,lII1I1II11l.Z);
-local l1ll111l=ll1lllIlI.thrust or (llllIIIllII1() and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftShift));
-local ll1IlI111lll=(l1IIlll1I11l.rdSpeed or 160) * ((l1ll111l and ((l1IIlll1I11l.rdThrust or 220) / 100)) or 1);
-local lIlI1l1IlI1=((l1IIlll1I11l.rdAccel or 50) * ((l1ll111l and 2) or 1)) * ((ll1lllIlI.brake and 2.5) or 1);
-if lIIlIlllI1l.phase == l11l1Il1lll("\101\52\10\247\104\192\215",19) then 
-ll1l11IIlIl=ll1l11IIlIl * 0.35 end;
+local function lIIl1lIl1llI(lIlI1l111l1,lI11IlIl,lllI1lIII,lIlll1Ill1I1l) 
+l11II1I1(lIlll1Ill1I1l);
+local ll1II11Il1=workspace.CurrentCamera;
+local l1III1l1I1l=l1I1ll11(lIlll1Ill1I1l);
+local llII111lIII=l1l1lII1I(lI11IlIl,lllI1lIII,ll1II11Il1);
+local lI1I1Il11l1l1=Vector3.new(llII111lIII.X,0,llII111lIII.Z);
+local lI1IIlllIl1II=l1IIlI1ll1Ill.thrust or (lll11l1II1lIl() and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftShift));
+local lllIllII1=(lll1l11Il1ll1.rdSpeed or 160) * ((lI1IIlllIl1II and ((lll1l11Il1ll1.rdThrust or 220) / 100)) or 1);
+local lII1l11I=((lll1l11Il1ll1.rdAccel or 50) * ((lI1IIlllIl1II and 2) or 1)) * ((l1IIlI1ll1Ill.brake and 2.5) or 1);
+if l1lIIIl1.phase == lI1I1ll1llIl("\165\101\63\13\202\241\126",115) then 
+lI1I1Il11l1l1=lI1I1Il11l1l1 * 0.35 end;
 
-local lIll11II1l1I=(ll1lllIlI.brake and Vector3.zero) or (ll1l11IIlIl * ll1IlI111lll);
-local lIl1Illl1=Vector3.new(lIIlIlllI1l.vel.X,0,lIIlIlllI1l.vel.Z);
-local lIIIll1Il1=lIll11II1l1I - lIl1Illl1;
-local l1I1l1lIIIl=lIlI1l1IlI1 * lIlI11Ill11ll;
-lIl1Illl1=((lIIIll1Il1.Magnitude <= l1I1l1lIIIl) and lIll11II1l1I) or (lIl1Illl1 + (lIIIll1Il1.Unit * l1I1l1lIIIl));
-local lI1II1IlIlII;
-if lIIlIlllI1l.phase == l11l1Il1lll("\210\101\115\215\40\67\75",63) then 
-lI1II1IlIlII=- math.clamp((l1Illllll1IlI - lIIlIlllI1l.rest) * 1.4,4,40);
-if l1Illllll1IlI <= (lIIlIlllI1l.rest + 0.6) then 
-lIIlIlllI1l.flying,lIIlIlllI1l.phase=false,nil;
-lIl111ll1I();
-local llI1lll11l=lIIlIlllI1l.yaw or l1II1I1IllI(lII111l1I.CFrame.LookVector);
-lII111l1I.AssemblyAngularVelocity=Vector3.zero;
-lII111l1I.AssemblyLinearVelocity=Vector3.new(lIl1Illl1.X,0,lIl1Illl1.Z) * 0.5;
-lII111l1I.CFrame=CFrame.lookAt(lII111l1I.Position,lII111l1I.Position + llI1lll11l);
-return  end elseif l1IIlll1I11l.rdHoverHold ~= false then 
-
-
-lIIlIlllI1l.targetH=math.clamp(lIIlIlllI1l.targetH + ((lII1I1II11l.Y * 30) * lIlI11Ill11ll),lIIlIlllI1l.rest + 2,3000);
-local lllIll1II1=(((l1IIlll1I11l.rdBob ~= false) and (lIIlIlllI1l.phase ~= l11l1Il1lll("\176\189\23\142\215\250\0",250))) and (math.sin(os.clock() * 2.2) * 0.7)) or 0;
-lI1II1IlIlII=math.clamp(((lIIlIlllI1l.targetH + lllIll1II1) - l1Illllll1IlI) * 2.4,- 70,70);
-if (lIIlIlllI1l.phase == l11l1Il1lll("\45\135\99\215\33\136\35",119)) and (math.abs(lIIlIlllI1l.targetH - l1Illllll1IlI) < 1.5) then 
-lIIlIlllI1l.phase=l11l1Il1lll("\64\26\148",251) end else 
+local l1II1I11II1Il=(l1IIlI1ll1Ill.brake and Vector3.zero) or (lI1I1Il11l1l1 * lllIllII1);
+local llI1II1Il1=Vector3.new(l1lIIIl1.vel.X,0,l1lIIIl1.vel.Z);
+local l1I1I1III=l1II1I11II1Il - llI1II1Il1;
+local lI11Ill1ll11=lII1l11I * lIlI1l111l1;
+llI1II1Il1=((l1I1I1III.Magnitude <= lI11Ill1ll11) and l1II1I11II1Il) or (llI1II1Il1 + (l1I1I1III.Unit * lI11Ill1ll11));
+local ll11I11l1;
+if l1lIIIl1.phase == lI1I1ll1llIl("\217\236\49\23\108\249\69",101) then 
+ll11I11l1=- math.clamp((l1III1l1I1l - l1lIIIl1.rest) * 1.4,4,40);
+if l1III1l1I1l <= (l1lIIIl1.rest + 0.6) then 
+l1lIIIl1.flying,l1lIIIl1.phase=false,nil;
+llIIlIII11();
+local l111Illll=l1lIIIl1.yaw or l1ll1II1I1(lIlll1Ill1I1l.CFrame.LookVector);
+lIlll1Ill1I1l.AssemblyAngularVelocity=Vector3.zero;
+lIlll1Ill1I1l.AssemblyLinearVelocity=Vector3.new(llI1II1Il1.X,0,llI1II1Il1.Z) * 0.5;
+lIlll1Ill1I1l.CFrame=CFrame.lookAt(lIlll1Ill1I1l.Position,lIlll1Ill1I1l.Position + l111Illll);
+return  end elseif lll1l11Il1ll1.rdHoverHold ~= false then 
 
 
-lI1II1IlIlII=(lII1I1II11l.Y * ll1IlI111lll) * 0.6;
-lIIlIlllI1l.targetH=l1Illllll1IlI;
-lIIlIlllI1l.phase=l11l1Il1lll("\87\227\12",97) end;
-
-local l1IllIl1I11=lIIlIlllI1l.vel.Y + ((lI1II1IlIlII - lIIlIlllI1l.vel.Y) * math.min(lIlI11Ill11ll * 4,1));
-lIIlIlllI1l.vel=Vector3.new(lIl1Illl1.X,l1IllIl1I11,lIl1Illl1.Z);
-llll1IlIIl1l.VectorVelocity=lIIlIlllI1l.vel;
-local lII111lII=lIIlIlllI1l.yaw or l1II1I1IllI(lII111l1I.CFrame.LookVector);
-local llIl11111=lII111lII;
-if l1IIlll1I11l.rdTurn == l11l1Il1lll("\147\163\5\229\98\238",72) then 
-llIl11111=l1II1I1IllI(ll1llllIlIl1.CFrame.LookVector) elseif lIl1Illl1.Magnitude > 4 then 
-
-llIl11111=l1II1I1IllI(lII111lII:Lerp(lIl1Illl1.Unit,math.min(lIlI11Ill11ll * 3,1))) end;
-
-lIIlIlllI1l.yaw=llIl11111;
-local l11ll11IIl=math.asin(math.clamp(lII111lII:Cross(llIl11111).Y,- 1,1)) / math.max(lIlI11Ill11ll,1 / 240);
-local ll1II1Illl1=math.rad(l1IIlll1I11l.rdBank or 28);
-lIIlIlllI1l.bank=lIIlIlllI1l.bank + ((math.clamp((- l11ll11IIl) * 0.35,- ll1II1Illl1,ll1II1Illl1) - lIIlIlllI1l.bank) * math.min(lIlI11Ill11ll * 4,1));
-local lI1lIIlI=(math.clamp(lIIlIlllI1l.vel.Y / math.max(ll1IlI111lll,40),- 1,1) * math.rad(16)) + (math.clamp(lIIIll1Il1:Dot(llIl11111) / math.max(ll1IlI111lll,40),- 1,1) * math.rad(4));
-
-local llII111l=0;
-if lIIlIlllI1l.rollStart then 
-local ll11III1=(os.clock() - lIIlIlllI1l.rollStart) / 0.9;
-if ll11III1 >= 1 then 
-lIIlIlllI1l.rollStart=nil else 
-
-local lII1l1ll=((ll11III1 < 0.5) and ((2 * ll11III1) * ll11III1)) or (1 - (((((- 2) * ll11III1) + 2) ^ 2) / 2));
-llII111l=((lII1l1ll * math.pi) * 2) * (lIIlIlllI1l.rollDir or 1) end end;
+l1lIIIl1.targetH=math.clamp(l1lIIIl1.targetH + ((llII111lIII.Y * 30) * lIlI1l111l1),l1lIIIl1.rest + 2,3000);
+local lI1lllIlI1=(((lll1l11Il1ll1.rdBob ~= false) and (l1lIIIl1.phase ~= lI1I1ll1llIl("\5\154\242\69\49\202\200",120))) and (math.sin(os.clock() * 2.2) * 0.7)) or 0;
+ll11I11l1=math.clamp(((l1lIIIl1.targetH + lI1lllIlI1) - l1III1l1I1l) * 2.4,- 70,70);
+if (l1lIIIl1.phase == lI1I1ll1llIl("\185\46\145\241\61\6\8",73)) and (math.abs(l1lIIIl1.targetH - l1III1l1I1l) < 1.5) then 
+l1lIIIl1.phase=lI1I1ll1llIl("\129\77\100",6) end else 
 
 
-local l1IlllIl1I1=0;
-if lIIlIlllI1l.flipStart then 
-local lI11l11l=(os.clock() - lIIlIlllI1l.flipStart) / 1.0;
-if lI11l11l >= 1 then 
-lIIlIlllI1l.flipStart=nil else 
+ll11I11l1=(llII111lIII.Y * lllIllII1) * 0.6;
+l1lIIIl1.targetH=l1III1l1I1l;
+l1lIIIl1.phase=lI1I1ll1llIl("\179\129\70",5) end;
 
-local lIl1llI1IIIl=((lI11l11l < 0.5) and ((2 * lI11l11l) * lI11l11l)) or (1 - (((((- 2) * lI11l11l) + 2) ^ 2) / 2));
-l1IlllIl1I1=((lIl1llI1IIIl * math.pi) * 2) * (lIIlIlllI1l.flipDir or 1) end end;
+local l1l1l111lII=l1lIIIl1.vel.Y + ((ll11I11l1 - l1lIIIl1.vel.Y) * math.min(lIlI1l111l1 * 4,1));
+l1lIIIl1.vel=Vector3.new(llI1II1Il1.X,l1l1l111lII,llI1II1Il1.Z);
+lII1l11lll.VectorVelocity=l1lIIIl1.vel;
+local l1IIII1l=l1lIIIl1.yaw or l1ll1II1I1(lIlll1Ill1I1l.CFrame.LookVector);
+local lI1I1II111=l1IIII1l;
+if lll1l11Il1ll1.rdTurn == lI1I1ll1llIl("\13\88\10\106\176\114",160) then 
+lI1I1II111=l1ll1II1I1(ll1II11Il1.CFrame.LookVector) elseif llI1II1Il1.Magnitude > 4 then 
+
+lI1I1II111=l1ll1II1I1(l1IIII1l:Lerp(llI1II1Il1.Unit,math.min(lIlI1l111l1 * 3,1))) end;
+
+l1lIIIl1.yaw=lI1I1II111;
+local l1Il1l1lI=math.asin(math.clamp(l1IIII1l:Cross(lI1I1II111).Y,- 1,1)) / math.max(lIlI1l111l1,1 / 240);
+local l1lI1IlII=math.rad(lll1l11Il1ll1.rdBank or 28);
+l1lIIIl1.bank=l1lIIIl1.bank + ((math.clamp((- l1Il1l1lI) * 0.35,- l1lI1IlII,l1lI1IlII) - l1lIIIl1.bank) * math.min(lIlI1l111l1 * 4,1));
+local l1lIIl11lIll=(math.clamp(l1lIIIl1.vel.Y / math.max(lllIllII1,40),- 1,1) * math.rad(16)) + (math.clamp(l1I1I1III:Dot(lI1I1II111) / math.max(lllIllII1,40),- 1,1) * math.rad(4));
+
+local lllIIIl1111I=0;
+if l1lIIIl1.rollStart then 
+local ll1I1I11II=(os.clock() - l1lIIIl1.rollStart) / 0.9;
+if ll1I1I11II >= 1 then 
+l1lIIIl1.rollStart=nil else 
+
+local lIllI1Il=((ll1I1I11II < 0.5) and ((2 * ll1I1I11II) * ll1I1I11II)) or (1 - (((((- 2) * ll1I1I11II) + 2) ^ 2) / 2));
+lllIIIl1111I=((lIllI1Il * math.pi) * 2) * (l1lIIIl1.rollDir or 1) end end;
 
 
-llll11IIIllI.CFrame=(CFrame.lookAt(Vector3.zero,llIl11111) * CFrame.Angles(lI1lIIlI + l1IlllIl1I1,0,0)) * CFrame.Angles(0,0,lIIlIlllI1l.bank + llII111l);
-l111IlI1l1();
-l1I1l1lI1I1l1.Text=string.format(l11l1Il1lll("\85\160\24\251\205\168\123",42),math.floor((math.max(l1Illllll1IlI - lIIlIlllI1l.rest,0) * 0.28) + 0.5)) end;
+local lI1Il1111l=0;
+if l1lIIIl1.flipStart then 
+local l11lIl1ll=(os.clock() - l1lIIIl1.flipStart) / 1.0;
+if l11lIl1ll >= 1 then 
+l1lIIIl1.flipStart=nil else 
+
+local llI1IIII=((l11lIl1ll < 0.5) and ((2 * l11lIl1ll) * l11lIl1ll)) or (1 - (((((- 2) * l11lIl1ll) + 2) ^ 2) / 2));
+lI1Il1111l=((llI1IIII * math.pi) * 2) * (l1lIIIl1.flipDir or 1) end end;
 
 
+lIII11l1.CFrame=(CFrame.lookAt(Vector3.zero,lI1I1II111) * CFrame.Angles(l1lIIl11lIll + lI1Il1111l,0,0)) * CFrame.Angles(0,0,l1lIIIl1.bank + lllIIIl1111I);
+l1I1III1();
+l1ll1I1IllIll.Text=string.format(lI1I1ll1llIl("\40\232\101\41\230\155\20",211),math.floor((math.max(l1III1l1I1l - l1lIIIl1.rest,0) * 0.28) + 0.5)) end;
 
 
 
-local llIl11I11II=llIIIIII1.Folder .. (l11l1Il1lll("\171\110\211\94\12\57\213\148",186) .. (tostring(game.PlaceId) .. l11l1Il1lll("\199\208\233\15\23",13)));
-local lllll11lI111I=llIIIIII1:ReadJSON(llIl11I11II);
-if type(lllll11lI111I) ~= l11l1Il1lll("\157\212\38\223\68",243) then 
-lllll11lI111I={} end;
-
-local function l1lIl1Il11() 
-local l1IIlllIIllll={};
-for lIlI1I1llI1l in pairs(lllll11lI111I) do 
-table.insert(l1IIlllIIllll,lIlI1I1llI1l) end;
-
-table.sort(l1IIlllIIllll);
-return l1IIlllIIllll end;
-
-local function l11lIIl11lI() 
-llIIIIII1:WriteJSON(llIl11I11II,lllll11lI111I) end;
-
-local function lIIllll111I11() 
-return l1IIlll1I11l.apRoute and lllll11lI111I[l1IIlll1I11l.apRoute] end;
-
-local function lI1l1IIl(lllIlIl11) 
-local lll1IllI11lI1=lllll11lI111I[lllIlIl11];
-if not lll1IllI11lI1 then 
-return l11l1Il1lll("\171\124\127\32\202\126\192\219",2),l11l1Il1lll("\245\126\149\105\26\234\118\154\211\102\131\38\196\194\182\106\88\249\28\87\95\19\133\110\102\247\12\191\113\107\45\253\243\31\183\198\221\59\176\182\164\90\171\26\225\208\247\59\49\206\50\120\113\177\101\158\155\158\41\155\7\87\2\129\149\113",241) end;
-
-local lII1lIll11I1=# lll1IllI11lI1.p;
-local l1llI11IIl=0;
-for lIIlI1I1=2,lII1lIll11I1 do 
-local l1I1llI1II1lI,l1llllIIIl=lll1IllI11lI1.p[lIIlI1I1 - 1],lll1IllI11lI1.p[lIIlI1I1];
-l1llI11IIl=l1llI11IIl + Vector3.new(l1llllIIIl[1] - l1I1llI1II1lI[1],l1llllIIIl[2] - l1I1llI1II1lI[2],l1llllIIIl[3] - l1I1llI1II1lI[3]).Magnitude end;
-
-return lllIlIl11,string.format(l11l1Il1lll("\110\42\137\71\215\195\126\156\59\135\38\103\58\42\229\87\86\30\251\16\40\63\196\88\181\54\102\43\249\191\243\112\139\139\45\164\184\230\95\166\15",4),lII1lIll11I1,math.floor(l1llI11IIl * 0.28),# (lll1IllI11lI1.m or {}),math.floor(lII1lIll11I1 * 0.1)) end;
-
-local function ll1l1l1lIll() 
-l1lII1II111:Refresh(l1lIl1Il11(),true);
-lI11I111II:Set(lI1l1IIl(l1IIlll1I11l.apRoute)) end;
-
-l1lII1II111.Callback=function() 
-lI11I111II:Set(lI1l1IIl(l1IIlll1I11l.apRoute)) end;
-
-lIlI11lI1I:Button({Name=l11l1Il1lll("\155\19\22\163\179\27",231),Action=l11l1Il1lll("\153\171\71\214\85\79",132),Callback=function() 
-local lIIIlllIl111=l1IIlll1I11l.apRename;
-local lll1ll111llIl=l1IIlll1I11l.apRoute;
-if (((lll1ll111llIl and lllll11lI111I[lll1ll111llIl]) and lIIIlllIl111) and (lIIIlllIl111 ~= l11l1Il1lll("",247))) and (not lllll11lI111I[lIIIlllIl111]) then 
-lllll11lI111I[lIIIlllIl111],lllll11lI111I[lll1ll111llIl]=lllll11lI111I[lll1ll111llIl],nil;
-l11lIIl11lI();
-ll1l1l1lIll();
-l1lII1II111:Set(lIIIlllIl111) end end});
 
 
-lIlI11lI1I:Button({Name=l11l1Il1lll("\54\2\181\58\119\115\193\61\159\151\60\197",48),Action=l11l1Il1lll("\161\118\51\55\209\110",2),Danger=true,Callback=function() 
-local lIIII1lII111=l1IIlll1I11l.apRoute;
-if lIIII1lII111 and lllll11lI111I[lIIII1lII111] then 
-lllll11lI111I[lIIII1lII111]=nil;
-l11lIIl11lI();
-ll1l1l1lIll() end end});
+local lIl111ll1lI=l111II11I.Folder .. (lI1I1ll1llIl("\0\3\106\205\105\80\132\196",177) .. (tostring(game.PlaceId) .. lI1I1ll1llIl("\244\146\149\131\249",237)));
+local lIlllllI1=l111II11I:ReadJSON(lIl111ll1lI);
+if type(lIlllllI1) ~= lI1I1ll1llIl("\5\154\251\76\59",120) then 
+lIlllllI1={} end;
+
+local function ll11lll11lll() 
+local lIIII1lIIII={};
+for llIl11Ill1 in pairs(lIlllllI1) do 
+table.insert(lIIII1lIIII,llIl11Ill1) end;
+
+table.sort(lIIII1lIIII);
+return lIIII1lIIII end;
+
+local function llIIlIIll() 
+l111II11I:WriteJSON(lIl111ll1lI,lIlllllI1) end;
+
+local function lII1lIllllIl() 
+return lll1l11Il1ll1.apRoute and lIlllllI1[lll1l11Il1ll1.apRoute] end;
+
+local function l1I1ll111(lll1I1lI111l) 
+local l1lII1111=lIlllllI1[lll1I1lI111l];
+if not l1lII1111 then 
+return lI1I1ll1llIl("\87\187\65\43\252\186\61\174",163),lI1I1ll1llIl("\242\37\6\188\52\84\28\7\173\19\58\249\172\99\181\10\127\162\143\130\113\77\239\211\24\162\181\96\25\202\78\157\244\68\36\19\243\133\218\235\218\47\18\197\137\113\244\91\86\149\161\173\95\47\15\35\229\11\144\68\111\246\33\225\146\42",108) end;
+
+local ll1I1IIl1l11=# l1lII1111.p;
+local l11ll11I=0;
+for l11l1IIl11I=2,ll1I1IIl1l11 do 
+local l1llIl1lI11,lIlIlI1I=l1lII1111.p[l11l1IIl11I - 1],l1lII1111.p[l11l1IIl11I];
+l11ll11I=l11ll11I + Vector3.new(lIlIlI1I[1] - l1llIl1lI11[1],lIlIlI1I[2] - l1llIl1lI11[2],lIlIlI1I[3] - l1llIl1lI11[3]).Magnitude end;
+
+return lll1I1lI111l,string.format(lI1I1ll1llIl("\46\67\145\83\129\233\8\32\49\168\49\10\225\217\61\81\214\183\227\4\62\85\146\228\191\89\49\70\34\172\235\86\11\34\245\112\174\140\105\90\69",39),ll1I1IIl1l11,math.floor(l11ll11I * 0.28),# (l1lII1111.m or {}),math.floor(ll1I1IIl1l11 * 0.1)) end;
+
+local function l1I1lll1IlI() 
+l1lIII1lI:Refresh(ll11lll11lll(),true);
+l1IIIlI11IlIl:Set(l1I1ll111(lll1l11Il1ll1.apRoute)) end;
+
+l1lIII1lI.Callback=function() 
+l1IIIlI11IlIl:Set(l1I1ll111(lll1l11Il1ll1.apRoute)) end;
+
+lIIIlll1l1lI:Button({Name=lI1I1ll1llIl("\156\220\137\238\47\246",32),Action=lI1I1ll1llIl("\40\61\40\237\154\220",77),Callback=function() 
+local lllll1IIlI=lll1l11Il1ll1.apRename;
+local lIl1lI1ll=lll1l11Il1ll1.apRoute;
+if (((lIl1lI1ll and lIlllllI1[lIl1lI1ll]) and lllll1IIlI) and (lllll1IIlI ~= lI1I1ll1llIl("",194))) and (not lIlllllI1[lllll1IIlI]) then 
+lIlllllI1[lllll1IIlI],lIlllllI1[lIl1lI1ll]=lIlllllI1[lIl1lI1ll],nil;
+llIIlIIll();
+l1I1lll1IlI();
+l1lIII1lI:Set(lllll1IIlI) end end});
+
+
+lIIIlll1l1lI:Button({Name=lI1I1ll1llIl("\121\186\6\97\150\181\222\118\0\68\49\29",185),Action=lI1I1ll1llIl("\161\201\174\93\110\101",250),Danger=true,Callback=function() 
+local l1I111IIIl=lll1l11Il1ll1.apRoute;
+if l1I111IIIl and lIlllllI1[l1I111IIIl] then 
+lIlllllI1[l1I111IIIl]=nil;
+llIIlIIll();
+l1I1lll1IlI() end end});
 
 
 
-local l1IlII1lIl1l={points=nil,marks=nil,last=0};
-l1lIlI1I1l1Il=function() 
-if lIII1111Il.recording then 
-lIII1111Il.recording=false;
-local l1Ill1llI1l1l=l1IlII1lIl1l.points;
-if l1Ill1llI1l1l and ((# l1Ill1llI1l1l) >= 5) then 
-local lIIIl1IIII=1;
-while lllll11lI111I[l11l1Il1lll("\233\209\204\83\237\186",244) .. lIIIl1IIII] do 
-lIIIl1IIII=lIIIl1IIII + 1 end;
+local ll1IllIl1={points=nil,marks=nil,last=0};
+lI1Il1l1=function() 
+if l1II1111Illll.recording then 
+l1II1111Illll.recording=false;
+local l111l1I1ll=ll1IllIl1.points;
+if l111l1I1ll and ((# l111l1I1ll) >= 5) then 
+local lllIl1lII=1;
+while lIlllllI1[lI1I1ll1llIl("\205\174\192\28\168\229",1) .. lllIl1lII] do 
+lllIl1lII=lllIl1lII + 1 end;
 
-local lllI1l11IIl11=l11l1Il1lll("\121\65\188\35\125\42",100) .. lIIIl1IIII;
-lllll11lI111I[lllI1l11IIl11]={p=l1Ill1llI1l1l,m=l1IlII1lIl1l.marks};
-l11lIIl11lI();
-ll1l1l1lIll();
-l1lII1II111:Set(lllI1l11IIl11);
-llIIIIII1:Notify({Title=l11l1Il1lll("\220\118\216\217\12\253\72\220\132",38),Content=lllI1l11IIl11 .. (l11l1Il1lll("\64\228\124\212\169\18\178\10",37) .. ((# l1Ill1llI1l1l) .. l11l1Il1lll("\224\71\210\107\66\226\1\235\119",133))),Type=l11l1Il1lll("\74\243\203\113\139\61\214",23),Force=true}) else 
+local lllIIl1l=lI1I1ll1llIl("\23\18\250\215\80\135",149) .. lllIl1lII;
+lIlllllI1[lllIIl1l]={p=l111l1I1ll,m=ll1IllIl1.marks};
+llIIlIIll();
+l1I1lll1IlI();
+l1lIII1lI:Set(lllIIl1l);
+l111II11I:Notify({Title=lI1I1ll1llIl("\62\84\33\231\93\140\75\116\233",225),Content=lllIIl1l .. (lI1I1ll1llIl("\133\31\99\142\191\164\42\93",186) .. ((# l111l1I1ll) .. lI1I1ll1llIl("\121\228\78\112\189\123\250\34\152",227))),Type=lI1I1ll1llIl("\193\173\65\46\118\40\229",190),Force=true}) else 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\53\249\88\212\184\133\90\68\17",74),Content=l11l1Il1lll("\148\57\184\234\211\92\97\196\38\53\87\187\46\156\132\150\118\136\18\122\6\159\132\45\188\225\186",27),Type=l11l1Il1lll("\169\69\79\253\8\163\171",95),Force=true}) end;
+l111II11I:Notify({Title=lI1I1ll1llIl("\247\193\242\227\6\104\3\120\190",124),Content=lI1I1ll1llIl("\45\78\32\252\72\197\83\116\242\31\249\140\109\66\42\136\239\255\138\108\157\230\54\253\104\235\20",225),Type=lI1I1ll1llIl("\222\5\131\167\106\81\222",19),Force=true}) end;
 
-l1IlII1lIl1l.points=nil;
+ll1IllIl1.points=nil;
 return  end;
 
-if not l1IIlII11() then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\48\186\65\22\8\150\9\165\160",33),Content=l11l1Il1lll("\198\10\187\226\92\213\36\79\180\15\173\41\72\42\255\249\118\135\145",114),Type=l11l1Il1lll("\9\37\47\157\104\3\11",255),Force=true});
+if not l1I11lIl11IlI() then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\64\254\125\223\158\117\82\75\218",8),Content=lI1I1ll1llIl("\214\212\59\67\156\9\242\45\154\251\231\62\23\31\100\178\102\89\209",85),Type=lI1I1ll1llIl("\74\190\24\106\139\190\153",185),Force=true});
 return  end;
 
-l1IlII1lIl1l.points,l1IlII1lIl1l.marks,l1IlII1lIl1l.last={},{},0;
-lIII1111Il.recording=true;
-llIIIIII1:Notify({Title=l11l1Il1lll("\63\150\31\9\190\64\29\141\199",214),Content=l11l1Il1lll("\20\213\100\196\217\38\155\93\220\136\250\82\86\226\25\84\238\23\233\99\92\182\32\135\26\74\43\247\232\110\147\129\196\40\13\225\232\73\178\114\168\244\222\32\106\214\59\116\14",21),Type=l11l1Il1lll("\252\13\169\173",114),Force=true}) end;
+ll1IllIl1.points,ll1IllIl1.marks,ll1IllIl1.last={},{},0;
+l1II1111Illll.recording=true;
+l111II11I:Notify({Title=lI1I1ll1llIl("\13\100\22\199\127\97\174\149\26",193),Content=lI1I1ll1llIl("\198\58\90\11\100\156\96\94\142\165\65\129\49\69\66\97\60\216\215\140\225\108\187\228\40\103\176\36\175\201\40\84\22\7\51\46\85\179\9\113\250\217\37\243\13\113\160\129\220",159),Type=lI1I1ll1llIl("\179\150\128\131",237),Force=true}) end;
 
-llIlI1ll1Il11=function() 
-if (lIII1111Il.recording and l1IlII1lIl1l.points) and ((# l1IlII1lIl1l.points) > 0) then 
-table.insert(l1IlII1lIl1l.marks,# l1IlII1lIl1l.points);
-llIIIIII1:Notify({Title=l11l1Il1lll("\175\150\59\196",160),Content=l11l1Il1lll("\135\42\213\106\177\241",89) .. ((# l1IlII1lIl1l.marks) .. l11l1Il1lll("\105\120\69\161\42\139\148\148",83)),Type=l11l1Il1lll("\24\161\83\22",33),Force=true}) end end;
+l1I1l1Ill1I1l=function() 
+if (l1II1111Illll.recording and ll1IllIl1.points) and ((# ll1IllIl1.points) > 0) then 
+table.insert(ll1IllIl1.marks,# ll1IllIl1.points);
+l111II11I:Notify({Title=lI1I1ll1llIl("\162\208\183\147",113),Content=lI1I1ll1llIl("\186\80\222\249\99\92",83) .. ((# ll1IllIl1.marks) .. lI1I1ll1llIl("\146\181\67\63\120\62\242\17",190)),Type=lI1I1ll1llIl("\204\243\201\236",117),Force=true}) end end;
 
 
-local function lIllIlIl(ll1lIl111) 
-if (os.clock() - l1IlII1lIl1l.last) < 0.1 then 
+local function ll1l1Il1I11I(lI1I11I1l1lII) 
+if (os.clock() - ll1IllIl1.last) < 0.1 then 
 return  end;
 
-l1IlII1lIl1l.last=os.clock();
-local ll1II1I1,llIlIl11=ll1lIl111.Position,ll1lIl111.AssemblyLinearVelocity;
-local ll1Ill1Il=ll1lIl111.CFrame.LookVector;
-local ll11Ill1Il=l1IlII1lIl1l.points;
+ll1IllIl1.last=os.clock();
+local l1llIlII,l1IlI1ll1I1=lI1I11I1l1lII.Position,lI1I11I1l1lII.AssemblyLinearVelocity;
+local l1lI1llll=lI1I11I1l1lII.CFrame.LookVector;
+local lIll1111lII=ll1IllIl1.points;
 
-local l11Il11II1l1l=ll11Ill1Il[# ll11Ill1Il];
-if (l11Il11II1l1l and (llIlIl11.Magnitude < 0.5)) and (Vector3.new(ll1II1I1.X - l11Il11II1l1l[1],ll1II1I1.Y - l11Il11II1l1l[2],ll1II1I1.Z - l11Il11II1l1l[3]).Magnitude < 0.3) then 
+local l1I11llI=lIll1111lII[# lIll1111lII];
+if (l1I11llI and (l1IlI1ll1I1.Magnitude < 0.5)) and (Vector3.new(l1llIlII.X - l1I11llI[1],l1llIlII.Y - l1I11llI[2],l1llIlII.Z - l1I11llI[3]).Magnitude < 0.3) then 
 return  end;
 
-if (# ll11Ill1Il) < 9000 then 
-table.insert(ll11Ill1Il,{math.floor(ll1II1I1.X * 10) / 10,math.floor(ll1II1I1.Y * 10) / 10,math.floor(ll1II1I1.Z * 10) / 10,math.floor(llIlIl11.Magnitude),math.floor(ll1Ill1Il.X * 100) / 100,math.floor(ll1Ill1Il.Z * 100) / 100}) end end;
+if (# lIll1111lII) < 9000 then 
+table.insert(lIll1111lII,{math.floor(l1llIlII.X * 10) / 10,math.floor(l1llIlII.Y * 10) / 10,math.floor(l1llIlII.Z * 10) / 10,math.floor(l1IlI1ll1I1.Magnitude),math.floor(l1lI1llll.X * 100) / 100,math.floor(l1lI1llll.Z * 100) / 100}) end end;
 
 
 
 
-local l11lllIl11;
-local function l111l1llI1l() 
-if l11lllIl11 then 
-l11lllIl11:Destroy();
-l11lllIl11=nil end end;
+local ll11lllII;
+local function llII1lIl11l() 
+if ll11lllII then 
+ll11lllII:Destroy();
+ll11lllII=nil end end;
 
 
-local function l1lIIllIl1l(lIlI1lI1lllI1) 
-l111l1llI1l();
-if not lIlI1lI1lllI1 then 
+local function lIl111l11l(l1l1ll1III) 
+llII1lIl11l();
+if not l1l1ll1III then 
 return  end;
 
-l11lllIl11=Instance.new(l11l1Il1lll("\191\41\4\182\75\252",215));
-l11lllIl11.Name=l11l1Il1lll("\3\188\255\212\67\177\32\166",246);
-local l1ll1l1Il1=math.max(1,math.floor((# lIlI1lI1lllI1.p) / 150));
-for lllll111=1 + l1ll1l1Il1,# lIlI1lI1lllI1.p,l1ll1l1Il1 do 
-local l11l11l1lll1,lIlIl1IIIIl1=lIlI1lI1lllI1.p[lllll111 - l1ll1l1Il1],lIlI1lI1lllI1.p[lllll111];
-local lI1llI11III,l1llI11I1l1Il=Vector3.new(l11l11l1lll1[1],l11l11l1lll1[2] - 1.5,l11l11l1lll1[3]),Vector3.new(lIlIl1IIIIl1[1],lIlIl1IIIIl1[2] - 1.5,lIlIl1IIIIl1[3]);
-local ll1IlIIIlIlI1=(l1llI11I1l1Il - lI1llI11III).Magnitude;
-if ll1IlIIIlIlI1 > 0.2 then 
-lI11IIlIIIllI(l11l1Il1lll("\121\247\234\86",7),{Anchored=true,CanCollide=false,CanQuery=false,CanTouch=false,Material=Enum.Material.Neon,Color=llIIIIII1.Theme.Accent,Transparency=0.35,Size=Vector3.new(0.35,0.15,ll1IlIIIlIlI1),CFrame=CFrame.lookAt((lI1llI11III + l1llI11I1l1Il) / 2,l1llI11I1l1Il),Parent=l11lllIl11}) end end;
+ll11lllII=Instance.new(lI1I1ll1llIl("\212\215\46\73\22\9",158));
+ll11lllII.Name=lI1I1ll1llIl("\225\158\230\106\242\192\3\14",49);
+local lIIllllII1=math.max(1,math.floor((# l1l1ll1III.p) / 150));
+for lIllIIll=1 + lIIllllII1,# l1l1ll1III.p,lIIllllII1 do 
+local lIll11III1,ll1ll1IlIlII1=l1l1ll1III.p[lIllIIll - lIIllllII1],l1l1ll1III.p[lIllIIll];
+local llI1IllIl,llI111l1IlI11=Vector3.new(lIll11III1[1],lIll11III1[2] - 1.5,lIll11III1[3]),Vector3.new(ll1ll1IlIlII1[1],ll1ll1IlIlII1[2] - 1.5,ll1ll1IlIlII1[3]);
+local lIlIl11Il=(llI111l1IlI11 - llI1IllIl).Magnitude;
+if lIlIl11Il > 0.2 then 
+lllII1lI1I1I(lI1I1ll1llIl("\74\218\225\33",100),{Anchored=true,CanCollide=false,CanQuery=false,CanTouch=false,Material=Enum.Material.Neon,Color=l111II11I.Theme.Accent,Transparency=0.35,Size=Vector3.new(0.35,0.15,lIlIl11Il),CFrame=CFrame.lookAt((llI1IllIl + llI111l1IlI11) / 2,llI111l1IlI11),Parent=ll11lllII}) end end;
 
 
-l11lllIl11.Parent=workspace end;
+ll11lllII.Parent=workspace end;
 
-l1llllI1lll1l.apPreview.Callback=function(l111Il1l) 
-if l111Il1l then 
-l1lIIllIl1l(lIIllll111I11()) else 
+lllIIlllIIlIl.apPreview.Callback=function(l1111Il1I) 
+if l1111Il1I then 
+lIl111l11l(lII1lIllllIl()) else 
 
-l111l1llI1l() end end;
-
-
+llII1lIl11l() end end;
 
 
-local lI1l1111={playing=false};
-lIII1111Il.ap=lI1l1111;
-local function llI11IllIlIl(llIIIl1IIlIII) 
-if not lI1l1111.playing then 
+
+
+local lI1IlI1l1IIll={playing=false};
+l1II1111Illll.ap=lI1IlI1l1IIll;
+local function lIllI1I1l1(lI11Il11I) 
+if not lI1IlI1l1IIll.playing then 
 return  end;
 
-lI1l1111.playing=false;
-lIl111ll1I();
+lI1IlI1l1IIll.playing=false;
+llIIlIII11();
 
-local llllIIlI=llIlIIlI1lIl1.root;
-if (llllIIlI and llllIIlI.Parent) and (not llllIIlI.Anchored) then 
-llllIIlI.AssemblyLinearVelocity=Vector3.new(0,math.min(llllIIlI.AssemblyLinearVelocity.Y,0),0);
-llllIIlI.AssemblyAngularVelocity=Vector3.zero end;
-
-
-if llllIIlI and llllIIlI.Parent then 
-if lI1l1111.wasRoadster and l1IIlll1I11l.vehRoadster then 
-lIIlIlllI1l.flying,lIIlIlllI1l.phase,lIIlIlllI1l.vel=true,l11l1Il1lll("\98\194\51",137),Vector3.zero;
-lIIlIlllI1l.rest=math.clamp(lII1IIIllIl1I(llllIIlI),0.5,8);
-lIIlIlllI1l.targetH=math.max(lII1IIIllIl1I(llllIIlI),lIIlIlllI1l.rest + 2);
-l1llII1I(llllIIlI) elseif lI1l1111.wasFlying and l1IIlll1I11l.vehFlyOn then 
-
-lIII1111Il.flying,llll1l1I1l.vel=true,Vector3.zero;
-l1llII1I(llllIIlI) end end;
+local ll11lll1IIll1=lII1Illl.root;
+if (ll11lll1IIll1 and ll11lll1IIll1.Parent) and (not ll11lll1IIll1.Anchored) then 
+ll11lll1IIll1.AssemblyLinearVelocity=Vector3.new(0,math.min(ll11lll1IIll1.AssemblyLinearVelocity.Y,0),0);
+ll11lll1IIll1.AssemblyAngularVelocity=Vector3.zero end;
 
 
-if llIIIl1IIlIII then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\181\203\46\149\1\91\78\135\149",121),Content=llIIIl1IIlIII,Type=l11l1Il1lll("\16\100\76\159",157),Force=true}) end end;
+if ll11lll1IIll1 and ll11lll1IIll1.Parent then 
+if lI1IlI1l1IIll.wasRoadster and lll1l11Il1ll1.vehRoadster then 
+l1lIIIl1.flying,l1lIIIl1.phase,l1lIIIl1.vel=true,lI1I1ll1llIl("\15\200\72",211),Vector3.zero;
+l1lIIIl1.rest=math.clamp(l1I1ll11(ll11lll1IIll1),0.5,8);
+l1lIIIl1.targetH=math.max(l1I1ll11(ll11lll1IIll1),l1lIIIl1.rest + 2);
+ll1lIlIII11l(ll11lll1IIll1) elseif lI1IlI1l1IIll.wasFlying and lll1l11Il1ll1.vehFlyOn then 
+
+l1II1111Illll.flying,lI111III1l1.vel=true,Vector3.zero;
+ll1lIlIII11l(ll11lll1IIll1) end end;
 
 
-local function ll1ll1I11(llI1ll1Illl) 
-local lI1l1I1l,lIllllIII1ll=nil,l1IIlll1I11l.fmRange or 20;
-for ll1lI1l11l,lIIllll1I11II in ipairs(workspace:GetDescendants()) do 
-if lIIllll1I11II:IsA(l11l1Il1lll("\37\241\128\154\124\246\77\58\141\92\222\84\37\28\194",146)) and lIIllll1I11II.Enabled then 
-local lIll11111=lIIllll1I11II.Parent;
-local lIl1I1II1I=lIll11111 and ((lIll11111:IsA(l11l1Il1lll("\182\109\223\94\24\13\196\223",202)) and lIll11111.Position) or (lIll11111:IsA(l11l1Il1lll("\172\7\136\135\47\204\153\6\78\96",86)) and lIll11111.WorldPosition));
-if lIl1I1II1I then 
-local lIIlIlIllI=(lIl1I1II1I - llI1ll1Illl).Magnitude;
-if lIIlIlIllI < lIllllIII1ll then 
-lI1l1I1l,lIllllIII1ll=lIIllll1I11II,lIIlIlIllI end end end end;
+if lI11Il11I then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\128\62\189\31\94\181\146\139\154",200),Content=lI11Il11I,Type=lI1I1ll1llIl("\246\175\211\7",1),Force=true}) end end;
+
+
+local function ll1l11l1I(lI1IIIlIllI) 
+local ll11lII1,lll1111l1lll1=nil,lll1l11Il1ll1.fmRange or 20;
+for llIIlIl111I11,llI1II1I in ipairs(workspace:GetDescendants()) do 
+if llI1II1I:IsA(lI1I1ll1llIl("\5\31\208\235\76\218\107\8\243\152\164\83\42\89\41",133)) and llI1II1I.Enabled then 
+local lIII1lIllIIII=llI1II1I.Parent;
+local llIlI1I1I=lIII1lIllIIII and ((lIII1lIllIIII:IsA(lI1I1ll1llIl("\148\41\205\249\218\17\73\17",123)) and lIII1lIllIIII.Position) or (lIII1lIllIIII:IsA(lI1I1ll1llIl("\15\77\19\110\161\123\70\152\191\47",160)) and lIII1lIllIIII.WorldPosition));
+if llIlI1I1I then 
+local ll111III11=(llIlI1I1I - lI1IIIlIllI).Magnitude;
+if ll111III11 < lll1111l1lll1 then 
+ll11lII1,lll1111l1lll1=llI1II1I,ll111III11 end end end end;
 
 
 
 
-if lI1l1I1l and fireproximityprompt then 
-pcall(fireproximityprompt,lI1l1I1l);
+if ll11lII1 and fireproximityprompt then 
+pcall(fireproximityprompt,ll11lII1);
 return true end;
 
 return false end;
 
-lll1Ill1I1=function() 
-if lI1l1111.playing then 
-llI11IllIlIl(l11l1Il1lll("\87\218\37\154\49\103\86\214",137));
+lIIllIlIIl1ll=function() 
+if lI1IlI1l1IIll.playing then 
+lIllI1I1l1(lI1I1ll1llIl("\62\155\53\68\66\101\106\218",233));
 return  end;
 
-local lll11I11I=lIIllll111I11();
-if (not lll11I11I) or ((# lll11I11I.p) < 2) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\132\70\11\29\245\2\184\177\16",34),Content=l11l1Il1lll("\251\159\185\79\75\243\77\80\224\69\210\119\88\243\82\164\48\24\57\228\169\47\175\228\243\110\1\178\243\84\226\34\160\249\209\32\118\217\40\49\73\185\125\150\100\211\114\163\12\126\69\128\128\75\178\245\176\23\172\28\25\170\12",77),Type=l11l1Il1lll("\129\39\175\128\175\98\98",43),Force=true});
+local lllIl1I1l1lI1=lII1lIllllIl();
+if (not lllIl1I1l1lI1) or ((# lllIl1I1l1lI1.p) < 2) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\118\132\153\0\157\61\166\95\118",214),Content=lI1I1ll1llIl("\128\157\97\2\65\223\86\190\215\67\66\218\89\241\170\22\43\58\193\137\131\227\84\234\36\136\177\63\210\118\90\240\219\187\73\109\124\53\243\31\126\191\45\251\101\209\202\81\87\92\189\173\234\135\73\251\167\49\28\145\248\72\116",222),Type=lI1I1ll1llIl("\217\184\245\129\75\221\236",64),Force=true});
 return  end;
 
-local l111111llllIl=l1IIlII11();
-local lII1lI1IllII=llIlIIlI1lIl1.root;
-if not (l111111llllIl and lII1lI1IllII) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\42\27\253\120\168\163\28\231\92",36),Content=l11l1Il1lll("\97\78\237\191\170\184\1\238\16\65\233\18\144\73\21\42\209\195\39",112),Type=l11l1Il1lll("\58\178\238\232\69\170\51",246),Force=true});
+local ll111IIl1=l1I11lIl11IlI();
+local l1lI1IIlI111=lII1Illl.root;
+if not (ll111IIl1 and l1lI1IIlI111) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\224\94\221\127\126\149\178\171\122",168),Content=lI1I1ll1llIl("\145\161\70\93\74\37\166\78\199\66\124\237\29\226\147\114\65\44\140",206),Type=lI1I1ll1llIl("\185\216\149\225\43\253\204",32),Force=true});
 return  end;
 
-if not l1l1II1I1I(lII1lI1IllII) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\247\115\233\65\118\165\169\20\205",107),Content=l11l1Il1lll("\152\186\72\197\76\10\244\26\161\81\13\62\253\175\103\158\201\205\205\29\168\238\72\145\43\247\243\161\103\122\145\33\89\75\172\45\125\121\144\56\137\53\111\85\158\207\66\182\233\237\119",132),Type=l11l1Il1lll("\73\229\239\93\168\195\203",191),Force=true});
+if not lII1II1Il(l1lI1IIlI111) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\179\109\150\226\163\242\58\144\163",254),Content=lI1I1ll1llIl("\108\21\116\186\25\5\131\169\52\137\35\74\165\208\120\141\253\162\209\98\221\161\127\34\190\111\157\245\63\5\78\242\109\36\80\146\40\54\167\203\92\173\1\97\134\240\157\101\29\66\107",161),Type=lI1I1ll1llIl("\98\76\141\189\12\153\37",197),Force=true});
 return  end;
 
-lI1l1111.wasFlying=lIII1111Il.flying;
-lI1l1111.wasRoadster=lIIlIlllI1l.flying;
-if lIII1111Il.flying then 
-lIII1111Il.flying=false end;
+lI1IlI1l1IIll.wasFlying=l1II1111Illll.flying;
+lI1IlI1l1IIll.wasRoadster=l1lIIIl1.flying;
+if l1II1111Illll.flying then 
+l1II1111Illll.flying=false end;
 
-if lIIlIlllI1l.flying then 
-lIIlIlllI1l.flying,lIIlIlllI1l.phase=false,nil end;
+if l1lIIIl1.flying then 
+l1lIIIl1.flying,l1lIIIl1.phase=false,nil end;
 
-lI1l1111.route,lI1l1111.i,lI1l1111.dir,lI1l1111.loops,lI1l1111.started=lll11I11I,1,1,0,os.clock();
-lI1l1111.wait,lI1l1111.vel=nil,lII1lI1IllII.AssemblyLinearVelocity;
-lI1l1111.marks={};
-for l1IIl11II1I,ll1ll1lllI1l in ipairs(lll11I11I.m or {}) do 
-lI1l1111.marks[ll1ll1lllI1l]=true end;
-
-
-local lllll1I11,llIIl1II1=1,math.huge;
-for llI1lIllI1l1,l1IllIll in ipairs(lll11I11I.p) do 
-local llIl1ll11=(Vector3.new(l1IllIll[1],l1IllIll[2],l1IllIll[3]) - lII1lI1IllII.Position).Magnitude;
-if llIl1ll11 < llIIl1II1 then 
-lllll1I11,llIIl1II1=llI1lIllI1l1,llIl1ll11 end end;
+lI1IlI1l1IIll.route,lI1IlI1l1IIll.i,lI1IlI1l1IIll.dir,lI1IlI1l1IIll.loops,lI1IlI1l1IIll.started=lllIl1I1l1lI1,1,1,0,os.clock();
+lI1IlI1l1IIll.wait,lI1IlI1l1IIll.vel=nil,l1lI1IIlI111.AssemblyLinearVelocity;
+lI1IlI1l1IIll.marks={};
+for lllIIlI11,lI111IIl in ipairs(lllIl1I1l1lI1.m or {}) do 
+lI1IlI1l1IIll.marks[lI111IIl]=true end;
 
 
-
-local llIllI1I11=lllll1I11 > ((# lll11I11I.p) - math.max(3,math.floor((# lll11I11I.p) * 0.05)));
-if (llIIl1II1 < 25) and (not llIllI1I11) then 
-lI1l1111.i,lI1l1111.toStart=lllll1I11,false else 
-
-lI1l1111.i,lI1l1111.toStart=1,(l1IIlll1I11l.apGoStart ~= false) or llIllI1I11 end;
-
-lI1l1111.playing=true;
-l1llII1I(lII1lI1IllII);
-if l1IIlll1I11l.apPreview then 
-l1lIIllIl1l(lll11I11I) end end;
+local lI11lllIll1,lI1lIIII1l=1,math.huge;
+for lIIIIlII1lIIl,l11llIl1lI1 in ipairs(lllIl1I1l1lI1.p) do 
+local l1l111IIlIlll=(Vector3.new(l11llIl1lI1[1],l11llIl1lI1[2],l11llIl1lI1[3]) - l1lI1IIlI111.Position).Magnitude;
+if l1l111IIlIlll < lI1lIIII1l then 
+lI11lllIll1,lI1lIIII1l=lIIIIlII1lIIl,l1l111IIlIlll end end;
 
 
-local function lIl1I1I111l(llIl11l1) 
-return Vector3.new(llIl11l1[1],llIl11l1[2],llIl11l1[3]) end;
 
-local function l1I11l111I(ll11Ill1l) 
-local l1ll1I1lIl=l1IIlll1I11l.apSpeedMode or l11l1Il1lll("\163\120\237\91",165);
-local ll11lIlIl11l;
-if l1ll1I1lIl == l11l1Il1lll("\50\229\84\222\172",74) then 
-ll11lIlIl11l=l1IIlll1I11l.apFixed or 150 elseif l1ll1I1lIl == l11l1Il1lll("\142\60\108\127\140\60",118) then 
+local lIII1I1l1ll1=lI11lllIll1 > ((# lllIl1I1l1lI1.p) - math.max(3,math.floor((# lllIl1I1l1lI1.p) * 0.05)));
+if (lI1lIIII1l < 25) and (not lIII1I1l1ll1) then 
+lI1IlI1l1IIll.i,lI1IlI1l1IIll.toStart=lI11lllIll1,false else 
 
-ll11lIlIl11l=math.max(ll11Ill1l[4],15) * (l1IIlll1I11l.apMult or 1.5) else 
+lI1IlI1l1IIll.i,lI1IlI1l1IIll.toStart=1,(lll1l11Il1ll1.apGoStart ~= false) or lIII1I1l1ll1 end;
 
-ll11lIlIl11l=math.max(ll11Ill1l[4],15) end;
+lI1IlI1l1IIll.playing=true;
+ll1lIlIII11l(l1lI1IIlI111);
+if lll1l11Il1ll1.apPreview then 
+lIl111l11l(lllIl1I1l1lI1) end end;
 
-if l1IIlll1I11l.apLimitOn then 
-ll11lIlIl11l=math.min(ll11lIlIl11l,l1IIlll1I11l.apLimit or 300) end;
 
-return ll11lIlIl11l end;
+local function l1l11ll1llIlI(lI11I1ll1I) 
+return Vector3.new(lI11I1ll1I[1],lI11I1ll1I[2],lI11I1ll1I[3]) end;
 
-local function lllI1IIl(l1lIl1II11) 
-local ll1lll1l=lI1l1111.route;
-lI1l1111.loops=lI1l1111.loops + 1;
-local lIlllIl1lIl=l1IIlll1I11l.apLoop or l11l1Il1lll("\131\83\226\66",149);
-if (lIlllIl1lIl == l11l1Il1lll("\250\129\235\3",179)) or (l1IIlll1I11l.apLoopsOn and (lI1l1111.loops >= (l1IIlll1I11l.apLoops or 10))) then 
-llI11IllIlIl(l11l1Il1lll("\58\168\241\196\31\79\199\62\117\119\170\47\141\158\110",28));
+local function lIl1Il11IllII(lI1l11lII1l) 
+local ll1Il111l=lll1l11Il1ll1.apSpeedMode or lI1I1ll1llIl("\25\148\163\108",36);
+local ll1lIl1l;
+if ll1Il111l == lI1I1ll1llIl("\141\142\9\134\202",231) then 
+ll1lIl1l=lll1l11Il1ll1.apFixed or 150 elseif ll1Il111l == lI1I1ll1llIl("\33\7\99\36\1\164",127) then 
+
+ll1lIl1l=math.max(lI1l11lII1l[4],15) * (lll1l11Il1ll1.apMult or 1.5) else 
+
+ll1lIl1l=math.max(lI1l11lII1l[4],15) end;
+
+if lll1l11Il1ll1.apLimitOn then 
+ll1lIl1l=math.min(ll1lIl1l,lll1l11Il1ll1.apLimit or 300) end;
+
+return ll1lIl1l end;
+
+local function lI11IIl1II(l1Ill1ll) 
+local ll1I1ll1Il11=lI1IlI1l1IIll.route;
+lI1IlI1l1IIll.loops=lI1IlI1l1IIll.loops + 1;
+local l1llIl1Il=lll1l11Il1ll1.apLoop or lI1I1ll1llIl("\250\16\158\185",19);
+if (l1llIl1Il == lI1I1ll1llIl("\205\157\216\79",112)) or (lll1l11Il1ll1.apLoopsOn and (lI1IlI1l1IIll.loops >= (lll1l11Il1ll1.apLoops or 10))) then 
+lIllI1I1l1(lI1I1ll1llIl("\68\103\139\168\175\16\29\76\39\237\162\129\70\123\183",187));
 return  end;
 
-if l1IIlll1I11l.apWaitOn then 
-lI1l1111.wait=os.clock() + (l1IIlll1I11l.apWait or 3) end;
+if lll1l11Il1ll1.apWaitOn then 
+lI1IlI1l1IIll.wait=os.clock() + (lll1l11Il1ll1.apWait or 3) end;
 
-if lIlllIl1lIl == l11l1Il1lll("\17\150\107\14\69\255\122\180\163",17) then 
-lI1l1111.dir=- lI1l1111.dir;
-lI1l1111.i=((lI1l1111.dir == 1) and 1) or (# ll1lll1l.p) else 
+if l1llIl1Il == lI1I1ll1llIl("\161\18\119\199\243\92\65\90\185",248) then 
+lI1IlI1l1IIll.dir=- lI1IlI1l1IIll.dir;
+lI1IlI1l1IIll.i=((lI1IlI1l1IIll.dir == 1) and 1) or (# ll1I1ll1Il11.p) else 
 
-lI1l1111.dir=1;
-if l1IIlll1I11l.apReturn == l11l1Il1lll("\73\230\64\83\140\123\214\71",166) then 
-local lIl1l111lIl1=ll1lll1l.p[1];
-l1lIl1II11.CFrame=CFrame.lookAt(lIl1I1I111l(lIl1l111lIl1),lIl1I1I111l(lIl1l111lIl1) + Vector3.new(lIl1l111lIl1[5],0,lIl1l111lIl1[6]));
-lI1l1111.i=2 else 
+lI1IlI1l1IIll.dir=1;
+if lll1l11Il1ll1.apReturn == lI1I1ll1llIl("\106\44\123\58\226\76\105\89",208) then 
+local lIlII11l1Ill1=ll1I1ll1Il11.p[1];
+l1Ill1ll.CFrame=CFrame.lookAt(l1l11ll1llIlI(lIlII11l1Ill1),l1l11ll1llIlI(lIlII11l1Ill1) + Vector3.new(lIlII11l1Ill1[5],0,lIlII11l1Ill1[6]));
+lI1IlI1l1IIll.i=2 else 
 
-lI1l1111.i,lI1l1111.toStart=1,true end end end;
+lI1IlI1l1IIll.i,lI1IlI1l1IIll.toStart=1,true end end end;
 
 
 
-local function lI1IIlII1Illl(l1l11lIl,lIlI1ll1I,lIlI1lIIlI,l1IIl11I1IlII) 
-ll1I11I11l(l1IIl11I1IlII);
-local lI11Il1IllIl=lI1l1111.route;
-if l1IIlll1I11l.apTimeOn and ((os.clock() - lI1l1111.started) > ((l1IIlll1I11l.apTime or 30) * 60)) then 
-llI11IllIlIl(l11l1Il1lll("\145\90\18\23\165\7\189\179\13\200\60\249\189\157\165\179\16\231\193",34));
+local function llI1lI1l1l(lll11Ill,llIlIIIl1lII,l1l1l11I1ll1l,l1llIIIIIl) 
+l11II1I1(l1llIIIIIl);
+local l1IIlI1Ill=lI1IlI1l1IIll.route;
+if lll1l11Il1ll1.apTimeOn and ((os.clock() - lI1IlI1l1IIll.started) > ((lll1l11Il1ll1.apTime or 30) * 60)) then 
+lIllI1I1l1(lI1I1ll1llIl("\38\241\142\40\17\128\32\44\226\211\17\209\11\97\133\188\167\108\93",111));
 return  end;
 
 
-if l1IIlll1I11l.apTakeover ~= false then 
-local llll1llIllll,l1ll11lI11=l1lllIIIlIII(lIlI1ll1I,lIlI1lIIlI);
-if ((ll1lllIlI.brake or (lIlI1lIIlI.MoveDirection.Magnitude > 0.3)) or (math.abs(llll1llIllll) > 0.3)) or (math.abs(l1ll11lI11) > 0.5) then 
-llI11IllIlIl(l11l1Il1lll("\240\149\175\0\77\248\2\90\224\88\203\103\94\184",77));
+if lll1l11Il1ll1.apTakeover ~= false then 
+local lllIlI1llII11,llllIlII=l1l1llIll(llIlIIIl1lII,l1l1l11I1ll1l);
+if ((l1IIlI1ll1Ill.brake or (l1l1l11I1ll1l.MoveDirection.Magnitude > 0.3)) or (math.abs(lllIlI1llII11) > 0.3)) or (math.abs(llllIlII) > 0.5) then 
+lIllI1I1l1(lI1I1ll1llIl("\190\78\104\191\73\235\149\107\18\55\212\168\225\245",6));
 return  end end;
 
 
-if lI1l1111.wait then 
-llll1IlIIl1l.VectorVelocity=Vector3.zero;
-lI1l1111.vel=Vector3.zero;
-l111IlI1l1();
-if os.clock() < lI1l1111.wait then 
+if lI1IlI1l1IIll.wait then 
+lII1l11lll.VectorVelocity=Vector3.zero;
+lI1IlI1l1IIll.vel=Vector3.zero;
+l1I1III1();
+if os.clock() < lI1IlI1l1IIll.wait then 
 return  end;
 
-lI1l1111.wait=nil end;
+lI1IlI1l1IIll.wait=nil end;
 
-local lIllI1l11=lI11Il1IllIl.p[lI1l1111.i];
-local lI1l11l1I1I=lIl1I1I111l(lIllI1l11);
-local lI1I1lIll1l=l1IIl11I1IlII.Position;
-local lll11l1I1lIll;
-if lI1l1111.toStart then 
-lll11l1I1lIll=math.max(l1IIlll1I11l.apFixed or 150,80);
-if (lI1l11l1I1I - lI1I1lIll1l).Magnitude < 6 then 
-lI1l1111.toStart=false end else 
-
-
-lll11l1I1lIll=l1I11l111I(lIllI1l11);
-
-local ll11lllI11Il1=math.max(3,(lll11l1I1lIll * l1l11lIl) * 2.5);
-local lI111l11II=0;
-while ((lI1l11l1I1I - lI1I1lIll1l).Magnitude < ll11lllI11Il1) and (lI111l11II < 20) do 
-lI111l11II=lI111l11II + 1;
-if lI1l1111.marks[lI1l1111.i] and l1IIlll1I11l.vehFarmOn then 
-lI1l1111.marks[lI1l1111.i]=nil;
-if (l1IIlll1I11l.fmWait or 3) > 0 then 
-lI1l1111.wait=os.clock() + (l1IIlll1I11l.fmWait or 3) end;
-
-if l1IIlll1I11l.fmInteract ~= false then 
-ll1ll1I11(lI1I1lIll1l) end end;
+local lI1ll1IIll11l=l1IIlI1Ill.p[lI1IlI1l1IIll.i];
+local l1lIl11IIl=l1l11ll1llIlI(lI1ll1IIll11l);
+local lII1llI1I1II=l1llIIIIIl.Position;
+local lIllIlIl1;
+if lI1IlI1l1IIll.toStart then 
+lIllIlIl1=math.max(lll1l11Il1ll1.apFixed or 150,80);
+if (l1lIl11IIl - lII1llI1I1II).Magnitude < 6 then 
+lI1IlI1l1IIll.toStart=false end else 
 
 
-local l11l1l11Il=lI1l1111.i + lI1l1111.dir;
-if (l11l1l11Il < 1) or (l11l1l11Il > (# lI11Il1IllIl.p)) then 
-lllI1IIl(l1IIl11I1IlII);
+lIllIlIl1=lIl1Il11IllII(lI1ll1IIll11l);
+
+local llI1l11ll11=math.max(3,(lIllIlIl1 * lll11Ill) * 2.5);
+local l11I11ll=0;
+while ((l1lIl11IIl - lII1llI1I1II).Magnitude < llI1l11ll11) and (l11I11ll < 20) do 
+l11I11ll=l11I11ll + 1;
+if lI1IlI1l1IIll.marks[lI1IlI1l1IIll.i] and lll1l11Il1ll1.vehFarmOn then 
+lI1IlI1l1IIll.marks[lI1IlI1l1IIll.i]=nil;
+if (lll1l11Il1ll1.fmWait or 3) > 0 then 
+lI1IlI1l1IIll.wait=os.clock() + (lll1l11Il1ll1.fmWait or 3) end;
+
+if lll1l11Il1ll1.fmInteract ~= false then 
+ll1l11l1I(lII1llI1I1II) end end;
+
+
+local lIIllII1=lI1IlI1l1IIll.i + lI1IlI1l1IIll.dir;
+if (lIIllII1 < 1) or (lIIllII1 > (# l1IIlI1Ill.p)) then 
+lI11IIl1II(l1llIIIIIl);
 return  end;
 
-lI1l1111.i=l11l1l11Il;
-lIllI1l11=lI11Il1IllIl.p[lI1l1111.i];
-lI1l11l1I1I=lIl1I1I111l(lIllI1l11) end end;
+lI1IlI1l1IIll.i=lIIllII1;
+lI1ll1IIll11l=l1IIlI1Ill.p[lI1IlI1l1IIll.i];
+l1lIl11IIl=l1l11ll1llIlI(lI1ll1IIll11l) end end;
 
 
-local l1I11l11=lI1l11l1I1I - lI1I1lIll1l;
-local lII1lIII1=((l1I11l11.Magnitude > 0.01) and (l1I11l11.Unit * lll11l1I1lIll)) or Vector3.zero;
-lI1l1111.vel=lI1l1111.vel:Lerp(lII1lIII1,math.min(l1l11lIl * 6,1));
-llll1IlIIl1l.VectorVelocity=lI1l1111.vel;
-local llI11lII1l=Vector3.new(lI1l1111.vel.X,0,lI1l1111.vel.Z);
-local lII1I11I1=((llI11lII1l.Magnitude > 2) and llI11lII1l.Unit) or l1II1I1IllI(l1IIl11I1IlII.CFrame.LookVector);
-if (lI1l1111.dir == (- 1)) and lIllI1l11[5] then 
+local lllIl11l1I1=l1lIl11IIl - lII1llI1I1II;
+local ll111l111l1l1=((lllIl11l1I1.Magnitude > 0.01) and (lllIl11l1I1.Unit * lIllIlIl1)) or Vector3.zero;
+lI1IlI1l1IIll.vel=lI1IlI1l1IIll.vel:Lerp(ll111l111l1l1,math.min(lll11Ill * 6,1));
+lII1l11lll.VectorVelocity=lI1IlI1l1IIll.vel;
+local ll1IIIll11=Vector3.new(lI1IlI1l1IIll.vel.X,0,lI1IlI1l1IIll.vel.Z);
+local lll1l1Illll=((ll1IIIll11.Magnitude > 2) and ll1IIIll11.Unit) or l1ll1II1I1(l1llIIIIIl.CFrame.LookVector);
+if (lI1IlI1l1IIll.dir == (- 1)) and lI1ll1IIll11l[5] then 
 
-lII1I11I1=l1II1I1IllI(Vector3.new(lIllI1l11[5],0,lIllI1l11[6])) end;
+lll1l1Illll=l1ll1II1I1(Vector3.new(lI1ll1IIll11l[5],0,lI1ll1IIll11l[6])) end;
 
-local l1IlIIllIl=math.clamp(lI1l1111.vel.Y / math.max(lll11l1I1lIll,20),- 0.6,0.6) * 0.5;
-llll11IIIllI.CFrame=CFrame.lookAt(Vector3.zero,lII1I11I1) * CFrame.Angles(l1IlIIllIl,0,0);
-l111IlI1l1();
-l1I1l1lI1I1l1.Text=string.format(l11l1Il1lll("\90\75\141\8\200\223\36\125\221",84),math.floor((lI1l1111.i / (# lI11Il1IllIl.p)) * 100)) end;
-
-
-
-
-
-local l1lll1III={};
-local function ll11Ill1() 
-for lII1Ill11,lIIIII111lIlI in pairs(l1lll1III) do 
-if lII1Ill11.Parent then 
-lII1Ill11.CanCollide=lIIIII111lIlI end end;
-
-
-l1lll1III={} end;
-
-lI11l11IIl(lIII1l1l.Stepped:Connect(function() 
-local lI1l1II1lI=(l111I1I1I1l1() and l1IIlll1I11l.vehNoclip) or (lI1l1111.playing and (l1IIlll1I11l.apNoclip ~= false));
-if lI1l1II1lI and llIlIIlI1lIl1.all then 
-for l11Il11IIl1l1,l1III1lIIl11 in ipairs(llIlIIlI1lIl1.all) do 
-if l1III1lIIl11.Parent and l1III1lIIl11.CanCollide then 
-if l1lll1III[l1III1lIIl11] == nil then 
-l1lll1III[l1III1lIIl11]=true end;
-
-l1III1lIIl11.CanCollide=false end end elseif next(l1lll1III) then 
-
-
-
-ll11Ill1() end end));
+local llI1llll1lI=math.clamp(lI1IlI1l1IIll.vel.Y / math.max(lIllIlIl1,20),- 0.6,0.6) * 0.5;
+lIII11l1.CFrame=CFrame.lookAt(Vector3.zero,lll1l1Illll) * CFrame.Angles(llI1llll1lI,0,0);
+l1I1III1();
+l1ll1I1IllIll.Text=string.format(lI1I1ll1llIl("\91\109\114\227\247\188\137\5\144",45),math.floor((lI1IlI1l1IIll.i / (# l1IIlI1Ill.p)) * 100)) end;
 
 
 
 
 
+local l1I1lII11I={};
+local function l11I1llll1l1() 
+for lIl11lII,llIlll1l1lII in pairs(l1I1lII11I) do 
+if lIl11lII.Parent then 
+lIl11lII.CanCollide=llIlll1l1lII end end;
 
-local lIll1l11l;
+
+l1I1lII11I={} end;
+
+lIl11lIIl(lII1llIIIIlI.Stepped:Connect(function() 
+local lI111ll1lI=(lIlIIlIII1() and lll1l11Il1ll1.vehNoclip) or (lI1IlI1l1IIll.playing and (lll1l11Il1ll1.apNoclip ~= false));
+if lI111ll1lI and lII1Illl.all then 
+for lIl1lllII11II,l11lllIII1Il in ipairs(lII1Illl.all) do 
+if l11lllIII1Il.Parent and l11lllIII1Il.CanCollide then 
+if l1I1lII11I[l11lllIII1Il] == nil then 
+l1I1lII11I[l11lllIII1Il]=true end;
+
+l11lllIII1Il.CanCollide=false end end elseif next(l1I1lII11I) then 
 
 
 
-local lIlIl1II1IlI1={l11l1Il1lll("\195\201\1\8\184",30),l11l1Il1lll("\212\53\68\244\232",245),l11l1Il1lll("\130\36\220\157",161),l11l1Il1lll("\234\13\15\182",31),l11l1Il1lll("\138\189\175\22",127),l11l1Il1lll("\157\51\27\166",215),l11l1Il1lll("\137\26\142\146",86),l11l1Il1lll("\59\31\56\254",189),l11l1Il1lll("\35\35\134\100",200),l11l1Il1lll("\216\54\75",82),l11l1Il1lll("\124\108\184\49\141\150",84)};
-local function lIlI11II(l1I1ll11ll1l) 
-l1I1ll11ll1l=string.lower(l1I1ll11ll1l);
-for llI1I1l1l111I,lllIII1I1ll in ipairs(lIlIl1II1IlI1) do 
-if string.find(l1I1ll11ll1l,lllIII1I1ll,1,true) then 
+l11I1llll1l1() end end));
+
+
+
+
+
+
+local l1lI1I11;
+
+
+
+local ll111IlI={lI1I1ll1llIl("\181\73\121\87\163",12),lI1I1ll1llIl("\53\169\16\166\202",88),lI1I1ll1llIl("\230\198\22\55",69),lI1I1ll1llIl("\27\88\55\29",241),lI1I1ll1llIl("\193\244\45\22",101),lI1I1ll1llIl("\19\196\222\91",150),lI1I1ll1llIl("\114\189\148\152",220),lI1I1ll1llIl("\215\105\0\230",170),lI1I1ll1llIl("\193\185\76\41",190),lI1I1ll1llIl("\102\82\213",39),lI1I1ll1llIl("\149\106\2\187\212\0",239)};
+local function l11IlIl1l11II(lI11II1I) 
+lI11II1I=string.lower(lI11II1I);
+for lIIIlll1ll1l,ll111II1 in ipairs(ll111IlI) do 
+if string.find(lI11II1I,ll111II1,1,true) then 
 return true end end;
 
 
 return false end;
 
-local function lIl1ll1lII11I(llII1I1I) 
-local ll1l1Il1=string.lower(llII1I1I.Name);
-if (string.find(ll1l1Il1,l11l1Il1lll("\7\12\203\198\113",222),1,true) or string.find(ll1l1Il1,l11l1Il1lll("\20\254\111\199",37),1,true)) or string.find(ll1l1Il1,l11l1Il1lll("\31\23\251\114",36),1,true) then 
+local function lIIlIllI1l(llllI1I1IIl) 
+local l11IllIlI=string.lower(llllI1I1IIl.Name);
+if (string.find(l11IllIlI,lI1I1ll1llIl("\241\12\51\25\234",76),1,true) or string.find(l11IllIlI,lI1I1ll1llIl("\127\78\195\70",39),1,true)) or string.find(l11IllIlI,lI1I1ll1llIl("\173\109\211\252",99),1,true) then 
 return true end;
 
-return ((((((((ll1l1Il1 == l11l1Il1lll("\35\223",162)) or (ll1l1Il1 == l11l1Il1lll("\70\165",101))) or (ll1l1Il1 == l11l1Il1lll("\151\127",2))) or (ll1l1Il1 == l11l1Il1lll("\151\97",2))) or (ll1l1Il1 == l11l1Il1lll("\201\53",66))) or (ll1l1Il1 == l11l1Il1lll("\50\209",5))) or (ll1l1Il1 == l11l1Il1lll("\50\214",223))) or (ll1l1Il1 == l11l1Il1lll("\152\220",121))) or (ll1l1Il1 == l11l1Il1lll("\164\4",11)) end;
+return ((((((((l11IllIlI == lI1I1ll1llIl("\95\152",131)) or (l11IllIlI == lI1I1ll1llIl("\31\198",195))) or (l11IllIlI == lI1I1ll1llIl("\5\221",150))) or (l11IllIlI == lI1I1ll1llIl("\24\26",93))) or (l11IllIlI == lI1I1ll1llIl("\205\77",168))) or (l11IllIlI == lI1I1ll1llIl("\151\202",250))) or (l11IllIlI == lI1I1ll1llIl("\137\222",250))) or (l11IllIlI == lI1I1ll1llIl("\54\153",36))) or (l11IllIlI == lI1I1ll1llIl("\215\255",117)) end;
 
-local llIl1lll={model=nil,emitters={},cloned={},level=nil,lastEmit=0};
-local l11lIII111;
-local function lIllIIlI() 
-if l11lIII111 ~= nil then 
-return l11lIII111 or nil end;
+local l11IIl1IlIll={model=nil,emitters={},cloned={},level=nil,lastEmit=0};
+local l111111lI;
+local function lIllll1I() 
+if l111111lI ~= nil then 
+return l111111lI or nil end;
 
-l11lIII111=false;
-for lIllI1IlI1l1,lllI1I11Il in ipairs({game:GetService(l11l1Il1lll("\20\179\61\114\95\159\244\95\172\241\247\39\174\28\17\93\179",155)),game:GetService(l11l1Il1lll("\138\50\100\44\227\252\80\179\206\202\15\190\234\249\68",172)),workspace}) do 
-local l11Ill11I,l1l111II=pcall(lllI1I11Il.GetDescendants,lllI1I11Il);
-if l11Ill11I then 
-for ll1III1I1,lIlll11lI1I in ipairs(l1l111II) do 
-if (lIlll11lI1I:IsA(l11l1Il1lll("\192\165\124\119\212\24\75\79\136\62\117\114\216\33\166",62)) and lIlI11II(lIlll11lI1I.Name)) and (not lIlll11lI1I:IsDescendantOf(llIlIIlI1lIl1.model or game)) then 
-l11lIII111=lIlll11lI1I;
-return lIlll11lI1I end end end end;
+l111111lI=false;
+for lIIIIllI1II1l,ll111lIl1lI1 in ipairs({game:GetService(lI1I1ll1llIl("\215\216\63\15\156\4\179\56\223\252\213\56\88\11\108\167\112",85)),game:GetService(lI1I1ll1llIl("\157\244\149\116\212\246\54\255\104\235\124\61\224\211\218",81)),workspace}) do 
+local l111lIll11lI1,l1Ill1I1=pcall(ll111lIl1lI1.GetDescendants,ll111lIl1lI1);
+if l111lIll11lI1 then 
+for ll111I1lIllII,l111lI11l in ipairs(l1Ill1I1) do 
+if (l111lI11l:IsA(lI1I1ll1llIl("\245\252\221\247\124\228\94\9\223\213\207\88\35\124\31",117)) and l11IlIl1l11II(l111lI11l.Name)) and (not l111lI11l:IsDescendantOf(lII1Illl.model or game)) then 
+l111111lI=l111lI11l;
+return l111lI11l end end end end;
 
 
 
@@ -3203,464 +3207,464 @@ return lIlll11lI1I end end end end;
 return nil end;
 
 
-local function l1I1llIII1(lII1l11I1l11,lI1l1I11I11) 
-local llII1Illl1l1,l111l1l1111Il={},{};
-local function lll1II1llI1(l11lIl1I1ll) 
-local lIl1l1l1lII=l11lIl1I1ll.AssemblyRootPart;
-if (((lIl1l1l1lII and (lIl1l1l1lII ~= lI1l1I11I11)) and (not l111l1l1111Il[lIl1l1l1lII])) and (lIl1l1l1lII.Size.Magnitude > 1)) and ((# llII1Illl1l1) < 8) then 
-l111l1l1111Il[lIl1l1l1lII]=true;
-table.insert(llII1Illl1l1,lIl1l1l1lII) end end;
+local function l1lIIII1(l1IIlI1llllI,l1lII1111IlI) 
+local l1lI1IllIII1,lllIIIII1lI={},{};
+local function lllllllIIIl1l(lI11lIl1) 
+local lI11l1I11III1=lI11lIl1.AssemblyRootPart;
+if (((lI11l1I11III1 and (lI11l1I11III1 ~= l1lII1111IlI)) and (not lllIIIII1lI[lI11l1I11III1])) and (lI11l1I11III1.Size.Magnitude > 1)) and ((# l1lI1IllIII1) < 8) then 
+lllIIIII1lI[lI11l1I11III1]=true;
+table.insert(l1lI1IllIII1,lI11l1I11III1) end end;
 
 
 
-for l1lIII1I,ll1lII1II1ll in ipairs(llIlIIlI1lIl1.loose) do 
-local lllll111l11lI=string.lower(ll1lII1II1ll.Name);
-if ll1lII1II1ll.Parent and ((string.find(lllll111l11lI,l11l1Il1lll("\15\159\209\197\6",12),1,true) or string.find(lllll111l11lI,l11l1Il1lll("\160\69\254\126",234),1,true)) or string.find(lllll111l11lI,l11l1Il1lll("\77\51\24\213",221),1,true)) then 
-lll1II1llI1(ll1lII1II1ll) end end;
+for l1III1lIlIl11,l1llIllll1 in ipairs(lII1Illl.loose) do 
+local l1lII1II11II=string.lower(l1llIllll1.Name);
+if l1llIllll1.Parent and ((string.find(l1lII1II11II,lI1I1ll1llIl("\242\213\42\6\153",85),1,true) or string.find(l1lII1II11II,lI1I1ll1llIl("\210\177\92\73",11),1,true)) or string.find(l1lII1II11II,lI1I1ll1llIl("\47\90\172\18",146),1,true)) then 
+lllllllIIIl1l(l1llIllll1) end end;
 
 
 
-if (# llII1Illl1l1) == 0 then 
-for ll11I1II,l1l11l1lIIII in ipairs(lII1l11I1l11:GetDescendants()) do 
-if l1l11l1lIIII:IsA(l11l1Il1lll("\225\147\180\71\92\212\2\95\179\67\207\99\69\248\6",77)) or l1l11l1lIIII:IsA(l11l1Il1lll("\94\250\64\95\146\112\214\90\19\5\194\224\114\117\52\62\223\82\213\200\120",166)) then 
-for l1Illl1I1Il,lIll1IIIII in ipairs({l1l11l1lIIII.Attachment0,l1l11l1lIIII.Attachment1}) do 
-local l1lIlIIllIl=lIll1IIIII and lIll1IIIII.Parent;
-if l1lIlIIllIl and l1lIlIIllIl:IsA(l11l1Il1lll("\240\198\106\122\19\55\211\123",240)) then 
-local lIIl11I11l1=l1lIlIIllIl.Size;
-local lI1l1I1lIl=((math.abs(lIIl11I11l1.Y - lIIl11I11l1.Z) < 0.5) or (math.abs(lIIl11I11l1.X - lIIl11I11l1.Y) < 0.5)) or (math.abs(lIIl11I11l1.X - lIIl11I11l1.Z) < 0.5);
-if lI1l1I1lIl then 
-lll1II1llI1(l1lIlIIllIl) end end end end end end;
+if (# l1lI1IllIII1) == 0 then 
+for llIIIl111II1,l11l1IIlll in ipairs(l1IIlI1llllI:GetDescendants()) do 
+if l11l1IIlll:IsA(lI1I1ll1llIl("\205\101\12\255\223\227\69\59\104\23\236\86\102\183\129",154)) or l11l1IIlll:IsA(lI1I1ll1llIl("\173\224\171\198\12\151\185\116\82\218\53\163\241\2\29\0\236\136\222\81\134",0)) then 
+for l111Il1I111ll,llll1IIlllIl in ipairs({l11l1IIlll.Attachment0,l11l1IIlll.Attachment1}) do 
+local llI1l1lllll1=llll1IIlllIl and llll1IIlllIl.Parent;
+if llI1l1lllll1 and llI1l1lllll1:IsA(lI1I1ll1llIl("\67\234\122\213\190\125\76\80",8)) then 
+local ll11lIIl=llI1l1lllll1.Size;
+local l1I1IIlI=((math.abs(ll11lIIl.Y - ll11lIIl.Z) < 0.5) or (math.abs(ll11lIIl.X - ll11lIIl.Y) < 0.5)) or (math.abs(ll11lIIl.X - ll11lIIl.Z) < 0.5);
+if l1I1IIlI then 
+lllllllIIIl1l(llI1l1lllll1) end end end end end end;
 
 
 
 
 
 
-return llII1Illl1l1 end;
+return l1lI1IllIII1 end;
 
-local function l1lIl11l() 
-for lll1lIl1,l11lIlIII in ipairs(llIl1lll.emitters) do 
-local lI1II1IIl1=l11lIlIII.obj;
-if lI1II1IIl1.Parent then 
+local function lll1IIII1ll() 
+for lIlI11lIlIl,l1llI11lI1 in ipairs(l11IIl1IlIll.emitters) do 
+local lI1lIIlll=l1llI11lI1.obj;
+if lI1lIIlll.Parent then 
 pcall(function() 
-lI1II1IIl1.Enabled=l11lIlIII.enabled;
-if lI1II1IIl1:IsA(l11l1Il1lll("\62\213\223\151\120\62\48\254\76\219\209\118\234\91\199",239)) then 
-lI1II1IIl1.Rate=l11lIlIII.rate end end) end end;
+lI1lIIlll.Enabled=l1llI11lI1.enabled;
+if lI1lIIlll:IsA(lI1I1ll1llIl("\79\32\71\156\36\38\235\222\120\178\3\112\150\181\140",129)) then 
+lI1lIIlll.Rate=l1llI11lI1.rate end end) end end;
 
 
 
 
-for lIII1IIl1I,l1l111I1llll1 in ipairs(llIl1lll.cloned) do 
-pcall(l1l111I1llll1.Destroy,l1l111I1llll1) end;
+for ll1I1ll11II,ll1I1Il1llII in ipairs(l11IIl1IlIll.cloned) do 
+pcall(ll1I1Il1llII.Destroy,ll1I1Il1llII) end;
 
-local lI111lIl1IlI1=llIl1lll.model;
-if (lI111lIl1IlI1 and lI111lIl1IlI1.Parent) and (lI111lIl1IlI1:GetAttribute(l11l1Il1lll("\108\245\173\150\78",92)) ~= nil) then 
-pcall(lI111lIl1IlI1.SetAttribute,lI111lIl1IlI1,l11l1Il1lll("\173\36\49\132\74",199),false) end;
+local llIl1lIll=l11IIl1IlIll.model;
+if (llIl1lIll and llIl1lIll.Parent) and (llIl1lIll:GetAttribute(lI1I1ll1llIl("\14\153\202\3\45",52)) ~= nil) then 
+pcall(llIl1lIll.SetAttribute,llIl1lIll,lI1I1ll1llIl("\149\41\144\38\74",216),false) end;
 
-llIl1lll.model,llIl1lll.emitters,llIl1lll.cloned,llIl1lll.level=nil,{},{},nil end;
+l11IIl1IlIll.model,l11IIl1IlIll.emitters,l11IIl1IlIll.cloned,l11IIl1IlIll.level=nil,{},{},nil end;
 
-local function lIII1llllII(l1lll1111) 
-l1lIl11l();
-llIl1lll.model=l1lll1111;
-for l1I1ll1I1l1l,l1ll1Il1Ill in ipairs(l1lll1111:GetDescendants()) do 
-if ((l1ll1Il1Ill:IsA(l11l1Il1lll("\33\174\71\13\17\156\9\175\145\51\211\110\229\183\112",33)) or l1ll1Il1Ill:IsA(l11l1Il1lll("\97\74\246\244\166",112))) and l1ll1Il1Ill.Parent) and ((lIlI11II(l1ll1Il1Ill.Name) or lIlI11II(l1ll1Il1Ill.Parent.Name)) or (l1ll1Il1Ill.Parent:IsA(l11l1Il1lll("\59\167\155\55\254\111\23\82",87)) and lIl1ll1lII11I(l1ll1Il1Ill.Parent))) then 
-table.insert(llIl1lll.emitters,{obj=l1ll1Il1Ill,enabled=l1ll1Il1Ill.Enabled,rate=(l1ll1Il1Ill:IsA(l11l1Il1lll("\244\111\152\62\200\129\190\125\116\226\28\77\76\90\215",41)) and l1ll1Il1Ill.Rate) or 0}) end end;
-
-
-if (# llIl1lll.emitters) == 0 then 
-local lIllIlI11IlI1=lIllIIlI();
-if lIllIlI11IlI1 then 
-for l1I1lllllI1lI,lIlI11lI1l1 in ipairs(llIlIIlI1lIl1.all) do 
-if (lIlI11lI1l1.Parent and lIl1ll1lII11I(lIlI11lI1l1)) and ((# llIl1lll.cloned) < 6) then 
-local l1lI1lIIIIl=lIllIlI11IlI1:Clone();
-l1lI1lIIIIl.Enabled=false;
-l1lI1lIIIIl.Parent=lIlI11lI1l1;
-table.insert(llIl1lll.cloned,l1lI1lIIIIl);
-table.insert(llIl1lll.emitters,{obj=l1lI1lIIIIl,enabled=false,rate=l1lI1lIIIIl.Rate}) end end end end end;
+local function l1IlIllll(lIlIlII1) 
+lll1IIII1ll();
+l11IIl1IlIll.model=lIlIlII1;
+for llI1llI11I,ll1llI1I1I1l in ipairs(lIlIlII1:GetDescendants()) do 
+if ((ll1llI1I1I1l:IsA(lI1I1ll1llIl("\13\158\56\80\171\147\114\129\202\188\204\44\137\176\101",217)) or ll1llI1I1I1l:IsA(lI1I1ll1llIl("\168\238\81\252\202",50))) and ll1llI1I1I1l.Parent) and ((l11IlIl1l11II(ll1llI1I1I1l.Name) or l11IlIl1l11II(ll1llI1I1I1l.Parent.Name)) or (ll1llI1I1I1l.Parent:IsA(lI1I1ll1llIl("\52\149\181\169\102\32\93\35",188)) and lIIlIllI1l(ll1llI1I1I1l.Parent))) then 
+table.insert(l11IIl1IlIll.emitters,{obj=ll1llI1I1I1l,enabled=ll1llI1I1I1l.Enabled,rate=(ll1llI1I1I1l:IsA(lI1I1ll1llIl("\126\56\117\27\203\80\103\184\180\22\112\212\170\73\92",192)) and ll1llI1I1I1l.Rate) or 0}) end end;
 
 
-
-
-
-local function l1IllIII1IlI(l1IllI1I,llIIl1III1ll) 
-if llIl1lll.model ~= l1IllI1I then 
-lIII1llllII(l1IllI1I) end;
-
-if (l1IllI1I:GetAttribute(l11l1Il1lll("\82\212\84\40\18",203)) ~= nil) and (l1IllI1I:GetAttribute(l11l1Il1lll("\236\117\45\22\206",220)) ~= true) then 
-pcall(l1IllI1I.SetAttribute,l1IllI1I,l11l1Il1lll("\180\117\132\52\40",181),true) end;
-
-local l11I11Il11lI=(os.clock() - llIl1lll.lastEmit) > 0.12;
-if l11I11Il11lI then 
-llIl1lll.lastEmit=os.clock() end;
-
-for l1I1I1IlI,ll1IIl1IllI in ipairs(llIl1lll.emitters) do 
-local llI1III111=ll1IIl1IllI.obj;
-if llI1III111.Parent then 
-llI1III111.Enabled=true;
-if llI1III111:IsA(l11l1Il1lll("\64\99\218\52\185\44\112\93\199\250\64\187\231\195\35",136)) then 
-llI1III111.Rate=math.max(ll1IIl1IllI.rate,15) * (0.3 + (llIIl1III1ll * 0.4));
-
-if l11I11Il11lI then 
-pcall(llI1III111.Emit,llI1III111,llIIl1III1ll) end end end end end;
+if (# l11IIl1IlIll.emitters) == 0 then 
+local ll1llll1I1=lIllll1I();
+if ll1llll1I1 then 
+for lll1Ill1ll1lI,llll1lllIllI in ipairs(lII1Illl.all) do 
+if (llll1lllIllI.Parent and lIIlIllI1l(llll1lllIllI)) and ((# l11IIl1IlIll.cloned) < 6) then 
+local lIlII1l1I=ll1llll1I1:Clone();
+lIlII1l1I.Enabled=false;
+lIlII1l1I.Parent=llll1lllIllI;
+table.insert(l11IIl1IlIll.cloned,lIlII1l1I);
+table.insert(l11IIl1IlIll.emitters,{obj=lIlII1l1I,enabled=false,rate=lIlII1l1I.Rate}) end end end end end;
 
 
 
 
 
-local function llI1I1I1Illl() 
-lIlI11l1I1llI.Visible,lllII11l.Visible=false,false;
-if llIl1lll.model then 
-l1lIl11l() end;
+local function lIll1I111(lIl1l1I1,lIlIllII11llI) 
+if l11IIl1IlIll.model ~= lIl1l1I1 then 
+l1IlIllll(lIl1l1I1) end;
 
-if l1llIlI1lIlI then 
-l1llIlI1lIlI=false;
-l1IIIIIl1I();
-if lIII1111Il.zoomSaved then 
-lllI1llI.CameraMaxZoomDistance=lIII1111Il.zoomSaved[2];
-lllI1llI.CameraMinZoomDistance=lIII1111Il.zoomSaved[1];
-lIII1111Il.zoomSaved=nil end;
+if (lIl1l1I1:GetAttribute(lI1I1ll1llIl("\134\186\91\27\87",206)) ~= nil) and (lIl1l1I1:GetAttribute(lI1I1ll1llIl("\142\25\74\131\173",180)) ~= true) then 
+pcall(lIl1l1I1.SetAttribute,lIl1l1I1,lI1I1ll1llIl("\223\145\119\209\251",82),true) end;
 
-for l1I1IIlI1 in pairs(l1l11l1l) do 
-ll111III111(l1I1IIlI1) end end end;
+local l111Il11=(os.clock() - l11IIl1IlIll.lastEmit) > 0.12;
+if l111Il11 then 
+l11IIl1IlIll.lastEmit=os.clock() end;
+
+for lII1I1Il111,lIIIlIl1ll in ipairs(l11IIl1IlIll.emitters) do 
+local ll1lI1IlI1=lIIIlIl1ll.obj;
+if ll1lI1IlI1.Parent then 
+ll1lI1IlI1.Enabled=true;
+if ll1lI1IlI1:IsA(lI1I1ll1llIl("\77\222\120\16\235\211\178\65\10\124\12\236\73\112\165",153)) then 
+ll1lI1IlI1.Rate=math.max(lIIIlIl1ll.rate,15) * (0.3 + (lIlIllII11llI * 0.4));
+
+if l111Il11 then 
+pcall(ll1lI1IlI1.Emit,ll1lI1IlI1,lIlIllII11llI) end end end end end;
 
 
 
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function(lIllI1I1l1Il) 
-l1Il1lIllII();
-if not lIIl111I1II() then 
-if lIII1111Il.jumpLocked then 
+
+
+local function ll1Il11lIllI() 
+l1111l1I1ll1.Visible,l1l1IIIlIIl.Visible=false,false;
+if l11IIl1IlIll.model then 
+lll1IIII1ll() end;
+
+if lII11Illll11 then 
+lII11Illll11=false;
+lII1lIIlIlI1();
+if l1II1111Illll.zoomSaved then 
+ll1lI1IIII1.CameraMaxZoomDistance=l1II1111Illll.zoomSaved[2];
+ll1lI1IIII1.CameraMinZoomDistance=l1II1111Illll.zoomSaved[1];
+l1II1111Illll.zoomSaved=nil end;
+
+for ll1lI111I1 in pairs(l1lllIl1Ill11) do 
+llIll1Il(ll1lI111I1) end end end;
+
+
+
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function(lII1II11l1111) 
+ll11II1l1ll();
+if not lIII1Il11II() then 
+if l1II1111Illll.jumpLocked then 
 pcall(function() 
-lIII1111Il.jumpLocked:SetStateEnabled(Enum.HumanoidStateType.Jumping,true) end);
+l1II1111Illll.jumpLocked:SetStateEnabled(Enum.HumanoidStateType.Jumping,true) end);
 
-lIII1111Il.jumpLocked=nil end;
+l1II1111Illll.jumpLocked=nil end;
 
-llI1I1I1Illl();
-if llll1IlIIl1l then 
-lIl111ll1I() end;
+ll1Il11lIllI();
+if lII1l11lll then 
+llIIlIII11() end;
 
-lIII1111Il.flying,lIIlIlllI1l.flying,lIII1111Il.recording=false,false,false;
-if lI1l1111.playing then 
-llI11IllIlIl() end;
+l1II1111Illll.flying,l1lIIIl1.flying,l1II1111Illll.recording=false,false,false;
+if lI1IlI1l1IIll.playing then 
+lIllI1I1l1() end;
 
 return  end;
 
-local lll1lII1lI=l1llll1lI1I1l();
-local l1lIlI1lll111=lll1lII1lI and l1IIlII11();
-local llI1Il11l1=llIlIIlI1lIl1.root;
-if lIII1111Il.jumpLocked and (not ((l1lIlI1lll111 and llI1Il11l1) and llI1Il11l1.Parent)) then 
+local llIIl1ll1lI=l11l1IlI1I();
+local l1l1I1ll=llIIl1ll1lI and l1I11lIl11IlI();
+local llI1111I=lII1Illl.root;
+if l1II1111Illll.jumpLocked and (not ((l1l1I1ll and llI1111I) and llI1111I.Parent)) then 
 pcall(function() 
-lIII1111Il.jumpLocked:SetStateEnabled(Enum.HumanoidStateType.Jumping,true) end);
+l1II1111Illll.jumpLocked:SetStateEnabled(Enum.HumanoidStateType.Jumping,true) end);
 
-lIII1111Il.jumpLocked=nil end;
+l1II1111Illll.jumpLocked=nil end;
 
-if not ((l1lIlI1lll111 and llI1Il11l1) and llI1Il11l1.Parent) then 
-llI1I1I1Illl();
-if llll1IlIIl1l then 
-lIl111ll1I() end;
+if not ((l1l1I1ll and llI1111I) and llI1111I.Parent) then 
+ll1Il11lIllI();
+if lII1l11lll then 
+llIIlIII11() end;
 
-lIII1111Il.flying,lIIlIlllI1l.flying,lIIlIlllI1l.phase,lIII1111Il.cruise=false,false,nil,false;
-if lI1l1111.playing then 
-lI1l1111.paused=true end;
+l1II1111Illll.flying,l1lIIIl1.flying,l1lIIIl1.phase,l1II1111Illll.cruise=false,false,nil,false;
+if lI1IlI1l1IIll.playing then 
+lI1IlI1l1IIll.paused=true end;
 
 return  end;
 
-if lI1l1111.paused and lI1l1111.playing then 
+if lI1IlI1l1IIll.paused and lI1IlI1l1IIll.playing then 
 
-lI1l1111.paused=false;
-l1llII1I(llI1Il11l1) end;
+lI1IlI1l1IIll.paused=false;
+ll1lIlIII11l(llI1111I) end;
 
-local lI1lIll1ll1=llI1Il11l1.AssemblyLinearVelocity;
-local lI1lI1lII=Vector3.new(lI1lIll1ll1.X,0,lI1lIll1ll1.Z).Magnitude;
+local lI11IlIlllI=llI1111I.AssemblyLinearVelocity;
+local llll111ll=Vector3.new(lI11IlIlllI.X,0,lI11IlIlllI.Z).Magnitude;
 
-local lIII1II1I1=l1IIlll1I11l.vehSeatLock ~= false;
-if lll1lII1lI:GetStateEnabled(Enum.HumanoidStateType.Jumping) == lIII1II1I1 then 
-lll1lII1lI:SetStateEnabled(Enum.HumanoidStateType.Jumping,not lIII1II1I1);
-lIII1111Il.jumpLocked=(lIII1II1I1 and lll1lII1lI) or nil end;
-
-
-
-local lIIllIII11lll=(l1IIlll1I11l.vehPad ~= false) and llIl11lIIl1I1.TouchEnabled;
-lIlI11l1I1llI.Visible=lIIllIII11lll == true;
-lllII11l.Visible=not lIIllIII11lll;
-if lIIllIII11lll then 
-lll111lI1.Text=tostring(math.floor(((lI1lI1lII * 0.28) * 3.6) + 0.5));
-local ll11Il1I=lI1lIll1ll1:Dot(l1II1I1IllI(l1lIlI1lll111.CFrame.LookVector));
-lll1IlI1lI11l((((llI1Il11l1.Anchored and l11l1Il1lll("\89",237)) or (((ll11Il1I < (- 2)) and (not l111I1I1I1l1())) and l11l1Il1lll("\176",160))) or (((lI1lI1lII < 1) and (not l111I1I1I1l1())) and l11l1Il1lll("\200",91))) or l11l1Il1lll("\253",93));
-
-local lII1Illl11=(l1IIlll1I11l.vehFlightUI ~= false) and (l111I1I1I1l1() == true);
-if lII1Illl11 ~= l1llIlI1lIlI then 
-l1llIlI1lIlI=lII1Illl11;
-if l1llIlI1lIlI then 
-lIIlllIl1();
-
-if l1IIlll1I11l.vehZoomLock ~= false then 
-local ll11I1l11Il1I=workspace.CurrentCamera;
-local lIIIl1l1=math.clamp((ll11I1l11Il1I.CFrame.Position - ll11I1l11Il1I.Focus.Position).Magnitude,12,80);
-lIII1111Il.zoomSaved={lllI1llI.CameraMinZoomDistance,lllI1llI.CameraMaxZoomDistance};
-lllI1llI.CameraMaxZoomDistance=math.max(lIIIl1l1,lllI1llI.CameraMinZoomDistance);
-lllI1llI.CameraMinZoomDistance=lIIIl1l1;
-lllI1llI.CameraMaxZoomDistance=lIIIl1l1 end else 
-
-
-l1IIIIIl1I();
-if lIII1111Il.zoomSaved then 
-lllI1llI.CameraMaxZoomDistance=lIII1111Il.zoomSaved[2];
-lllI1llI.CameraMinZoomDistance=lIII1111Il.zoomSaved[1];
-lIII1111Il.zoomSaved=nil end end;
-
-
-for l11l1III1I in pairs(l1l11l1l) do 
-ll111III111(l11l1III1I) end;
-
-lI11IIlIl11=l11l1Il1lll("",83) end;
-
-if l1llIlI1lIlI and ((os.clock() - (lIII1111Il.lastHide or 0)) > 0.5) then 
-
-lIII1111Il.lastHide=os.clock();
-lIIlllIl1() end;
-
-for l11111l1IIIl,l1llI1l11I in pairs(l1l11l1l) do 
-l1llI1l11I.gui.Visible=l1llI1l11I.show() == true end;
-
-
-local l1l1lII1II=l11l1Il1lll("",25);
-for ll1lIII11I11I,l11ll1llIIII in ipairs(lll1l11II111) do 
-if l1l11l1l[l11ll1llIIII] and l1l11l1l[l11ll1llIIII].gui.Visible then 
-l1l1lII1II=l1l1lII1II .. (l11ll1llIIII .. l11l1Il1lll("\105",162)) end end;
+local l1lI1I1I=lll1l11Il1ll1.vehSeatLock ~= false;
+if llIIl1ll1lI:GetStateEnabled(Enum.HumanoidStateType.Jumping) == l1lI1I1I then 
+llIIl1ll1lI:SetStateEnabled(Enum.HumanoidStateType.Jumping,not l1lI1I1I);
+l1II1111Illll.jumpLocked=(l1lI1I1I and llIIl1ll1lI) or nil end;
 
 
 
+local lllllIIIIl1I=(lll1l11Il1ll1.vehPad ~= false) and l1IIl1lll1l.TouchEnabled;
+l1111l1I1ll1.Visible=lllllIIIIl1I == true;
+l1l1IIIlIIl.Visible=not lllllIIIIl1I;
+if lllllIIIIl1I then 
+l11l1I11I.Text=tostring(math.floor(((llll111ll * 0.28) * 3.6) + 0.5));
+local l1llll111=lI11IlIlllI:Dot(l1ll1II1I1(l1l1I1ll.CFrame.LookVector));
+lIllIIl11Il1I((((llI1111I.Anchored and lI1I1ll1llIl("\59",162)) or (((l1llll111 < (- 2)) and (not lIlIIlIII1())) and lI1I1ll1llIl("\20",140))) or (((llll111ll < 1) and (not lIlIIlIII1())) and lI1I1ll1llIl("\56",188))) or lI1I1ll1llIl("\10",160));
 
-if (not lIII1lI11) and ((l1l1lII1II ~= lI11IIlIl11) or ((os.clock() - (lIII1111Il.lastPlace or 0)) > 3)) then 
-lI11IIlIl11=l1l1lII1II;
-lIII1111Il.lastPlace=os.clock();
-task.defer(l11IIIl11ll1) end;
+local ll1l1lllIlll=(lll1l11Il1ll1.vehFlightUI ~= false) and (lIlIIlIII1() == true);
+if ll1l1lllIlll ~= lII11Illll11 then 
+lII11Illll11=ll1l1lllIlll;
+if lII11Illll11 then 
+lllI1II1I();
 
-ll1lIIll1II.fly(lIII1111Il.flying);
-ll1lIIll1II.rocket(ll1lllIlI.rocket);
-ll1lIIll1II.n2o(ll1lllIlI.n2o);
-ll1lIIll1II.boost(l1IIlll1I11l.vehBoost == true);
-ll1lIIll1II.brake(ll1lllIlI.brake);
-ll1lIIll1II.cruise(lIII1111Il.cruise == true);
-ll1lIIll1II.smoke(l1IIlll1I11l.vehSmokeOn == true);
-ll1lIIll1II.up(ll1lllIlI.up);
-ll1lIIll1II.down(ll1lllIlI.down);
-ll1lIIll1II.r_fly(lIIlIlllI1l.flying);
-ll1lIIll1II.r_thrust(ll1lllIlI.thrust);
-ll1lIIll1II.r_roll(lIIlIlllI1l.rollStart ~= nil);
-ll1lIIll1II.r_flipf((lIIlIlllI1l.flipStart ~= nil) and (lIIlIlllI1l.flipDir == (- 1)));
-ll1lIIll1II.r_flipb((lIIlIlllI1l.flipStart ~= nil) and (lIIlIlllI1l.flipDir == 1));
-ll1lIIll1II.r_hover(l1IIlll1I11l.rdHoverHold ~= false);
-ll1lIIll1II.rec(lIII1111Il.recording);
-ll1lIIll1II.play(lI1l1111.playing);
-if not (l111I1I1I1l1() or lI1l1111.playing) then 
-l1I1l1lI1I1l1.Text=(lIII1111Il.recording and l11l1Il1lll("\235\143\169",93)) or l11l1Il1lll("",57) end else 
+if lll1l11Il1ll1.vehZoomLock ~= false then 
+local lI11I1Il=workspace.CurrentCamera;
+local lIII1II11II=math.clamp((lI11I1Il.CFrame.Position - lI11I1Il.Focus.Position).Magnitude,12,80);
+l1II1111Illll.zoomSaved={ll1lI1IIII1.CameraMinZoomDistance,ll1lI1IIII1.CameraMaxZoomDistance};
+ll1lI1IIII1.CameraMaxZoomDistance=math.max(lIII1II11II,ll1lI1IIII1.CameraMinZoomDistance);
+ll1lI1IIII1.CameraMinZoomDistance=lIII1II11II;
+ll1lI1IIII1.CameraMaxZoomDistance=lIII1II11II end else 
 
 
-lllII11l.Text=string.format(l11l1Il1lll("\55\99\153\12\87\25\178\143\210\181\136\101\180\111\119\85\173\255",80),math.floor(lI1lI1lII + 0.5),math.floor(((lI1lI1lII * 0.28) * 3.6) + 0.5)) end;
+lII1lIIlIlI1();
+if l1II1111Illll.zoomSaved then 
+ll1lI1IIII1.CameraMaxZoomDistance=l1II1111Illll.zoomSaved[2];
+ll1lI1IIII1.CameraMinZoomDistance=l1II1111Illll.zoomSaved[1];
+l1II1111Illll.zoomSaved=nil end end;
 
 
-local lIII11l11=(l1IIlll1I11l.vehDriftOn and l1IIlll1I11l.vehSmokeOn) and (not l111I1I1I1l1());
-if lIII11l11 and llIlIIlI1lIl1.model then 
-if l1IIlll1I11l.vehSmokeLocal then 
-l1IllIII1IlI(llIlIIlI1lIl1.model,l1IIlll1I11l.vehSmokeLevel or 6) elseif llIl1lll.model then 
+for l111I1ll in pairs(l1lllIl1Ill11) do 
+llIll1Il(l111I1ll) end;
 
-l1lIl11l() end;
+lIllI1lIIIl=lI1I1ll1llIl("",146) end;
 
+if lII11Illll11 and ((os.clock() - (l1II1111Illll.lastHide or 0)) > 0.5) then 
 
+l1II1111Illll.lastHide=os.clock();
+lllI1II1I() end;
 
-if (lI1lI1lII < 8) and (not ll1lllIlI.brake) then 
-if llI1Il11l1.Anchored then 
-llI1Il11l1.Anchored=false end;
-
-
-if (not lIII1111Il.burnout) or (not lIII1111Il.burnoutAt) then 
-lIII1111Il.burnoutAt=llI1Il11l1.Position end;
-
-local ll111I1lI1=((lIII1111Il.burnoutAt - llI1Il11l1.Position) * Vector3.new(1,0,1)) * 4;
-if ll111I1lI1.Magnitude > 6 then 
-ll111I1lI1=ll111I1lI1.Unit * 6 end;
-
-llI1Il11l1.AssemblyLinearVelocity=Vector3.new(ll111I1lI1.X,math.min(llI1Il11l1.AssemblyLinearVelocity.Y,0),ll111I1lI1.Z);
-llI1Il11l1.AssemblyAngularVelocity=Vector3.zero;
-local lIllI1lI1l=l1lIlI1lll111.CFrame.RightVector;
-local lI1lI11l=30 + ((l1IIlll1I11l.vehSmokeLevel or 6) * 8);
-local llIIlIl1I1111=llIl1lll.wheels;
-if (not llIIlIl1I1111) or (llIl1lll.wheelsModel ~= llIlIIlI1lIl1.model) then 
-
-llIIlIl1I1111=l1I1llIII1(llIlIIlI1lIl1.model,llI1Il11l1);
-llIl1lll.wheels,llIl1lll.wheelsModel=llIIlIl1I1111,llIlIIlI1lIl1.model end;
-
-for l111l11llII,l111llI111 in ipairs(llIIlIl1I1111) do 
-if l111llI111.Parent then 
-l111llI111.AssemblyAngularVelocity=lIllI1lI1l * lI1lI11l end end;
+for llI11l1I,lII1Illl11I in pairs(l1lllIl1Ill11) do 
+lII1Illl11I.gui.Visible=lII1Illl11I.show() == true end;
 
 
-lIII1111Il.burnout=true end elseif llIl1lll.model or llIl1lll.wheels then 
+local l1llI1ll1=lI1I1ll1llIl("",145);
+for lIlIIII1ll1lI,lI11IIIIIl in ipairs(lI1I1l1Ill1l) do 
+if l1lllIl1Ill11[lI11IIIIIl] and l1lllIl1Ill11[lI11IIIIIl].gui.Visible then 
+l1llI1ll1=l1llI1ll1 .. (lI11IIIIIl .. lI1I1ll1llIl("\186",59)) end end;
 
 
-l1lIl11l();
-llIl1lll.wheels,llIl1lll.wheelsModel=nil,nil end;
-
-if lIII1111Il.burnout and (not (lIII11l11 and (lI1lI1lII < 8))) then 
-lIII1111Il.burnout,lIII1111Il.burnoutAt=false,nil end;
-
-if llI1Il11l1.Anchored then 
-if (lIII1111Il.flying or lIIlIlllI1l.flying) or lI1l1111.playing then 
 
 
-llI1Il11l1.Anchored=false else 
+if (not lI1IlII1l1l1l) and ((l1llI1ll1 ~= lIllI1lIIIl) or ((os.clock() - (l1II1111Illll.lastPlace or 0)) > 3)) then 
+lIllI1lIIIl=l1llI1ll1;
+l1II1111Illll.lastPlace=os.clock();
+task.defer(l1llIII11IlI) end;
+
+l1I11IIIIlIl.fly(l1II1111Illll.flying);
+l1I11IIIIlIl.rocket(l1IIlI1ll1Ill.rocket);
+l1I11IIIIlIl.n2o(l1IIlI1ll1Ill.n2o);
+l1I11IIIIlIl.boost(lll1l11Il1ll1.vehBoost == true);
+l1I11IIIIlIl.brake(l1IIlI1ll1Ill.brake);
+l1I11IIIIlIl.cruise(l1II1111Illll.cruise == true);
+l1I11IIIIlIl.smoke(lll1l11Il1ll1.vehSmokeOn == true);
+l1I11IIIIlIl.up(l1IIlI1ll1Ill.up);
+l1I11IIIIlIl.down(l1IIlI1ll1Ill.down);
+l1I11IIIIlIl.r_fly(l1lIIIl1.flying);
+l1I11IIIIlIl.r_thrust(l1IIlI1ll1Ill.thrust);
+l1I11IIIIlIl.r_roll(l1lIIIl1.rollStart ~= nil);
+l1I11IIIIlIl.r_flipf((l1lIIIl1.flipStart ~= nil) and (l1lIIIl1.flipDir == (- 1)));
+l1I11IIIIlIl.r_flipb((l1lIIIl1.flipStart ~= nil) and (l1lIIIl1.flipDir == 1));
+l1I11IIIIlIl.r_hover(lll1l11Il1ll1.rdHoverHold ~= false);
+l1I11IIIIlIl.rec(l1II1111Illll.recording);
+l1I11IIIIlIl.play(lI1IlI1l1IIll.playing);
+if not (lIlIIlIII1() or lI1IlI1l1IIll.playing) then 
+l1ll1I1IllIll.Text=(l1II1111Illll.recording and lI1I1ll1llIl("\200\253\229",173)) or lI1I1ll1llIl("",42) end else 
+
+
+l1l1IIIlIIl.Text=string.format(lI1I1ll1llIl("\239\108\54\143\243\198\238\112\39\106\79\102\177\103\153\193\117\16",253),math.floor(llll111ll + 0.5),math.floor(((llll111ll * 0.28) * 3.6) + 0.5)) end;
+
+
+local lllI111l1lI=(lll1l11Il1ll1.vehDriftOn and lll1l11Il1ll1.vehSmokeOn) and (not lIlIIlIII1());
+if lllI111l1lI and lII1Illl.model then 
+if lll1l11Il1ll1.vehSmokeLocal then 
+lIll1I111(lII1Illl.model,lll1l11Il1ll1.vehSmokeLevel or 6) elseif l11IIl1IlIll.model then 
+
+lll1IIII1ll() end;
+
+
+
+if (llll111ll < 8) and (not l1IIlI1ll1Ill.brake) then 
+if llI1111I.Anchored then 
+llI1111I.Anchored=false end;
+
+
+if (not l1II1111Illll.burnout) or (not l1II1111Illll.burnoutAt) then 
+l1II1111Illll.burnoutAt=llI1111I.Position end;
+
+local lIIlIlll1=((l1II1111Illll.burnoutAt - llI1111I.Position) * Vector3.new(1,0,1)) * 4;
+if lIIlIlll1.Magnitude > 6 then 
+lIIlIlll1=lIIlIlll1.Unit * 6 end;
+
+llI1111I.AssemblyLinearVelocity=Vector3.new(lIIlIlll1.X,math.min(llI1111I.AssemblyLinearVelocity.Y,0),lIIlIlll1.Z);
+llI1111I.AssemblyAngularVelocity=Vector3.zero;
+local l111I11l1=l1l1I1ll.CFrame.RightVector;
+local l1IIllIIlII=30 + ((lll1l11Il1ll1.vehSmokeLevel or 6) * 8);
+local lIIl1I1lIlI=l11IIl1IlIll.wheels;
+if (not lIIl1I1lIlI) or (l11IIl1IlIll.wheelsModel ~= lII1Illl.model) then 
+
+lIIl1I1lIlI=l1lIIII1(lII1Illl.model,llI1111I);
+l11IIl1IlIll.wheels,l11IIl1IlIll.wheelsModel=lIIl1I1lIlI,lII1Illl.model end;
+
+for llIlI1llI11,lll1IlI1Il1 in ipairs(lIIl1I1lIlI) do 
+if lll1IlI1Il1.Parent then 
+lll1IlI1Il1.AssemblyAngularVelocity=l111I11l1 * l1IIllIIlII end end;
+
+
+l1II1111Illll.burnout=true end elseif l11IIl1IlIll.model or l11IIl1IlIll.wheels then 
+
+
+lll1IIII1ll();
+l11IIl1IlIll.wheels,l11IIl1IlIll.wheelsModel=nil,nil end;
+
+if l1II1111Illll.burnout and (not (lllI111l1lI and (llll111ll < 8))) then 
+l1II1111Illll.burnout,l1II1111Illll.burnoutAt=false,nil end;
+
+if llI1111I.Anchored then 
+if (l1II1111Illll.flying or l1lIIIl1.flying) or lI1IlI1l1IIll.playing then 
+
+
+llI1111I.Anchored=false else 
 
 
 return  end end;
 
 
-if lIII1111Il.recording then 
-lIllIlIl(llI1Il11l1) end;
+if l1II1111Illll.recording then 
+ll1l1Il1I11I(llI1111I) end;
 
-if lI1l1111.playing then 
-lI1IIlII1Illl(lIllI1I1l1Il,l1lIlI1lll111,lll1lII1lI,llI1Il11l1);
+if lI1IlI1l1IIll.playing then 
+llI1lI1l1l(lII1II11l1111,l1l1I1ll,llIIl1ll1lI,llI1111I);
 return  end;
 
-if l1IIlll1I11l.vehRoadster and lIIlIlllI1l.flying then 
-lIllI11Ill(lIllI1I1l1Il,l1lIlI1lll111,lll1lII1lI,llI1Il11l1);
+if lll1l11Il1ll1.vehRoadster and l1lIIIl1.flying then 
+lIIl1lIl1llI(lII1II11l1111,l1l1I1ll,llIIl1ll1lI,llI1111I);
 return  end;
 
-if lIII1111Il.flying then 
-if l1IIlll1I11l.vehFlyOn then 
-lIl11ll111I(lIllI1I1l1Il,l1lIlI1lll111,lll1lII1lI,llI1Il11l1);
+if l1II1111Illll.flying then 
+if lll1l11Il1ll1.vehFlyOn then 
+l111I11IIlI(lII1II11l1111,l1l1I1ll,llIIl1ll1lI,llI1111I);
 return  end;
 
-lIII1111Il.flying=false end;
+l1II1111Illll.flying=false end;
 
-if llll1IlIIl1l then 
-lIl111ll1I() end;
-
-
-
-local l1I1l1llll1I=l1II1I1IllI(l1lIlI1lll111.CFrame.LookVector);
-local llll1I1llI=l1II1I1IllI(l1lIlI1lll111.CFrame.RightVector);
-local l1lllI11I,lI1lIIlllI=l1lllIIIlIII(l1lIlI1lll111,lll1lII1lI);
-local lll1IIIl=lI1lIll1ll1:Dot(l1I1l1llll1I);
-local lII1IIlI1lI=lI1lIll1ll1:Dot(llll1I1llI);
-local lI1IlIlI1=Vector3.zero;
-local l1111I1l1I=llIlIIlI1lIl1.model;
-
-local llI11I1l=(llIlIIlI1lIl1.afterAlong and ((lll1IIIl - llIlIIlI1lIl1.afterAlong) / math.max(lIllI1I1l1Il,1 / 240))) or 0;
-llIlIIlI1lIl1.acc=(llIlIIlI1lIl1.acc or 0) + ((llI11I1l - (llIlIIlI1lIl1.acc or 0)) * math.min(lIllI1I1l1Il * 6,1));
-local l1llI11llIllI=l1111I1l1I and (((l1111I1l1I:GetAttribute(l11l1Il1lll("\137\188\72\220\81\68\247",132)) == true) or (l1111I1l1I:GetAttribute(l11l1Il1lll("\187\215\213\40\180\237",227)) == true)) or (l1111I1l1I:GetAttribute(l11l1Il1lll("\48\21\184\52\102",48)) == true));
-if ((((math.abs(l1lllI11I) < 0.1) and (l1IIlll1I11l.vehAutoGas ~= false)) and (not l1llI11llIllI)) and (lll1IIIl > 6)) and (llIlIIlI1lIl1.acc > (- 4)) then 
-l1lllI11I=1 end;
-
-if l1llI11llIllI then 
-l1lllI11I=0 end;
-
-local l1I1l1IIIIl11=lII1IIIllIl1I(llI1Il11l1,12) < 12;
-local lIlIl1ll,ll1II11IIl11l=l1IIlll1I11l.vehSpeedOn,l1IIlll1I11l.vehDriftOn;
-local lllI11I11Ill=lIlIl1ll and (ll1lllIlI.n2o or (llllIIIllII1() and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftShift)));
-local l1Il11lIll1l=ll1lllIlI.brake;
-
-if lIlIl1ll then 
-if lllI11I11Ill and (math.abs(l1lllI11I) < 0.1) then 
-l1lllI11I=((lll1IIIl < (- 2)) and (- 1)) or 1 end;
-
-if ((l1IIlll1I11l.vehBoost or lllI11I11Ill) and (math.abs(l1lllI11I) > 0.1)) and (not l1Il11lIll1l) then 
-local lIIIlIlI1111l=(l1IIlll1I11l.vehBoost and (l1IIlll1I11l.vehMax or 450)) or math.max(math.abs(lll1IIIl),40);
-local llI11I11IIl1=(l1IIlll1I11l.vehBoost and (l1IIlll1I11l.vehAccel or 70)) or 60;
-if lllI11I11Ill then 
-local lllIIl1I1l=(l1IIlll1I11l.vehNitroPower or 200) / 100;
-lIIIlIlI1111l,llI11I11IIl1=lIIIlIlI1111l * lllIIl1I1l,llI11I11IIl1 * lllIIl1I1l end;
-
-if (l1lllI11I > 0) and (lll1IIIl < lIIIlIlI1111l) then 
-lI1IlIlI1=lI1IlIlI1 + (l1I1l1llll1I * math.min((llI11I11IIl1 * lIllI1I1l1Il) * l1lllI11I,lIIIlIlI1111l - lll1IIIl)) elseif (l1lllI11I < 0) and (lll1IIIl > ((- lIIIlIlI1111l) * 0.5)) then 
-
-lI1IlIlI1=lI1IlIlI1 + (l1I1l1llll1I * math.max((llI11I11IIl1 * lIllI1I1l1Il) * l1lllI11I,((- lIIIlIlI1111l) * 0.5) - lll1IIIl)) end end;
-
-
-if lIII1111Il.cruise then 
-if (l1Il11lIll1l or (l1lllI11I < (- 0.1))) or l1llI11llIllI then 
-lIII1111Il.cruise=false else 
-
-if (lIII1111Il.cruiseSpeed or 0) <= 0 then 
-lIII1111Il.cruiseSpeed=math.max(lll1IIIl,10) end;
-
-if lll1IIIl < (lIII1111Il.cruiseSpeed - 0.5) then 
-lI1IlIlI1=lI1IlIlI1 + (l1I1l1llll1I * math.min(80 * lIllI1I1l1Il,lIII1111Il.cruiseSpeed - lll1IIIl)) end end end;
+if lII1l11lll then 
+llIIlIII11() end;
 
 
 
-if ((l1IIlll1I11l.vehBrake and (not l1Il11lIll1l)) and ((math.abs(l1lllI11I) < 0.1) or ((l1lllI11I * lll1IIIl) < 0))) and (math.abs(lll1IIIl) > 1) then 
-lI1IlIlI1=lI1IlIlI1 - ((l1I1l1llll1I * lll1IIIl) * math.min(lIllI1I1l1Il * ((((l1lllI11I * lll1IIIl) < 0) and 3) or 1.2),1)) end end;
+local l11IIl1l1=l1ll1II1I1(l1l1I1ll.CFrame.LookVector);
+local llIll1II=l1ll1II1I1(l1l1I1ll.CFrame.RightVector);
+local l11I111lll,l1IlII1II1l=l1l1llIll(l1l1I1ll,llIIl1ll1lI);
+local ll1l1IIIl1=lI11IlIlllI:Dot(l11IIl1l1);
+local lIlI1III1111=lI11IlIlllI:Dot(llIll1II);
+local lIIl1I1IlI=Vector3.zero;
+local lIIllIlIlI1=lII1Illl.model;
+
+local lllIll11l1Il=(lII1Illl.afterAlong and ((ll1l1IIIl1 - lII1Illl.afterAlong) / math.max(lII1II11l1111,1 / 240))) or 0;
+lII1Illl.acc=(lII1Illl.acc or 0) + ((lllIll11l1Il - (lII1Illl.acc or 0)) * math.min(lII1II11l1111 * 6,1));
+local lIIllIII11l11=lIIllIlIlI1 and (((lIIllIlIlI1:GetAttribute(lI1I1ll1llIl("\24\10\7\7\126\55\74",109)) == true) or (lIIllIlIlI1:GetAttribute(lI1I1ll1llIl("\167\175\14\40\176\52",53)) == true)) or (lIIllIlIlI1:GetAttribute(lI1I1ll1llIl("\203\54\240\194\6",51)) == true));
+if ((((math.abs(l11I111lll) < 0.1) and (lll1l11Il1ll1.vehAutoGas ~= false)) and (not lIIllIII11l11)) and (ll1l1IIIl1 > 6)) and (lII1Illl.acc > (- 4)) then 
+l11I111lll=1 end;
+
+if lIIllIII11l11 then 
+l11I111lll=0 end;
+
+local ll1I11I1I11=l1I1ll11(llI1111I,12) < 12;
+local lllll1llIlI,l111Il11I=lll1l11Il1ll1.vehSpeedOn,lll1l11Il1ll1.vehDriftOn;
+local l1llIlIl=lllll1llIlI and (l1IIlI1ll1Ill.n2o or (lll11l1II1lIl() and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftShift)));
+local lIl1l1II1=l1IIlI1ll1Ill.brake;
+
+if lllll1llIlI then 
+if l1llIlIl and (math.abs(l11I111lll) < 0.1) then 
+l11I111lll=((ll1l1IIIl1 < (- 2)) and (- 1)) or 1 end;
+
+if ((lll1l11Il1ll1.vehBoost or l1llIlIl) and (math.abs(l11I111lll) > 0.1)) and (not lIl1l1II1) then 
+local llI1l1Il11=(lll1l11Il1ll1.vehBoost and (lll1l11Il1ll1.vehMax or 450)) or math.max(math.abs(ll1l1IIIl1),40);
+local llI1I1I11lI=(lll1l11Il1ll1.vehBoost and (lll1l11Il1ll1.vehAccel or 70)) or 60;
+if l1llIlIl then 
+local l1lI1I11I11=(lll1l11Il1ll1.vehNitroPower or 200) / 100;
+llI1l1Il11,llI1I1I11lI=llI1l1Il11 * l1lI1I11I11,llI1I1I11lI * l1lI1I11I11 end;
+
+if (l11I111lll > 0) and (ll1l1IIIl1 < llI1l1Il11) then 
+lIIl1I1IlI=lIIl1I1IlI + (l11IIl1l1 * math.min((llI1I1I11lI * lII1II11l1111) * l11I111lll,llI1l1Il11 - ll1l1IIIl1)) elseif (l11I111lll < 0) and (ll1l1IIIl1 > ((- llI1l1Il11) * 0.5)) then 
+
+lIIl1I1IlI=lIIl1I1IlI + (l11IIl1l1 * math.max((llI1I1I11lI * lII1II11l1111) * l11I111lll,((- llI1l1Il11) * 0.5) - ll1l1IIIl1)) end end;
 
 
-if l1Il11lIll1l and (lI1lI1lII > 0.5) then 
-lI1IlIlI1=lI1IlIlI1 - (Vector3.new(lI1lIll1ll1.X,0,lI1lIll1ll1.Z) * math.min(lIllI1I1l1Il * 3.5,1)) end;
+if l1II1111Illll.cruise then 
+if (lIl1l1II1 or (l11I111lll < (- 0.1))) or lIIllIII11l11 then 
+l1II1111Illll.cruise=false else 
+
+if (l1II1111Illll.cruiseSpeed or 0) <= 0 then 
+l1II1111Illll.cruiseSpeed=math.max(ll1l1IIIl1,10) end;
+
+if ll1l1IIIl1 < (l1II1111Illll.cruiseSpeed - 0.5) then 
+lIIl1I1IlI=lIIl1I1IlI + (l11IIl1l1 * math.min(80 * lII1II11l1111,l1II1111Illll.cruiseSpeed - ll1l1IIIl1)) end end end;
 
 
 
-local l1I1IIl1lIl=0;
-if ll1II11IIl11l and l1I1l1IIIIl11 then 
+if ((lll1l11Il1ll1.vehBrake and (not lIl1l1II1)) and ((math.abs(l11I111lll) < 0.1) or ((l11I111lll * ll1l1IIIl1) < 0))) and (math.abs(ll1l1IIIl1) > 1) then 
+lIIl1I1IlI=lIIl1I1IlI - ((l11IIl1l1 * ll1l1IIIl1) * math.min(lII1II11l1111 * ((((l11I111lll * ll1l1IIIl1) < 0) and 3) or 1.2),1)) end end;
+
+
+if lIl1l1II1 and (llll111ll > 0.5) then 
+lIIl1I1IlI=lIIl1I1IlI - (Vector3.new(lI11IlIlllI.X,0,lI11IlIlllI.Z) * math.min(lII1II11l1111 * 3.5,1)) end;
 
 
 
-local lI1l1Il1lI1I=llI1Il11l1.CFrame:VectorToObjectSpace(llI1Il11l1.AssemblyAngularVelocity).Y;
-local l11l111IIl11I,lllll1lllllI=((lI1lIIlllI > 0) and 1) or (- 1),((lI1l1Il1lI1I > 0) and 1) or (- 1);
-if math.abs(lI1lIIlllI) <= 0.2 then 
-llIlIIlI1lIl1.sharpPair=nil elseif (llIlIIlI1lIl1.sharpPair and (llIlIIlI1lIl1.sharpPair[1] ~= l11l111IIl11I)) and (llIlIIlI1lIl1.sharpPair[2] == lllll1lllllI) then 
+local l1IlI1Ill111l=0;
+if l111Il11I and ll1I11I1I11 then 
 
 
-lI1l1Il1lI1I=0 elseif math.abs(lI1l1Il1lI1I) > 0.15 then 
 
-llIlIIlI1lIl1.sharpPair={l11l111IIl11I,lllll1lllllI} end;
-
-if ((l1IIlll1I11l.vehSharp and (math.abs(lI1lIIlllI) > 0.2)) and (lI1lI1lII > 15)) and (math.abs(lI1l1Il1lI1I) > 0.15) then 
-local l1II11IIl11Il=(l1IIlll1I11l.vehSharpPower or 50) / 100;
-local lIlIlIIlll=((lI1l1Il1lI1I > 0) and 1) or (- 1);
-l1I1IIl1lIl=lIlIlIIlll * math.max(math.abs(lI1l1Il1lI1I) * (1 + (l1II11IIl11Il * 0.9)),(1.2 + (l1II11IIl11Il * 2.4)) * math.abs(lI1lIIlllI));
-lI1IlIlI1=lI1IlIlI1 - ((llll1I1llI * lII1IIlI1lI) * math.min(lIllI1I1l1Il * (3 + (6 * l1II11IIl11Il)),1)) end;
-
-if (l1IIlll1I11l.vehCornerBrake and (math.abs(lI1lIIlllI) > 0.6)) and (lll1IIIl > (l1IIlll1I11l.vehCornerSpeed or 120)) then 
-lI1IlIlI1=lI1IlIlI1 - ((l1I1l1llll1I * (lll1IIIl - (l1IIlll1I11l.vehCornerSpeed or 120))) * math.min(lIllI1I1l1Il * 2,1)) end;
-
-if (l1IIlll1I11l.vehGrip and (lI1lI1lII > 25)) and (math.abs(lII1IIlI1lI) > 1) then 
-lI1IlIlI1=lI1IlIlI1 - ((llll1I1llI * lII1IIlI1lI) * math.min(lIllI1I1l1Il * 5,1)) end end;
+local lIII1llIlll=llI1111I.CFrame:VectorToObjectSpace(llI1111I.AssemblyAngularVelocity).Y;
+local l11l1IlI,llI1lI11lII=((l1IlII1II1l > 0) and 1) or (- 1),((lIII1llIlll > 0) and 1) or (- 1);
+if math.abs(l1IlII1II1l) <= 0.2 then 
+lII1Illl.sharpPair=nil elseif (lII1Illl.sharpPair and (lII1Illl.sharpPair[1] ~= l11l1IlI)) and (lII1Illl.sharpPair[2] == llI1lI11lII) then 
 
 
-if lI1IlIlI1.Magnitude > 0 then 
-llI1Il11l1.AssemblyLinearVelocity=lI1lIll1ll1 + lI1IlIlI1 end;
+lIII1llIlll=0 elseif math.abs(lIII1llIlll) > 0.15 then 
 
-llIlIIlI1lIl1.afterAlong=lll1IIIl + lI1IlIlI1:Dot(l1I1l1llll1I);
+lII1Illl.sharpPair={l11l1IlI,llI1lI11lII} end;
 
+if ((lll1l11Il1ll1.vehSharp and (math.abs(l1IlII1II1l) > 0.2)) and (llll111ll > 15)) and (math.abs(lIII1llIlll) > 0.15) then 
+local ll11llI1=(lll1l11Il1ll1.vehSharpPower or 50) / 100;
+local lI1Il1llIl=((lIII1llIlll > 0) and 1) or (- 1);
+l1IlI1Ill111l=lI1Il1llIl * math.max(math.abs(lIII1llIlll) * (1 + (ll11llI1 * 0.9)),(1.2 + (ll11llI1 * 2.4)) * math.abs(l1IlII1II1l));
+lIIl1I1IlI=lIIl1I1IlI - ((llIll1II * lIlI1III1111) * math.min(lII1II11l1111 * (3 + (6 * ll11llI1)),1)) end;
 
-local lll1I11Il=llI1Il11l1.CFrame:VectorToObjectSpace(llI1Il11l1.AssemblyAngularVelocity);
-local lIl1IIIll=false;
-if l1I1IIl1lIl ~= 0 then 
-local lllll111I1l=l1I1IIl1lIl;
-lll1I11Il=Vector3.new(lll1I11Il.X,lll1I11Il.Y + ((lllll111I1l - lll1I11Il.Y) * math.min(lIllI1I1l1Il * 12,1)),lll1I11Il.Z);
-lIl1IIIll=true end;
+if (lll1l11Il1ll1.vehCornerBrake and (math.abs(l1IlII1II1l) > 0.6)) and (ll1l1IIIl1 > (lll1l11Il1ll1.vehCornerSpeed or 120)) then 
+lIIl1I1IlI=lIIl1I1IlI - ((l11IIl1l1 * (ll1l1IIIl1 - (lll1l11Il1ll1.vehCornerSpeed or 120))) * math.min(lII1II11l1111 * 2,1)) end;
 
-if ll1II11IIl11l and l1IIlll1I11l.vehStable then 
-local lIlIl1Il1ll=math.max(1 - (lIllI1I1l1Il * 6),0);
-lll1I11Il=Vector3.new(lll1I11Il.X * lIlIl1Il1ll,lll1I11Il.Y,lll1I11Il.Z * lIlIl1Il1ll);
-lIl1IIIll=true end;
-
-if ((((ll1II11IIl11l and l1IIlll1I11l.vehSteerAssist) and llIlIIlI1lIl1.steerKnown) and l1I1l1IIIIl11) and (math.abs(lI1lIIlllI) < 0.1)) and (lI1lI1lII > 20) then 
-lll1I11Il=Vector3.new(lll1I11Il.X,lll1I11Il.Y * math.max(1 - (lIllI1I1l1Il * 5),0),lll1I11Il.Z);
-lIl1IIIll=true end;
-
-if lIl1IIIll then 
-llI1Il11l1.AssemblyAngularVelocity=llI1Il11l1.CFrame:VectorToWorldSpace(lll1I11Il) end;
-
-if ll1II11IIl11l and l1IIlll1I11l.vehUpright then 
-if (llI1Il11l1.CFrame.UpVector.Y < 0.2) and (lI1lIll1ll1.Magnitude < 12) then 
-lIll1l11l=lIll1l11l or os.clock();
-if (os.clock() - lIll1l11l) > 1 then 
-lIll1l11l=nil;
-llI1Il11l1.AssemblyLinearVelocity,llI1Il11l1.AssemblyAngularVelocity=Vector3.zero,Vector3.zero;
-llI1Il11l1.CFrame=CFrame.lookAt(llI1Il11l1.Position + Vector3.new(0,4,0),(llI1Il11l1.Position + Vector3.new(0,4,0)) + l1I1l1llll1I) end else 
+if (lll1l11Il1ll1.vehGrip and (llll111ll > 25)) and (math.abs(lIlI1III1111) > 1) then 
+lIIl1I1IlI=lIIl1I1IlI - ((llIll1II * lIlI1III1111) * math.min(lII1II11l1111 * 5,1)) end end;
 
 
-lIll1l11l=nil end end end));
+if lIIl1I1IlI.Magnitude > 0 then 
+llI1111I.AssemblyLinearVelocity=lI11IlIlllI + lIIl1I1IlI end;
+
+lII1Illl.afterAlong=ll1l1IIIl1 + lIIl1I1IlI:Dot(l11IIl1l1);
+
+
+local l1Il1Il1IIl=llI1111I.CFrame:VectorToObjectSpace(llI1111I.AssemblyAngularVelocity);
+local llIIll1llll=false;
+if l1IlI1Ill111l ~= 0 then 
+local l1I1I1l1=l1IlI1Ill111l;
+l1Il1Il1IIl=Vector3.new(l1Il1Il1IIl.X,l1Il1Il1IIl.Y + ((l1I1I1l1 - l1Il1Il1IIl.Y) * math.min(lII1II11l1111 * 12,1)),l1Il1Il1IIl.Z);
+llIIll1llll=true end;
+
+if l111Il11I and lll1l11Il1ll1.vehStable then 
+local lII1l11I1III=math.max(1 - (lII1II11l1111 * 6),0);
+l1Il1Il1IIl=Vector3.new(l1Il1Il1IIl.X * lII1l11I1III,l1Il1Il1IIl.Y,l1Il1Il1IIl.Z * lII1l11I1III);
+llIIll1llll=true end;
+
+if ((((l111Il11I and lll1l11Il1ll1.vehSteerAssist) and lII1Illl.steerKnown) and ll1I11I1I11) and (math.abs(l1IlII1II1l) < 0.1)) and (llll111ll > 20) then 
+l1Il1Il1IIl=Vector3.new(l1Il1Il1IIl.X,l1Il1Il1IIl.Y * math.max(1 - (lII1II11l1111 * 5),0),l1Il1Il1IIl.Z);
+llIIll1llll=true end;
+
+if llIIll1llll then 
+llI1111I.AssemblyAngularVelocity=llI1111I.CFrame:VectorToWorldSpace(l1Il1Il1IIl) end;
+
+if l111Il11I and lll1l11Il1ll1.vehUpright then 
+if (llI1111I.CFrame.UpVector.Y < 0.2) and (lI11IlIlllI.Magnitude < 12) then 
+l1lI1I11=l1lI1I11 or os.clock();
+if (os.clock() - l1lI1I11) > 1 then 
+l1lI1I11=nil;
+llI1111I.AssemblyLinearVelocity,llI1111I.AssemblyAngularVelocity=Vector3.zero,Vector3.zero;
+llI1111I.CFrame=CFrame.lookAt(llI1111I.Position + Vector3.new(0,4,0),(llI1111I.Position + Vector3.new(0,4,0)) + l11IIl1l1) end else 
+
+
+l1lI1I11=nil end end end));
 
 
 
@@ -3669,146 +3673,146 @@ lIll1l11l=nil end end end));
 
 
 task.spawn(function() 
-local lIl1IIl11l1=l11l1Il1lll("",144);
-ll1l1l1lIll();
-while llIIIIII1.Window == lI11II1llI1 do 
-local lllII1lIIll1I=l1IIlII11();
-local llI11Il1l1I1I,lIlll1I1II;
-if lllII1lIIll1I and llIlIIlI1lIl1.root then 
-llI11Il1l1I1I=l11l1Il1lll("\48\76\179\12\152\220\197\82\65",249) .. ((llIlIIlI1lIl1.model and llIlIIlI1lIl1.model.Name) or lllII1lIIll1I.Name);
-local l11111ll1I1={};
-for l1l111llI1l11,lll1111I1 in ipairs({{l11l1Il1lll("\159\223\242\38\21\174\98\31",13),l11l1Il1lll("\0\186\52",155)},{l11l1Il1lll("\163\70\103\81\133\30\161\138\27\194",50),l11l1Il1lll("\130\31\240\188\188",129)},{l11l1Il1lll("\59\182\244\194\94\173\50\183\207\218",246),l11l1Il1lll("\138\102\100\229\5",79)},{l11l1Il1lll("\79\0\28\209\126\191\164\25\242\115\255",35),l11l1Il1lll("\192\232\88\155\208\194\36\93",208)},{l11l1Il1lll("\14\146\220\225\31\11\190\104\101",12),l11l1Il1lll("\33\226\105\205\188\31\254\77\205",37)}}) do 
-if l1IIlll1I11l[lll1111I1[1]] then 
-table.insert(l11111ll1I1,lll1111I1[2]) end end;
+local llll1lI1l=lI1I1ll1llIl("",201);
+l1I1lll1IlI();
+while l111II11I.Window == l1l1Ill1 do 
+local llIl1IIII=l1I11lIl11IlI();
+local lIIl11lI,lIll1lI1;
+if llIl1IIII and lII1Illl.root then 
+lIIl11lI=lI1I1ll1llIl("\75\35\76\174\20\59\240\241\109",145) .. ((lII1Illl.model and lII1Illl.model.Name) or llIl1IIII.Name);
+local lIII11IlII={};
+for ll111I1I,llI1lIlll1I in ipairs({{lI1I1ll1llIl("\87\206\65\214\226\5\17\42",40),lI1I1ll1llIl("\203\99\195",9)},{lI1I1ll1llIl("\103\254\81\211\142\105\43\48\241\167",24),lI1I1ll1llIl("\249\216\211\57\67",157)},{lI1I1ll1llIl("\231\126\209\68\12\229\168\160\113\39",152),lI1I1ll1llIl("\163\83\116\249\73",6)},{lI1I1ll1llIl("\161\116\37\157\34\149\206\35\22\13\224",54),lI1I1ll1llIl("\116\171\151\120\149\229\186\213",236)},{lI1I1ll1llIl("\151\14\129\17\187\72\113\75\160",232),lI1I1ll1llIl("\67\189\199\146\241\85\245\222\15",31)}}) do 
+if lll1l11Il1ll1[llI1lIlll1I[1]] then 
+table.insert(lIII11IlII,llI1lIlll1I[2]) end end;
 
 
-lIlll1I1II=(((# l11111ll1I1) > 0) and (l11l1Il1lll("\27\194\54\187",106) .. table.concat(l11111ll1I1,l11l1Il1lll("\248\126",89)))) or l11l1Il1lll("\136\37\121\116\213\48\188\42\110\83\222\250\94\235\248\252\59\237\76\34\93\164\68\146\144\199\15\17\185\123\115\101\205\0\136\135\62\208\218",118) else 
+lIll1lI1=(((# lIII11IlII) > 0) and (lI1I1ll1llIl("\56\223\151\15",150) .. table.concat(lIII11IlII,lI1I1ll1llIl("\131\209",49)))) or lI1I1ll1llIl("\219\159\210\77\139\55\19\228\207\76\137\121\125\220\177\162\104\87\7\27\227\163\203\92\49\248\88\242\154\44\58\59\158\186\227\190\96\215\181",112) else 
 
-llI11Il1l1I1I,lIlll1I1II=l11l1Il1lll("\230\104\100\6\223\199\136\116\55\59",220),l11l1Il1lll("\10\108\96\195\24\144\192\43\134\149\12\76\58\252\151\36\200\129\164\28\147\110\32\182\87\232\120\128\166\24\36\139\25\4\84\224\112\172\164\74\242\121\173\177\134\89\187\75\224\161\151\51\242\75\68\142\127\200\90\61\72",67) end;
+lIIl11lI,lIll1lI1=lI1I1ll1llIl("\63\148\185\86\59\196\199\215\50\76",120),lI1I1ll1llIl("\1\17\246\205\218\85\214\62\87\210\204\93\129\52\104\159\163\188\18\18\81\107\246\67\134\79\120\177\29\208\155\112\18\57\130\174\242\169\114\159\227\62\173\96\253\81\4\176\203\220\33\125\112\14\210\123\110\175\154\12\51",94) end;
 
-if (llI11Il1l1I1I .. lIlll1I1II) ~= lIl1IIl11l1 then 
-lIl1IIl11l1=llI11Il1l1I1I .. lIlll1I1II;
-lI1IIIlI1111I:Set(llI11Il1l1I1I,lIlll1I1II) end;
+if (lIIl11lI .. lIll1lI1) ~= llll1lI1l then 
+llll1lI1l=lIIl11lI .. lIll1lI1;
+l1111I1I111:Set(lIIl11lI,lIll1lI1) end;
 
 task.wait(1) end end);
 
 
 
-l1llllI1lll1l.vehFlyOn.Callback=function(llII11l1I111) 
-if (not llII11l1I111) and lIII1111Il.flying then 
-lIII1111Il.flying=false;
-lIl111ll1I() end end;
+lllIIlllIIlIl.vehFlyOn.Callback=function(llI1IIllIIl) 
+if (not llI1IIllIIl) and l1II1111Illll.flying then 
+l1II1111Illll.flying=false;
+llIIlIII11() end end;
 
 
-l1llllI1lll1l.vehRoadster.Callback=function(lllllI11) 
-if lllllI11 and l1IIlll1I11l.vehFlyOn then 
+lllIIlllIIlIl.vehRoadster.Callback=function(lIlIll1l) 
+if lIlIll1l and lll1l11Il1ll1.vehFlyOn then 
 
-l1llllI1lll1l.vehFlyOn:Set(false) end;
+lllIIlllIIlIl.vehFlyOn:Set(false) end;
 
-if (not lllllI11) and lIIlIlllI1l.flying then 
-lIIlIlllI1l.flying,lIIlIlllI1l.phase=false,nil;
-lIl111ll1I() end end;
-
-
-l1llllI1lll1l.vehAutoOn.Callback=function(lI111ll1l) 
-if not lI111ll1l then 
-lIII1111Il.recording=false;
-llI11IllIlIl();
-l111l1llI1l() end end;
+if (not lIlIll1l) and l1lIIIl1.flying then 
+l1lIIIl1.flying,l1lIIIl1.phase=false,nil;
+llIIlIII11() end end;
 
 
-llIIIIII1:OnUnload(function() 
-lIl111ll1I();
-ll11Ill1();
-l1IIIIIl1I();
-l1lIl11l();
-if lIII1111Il.zoomSaved then 
-lllI1llI.CameraMaxZoomDistance=lIII1111Il.zoomSaved[2];
-lllI1llI.CameraMinZoomDistance=lIII1111Il.zoomSaved[1] end;
+lllIIlllIIlIl.vehAutoOn.Callback=function(l1l1lllIlI) 
+if not l1l1lllIlI then 
+l1II1111Illll.recording=false;
+lIllI1I1l1();
+llII1lIl11l() end end;
 
-if lIII1111Il.jumpLocked then 
+
+l111II11I:OnUnload(function() 
+llIIlIII11();
+l11I1llll1l1();
+lII1lIIlIlI1();
+lll1IIII1ll();
+if l1II1111Illll.zoomSaved then 
+ll1lI1IIII1.CameraMaxZoomDistance=l1II1111Illll.zoomSaved[2];
+ll1lI1IIII1.CameraMinZoomDistance=l1II1111Illll.zoomSaved[1] end;
+
+if l1II1111Illll.jumpLocked then 
 pcall(function() 
-lIII1111Il.jumpLocked:SetStateEnabled(Enum.HumanoidStateType.Jumping,true) end) end;
+l1II1111Illll.jumpLocked:SetStateEnabled(Enum.HumanoidStateType.Jumping,true) end) end;
 
 
-l111l1llI1l() end) end;
+llII1lIl11l() end) end;
 
 
-l1IIIl1l() end;
-
-
-
-
-
-
-local l11lI1111I11=lI11II1llI1:Tab({Name=l11l1Il1lll("\215\6\160\23",213),Icon=l11l1Il1lll("\2\242\178\183",130),Hint=llIll1ll});
-local l1lIlllllI=l11lI1111I11:Section(l11l1Il1lll("\173\157\220\37\140\26",120));
-local ll1ll11lIIII=l1lIlllllI:Paragraph(l11l1Il1lll("\109\240\10\162\161\65\210\26\66\225\24\234\64\66\63\247\213\122\153\220",113),l11l1Il1lll("\231\20\185\40\115\85\232\252\21\176\204\208\60\171\16\253\27\171\13\150\237\223\89",154) .. (game.GameId .. l11l1Il1lll("\251\79\122\99",50)));
+lI1Ill1lIlI() end;
 
 
 
 
 
-local l1l11l11ll11I=lI11II1llI1:Tab({Name=l11l1Il1lll("\2\131\17\107\86\131\151\47",139),Icon=l11l1Il1lll("\241\22\83\87\181\196\102\106",98),Hint=l11l1Il1lll("\18\33\220\69\152\218\127\155\33\211\141\191\116\47\238\25\87\71",4)});
-local lI1I1lI11II=l1l11l11ll11I:Section(l11l1Il1lll("\18\158\115\12\12\175\102\170\171\26\249",17));
-local llIII1111=llIIIIII1.Folder .. (l11l1Il1lll("\127\243\47\58\141\84\14\4\249\96\243",254) .. (tostring(game.PlaceId) .. l11l1Il1lll("\55\204\187\29\224",55)));
-local lIII111I1I1II=llIIIIII1:ReadJSON(llIII1111) or {};
+
+local l11IIIII=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\172\166\60\166",199),Icon=lI1I1ll1llIl("\92\34\19\178",242),Hint=lII1lIII});
+local l1lIllI1=l11IIIII:Section(lI1I1ll1llIl("\39\164\167\112\85\214",20));
+local llIIll111II1I=l1lIllI1:Paragraph(lI1I1ll1llIl("\14\231\156\214\168\146\62\81\221\248\83\147\127\80\155\171\182\77\47\72",95),lI1I1ll1llIl("\152\159\228\112\213\185\120\67\18\171\192\255\152\92\253\242\100\0\144\14\75\51\137",247) .. (game.GameId .. lI1I1ll1llIl("\27\97\170\146",229)));
 
 
 
-local l11I11111I1l=0;
-local l1Il1111I1l1,ll11Il1lllIIl,llI1IlIIl,l11IlII11l1;
-local function l1IlI1Illl(l11I111lI,l1I1ll1Il) 
-l11I11111I1l=l11I11111I1l + 1;
-local l111lIIll=l11I11111I1l;
-local l1Il1lllII,llIl1I1IllI=lIl1I1lI1Il(),l1llll1lI1I1l();
-if (not l1Il1lllII) or (not llIl1I1IllI) then 
+
+
+local lll1I1l11lI=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\190\141\154\121\23\166\207\4",221),Icon=lI1I1ll1llIl("\37\190\21\165\206\35\252\224",88),Hint=lI1I1ll1llIl("\115\71\67\174\135\249\146\67\236\201\38\12\155\71\189\34\214\225",29)});
+local llllI1l1l=lll1I1l11lI:Section(lI1I1ll1llIl("\248\230\103\230\106\64\245\196\205\92\32",135));
+local lIlll1l1II1=l111II11I.Folder .. (lI1I1ll1llIl("\133\124\98\188\137\28\136\198\178\87\57",212) .. (tostring(game.PlaceId) .. lI1I1ll1llIl("\129\155\246\87\243",49)));
+local l1l1l1l1l=l111II11I:ReadJSON(lIlll1l1II1) or {};
+
+
+
+local l11Il11lI1111=0;
+local l1111IlI,ll111ll1l,lIllIllIllll1,lI1Il11Il1;
+local function llI11I1IIII(lIIllI1l111I,llllII11I) 
+l11Il11lI1111=l11Il11lI1111 + 1;
+local llI1I1IIIll=l11Il11lI1111;
+local llI1IIIll1II,lll1IIlIl=l1lI11Il111ll(),l11l1IlI1I();
+if (not llI1IIIll1II) or (not lll1IIlIl) then 
 return  end;
 
-local lI11llIIl1=(((l1IIlll1I11l.safeLimits and l11l1Il1lll("\126\20\104\152",51)) or l1I1ll1Il) or l1IIlll1I11l.travelMethod) or l11l1Il1lll("\1\201\151\164\123\97\245",60);
-if lI11llIIl1 == l11l1Il1lll("\125\144\105\206\80\28\22",185) then 
+local llI1llIlI1Ill=(((lll1l11Il1ll1.safeLimits and lI1I1ll1llIl("\221\169\186\87",189)) or llllII11I) or lll1l11Il1ll1.travelMethod) or lI1I1ll1llIl("\220\195\12\39\132\25\182",69);
+if llI1llIlI1Ill == lI1I1ll1llIl("\155\86\48\89\48\226\93",207) then 
 
-local lIIllll1Il=l11I111lI + Vector3.new(0,3,0);
-local lll1lI1lI1=Vector3.new(lIIllll1Il.X - l1Il1lllII.Position.X,0,lIIllll1Il.Z - l1Il1lllII.Position.Z);
-l1Il1lllII.AssemblyLinearVelocity=Vector3.zero;
-if lll1lI1lI1.Magnitude > 0.5 then 
-l1Il1lllII.CFrame=CFrame.lookAt(lIIllll1Il,lIIllll1Il + lll1lI1lI1.Unit) else 
+local l11IlIII111I=lIIllI1l111I + Vector3.new(0,3,0);
+local lI1lllIlIIIIl=Vector3.new(l11IlIII111I.X - llI1IIIll1II.Position.X,0,l11IlIII111I.Z - llI1IIIll1II.Position.Z);
+llI1IIIll1II.AssemblyLinearVelocity=Vector3.zero;
+if lI1lllIlIIIIl.Magnitude > 0.5 then 
+llI1IIIll1II.CFrame=CFrame.lookAt(l11IlIII111I,l11IlIII111I + lI1lllIlIIIIl.Unit) else 
 
-l1Il1lllII.CFrame=CFrame.new(lIIllll1Il) * l1Il1lllII.CFrame.Rotation end elseif lI11llIIl1 == l11l1Il1lll("\21\187\34\113\66\148",155) then 
+llI1IIIll1II.CFrame=CFrame.new(l11IlIII111I) * llI1IIIll1II.CFrame.Rotation end elseif llI1llIlI1Ill == lI1I1ll1llIl("\233\118\92\154\157\11",196) then 
 
 
 task.spawn(function() 
-local l1ll1IlI=l11I111lI + Vector3.new(0,3,0);
-while (l111lIIll == l11I11111I1l) and l1Il1lllII.Parent do 
-local lI1IlIlIl=l1ll1IlI - l1Il1lllII.Position;
-local lllIl1llIl=(l1IIlll1I11l.travelSpeed or 80) * lIII1l1l.Heartbeat:Wait();
-if lI1IlIlIl.Magnitude <= lllIl1llIl then 
-l1Il1lllII.CFrame=CFrame.new(l1ll1IlI) * l1Il1lllII.CFrame.Rotation;
+local lIIlIl1111Il1=lIIllI1l111I + Vector3.new(0,3,0);
+while (llI1I1IIIll == l11Il11lI1111) and llI1IIIll1II.Parent do 
+local l1IllI11I11Il=lIIlIl1111Il1 - llI1IIIll1II.Position;
+local l1l1I1III=(lll1l11Il1ll1.travelSpeed or 80) * lII1llIIIIlI.Heartbeat:Wait();
+if l1IllI11I11Il.Magnitude <= l1l1I1III then 
+llI1IIIll1II.CFrame=CFrame.new(lIIlIl1111Il1) * llI1IIIll1II.CFrame.Rotation;
 break end;
 
-l1Il1lllII.AssemblyLinearVelocity=Vector3.zero;
-l1Il1lllII.CFrame=l1Il1lllII.CFrame + (lI1IlIlIl.Unit * lllIl1llIl) end end) else 
+llI1IIIll1II.AssemblyLinearVelocity=Vector3.zero;
+llI1IIIll1II.CFrame=llI1IIIll1II.CFrame + (l1IllI11I11Il.Unit * l1l1I1III) end end) else 
 
 
 
 task.spawn(function() 
-local lIl1IIll111I=game:GetService(l11l1Il1lll("\219\239\29\159\30\3\190\76\225\137\195\195\63\61\183\94\24\27",196)):CreatePath({AgentCanJump=true,AgentCanClimb=true,WaypointSpacing=6});
-local lIl1l1I11ll=pcall(lIl1IIll111I.ComputeAsync,lIl1IIll111I,l1Il1lllII.Position,l11I111lI);
-local l11lIl1IlIl1=((lIl1l1I11ll and (lIl1IIll111I.Status == Enum.PathStatus.Success)) and lIl1IIll111I:GetWaypoints()) or {{Position=l11I111lI,Action=Enum.PathWaypointAction.Walk}};
-if not (lIl1l1I11ll and (lIl1IIll111I.Status == Enum.PathStatus.Success)) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\186\18\144\141",86),Content=l11l1Il1lll("\238\56\253\18\237\66\186\66\159\229\223\30\13\139\125\118\113\139\38\155\146\33\130\129\29\72\123\137\158\63\217\209\244\31\152\48\9\248",229),Type=l11l1Il1lll("\138\2\190\184\53\218\99",70)}) end;
+local l1I1l1IlIII=game:GetService(lI1I1ll1llIl("\117\124\91\107\243\110\220\136\115\86\65\255\178\235\155\73\214\232",245)):CreatePath({AgentCanJump=true,AgentCanClimb=true,WaypointSpacing=6});
+local lllllll1=pcall(l1I1l1IlIII.ComputeAsync,l1I1l1IlIII,llI1IIIll1II.Position,lIIllI1l111I);
+local l1I11llIIll11=((lllllll1 and (l1I1l1IlIII.Status == Enum.PathStatus.Success)) and l1I1l1IlIII:GetWaypoints()) or {{Position=lIIllI1l111I,Action=Enum.PathWaypointAction.Walk}};
+if not (lllllll1 and (l1I1l1IlIII.Status == Enum.PathStatus.Success)) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\240\0\49\180",70),Content=lI1I1ll1llIl("\96\54\39\31\195\71\99\253\151\20\108\206\186\0\14\67\191\197\156\150\92\228\155\62\21\153\8\185\41\212\234\164\58\81\2\125\167\61",192),Type=lI1I1ll1llIl("\105\8\69\209\27\173\156",240)}) end;
 
-for ll1lI1111I,llIlIlll in ipairs(l11lIl1IlIl1) do 
-if (l111lIIll ~= l11I11111I1l) or (not l1Il1lllII.Parent) then 
+for lI1l1IIII,ll1l1II1II in ipairs(l1I11llIIll11) do 
+if (llI1I1IIIll ~= l11Il11lI1111) or (not llI1IIIll1II.Parent) then 
 return  end;
 
-if llIlIlll.Action == Enum.PathWaypointAction.Jump then 
-llIl1I1IllI:ChangeState(Enum.HumanoidStateType.Jumping) end;
+if ll1l1II1II.Action == Enum.PathWaypointAction.Jump then 
+lll1IIlIl:ChangeState(Enum.HumanoidStateType.Jumping) end;
 
-llIl1I1IllI:MoveTo(llIlIlll.Position);
-local lIlI1l11l=os.clock();
-while (l111lIIll == l11I11111I1l) and ((os.clock() - lIlI1l11l) < 4) do 
-if (Vector3.new(l1Il1lllII.Position.X,0,l1Il1lllII.Position.Z) - Vector3.new(llIlIlll.Position.X,0,llIlIlll.Position.Z)).Magnitude < 2.5 then 
+lll1IIlIl:MoveTo(ll1l1II1II.Position);
+local llI1IllIIl1=os.clock();
+while (llI1I1IIIll == l11Il11lI1111) and ((os.clock() - llI1IllIIl1) < 4) do 
+if (Vector3.new(llI1IIIll1II.Position.X,0,llI1IIIll1II.Position.Z) - Vector3.new(ll1l1II1II.Position.X,0,ll1l1II1II.Position.Z)).Magnitude < 2.5 then 
 break end;
 
 task.wait() end end end) end end;
@@ -3818,209 +3822,209 @@ task.wait() end end end) end end;
 
 
 
-local l1lI1I1lI=lI1I1lI11II:Input({Name=l11l1Il1lll("\243\194\23\228\0\209\173\133\87",56),Placeholder=l11l1Il1lll("\65\160\13\228\1\49\58\247\193",169)});
-local lIlII11I;
-local function lI1I11lII11l()  end;
+local l11l1Il1l=llllI1l1l:Input({Name=lI1I1ll1llIl("\218\52\254\221\67\49\184\22\163",51),Placeholder=lI1I1ll1llIl("\203\247\224\193\2\224\227\50\1",64)});
+local lI1IIlI1;
+local function lIIlllll1Ill1()  end;
 
-lI1I1lI11II:Button({Name=l11l1Il1lll("\123\230\178\149\26\76\20\229\169\187\119\243\8\74\239\107\209\67\29\15\196",92),Description=l11l1Il1lll("\49\227\9\161\252\17\234\119\251\191\218\185\182\2\173\176\146\114\189\81\56\151\124\198\80\36\13",53),Action=l11l1Il1lll("\202\71\62\151",183),Callback=function() 
-
-
+llllI1l1l:Button({Name=lI1I1ll1llIl("\194\122\207\101\94\239\187\166\76\44\121\43\178\83\116\94\104\255\96\223\128",152),Description=lI1I1ll1llIl("\103\160\146\111\198\230\183\194\40\158\243\108\38\182\113\153\228\49\70\31\226\128\33\83\131\37\36",236),Action=lI1I1ll1llIl("\181\249\24\9",75),Callback=function() 
 
 
-local lI11IlIIllIll=lIl1I1lI1Il();
-if not lI11IlIIllIll then 
+
+
+local llIlll1IIl11l=l1lI11Il111ll();
+if not llIlll1IIl11l then 
 return  end;
 
-local lIII1lI111=l1lI1I1lI:Get();
-if lIII1lI111 == l11l1Il1lll("",3) then 
-lIII1lI111=l11l1Il1lll("\138\22\231\70\238",247) .. ((# lIII111I1I1II) + 1) end;
+local lI1Il1I111lI1=l11l1Il1l:Get();
+if lI1Il1I111lI1 == lI1I1ll1llIl("",243) then 
+lI1Il1I111lI1=lI1I1ll1llIl("\230\108\29\252\234",170) .. ((# l1l1l1l1l) + 1) end;
 
-local lIlIlIlI=lI11IlIIllIll.Position;
-table.insert(lIII111I1I1II,{name=lIII1lI111,x=lIlIlIlI.X,y=lIlIlIlI.Y,z=lIlIlIlI.Z});
-llIIIIII1:WriteJSON(llIII1111,lIII111I1I1II);
-l1lI1I1lI:Set(l11l1Il1lll("",107),true);
-lI1I11lII11l();
-llIIIIII1:Notify({Title=l11l1Il1lll("\141\69\75\246\5",95),Content=lIII1lI111}) end});
-
-
-
-lIlII11I=lI1I1lI11II:Custom();
-lIlIl11lIII(lIlII11I,6);
-lI1I11lII11l=function() 
-for lI1ll1111,lIlII1lI in ipairs(lIlII11I:GetChildren()) do 
-if lIlII1lI:IsA(l11l1Il1lll("\119\87\225\47\210\69\25\59\214",168)) then 
-lIlII1lI:Destroy() end end;
+local l11IIl11lIl=llIlll1IIl11l.Position;
+table.insert(l1l1l1l1l,{name=lI1Il1I111lI1,x=l11IIl11lIl.X,y=l11IIl11lIl.Y,z=l11IIl11lIl.Z});
+l111II11I:WriteJSON(lIlll1l1II1,l1l1l1l1l);
+l11l1Il1l:Set(lI1I1ll1llIl("",47),true);
+lIIlllll1Ill1();
+l111II11I:Notify({Title=lI1I1ll1llIl("\36\208\219\74\201",150),Content=lI1Il1I111lI1}) end});
 
 
-if (# lIII111I1I1II) == 0 then 
-l11I1llI1({Parent=lIlII11I,Text=l11l1Il1lll("\91\140\111\49\212\77\225\202\52\159\60\180\156\191\54\114\224\7\17\18\150\223\117\112\192\92\175\36\117\89\241\243\80\177\202\130\52\181\0\174\64\173\28\219\219\205\0\14\139",242),Font=Enum.Font.Gotham,TextSize=12,Color=l11l1Il1lll("\21\163\47\74\83\132\225",155),Size=UDim2.new(1,0,0,34)});
+
+lI1IIlI1=llllI1l1l:Custom();
+l1IlIll1I(lI1IIlI1,6);
+lIIlllll1Ill1=function() 
+for lI1II111III,lIIlIIIIIII in ipairs(lI1IIlI1:GetChildren()) do 
+if lIIlIIIIIII:IsA(lI1I1ll1llIl("\69\125\155\242\129\225\35\140\211",14)) then 
+lIIlIIIIIII:Destroy() end end;
+
+
+if (# l1l1l1l1l) == 0 then 
+lI11I11IlllI({Parent=lI1IIlI1,Text=lI1I1ll1llIl("\248\219\166\255\23\119\10\115\234\24\83\138\173\32\225\49\67\176\216\60\181\229\190\201\62\219\160\122\36\166\38\144\243\38\3\76\247\143\43\23\158\42\51\165\234\82\215\13\40",124),Font=Enum.Font.Gotham,TextSize=12,Color=lI1I1ll1llIl("\52\212\255\75\216\124\14",134),Size=UDim2.new(1,0,0,34)});
 return  end;
 
-for lll1lllI1lIIl,llllll1I1 in ipairs(lIII111I1I1II) do 
-local l1lII11I=lI11IIlIIIllI(l11l1Il1lll("\15\103\69\190\36",83),{Size=UDim2.new(1,0,0,48),LayoutOrder=lll1lllI1lIIl,Parent=lIlII11I});
-llIllI11I1I(l1lII11I,l11l1Il1lll("\123\4\23\232\118\172\175\31\232\114\206\177\154\83\167\88",35),l11l1Il1lll("\64\216\203\103\234",39));
-l1llIIIIIl11(l1lII11I,12);
-llIIIIII1.Stroke(l1lII11I);
-l11I1llI1({Parent=l1lII11I,Text=l11l1Il1lll("\66\192\83",229),Font=Enum.Font.GothamBold,TextSize=14,Color=l11l1Il1lll("\99\84\234\10\93\178",96),Align=Enum.TextXAlignment.Center,Position=UDim2.new(0,8,0,0),Size=UDim2.new(0,24,1,0)});
-l11I1llI1({Parent=l1lII11I,Text=llllll1I1.name,Font=Enum.Font.GothamBold,TextSize=13,Position=UDim2.new(0,38,0,0),Size=UDim2.new(1,- 150,1,0)});
-local ll1l11II1Il=lI11IIlIIIllI(l11l1Il1lll("\237\128\140\119\211\43\52\158\105\248",163),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,56,0,36),Position=UDim2.new(1,- 50,0.5,0),Text=l11l1Il1lll("\51\227",74),Font=Enum.Font.GothamBold,TextSize=12,BackgroundColor3=Color3.new(1,1,1),AutoButtonColor=false,Parent=l1lII11I});
-l1llIIIIIl11(ll1l11II1Il,9);
-llIIIIII1.AccentGradient(ll1l11II1Il);
-llIllI11I1I(ll1l11II1Il,l11l1Il1lll("\228\199\112\148\115\192\144\183\80\4",40),l11l1Il1lll("\187\98\237\88\43\9\216\223",202));
-ll1l11II1Il.MouseButton1Click:Connect(function() 
-l1IlI1Illl(Vector3.new(llllll1I1.x,llllll1I1.y,llllll1I1.z));
-llIIIIII1:Notify({Title=l11l1Il1lll("\225\38\67\71\165\52\150\122\209\40",82),Content=llllll1I1.name,Type=l11l1Il1lll("\252\13\169\173",114)}) end);
+for l1I1Il11I,ll1l1Il11Il in ipairs(l1l1l1l1l) do 
+local l11lIl11llll=lllII1lI1I1I(lI1I1ll1llIl("\252\234\231\33\82",141),{Size=UDim2.new(1,0,0,48),LayoutOrder=l1I1Il11I,Parent=lI1IIlI1});
+lI11ll1lIIlII(l11lIl11llll,lI1I1ll1llIl("\23\12\220\248\66\197\109\9\228\172\149\83\43\70\47\163",133),lI1I1ll1llIl("\11\38\193\152\215",78));
+lIlll1ll1l1I1(l11lIl11llll,12);
+l111II11I.Stroke(l11lIl11llll);
+lI11I11IlllI({Parent=l11lIl11llll,Text=lI1I1ll1llIl("\120\172\157",228),Font=Enum.Font.GothamBold,TextSize=14,Color=lI1I1ll1llIl("\7\91\173\105\116\148",235),Align=Enum.TextXAlignment.Center,Position=UDim2.new(0,8,0,0),Size=UDim2.new(0,24,1,0)});
+lI11I11IlllI({Parent=l11lIl11llll,Text=ll1l1Il11Il.name,Font=Enum.Font.GothamBold,TextSize=13,Position=UDim2.new(0,38,0,0),Size=UDim2.new(1,- 150,1,0)});
+local ll1Ill1I=lllII1lI1I1I(lI1I1ll1llIl("\35\212\213\91\239\97\126\132\173\166",150),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,56,0,36),Position=UDim2.new(1,- 50,0.5,0),Text=lI1I1ll1llIl("\229\199",174),Font=Enum.Font.GothamBold,TextSize=12,BackgroundColor3=Color3.new(1,1,1),AutoButtonColor=false,Parent=l11lIl11llll});
+lIlll1ll1l1I1(ll1Ill1I,9);
+l111II11I.AccentGradient(ll1Ill1I);
+lI11ll1lIIlII(ll1Ill1I,lI1I1ll1llIl("\107\4\109\188\46\74\139\180\47\204",161),lI1I1ll1llIl("\65\23\102\44\225\182\133\73",224));
+ll1Ill1I.MouseButton1Click:Connect(function() 
+llI11I1IIII(Vector3.new(ll1l1Il11Il.x,ll1l1Il11Il.y,ll1l1Il11Il.z));
+l111II11I:Notify({Title=lI1I1ll1llIl("\190\141\154\121\23\166\207\4\160\153",221),Content=ll1l1Il11Il.name,Type=lI1I1ll1llIl("\172\147\105\76",21)}) end);
 
-local ll1ll1I1l1=lI11IIlIIIllI(l11l1Il1lll("\52\242\101\214\142\3\230\86\214\164",37),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,36,0,36),Position=UDim2.new(1,- 8,0.5,0),Text=l11l1Il1lll("\248\169",116),Font=Enum.Font.GothamBold,TextSize=16,AutoButtonColor=false,Parent=l1lII11I});
-llIllI11I1I(ll1ll1I1l1,l11l1Il1lll("\25\63\250\108\207\200\111\237\86\211\183\143\70\80\227\84",20),l11l1Il1lll("\65\114\203\25\66\85\164",80));
-llIllI11I1I(ll1ll1I1l1,l11l1Il1lll("\69\202\45\109\91\176\41\133\134\141",65),l11l1Il1lll("\71\153\46\143\141\180\98",42));
-l1llIIIIIl11(ll1ll1I1l1,9);
-ll1ll1I1l1.MouseButton1Click:Connect(function() 
-lI11II1llI1:Confirm(l11l1Il1lll("\191\155\21\130\60\63\192",180) .. (llllll1I1.name .. l11l1Il1lll("\219",218)),l11l1Il1lll("\196\172\103\112\157\8\87\69\185\115\107\111\192\40\244\33\101\20\140\246\64\164\225\255\57\227\10\25\78\244\16\155\217\215\78\4\188\54\98\36",62),l11l1Il1lll("\64\203\38\143\53\103",137),function() 
-table.remove(lIII111I1I1II,lll1lllI1lIIl);
-llIIIIII1:WriteJSON(llIII1111,lIII111I1I1II);
-lI1I11lII11l() end) end) end end;
-
-
+local lI11IIlll=lllII1lI1I1I(lI1I1ll1llIl("\138\204\143\139\112\246\207\57\14\133",48),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,36,0,36),Position=UDim2.new(1,- 8,0.5,0),Text=lI1I1ll1llIl("\182\218",165),Font=Enum.Font.GothamBold,TextSize=16,AutoButtonColor=false,Parent=l11lIl11llll});
+lI11ll1lIIlII(lI11IIlll,lI1I1ll1llIl("\100\57\205\199\221\50\68\0\23\208\66\86\159\128\27\216",139),lI1I1ll1llIl("\252\132\247\94\252\214\18",49));
+lI11ll1lIIlII(lI11IIlll,lI1I1ll1llIl("\210\1\46\8\197\158\211\168\136\104",76),lI1I1ll1llIl("\133\61\220\200\239\8\79",123));
+lIlll1ll1l1I1(lI11IIlll,9);
+lI11IIlll.MouseButton1Click:Connect(function() 
+l1l1Ill1:Confirm(lI1I1ll1llIl("\158\30\63\240\189\38\241",164) .. (ll1l1Il11Il.name .. lI1I1ll1llIl("\73",219)),lI1I1ll1llIl("\238\240\239\63\23\10\125\175\97\13\136\186\9\155\98\94\175\40\100\153\234\134\235\53\129\253\9\44\167\103\134\196\51\11\70\11\118\52\72\206",141),lI1I1ll1llIl("\235\148\233\93\233\208",49),function() 
+table.remove(l1l1l1l1l,l1I1Il11I);
+l111II11I:WriteJSON(lIlll1l1II1,l1l1l1l1l);
+lIIlllll1Ill1() end) end) end end;
 
 
-lI1I11lII11l();
+
+
+lIIlllll1Ill1();
 
 
 
 do 
-local lIll1llI={};
-local function l1I111III11I() 
-for l1IlI11Il1lIl,lllI111I1 in ipairs(lIll1llI) do 
-lllI111I1:Destroy() end;
+local llII1IlI1={};
+local function l1lIlI1l() 
+for ll1l1111lI,lll1lIIII1l in ipairs(llII1IlI1) do 
+lll1lIIII1l:Destroy() end;
 
-lIll1llI={};
-if not l1IIlll1I11l.spotMarkers then 
+llII1IlI1={};
+if not lll1l11Il1ll1.spotMarkers then 
 return  end;
 
-for llIIIll1lI1,lIIlIIll1 in ipairs(lIII111I1I1II) do 
-local lIIIIll1=lI11IIlIIIllI(l11l1Il1lll("\230\103\239\90",107),{Name=llIIlI1Il:GenerateGUID(false),Anchored=true,CanCollide=false,CanQuery=false,CanTouch=false,Transparency=1,Size=Vector3.new(1,1,1),Position=Vector3.new(lIIlIIll1.x,lIIlIIll1.y + 3,lIIlIIll1.z),Parent=workspace.CurrentCamera});
-local l1Il1III111=lI11IIlIIIllI(l11l1Il1lll("\201\231\5\155\26\5\177\90\236\160\209\249",196),{Size=UDim2.new(0,120,0,34),AlwaysOnTop=true,LightInfluence=0,Adornee=lIIIIll1,Parent=llIIIIII1.Gui});
-local lI1Ill1II=lI11IIlIIIllI(l11l1Il1lll("\198\5\156\47\9",197),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=0.25,Parent=l1Il1III111});
-llIllI11I1I(lI1Ill1II,l11l1Il1lll("\34\246\126\201\171\4\253\87\215\174\169\95\69\8\239\242",37),l11l1Il1lll("\7\210\156\153\98\153\59\43\138\88",162));
-l1llIIIIIl11(lI1Ill1II,10);
-llIIIIII1.Stroke(lI1Ill1II);
-l11I1llI1({Parent=lI1Ill1II,Text=l11l1Il1lll("\18\117\198\128",104) .. lIIlIIll1.name,Font=Enum.Font.GothamBold,TextSize=12,Color=l11l1Il1lll("\229\109\137\47\207\150",41),Align=Enum.TextXAlignment.Center,Size=UDim2.new(1,0,1,0)});
-table.insert(lIll1llI,lIIIIll1);
-table.insert(lIll1llI,l1Il1III111) end end;
+for lIIIIIlIl1,lllllI1II in ipairs(l1l1l1l1l) do 
+local l111I111lIlll=lllII1lI1I1I(lI1I1ll1llIl("\59\38\163\55",71),{Name=llII1lIII1:GenerateGUID(false),Anchored=true,CanCollide=false,CanQuery=false,CanTouch=false,Transparency=1,Size=Vector3.new(1,1,1),Position=Vector3.new(lllllI1II.x,lllllI1II.y + 3,lllllI1II.z),Parent=workspace.CurrentCamera});
+local lI1I1llII1l=lllII1lI1I1I(lI1I1ll1llIl("\216\209\202\64\53\118\12\210\81\74\170\154",173),{Size=UDim2.new(0,120,0,34),AlwaysOnTop=true,LightInfluence=0,Adornee=l111I111lIlll,Parent=l111II11I.Gui});
+local lII1llll1=lllII1lI1I1I(lI1I1ll1llIl("\31\230\64\116\182",227),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=0.25,Parent=lI1I1llII1l});
+lI11ll1lIIlII(lII1llll1,lI1I1ll1llIl("\29\96\22\195\106\119\168\142\19\123\233\171\78\127\76\247",193),lI1I1ll1llIl("\199\109\1\243\221\210\69\32\117\7",154));
+lIlll1ll1l1I1(lII1llll1,10);
+l111II11I.Stroke(lII1llll1);
+lI11I11IlllI({Parent=lII1llll1,Text=lI1I1ll1llIl("\87\139\252\168",170) .. lllllI1II.name,Font=Enum.Font.GothamBold,TextSize=12,Color=lI1I1ll1llIl("\167\251\13\9\20\244",75),Align=Enum.TextXAlignment.Center,Size=UDim2.new(1,0,1,0)});
+table.insert(llII1IlI1,l111I111lIlll);
+table.insert(llII1IlI1,lI1I1llII1l) end end;
 
 
-local llll1lll=lI1I11lII11l;
-lI1I11lII11l=function() 
-llll1lll();
-l1I111III11I() end;
+local l11Illll1=lIIlllll1Ill1;
+lIIlllll1Ill1=function() 
+l11Illll1();
+l1lIlI1l() end;
 
 
-local llllllI1l=l1l11l11ll11I:Section(l11l1Il1lll("\122\29\107\129\21\173\165\46\197",51));
-local function lI11Il1IlII1(l11III1111) 
-local llI1Il11Il=lIl1I1lI1Il();
-if llI1Il11Il then 
-llI1Il11Il.AssemblyLinearVelocity=Vector3.zero;
-llI1Il11Il.CFrame=llI1Il11Il.CFrame + l11III1111 end end;
+local lllIlIIIIl1=lll1I1l11lI:Section(lI1I1ll1llIl("\145\160\93\15\87\40\243\91\148",206));
+local function l1lIII1I1I1lI(l1I1lllI) 
+local lIII1l1l=l1lI11Il111ll();
+if lIII1l1l then 
+lIII1l1l.AssemblyLinearVelocity=Vector3.zero;
+lIII1l1l.CFrame=lIII1l1l.CFrame + l1I1lllI end end;
 
 
 
-local lll11IlIlI;
-function l1Il1111I1l1() 
-local l1l1llI1=lIl1I1lI1Il();
-if l1l1llI1 then 
-lll11IlIlI=l1l1llI1.CFrame;
-llIIIIII1:Notify({Title=l11l1Il1lll("\137\34\125\35\225\191\66\166\221\203",172),Content=l11l1Il1lll("\200\120\39\233\62\54\158\105\75\29\232\97\189\174\94\168\121\242\173\147\81\15\13\248\186\186\57\229\90\83\238\127\203\23\13\15\223\159\115\134\40\37\135",236),Type=l11l1Il1lll("\242\74\166\202\205\60\166",209)}) end end;
+local ll1Ill11II;
+function l1111IlI() 
+local ll1ll11I=l1lI11Il111ll();
+if ll1ll11I then 
+ll1Ill11II=ll1ll11I.CFrame;
+l111II11I:Notify({Title=lI1I1ll1llIl("\94\36\76\187\22\117\228\170\59\170",145),Content=lI1I1ll1llIl("\111\14\102\161\25\76\136\181\125\140\43\82\167\148\48\196\222\164\204\59\150\245\123\36\172\43\218\246\32\9\0\243\108\97\76\135\56\101\229\218\94\180\68",161),Type=lI1I1ll1llIl("\185\30\64\134\188\32\178",180)}) end end;
 
 
-function ll11Il1lllIIl() 
-local lIlIIl11I1=lIl1I1lI1Il();
-if lll11IlIlI and lIlIIl11I1 then 
-lIlIIl11I1.AssemblyLinearVelocity=Vector3.zero;
-lIlIIl11I1.CFrame=lll11IlIlI elseif not lll11IlIlI then 
+function ll111ll1l() 
+local ll1IIII1I=l1lI11Il111ll();
+if ll1Ill11II and ll1IIII1I then 
+ll1IIII1I.AssemblyLinearVelocity=Vector3.zero;
+ll1IIII1I.CFrame=ll1Ill11II elseif not ll1Ill11II then 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\133\43\211\121\250\242\110\167\160\27",89),Content=l11l1Il1lll("\92\230\53\37\135\36\231\98\54\17\158\32\130\102\50\45\245\102\222\211\92\242\77\193\131\144\0",182),Type=l11l1Il1lll("\44\221\153\157",162)}) end end;
+l111II11I:Notify({Title=lI1I1ll1llIl("\116\153\235\27\49\96\230\154\218\167",58),Content=lI1I1ll1llIl("\14\116\28\203\102\37\180\154\11\122\138\183\77\125\91\179\199\148\247\93\189\211\30\25\158\27\244",193),Type=lI1I1ll1llIl("\155\118\132\226",254)}) end end;
 
 
-llllllI1l:Keybind({Name=l11l1Il1lll("\36\246\134\129\126\187\87\47\130\105",146),Description=l11l1Il1lll("\203\79\103\181\164\37\216\147\208\112\133\55\46\131\34\235\102\47\90\33\43\146\45\121\1\251\110\205\236\25\252\2\205\162\143\16\77\8\254\170\249",125),Flag=l11l1Il1lll("\216\128\237\16\138\29\49\172\83\205\120\215",179),Default=Enum.KeyCode.B,Callback=l1Il1111I1l1});
-llllllI1l:Keybind({Name=l11l1Il1lll("\225\50\68\241\247\6\174\61\168\254",245),Description=l11l1Il1lll("\198\13\174\178\21\217\101\77\255\76\184\52\72\56\254\238\37\130\202\219\38\64\180\237\69\138\57",114),Flag=l11l1Il1lll("\193\209\7\0\182\23\104\107\137\56\153\159",30),Default=Enum.KeyCode.H,Callback=ll11Il1lllIIl});
-llllllI1l:Toggle({Name=l11l1Il1lll("\42\217\76\26\118\243\219\43\141\208\37\199\73",187),Description=l11l1Il1lll("\46\223\74\22\118\238\220\120\130\149\134\4\1\207\246\110\147\52\253\151\169\121\37\201\28\86\68\162\38\112\44\138\54\163\57\109\22\133\250\94\233\247\197\48\170\78\17\78\246\31\146\251\212\76\20\174\48\102\127\195\2\159\150\47",187),Flag=l11l1Il1lll("\68\182\198\193\62\151\11\239\80\131\2\191\237\205\2\3",210)});
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function(lIIl11ll11l11) 
-if l1IIlll1I11l.quickLoadOnDeath and lll11IlIlI then 
-lIIl11ll11l11:WaitForChild(l11l1Il1lll("\195\251\4\150\22\5\185\76\218\136\203\228\10\46\179\67",196),10);
+lllIlIIIIl1:Keybind({Name=lI1I1ll1llIl("\215\141\103\47\49\128\184\244\175\113",43),Description=lI1I1ll1llIl("\69\180\96\234\96\214\143\98\2\95\186\184\241\142\6\246\232\52\93\158\239\65\122\136\243\212\49\66\83\20\216\63\67\153\136\79\137\59\169\91\43",246),Flag=lI1I1ll1llIl("\199\193\239\239\29\82\14\97\175\32\70\156",124),Default=Enum.KeyCode.B,Callback=l1111IlI});
+lllIlIIIIl1:Keybind({Name=lI1I1ll1llIl("\135\97\79\79\189\129\227\152\75\239",28),Description=lI1I1ll1llIl("\72\13\255\71\47\187\148\228\126\156\166\71\10\68\178\192\171\130\91\238\220\34\69\132\4\90\39",210),Flag=lI1I1ll1llIl("\47\92\30\28\217\79\84\172\133\32\140\41",176),Default=Enum.KeyCode.H,Callback=ll111ll1l});
+lllIlIIIIl1:Toggle({Name=lI1I1ll1llIl("\25\2\222\247\5\216\108\92\238\173\183\72\47",133),Description=lI1I1ll1llIl("\177\93\230\209\83\29\128\24\189\104\124\43\170\49\93\17\108\182\49\80\140\170\121\137\35\75\190\109\109\142\167\245\233\33\149\170\51\54\166\62\214\202\63\31\1\176\122\49\9\157\30\60\241\159\72\174\15\123\133\204\137\97\29\80",67),Flag=lI1I1ll1llIl("\112\254\96\211\133\80\81\69\202\150\233\171\71\210\255\53",8)});
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function(l1lllIIll1Il) 
+if lll1l11Il1ll1.quickLoadOnDeath and ll1Ill11II then 
+l1lllIIll1Il:WaitForChild(lI1I1ll1llIl("\234\93\62\124\15\243\80\117\137\152\238\103\238\177\100\80",191),10);
 task.wait(0.4);
-ll11Il1lllIIl() end end));
+ll111ll1l() end end));
 
 
 
-llllllI1l:Button({Name=l11l1Il1lll("\177\82\239\127\45\31\45",218),Description=l11l1Il1lll("\165\108\31\17\181\98\203\187\84\186\12\200\188\153\82\88\69\230\175\242\76\237\20\71\235\105\155\89\29\124\213\207\96\128\36\98\220\85\164\221\123\129\41\175\128\165\120\108",18),Action=l11l1Il1lll("\204\90",125),Callback=function() 
-lI11Il1IlII1(Vector3.new(0,6,0)) end});
+lllIlIIIIl1:Button({Name=lI1I1ll1llIl("\158\137\2\151\219\163\77",231),Description=lI1I1ll1llIl("\78\6\71\204\82\186\148\120\1\157\9\227\250\9\58\55\174\140\215\239\107\53\75\196\254\110\158\114\27\172\189\160\75\42\124\127\251\77\59\94\110\230\108\196\134\117\80\67",240),Action=lI1I1ll1llIl("\191\152",221),Callback=function() 
+l1lIII1I1I1lI(Vector3.new(0,6,0)) end});
 
-llllllI1l:Button({Name=l11l1Il1lll("\205\16\24\163\1\107\99\153\14\167\154\54",31),Description=l11l1Il1lll("\155\9\139\235\213\76\28\180\44\37\44\195\2\138\149\46\213\214\12\86\115\189\145\103\137\129\236\1\142\59\55\178\22\242\117\199\232\108\50\154\85\9\7",11),Action=l11l1Il1lll("\178\108",18),Callback=function() 
-local lIIIl1II=lIl1I1lI1Il();
-if lIIIl1II then 
-local l1111Il1l1ll=Vector3.new(lIIIl1II.CFrame.LookVector.X,0,lIIIl1II.CFrame.LookVector.Z);
-if l1111Il1l1ll.Magnitude > 0.01 then 
-lI11Il1IlII1(l1111Il1l1ll.Unit * 8) end end end});
-
-
-
-llllllI1l:Toggle({Name=l11l1Il1lll("\72\118\182\48\200\137\48\55\140\87\89\65\152\148\52\213\248",84),Description=l11l1Il1lll("\199\79\167\15\179\227\146\23\127\195\44\57\218\104\101\172\152\209\59\142\24\92\69\200\141\62\199\236\228\28\213\21\18\171\88\170\152\205\231\42\81\188\84\15\29\155\69\185\164\49\206\105",9),Flag=l11l1Il1lll("\162\31\250\173\149\126\247\65\81\140\105",129),Callback=l1I111III11I});
-
-local lI1llI1llI1II;
-local function llI1ll1IlIll1(ll1Il1Ill1lII) 
-local l1l11l1111111=ll1Il1Ill1lII:WaitForChild(l11l1Il1lll("\208\98\57\225\36\48\152\99",236),10);
-local llI1ll1lIIl1=ll1Il1Ill1lII:WaitForChild(l11l1Il1lll("\181\22\161\183\50\219\109\247\130\107\161\183\45\218\149\158",70),10);
-if l1l11l1111111 and llI1ll1lIIl1 then 
-l1l11l1111111.Died:Connect(function() 
-lI1llI1llI1II=llI1ll1lIIl1.Position end) end end;
+lllIlIIIIl1:Button({Name=lI1I1ll1llIl("\69\160\131\156\54\7\160\197\29\170\177\97",220),Description=lI1I1ll1llIl("\104\114\89\102\230\39\203\131\111\24\30\140\164\237\152\68\198\173\62\27\96\246\70\112\138\220\222\46\72\124\26\216\37\73\167\138\27\199\37\173\86\116\117",245),Action=lI1I1ll1llIl("\72\62",145),Callback=function() 
+local lI1I1IllII=l1lI11Il111ll();
+if lI1I1IllII then 
+local lIl1l111Il1=Vector3.new(lI1I1IllII.CFrame.LookVector.X,0,lI1I1IllII.CFrame.LookVector.Z);
+if lIl1l111Il1.Magnitude > 0.01 then 
+l1lIII1I1I1lI(lIl1l111Il1.Unit * 8) end end end});
 
 
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function(lII1111lI1) 
-if l1IIlll1I11l.respawnAtDeath and lI1llI1llI1II then 
-local l1llIl1ll1lI=lI1llI1llI1II;
+lllIlIIIIl1:Toggle({Name=lI1I1ll1llIl("\22\164\205\47\90\19\26\122\47\3\179\22\61\242\208\53\166",90),Description=lI1I1ll1llIl("\234\5\156\172\113\94\153\52\136\244\23\76\184\55\203\243\85\155\32\13\218\193\78\139\122\105\156\185\166\67\91\74\63\225\163\201\90\112\236\73\166\139\111\58\63\196\235\230\169\123\213\234",19),Flag=lI1I1ll1llIl("\181\200\33\248\215\1\121\62\124\166\18",107),Callback=l1lIlI1l});
+
+local lIll1l1l;
+local function l11lIIl1l1l(l1l1IlIllI11) 
+local llllI11l=l1l1IlIllI11:WaitForChild(lI1I1ll1llIl("\137\62\164\17\64\179\151\128",200),10);
+local llI1Il11I1l=l1l1IlIllI11:WaitForChild(lI1I1ll1llIl("\158\61\211\253\228\31\82\1\91\171\126\93\179\190\43\143",123),10);
+if llllI11l and llI1Il11I1l then 
+llllI11l.Died:Connect(function() 
+lIll1l1l=llI1Il11I1l.Position end) end end;
+
+
+
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function(ll11ll11) 
+if lll1l11Il1ll1.respawnAtDeath and lIll1l1l then 
+local lI11lIllI1lI=lIll1l1l;
 task.spawn(function() 
-lII1111lI1:WaitForChild(l11l1Il1lll("\161\207\247\1\23\184\68\21\82\152\18\182\188\55\192\118",13),10);
+ll11ll11:WaitForChild(lI1I1ll1llIl("\227\166\99\198\241\198\236\115\215\99\13\236\234\193\88\33",98),10);
 task.wait(0.4);
-l1IlI1Illl(l1llIl1ll1lI,l11l1Il1lll("\87\138\142\39\192\227\248",159)) end) end;
+llI11I1IIII(lI11lIllI1lI,lI1I1ll1llIl("\252\227\44\7\100\249\86",101)) end) end;
 
 
-llI1ll1IlIll1(lII1111lI1) end));
+l11lIIl1l1l(ll11ll11) end));
 
-if lllI1llI.Character then 
-task.spawn(llI1ll1IlIll1,lllI1llI.Character) end;
+if ll1lI1IIII1.Character then 
+task.spawn(l11lIIl1l1l,ll1lI1IIII1.Character) end;
 
-llllllI1l:Toggle({Name=l11l1Il1lll("\59\80\183\67\192\121\126\186\1\174\56\28\35\172\204\27\157\204\209\39",115),Description=l11l1Il1lll("\17\143\111\218\110\156\44\117\69\212\47\148\241\220\250\47\172\4\88\187\177\11\213\196\251\23\13\178\86\99\32\203\9\179\156\33\142\119\10\83\46\182\172\32\218\221\139\19\140\36\61\194\71\241\96\118\26\45\56\151",119),Flag=l11l1Il1lll("\106\242\167\112\171\168\31\198\159\170\108\246\44\34",108)});
-llllllI1l:Button({Name=l11l1Il1lll("\203\180\135\120\161\90\95\218\97\206\88\60\3\140\236\59\125\44\49\199",147),Description=l11l1Il1lll("\167\148\60\172\163\239\14\186\2\66\188\82\17\153\217\244\66\26\172\91\27\105\149",176),Action=l11l1Il1lll("\170\28",86),Callback=function() 
-
-
-
-
-if lI1llI1llI1II then 
-l1IlI1Illl(lI1llI1llI1II) else 
-
-llIIIIII1:Notify({Title=l11l1Il1lll("\84\33\239\247\85\219\212\218\34\167",190),Content=l11l1Il1lll("\209\136\209\176\50\46\183\82\21\89\141\71\172\179\5\220\56\228\189\110\169\186\81\243\131\139\41\255\45\40\208\100\199\102\32\21\222\129",252),Type=l11l1Il1lll("\57\234\40\44",254)}) end end});
-
-
-
-if type(setclipboard) == l11l1Il1lll("\251\118\194\213\8\253\75\221",38) then 
-llllllI1l:Button({Name=l11l1Il1lll("\11\200\148\169\58\98\248\87\75\81\74\206\124\115\207\22",60),Action=l11l1Il1lll("\179\104\157\43",181),Callback=function() 
-
-
-
-local l1111llll=lIl1I1lI1Il();
-if l1111llll then 
-local lI1llIl11I1I1=l1111llll.Position;
-setclipboard(string.format(l11l1Il1lll("\210\121\223\95\23\46\149\149\123\134\56\106\144\21\181\200\56\204\105\245\217\170\58\43\160\93\14\84\236",186),lI1llIl11I1I1.X,lI1llIl11I1I1.Y,lI1llIl11I1I1.Z));
-llIIIIII1:Notify({Title=l11l1Il1lll("\37\217\93\23\51\248",187),Content=string.format(l11l1Il1lll("\209\34\156\93\100\76\147\133\213\117\115\114\128\37\132\216",202),lI1llIl11I1I1.X,lI1llIl11I1I1.Y,lI1llIl11I1I1.Z)}) end end}) end;
+lllIlIIIIl1:Toggle({Name=lI1I1ll1llIl("\165\84\94\223\76\227\228\80\53\32\215\143\198\235\79\143\3\200\248\123",22),Description=lI1I1ll1llIl("\77\84\168\139\85\149\59\191\81\56\196\123\151\184\235\52\240\223\95\42\138\2\226\206\47\251\230\29\112\7\49\240\21\40\155\176\117\190\29\89\250\154\135\143\252\249\218\8\144\191\122\19\188\56\151\188\14\1\19\248",213),Flag=lI1I1ll1llIl("\109\36\70\152\44\50\233\250\73\155\15\101\150\184",129)});
+lllIlIIIIl1:Button({Name=lI1I1ll1llIl("\153\194\61\156\239\109\90\231\34\148\247\26\15\80\211\197\47\90\139\35",18),Description=lI1I1ll1llIl("\82\178\152\12\61\221\181\85\96\24\182\223\146\141\83\243\151\28\8\155\5\187\46",230),Action=lI1I1ll1llIl("\152\238",65),Callback=function() 
 
 
 
 
-llIIIIII1:OnUnload(function() 
-for l1I1I111I,lIl1II1Il11I in ipairs(lIll1llI) do 
-lIl1II1Il11I:Destroy() end end) end;
+if lIll1l1l then 
+llI11I1IIII(lIll1l1l) else 
+
+l111II11I:Notify({Title=lI1I1ll1llIl("\198\237\19\73\11\43\181\31\72\149",142),Content=lI1I1ll1llIl("\254\14\40\255\21\165\204\37\28\191\22\45\55\114\179\27\119\226\164\33\174\17\10\164\138\141\50\245\182\201\70\163\168\96\89\218\57\202",70),Type=lI1I1ll1llIl("\235\38\85\18",159)}) end end});
+
+
+
+if type(setclipboard) == lI1I1ll1llIl("\61\86\176\20\59\240\218\41",146) then 
+lllIlIIIIl1:Button({Name=lI1I1ll1llIl("\70\82\191\154\85\138\43\236\74\119\117\165\195\144\226\46",213),Action=lI1I1ll1llIl("\177\119\19\180",239),Callback=function() 
+
+
+
+local ll111ll1I=l1lI11Il111ll();
+if ll111ll1I then 
+local lI1111IIlI=ll111ll1I.Position;
+setclipboard(string.format(lI1I1ll1llIl("\24\92\4\123\173\97\24\211\191\62\142\104\27\226\63\114\210\169\242\177\99\133\247\77\100\229\120\150\135",160),lI1111IIlI.X,lI1111IIlI.Y,lI1111IIlI.Z));
+l111II11I:Notify({Title=lI1I1ll1llIl("\216\140\110\222\234\61",82),Content=string.format(lI1I1ll1llIl("\190\153\113\181\82\48\243\202\194\126\79\237\148\66\249\167",183),lI1111IIlI.X,lI1111IIlI.Y,lI1111IIlI.Z)}) end end}) end;
+
+
+
+
+l111II11I:OnUnload(function() 
+for l1lll11lI11,lI1IIl1l11Il in ipairs(llII1IlI1) do 
+lI1IIl1l11Il:Destroy() end end) end;
 
 
 
@@ -4028,59 +4032,59 @@ lIl1II1Il11I:Destroy() end end) end;
 
 
 do 
-local lIl1Il111lll=l1l11l11ll11I:Section(l11l1Il1lll("\7\204\250\246\16\136",178));
+local lll1IllIIII1I=lll1I1l11lI:Section(lI1I1ll1llIl("\121\60\251\83\122\90",226));
 
 
-local function lIII1ll1I111(l1IIIlIlIIlll,lII1lI1II111) 
-for lII1lIlIllI,lIIIl1Ill1 in ipairs(l1IIIlIlIIlll) do 
-local l11l1I1IlIlI,llI1lIlll=lIl1I1lI1Il(),l1llll1lI1I1l();
-if ((lII1lI1II111 ~= l11I11111I1l) or (not l11l1I1IlIlI)) or (not llI1lIlll) then 
+local function lIIIlllI11IlI(l11lI11lII,l111I1IIl1l) 
+for l1lIl1IIll1ll,lI1l1l1111lII in ipairs(l11lI11lII) do 
+local lI1l1I1I,lIIIII11l=l1lI11Il111ll(),l11l1IlI1I();
+if ((l111I1IIl1l ~= l11Il11lI1111) or (not lI1l1I1I)) or (not lIIIII11l) then 
 return false end;
 
-llI1lIlll:MoveTo(lIIIl1Ill1);
-local lllI1l1l=os.clock();
-while (lII1lI1II111 == l11I11111I1l) and ((os.clock() - lllI1l1l) < 6) do 
-l11l1I1IlIlI=lIl1I1lI1Il();
-if (not l11l1I1IlIlI) or ((Vector3.new(l11l1I1IlIlI.Position.X,0,l11l1I1IlIlI.Position.Z) - Vector3.new(lIIIl1Ill1.X,0,lIIIl1Ill1.Z)).Magnitude < 2.5) then 
+lIIIII11l:MoveTo(lI1l1l1111lII);
+local lI1111l1ll=os.clock();
+while (l111I1IIl1l == l11Il11lI1111) and ((os.clock() - lI1111l1ll) < 6) do 
+lI1l1I1I=l1lI11Il111ll();
+if (not lI1l1I1I) or ((Vector3.new(lI1l1I1I.Position.X,0,lI1l1I1I.Position.Z) - Vector3.new(lI1l1l1111lII.X,0,lI1l1l1111lII.Z)).Magnitude < 2.5) then 
 break end;
 
-if ((llI1lIlll.MoveDirection.Magnitude == 0) and ((os.clock() - lllI1l1l) > 0.6)) and (llI1lIlll.FloorMaterial ~= Enum.Material.Air) then 
-llI1lIlll:ChangeState(Enum.HumanoidStateType.Jumping) end;
+if ((lIIIII11l.MoveDirection.Magnitude == 0) and ((os.clock() - lI1111l1ll) > 0.6)) and (lIIIII11l.FloorMaterial ~= Enum.Material.Air) then 
+lIIIII11l:ChangeState(Enum.HumanoidStateType.Jumping) end;
 
 task.wait(0.05) end end;
 
 
-return lII1lI1II111 == l11I11111I1l end;
+return l111I1IIl1l == l11Il11lI1111 end;
 
 
-lIl1Il111lll:Toggle({Name=l11l1Il1lll("\141\34\152\132\211\56\196\0\81\82\139\135\125\168\247\229\25\128",102),Description=l11l1Il1lll("\44\29\79\240\18\150\255\195\82\165\110\127\84\119\141\36\131\194\42\197\132\24\89\125\140\215\48\192\134\244\81\140\33\36\189\84\160\108\220\231\38\52\217\86\13\86\238\29\180\167\26\172\48\224\170\157\176\247\8\225\183\198\126\233\69\64",248),Flag=l11l1Il1lll("\174\69\73\225\14\161",95),Callback=function(lI1ll11I1l1lI) 
+lll1IllIIII1I:Toggle({Name=lI1I1ll1llIl("\34\249\151\63\94\128\105\50\234\209\84\199\78\115\150\187\182\123",111),Description=lI1I1ll1llIl("\43\206\234\63\207\109\9\235\146\26\149\109\68\58\250\84\100\241\111\234\121\195\143\117\76\8\171\178\246\153\6\252\230\55\24\155\189\87\42\207\230\203\98\68\29\91\217\109\83\148\159\67\205\59\188\85\112\40\147\211\135\171\41\153\194\19",134),Flag=lI1I1ll1llIl("\31\80\49\10\178\153",241),Callback=function(l11llll1lIIl) 
 
 
 
 
-l11I11111I1l=l11I11111I1l + 1;
-if not lI1ll11I1l1lI then 
+l11Il11lI1111=l11Il11lI1111 + 1;
+if not l11llll1lIIl then 
 return  end;
 
-if (# lIII111I1I1II) < 2 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\228\31\238\72\222\158",57),Content=l11l1Il1lll("\218\187\140\165\249\22\249\241\140\114\252\81\56\214\32\130\74\58\5\196\218\199\123\40\34\212\121\156",109),Type=l11l1Il1lll("\124\111\155\25\145\132\55",68)});
-l1llllI1lll1l.patrol:Set(false);
+if (# l1l1l1l1l) < 2 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\233\21\181\139\92\67",3),Content=lI1I1ll1llIl("\197\233\8\57\106\209\143\133\165\97\48\26\215\191\43\155\117\8\225\184\169\0\45\124\43\231\85\55",59),Type=lI1I1ll1llIl("\234\94\248\138\107\94\57",25)});
+lllIIlllIIlIl.patrol:Set(false);
 return  end;
 
-local l11lIl111ll1=l11I11111I1l;
+local ll111llI=l11Il11lI1111;
 task.spawn(function() 
-while l1IIlll1I11l.patrol and (l11lIl111ll1 == l11I11111I1l) do 
-for lll1IlIl,l1IllII1l1 in ipairs(lIII111I1I1II) do 
-if (not l1IIlll1I11l.patrol) or (l11lIl111ll1 ~= l11I11111I1l) then 
+while lll1l11Il1ll1.patrol and (ll111llI == l11Il11lI1111) do 
+for lIIlIII111I,ll1Il1l11l in ipairs(l1l1l1l1l) do 
+if (not lll1l11Il1ll1.patrol) or (ll111llI ~= l11Il11lI1111) then 
 return  end;
 
-l1IlI1Illl(Vector3.new(l1IllII1l1.x,l1IllII1l1.y,l1IllII1l1.z),l11l1Il1lll("\99\173\0\144",10));
-l11lIl111ll1=l11I11111I1l;
-local l11111lI11I=lIl1I1lI1Il();
-local lll1Ill1=os.clock();
-while (l1IIlll1I11l.patrol and (l11lIl111ll1 == l11I11111I1l)) and ((os.clock() - lll1Ill1) < 60) do 
-l11111lI11I=lIl1I1lI1Il();
-if l11111lI11I and ((l11111lI11I.Position - Vector3.new(l1IllII1l1.x,l1IllII1l1.y,l1IllII1l1.z)).Magnitude < 4) then 
+llI11I1IIII(Vector3.new(ll1Il1l11l.x,ll1Il1l11l.y,ll1Il1l11l.z),lI1I1ll1llIl("\221\169\186\87",189));
+ll111llI=l11Il11lI1111;
+local lIlIl1lllI=l1lI11Il111ll();
+local llIIIlll1ll=os.clock();
+while (lll1l11Il1ll1.patrol and (ll111llI == l11Il11lI1111)) and ((os.clock() - llIIIlll1ll) < 60) do 
+lIlIl1lllI=l1lI11Il111ll();
+if lIlIl1lllI and ((lIlIl1lllI.Position - Vector3.new(ll1Il1l11l.x,ll1Il1l11l.y,ll1Il1l11l.z)).Magnitude < 4) then 
 break end;
 
 task.wait(0.2) end end end end) end});
@@ -4092,407 +4096,407 @@ task.wait(0.2) end end end end) end});
 
 
 
-local lllI1lIIl,l1I11I1I1I1Il=false,{};
-local lI1l1ll1I1,ll1l1IIlIIlII={},nil;
-local llIl1I111llll=lIl1Il111lll:Paragraph(l11l1Il1lll("\121\27\46\200\153\101\136\210\47\197\89\231\222",205),l11l1Il1lll("\211\90\166\198\218\43\245\227\235\91\184\25\164\238\212\88\124\192\35\112\118\184\101\139\134\209\47\148\21\30\2\156\137\58\203\169\250\10\133\22\5\183\10\227\149\140\178\10\20\191\89\24\1\223\18\171\184\53\201\58\255\189\112\165\160\19\233\144\198",209));
-lIl1Il111lll:Button({Name=l11l1Il1lll("\199\24\173\41\28\108\185\171\118\135\208\194\101\89\241\253\75\142\56\162\246\219",170),Action=l11l1Il1lll("\255\86\223",22),Callback=function() 
-lllI1lIIl=not lllI1lIIl;
-if lllI1lIIl then 
-l1I11I1I1I1Il,lI1l1ll1I1={},{};
-local llll1lI1IIII=os.clock();
+local lllI1II1ll,llllIIIIl1Il=false,{};
+local lIIlIIlIlI,lll1lI1I1I={},nil;
+local lIllI1l111Il1=lll1IllIIII1I:Paragraph(lI1I1ll1llIl("\155\210\26\175\223\123\64\212\74\158\230\29\40",2),lI1I1ll1llIl("\137\146\226\124\204\180\54\93\93\173\209\254\148\64\239\161\38\8\135\10\64\39\134\245\240\39\70\19\101\144\57\69\147\178\15\211\44\85\70\104\115\129\163\132\229\98\201\243\14\55\189\34\183\128\49\21\14\3\96\125\79\179\11\60\250\219\45\170\80",247));
+lll1IllIIII1I:Button({Name=lI1I1ll1llIl("\46\107\203\182\86\48\17\228\220\133\234\72\189\199\18\8\130\29\190\221\220\231",249),Action=lI1I1ll1llIl("\105\114\194",23),Callback=function() 
+lllI1II1ll=not lllI1II1ll;
+if lllI1II1ll then 
+llllIIIIl1Il,lIIlIIlIlI={},{};
+local lIlll1l11=os.clock();
 task.spawn(function() 
-while lllI1lIIl and (llIIIIII1.Window == lI11II1llI1) do 
-local l1IIlIII1III1=lIl1I1lI1Il();
-if l1IIlIII1III1 then 
-table.insert(lI1l1ll1I1,{t=os.clock() - llll1lI1IIII,cf=l1IIlIII1III1.CFrame}) end;
+while lllI1II1ll and (l111II11I.Window == l1l1Ill1) do 
+local llI1I1l1lI=l1lI11Il111ll();
+if llI1I1l1lI then 
+table.insert(lIIlIIlIlI,{t=os.clock() - lIlll1l11,cf=llI1I1l1lI.CFrame}) end;
 
 task.wait(0.05) end end);
 
 
 task.spawn(function() 
-local lIIllIlI;
-while lllI1lIIl and (llIIIIII1.Window == lI11II1llI1) do 
-local lllIlll111I1I=lIl1I1lI1Il();
-if lllIlll111I1I and ((not lIIllIlI) or ((lllIlll111I1I.Position - lIIllIlI).Magnitude > 3)) then 
-lIIllIlI=lllIlll111I1I.Position;
-table.insert(l1I11I1I1I1Il,lIIllIlI);
-llIl1I111llll:Set(l11l1Il1lll("\171\192\215\44\163\250\233\68\161\120\227\176",227),(# l1I11I1I1I1Il) .. l11l1Il1lll("\253\51\131\159\210\32\151\83\67\75\206\133\60\169\169\170\57\146\12\70\173\67\21\138\206\180\42\28\237\88\3\21\141\77",102)) end;
+local lIl11IlI;
+while lllI1II1ll and (l111II11I.Window == l1l1Ill1) do 
+local lI1I1l1lI=l1lI11Il111ll();
+if lI1I1l1lI and ((not lIl11IlI) or ((lI1I1l1lI.Position - lIl11IlI).Magnitude > 3)) then 
+lIl11IlI=lI1I1l1lI.Position;
+table.insert(llllIIIIl1Il,lIl11IlI);
+lIllI1l111Il1:Set(lI1I1ll1llIl("\21\228\222\80\175\0\115\142\181\214\44\67",166),(# llllIIIIl1Il) .. lI1I1ll1llIl("\150\152\113\85\68\164\168\165\154\75\145\239\34\13\215\187\114\57\222\140\219\39\74\28\23\148\117\86\211\156\29\132\38\230",27)) end;
 
 task.wait(0.15) end end) else 
 
 
 
-llIl1I111llll:Set(l11l1Il1lll("\254\21\25\203\113\111\121\184\38\132\156\39\44",47),(# l1I11I1I1I1Il) .. l11l1Il1lll("\187\238\54\174\6\14\179\248\10\146\215\207\24\27\180\67\37\46\187\18\136\134\49\209\40\19\75\48\173\174\45\220\219\151\13\199\41\61\129\81\246\57",212)) end end});
+lIllI1l111Il1:Set(lI1I1ll1llIl("\37\44\235\219\101\165\7\127\133\154\146\121\21",165),(# llllIIIIl1Il) .. lI1I1ll1llIl("\237\63\149\253\60\20\29\180\109\36\86\135\63\33\226\223\19\255\56\97\146\188\159\125\79\69\42\88\170\148\91\64\141\70\238\212\19\39\47\221\145\143",73)) end end});
 
 
-lIl1Il111lll:Toggle({Name=l11l1Il1lll("\69\58\11\227\33\220\213\10\250\71\196",19),Description=l11l1Il1lll("\34\7\184\76\17\150\207\184\22\31\172\15\1\99\146\16\178\182\61\212\32\239\77\124\186\231\24\216\130\159\111\207\49\44\140\32\241\104\61\17\44",232),Flag=l11l1Il1lll("\242\209\14\127\204\50\91\117\178\51",46)});
+lll1IllIIII1I:Toggle({Name=lI1I1ll1llIl("\14\231\156\205\225\142\60\1\215\246\88",95),Description=lI1I1ll1llIl("\16\237\131\209\160\133\42\81\207\255\68\147\108\21\149\171\160\92\38\73\113\252\72\149\67\39\240\100\239\137\104\20\67\198\183\189\128\123\216\248\53",95),Flag=lI1I1ll1llIl("\153\162\33\175\47\89\138\155\141\152",199)});
 
-lIl1Il111lll:Button({Name=l11l1Il1lll("\80\118\202\42\51\75\168\127\135\154\215\35\148",64),Description=l11l1Il1lll("\207\116\62\166\84\80\8\147\27\185\173\5\214\62\246\185\142\189\253\28\231\205\149\100\236\6\58\135\96\221\37\50\6\209\141\145\116\62\51\233\109\211\220\34\238\95\193\158\254\77\83\179\19\168\173\71\153\114\65\255\11\224\5\41\32\248\244\35\136\210\201\155\90\243\253\2\151\42",15),Action=l11l1Il1lll("\34\5\205\198",222),Callback=function() 
-local lIII1IIl=lllI1llI.Character;
-if ((# lI1l1ll1I1) < 2) or (not lIII1IIl) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\108\70\166\36\108",100),Content=l11l1Il1lll("\183\118\60\61\215\111\148\223\36\236\93\223\144\252\64\82\231\16\187\236",2),Type=l11l1Il1lll("\135\133\92\77\244\245\160",94)});
+lll1IllIIII1I:Button({Name=lI1I1ll1llIl("\204\136\212\90\210\46\2\173\198\67\198\99\122",112),Description=lI1I1ll1llIl("\91\155\224\48\236\46\229\80\36\251\211\203\62\1\108\24\218\114\35\170\159\83\152\199\179\4\100\73\168\194\223\243\82\254\147\7\12\128\30\170\210\209\226\172\6\96\27\127\234\2\77\197\171\54\160\36\6\176\159\113\131\191\255\232\52\151\170\53\48\172\36\216\229\49\3\76\255\149",100),Action=lI1I1ll1llIl("\39\189\209\45",106),Callback=function() 
+local lllI11111l1II=ll1lI1IIII1.Character;
+if ((# lIIlIIlIlI) < 2) or (not lllI11111l1II) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\49\64\177\143\158",219),Content=lI1I1ll1llIl("\181\68\126\240\79\224\218\97\18\40\195\185\251\251\112\214\229\34\249\33",6),Type=lI1I1ll1llIl("\89\56\117\1\203\93\108",192)});
 return  end;
 
-if ll1l1IIlIIlII then 
-ll1l1IIlIIlII:Destroy() end;
+if lll1lI1I1I then 
+lll1lI1I1I:Destroy() end;
 
-lIII1IIl.Archivable=true;
-local llIIll1lIl1,l111II1lI1=pcall(lIII1IIl.Clone,lIII1IIl);
-if (not llIIll1lIl1) or (not l111II1lI1) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\227\102\133\57\213",41),Content=l11l1Il1lll("\122\156\132\80\241\250\253\54\172\86\15\173\176\89\129\150\242\1\9\243\88\98\121\153\89\165\128\51\220\111\6\82\107\166\237\33\212\221\159\20\153\63\61\134\16",175),Type=l11l1Il1lll("\125\229\166\111\184",108)});
+lllI11111l1II.Archivable=true;
+local lllll1l11II11,lI1II11llI1l=pcall(lllI11111l1II.Clone,lllI11111l1II);
+if (not lllll1l11II11) or (not lI1II11llI1l) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\113\92\105\127\130",252),Content=lI1I1ll1llIl("\206\208\207\95\119\126\12\205\80\45\168\156\235\48\214\252\70\77\66\252\222\230\136\66\165\222\39\2\135\6\177\56\223\234\166\46\82\89\110\175\101\68\154\183\75",173),Type=lI1I1ll1llIl("\179\102\84\67\164",28)});
 return  end;
 
-for llIll11llII,lIlIIlI1Il in ipairs(l111II1lI1:GetDescendants()) do 
-if lIlIIlI1Il:IsA(l11l1Il1lll("\48\6\170\58\83\119\147\59",48)) then 
-lIlIIlI1Il.Anchored,lIlIIlI1Il.CanCollide,lIlIIlI1Il.CanQuery,lIlIIlI1Il.CanTouch=true,false,false,false;
-lIlIIlI1Il.Transparency=math.max(lIlIIlI1Il.Transparency,0.55);
-lIlIIlI1Il.Material=Enum.Material.ForceField elseif (lIlIIlI1Il:IsA(l11l1Il1lll("\241\212\123\134\195\50",224)) or lIlIIlI1Il:IsA(l11l1Il1lll("\232\19\191\42\116\111\229\233\92\179\219",154))) or lIlIIlI1Il:IsA(l11l1Il1lll("\39\227\89\213\172",74)) then 
+for l111lIllI1,lI1II111 in ipairs(lI1II11llI1l:GetDescendants()) do 
+if lI1II111:IsA(lI1I1ll1llIl("\197\32\14\154\205\69\40\212",102)) then 
+lI1II111.Anchored,lI1II111.CanCollide,lI1II111.CanQuery,lI1II111.CanTouch=true,false,false,false;
+lI1II111.Transparency=math.max(lI1II111.Transparency,0.55);
+lI1II111.Material=Enum.Material.ForceField elseif (lI1II111:IsA(lI1I1ll1llIl("\218\39\227\192\19\43",51)) or lI1II111:IsA(lI1I1ll1llIl("\114\38\116\62\254\112\120\95\104\251\125",208))) or lI1II111:IsA(lI1I1ll1llIl("\38\179\199\38\238",106)) then 
 
-lIlIIlI1Il:Destroy() end end;
+lI1II111:Destroy() end end;
 
 
-local lIlIll1lI=l111II1lI1:FindFirstChildOfClass(l11l1Il1lll("\17\147\101\211\32\129\44\98",119));
-if lIlIll1lI then 
-lIlIll1lI.DisplayDistanceType=Enum.HumanoidDisplayDistanceType.None end;
+local l11llII1=lI1II11llI1l:FindFirstChildOfClass(lI1I1ll1llIl("\42\29\126\60\79\179\16\53",127));
+if l11llII1 then 
+l11llII1.DisplayDistanceType=Enum.HumanoidDisplayDistanceType.None end;
 
-l111II1lI1.Name=llIIlI1Il:GenerateGUID(false);
-l111II1lI1.Parent=workspace.CurrentCamera;
-ll1l1IIlIIlII=l111II1lI1;
-local l1IIlllIlIl1I=l111II1lI1:FindFirstChild(l11l1Il1lll("\238\131\0\95\120\179\156\47\251\154\235\7\177\47\34\174",123));
-local ll1llll11=os.clock();
+lI1II11llI1l.Name=llII1lIII1:GenerateGUID(false);
+lI1II11llI1l.Parent=workspace.CurrentCamera;
+lll1lI1I1I=lI1II11llI1l;
+local lllllll1I1I=lI1II11llI1l:FindFirstChild(lI1I1ll1llIl("\74\189\222\156\239\83\240\213\41\56\142\7\142\209\196\240",31));
+local llIll1ll11ll=os.clock();
 task.spawn(function() 
-local l1ll11l11=1;
-while ((ll1l1IIlIIlII == l111II1lI1) and l1IIlllIlIl1I) and (l1ll11l11 < (# lI1l1ll1I1)) do 
-local lIlll1I1=os.clock() - ll1llll11;
-while (l1ll11l11 < (# lI1l1ll1I1)) and (lI1l1ll1I1[l1ll11l11 + 1].t < lIlll1I1) do 
-l1ll11l11=l1ll11l11 + 1 end;
+local llI1I111ll=1;
+while ((lll1lI1I1I == lI1II11llI1l) and lllllll1I1I) and (llI1I111ll < (# lIIlIIlIlI)) do 
+local l1II1I1IlI1=os.clock() - llIll1ll11ll;
+while (llI1I111ll < (# lIIlIIlIlI)) and (lIIlIIlIlI[llI1I111ll + 1].t < l1II1I1IlI1) do 
+llI1I111ll=llI1I111ll + 1 end;
 
-local lIIIIl1l1Illl,lI1lllII1=lI1l1ll1I1[l1ll11l11],lI1l1ll1I1[math.min(l1ll11l11 + 1,# lI1l1ll1I1)];
-local lI1llII11I1lI=((lI1lllII1.t > lIIIIl1l1Illl.t) and math.clamp((lIlll1I1 - lIIIIl1l1Illl.t) / (lI1lllII1.t - lIIIIl1l1Illl.t),0,1)) or 1;
-l111II1lI1:PivotTo(lIIIIl1l1Illl.cf:Lerp(lI1lllII1.cf,lI1llII11I1lI));
-lIII1l1l.RenderStepped:Wait() end;
+local l1llIIl1I1ll,lll1IlIl11I1I=lIIlIIlIlI[llI1I111ll],lIIlIIlIlI[math.min(llI1I111ll + 1,# lIIlIIlIlI)];
+local l1IllI1ll1=((lll1IlIl11I1I.t > l1llIIl1I1ll.t) and math.clamp((l1II1I1IlI1 - l1llIIl1I1ll.t) / (lll1IlIl11I1I.t - l1llIIl1I1ll.t),0,1)) or 1;
+lI1II11llI1l:PivotTo(l1llIIl1I1ll.cf:Lerp(lll1IlIl11I1I.cf,l1IllI1ll1));
+lII1llIIIIlI.RenderStepped:Wait() end;
 
 task.wait(1.5);
-if ll1l1IIlIIlII == l111II1lI1 then 
-l111II1lI1:Destroy();
-ll1l1IIlIIlII=nil end end) end});
+if lll1lI1I1I == lI1II11llI1l then 
+lI1II11llI1l:Destroy();
+lll1lI1I1I=nil end end) end});
 
 
 
-llIIIIII1:OnUnload(function() 
-if ll1l1IIlIIlII then 
-ll1l1IIlIIlII:Destroy() end end);
+l111II11I:OnUnload(function() 
+if lll1lI1I1I then 
+lll1lI1I1I:Destroy() end end);
 
 
-lIl1Il111lll:Button({Name=l11l1Il1lll("\122\226\180\156\91\86\65\231\186\170\113",92),Action=l11l1Il1lll("\180\34\203\115",105),Callback=function() 
-if (# l1I11I1I1I1Il) < 2 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\126\149\153\75\241\239\249\56\166\4\28\167\172",175),Content=l11l1Il1lll("\31\182\255\233\94\160\116\162\160\196\31\103\197\107\113\115\175\48\152\216",246),Type=l11l1Il1lll("\50\210\141\156\108\133\51",162)});
+lll1IllIIII1I:Button({Name=lI1I1ll1llIl("\51\142\25\188\47\197\190\244\47\77\15",104),Action=lI1I1ll1llIl("\221\99\219\173",9),Callback=function() 
+if (# llllIIIIl1Il) < 2 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\231\16\25\135\77\166\47\211\237\250\22\88\17",86),Content=lI1I1ll1llIl("\105\38\29\184\157\93\53\198\21\236\147\124\34\112\220\172\217\160\122\137",242),Type=lI1I1ll1llIl("\45\154\161\123\32\173\54",36)});
 return  end;
 
-lllI1lIIl=false;
-l11I11111I1l=l11I11111I1l + 1;
-local l1IlII1I=l11I11111I1l;
+lllI1II1ll=false;
+l11Il11lI1111=l11Il11lI1111 + 1;
+local llll1llIl1l=l11Il11lI1111;
 task.spawn(function() 
 repeat 
-llIl1I111llll:Set(l11l1Il1lll("\137\187\105\235\73\67\233\118\223\25\90\78",148),(# l1I11I1I1I1Il) .. l11l1Il1lll("\253\51\131\159\210\32\151\93\16\119\154\140\45\251\234\229\27\154\18\1\236\71\21\141\195\241\50\0\237\66\3\84",102));
-local llI11IIl1=lIII1ll1I111(l1I11I1I1I1Il,l1IlII1I) until (not llI11IIl1) or (not l1IIlll1I11l.replayLoop);
+lIllI1l111Il1:Set(lI1I1ll1llIl("\68\177\150\128\119\24\166\217\13\229\237\43",220),(# llllIIIIl1Il) .. lI1I1ll1llIl("\246\100\73\69\184\213\252\217\10\216\247\42\9\211\12\71\48\205\248\219\102\82\30\105\217\126\95\134\201\10\133\118",28));
+local lllII11l11II=lIIIlllI11IlI(llllIIIIl1Il,llll1llIl1l) until (not lllII11l11II) or (not lll1l11Il1ll1.replayLoop);
 
-llIl1I111llll:Set(l11l1Il1lll("\77\226\88\94\220\102\193\80\31\22\202\198\111",166),(# l1I11I1I1I1Il) .. l11l1Il1lll("\18\87\246\246\173\162\82\175\66\71\235\15\194\75\25\60\140",112)) end) end});
-
-
+lIllI1l111Il1:Set(lI1I1ll1llIl("\202\217\210\68\119\107\8\195\90\127\187\150\247",173),(# llllIIIIl1Il) .. lI1I1ll1llIl("\186\75\124\188\103\247\98\152\164\113\69\67\164\197\234\147\4",228)) end) end});
 
 
-local l11II1lIllll=lIl1Il111lll:Input({Name=l11l1Il1lll("\0\198\127\198\156\104\131\95\204",21),Placeholder=l11l1Il1lll("\197\156\31\190\0\236\164\135\66\11\185\220\171\179\82\251\28\2\206\9\222\70\15\48",56)});
-lIl1Il111lll:Button({Name=l11l1Il1lll("\254\165\202\68\70\71\237\160\162\83",93),Description=l11l1Il1lll("\51\234\129\134\102\187\80\38\145\44\207\87\39\31\211\216\145\51\47\51\215\127\148\201\109\232\84\139\140\180\71\79\181\13\174\175\80\155\101\64\240\76\171\52\13\63\182\255\109\150\205\215",146),Action=l11l1Il1lll("\34\213\114\239",90),Callback=function() 
-local llI1lI111=l11II1lIllll:Get():lower();
-local lIIlIIl1IlI=lIl1I1lI1Il();
-if (llI1lI111 == l11l1Il1lll("",6)) or (not lIIlIIl1IlI) then 
+
+
+local l1llI1II=lll1IllIIII1I:Input({Name=lI1I1ll1llIl("\230\137\108\72\10\190\186\232\140",27),Placeholder=lI1I1ll1llIl("\171\151\128\161\98\192\195\18\33\247\89\131\214\41\253\224\82\41\17\118\188\10\40\133",32)});
+lll1IllIIII1I:Button({Name=lI1I1ll1llIl("\0\238\157\75\178\68\106\129\160\140",166),Description=lI1I1ll1llIl("\188\50\29\209\218\3\197\112\19\212\165\160\89\50\74\36\254\11\147\68\107\231\33\255\143\112\94\124\210\185\254\147\58\213\242\56\236\35\240\86\50\180\193\195\51\82\47\3\194\110\113\160",132),Action=lI1I1ll1llIl("\153\232\155\76",65),Callback=function() 
+local lIlIIll11lI=l1llI1II:Get():lower();
+local lII1l11lI=l1lI11Il111ll();
+if (lIlIIll11lI == lI1I1ll1llIl("",165)) or (not lII1l11lI) then 
 return  end;
 
-local lll1lI11lll,lll1l1IlIII;
-for lll11I1I,l1I1Il1Il in ipairs(workspace:GetDescendants()) do 
-if (l1I1Il1Il:IsA(l11l1Il1lll("\236\21\30\198\1\124\110\175",47)) and l1I1Il1Il.Name:lower():find(llI1lI111,1,true)) and (not l1I1Il1Il:IsDescendantOf(lllI1llI.Character)) then 
-local lll1lII1I1I1l=(l1I1Il1Il.Position - lIIlIIl1IlI.Position).Magnitude;
-if (not lll1l1IlIII) or (lll1lII1I1I1l < lll1l1IlIII) then 
-lll1lI11lll,lll1l1IlIII=l1I1Il1Il,lll1lII1I1I1l end end end;
+local l1lIl1IIl1,lIl1lIII1lI;
+for lI111Il11I,lII11lll1IlI in ipairs(workspace:GetDescendants()) do 
+if (lII11lll1IlI:IsA(lI1I1ll1llIl("\77\48\86\189\45\52\229\191",145)) and lII11lll1IlI.Name:lower():find(lIlIIll11lI,1,true)) and (not lII11lll1IlI:IsDescendantOf(ll1lI1IIII1.Character)) then 
+local l111Ill111llI=(lII11lll1IlI.Position - lII1l11lI.Position).Magnitude;
+if (not lIl1lIII1lI) or (l111Ill111llI < lIl1lIII1lI) then 
+l1lIl1IIl1,lIl1lIII1lI=lII11lll1IlI,l111Ill111llI end end end;
 
 
 
-if lll1lI11lll then 
-l1IlI1Illl(lll1lI11lll.Position + Vector3.new(0,lll1lI11lll.Size.Y / 2,0));
-llIIIIII1:Notify({Title=l11l1Il1lll("\131\1\170\94\238\226\130\89\163\27",73),Content=lll1lI11lll.Name .. (l11l1Il1lll("\194\53\254\143",160) .. (math.floor(lll1l1IlIII) .. l11l1Il1lll("\128\193\12\229\68\204\236\137\69\70\224",56)))}) else 
+if l1lIl1IIl1 then 
+llI11I1IIII(l1lIl1IIl1.Position + Vector3.new(0,l1lIl1IIl1.Size.Y / 2,0));
+l111II11I:Notify({Title=lI1I1ll1llIl("\2\163\130\44\21\64\26\116\41\87",90),Content=l1lIl1IIl1.Name .. (lI1I1ll1llIl("\74\9\116\37",20) .. (math.floor(lIl1lIII1lI) .. lI1I1ll1llIl("\74\27\2\233\131\58\29\145\50\28\246",93)))}) else 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\98\188\191\230\10\235\4\31\182\168",194),Content=l11l1Il1lll("\149\177\57\247\73\72\244\56\214\86\25\5\206\159\125\142\32\43\137\67\208\203\100\198",148),Type=l11l1Il1lll("\119\115\234\30\169\49\11",152)}) end end});
-
-
+l111II11I:Notify({Title=lI1I1ll1llIl("\42\128\122\64\93\32\126\149\205\149",233),Content=lI1I1ll1llIl("\85\12\190\71\110\171\129\167\123\221\191\77\78\16\182\204\224\150\14\243\215\40\17\217",210),Type=lI1I1ll1llIl("\108\2\236\89\102\183\146",210)}) end end});
 
 
-if type(setclipboard) == l11l1Il1lll("\16\179\51\13\50\229\234\85",171) then 
-lIl1Il111lll:Button({Name=l11l1Il1lll("\244\119\133\214\202\203\5\249\228\113\142\41",225),Description=l11l1Il1lll("\183\209\42\147\20\65\2\156\137\54\214\169\239\14\152\31\67\189\10\249\128\212\247\60\81\188\69\22\12\140\69\190\187\126\206\114\244\242\97\164\168\15\231\134\137\125\241",121),Action=l11l1Il1lll("\51\11\222\218",222),Callback=function() 
-setclipboard(llIIlI1Il:JSONEncode(lIII111I1I1II));
-llIIIIII1:Notify({Title=l11l1Il1lll("\124\50\26\223\219\147",221),Content=(# lIII111I1I1II) .. l11l1Il1lll("\254\87\77\252\21\190\236\72\214\118\65\247\10\224",95)}) end}) end;
 
 
-local lII1lIIIl1I1l=lIl1Il111lll:Input({Name=l11l1Il1lll("\107\90\249\0\65\178\17\204\112\125\236\3",96),Placeholder=l11l1Il1lll("\53\242\172\166\64\171\81\70\244\115\206\95\29\56\134\200\101\140\59\49\149\83\225\220\113",130)});
-lIl1Il111lll:Button({Name=l11l1Il1lll("\121\73\158\140\47\175",158),Action=l11l1Il1lll("\249\42\93\253\238\82",245),Callback=function() 
-local l1I1111I,lIII11lll=pcall(llIIlI1Il.JSONDecode,llIIlI1Il,lII1lIIIl1I1l:Get());
-if (not l1I1111I) or (type(lIII11lll) ~= l11l1Il1lll("\124\6\70\124\191",124)) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\140\94\15\29\247\31",34),Content=l11l1Il1lll("\96\150\123\206\17\6\7\208\213\63\140\58\38\136\65\154\193\118\154\37\211\150\183\124\17\252\5\86\76\76\139",185),Type=l11l1Il1lll("\216\81\254\249\110",6)});
+if type(setclipboard) == lI1I1ll1llIl("\132\157\253\190\213\53\150\191",255) then 
+lll1IllIIII1I:Button({Name=lI1I1ll1llIl("\208\213\15\60\151\3\226\207\58\231\226\15",69),Description=lI1I1ll1llIl("\58\219\113\80\150\156\73\159\62\161\77\60\109\145\214\128\174\55\177\218\2\41\188\31\230\203\62\227\238\19\43\33\118\244\21\49\246\239\42\167\31\88\188\147\139\98\255",195),Action=lI1I1ll1llIl("\146\52\137\57",216),Callback=function() 
+setclipboard(llII1lIII1:JSONEncode(l1l1l1l1l));
+l111II11I:Notify({Title=lI1I1ll1llIl("\79\211\19\202\235\103",116),Content=(# l1l1l1l1l) .. lI1I1ll1llIl("\185\39\145\182\103\60\233\40\153\216\55\25\14\190",35)}) end}) end;
+
+
+local l11llI111lI=lll1IllIIII1I:Input({Name=lI1I1ll1llIl("\126\156\157\0\159\32\234\67\114\103\134\206",214),Placeholder=lI1I1ll1llIl("\210\41\64\9\100\156\124\73\139\184\19\135\59\84\22\119\98\151\247\158\177\36\140\211\14",159)});
+lll1IllIIII1I:Button({Name=lI1I1ll1llIl("\39\116\55\64\144\7",128),Action=lI1I1ll1llIl("\76\80\191\140\7\147",213),Callback=function() 
+local ll1I1lI1,llllIl1lIl=pcall(llII1lIII1.JSONDecode,llII1lIII1,l11llI111lI:Get());
+if (not ll1I1lI1) or (type(llllIl1lIl) ~= lI1I1ll1llIl("\121\238\88\56\247",137)) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\47\233\198\179\84\37",172),Content=lI1I1ll1llIl("\86\96\147\201\195\255\35\151\211\65\52\172\19\227\206\96\23\224\18\98\33\111\179\27\119\226\189\32\185\7\4",14),Type=lI1I1ll1llIl("\39\58\192\146\209",78)});
 return  end;
 
-local llI111lIl1I1=0;
-for ll111lIII,l1lIl111lI11 in ipairs(lIII11lll) do 
-if (((type(l1lIl111lI11) == l11l1Il1lll("\159\143\107\251\61",164)) and tonumber(l1lIl111lI11.x)) and tonumber(l1lIl111lI11.y)) and tonumber(l1lIl111lI11.z) then 
-table.insert(lIII111I1I1II,{name=tostring(l1lIl111lI11.name or (l11l1Il1lll("\179\164\113\71\173",78) .. ((# lIII111I1I1II) + 1))),x=l1lIl111lI11.x,y=l1lIl111lI11.y,z=l1lIl111lI11.z});
-llI111lIl1I1=llI111lIl1I1 + 1 end end;
+local llII1I1lI=0;
+for llllIlllII,ll1lI1lI1ll in ipairs(llllIl1lIl) do 
+if (((type(ll1lI1lI1ll) == lI1I1ll1llIl("\129\172\125\95\160",37)) and tonumber(ll1lI1lI1ll.x)) and tonumber(ll1lI1lI1ll.y)) and tonumber(ll1lI1lI1ll.z) then 
+table.insert(l1l1l1l1l,{name=tostring(ll1lI1lI1ll.name or (lI1I1ll1llIl("\198\221\16\39\197",69) .. ((# l1l1l1l1l) + 1))),x=ll1lI1lI1ll.x,y=ll1lI1lI1ll.y,z=ll1lI1lI1ll.z});
+llII1I1lI=llII1I1lI + 1 end end;
 
 
-llIIIIII1:WriteJSON(llIII1111,lIII111I1I1II);
-lI1I11lII11l();
-lII1lIIIl1I1l:Set(l11l1Il1lll("",186),true);
-llIIIIII1:Notify({Title=l11l1Il1lll("\151\73\77\252\19\185",95),Content=llI111lIl1I1 .. l11l1Il1lll("\25\57\26\223\221\148\61\32\52\195\104\214\146",221)}) end}) end;
-
-
-
-local l11I1Il1ll1=l1l11l11ll11I:Section(l11l1Il1lll("\20\46\237\110\199\212\115",20));
-l11I1Il1ll1:Segmented({Name=l11l1Il1lll("\109\23\21\245\116\178\224\7\227\98\229\177\146",35),Description=l11l1Il1lll("\16\107\103\151\16\144\148\106\207\133\77\86\127\187\157\107\219\156\247\24\205\110\3\183\89\233\105\198\166\43\41\146\93\0\7\163\101\182\165\24\227\58\173\137\151\80\190\75\249\180\144\123\242\14\68\146\115\212\88\110\9\194\133\125\118\42\32\131\25\210\207\125\131\69\217\222\164\117\70\224\64",67),Flag=l11l1Il1lll("\173\152\171\102\108\235\48\68\68\175\194\118",61),Options={l11l1Il1lll("\212\109\223\194\29\250\80",38),l11l1Il1lll("\184\131\102\248\44\34",164),l11l1Il1lll("\223\134\200\251",252)},Default=l11l1Il1lll("\88\193\38\109\121\177\49",65)});
+l111II11I:WriteJSON(lIlll1l1II1,l1l1l1l1l);
+lIIlllll1Ill1();
+l11llI111lI:Set(lI1I1ll1llIl("",177),true);
+l111II11I:Notify({Title=lI1I1ll1llIl("\128\105\33\6\209\235",115),Content=llII1I1lI .. lI1I1ll1llIl("\150\199\246\227\2\114\79\118\174\15\70\129\247",124)}) end}) end;
 
 
 
-
-
-
-l11I1Il1ll1:Slider({Name=l11l1Il1lll("\120\67\166\56\108\98\144\59\152\34\97\84",100),Flag=l11l1Il1lll("\244\5\156\52\9\186\97\242\124\207\238",197),Min=20,Max=300,Default=80,Increment=5,Suffix=l11l1Il1lll("\177\92\161\182\235",193)});
-local l11ll11I=l1l11l11ll11I:Section(l11l1Il1lll("\119\160\5\152\227\140\2\14\201\54\111\125\151\63",10));
-l11ll11I:Toggle({Name=l11l1Il1lll("\170\58\49\129\85\190\97\57\94\48\56\159\100\29\3\249\109",199),Description=(llII1lIlIll1l and l11l1Il1lll("\168\126\250\74\108\132\123\209\82\106\168\7\137\179\124\49\112\198\99\203\203\110\135\64\204\218\174\79\25\227\8\93\165\71\210\112\88\182\6\170\60\24\47\176\224\105\142\213\209\41\89\254\229",165)) or l11l1Il1lll("\177\227\205\24\73\213\52\114\123\199\143\69\220\14\205\158\13\26\89\148\139\59\141\144\238\19\221\33\0\191\81\233\57\222\229\112\61\162\81\4\0\232\31\166\252\18\234\119\251\191\218\169\183\4\249\176\142\99\241\91",29),Flag=l11l1Il1lll("\186\117\125\215\1",79),Keybind=Enum.KeyCode.T});
+local llIllIII1l=lll1I1l11lI:Section(lI1I1ll1llIl("\106\109\91\106\250\105\193",245));
+llIllIII1l:Segmented({Name=lI1I1ll1llIl("\174\41\18\195\204\79\145\117\19\128\174\163\82",132),Description=lI1I1ll1llIl("\139\166\65\9\66\37\242\15\142\82\61\247\84\227\146\32\64\49\209\166\191\251\69\210\248\62\249\103\173\83\6\249\198\205\33\125\119\3\195\125\98\237\221\40\124\200\177\0\98\89\182\197\128\219\66\247\210\3\8\207\2\186\106\214\237\231\6\29\75\103\169\24\66\146\169\127\143\45\73\171\219",206),Flag=lI1I1ll1llIl("\197\73\184\22\123\128\163\145\106\1\88\219",184),Options={lI1I1ll1llIl("\92\210\161\92\75\94\174",10),lI1I1ll1llIl("\68\188\98\224\121\220",246),lI1I1ll1llIl("\217\152\203\164",96)},Default=lI1I1ll1llIl("\75\102\129\201\130\229\50",14)});
 
 
 
 
 
-l11ll11I:Toggle({Name=l11l1Il1lll("\208\125\204\11\12\51\134\204\116\143\36",186),Description=(llII1lIlIll1l and l11l1Il1lll("\74\249\122\59\5\200\117\153\96\38\15\179\195\25\144\46\247\86\157\186\142\73\5\252\235\170\161\77\213\30\65\228\2\150\84\17\35\238\149\104\129\212\54\210\66\250\245\104\214\49\188\130\173\127\37\207\17\64\70\166",219)) or l11l1Il1lll("\164\40\115\85\137\155\1\165\242\237\50\231\170\205\224\144\23\155\208\128\43\19\165\7\106\96\141\87\155\134\57\203\99\75\4\105\181\186\51\151\152\150\24\149\41\57\148\93\234\55\35\225\38\52\130\39\31\6\236\101\189",156),Flag=l11l1Il1lll("\226\71\205\153\135\64\78",75)});
+
+llIllIII1l:Slider({Name=lI1I1ll1llIl("\110\178\5\107\150\184\222\119\31\84\32\28",185),Flag=lI1I1ll1llIl("\33\142\243\30\15\28\201\149\46\86\138",74),Min=20,Max=300,Default=80,Increment=5,Suffix=lI1I1ll1llIl("\146\171\86\98\96",190)});
+local ll1IlII1Il=lll1I1l11lI:Section(lI1I1ll1llIl("\113\52\203\174\248\251\98\218\251\52\253\96\255\64",62));
+ll1IlII1Il:Toggle({Name=lI1I1ll1llIl("\197\148\103\47\49\128\191\250\249\96\196\245\54\255\102\249\66",43),Description=(lIIIlllIl1l and lI1I1ll1llIl("\119\8\114\160\77\87\142\168\54\223\136\147\226\164\127\148\175\176\203\33\138\189\114\57\168\111\142\251\114\20\11\248\122\49\90\154\57\101\243\211\88\173\15\36\139\190\141\112\14\95\49\20\164",161)) or lI1I1ll1llIl("\67\26\201\111\31\187\140\4\142\140\0\143\58\72\165\217\159\163\125\227\221\21\117\134\27\184\146\43\230\249\25\110\75\103\161\71\43\140\169\50\181\35\80\172\218\148\130\240\169\198\126\158\161\106\65\166\59\136\254\17",194),Flag=lI1I1ll1llIl("\255\146\94\211\207",66),Keybind=Enum.KeyCode.T});
 
 
 
 
-l11I1Il1ll1:Button({Name=l11l1Il1lll("\101\242\114\222\166\33\42\141\80\11\19",235),Description=l11l1Il1lll("\247\45\130\24\109\64\133\203\68\243\204\255\10\164\0\22\228\179\14\203\239\253\10\16\245\87\125\107\133",138),Action=l11l1Il1lll("\163\115\130\34",181),Callback=function() 
+
+ll1IlII1Il:Toggle({Name=lI1I1ll1llIl("\95\18\222\39\75\166\197\0\132\192\169",194),Description=(lIIIlllIl1l and lI1I1ll1llIl("\149\123\214\252\32\251\41\249\95\27\245\156\104\231\123\81\8\212\17\125\171\154\89\124\212\183\91\66\94\224\202\155\157\20\248\214\6\29\201\8\190\41\204\253\233\4\94\23\41\179\112\69\136\172\121\143\46\93\188\105",99)) or lI1I1ll1llIl("\26\167\73\121\121\132\155\151\224\55\250\137\161\232\249\51\169\212\42\172\219\12\127\117\120\186\5\121\240\163\32\168\29\4\254\133\133\101\233\229\202\12\144\187\98\92\205\62\148\184\25\13\22\235\152\149\77\156\36\11\214",251),Flag=lI1I1ll1llIl("\15\54\145\36\191\220\221",87)});
 
 
 
 
-l11I11111I1l=l11I11111I1l + 1;
-local l1llII11I1,lllI1I1lI1=lIl1I1lI1Il(),l1llll1lI1I1l();
-if l1llII11I1 and lllI1I1lI1 then 
-lllI1I1lI1:MoveTo(l1llII11I1.Position) end end});
-
-
-
-l11I1Il1ll1:Button({Name=l11l1Il1lll("\150\63\217\113\177\166\109\232\178\15\228\158\134",89),Description=l11l1Il1lll("\64\251\22\191\33\125\48\252\242\31\188\198\221\111\161\245\164\79\234\25\177\227\197\22\49\223\58\112\118\171",153),Action=l11l1Il1lll("\111\232",92),Callback=function() 
+llIllIII1l:Button({Name=lI1I1ll1llIl("\233\236\233\60\23\20\98\182\124\67\152",141),Description=lI1I1ll1llIl("\184\182\15\144\59\92\69\36\115\216\208\128\254\35\157\201\75\40\163\99\153\193\42\31\66\28\97\52\81",215),Action=lI1I1ll1llIl("\40\119\209\103",178),Callback=function() 
 
 
 
 
-local lIlIIII1;
-for ll1IlI111l,l1IIll111 in ipairs(workspace:GetDescendants()) do 
-if l1IIll111:IsA(l11l1Il1lll("\174\19\173\161\50\248\107\240\177\112\167\172\19",70)) then 
-lIlIIII1=l1IIll111;
+l11Il11lI1111=l11Il11lI1111 + 1;
+local lll11II1Il,lIIllI1I1=l1lI11Il111ll(),l11l1IlI1I();
+if lll11II1Il and lIIllI1I1 then 
+lIIllI1I1:MoveTo(lll11II1Il.Position) end end});
+
+
+
+llIllIII1l:Button({Name=lI1I1ll1llIl("\212\53\5\7\182\149\32\23\153\59\34\242\215",92),Description=lI1I1ll1llIl("\158\109\122\153\247\134\239\36\150\253\22\44\160\103\134\195\122\25\70\31\103\56\90\142\85\61\240\218\43\163",253),Action=lI1I1ll1llIl("\65\23",171),Callback=function() 
+
+
+
+
+local l1I1111I1II1l;
+for lIII1l11lI,llIIl11II in ipairs(workspace:GetDescendants()) do 
+if llIIl11II:IsA(lI1I1ll1llIl("\124\1\100\207\115\121\152\136\12\155\51\91\92",177)) then 
+l1I1111I1II1l=llIIl11II;
 break end end;
 
 
-if lIlIIII1 then 
-l1IlI1Illl(lIlIIII1.Position) else 
+if l1I1111I1II1l then 
+llI11I1IIII(l1I1111I1II1l.Position) else 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\8\46\248\112\198",20),Content=l11l1Il1lll("\112\230\3\185\1\5\51\245\212\47\157\216\203\159\75\229\180\109\138\59\166\252\226\120\110\214\43\93\8\187\58\58\99\193\106\158\46\44",169),Type=l11l1Il1lll("\161\7\143\224\207\2\2",11)}) end end});
-
-
+l111II11I:Notify({Title=lI1I1ll1llIl("\242\91\200\103\96",168),Content=lI1I1ll1llIl("\143\203\55\132\239\126\84\170\48\220\250\9\25\80\244\138\107\64\158\38\8\231\133\71\202\5\108\140\250\180\101\85\92\44\94\163\128\23",18),Type=lI1I1ll1llIl("\130\172\109\93\172\57\133",37)}) end end});
 
 
-local function llIIl1lll(l1ll1I1llI1,l1Il1l1ll) 
-local llI1lI11l=workspace.CurrentCamera;
-if not llI1lI11l then 
+
+
+local function l1l111IIl1l1(lIIllIIIlII,ll1Ill11) 
+local l1I1IIIIII=workspace.CurrentCamera;
+if not l1I1IIIIII then 
 return  end;
 
-local l1I11lIlIl111=llI1lI11l:ViewportPointToRay(l1ll1I1llI1.X,l1ll1I1llI1.Y);
-local l1lIllIl=RaycastParams.new();
-l1lIllIl.FilterType=Enum.RaycastFilterType.Exclude;
-l1lIllIl.FilterDescendantsInstances={lllI1llI.Character,workspace.CurrentCamera};
-local lll1I1lllI1ll=workspace:Raycast(l1I11lIlIl111.Origin,l1I11lIlIl111.Direction * 5000,l1lIllIl);
-if lll1I1lllI1ll then 
-l1IlI1Illl(lll1I1lllI1ll.Position,l1Il1l1ll) end end;
+local llI1I111IlIl=l1I1IIIIII:ViewportPointToRay(lIIllIIIlII.X,lIIllIIIlII.Y);
+local llI1lII11l=RaycastParams.new();
+llI1lII11l.FilterType=Enum.RaycastFilterType.Exclude;
+llI1lII11l.FilterDescendantsInstances={ll1lI1IIII1.Character,workspace.CurrentCamera};
+local lI1I1111IIIll=workspace:Raycast(llI1I111IlIl.Origin,llI1I111IlIl.Direction * 5000,llI1lII11l);
+if lI1I1111IIIll then 
+llI11I1IIII(lI1I1111IIIll.Position,ll1Ill11) end end;
 
 
-lI11l11IIl(llIl11lIIl1I1.InputBegan:Connect(function(l11lll1Il,ll1IIl1lI) 
-if ll1IIl1lI or (l11lll1Il.UserInputType ~= Enum.UserInputType.MouseButton1) then 
+lIl11lIIl(l1IIl1lll1l.InputBegan:Connect(function(llI1I1II1IlI1,lI11lIllII) 
+if lI11lIllII or (llI1I1II1IlI1.UserInputType ~= Enum.UserInputType.MouseButton1) then 
 return  end;
 
-if l1IIlll1I11l.tapTp and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftControl) then 
-llIIl1lll(llIl11lIIl1I1:GetMouseLocation(),l11l1Il1lll("\153\73\254\70\93\232\22",149)) elseif l1IIlll1I11l.tapWalk and llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftAlt) then 
+if lll1l11Il1ll1.tapTp and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftControl) then 
+l1l111IIl1l1(l1IIl1lll1l:GetMouseLocation(),lI1I1ll1llIl("\151\199\132\139\83\237\207",48)) elseif lll1l11Il1ll1.tapWalk and l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftAlt) then 
 
-llIIl1lll(llIl11lIIl1I1:GetMouseLocation(),l11l1Il1lll("\130\66\99\105",50)) end end));
+l1l111IIl1l1(l1IIl1lll1l:GetMouseLocation(),lI1I1ll1llIl("\149\105\31\86",223)) end end));
 
 
-lI11l11IIl(llIl11lIIl1I1.TouchTap:Connect(function(ll1lIlIl,l11I11111l) 
-if (l11I11111l or (not ll1lIlIl[1])) or l1IIlll1I11l.freecam then 
+lIl11lIIl(l1IIl1lll1l.TouchTap:Connect(function(llI1l1I1l,l11I1l1l1lIl) 
+if (l11I1l1l1lIl or (not llI1l1I1l[1])) or lll1l11Il1ll1.freecam then 
 return  end;
 
-if l1IIlll1I11l.tapTp then 
-llIIl1lll(ll1lIlIl[1] + llII1l1I:GetGuiInset(),l11l1Il1lll("\121\74\157\151\60\181\243",158)) elseif l1IIlll1I11l.tapWalk then 
+if lll1l11Il1ll1.tapTp then 
+l1l111IIl1l1(llI1l1I1l[1] + l11lI1IIIllI1:GetGuiInset(),lI1I1ll1llIl("\198\191\214\44\156\187\99",17)) elseif lll1l11Il1ll1.tapWalk then 
 
-llIIl1lll(ll1lIlIl[1] + llII1l1I:GetGuiInset(),l11l1Il1lll("\106\194\96\125",134)) end end));
+l1l111IIl1l1(llI1l1I1l[1] + l11lI1IIIllI1:GetGuiInset(),lI1I1ll1llIl("\13\25\10\7",109)) end end));
 
 
 
 
 do 
-local ll1I1IlllI1;
-local function l1IlIl11I11l() 
-if ll1I1IlllI1 then 
-ll1I1IlllI1:Destroy();
-ll1I1IlllI1=nil end;
+local l1IlIIlI111;
+local function l1II1I11II() 
+if l1IlIIlI111 then 
+l1IlIIlI111:Destroy();
+l1IlIIlI111=nil end;
 
-if not l1IIlll1I11l.tpTool then 
+if not lll1l11Il1ll1.tpTool then 
 return  end;
 
-local l1I11lI11ll=lllI1llI:FindFirstChildOfClass(l11l1Il1lll("\52\167\62\5\54\237\230\80",171));
-if not l1I11lI11ll then 
+local lIl111IlI1=ll1lI1IIII1:FindFirstChildOfClass(lI1I1ll1llIl("\7\28\236\200\69\198\113\103",149));
+if not lIl111IlI1 then 
 return  end;
 
-ll1I1IlllI1=lI11IIlIIIllI(l11l1Il1lll("\210\121\226\178",91),{Name=l11l1Il1lll("\98\227\113\203\246\35\55\143",235),RequiresHandle=false,CanBeDropped=false,ToolTip=l11l1Il1lll("\223\239\25\215\15\2\181\90\237\199\221\255\47\111\182\86\21\10\217\19\167\250\7\215",196)});
-ll1I1IlllI1.Activated:Connect(function() 
-local ll1I1l1I1=lllI1llI:GetMouse();
-if ll1I1l1I1 and ll1I1l1I1.Hit then 
-l1IlI1Illl(ll1I1l1I1.Hit.Position,l11l1Il1lll("\29\194\127\239\73\98\162",106)) end end);
+l1IlIIlI111=lllII1lI1I1I(lI1I1ll1llIl("\193\83\61\196",138),{Name=lI1I1ll1llIl("\173\81\237\220\3\0\155\31",67),RequiresHandle=false,CanBeDropped=false,ToolTip=lI1I1ll1llIl("\115\128\173\127\138\44\95\178\151\56\155\226\166\187\33\158\185\101\109\187\34\212\205\63",198)});
+l1IlIIlI111.Activated:Connect(function() 
+local l1111I11=ll1lI1IIII1:GetMouse();
+if l1111I11 and l1111I11.Hit then 
+llI11I1IIII(l1111I11.Hit.Position,lI1I1ll1llIl("\155\86\48\89\48\226\93",207)) end end);
 
 
-ll1I1IlllI1.Parent=l1I11lI11ll end;
+l1IlIIlI111.Parent=lIl111IlI1 end;
 
-l11ll11I:Toggle({Name=l11l1Il1lll("\92\2\72\117\170\160\51\195\219\138\22\136\36",124),Description=l11l1Il1lll("\41\182\66\97\40\157\28\137\143\110\104\189\65\99\118\188\130\111\212\217\172\26\137\47\36\177\72\238\49\38\237\39\45\223\113\6\72\246\122\175\182\78\232\75\226\169\130\89\178\4\187\249\157\110\240\67\68\222\115\206\29\82\22\192\196\113\197\61\41\223\21\205\204\107\152\47\129\155\189\109\17\248\20\87\76\31\209\101\52\249\21",49),Flag=l11l1Il1lll("\154\68\121\12\254\177",111),Callback=l1IlIl11I11l});
-
-
+ll1IlII1Il:Toggle({Name=lI1I1ll1llIl("\177\184\3\38\165\40\128\216\122\12\9\3\123",53),Description=lI1I1ll1llIl("\113\157\38\17\147\221\64\216\125\40\60\107\234\113\31\65\58\164\176\201\119\122\245\94\246\151\124\56\122\212\164\250\181\52\213\246\115\246\102\254\68\72\252\221\201\59\43\100\10\207\31\41\134\142\12\114\214\248\71\88\22\224\223\157\156\90\161\205\18\31\201\28\190\45\204\249\170\9\84\16\41\179\112\71\151\255\45\148\102\95\161",131),Flag=lI1I1ll1llIl("\69\203\13\143\241\0",56),Callback=l1II1I11II});
 
 
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function(lIIllII1l1) 
-lIIllII1l1:WaitForChild(l11l1Il1lll("\198\33\32\162\95\18\21\159",15),10);
+
+
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function(ll111Ill) 
+ll111Ill:WaitForChild(lI1I1ll1llIl("\237\232\194\226\123\232\91\8",117),10);
 task.wait(0.5);
-l1IlIl11I11l() end));
+l1II1I11II() end));
 
-llIIIIII1:OnUnload(function() 
-if ll1I1IlllI1 then 
-ll1I1IlllI1:Destroy() end end) end;
-
-
+l111II11I:OnUnload(function() 
+if l1IlIIlI111 then 
+l1IlIIlI111:Destroy() end end) end;
 
 
 
 
 
 
-local llII1ll111=lI11II1llI1:Tab({Name=l11l1Il1lll("\230\46\94\231\253\74",245),Icon=l11l1Il1lll("\158\46\119\69\155\131",156),Hint=l11l1Il1lll("\31\201\97\203\156\105\140\18\208\149\175\82\25\228\14\67\165\82\211",21)});
-local lIl11III1Il1=llII1ll111:Section(l11l1Il1lll("\156\78\234\90\72\239\12\213",149));
 
-local lI1l11I1I;
-local function lII1I111I111() 
-if lI1l11I1I then 
+
+local lIl11l1lI1l=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\121\24\118\205\124\89",177),Icon=lI1I1ll1llIl("\80\49\221\217\219\44",139),Hint=lI1I1ll1llIl("\101\70\90\165\135\230\147\16\252\210\58\17\213\20\177\62\223\253\232",29)});
+local ll1I1l1I1l1l=lIl11l1lI1l:Section(lI1I1ll1llIl("\243\136\242\32\153\204\9\60",33));
+
+local lllIII111llI1;
+local function llll1III() 
+if lllIII111llI1 then 
 return  end;
 
-lI1l11I1I={};
-for lI1II1lIlI1I,lIl11IIl1lIll in ipairs({l11l1Il1lll("\28\214\212\116\137\57\34\206\74\245",223),l11l1Il1lll("\199\66\165\9\170\214\219\21\116",9),l11l1Il1lll("\183\32\210\188\150\27",161),l11l1Il1lll("\163\124\56\1\209\106\198\202",2),l11l1Il1lll("\198\83\170\203\201\35\134\242\229\74\165\29\178",209),l11l1Il1lll("\96\242\7\160\173\65\193",113),l11l1Il1lll("\7\210\144\180\117\96\243\54\86\92\80\194\102\110",60)}) do 
-lI1l11I1I[lIl11IIl1lIll]=l11l1II1I1II[lIl11IIl1lIll] end end;
+lllIII111llI1={};
+for llIllllII11,lIl1IIl1I in ipairs({lI1I1ll1llIl("\37\211\244\120\213\112\20\229\193\171",134),lI1I1ll1llIl("\113\180\204\238\154\120\224\236\46",47),lI1I1ll1llIl("\83\211\181\109\68\84",10),lI1I1ll1llIl("\211\83\53\251\222\209\40\81",138),lI1I1ll1llIl("\109\68\89\190\198\229\174\88\228\217\32\20\134",29),lI1I1ll1llIl("\192\102\235\89\11\242\202",136),lI1I1ll1llIl("\150\97\213\253\60\224\123\202\91\10\247\217\196\36",99)}) do 
+lllIII111llI1[lIl1IIl1I]=ll11Il11lI[lIl1IIl1I] end end;
 
 
-local function llIIll1l() 
-if ((l1IIlll1I11l.fullbright or l1IIlll1I11l.noFog) or l1IIlll1I11l.timeOn) or (not lI1l11I1I) then 
+local function l11ll1I1IlI() 
+if ((lll1l11Il1ll1.fullbright or lll1l11Il1ll1.noFog) or lll1l11Il1ll1.timeOn) or (not lllIII111llI1) then 
 return  end;
 
-for lIIl1ll1Il11,lIlIlI1l1I in pairs(lI1l11I1I) do 
-l11l1II1I1II[lIIl1ll1Il11]=lIlIlI1l1I end;
+for lll1I1l1II,l1IlIIIll in pairs(lllIII111llI1) do 
+ll11Il11lI[lll1I1l1II]=l1IlIIIll end;
 
-lI1l11I1I=nil end;
+lllIII111llI1=nil end;
 
-local function l1llI1I1II(l11lI1II1) 
-if l11lI1II1 then 
-lII1I111I111() else 
+local function llllI1lIII(l11ll1ll1) 
+if l11ll1ll1 then 
+llll1III() else 
 
-llIIll1l() end end;
+l11ll1I1IlI() end end;
 
 
 
-lIl11III1Il1:Toggle({Name=l11l1Il1lll("\223\83\36\158\108\220\108\33\6\192",183),Description=l11l1Il1lll("\246\107\135\37\215\135\161\56\85\238\7\82\86\90\214\121\52\255\20\190\113\97\42\233\229\80\178\218",41),Flag=l11l1Il1lll("\102\103\244\28\162\45\5\47\250\243",152),Callback=l1llI1I1II});
-lIl11III1Il1:Toggle({Name=l11l1Il1lll("\176\171\253\21\238\138",127),Description=l11l1Il1lll("\70\134\42\98\193\83\225\142\99\132\35\183\141\236\123\106\245",242),Flag=l11l1Il1lll("\199\154\194\28\134",179),Callback=l1llI1I1II});
-lIl11III1Il1:Toggle({Name=l11l1Il1lll("\76\91\157\248\13\191\254\247\56\227\3\16\28\176\5\138",174),Flag=l11l1Il1lll("\97\138\34\39\250\85",242),Callback=l1llI1I1II});
-lIl11III1Il1:Slider({Name=l11l1Il1lll("\228\46\64\247\188\73\164\114\173\251\195",245),Flag=l11l1Il1lll("\227\254\119\147\43\139\133\165\119",24),Min=0,Max=24,Increment=0.5,Default=14,Suffix=l11l1Il1lll("\136",78)});
+ll1I1l1I1l1l:Toggle({Name=lI1I1ll1llIl("\140\125\122\144\229\155\244\55\141\169",253),Description=lI1I1ll1llIl("\135\25\127\135\156\149\105\69\175\210\28\172\145\108\86\196\5\141\236\28\122\51\226\148\223\172\137\36",202),Flag=lI1I1ll1llIl("\173\198\2\171\157\123\76\208\77\152",2),Callback=llllI1lIII});
+ll1I1l1I1l1l:Toggle({Name=lI1I1ll1llIl("\251\115\82\238\165\183",170),Description=lI1I1ll1llIl("\108\4\112\232\25\77\130\251\42\151\37\72\167\208\115\133\255",161),Flag=lI1I1ll1llIl("\80\38\81\48\245",208),Callback=llllI1lIII});
+ll1I1l1I1l1l:Toggle({Name=lI1I1ll1llIl("\199\156\77\236\159\61\12\154\0\12\45\222\186\228\43\76",66),Flag=lI1I1ll1llIl("\77\157\44\28\252\193",131),Callback=llllI1lIII});
+ll1I1l1I1l1l:Slider({Name=lI1I1ll1llIl("\15\74\179\18\111\246\211\103\177\29\107",146),Flag=lI1I1ll1llIl("\70\113\64\96\254\83\219\129\127",245),Min=0,Max=24,Increment=0.5,Default=14,Suffix=lI1I1ll1llIl("\30",188)});
 
 do 
-local l1II11I1I1I;
-local function l1l111Ill() 
-local lIl1llII1l1l=lIl1I1lI1Il();
-if (not l1IIlll1I11l.lantern) or (not lIl1llII1l1l) then 
-if l1II11I1I1I then 
-l1II11I1I1I:Destroy();
-l1II11I1I1I=nil end;
+local lIlIII1I11III;
+local function l1lIIIl11() 
+local lII1I1I1=l1lI11Il111ll();
+if (not lll1l11Il1ll1.lantern) or (not lII1I1I1) then 
+if lIlIII1I11III then 
+lIlIII1I11III:Destroy();
+lIlIII1I11III=nil end;
 
 return  end;
 
-if (not l1II11I1I1I) or (l1II11I1I1I.Parent ~= lIl1llII1l1l) then 
-if l1II11I1I1I then 
-l1II11I1I1I:Destroy() end;
+if (not lIlIII1I11III) or (lIlIII1I11III.Parent ~= lII1I1I1) then 
+if lIlIII1I11III then 
+lIlIII1I11III:Destroy() end;
 
-l1II11I1I1I=lI11IIlIIIllI(l11l1Il1lll("\193\64\188\247\236\19\172\13\28\74",193),{Name=llIIlI1Il:GenerateGUID(false),Shadows=false,Parent=lIl1llII1l1l}) end;
+lIlIII1I11III=lllII1lI1I1I(lI1I1ll1llIl("\31\126\12\246\73\89\190\108\229\123",209),{Name=llII1lIII1:GenerateGUID(false),Shadows=false,Parent=lII1I1I1}) end;
 
-l1II11I1I1I.Range=l1IIlll1I11l.lanternRange or 30;
-l1II11I1I1I.Brightness=l1IIlll1I11l.lanternBrightness or 3;
-l1II11I1I1I.Color=(l1llllI1lll1l.lanternColor and l1llllI1lll1l.lanternColor:GetColor()) or Color3.new(1,1,1) end;
+lIlIII1I11III.Range=lll1l11Il1ll1.lanternRange or 30;
+lIlIII1I11III.Brightness=lll1l11Il1ll1.lanternBrightness or 3;
+lIlIII1I11III.Color=(lllIIlllIIlIl.lanternColor and lllIIlllIIlIl.lanternColor:GetColor()) or Color3.new(1,1,1) end;
 
-lIl11III1Il1:Toggle({Name=l11l1Il1lll("\12\51\182\68\229\109\194",216),Description=l11l1Il1lll("\104\79\164\50\106\107\144\39\134\43\125\16\56\88\1\150\187\242\48\160\0\14\224\185\10\152\193\206\14\95\168\72\126\46\157\31\153\158\112\199\102\11\93\48\163\160\52\151\152\159\23\199\59\63\133\22\184\80\38\229\43\43\209\97\4\28\169\115\185\184\27\168\73\233\160\208\82\64\19\229\180\172\57\224\73\87\229\107",100),Flag=l11l1Il1lll("\168\15\228\94\228\176\156",73),Callback=l1l111Ill});
-lIl11III1Il1:Slider({Name=l11l1Il1lll("\108\117\176\135\40\217\153\218\15\130\34\49\185",142),Flag=l11l1Il1lll("\89\162\193\214\48\169\10\220\85\162\11\158",210),Min=8,Max=60,Default=30,Suffix=l11l1Il1lll("\25\245\220\103\138\61",23),Callback=l1l111Ill});
-lIl11III1Il1:Slider({Name=l11l1Il1lll("\76\115\246\4\165\45\2\104\240\245\80\152\203\194\47\74\227\241",152),Flag=l11l1Il1lll("\133\212\42\199\68\252\254\88\132\47\186\134\178\98\96\200\10",243),Min=1,Max=10,Default=3,Callback=l1l111Ill});
-lIl11III1Il1:ColorPicker({Name=l11l1Il1lll("\204\243\118\132\37\173\130\232\113\104\213\16\81",24),Flag=l11l1Il1lll("\44\51\182\68\229\109\194\203\61\43\150\77",216),Default=Color3.fromRGB(255,236,200),Callback=l1l111Ill});
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function(lIl111IIlllI) 
-lIl111IIlllI:WaitForChild(l11l1Il1lll("\147\171\116\230\70\85\233\124\234\88\27\20\250\222\99\147",148),10);
-l1l111Ill() end));
+ll1I1l1I1l1l:Toggle({Name=lI1I1ll1llIl("\83\32\91\156\40\55\233",129),Description=lI1I1ll1llIl("\72\18\195\98\77\168\197\24\139\192\187\24\216\183\234\244\219\239\87\240\199\13\117\134\7\179\199\38\238\176\3\106\30\51\186\15\62\157\229\56\171\32\91\248\131\143\159\181\184\194\48\215\188\124\80\233\117\187\224\13\11\4\186\131\36\65\206\35\30\251\206\23\196\2\102\216\178\175\120\7\84\49\94\176\142\84\112\212",194),Flag=lI1I1ll1llIl("\215\162\144\35\10\203\251",114),Callback=l1lIIIl11});
+ll1I1l1I1l1l:Slider({Name=lI1I1ll1llIl("\85\181\15\45\246\189\39\235\4\73\176\155\143",163),Flag=lI1I1ll1llIl("\83\0\123\188\8\87\137\137\60\145\45\65",161),Min=8,Max=60,Default=30,Suffix=lI1I1ll1llIl("\141\92\238\129\22\51",41),Callback=l1lIIIl11});
+ll1I1l1I1l1l:Slider({Name=lI1I1ll1llIl("\170\249\0\24\31\242\133\149\91\134\40\30\219\219\71\206\101\123",75),Flag=lI1I1ll1llIl("\238\41\93\9\100\206\119\115\137\190\6\155\42\94\83\119\97",159),Min=1,Max=10,Default=3,Callback=l1lIIIl11});
+ll1I1l1I1l1l:ColorPicker({Name=lI1I1ll1llIl("\98\56\105\27\199\65\101\253\146\20\117\207\172",192),Flag=lI1I1ll1llIl("\194\184\233\155\71\193\229\30\30\151\246\82",64),Default=Color3.fromRGB(255,236,200),Callback=l1lIIIl11});
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function(llIl1Illll1) 
+llIl1Illll1:WaitForChild(lI1I1ll1llIl("\125\120\178\146\235\120\203\184\120\71\89\168\247\232\143\68",229),10);
+l1lIIIl11() end));
 
-llIIIIII1:OnUnload(function() 
-if l1II11I1I1I then 
-l1II11I1I1I:Destroy() end end) end;
-
-
+l111II11I:OnUnload(function() 
+if lIlIII1I11III then 
+lIlIII1I11III:Destroy() end end) end;
 
 
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-if l1IIlll1I11l.fullbright then 
-l11l1II1I1II.Brightness=2;
-l11l1II1I1II.GlobalShadows=false;
-l11l1II1I1II.Ambient=Color3.new(1,1,1);
-l11l1II1I1II.OutdoorAmbient=Color3.new(1,1,1) end;
 
-if l1IIlll1I11l.noFog then 
-l11l1II1I1II.FogStart=0;
-l11l1II1I1II.FogEnd=1e6 end;
 
-if l1IIlll1I11l.timeOn then 
-l11l1II1I1II.ClockTime=l1IIlll1I11l.clockTime end end));
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+if lll1l11Il1ll1.fullbright then 
+ll11Il11lI.Brightness=2;
+ll11Il11lI.GlobalShadows=false;
+ll11Il11lI.Ambient=Color3.new(1,1,1);
+ll11Il11lI.OutdoorAmbient=Color3.new(1,1,1) end;
+
+if lll1l11Il1ll1.noFog then 
+ll11Il11lI.FogStart=0;
+ll11Il11lI.FogEnd=1e6 end;
+
+if lll1l11Il1ll1.timeOn then 
+ll11Il11lI.ClockTime=lll1l11Il1ll1.clockTime end end));
 
 
 
 
 
 do 
-local l1l1Il111I=llII1ll111:Section(l11l1Il1lll("\242\57\130\91\32\67\152\135\92\243\230\253\16\235\7\27\161\252\21\159\145",138));
+local lIIl11I1ll1lI=lIl11l1lI1l:Section(lI1I1ll1llIl("\247\78\183\64\54\131\128\152\103\73\78\208\7\227\136\104\68\139\64\228\167",184));
 
 
-local l1IllIll1l1I,l11IIl11lII;
-local function llII11111(l1l11lIII1) 
-if l1IllIll1l1I then 
-l1IllIll1l1I:Destroy();
-l1IllIll1l1I,l11IIl11lII=nil,nil end;
+local lllI1IlIlI,llIIllI11l;
+local function llII1ll11l1(lll1II1II) 
+if lllI1IlIlI then 
+lllI1IlIlI:Destroy();
+lllI1IlIlI,llIIllI11l=nil,nil end;
 
-if (l1l11lIII1 == l11l1Il1lll("\42\211\114\238",90)) or (not l1l11lIII1) then 
+if (lll1II1II == lI1I1ll1llIl("\219\194\17\54",69)) or (not lll1II1II) then 
 return  end;
 
-l1IllIll1l1I=lI11IIlIIIllI(l11l1Il1lll("\145\30\247\157",145),{Name=llIIlI1Il:GenerateGUID(false),Size=Vector3.new(120,1,120),Anchored=true,CanCollide=false,CanQuery=false,CanTouch=false,Transparency=1,Parent=workspace.CurrentCamera});
-local l1I1I1I1=l1l11lIII1 == l11l1Il1lll("\192\230\80\145",208);
-l11IIl11lII=lI11IIlIIIllI(l11l1Il1lll("\226\198\107\107\42\53\205\106\245\207\97\148\68\202\142",240),{Texture=l11l1Il1lll("\15\129\52\55\175\71\225\103\106\171\97\55\152\67\19\31\255\118\175\233\28\229\102\247\169\151\82\182\30\164\164\170\124\241\71\90\153\103\251\94\17\13\192\141\121\127\52",198),Rate=(l1I1I1I1 and 600) or 250,Lifetime=NumberRange.new((l1I1I1I1 and 1.2) or 5),Speed=NumberRange.new((l1I1I1I1 and 90) or 8),EmissionDirection=Enum.NormalId.Bottom,SpreadAngle=Vector2.new((l1I1I1I1 and 2) or 25,(l1I1I1I1 and 2) or 25),Size=NumberSequence.new((l1I1I1I1 and 0.12) or 0.35),Color=ColorSequence.new((l1I1I1I1 and Color3.fromRGB(170,200,255)) or Color3.new(1,1,1)),Transparency=NumberSequence.new((l1I1I1I1 and 0.35) or 0.1),LightInfluence=0.3,Parent=l1IllIll1l1I});
+lllI1IlIlI=lllII1lI1I1I(lI1I1ll1llIl("\198\233\12\40",59),{Name=llII1lIII1:GenerateGUID(false),Size=Vector3.new(120,1,120),Anchored=true,CanCollide=false,CanQuery=false,CanTouch=false,Transparency=1,Parent=workspace.CurrentCamera});
+local l1111II1II=lll1II1II == lI1I1ll1llIl("\112\73\187\179",46);
+llIIllI11l=lllII1lI1I1I(lI1I1ll1llIl("\135\112\63\187\36\151\198\53\39\5\251\105\55\78\148",54),{Texture=lI1I1ll1llIl("\64\58\218\172\224\168\115\203\173\126\162\123\232\76\30\229\208\205\33\114\115\10\212\123\110\162\145\26\110\139\169\80\115\74\169\193\150\136\105\242\214\24\3\193\9\176\57",62),Rate=(l1111II1II and 600) or 250,Lifetime=NumberRange.new((l1111II1II and 1.2) or 5),Speed=NumberRange.new((l1111II1II and 90) or 8),EmissionDirection=Enum.NormalId.Bottom,SpreadAngle=Vector2.new((l1111II1II and 2) or 25,(l1111II1II and 2) or 25),Size=NumberSequence.new((l1111II1II and 0.12) or 0.35),Color=ColorSequence.new((l1111II1II and Color3.fromRGB(170,200,255)) or Color3.new(1,1,1)),Transparency=NumberSequence.new((l1111II1II and 0.35) or 0.1),LightInfluence=0.3,Parent=lllI1IlIlI});
 
 
 
@@ -4505,55 +4509,55 @@ l11IIl11lII=lI11IIlIIIllI(l11l1Il1lll("\226\198\107\107\42\53\205\106\245\207\97
 
 
 
-if l1I1I1I1 then 
-l11IIl11lII.Orientation=Enum.ParticleOrientation.FacingCameraWorldUp;
-l11IIl11lII.Squash=NumberSequence.new(3) end end;
+if l1111II1II then 
+llIIllI11l.Orientation=Enum.ParticleOrientation.FacingCameraWorldUp;
+llIIllI11l.Squash=NumberSequence.new(3) end end;
 
 
-l1l1Il111I:Segmented({Name=l11l1Il1lll("\231\34\76\230\244\67\176",245),Flag=l11l1Il1lll("\39\225\47\55\149\94\21",254),Options={l11l1Il1lll("\55\101\68\149",157),l11l1Il1lll("\130\70\228\92",149),l11l1Il1lll("\163\138\65\84",94)},Default=l11l1Il1lll("\151\234\250\6",195),Callback=llII11111});
-lI11l11IIl(lIII1l1l.RenderStepped:Connect(function() 
-if l1IllIll1l1I then 
-local l1llll1I1I=workspace.CurrentCamera;
-l1IllIll1l1I.CFrame=CFrame.new(l1llll1I1I.CFrame.Position + Vector3.new(0,45,0)) end end));
+lIIl11I1ll1lI:Segmented({Name=lI1I1ll1llIl("\245\205\51\41\107\14\212",174),Flag=lI1I1ll1llIl("\50\169\195\44\18\5\24",90),Options={lI1I1ll1llIl("\160\246\169\202",0),lI1I1ll1llIl("\132\41\215\242",123),lI1I1ll1llIl("\118\115\64\116",245)},Default=lI1I1ll1llIl("\204\39\93\24",159),Callback=llII1ll11l1});
+lIl11lIIl(lII1llIIIIlI.RenderStepped:Connect(function() 
+if lllI1IlIlI then 
+local lIl11Il1=workspace.CurrentCamera;
+lllI1IlIlI.CFrame=CFrame.new(lIl11Il1.CFrame.Position + Vector3.new(0,45,0)) end end));
 
 
 
 
-local lIllIl1l1II;
-local function llI1II11I1() 
-if lIllIl1l1II then 
-lIllIl1l1II:Destroy();
-lIllIl1l1II=nil end;
+local llIII1II1;
+local function lI1Il1IIIl() 
+if llIII1II1 then 
+llIII1II1:Destroy();
+llIII1II1=nil end;
 
-if l1IIlll1I11l.selfOutline and lllI1llI.Character then 
-local llI1l1Il=llIIIIII1.Theme.Accent;
-lIllIl1l1II=lI11IIlIIIllI(l11l1Il1lll("\33\191\191\10\210\119\242\190\138",71),{Name=llIIlI1Il:GenerateGUID(false),FillTransparency=1,OutlineColor=llI1l1Il,OutlineTransparency=0,DepthMode=Enum.HighlightDepthMode.AlwaysOnTop,Adornee=lllI1llI.Character,Parent=llIIIIII1.Gui}) end end;
-
-
-l1l1Il111I:Toggle({Name=l11l1Il1lll("\214\95\126\188\160\41\216\193\157\98",125),Description=l11l1Il1lll("\204\149\197\231\41\111\160\89\91\17\140\19\164\179\14\221\56\246\166\111\191\177\21\167\146\129\124\229\120\37\135\102\136\100\44\17\200\206\130\99\62\44\181\39\205\204\101\246\24\213\145\136\67\81\245\71\188\175\69\219\75",252),Flag=l11l1Il1lll("\50\154\105\15\39\250\97\182\173\0\239",17),Callback=llI1II11I1});
+if lll1l11Il1ll1.selfOutline and ll1lI1IIII1.Character then 
+local l1lIl111I=l111II11I.Theme.Accent;
+llIII1II1=lllII1lI1I1I(lI1I1ll1llIl("\79\168\154\23\113\205\189\72\102",230),{Name=llII1lIII1:GenerateGUID(false),FillTransparency=1,OutlineColor=l1lIl111I,OutlineTransparency=0,DepthMode=Enum.HighlightDepthMode.AlwaysOnTop,Adornee=ll1lI1IIII1.Character,Parent=l111II11I.Gui}) end end;
 
 
-local ll1IIIIIIIlI={};
-l1l1Il111I:Toggle({Name=l11l1Il1lll("\192\230\80\145\193\217\54\15\242\237\76\185",208),Description=l11l1Il1lll("\233\40\88\224\188\69\170\51\187\251\217\116\124\197\109\114\89\180\49\135\127\150\38\138\11\101\95\151\129\7\190\238\252\8\191\1",245),Flag=l11l1Il1lll("\95\210\85\72\238\11\195\97\15\48\231",150),Callback=function(l11ll1II1llI) 
-if not l11ll1II1llI then 
-for ll11lI1lIIl,lI11Il111lll in pairs(ll1IIIIIIIlI) do 
-if ll11lI1lIIl.Parent then 
-ll11lI1lIIl.Color=lI11Il111lll end end;
+lIIl11I1ll1lI:Toggle({Name=lI1I1ll1llIl("\98\218\110\24\155\174\171\20\18\68",169),Description=lI1I1ll1llIl("\234\171\230\152\81\147\234\51\81\148\236\84\50\197\192\209\126\72\5\16\199\109\95\237\152\4\156\34\238\83\105\106\238\218\143\238\48\242\200\9\52\169\85\224\219\58\235\250\94\107\50\119\187\13\63\205\182\42\165\28\93",64),Flag=lI1I1ll1llIl("\86\137\238\30\21\53\254\153\210\173\155",58),Callback=lI1Il1IIIl});
 
 
-ll1IIIIIIIlI={} end end});
+local lll1I1II1l={};
+lIIl11I1ll1lI:Toggle({Name=lI1I1ll1llIl("\232\122\90\155\139\12\134\120\84\91\98\117",196),Description=lI1I1ll1llIl("\163\183\179\126\87\90\37\225\167\140\92\103\192\69\162\159\115\43\58\217\180\137\169\120\215\242\218\228\125\167\81\3\246\215\212\95",205),Flag=lI1I1ll1llIl("\41\66\183\25\45\246\194\5\186\24\107",146),Callback=function(lIll1ll1l1ll) 
+if not lIll1ll1l1ll then 
+for ll1lIl1l1lll,l1l11I1lI1 in pairs(lll1I1II1l) do 
+if ll1lIl1l1lll.Parent then 
+ll1lIl1l1lll.Color=l1l11I1lI1 end end;
+
+
+lll1I1II1l={} end end});
 
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if l1IIlll1I11l.rainbowBody and lllI1llI.Character then 
-local lII1IIl1ll=Color3.fromHSV((os.clock() / 4) % 1,0.75,1);
-for lII1IlIlI1Ill,l1Illllll1II in ipairs(lllI1llI.Character:GetChildren()) do 
-if l1Illllll1II:IsA(l11l1Il1lll("\166\47\217\111\49\67\96\172",105)) and (l1Illllll1II.Name ~= l11l1Il1lll("\136\129\83\178\3\228\190\190\79\236\67\66\172\117\214\71",110)) then 
-if ll1IIIIIIIlI[l1Illllll1II] == nil then 
-ll1IIIIIIIlI[l1Illllll1II]=l1Illllll1II.Color end;
+while l111II11I.Window == l1l1Ill1 do 
+if lll1l11Il1ll1.rainbowBody and ll1lI1IIII1.Character then 
+local lII1lIIIlI1ll=Color3.fromHSV((os.clock() / 4) % 1,0.75,1);
+for l1l1I1IIIlII,ll1Ill1l1llI in ipairs(ll1lI1IIII1.Character:GetChildren()) do 
+if ll1Ill1l1llI:IsA(lI1I1ll1llIl("\253\128\230\45\189\196\21\47",33)) and (ll1Ill1l1llI.Name ~= lI1I1ll1llIl("\190\221\51\29\4\255\114\33\123\139\30\61\211\222\75\175",91)) then 
+if lll1I1II1l[ll1Ill1l1llI] == nil then 
+lll1I1II1l[ll1Ill1l1llI]=ll1Ill1l1llI.Color end;
 
-l1Illllll1II.Color=lII1IIl1ll end end end;
+ll1Ill1l1llI.Color=lII1lIIIlI1ll end end end;
 
 
 
@@ -4562,31 +4566,31 @@ task.wait(0.1) end end);
 
 
 
-local lI1IIIIIl1={l11l1II1I1II.Ambient,l11l1II1I1II.OutdoorAmbient};
-l1l1Il111I:Toggle({Name=l11l1Il1lll("\42\163\171\22\209\115\181\183\147\166\180\22\239\153",71),Description=l11l1Il1lll("\116\190\51\150\127\150\38\138\28\42\93\152\134\75\184\161\231\8\191\30\24\225\81\82\133\211\253\8\13\190\67\22",101),Flag=l11l1Il1lll("\104\219\218\107\251\80\193\185\176",39),Callback=function(llllII1lIIll) 
-if not llllII1lIIll then 
-l11l1II1I1II.Ambient,l11l1II1I1II.OutdoorAmbient=lI1IIIIIl1[1],lI1IIIIIl1[2] end end});
+local l1lIIIIII={ll11Il11lI.Ambient,ll11Il11lI.OutdoorAmbient};
+lIIl11I1ll1lI:Toggle({Name=lI1I1ll1llIl("\249\237\245\56\88\20\45\161\120\79\150\182\11\131",141),Description=lI1I1ll1llIl("\1\149\252\28\25\80\238\141\46\19\153\47\16\229\192\23\210\3\112\148\190\231\121\85\87\42\25\191\155\80\123\192",74),Flag=lI1I1ll1llIl("\107\37\52\213\162\199\169\95\203",61),Callback=function(llI1l11I) 
+if not llI1l11I then 
+ll11Il11lI.Ambient,ll11Il11lI.OutdoorAmbient=l1lIIIIII[1],l1lIIIIII[2] end end});
 
 
-l1l1Il111I:ColorPicker({Name=l11l1Il1lll("\40\187\186\11\219\112\225\246\157\171\177\28\243",71),Flag=l11l1Il1lll("\31\41\63\154\100\3\24\200\118\202\167\0",255),Default=Color3.fromRGB(150,120,255)});
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-if (l1IIlll1I11l.ambientOn and (not l1IIlll1I11l.fullbright)) and l1llllI1lll1l.ambientColor then 
-local l1Ill1lI1l1l=l1llllI1lll1l.ambientColor:GetColor();
-l11l1II1I1II.Ambient,l11l1II1I1II.OutdoorAmbient=l1Ill1lI1l1l,l1Ill1lI1l1l end end));
+lIIl11I1ll1lI:ColorPicker({Name=lI1I1ll1llIl("\223\132\213\86\151\45\15\173\194\68\197\127\124",112),Flag=lI1I1ll1llIl("\216\25\163\144\86\65\221\104\249\228\17\46",3),Default=Color3.fromRGB(150,120,255)});
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+if (lll1l11Il1ll1.ambientOn and (not lll1l11Il1ll1.fullbright)) and lllIIlllIIlIl.ambientColor then 
+local l11Il1111I1=lllIIlllIIlIl.ambientColor:GetColor();
+ll11Il11lI.Ambient,ll11Il11lI.OutdoorAmbient=l11Il1111I1,l11Il1111I1 end end));
 
 
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function(lIll1lIl) 
-lIll1lIl:WaitForChild(l11l1Il1lll("\131\187\68\214\86\69\249\12\154\72\11\36\202\238\115\131",132),10);
-llI1II11I1() end));
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function(ll1I11lll1) 
+ll1I11lll1:WaitForChild(lI1I1ll1llIl("\66\222\14\196\247\124\232\108\52\235\217\168\118\48\109\19",116),10);
+lI1Il1IIIl() end));
 
-llIIIIII1:OnUnload(function() 
-llII11111(l11l1Il1lll("\78\125\246\21",152));
-if lIllIl1l1II then 
-lIllIl1l1II:Destroy() end;
+l111II11I:OnUnload(function() 
+llII1ll11l1(lI1I1ll1llIl("\181\236\80\242",50));
+if llIII1II1 then 
+llIII1II1:Destroy() end;
 
-if l1IIlll1I11l.ambientOn then 
-l11l1II1I1II.Ambient,l11l1II1I1II.OutdoorAmbient=lI1IIIIIl1[1],lI1IIIIIl1[2] end end) end;
+if lll1l11Il1ll1.ambientOn then 
+ll11Il11lI.Ambient,ll11Il11lI.OutdoorAmbient=l1lIIIIII[1],l1lIIIIII[2] end end) end;
 
 
 
@@ -4594,56 +4598,56 @@ l11l1II1I1II.Ambient,l11l1II1I1II.OutdoorAmbient=lI1IIIIIl1[1],lI1IIIIIl1[2] end
 
 
 do 
-local llllI11lIIlII=llII1ll111:Section(l11l1Il1lll("\130\12\231\188\189\113\165\79\82\152\127\217\69\1",129));
-local lI111II1lI1Il={};
-local function ll1III1IllII(llIIll1llI) 
-if ((llIIll1llI:IsA(l11l1Il1lll("\131\19\240\155\173\105\243\63\39\154",145)) or llIIll1llI:IsA(l11l1Il1lll("\84\130\61\134\148\9\196\180\0\95\118\132\188\49\203\148\227\3",85))) or llIIll1llI:IsA(l11l1Il1lll("\130\26\251\139\185\102\246\111\82\152\127\217\69",129))) or llIIll1llI:IsA(l11l1Il1lll("\58\155\219\207\7\58\183\65\110\109\157",12)) then 
-if llIIll1llI.Enabled then 
-table.insert(lI111II1lI1Il,{llIIll1llI,l11l1Il1lll("\11\250\236\97\157\216\216",207),true});
-llIIll1llI.Enabled=false end elseif llIIll1llI:IsA(l11l1Il1lll("\53\248\65\212\187\156\94\78\23\246",74)) and (llIIll1llI.Density > 0) then 
+local lI11IlII=lIl11l1lI1l:Section(lI1I1ll1llIl("\57\11\4\249\130\39\29\149\35\27\234\192\65\212",93));
+local lI1lIII11l={};
+local function ll1Il1ll(l1I1lI11III) 
+if ((l1I1lI11III:IsA(lI1I1ll1llIl("\64\164\198\143\196\90\255\212\24\35",31)) or l1I1lI11III:IsA(lI1I1ll1llIl("\239\182\126\211\247\230\227\81\236\105\14\252\255\198\76\48\120\23",98))) or l1I1lI11III:IsA(lI1I1ll1llIl("\180\84\115\205\92\253\137\69\84\62\199\174\231",6))) or l1I1lI11III:IsA(lI1I1ll1llIl("\168\39\44\234\212\118\199\14\99\135\162",148)) then 
+if l1I1lI11III.Enabled then 
+table.insert(lI1lIII11l,{l1I1lI11III,lI1I1ll1llIl("\234\159\228\90\241\208\19",49),true});
+l1I1lI11III.Enabled=false end elseif l1I1lI11III:IsA(lI1I1ll1llIl("\127\61\122\48\225\83\115\72\115\238",208)) and (l1I1lI11III.Density > 0) then 
 
 
-table.insert(lI111II1lI1Il,{llIIll1llI,l11l1Il1lll("\32\171\68\249\136\214\235",233),llIIll1llI.Density});
-llIIll1llI.Density=0 end end;
+table.insert(lI1lIII11l,{l1I1lI11III,lI1I1ll1llIl("\49\185\220\59\227\228\3",106),l1I1lI11III.Density});
+l1I1lI11III.Density=0 end end;
 
 
-local function lllI1lI1l1() 
-for l1I111IlIII11,llIll1l1I in ipairs(lI111II1lI1Il) do 
-if llIll1l1I[1].Parent then 
-llIll1l1I[1][llIll1l1I[2]]=llIll1l1I[3] end end;
+local function l111IIIII() 
+for lIlllll1,lIIIIIl1 in ipairs(lI1lIII11l) do 
+if lIIIIIl1[1].Parent then 
+lIIIIIl1[1][lIIIIIl1[2]]=lIIIIIl1[3] end end;
 
 
-lI111II1lI1Il={} end;
+lI1lIII11l={} end;
 
-llllI11lIIlII:Toggle({Name=l11l1Il1lll("\232\153\77\92\122\169\135\107\143\213\236\18\155\43",123),Description=l11l1Il1lll("\235\102\41\21\200\206\193\120\53\50\224\39\106\13\32\202\93\218\155\150\79\76\177\19\163\171\9\208\89\71\245\79\187\7\6\60\239\253\45\215\223\219\201\83\224\186\79\158\120\177\253\165\102\123\157\103\73\66\166\56\117\38\144\59\157\41\36\66\155\150\82\247\250\240\61\231\0\27\186\189",220),Flag=l11l1Il1lll("\10\161\111\236\135\199\241\44\2",233),Callback=function(l1I1Ill1lll) 
-
-
-
-
-if l1I1Ill1lll then 
-for l1IIIIlII,lIlIIll1lll in ipairs({l11l1II1I1II,workspace.CurrentCamera}) do 
-for l11llIl111,l11IIIIl1 in ipairs(lIlIIll1lll:GetDescendants()) do 
-ll1III1IllII(l11IIIIl1) end end else 
+lI11IlII:Toggle({Name=lI1I1ll1llIl("\111\196\9\242\226\9\44\100\168\217\207\174\120\54",40),Description=lI1I1ll1llIl("\237\184\234\138\80\210\171\50\31\151\224\0\156\27\142\230\59\68\24\9\215\112\27\185\137\14\201\55\175\81\123\35\189\153\133\227\55\225\135\93\53\190\9\180\214\108\225\242\94\111\62\122\190\7\119\205\163\39\166\31\67\240\222\151\155\247\231\221\3\138\184\61\80\213\61\192\246\13\20\17",64),Flag=lI1I1ll1llIl("\184\39\251\250\236\21\88\17\122",123),Callback=function(ll1llI1II) 
 
 
 
-lllI1lI1l1() end end});
+
+if ll1llI1II then 
+for ll1lll11Ill,lIIlIII1I1 in ipairs({ll11Il11lI,workspace.CurrentCamera}) do 
+for l1l11IIlll,ll11IlI11l1l in ipairs(lIIlIII1I1:GetDescendants()) do 
+ll1Il1ll(ll11IlI11l1l) end end else 
 
 
 
-lI11l11IIl(l11l1II1I1II.DescendantAdded:Connect(function(lIl1III1ll1l1) 
-if l1IIlll1I11l.noEffects then 
-task.defer(ll1III1IllII,lIl1III1ll1l1) end end));
+l111IIIII() end end});
 
 
 
-llllI11lIIlII:Toggle({Name=l11l1Il1lll("\88\45\234\230\29\148\211\194\40\161\188\246\64\165\45\166\242\199",190),Description=l11l1Il1lll("\218\71\37\151\124\207\37\41\0\216\212\195\211\234\124\212\125\222\221\112\190\78\217\151\167\65\79\224\65\169\165\88\216\118\88\247\15\188\5\0\60\251\224\35\136\210\201\201\9\229\251\80\155\59\187\184\158\67\114\220\37\13\74\164\43\198\107\222\39\158\54\38\79\154\137\3\151\205\207",183),Flag=l11l1Il1lll("\99\103\141\18\168\134\49\209\109\21\87",68),Callback=function(l11IIIII1l1II) 
-if not l11IIIII1l1II then 
-for l11l11II11l,l1IllII1lIl in ipairs(ll11I11l1lll1:GetPlayers()) do 
-if (l1IllII1lIl ~= lllI1llI) and l1IllII1lIl.Character then 
-for lIl1II111,llI11l1l in ipairs(l1IllII1lIl.Character:GetDescendants()) do 
-if llI11l1l:IsA(l11l1Il1lll("\66\85\141\246\125\170\229\238",174)) or llI11l1l:IsA(l11l1Il1lll("\64\203\41\139\45",137)) then 
-llI11l1l.LocalTransparencyModifier=0 end end end end end end});
+lIl11lIIl(ll11Il11lI.DescendantAdded:Connect(function(l111llII) 
+if lll1l11Il1ll1.noEffects then 
+task.defer(ll1Il1ll,l111llII) end end));
+
+
+
+lI11IlII:Toggle({Name=lI1I1ll1llIl("\190\29\34\41\150\174\219\191\111\217\67\213\245\114\248\109\20\247",60),Description=lI1I1ll1llIl("\92\32\88\141\63\36\167\212\83\179\19\36\32\103\222\75\27\89\32\10\253\133\91\74\212\74\232\135\82\36\39\199\158\209\165\109\204\23\135\253\111\208\103\68\251\223\171\86\111\98\6\234\88\112\185\37\173\72\213\187\118\0\72\187\173\161\150\68\228\245\52\91\156\241\78\100\228\192\237",129),Flag=lI1I1ll1llIl("\109\84\171\134\37\139\51\181\95\106\117",213),Callback=function(l1lI1I1ll) 
+if not l1lI1I1ll then 
+for lII11IlI1Il,l11Il11I1IIll in ipairs(lllIlllIllI1I:GetPlayers()) do 
+if (l11Il11I1IIll ~= ll1lI1IIII1) and l11Il11I1IIll.Character then 
+for lI1IIIlIIII,lll11l1III in ipairs(l11Il11I1IIll.Character:GetDescendants()) do 
+if lll11l1III:IsA(lI1I1ll1llIl("\9\82\157\34\47\232\215\67",130)) or lll11l1III:IsA(lI1I1ll1llIl("\33\73\33\217\246",122)) then 
+lll11l1III.LocalTransparencyModifier=0 end end end end end end});
 
 
 
@@ -4651,13 +4655,13 @@ llI11l1l.LocalTransparencyModifier=0 end end end end end end});
 
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if l1IIlll1I11l.hidePlayers then 
-for llIlIlIl1,l11llllI1I1I in ipairs(ll11I11l1lll1:GetPlayers()) do 
-if (l11llllI1I1I ~= lllI1llI) and l11llllI1I1I.Character then 
-for l11I1ll1lIIlI,lIllIII1lIl1 in ipairs(l11llllI1I1I.Character:GetDescendants()) do 
-if lIllIII1lIl1:IsA(l11l1Il1lll("\226\245\45\22\157\74\5\14",14)) or lIllIII1lIl1:IsA(l11l1Il1lll("\255\219\218\70\228",244)) then 
-lIllIII1lIl1.LocalTransparencyModifier=1 end end end end end;
+while l111II11I.Window == l1l1Ill1 do 
+if lll1l11Il1ll1.hidePlayers then 
+for lI1lIIIlI,l1II11llllI in ipairs(lllIlllIllI1I:GetPlayers()) do 
+if (l1II11llllI ~= ll1lI1IIII1) and l1II11llllI.Character then 
+for l1111Il1I1,lI1II1lllI in ipairs(l1II11llllI.Character:GetDescendants()) do 
+if lI1II1lllI:IsA(lI1I1ll1llIl("\105\50\253\66\79\72\119\227",226)) or lI1II1lllI:IsA(lI1I1ll1llIl("\211\52\238\110\225",118)) then 
+lI1II1lllI.LocalTransparencyModifier=1 end end end end end;
 
 
 
@@ -4666,121 +4670,75 @@ lIllIII1lIl1.LocalTransparencyModifier=1 end end end end end;
 task.wait(0.5) end end);
 
 
-llIIIIII1:OnUnload(lllI1lI1l1) end;
+l111II11I:OnUnload(l111IIIII) end;
 
 
 
 
 do 
-local l1lI11l1=llII1ll111:Section(l11l1Il1lll("\58\101\70\159\155\7\186\243\241\3\164\28\27",157));
-local lIlI1l1I1l;
-local function ll111III() 
-if not l1IIlll1I11l.grading then 
-if lIlI1l1I1l then 
-lIlI1l1I1l:Destroy();
-lIlI1l1I1l=nil end;
+local llI1IllI11=lIl11l1lI1l:Section(lI1I1ll1llIl("\21\167\82\115\120\208\220\151\232\32\248\199\4",251));
+local l11IIlIl11l;
+local function lIlll11ll1III() 
+if not lll1l11Il1ll1.grading then 
+if l11IIlIl11l then 
+l11IIlIl11l:Destroy();
+l11IIlIl11l=nil end;
 
 return  end;
 
-local l1l11Il1=workspace.CurrentCamera;
-if not l1l11Il1 then 
+local l1lIll11I1=workspace.CurrentCamera;
+if not l1lIll11I1 then 
 return  end;
 
-if (not lIlI1l1I1l) or (lIlI1l1I1l.Parent ~= l1l11Il1) then 
-lIlI1l1I1l=lI11IIlIIIllI(l11l1Il1lll("\253\107\113\220\51\110\67\185\43\131\107\198\39\129\43\67\72\146\136\64\165",63),{Name=llIIlI1Il:GenerateGUID(false),Parent=l1l11Il1}) end;
+if (not l11IIlIl11l) or (l11IIlIl11l.Parent ~= l1lIll11I1) then 
+l11IIlIl11l=lllII1lI1I1I(lI1I1ll1llIl("\232\232\125\236\124\35\233\198\208\77\48\105\8\243\87\84\189\145\228\112\202",135),{Name=llII1lIII1:GenerateGUID(false),Parent=l1lIll11I1}) end;
 
-lIlI1l1I1l.Brightness=(l1IIlll1I11l.gradeBrightness or 0) / 100;
-lIlI1l1I1l.Contrast=(l1IIlll1I11l.gradeContrast or 0) / 100;
-lIlI1l1I1l.Saturation=(l1IIlll1I11l.gradeSaturation or 0) / 100;
-lIlI1l1I1l.TintColor=(l1llllI1lll1l.gradeTint and l1llllI1lll1l.gradeTint:GetColor()) or Color3.new(1,1,1) end;
+l11IIlIl11l.Brightness=(lll1l11Il1ll1.gradeBrightness or 0) / 100;
+l11IIlIl11l.Contrast=(lll1l11Il1ll1.gradeContrast or 0) / 100;
+l11IIlIl11l.Saturation=(lll1l11Il1ll1.gradeSaturation or 0) / 100;
+l11IIlIl11l.TintColor=(lllIIlllIIlIl.gradeTint and lllIIlllIIlIl.gradeTint:GetColor()) or Color3.new(1,1,1) end;
 
-l1lI11l1:Toggle({Name=l11l1Il1lll("\90\201\164\29\252\14\226\180\143\80\68\13\246",55),Description=l11l1Il1lll("\163\181\115\86\255\10\23\85\83\207\117\54\94\195\228\30\113\47\235\163\92\149\222\138\42\178\241\227\12\168\59\172\235\148\10\123\200\107\96\123\164\99\149\153\201\116\136\26\91\65",78),Flag=l11l1Il1lll("\62\148\105\214\39\128\34",119),Callback=ll111III});
-l1lI11l1:Slider({Name=l11l1Il1lll("\127\209\101\113\244\0\170\54\99\55",134),Flag=l11l1Il1lll("\23\16\169\68\21\173\206\241\5\31\189\65\22\117\130",232),Min=- 50,Max=50,Default=0,Callback=ll111III});
-l1lI11l1:Slider({Name=l11l1Il1lll("\194\80\171\221\218\46\166\238",209),Flag=l11l1Il1lll("\145\52\188\138\163\79\106\213\13\87\85\176\37",43),Min=- 50,Max=100,Default=10,Callback=ll111III});
-l1lI11l1:Slider({Name=l11l1Il1lll("\154\244\208\38\179\15\4\83\185\8",211),Flag=l11l1Il1lll("\154\17\173\178\57\231\101\231\165\118\175\183\20\212\137",70),Min=- 100,Max=100,Default=15,Callback=ll111III});
-l1lI11l1:ColorPicker({Name=l11l1Il1lll("\164\139\38\212",104),Flag=l11l1Il1lll("\179\94\237\127\205\216\63\37\177",234),Default=Color3.new(1,1,1),Callback=ll111III});
-l1lI11l1:Segmented({Name=l11l1Il1lll("\57\71\161\64\196\122",115),Flag=l11l1Il1lll("\183\85\236\86\89\214\16\215\90\31\46",149),Options={l11l1Il1lll("\141\183\111\238\76",148),l11l1Il1lll("\114\165\0\150",10),l11l1Il1lll("\76\126\206\39\103",64),l11l1Il1lll("\68\53\20\47",237),l11l1Il1lll("\251\115\107\199\10",135)},Default=l11l1Il1lll("\54\61\232\218\105",206),Callback=function(l1Il11I1l) 
-
-
+llI1IllI11:Toggle({Name=lI1I1ll1llIl("\169\36\47\234\203\19\198\26\103\128\191\146\97",148),Description=lI1I1ll1llIl("\169\137\155\121\21\168\157\31\171\145\118\3\119\144\178\193\27\51\35\172\150\215\180\32\50\12\210\246\5\219\109\19\225\232\162\84\34\9\42\241\92\61\86\108\224\39\222\133\113\93",221),Flag=lI1I1ll1llIl("\130\175\14\39\188\41\149",53),Callback=lIlll11ll1III});
+llI1IllI11:Slider({Name=lI1I1ll1llIl("\3\185\32\151\198\40\16\1\29\106",72),Flag=lI1I1ll1llIl("\172\193\15\163\154\75\87\222\66\132\246\22\63\51\249",2),Min=- 50,Max=50,Default=0,Callback=lIlll11ll1III});
+llI1IllI11:Slider({Name=lI1I1ll1llIl("\113\183\205\249\131\77\250\245",47),Flag=lI1I1ll1llIl("\204\161\111\195\250\234\234\121\241\126\3\235\206",98),Min=- 50,Max=100,Default=10,Callback=lIlll11ll1III});
+llI1IllI11:Slider({Name=lI1I1ll1llIl("\230\125\6\253\184\177\78\44\68\61",170),Flag=lI1I1ll1llIl("\130\222\163\92\127\83\171\193\142\241\95\227\198\22\59",250),Min=- 100,Max=100,Default=15,Callback=lIlll11ll1III});
+llI1IllI11:ColorPicker({Name=lI1I1ll1llIl("\78\210\253\33",100),Flag=lI1I1ll1llIl("\128\83\124\251\88\208\147\110\70",6),Default=Color3.new(1,1,1),Callback=lIlll11ll1III});
+llI1IllI11:Segmented({Name=lI1I1ll1llIl("\10\137\182\102\44\183",36),Flag=lI1I1ll1llIl("\17\134\167\168\83\17\93\50\249\78\151",188),Options={lI1I1ll1llIl("\77\10\232\94\107",210),lI1I1ll1llIl("\96\49\194\193",139),lI1I1ll1llIl("\71\173\118\65\151",179),lI1I1ll1llIl("\54\108\208\120",178),lI1I1ll1llIl("\112\77\161\184\247",46)},Default=lI1I1ll1llIl("\237\170\136\62\11",114),Callback=function(lIl1IlI11l11) 
 
 
 
-if (llIIIIII1.Window ~= lI11II1llI1) or lI11II1llI1._loading then 
+
+
+if (l111II11I.Window ~= l1l1Ill1) or l1l1Ill1._loading then 
 return  end;
 
-local llllI1l1ll11={Vivid={5,20,35,Color3.new(1,1,1)},Film={- 3,25,- 25,Color3.fromRGB(255,240,220)},Night={30,30,- 60,Color3.fromRGB(140,255,150)},Mono={0,20,- 100,Color3.new(1,1,1)},Reset={0,0,0,Color3.new(1,1,1)}};
+local l11ll1ll11={Vivid={5,20,35,Color3.new(1,1,1)},Film={- 3,25,- 25,Color3.fromRGB(255,240,220)},Night={30,30,- 60,Color3.fromRGB(140,255,150)},Mono={0,20,- 100,Color3.new(1,1,1)},Reset={0,0,0,Color3.new(1,1,1)}};
 
 
 
 
 
 
-local lIl1l11IIl=llllI1l1ll11[l1Il11I1l];
-if lIl1l11IIl then 
-l1llllI1lll1l.gradeBrightness:Set(lIl1l11IIl[1]);
-l1llllI1lll1l.gradeContrast:Set(lIl1l11IIl[2]);
-l1llllI1lll1l.gradeSaturation:Set(lIl1l11IIl[3]);
-l1llllI1lll1l.gradeTint:Set(lIl1l11IIl[4]) end end});
+local lIlIlllI=l11ll1ll11[lIl1IlI11l11];
+if lIlIlllI then 
+lllIIlllIIlIl.gradeBrightness:Set(lIlIlllI[1]);
+lllIIlllIIlIl.gradeContrast:Set(lIlIlllI[2]);
+lllIIlllIIlIl.gradeSaturation:Set(lIlIlllI[3]);
+lllIIlllIIlIl.gradeTint:Set(lIlIlllI[4]) end end});
 
 
 
-llIIIIII1:OnUnload(function() 
-if lIlI1l1I1l then 
-lIlI1l1I1l:Destroy() end end) end;
-
-
-
-
-
-
-local l1l1l111l1ll=llII1ll111:Section(l11l1Il1lll("\178\21\169\164\48\213\125\224",70));
-local lllll11111ll1=lI11IIlIIIllI(l11l1Il1lll("\134\69\220\111\73",133),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,40,0,40),BackgroundTransparency=1,Visible=false,Parent=llIIIIII1.Gui});
+l111II11I:OnUnload(function() 
+if l11IIlIl11l then 
+l11IIlIl11l:Destroy() end end) end;
 
 
 
 
 
 
-
-local function lI111l1lI1Ill() 
-lllll11111ll1:ClearAllChildren();
-local l1I1I1l1IIII1=l1IIlll1I11l.crossSize or 12;
-local l1lI11III=(l1llllI1lll1l.crossColor and l1llllI1lll1l.crossColor:GetColor()) or Color3.new(1,1,1);
-local ll1lllIl1l1=l1IIlll1I11l.crossStyle or l11l1Il1lll("\97\69\230\28\64",96);
-local function lIlllIII1(lIl1I1lI,lI1I111I111l,lIIlIl1II,lllI1lIIII111) 
-local l1lll11lIII=lI11IIlIIIllI(l11l1Il1lll("\168\70\76\14\244",111),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,lIl1I1lI,0,lI1I111I111l),Position=UDim2.new(0.5,lIIlIl1II,0.5,lllI1lIIII111),BackgroundColor3=l1lI11III,BorderSizePixel=0,Parent=lllll11111ll1});
-lI11IIlIIIllI(l11l1Il1lll("\120\250\111\82\254\11\223\70",150),{Thickness=1,Transparency=0.5,Color=Color3.new(0,0,0),Parent=l1lll11lIII});
-return l1lll11lIII end;
-
-if ll1lllIl1l1 == l11l1Il1lll("\117\224\1",97) then 
-l1llIIIIIl11(lIlllIII1(6,6,0,0),3) elseif ll1lllIl1l1 == l11l1Il1lll("\243\203\122\131\92\202",40) then 
-
-local lIlI1llI=lIlllIII1(l1I1I1l1IIII1 * 2,l1I1I1l1IIII1 * 2,0,0);
-lIlI1llI.BackgroundTransparency=1;
-l1llIIIIIl11(lIlI1llI,l1I1I1l1IIII1);
-lI11IIlIIIllI(l11l1Il1lll("\81\231\25\158\51\109\89\157",137),{Thickness=2,Color=l1lI11III,Parent=lIlI1llI}) else 
-
-local l1IlI1l1IlI1l=4;
-lIlllIII1(2,l1I1I1l1IIII1,0,- (l1IlI1l1IlI1l + (l1I1I1l1IIII1 / 2)));
-lIlllIII1(2,l1I1I1l1IIII1,0,l1IlI1l1IlI1l + (l1I1I1l1IIII1 / 2));
-lIlllIII1(l1I1I1l1IIII1,2,- (l1IlI1l1IlI1l + (l1I1I1l1IIII1 / 2)),0);
-lIlllIII1(l1I1I1l1IIII1,2,l1IlI1l1IlI1l + (l1I1I1l1IIII1 / 2),0) end end;
-
-
-l1l1l111l1ll:Toggle({Name=l11l1Il1lll("\23\222\99\232\91\100\183\162\55",106),Description=l11l1Il1lll("\1\84\221\38\158\127\56\55\189\96\222\217\15\231\76\210\153\150\14\74\243\187\179\162\72\147\81\79\232\0\216\70\64\59\248\147\116\132\194\200\157\80\239\228\121\145\42",238),Flag=l11l1Il1lll("\245\84\210\189\149\68\68\242\235",75),Callback=function(ll1IIIll1) 
-
-
-
-
-lllll11111ll1.Visible=ll1IIIll1;
-lI111l1lI1Ill() end});
-
-
-l1l1l111l1ll:Segmented({Name=l11l1Il1lll("\250\116\71\225\29\166\68\15\60\180\254\119\136\209\217",151),Flag=l11l1Il1lll("\250\84\39\129\125\253\113\63\2\209",183),Options={l11l1Il1lll("\154\247\251\16\130",195),l11l1Il1lll("\253\138\128",163),l11l1Il1lll("\147\109\188\160\17\222",126)},Default=l11l1Il1lll("\235\117\43\3\201",220),Callback=lI111l1lI1Ill});
-l1l1l111l1ll:Slider({Name=l11l1Il1lll("\115\80\231\19\195\71\29\49\208\151\122\134\201\35",168),Flag=l11l1Il1lll("\243\21\162\1\15\149\75\8\140",213),Min=4,Max=30,Default=10,Callback=lI111l1lI1Ill});
-l1l1l111l1ll:ColorPicker({Name=l11l1Il1lll("\174\1\147\149\63\204\149\10\82\52\189\156\33\196\133",86),Flag=l11l1Il1lll("\243\182\97\112\206\56\72\70\162\33",62),Default=Color3.new(1,1,1),Callback=lI111l1lI1Ill});
-
-local llll111IIll11=lI11IIlIIIllI(l11l1Il1lll("\120\246\252\94\164",191),{Size=UDim2.new(0,0,0,26),AutomaticSize=Enum.AutomaticSize.X,Position=UDim2.new(0,16,0,12),BackgroundTransparency=0.15,Visible=false,Parent=llIIIIII1.Gui});
+local llI1IIl1I=lIl11l1lI1l:Section(lI1I1ll1llIl("\34\153\63\70\94\97\119\135",233));
+local l1I1l1ll=lllII1lI1I1I(lI1I1ll1llIl("\60\169\146\88\76",4),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,40,0,40),BackgroundTransparency=1,Visible=false,Parent=l111II11I.Gui});
 
 
 
@@ -4788,170 +4746,208 @@ local llll111IIll11=lI11IIlIIIllI(l11l1Il1lll("\120\246\252\94\164",191),{Size=U
 
 
 
-llIllI11I1I(llll111IIll11,l11l1Il1lll("\242\38\78\249\251\84\173\39\167\254\249\111\117\216\63\34",245),l11l1Il1lll("\6\143\105\193\102\48\29\205\63\139",201));
-l1llIIIIIl11(llll111IIll11,13);
-llIIIIII1.Stroke(llll111IIll11);
-llIIIIII1.Pad(llll111IIll11,10,10);
-local ll1I1I11IlI=l11I1llI1({Parent=llll111IIll11,Text=l11l1Il1lll("\146\76\252\13\72\111",154),Font=Enum.Font.GothamBold,TextSize=11,AutoSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0)});
-l1l1l111l1ll:Toggle({Name=l11l1Il1lll("\151\64\227\120\195\172\57\37\229\80\16\7\235\31\177\172",234),Description=l11l1Il1lll("\207\48\41\176\17\9\20\158\73\162\177\15\219\62\225\185\222\176\181\22\161\171\188\88\185\69\39\135\96\218\96\52",15),Flag=l11l1Il1lll("\247\70\165\29\130\238\221\27\122",9)});
-l1l1l111l1ll:Toggle({Name=l11l1Il1lll("\248\84\78\147\34\66\89\165\45\131\122",63),Description=l11l1Il1lll("\75\250\181\108\166\255\18\232\158\128\125\242\42\106\153\102\136\115\44\21\154\204\142\101\53\59\235",108),Flag=l11l1Il1lll("\175\234\201\67\118\194\35\101\69\165",45),Callback=function(l1ll1lIllII) 
+local function lIll1I1IIIl1() 
+l1I1l1ll:ClearAllChildren();
+local l111lIlI=lll1l11Il1ll1.crossSize or 12;
+local l11IIlI1lll=(lllIIlllIIlIl.crossColor and lllIIlllIIlIl.crossColor:GetColor()) or Color3.new(1,1,1);
+local lIll1lI11l=lll1l11Il1ll1.crossStyle or lI1I1ll1llIl("\182\191\112\64\182",37);
+local function llllllIlI(llII11Il111,lIl11lI11llI1,lI11l111,lII1llIlll) 
+local llI11lII1ll=lllII1lI1I1I(lI1I1ll1llIl("\168\235\166\194\7",0),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,llII11Il111,0,lIl11lI11llI1),Position=UDim2.new(0.5,lI11l111,0.5,lII1llIlll),BackgroundColor3=l11IIlI1lll,BorderSizePixel=0,Parent=l1I1l1ll});
+lllII1lI1I1I(lI1I1ll1llIl("\26\88\54\236\79\122\188\110",209),{Thickness=1,Transparency=0.5,Color=Color3.new(0,0,0),Parent=llI11lII1ll});
+return llI11lII1ll end;
+
+if lIll1lI11l == lI1I1ll1llIl("\47\124\186",162) then 
+lIlll1ll1l1I1(llllllIlI(6,6,0,0),3) elseif lIll1lI11l == lI1I1ll1llIl("\253\160\229\188\126\198",80) then 
+
+local llIl1111I=llllllIlI(l111lIlI * 2,l111lIlI * 2,0,0);
+llIl1111I.BackgroundTransparency=1;
+lIlll1ll1l1I1(llIl1111I,l111lIlI);
+lllII1lI1I1I(lI1I1ll1llIl("\14\62\82\231\76\63\253\193",119),{Thickness=2,Color=l11IIlI1lll,Parent=llIl1111I}) else 
+
+local lI11l11I1ll11=4;
+llllllIlI(2,l111lIlI,0,- (lI11l11I1ll11 + (l111lIlI / 2)));
+llllllIlI(2,l111lIlI,0,lI11l11I1ll11 + (l111lIlI / 2));
+llllllIlI(l111lIlI,2,- (lI11l11I1ll11 + (l111lIlI / 2)),0);
+llllllIlI(l111lIlI,2,lI11l11I1ll11 + (l111lIlI / 2),0) end end;
+
+
+llI1IIl1I:Toggle({Name=lI1I1ll1llIl("\209\10\108\30\98\164\8\72\153",143),Description=lI1I1ll1llIl("\154\131\61\130\188\109\90\170\117\159\224\7\25\3\242\132\34\65\206\46\17\169\209\95\192\76\111\145\190\164\102\16\27\44\24\247\150\86\96\213\21\239\145\122\47\53\212",18),Flag=lI1I1ll1llIl("\9\26\25\239\148\33\92\153\55",93),Callback=function(llI1I1Il) 
 
 
 
 
-llll111IIll11.Visible=l1ll1lIllII end});
+l1I1l1ll.Visible=llI1I1Il;
+lIll1I1IIIl1() end});
+
+
+llI1IIl1I:Segmented({Name=lI1I1ll1llIl("\78\253\85\39\225\200\207\61\45\33\6\220\116\105\162",137),Flag=lI1I1ll1llIl("\88\49\17\164\156\106\97\222\89\249",242),Options={lI1I1ll1llIl("\216\145\113\196\252",82),lI1I1ll1llIl("\165\4\157",232),lI1I1ll1llIl("\114\210\43\131\242\9",56)},Default=lI1I1ll1llIl("\74\182\126\90\144",179),Callback=lIll1I1IIIl1});
+llI1IIl1I:Slider({Name=lI1I1ll1llIl("\105\249\236\54\10\155\0\65\52\132\229\213\60\84",84),Flag=lI1I1ll1llIl("\244\35\226\124\254\103\3\234\199",118),Min=4,Max=30,Default=10,Callback=lIll1I1IIIl1});
+llI1IIl1I:ColorPicker({Name=lI1I1ll1llIl("\244\3\2\156\30\188\43\217\240\168\17\82\15\100\180",86),Flag=lI1I1ll1llIl("\225\250\29\78\16\72\169\3\72\147",142),Default=Color3.new(1,1,1),Callback=lIll1I1IIIl1});
+
+local l1IlllllII1I=lllII1lI1I1I(lI1I1ll1llIl("\233\131\228\85\248",49),{Size=UDim2.new(0,0,0,26),AutomaticSize=Enum.AutomaticSize.X,Position=UDim2.new(0,16,0,12),BackgroundTransparency=0.15,Visible=false,Parent=l111II11I.Gui});
+
+
+
+
+
+
+
+lI11ll1lIIlII(l1IlllllII1I,lI1I1ll1llIl("\87\76\156\184\2\133\45\73\164\108\85\147\235\134\239\99",197),lI1I1ll1llIl("\133\96\94\212\58\150\245\21\60\28",38));
+lIlll1ll1l1I1(l1IlllllII1I,13);
+l111II11I.Stroke(l1IlllllII1I);
+l111II11I.Pad(l1IlllllII1I,10,10);
+local llIIIlI11I1I=lI11I11IlllI({Parent=l1IlllllII1I,Text=lI1I1ll1llIl("\228\8\99\107\1\223",207),Font=Enum.Font.GothamBold,TextSize=11,AutoSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0)});
+llI1IIl1I:Toggle({Name=lI1I1ll1llIl("\153\23\60\246\162\99\190\22\54\183\137\153\120\21\170\197",164),Description=lI1I1ll1llIl("\3\44\214\142\131\191\110\202\71\213\244\114\216\36\14\239\146\172\74\40\51\29\198\108\55\178\98\250\99\192\143\98",78),Flag=lI1I1ll1llIl("\5\64\177\139\169\124\244\166\194",219)});
+llI1IIl1I:Toggle({Name=lI1I1ll1llIl("\84\168\208\205\242\35\156\207\31\34\163",15),Description=lI1I1ll1llIl("\194\118\216\108\18\172\173\187\75\39\99\58\224\3\114\67\33\255\97\213\206\127\81\86\192\188\245",152),Flag=lI1I1ll1llIl("\157\167\18\176\49\69\88\112\119\138",215),Callback=function(l1II11llIl1Il) 
+
+
+
+
+l1IlllllII1I.Visible=l1II11llIl1Il end});
 
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if l1IIlll1I11l.fpsCounter then 
-ll1I1I11IlI.Text=lIl11IIlI.Text .. (l11l1Il1lll("\209\9\229\170\216\95\39\253\116\254",161) .. (l1IIlIII1I1.Text .. ((l1IIlll1I11l.showClock and (l11l1Il1lll("\145\47\55\14\152\159",225) .. os.date(l11l1Il1lll("\247\143\67\154\174",144)))) or l11l1Il1lll("",188)))) end;
+while l111II11I.Window == l1l1Ill1 do 
+if lll1l11Il1ll1.fpsCounter then 
+llIIIlI11I1I.Text=lll11IIll1II.Text .. (lI1I1ll1llIl("\25\178\17\42\147\143\235\28\54\40",131) .. (l11lIlI1I111.Text .. ((lll1l11Il1ll1.showClock and (lI1I1ll1llIl("\165\157\141\212\213\71",85) .. os.date(lI1I1ll1llIl("\183\48\57\72\92",143)))) or lI1I1ll1llIl("",210)))) end;
 
 task.wait(0.5) end end);
 
 
 
 do 
-local function l1l1IlI1ll11l(lll1II1l) 
-local lll1IIlIIl=lI11IIlIIIllI(l11l1Il1lll("\196\2\181\6\62\179\86\6\134\212",213),{Text=l11l1Il1lll("",152),AutoButtonColor=false,Size=UDim2.new(0,0,0,26),AutomaticSize=Enum.AutomaticSize.X,Position=UDim2.new(0,16,0,lll1II1l),BackgroundTransparency=0.15,Visible=false,Parent=llIIIIII1.Gui});
-llIllI11I1I(lll1IIlIIl,l11l1Il1lll("\27\100\119\136\22\140\143\63\200\146\46\81\122\179\135\120",67),l11l1Il1lll("\11\123\89\235\254\69\162\228\206\51",173));
-l1llIIIIIl11(lll1IIlIIl,13);
-llIIIIII1.Stroke(lll1IIlIIl);
-llIIIIII1.Pad(lll1IIlIIl,10,10);
-local l1Il1l11l1I=l11I1llI1({Parent=lll1IIlIIl,Text=l11l1Il1lll("",129),Font=Enum.Font.GothamBold,TextSize=11,AutoSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0)});
-return lll1IIlIIl,l1Il1l11l1I end;
+local function llll1Illl(l1lI11lI1II1) 
+local l1I111lIlIIl1=lllII1lI1I1I(lI1I1ll1llIl("\143\198\38\131\141\108\65\179\58\146",18),{Text=lI1I1ll1llIl("",117),AutoButtonColor=false,Size=UDim2.new(0,0,0,26),AutomaticSize=Enum.AutomaticSize.X,Position=UDim2.new(0,16,0,l1lI11lI1II1),BackgroundTransparency=0.15,Visible=false,Parent=l111II11I.Gui});
+lI11ll1lIIlII(l1I111lIlIIl1,lI1I1ll1llIl("\55\189\209\35\237\226\21\112\5\119\141\8\51\134\183\100",106),lI1I1ll1llIl("\76\24\68\36\229\161\132\72\127\255",224));
+lIlll1ll1l1I1(l1I111lIlIIl1,13);
+l111II11I.Stroke(l1I111lIlIIl1);
+l111II11I.Pad(l1I111lIlIIl1,10,10);
+local lIlll1I1=lI11I11IlllI({Parent=l1I111lIlIIl1,Text=lI1I1ll1llIl("",242),Font=Enum.Font.GothamBold,TextSize=11,AutoSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0)});
+return l1I111lIlIIl1,lIlll1I1 end;
 
-local l1I1I1l11l,lI1llII1l=l1l1IlI1ll11l(44);
+local lIl1l1l11,llIlIlI1lllI=llll1Illl(44);
 
 
-local ll1l1lllI=lI11IIlIIIllI(l11l1Il1lll("\191\52\9\191\75",215),{AnchorPoint=Vector2.new(1,0),Size=UDim2.new(0,130,0,130),Position=UDim2.new(1,- 16,0,60),BackgroundTransparency=0.2,Visible=false,Parent=llIIIIII1.Gui});
-llIllI11I1I(ll1l1lllI,l11l1Il1lll("\98\182\62\137\107\196\61\151\23\110\105\159\133\72\175\178",101),l11l1Il1lll("\12\245\238\104\150\207\211\206\71\242",207));
-l1llIIIIIl11(ll1l1lllI,65);
-llIIIIII1.Stroke(ll1l1lllI);
-local lll1l1l1I1=lI11IIlIIIllI(l11l1Il1lll("\63\120\75\157\140",157),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,8,0,8),BackgroundColor3=Color3.new(1,1,1),ZIndex=3,Parent=ll1l1lllI});
-l1llIIIIIl11(lll1l1l1I1,4);
-local ll1IIlIl111II={};
-l1l1l111l1ll:Toggle({Name=l11l1Il1lll("\67\114\199\52\240\61\125\92\227\229",136),Description=l11l1Il1lll("\207\116\63\172\68\19\24\219\4\191\182\11\147\115\244\166\222\179\180\7\233\205\149\100\236\84\104\129\111\216\96\34\78\199\221\140\101\46\124\250\123\217\205\108\250\30\204\153\171",15),Flag=l11l1Il1lll("\67\238\17\88\74",97),Callback=function(lII1lIIIIllll) 
-ll1l1lllI.Visible=lII1lIIIIllll end});
+local ll1II1l1I1I=lllII1lI1I1I(lI1I1ll1llIl("\105\3\100\213\120",177),{AnchorPoint=Vector2.new(1,0),Size=UDim2.new(0,130,0,130),Position=UDim2.new(1,- 16,0,60),BackgroundTransparency=0.2,Visible=false,Parent=l111II11I.Gui});
+lI11ll1lIIlII(ll1II1l1I1I,lI1I1ll1llIl("\152\153\133\135\240\171\194\21\155\169\92\92\169\56\144\175",237),lI1I1ll1llIl("\184\58\16\222\206\81\222\109\24\144",132));
+lIlll1ll1l1I1(ll1II1l1I1I,65);
+l111II11I.Stroke(ll1II1l1I1I);
+local lll1l1Il1l1l=lllII1lI1I1I(lI1I1ll1llIl("\171\29\187\217\215",105),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,8,0,8),BackgroundColor3=Color3.new(1,1,1),ZIndex=3,Parent=ll1II1l1I1I});
+lIlll1ll1l1I1(lll1l1Il1l1l,4);
+local l111l1II1={};
+llI1IIl1I:Toggle({Name=lI1I1ll1llIl("\45\121\56\107\242\17\58\137\160\57",144),Description=lI1I1ll1llIl("\58\119\147\28\171\222\210\164\255\17\109\4\60\161\8\81\203\176\56\183\38\0\191\155\151\154\179\174\192\42\156\181\59\68\177\60\138\227\118\5\0\247\150\35\85\204\48\46\254",87),Flag=lI1I1ll1llIl("\8\186\151\84\91",4),Callback=function(lI1lIIlI) 
+ll1II1l1I1I.Visible=lI1lIIlI end});
 
-l1l1l111l1ll:Slider({Name=l11l1Il1lll("\192\230\93\158\209\150\51\78\254\229\77",208),Flag=l11l1Il1lll("\195\110\145\216\202\237\68\228\243\123",225),Min=50,Max=2000,Default=300,Increment=50,Suffix=l11l1Il1lll("\105\105\78\245\253\68",173)});
-lI11l11IIl(lIII1l1l.RenderStepped:Connect(function() 
-if not ll1l1lllI.Visible then 
+llI1IIl1I:Slider({Name=lI1I1ll1llIl("\211\106\237\81\28\188\204\197\64\62\98",136),Flag=lI1I1ll1llIl("\200\249\226\45\69\43\108\174\114\72",141),Min=50,Max=2000,Default=300,Increment=50,Suffix=lI1I1ll1llIl("\150\155\106\73\78\163",27)});
+lIl11lIIl(lII1llIIIIlI.RenderStepped:Connect(function() 
+if not ll1II1l1I1I.Visible then 
 return  end;
 
-local lI1111lIll1,ll11IIlll=lIl1I1lI1Il(),workspace.CurrentCamera;
-if (not lI1111lIll1) or (not ll11IIlll) then 
+local lIlIl1Ill,lIlIIl1Il1II=l1lI11Il111ll(),workspace.CurrentCamera;
+if (not lIlIl1Ill) or (not lIlIIl1Il1II) then 
 return  end;
 
-local l1IIII1111=ll11IIlll.CFrame.LookVector;
-local ll1IlIlll=math.atan2(- l1IIII1111.X,- l1IIII1111.Z);
-local lllIllIl1=l1IIlll1I11l.radarRange or 300;
-for ll1II1ll11lI,ll1IIIll1l in ipairs(lIII111I1I1II) do 
-local llI1lIl1Il11=ll1IIlIl111II[ll1II1ll11lI];
-if not llI1lIl1Il11 then 
-llI1lIl1Il11=lI11IIlIIIllI(l11l1Il1lll("\199\77\164\196\205",209),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,8,0,8),BackgroundColor3=Color3.new(1,1,1),ZIndex=2,Parent=ll1l1lllI});
-l1llIIIIIl11(llI1lIl1Il11,4);
-llIIIIII1.AccentGradient(llI1lIl1Il11);
-ll1IIlIl111II[ll1II1ll11lI]=llI1lIl1Il11 end;
+local l11IIlI1ll=lIlIIl1Il1II.CFrame.LookVector;
+local ll1IllllIIl=math.atan2(- l11IIlI1ll.X,- l11IIlI1ll.Z);
+local lIll1IIII111I=lll1l11Il1ll1.radarRange or 300;
+for lI1l1I11I11l,llI111II11Il in ipairs(l1l1l1l1l) do 
+local lIIl111llIl1I=l111l1II1[lI1l1I11I11l];
+if not lIIl111llIl1I then 
+lIIl111llIl1I=lllII1lI1I1I(lI1I1ll1llIl("\20\10\227\128\214",94),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,8,0,8),BackgroundColor3=Color3.new(1,1,1),ZIndex=2,Parent=ll1II1l1I1I});
+lIlll1ll1l1I1(lIIl111llIl1I,4);
+l111II11I.AccentGradient(lIIl111llIl1I);
+l111l1II1[lI1l1I11I11l]=lIIl111llIl1I end;
 
-local ll1ll1I1ll1=Vector3.new(ll1IIIll1l.x,0,ll1IIIll1l.z) - Vector3.new(lI1111lIll1.Position.X,0,lI1111lIll1.Position.Z);
-local lII1IIll1=(ll1ll1I1ll1.X * math.cos(ll1IlIlll)) - (ll1ll1I1ll1.Z * math.sin(ll1IlIlll));
-local lll11lIl111=(ll1ll1I1ll1.X * math.sin(ll1IlIlll)) + (ll1ll1I1ll1.Z * math.cos(ll1IlIlll));
-local lIllIlll=58 / lllIllIl1;
-local l11l1llI1ll,llIIl11lIIl=lII1IIll1 * lIllIlll,lll11lIl111 * lIllIlll;
-local l11111llI=math.sqrt((l11l1llI1ll * l11l1llI1ll) + (llIIl11lIIl * llIIl11lIIl));
-if l11111llI > 58 then 
-l11l1llI1ll,llIIl11lIIl=(l11l1llI1ll / l11111llI) * 58,(llIIl11lIIl / l11111llI) * 58 end;
+local l1IlI11I=Vector3.new(llI111II11Il.x,0,llI111II11Il.z) - Vector3.new(lIlIl1Ill.Position.X,0,lIlIl1Ill.Position.Z);
+local ll1lI11I1I1=(l1IlI11I.X * math.cos(ll1IllllIIl)) - (l1IlI11I.Z * math.sin(ll1IllllIIl));
+local lI11llI1Il=(l1IlI11I.X * math.sin(ll1IllllIIl)) + (l1IlI11I.Z * math.cos(ll1IllllIIl));
+local lII1l1I11ll11=58 / lIll1IIII111I;
+local lllII1lIllI,l11l1I11111II=ll1lI11I1I1 * lII1l1I11ll11,lI11llI1Il * lII1l1I11ll11;
+local l1l1lIll1ll=math.sqrt((lllII1lIllI * lllII1lIllI) + (l11l1I11111II * l11l1I11111II));
+if l1l1lIll1ll > 58 then 
+lllII1lIllI,l11l1I11111II=(lllII1lIllI / l1l1lIll1ll) * 58,(l11l1I11111II / l1l1lIll1ll) * 58 end;
 
-llI1lIl1Il11.Position=UDim2.new(0.5,l11l1llI1ll,0.5,llIIl11lIIl);
-llI1lIl1Il11.Visible=true end;
+lIIl111llIl1I.Position=UDim2.new(0.5,lllII1lIllI,0.5,l11l1I11111II);
+lIIl111llIl1I.Visible=true end;
 
-for l1lll1lll=(# lIII111I1I1II) + 1,# ll1IIlIl111II do 
-ll1IIlIl111II[l1lll1lll].Visible=false end end));
-
-
-local lII11Il1,ll11ll11I=l1l1IlI1ll11l(76);
-l1l1l111l1ll:Toggle({Name=l11l1Il1lll("\42\85\81\166\53\62\38\138\54\185\62\119\66\149\250\69",99),Description=l11l1Il1lll("\104\86\86\208\123\58\200\23\175\119\114\33\249\235\17\190\196\219\110\165\253\170\93\167\30\174\234\215\90\14\207\51\59\105\177\34\154\159\96\33\151\2\20\65\152\154",116),Flag=l11l1Il1lll("\202\186\143\85\77\8\240\164\164\66\255",93),Callback=function(ll1llI1I1lI) 
-l1I1I1l11l.Visible=ll1llI1I1lI end});
-
-local lI1II1I1Il1l,lIl1ll1I1l1ll,ll1lI1I1lI1l=false,0,0;
-l1l1l111l1ll:Toggle({Name=l11l1Il1lll("\247\122\133\58\214\131\166\123\89",41),Description=l11l1Il1lll("\180\118\237\2\56\158\119\130\74\62\5\192\222\134\105\34\56\135\121\221\156\117\150\83\219\142\250\65\87\243\77\65\161\66\206\103\12\255\6\236\121\34\43\254\237\126\221\199\223\53\13\225\236\67\167\54\187\239\212\115",165),Flag=l11l1Il1lll("\26\162\183\18\201\127\225\181\150",71),Callback=function(ll1IIlIlll) 
-lII11Il1.Visible=ll1IIlIlll end});
-
-l1l1l111l1ll:Button({Name=l11l1Il1lll("\75\195\187\23\250\14\246\178\129\68\90\2\229\190\180",55),Action=l11l1Il1lll("\43\64\71\166\37",99),Callback=function() 
-lI1II1I1Il1l,lIl1ll1I1l1ll=false,0 end});
-
-lII11Il1.MouseButton1Click:Connect(function() 
-if lI1II1I1Il1l then 
-lIl1ll1I1l1ll=lIl1ll1I1l1ll + (os.clock() - ll1lI1I1lI1l);
-lI1II1I1Il1l=false else 
-
-ll1lI1I1lI1l=os.clock();
-lI1II1I1Il1l=true end end);
+for ll11IIII11ll=(# l1l1l1l1l) + 1,# l111l1II1 do 
+l111l1II1[ll11IIII11ll].Visible=false end end));
 
 
-lI11l11IIl(lIII1l1l.RenderStepped:Connect(function() 
-if l1I1I1l11l.Visible then 
-local llIlI11IIII11=lIl1I1lI1Il();
-if llIlI11IIII11 then 
-local l1II11lllII,l1lI11lII=llIlI11IIII11.AssemblyLinearVelocity,llIlI11IIII11.Position;
-lI1llII1l.Text=string.format(l11l1Il1lll("\85\0\142\208\105\52\52\106\141\241\11\134\44\193\80\143\192\241\122\31\173\78\83",222),math.floor(Vector3.new(l1II11lllII.X,0,l1II11lllII.Z).Magnitude + 0.5),math.floor(l1lI11lII.X),math.floor(l1lI11lII.Y),math.floor(l1lI11lII.Z)) end end;
+local l1I1l1IlI,ll11II111IIl=llll1Illl(76);
+llI1IIl1I:Toggle({Name=lI1I1ll1llIl("\90\180\116\76\135\255\127\219\54\87\189\101\110\137\228\187",179),Description=lI1I1ll1llIl("\54\68\45\207\233\160\34\90\12\35\216\118\92\141\245\30\154\41\21\186\111\48\151\234\157\250\32\128\255\8\43\179\101\187\202\61\8\5\74\108\52\86\254\22\61\252",122),Flag=lI1I1ll1llIl("\210\91\204\117\106\147\179\161\122\28\85",168),Callback=function(lI1Illll11) 
+lIl1l1l11.Visible=lI1Illll11 end});
+
+local llllIIlIIl,lIlIllII,l1Ill11llIl1=false,0,0;
+llI1IIl1I:Toggle({Name=lI1I1ll1llIl("\29\77\8\127\181\114\95\158\185",160),Description=lI1I1ll1llIl("\127\102\225\35\250\136\99\20\81\220\188\237\150\125\205\242\51\87\117\252\30\35\226\197\192\44\3\108\31\200\41\113\170\146\2\134\142\169\82\58\34\128\210\147\229\69\185\215\20\37\193\0\174\213\211\224\224\13\109\30",7),Flag=lI1I1ll1llIl("\10\192\110\73\132\142\29\136\62",195),Callback=function(lI1Illll1II) 
+l1I1l1IlI.Visible=lI1Illll1II end});
+
+llI1IIl1I:Button({Name=lI1I1ll1llIl("\80\109\129\216\151\171\53\155\200\17\42\190\9\167\210",14),Action=lI1I1ll1llIl("\40\61\53\233\131",77),Callback=function() 
+llllIIlIIl,lIlIllII=false,0 end});
+
+l1I1l1IlI.MouseButton1Click:Connect(function() 
+if llllIIlIIl then 
+lIlIllII=lIlIllII + (os.clock() - l1Ill11llIl1);
+llllIIlIIl=false else 
+
+l1Ill11llIl1=os.clock();
+llllIIlIIl=true end end);
 
 
-if lII11Il1.Visible then 
-local l1II1II1=lIl1ll1I1l1ll + ((lI1II1I1Il1l and (os.clock() - ll1lI1I1lI1l)) or 0);
-ll11ll11I.Text=string.format(l11l1Il1lll("\115\149\93\43\22\222\129\97\252\181\160\77\192\24",139),(lI1II1I1Il1l and l11l1Il1lll("\34\93\233",88)) or l11l1Il1lll("\192\184\49",96),math.floor(l1II1II1 / 60),l1II1II1 % 60) end end)) end;
+lIl11lIIl(lII1llIIIIlI.RenderStepped:Connect(function() 
+if lIl1l1l11.Visible then 
+local l1ll111lI=l1lI11Il111ll();
+if l1ll111lI then 
+local ll1II1I1l,lI1lIlIII=l1ll111lI.AssemblyLinearVelocity,l1ll111lI.Position;
+llIlIlI1lllI.Text=string.format(lI1I1ll1llIl("\47\207\67\214\237\60\242\40\70\70\1\252\6\116\123\75\186\30\119\249\41\166\117",116),math.floor(Vector3.new(ll1II1I1l.X,0,ll1II1I1l.Z).Magnitude + 0.5),math.floor(lI1lIlIII.X),math.floor(lI1lIlIII.Y),math.floor(lI1lIlIII.Z)) end end;
 
 
+if l1I1l1IlI.Visible then 
+local lIIlIl11lll1l=lIlIllII + ((llllIIlIIl and (os.clock() - l1Ill11llIl1)) or 0);
+ll11II111IIl.Text=string.format(lI1I1ll1llIl("\63\75\6\137\231\171\137\26\144\189\107\93\52\241",45),(llllIIlIIl and lI1I1ll1llIl("\132\11\7",172)) or lI1I1ll1llIl("\184\247\222",109),math.floor(lIIlIl11lll1l / 60),lIIlIl11lll1l % 60) end end)) end;
 
 
 
 
-local l11lIlllI=llII1ll111:Section(l11l1Il1lll("\240\241\44\21\162\89\26\27\147\0\169",14));
-l11lIlllI:Button({Name=l11l1Il1lll("\235\99\239\134\110\139\91\208\148",22),Description=l11l1Il1lll("\124\77\255\5\194\15\27\42\195\199\97\134\208\53\145\94\238\246\56\158\47\255\156\169\96\115\208\28\79\83\178\143\101\108\220\41\188\111\101\87\247\183\91\170\249\201\56\177",168),Action=l11l1Il1lll("\154\56\123\51\254",172),Callback=function() 
+
+
+local lllI1I1lI11l=lIl11l1lI1l:Section(lI1I1ll1llIl("\201\49\147\191\124\61\164\42\152\203\59",35));
+lllI1I1lI11l:Button({Name=lI1I1ll1llIl("\203\95\233\244\112\79\65\167\171",9),Description=lI1I1ll1llIl("\66\22\80\42\240\243\140\79\112\235\81\233\157\127\110\53\208\173\183\177\125\131\235\204\243\127\224\83\2\249\205\132\91\55\115\6\206\19\114\178\132\91\107\197\180\67\71\90",224),Action=lI1I1ll1llIl("\167\195\173\75\110",250),Callback=function() 
 
 
 
 
-l11l1II1I1II.GlobalShadows=false;
+ll11Il11lI.GlobalShadows=false;
 pcall(function() 
 workspace.Terrain.Decoration=false;
 workspace.Terrain.WaterWaveSize=0;
 workspace.Terrain.WaterReflectance=0 end);
 
-for l1llllI1II1,lII1lII1 in ipairs(l11l1II1I1II:GetChildren()) do 
-if lII1lII1:IsA(l11l1Il1lll("\178\152\58\219\182\224\23\154\35\38",160)) then 
-lII1lII1.Enabled=false end end;
+for l1IlI1lI,lll1l1IlIII in ipairs(ll11Il11lI:GetChildren()) do 
+if lll1l1IlIII:IsA(lI1I1ll1llIl("\45\112\217\176\103\118\88\161\204\133",249)) then 
+lll1l1IlIII.Enabled=false end end;
 
 
-local lllI1ll1I1lI=0;
-for l1I1IlI1I1,llllll1I1l11l in ipairs(workspace:GetDescendants()) do 
-if llllll1I1l11l:IsA(l11l1Il1lll("\231\50\108\119\181\42\134\138",66)) then 
-llllll1I1l11l.Material=Enum.Material.SmoothPlastic;
-llllll1I1l11l.Reflectance=0;
-lllI1ll1I1lI=lllI1ll1I1lI + 1 elseif llllll1I1l11l:IsA(l11l1Il1lll("\209\6\172\163\89",114)) or llllll1I1l11l:IsA(l11l1Il1lll("\250\17\21\215\36\111\121",47)) then 
+local llll11Illll1=0;
+for l1I1Il1llII1l,ll11IIl1II1 in ipairs(workspace:GetDescendants()) do 
+if ll11IIl1II1:IsA(lI1I1ll1llIl("\252\168\228\186\66\194\233\217",80)) then 
+ll11IIl1II1.Material=Enum.Material.SmoothPlastic;
+ll11IIl1II1.Reflectance=0;
+llll11Illll1=llll11Illll1 + 1 elseif ll11IIl1II1:IsA(lI1I1ll1llIl("\113\249\145\105\38",42)) or ll11IIl1II1:IsA(lI1I1ll1llIl("\67\180\117\251\120\198\143",246)) then 
 
-llllll1I1l11l.Transparency=1 elseif (((llllll1I1l11l:IsA(l11l1Il1lll("\162\134\43\171\234\245\13\170\53\15\161\84\4\138\206",176)) or llllll1I1l11l:IsA(l11l1Il1lll("\237\151\149\106\253",163))) or llllll1I1l11l:IsA(l11l1Il1lll("\55\209\115\224\189",90))) or llllll1I1l11l:IsA(l11l1Il1lll("\243\42\93\71",82))) or llllll1I1l11l:IsA(l11l1Il1lll("\35\247\12\160\183\10\231\97",53)) then 
+ll11IIl1II1.Transparency=1 elseif (((ll11IIl1II1:IsA(lI1I1ll1llIl("\110\40\101\43\251\64\119\72\68\230\96\196\154\121\76",208)) or ll11IIl1II1:IsA(lI1I1ll1llIl("\1\142\243\1\6",74))) or ll11IIl1II1:IsA(lI1I1ll1llIl("\204\172\218\3\168",1))) or ll11IIl1II1:IsA(lI1I1ll1llIl("\19\149\224\13",74))) or ll11IIl1II1:IsA(lI1I1ll1llIl("\218\52\240\219\8\51\188\8",51)) then 
 
-llllll1I1l11l.Enabled=false end;
+ll11IIl1II1.Enabled=false end;
 
-if (l1I1IlI1I1 % 3000) == 0 then 
+if (l1I1Il1llII1l % 3000) == 0 then 
 task.wait() end end;
 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\159\54\219\18\172\1\170\245\218",247),Content=l11l1Il1lll("\157\125\96\243\29\84\90\82\204\114\56",79) .. (lllI1ll1I1lI .. l11l1Il1lll("\6\6\140\204\226\47\91",251))}) end});
+l111II11I:Notify({Title=lI1I1ll1llIl("\11\159\41\52\176\143\129\103\235",201),Content=lI1I1ll1llIl("\245\177\67\92\86\169\205\156\156\80\161",11) .. (llll11Illll1 .. lI1I1ll1llIl("\162\56\82\15\117\207\55",159))}) end});
 
 
-if type(setfpscap) == l11l1Il1lll("\242\25\162\56\28\37\249\229",170) then 
-l11lIlllI:Slider({Name=l11l1Il1lll("\32\230\126\94\53\253\197",187),Flag=l11l1Il1lll("\164\167\26\204\178\150",128),Min=30,Max=360,Increment=10,Default=240,Callback=function(ll1l11II1l) 
-
-
-
-
-
-
-
-pcall(setfpscap,ll1l11II1l) end}) end;
+if type(setfpscap) == lI1I1ll1llIl("\79\145\31\42\247\214\86\181",147) then 
+lllI1I1lI11l:Slider({Name=lI1I1ll1llIl("\35\13\188\227\54\166\2",181),Flag=lI1I1ll1llIl("\237\215\66\224\15\112",167),Min=30,Max=360,Increment=10,Default=240,Callback=function(lIll1111I) 
 
 
 
@@ -4959,367 +4955,373 @@ pcall(setfpscap,ll1l11II1l) end}) end;
 
 
 
+pcall(setfpscap,lIll1111I) end}) end;
 
-local lIIllI1lI1,ll1I11l1I;
+
+
+
+
+
+
+
+local l11111I1Ill1l,lll11111I1;
 do 
-local lll1l1lII111I=lI11II1llI1:Tab({Name=l11l1Il1lll("\254\66\225\243\110\149",6),Icon=l11l1Il1lll("\10\183\181\7\204\127",71),Hint=l11l1Il1lll("\249\251\43\1\237\72\22\23\152\17\173\246\51\218\104\234",14)});
-local llIlIll11l11I=game:GetService(l11l1Il1lll("\74\217\214\118\251\70\193\183\189\80\84\252\15\158\169\89\207\111\75\247",39));
-local ll11ll1lllI=llIIlI1Il:GenerateGUID(false);
-local ll1lI111II=Enum.RenderPriority.Camera.Value + 2;
+local llIlII1l11I=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\188\192\184\109\223\4",97),Icon=lI1I1ll1llIl("\248\214\44\182\12\113",183),Hint=lI1I1ll1llIl("\67\87\83\222\247\250\140\77\208\255\62\83\106\249\78\37",45)});
+local ll111l111II=game:GetService(lI1I1ll1llIl("\54\34\241\199\32\175\22\93\137\156\159\115\9\154\216\2\179\148\108\70",165));
+local ll1IIl1IIII=llII1lIII1:GenerateGUID(false);
+local l1lIllll1lI=Enum.RenderPriority.Camera.Value + 2;
 
-local l1llI11IlII1l=lll1l1lII111I:Section(l11l1Il1lll("\239\163\143\71",93));
-l1llI11IlII1l:Slider({Name=l11l1Il1lll("\189\151\28\139\44\122\143\94\184\97\61\229\61",180),Flag=l11l1Il1lll("\164\184\31",128),Min=30,Max=120,Default=math.floor(lI11lllIIIIl.fov),Callback=function(l11llIl1) 
-
-
+local l1I1IIII=llIlII1l11I:Section(lI1I1ll1llIl("\51\69\39\207",122));
+l1I1IIII:Slider({Name=lI1I1ll1llIl("\48\157\163\160\82\97\64\49\170\93\138\64\110",188),Flag=lI1I1ll1llIl("\20\247\20",126),Min=30,Max=120,Default=math.floor(lII1lllI.fov),Callback=function(lI1111IlI1l1l) 
 
 
 
 
-local ll1I1lIlll1Il=workspace.CurrentCamera;
-if ll1I1lIlll1Il then 
-ll1I1lIlll1Il.FieldOfView=l11llIl1 end end});
+
+
+local lI1lIIlIl=workspace.CurrentCamera;
+if lI1lIIlIl then 
+lI1lIIlIl.FieldOfView=lI1111IlI1l1l end end});
 
 
 
-l1llI11IlII1l:Toggle({Name=l11l1Il1lll("\204\68\102\191\170\44\157\155\159\104\128",125),Description=l11l1Il1lll("\99\37\5\221\137\136\104\53\112\202\120\209\212\38\132\71\219\142\178\69\75",221),Flag=l11l1Il1lll("\140\228\198\31\10\204\7\110\127\138",29),Callback=function(l1l1llIl) 
+l1I1IIII:Toggle({Name=lI1I1ll1llIl("\243\42\26\243\5\122\127\93\181\20\62",108),Description=lI1I1ll1llIl("\192\215\201\65\119\118\24\212\21\96\170\144\237\55\196\169\88\92\94\185\213",173),Flag=lI1I1ll1llIl("\224\195\19\60\134\28\152\211\37\229",69),Callback=function(lII1Il1l1) 
 
 
 
 
-lllI1llI.CameraMaxZoomDistance=(l1l1llIl and 2000) or lI11lllIIIIl.maxZoom end});
+ll1lI1IIII1.CameraMaxZoomDistance=(lII1Il1l1 and 2000) or lII1lllI.maxZoom end});
 
 
-local lllI1111I,lIll1IlIl=false,false;
-function ll1I11l1I(l11Il1Il11l1l) 
-lllI1111I=l11Il1Il11l1l end;
+local llIlI1lIlIlI,ll1l111II=false,false;
+function lll11111I1(ll11IlI1l1) 
+llIlI1lIlIlI=ll11IlI1l1 end;
 
-l1llI11IlII1l:Keybind({Name=l11l1Il1lll("\241\193\38\186\184\162\88\167\4\163\173",228),Description=l11l1Il1lll("\253\4\20\196\61\124\111\168\105\140\151\45\51\222\2\94\119\136\152\115\201\232\224\15",47),Flag=l11l1Il1lll("\170\107\161\174\54\222\158",126),Default=Enum.KeyCode.Z,Callback=function() 
-lllI1111I=true;
-local lI11lI11l=Enum.KeyCode[l1IIlll1I11l.zoomKey or l11l1Il1lll("\35",157)];
+l1I1IIII:Keybind({Name=lI1I1ll1llIl("\17\92\129\42\95\161\205\88\201\8\43",130),Description=lI1I1ll1llIl("\117\180\143\123\138\240\172\212\122\129\188\122\36\227\38\144\255\56\3\76\254\132\35\83",236),Flag=lI1I1ll1llIl("\155\4\134\61\133\89\103",232),Default=Enum.KeyCode.Z,Callback=function() 
+llIlI1lIlIlI=true;
+local lllI111ll1lI=Enum.KeyCode[lll1l11Il1ll1.zoomKey or lI1I1ll1llIl("\229",33)];
 task.spawn(function() 
-while lI11lI11l and llIl11lIIl1I1:IsKeyDown(lI11lI11l) do 
+while lllI111ll1lI and l1IIl1lll1l:IsKeyDown(lllI111ll1lI) do 
 task.wait() end;
 
-lllI1111I=false end) end});
+llIlI1lIlIlI=false end) end});
 
 
-l1llI11IlII1l:Slider({Name=l11l1Il1lll("\14\195\99\246\8\127\162\185\32\221\152\134\109",106),Flag=l11l1Il1lll("\20\219\194\142\87\50\42",239),Min=5,Max=50,Default=20,Suffix=l11l1Il1lll("\98\231\253\36\195\96",229)});
-local l1llI1lll11=lllI1llI.DevCameraOcclusionMode;
-l1llI11IlII1l:Toggle({Name=l11l1Il1lll("\229\151\0\91\100\189\213\63\193\135\235\6\134\38\112\173\87\234\113\221",123),Description=l11l1Il1lll("\26\135\101\215\60\143\101\105\64\152\148\3\19\42\188\12\168\26\20\177\254\24\148\210\251\68\18\166\85\45\101\133\10\178\141\51\202\46\10\64\46\164\184\48\217\148\146\28\201\34\48\135\30\253\116\59\27\54\60\211\104\3",119),Flag=l11l1Il1lll("\197\151\0\112\121\191\153\34\217",123),Callback=function(lIlII1l1) 
-
-
-
-
-lllI1llI.DevCameraOcclusionMode=(lIlII1l1 and Enum.DevCameraOcclusionMode.Invisicam) or l1llI1lll11 end});
-
-
-llIIIIII1:OnUnload(function() 
-lllI1llI.DevCameraOcclusionMode=l1llI1lll11 end);
+l1I1IIII:Slider({Name=lI1I1ll1llIl("\81\28\193\106\31\186\145\5\128\194\165\76\114",194),Flag=lI1I1ll1llIl("\161\204\49\154\137\118\67",18),Min=5,Max=50,Default=20,Suffix=lI1I1ll1llIl("\85\225\173\73\194\98",118)});
+local lIl1I11l=ll1lI1IIII1.DevCameraOcclusionMode;
+l1I1IIII:Toggle({Name=lI1I1ll1llIl("\37\229\219\185\84\48\63\19\242\73\124\160\110\235\49\207\183\120\74\95",172),Description=lI1I1ll1llIl("\146\58\148\37\76\173\46\123\144\229\174\191\144\84\251\58\32\167\37\131\142\58\31\0\11\57\40\90\150\83\34\243\194\79\188\1\122\204\129\146\62\25\66\204\26\170\149\106\1\223\65\245\174\31\63\41\235\139\198\239\107\61",216),Flag=lI1I1ll1llIl("\188\224\152\102\226\230\43\18\141",65),Callback=function(l1I1II1I1) 
 
 
 
 
+ll1lI1IIII1.DevCameraOcclusionMode=(l1I1II1I1 and Enum.DevCameraOcclusionMode.Invisicam) or lIl1I11l end});
+
+
+l111II11I:OnUnload(function() 
+ll1lI1IIII1.DevCameraOcclusionMode=lIl1I11l end);
 
 
 
-local l1I1l1llI=lll1l1lII111I:Section(l11l1Il1lll("\246\214\11\6\190\58\106",30));
-local ll1IIllII1={yaw=0,pitch=0,tyaw=0,tpitch=0,pos=nil,vel=Vector3.zero,stick=Vector2.zero,up=0,boost=false};
-
-local l1Il1Ill1I=lI11IIlIIIllI(l11l1Il1lll("\136\102\108\238\20",79),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Visible=false,ZIndex=0,Parent=llIIIIII1.Gui});
-local lIIl11II=lI11IIlIIIllI(l11l1Il1lll("\221\83\64\246\92\203\65\2\49\202",167),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text=l11l1Il1lll("",202),AutoButtonColor=false,ZIndex=0,Parent=l1Il1Ill1I});
-local l11ll1111I1=lI11IIlIIIllI(l11l1Il1lll("\0\164\44\115\83",155),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,120,0,120),BackgroundTransparency=0.55,Visible=false,ZIndex=1,Parent=l1Il1Ill1I});
-llIllI11I1I(l11ll1111I1,l11l1Il1lll("\202\134\199\251\61\61\174\66\21\26\186\8\164\181\18\139",252),l11l1Il1lll("\99\254\6\162\175\93\218\79\74\234",113));
-l1llIIIIIl11(l11ll1111I1,60);
-llIIIIII1.Stroke(l11ll1111I1);
-local lII1lllI11l=lI11IIlIIIllI(l11l1Il1lll("\226\14\189\38\125",154),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,50,0,50),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=Color3.new(1,1,1),ZIndex=2,Parent=l11ll1111I1});
-l1llIIIIIl11(lII1lllI11l,25);
-llIIIIII1.AccentGradient(lII1lllI11l,45);
-
-local lIll1IIlIII11=l11I1llI1({Parent=l1Il1Ill1I,Text=l11l1Il1lll("",4),Font=Enum.Font.GothamBold,TextSize=12,Color=l11l1Il1lll("\120\91\171\3\125\114\196",100),Align=Enum.TextXAlignment.Center,AnchorPoint=Vector2.new(0.5,0),Position=UDim2.new(0.5,0,0,14),Size=UDim2.new(0,260,0,30),ZIndex=2});
-local l11Il1l1IIl=lI11IIlIIIllI(l11l1Il1lll("\146\94\237\118\205",234),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=0.2,ZIndex=1,Parent=lIll1IIlIII11});
-llIllI11I1I(l11Il1l1IIl,l11l1Il1lll("\210\165\109\104\218\9\72\95\163\55\95\105\192\43\166\112",62),l11l1Il1lll("\6\61\159\0\95\110\137\142\59\199",122));
-l1llIIIIIl11(l11Il1l1IIl,15);
-llIIIIII1.Stroke(l11Il1l1IIl);
-
-local function lI11I1l1(l1lI1I1IIII,lIlI1IIlII1I,l11llIII11I1l,ll1llIlII,lI11I11I) 
-local lll1lIIllIIl1=lI11IIlIIIllI(l11l1Il1lll("\164\135\48\212\178\26\72\108\141\153",104),{AnchorPoint=Vector2.new(0.5,0.5),Position=lIlI1IIlII1I,Size=UDim2.new(0,l11llIII11I1l,0,l11llIII11I1l),Text=l1lI1I1IIII,Font=Enum.Font.GothamBold,TextSize=18,AutoButtonColor=false,BackgroundTransparency=0.15,ZIndex=3,Parent=l1Il1Ill1I});
-llIllI11I1I(lll1lIIllIIl1,l11l1Il1lll("\214\127\153\49\182\224\173\125\111\219\6\70\68\160\39\41",25),l11l1Il1lll("\251\103\75\249\9\188\74\19\32\240",151));
-llIllI11I1I(lll1lIIllIIl1,l11l1Il1lll("\204\114\44\244\9\48\157\104\25\93",236),l11l1Il1lll("\152\5\235\87\160\26",247));
-l1llIIIIIl11(lll1lIIllIIl1,l11llIII11I1l / 2);
-llIIIIII1.Stroke(lll1lIIllIIl1);
-local ll1l11I1IIl=lI11IIlIIIllI(l11l1Il1lll("\37\43\155\67\17\131\217",232),{Parent=lll1lIIllIIl1});
-lll1lIIllIIl1.InputBegan:Connect(function(l111lI1lIl) 
-if (l111lI1lIl.UserInputType == Enum.UserInputType.Touch) or (l111lI1lIl.UserInputType == Enum.UserInputType.MouseButton1) then 
-llIIIIII1.Press(ll1l11I1IIl);
-ll1llIlII() end end);
-
-
-lll1lIIllIIl1.InputEnded:Connect(function(ll1ll1I1I) 
-if ((ll1ll1I1I.UserInputType == Enum.UserInputType.Touch) or (ll1ll1I1I.UserInputType == Enum.UserInputType.MouseButton1)) and lI11I11I then 
-lI11I11I() end end);
-
-
-return lll1lIIllIIl1 end;
-
-local llI1Il11I,lII1Il1IIlll1=false,false;
-lI11I1l1(l11l1Il1lll("\116\176\15",75),UDim2.new(1,- 60,1,- 200),58,function() llI1Il11I=true end,function() llI1Il11I=false end);
-lI11I1l1(l11l1Il1lll("\91\92\86",93),UDim2.new(1,- 60,1,- 130),58,function() lII1Il1IIlll1=true end,function() lII1Il1IIlll1=false end);
-lI11I1l1(l11l1Il1lll("\167\40",130),UDim2.new(1,- 130,1,- 130),50,function() ll1IIllII1.boost=not ll1IIllII1.boost end);
-lI11I1l1(l11l1Il1lll("\243\51\192",65),UDim2.new(1,- 40,0,40),44,function() 
-if l1llllI1lll1l.freecam then 
-l1llllI1lll1l.freecam:Set(false) end end);
 
 
 
-local l1II11II11II,l1I1lIIlII,lI111IlIII;
-lIIl11II.InputBegan:Connect(function(lII1llI1) 
-if lII1llI1.UserInputType ~= Enum.UserInputType.Touch then 
+
+local lII1I1I111Ill=llIlII1l11I:Section(lI1I1ll1llIl("\237\161\107\194\252\200\232",98));
+local l1111II1={yaw=0,pitch=0,tyaw=0,tpitch=0,pos=nil,vel=Vector3.zero,stick=Vector2.zero,up=0,boost=false};
+
+local llll11l11I1II=lllII1lI1I1I(lI1I1ll1llIl("\100\218\178\240\132",63),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Visible=false,ZIndex=0,Parent=l111II11I.Gui});
+local lllIIIl11=lllII1lI1I1I(lI1I1ll1llIl("\234\172\239\171\80\214\239\217\238\101",80),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text=lI1I1ll1llIl("",202),AutoButtonColor=false,ZIndex=0,Parent=llll11l11I1II});
+local llI1I1ll1=lllII1lI1I1I(lI1I1ll1llIl("\99\158\227\21\63",58),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,120,0,120),BackgroundTransparency=0.55,Visible=false,ZIndex=1,Parent=llll11l11I1II});
+lI11ll1lIIlII(llI1I1ll1,lI1I1ll1llIl("\128\169\81\22\68\57\233\90\137\69\94\240\81\235\136\51",206),lI1I1ll1llIl("\148\41\221\247\237\2\84\16\103\160",123));
+lIlll1ll1l1I1(llI1I1ll1,60);
+l111II11I.Stroke(llI1I1ll1);
+local lIlIIll11111=lllII1lI1I1I(lI1I1ll1llIl("\151\41\152\45\91",216),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,50,0,50),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=Color3.new(1,1,1),ZIndex=2,Parent=llI1I1ll1});
+lIlll1ll1l1I1(lIlIIll11111,25);
+l111II11I.AccentGradient(lIlIIll11111,45);
+
+local ll1l1Il11l1=lI11I11IlllI({Parent=llll11l11I1II,Text=lI1I1ll1llIl("",32),Font=Enum.Font.GothamBold,TextSize=12,Color=lI1I1ll1llIl("\129\141\96\57\86\195\2",222),Align=Enum.TextXAlignment.Center,AnchorPoint=Vector2.new(0.5,0),Position=UDim2.new(0.5,0,0,14),Size=UDim2.new(0,260,0,30),ZIndex=2});
+local lIIll1ll11=lllII1lI1I1I(lI1I1ll1llIl("\136\203\134\226\39",32),{Size=UDim2.new(1,0,1,0),BackgroundTransparency=0.2,ZIndex=1,Parent=ll1l1Il11l1});
+lI11ll1lIIlII(lIIll1ll11,lI1I1ll1llIl("\167\188\12\40\178\53\157\217\52\28\37\3\123\54\95\211",53),lI1I1ll1llIl("\45\80\38\19\186\135\88\94\195\75",241));
+lIlll1ll1l1I1(lIIll1ll11,15);
+l111II11I.Stroke(lIIll1ll11);
+
+local function lI1I1II1I(lII1l1II1,l1ll1II11lII1,ll1I1I1I1I,l11l11111IIIl,l1lI1lI1llI) 
+local lIl1II11llIl1=lllII1lI1I1I(lI1I1ll1llIl("\37\158\225\84\28\217\218\192\49\71",120),{AnchorPoint=Vector2.new(0.5,0.5),Position=l1ll1II11lII1,Size=UDim2.new(0,ll1I1I1I1I,0,ll1I1I1I1I),Text=lII1l1II1,Font=Enum.Font.GothamBold,TextSize=18,AutoButtonColor=false,BackgroundTransparency=0.15,ZIndex=3,Parent=llll11l11I1II});
+lI11ll1lIIlII(lIl1II11llIl1,lI1I1ll1llIl("\59\213\98\82\148\157\6\158\56\172\125\115\102\159\201\214",195),lI1I1ll1llIl("\7\173\193\51\29\18\5\96\53\71",90));
+lI11ll1lIIlII(lIl1II11llIl1,lI1I1ll1llIl("\18\93\182\120\89\143\231\186\235\103",235),lI1I1ll1llIl("\39\231\213\185\72\37",172));
+lIlll1ll1l1I1(lIl1II11llIl1,ll1I1I1I1I / 2);
+l111II11I.Stroke(lIl1II11llIl1);
+local l1lIIIlIllI=lllII1lI1I1I(lI1I1ll1llIl("\244\98\250\115\111\144\187",168),{Parent=lIl1II11llIl1});
+lIl1II11llIl1.InputBegan:Connect(function(lIll1Il111l1l) 
+if (lIll1Il111l1l.UserInputType == Enum.UserInputType.Touch) or (lIll1Il111l1l.UserInputType == Enum.UserInputType.MouseButton1) then 
+l111II11I.Press(l1lIIIlIllI);
+l11l11111IIIl() end end);
+
+
+lIl1II11llIl1.InputEnded:Connect(function(lII1I1I1II1ll) 
+if ((lII1I1I1II1ll.UserInputType == Enum.UserInputType.Touch) or (lII1I1I1II1ll.UserInputType == Enum.UserInputType.MouseButton1)) and l1lI1lI1llI then 
+l1lI1lI1llI() end end);
+
+
+return lIl1II11llIl1 end;
+
+local l1IlIllIl11,ll1IlIl1l=false,false;
+lI1I1II1I(lI1I1ll1llIl("\141\167\247",241),UDim2.new(1,- 60,1,- 200),58,function() l1IlIllIl11=true end,function() l1IlIllIl11=false end);
+lI1I1II1I(lI1I1ll1llIl("\88\14\58",141),UDim2.new(1,- 60,1,- 130),58,function() ll1IlIl1l=true end,function() ll1IlIl1l=false end);
+lI1I1II1I(lI1I1ll1llIl("\187\15",195),UDim2.new(1,- 130,1,- 130),50,function() l1111II1.boost=not l1111II1.boost end);
+lI1I1II1I(lI1I1ll1llIl("\36\36\219",107),UDim2.new(1,- 40,0,40),44,function() 
+if lllIIlllIIlIl.freecam then 
+lllIIlllIIlIl.freecam:Set(false) end end);
+
+
+
+local llll1IIIlI111,l1l1lIl11lII,ll1llll1II1II;
+lllIIIl11.InputBegan:Connect(function(l1l1l1Il1II1l) 
+if l1l1l1Il1II1l.UserInputType ~= Enum.UserInputType.Touch then 
 return  end;
 
-local ll1Ill1l=workspace.CurrentCamera;
-if (lII1llI1.Position.X < (ll1Ill1l.ViewportSize.X * 0.45)) and (not l1II11II11II) then 
-l1II11II11II,lI111IlIII=lII1llI1,Vector2.new(lII1llI1.Position.X,lII1llI1.Position.Y);
-l11ll1111I1.Position=UDim2.new(0,lI111IlIII.X,0,lI111IlIII.Y);
-l11ll1111I1.Visible=true elseif not l1I1lIIlII then 
+local lIll11llllI=workspace.CurrentCamera;
+if (l1l1l1Il1II1l.Position.X < (lIll11llllI.ViewportSize.X * 0.45)) and (not llll1IIIlI111) then 
+llll1IIIlI111,ll1llll1II1II=l1l1l1Il1II1l,Vector2.new(l1l1l1Il1II1l.Position.X,l1l1l1Il1II1l.Position.Y);
+llI1I1ll1.Position=UDim2.new(0,ll1llll1II1II.X,0,ll1llll1II1II.Y);
+llI1I1ll1.Visible=true elseif not l1l1lIl11lII then 
 
-l1I1lIIlII=lII1llI1 end end);
+l1l1lIl11lII=l1l1l1Il1II1l end end);
 
 
-lI11l11IIl(llIl11lIIl1I1.TouchMoved:Connect(function(lI1lllIlllllI) 
-if not l1IIlll1I11l.freecam then 
+lIl11lIIl(l1IIl1lll1l.TouchMoved:Connect(function(lll1111Il) 
+if not lll1l11Il1ll1.freecam then 
 return  end;
 
-if lI1lllIlllllI == l1II11II11II then 
-local l11I1IIIIllIl=Vector2.new(lI1lllIlllllI.Position.X,lI1lllIlllllI.Position.Y) - lI111IlIII;
-local l1l1llI111l=math.min(l11I1IIIIllIl.Magnitude,50);
-local lII1l111=((l11I1IIIIllIl.Magnitude > 0) and (l11I1IIIIllIl.Unit * l1l1llI111l)) or Vector2.zero;
-lII1lllI11l.Position=UDim2.new(0.5,lII1l111.X,0.5,lII1l111.Y);
-ll1IIllII1.stick=Vector2.new(lII1l111.X / 50,(- lII1l111.Y) / 50) elseif lI1lllIlllllI == l1I1lIIlII then 
+if lll1111Il == llll1IIIlI111 then 
+local l1IIllII=Vector2.new(lll1111Il.Position.X,lll1111Il.Position.Y) - ll1llll1II1II;
+local l1II1lIIIIl=math.min(l1IIllII.Magnitude,50);
+local lIIIIIlll=((l1IIllII.Magnitude > 0) and (l1IIllII.Unit * l1II1lIIIIl)) or Vector2.zero;
+lIlIIll11111.Position=UDim2.new(0.5,lIIIIIlll.X,0.5,lIIIIIlll.Y);
+l1111II1.stick=Vector2.new(lIIIIIlll.X / 50,(- lIIIIIlll.Y) / 50) elseif lll1111Il == l1l1lIl11lII then 
 
-local lI11l111llll=(l1IIlll1I11l.freecamSens or 5) * 0.0012;
-ll1IIllII1.tyaw=ll1IIllII1.tyaw - (lI1lllIlllllI.Delta.X * lI11l111llll);
-ll1IIllII1.tpitch=ll1IIllII1.tpitch - (lI1lllIlllllI.Delta.Y * lI11l111llll) end end));
-
-
-lI11l11IIl(llIl11lIIl1I1.TouchEnded:Connect(function(l1lIl111) 
-if l1lIl111 == l1II11II11II then 
-l1II11II11II=nil;
-ll1IIllII1.stick=Vector2.zero;
-lII1lllI11l.Position=UDim2.new(0.5,0,0.5,0);
-l11ll1111I1.Visible=false elseif l1lIl111 == l1I1lIIlII then 
-
-l1I1lIIlII=nil end end));
+local lll1lll1II=(lll1l11Il1ll1.freecamSens or 5) * 0.0012;
+l1111II1.tyaw=l1111II1.tyaw - (lll1111Il.Delta.X * lll1lll1II);
+l1111II1.tpitch=l1111II1.tpitch - (lll1111Il.Delta.Y * lll1lll1II) end end));
 
 
+lIl11lIIl(l1IIl1lll1l.TouchEnded:Connect(function(l1IlIIIlIl) 
+if l1IlIIIlIl == llll1IIIlI111 then 
+llll1IIIlI111=nil;
+l1111II1.stick=Vector2.zero;
+lIlIIll11111.Position=UDim2.new(0.5,0,0.5,0);
+llI1I1ll1.Visible=false elseif l1IlIIIlIl == l1l1lIl11lII then 
 
-local lIIl1111I11I1={Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Q,Enum.KeyCode.E,Enum.KeyCode.Space,Enum.KeyCode.LeftShift};
-function lIIllI1lI1() 
-lIII1l1l:UnbindFromRenderStep(ll11ll1lllI .. l11l1Il1lll("\98\255",58));
-pcall(llIlIll11l11I.UnbindAction,llIlIll11l11I,ll11ll1lllI .. l11l1Il1lll("\118\132",85));
-l1Il1Ill1I.Visible=false;
-l1II11II11II,l1I1lIIlII,llI1Il11I,lII1Il1IIlll1=nil,nil,false,false;
-l11ll1111I1.Visible=false;
-ll1IIllII1.pos,ll1IIllII1.stick,ll1IIllII1.vel=nil,Vector2.zero,Vector3.zero;
-local ll1111ll11l1l=workspace.CurrentCamera;
-if ll1111ll11l1l then 
-ll1111ll11l1l.CameraType=Enum.CameraType.Custom;
-if l1IIlll1I11l.fov then 
-ll1111ll11l1l.FieldOfView=l1IIlll1I11l.fov end end;
+l1l1lIl11lII=nil end end));
 
 
-llIl11lIIl1I1.MouseBehavior=Enum.MouseBehavior.Default end;
 
-local function lIIl11llIllIl() 
-local l11I1I1Il=workspace.CurrentCamera;
-if not l11I1I1Il then 
+local lI11Il1l={Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Q,Enum.KeyCode.E,Enum.KeyCode.Space,Enum.KeyCode.LeftShift};
+function l11111I1Ill1l() 
+lII1llIIIIlI:UnbindFromRenderStep(ll1IIl1IIII .. lI1I1ll1llIl("\100\171",31));
+pcall(ll111l111II.UnbindAction,ll111l111II,ll1IIl1IIII .. lI1I1ll1llIl("\71\200",40));
+llll11l11I1II.Visible=false;
+llll1IIIlI111,l1l1lIl11lII,l1IlIllIl11,ll1IlIl1l=nil,nil,false,false;
+llI1I1ll1.Visible=false;
+l1111II1.pos,l1111II1.stick,l1111II1.vel=nil,Vector2.zero,Vector3.zero;
+local lll11Il1=workspace.CurrentCamera;
+if lll11Il1 then 
+lll11Il1.CameraType=Enum.CameraType.Custom;
+if lll1l11Il1ll1.fov then 
+lll11Il1.FieldOfView=lll1l11Il1ll1.fov end end;
+
+
+l1IIl1lll1l.MouseBehavior=Enum.MouseBehavior.Default end;
+
+local function l1I11I1lI() 
+local ll11l1ll=workspace.CurrentCamera;
+if not ll11l1ll then 
 return  end;
 
-local lII1lIIIIl1I,l1IIl1lII11=l11I1I1Il.CFrame:ToEulerAnglesYXZ();
-ll1IIllII1.pitch,ll1IIllII1.yaw,ll1IIllII1.tpitch,ll1IIllII1.tyaw=lII1lIIIIl1I,l1IIl1lII11,lII1lIIIIl1I,l1IIl1lII11;
-ll1IIllII1.pos,ll1IIllII1.vel,ll1IIllII1.boost=l11I1I1Il.CFrame.Position,Vector3.zero,false;
+local l1111lll1l1l,lIl11lIIl1II=ll11l1ll.CFrame:ToEulerAnglesYXZ();
+l1111II1.pitch,l1111II1.yaw,l1111II1.tpitch,l1111II1.tyaw=l1111lll1l1l,lIl11lIIl1II,l1111lll1l1l,lIl11lIIl1II;
+l1111II1.pos,l1111II1.vel,l1111II1.boost=ll11l1ll.CFrame.Position,Vector3.zero,false;
 
-llIlIll11l11I:BindActionAtPriority(ll11ll1lllI .. l11l1Il1lll("\95\41",221),function() 
-return Enum.ContextActionResult.Sink end,false,3000,table.unpack(lIIl1111I11I1));
+ll111l111II:BindActionAtPriority(ll1IIl1IIII .. lI1I1ll1llIl("\253\212",183),function() 
+return Enum.ContextActionResult.Sink end,false,3000,table.unpack(lI11Il1l));
 
-l1Il1Ill1I.Visible=llIl11lIIl1I1.TouchEnabled;
-lIll1IIlIII11.Text=(llIl11lIIl1I1.TouchEnabled and l11l1Il1lll("\186\35\187\154\252\44\104\212\15\64\20\227\147\169\32\138\20\191\42\118\66\198\181\71\166\250\207\115\225\172\199\26\246\132\107\60\68\250\217\251\58\105\125\142\19\222\192\136\17\214\77\252\173\252\147\42\218\129",43)) or l11l1Il1lll("\153\85\94\199\81\80\83\77\204\54\218\21\94\143\122\83\30\224\242\68\175\130\217\59\249\164\63\18\156\7\162\238\218\84\0\204\36\110\121\251\37\153\151\41\126\60\194\22\77\140\148\53\213\173\234\10\138\50",79);
-lIll1IIlIII11.Visible=l1IIlll1I11l.freecamHint ~= false;
-lIII1l1l:BindToRenderStep(ll11ll1lllI .. l11l1Il1lll("\63\102",67),ll1lI111II + 1,function(lIIllI1l1I) 
-l11I1I1Il=workspace.CurrentCamera;
-if (not l11I1I1Il) or (not ll1IIllII1.pos) then 
+llll11l11I1II.Visible=l1IIl1lll1l.TouchEnabled;
+ll1l1Il11l1.Text=(l1IIl1lll1l.TouchEnabled and lI1I1ll1llIl("\246\126\85\129\211\67\156\55\64\81\38\44\52\54\207\183\24\130\196\13\45\233\97\164\201\43\29\188\70\211\232\7\250\153\197\39\43\213\109\88\117\184\143\129\116\65\239\117\221\235\227\199\130\147\71\137\245\16",196)) or lI1I1ll1llIl("\10\190\25\96\226\157\113\146\234\241\103\239\221\132\56\14\237\43\149\227\60\79\27\228\63\131\130\200\31\44\224\211\73\255\7\107\151\163\155\36\3\94\42\19\253\55\128\11\254\71\243\146\6\96\40\213\140\213",217);
+ll1l1Il11l1.Visible=lll1l11Il1ll1.freecamHint ~= false;
+lII1llIIIIlI:BindToRenderStep(ll1IIl1IIII .. lI1I1ll1llIl("\205\228",135),l1lIllll1lI + 1,function(ll1lIl11II1Il) 
+ll11l1ll=workspace.CurrentCamera;
+if (not ll11l1ll) or (not l1111II1.pos) then 
 return  end;
 
-l11I1I1Il.CameraType=Enum.CameraType.Scriptable;
-if llIl11lIIl1I1:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then 
-llIl11lIIl1I1.MouseBehavior=Enum.MouseBehavior.LockCurrentPosition;
-local lI1111llI=llIl11lIIl1I1:GetMouseDelta();
-local l1llll11=(l1IIlll1I11l.freecamSens or 5) * 0.0009;
-ll1IIllII1.tyaw=ll1IIllII1.tyaw - (lI1111llI.X * l1llll11);
-ll1IIllII1.tpitch=ll1IIllII1.tpitch - (lI1111llI.Y * l1llll11) elseif not llIl11lIIl1I1.TouchEnabled then 
+ll11l1ll.CameraType=Enum.CameraType.Scriptable;
+if l1IIl1lll1l:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then 
+l1IIl1lll1l.MouseBehavior=Enum.MouseBehavior.LockCurrentPosition;
+local l11IllI1I1=l1IIl1lll1l:GetMouseDelta();
+local lI1l1I1l=(lll1l11Il1ll1.freecamSens or 5) * 0.0009;
+l1111II1.tyaw=l1111II1.tyaw - (l11IllI1I1.X * lI1l1I1l);
+l1111II1.tpitch=l1111II1.tpitch - (l11IllI1I1.Y * lI1l1I1l) elseif not l1IIl1lll1l.TouchEnabled then 
 
-llIl11lIIl1I1.MouseBehavior=Enum.MouseBehavior.Default end;
+l1IIl1lll1l.MouseBehavior=Enum.MouseBehavior.Default end;
 
-ll1IIllII1.tpitch=math.clamp(ll1IIllII1.tpitch,- 1.5,1.5);
+l1111II1.tpitch=math.clamp(l1111II1.tpitch,- 1.5,1.5);
 
-local llI11IllIl=l1IIlll1I11l.freecamSmooth or 4;
-local llllIlI1=((llI11IllIl <= 0) and 1) or (1 - math.exp((- lIIllI1l1I) * (32 / llI11IllIl)));
-ll1IIllII1.yaw=ll1IIllII1.yaw + ((ll1IIllII1.tyaw - ll1IIllII1.yaw) * llllIlI1);
-ll1IIllII1.pitch=ll1IIllII1.pitch + ((ll1IIllII1.tpitch - ll1IIllII1.pitch) * llllIlI1);
-local lIIIlllI1lIII=CFrame.fromEulerAnglesYXZ(ll1IIllII1.pitch,ll1IIllII1.yaw,0);
-local function l1IllIl1l1(ll1IIII111) 
-return (llIl11lIIl1I1:IsKeyDown(ll1IIII111) and 1) or 0 end;
+local l11lIl1I=lll1l11Il1ll1.freecamSmooth or 4;
+local lIlIl1II1l=((l11lIl1I <= 0) and 1) or (1 - math.exp((- ll1lIl11II1Il) * (32 / l11lIl1I)));
+l1111II1.yaw=l1111II1.yaw + ((l1111II1.tyaw - l1111II1.yaw) * lIlIl1II1l);
+l1111II1.pitch=l1111II1.pitch + ((l1111II1.tpitch - l1111II1.pitch) * lIlIl1II1l);
+local lIll11I11ll=CFrame.fromEulerAnglesYXZ(l1111II1.pitch,l1111II1.yaw,0);
+local function ll11IlIIl1(lI11ll1ll11) 
+return (l1IIl1lll1l:IsKeyDown(lI11ll1ll11) and 1) or 0 end;
 
-local lIIl11I1lIl1I=(ll1IIllII1.stick.Y + l1IllIl1l1(Enum.KeyCode.W)) - l1IllIl1l1(Enum.KeyCode.S);
-local llI11llIl11l1=(ll1IIllII1.stick.X + l1IllIl1l1(Enum.KeyCode.D)) - l1IllIl1l1(Enum.KeyCode.A);
-local llllll1lIlIll=(((l1IllIl1l1(Enum.KeyCode.E) + l1IllIl1l1(Enum.KeyCode.Space)) - l1IllIl1l1(Enum.KeyCode.Q)) + ((llI1Il11I and 1) or 0)) - ((lII1Il1IIlll1 and 1) or 0);
-local llllll1lllIII=((lIIIlllI1lIII.LookVector * lIIl11I1lIl1I) + (lIIIlllI1lIII.RightVector * llI11llIl11l1)) + Vector3.new(0,llllll1lIlIll,0);
-if llllll1lllIII.Magnitude > 1 then 
-llllll1lllIII=llllll1lllIII.Unit end;
+local llII11I1=(l1111II1.stick.Y + ll11IlIIl1(Enum.KeyCode.W)) - ll11IlIIl1(Enum.KeyCode.S);
+local l11ll1I1lI1I=(l1111II1.stick.X + ll11IlIIl1(Enum.KeyCode.D)) - ll11IlIIl1(Enum.KeyCode.A);
+local llIlllII111=(((ll11IlIIl1(Enum.KeyCode.E) + ll11IlIIl1(Enum.KeyCode.Space)) - ll11IlIIl1(Enum.KeyCode.Q)) + ((l1IlIllIl11 and 1) or 0)) - ((ll1IlIl1l and 1) or 0);
+local llIl1I1lIlll=((lIll11I11ll.LookVector * llII11I1) + (lIll11I11ll.RightVector * l11ll1I1lI1I)) + Vector3.new(0,llIlllII111,0);
+if llIl1I1lIlll.Magnitude > 1 then 
+llIl1I1lIlll=llIl1I1lIlll.Unit end;
 
-local lIll11I11=l1IIlll1I11l.freecamSpeed * (((ll1IIllII1.boost or llIl11lIIl1I1:IsKeyDown(Enum.KeyCode.LeftShift)) and 3) or 1);
-ll1IIllII1.vel=ll1IIllII1.vel:Lerp(llllll1lllIII * lIll11I11,llllIlI1);
-ll1IIllII1.pos=ll1IIllII1.pos + (ll1IIllII1.vel * lIIllI1l1I);
-l11I1I1Il.CFrame=CFrame.new(ll1IIllII1.pos) * lIIIlllI1lIII end) end;
-
-
-
-l1I1l1llI:Toggle({Name=l11l1Il1lll("\63\120\79\149\138\70\176",157),Description=(llII1lIlIll1l and l11l1Il1lll("\131\149\83\182\31\234\247\181\115\239\85\22\62\163\132\124\30\73\221\192\111\126\34\36\141\89\211\223\127\144\93\192\139\248\62\87\255\10\80\26\73\204\44\122\243\27\175\127\48\166\24\49\223\109\27\138\57\188\188\229\64\173\57\161",110)) or l11l1Il1lll("\179\133\67\70\239\250\231\165\67\223\69\6\78\211\148\116\33\7\218\147\38\203\230\149\248\15\172\254\115\152\32\243\226\173\105\107\201\91\74\69\184\32\121\38\216\43\244\47\111\91\149\191\13\152\255\243\59\183\76\16\83\166\68\128\192\193\11\7",94),Flag=l11l1Il1lll("\111\196\221\103\253\95\216",39),Keybind=Enum.KeyCode.G,Callback=function(llI1l1II1l1Il) 
+local llIIIl1l=lll1l11Il1ll1.freecamSpeed * (((l1111II1.boost or l1IIl1lll1l:IsKeyDown(Enum.KeyCode.LeftShift)) and 3) or 1);
+l1111II1.vel=l1111II1.vel:Lerp(llIl1I1lIlll * llIIIl1l,lIlIl1II1l);
+l1111II1.pos=l1111II1.pos + (l1111II1.vel * ll1lIl11II1Il);
+ll11l1ll.CFrame=CFrame.new(l1111II1.pos) * lIll11I11ll end) end;
 
 
 
-
-
-if llI1l1II1l1Il then 
-if l1IIlll1I11l.fly and l1llllI1lll1l.fly then 
-l1llllI1lll1l.fly:Set(false) end;
-
-lIIl11llIllIl() else 
-
-lIIllI1lI1() end end});
-
-
-
-l1I1l1llI:Slider({Name=l11l1Il1lll("\163\97\58\55\198\106\217\158\119\236\89\206\156",2),Flag=l11l1Il1lll("\70\102\187\150\46\202\154\169\13\134\41\50",142),Min=5,Max=200,Default=40});
-l1I1l1llI:Slider({Name=l11l1Il1lll("\146\75\82\248\65\190\169\69\202\111\92\251\24\167\81\31",95),Flag=l11l1Il1lll("\178\44\223\127\242\179\111\155\164\17\246",89),Min=1,Max=10,Default=5});
-l1I1l1llI:Slider({Name=l11l1Il1lll("\119\227\5\165\85\10\60\253\194\124",169),Description=l11l1Il1lll("\160\162\65\179\112\166\242\203\118\118\199\59\63\6\224\111\192\155\203\112\134\19\99\73\134\158\121\190\237\242\65\172\25\12\173\77\17\155\213\251",8),Flag=l11l1Il1lll("\54\246\43\38\158\90\10\57\224\124\179\178\4",254),Min=0,Max=10,Default=4});
-l1I1l1llI:Toggle({Name=l11l1Il1lll("\135\68\227\108\136\239\57\37\177\65\16\30\246\75\188\183\10\200",234),Flag=l11l1Il1lll("\103\205\32\76\75\174\56\82\109\192\62",81),Default=true,Callback=function(llIllI11) 
-lIll1IIlIII11.Visible=llIllI11 end});
-
-l1I1l1llI:Button({Name=l11l1Il1lll("\119\177\198\204\50\251\9\235\20\184\3\219\252\196\19\75\198\50\114\119\151\42",210),Description=l11l1Il1lll("\141\155\72\182\30\171\174\181\104\241\12\85\148\117\214\82\19\16\203\209\61\111\40\106\218\91\217\212\105\196\64\203\133\244\120\65\232\14\84\91\80\131\101\101\176\84\179\58\100\44\174\250\82\142\213\138\57\161\253\240\73\168\116\174\229\192\22\124\201",110),Action=l11l1Il1lll("\209\73",75),Callback=function() 
+lII1I1I111Ill:Toggle({Name=lI1I1ll1llIl("\28\137\182\112\42\162\60",36),Description=(lIIIlllIl1l and lI1I1ll1llIl("\189\232\186\250\32\130\251\2\47\167\48\208\108\235\94\43\0\52\52\76\144\22\46\243\145\81\182\25\109\152\135\151\117\69\23\219\0\162\156\45\85\196\9\252\225\19\53\104\174\27\49\125\224\197\215\157\229\116\153\99\18\229\163\182",16)) or lI1I1ll1llIl("\86\221\191\77\88\81\250\202\229\159\87\167\125\254\69\160\36\127\6\152\177\160\27\26\62\47\158\127\64\149\177\71\135\53\85\160\126\48\151\234\158\224\43\199\171\6\101\187\42\163\201\116\90\51\2\124\61\87\254\17\32\235\149\52\165\25\119\140",10),Flag=lI1I1ll1llIl("\188\9\54\240\170\34\188",164),Keybind=Enum.KeyCode.G,Callback=function(lIlI1lI1II11) 
 
 
 
 
-local l1lllI11I1=ll1IIllII1.pos;
-if not l1lllI11I1 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\34\188\79\239\130\195\255",233),Content=l11l1Il1lll("\84\130\15\172\204\57\220\34\255\88\111\181\170\38\208\193\145\105\137\114\58\138\123\178\122\53\23\37\46\159\104\35\5\183\123\203\190\5\230\12",69),Type=l11l1Il1lll("\49\185\242\175",44)});
+
+if lIlI1lI1II11 then 
+if lll1l11Il1ll1.fly and lllIIlllIIlIl.fly then 
+lllIIlllIIlIl.fly:Set(false) end;
+
+l1I11I1lI() else 
+
+l11111I1Ill1l() end end});
+
+
+
+lII1I1I111Ill:Slider({Name=lI1I1ll1llIl("\173\225\43\130\188\8\40\247\54\188\199\61\30",34),Flag=lI1I1ll1llIl("\189\133\228\118\221\177\123\119\66\189\198\233",247),Min=5,Max=200,Default=40});
+lII1I1I111Ill:Slider({Name=lI1I1ll1llIl("\139\110\82\212\125\151\255\14\33\17\246\132\197\82\130\38",38),Flag=lI1I1ll1llIl("\63\230\68\124\176\110\228\88\211\134\109",227),Min=1,Max=10,Default=5});
+lII1I1I111Ill:Slider({Name=lI1I1ll1llIl("\73\85\73\195\163\241\131\69\198\254",45),Description=lI1I1ll1llIl("\70\8\183\143\202\121\245\182\221\5\159\189\47\31\136\107\198\241\29\76\28\236\132\212\77\141\97\24\221\203\9\200\127\102\155\177\171\68\18\70",219),Flag=lI1I1ll1llIl("\148\106\135\232\176\250\59\172\186\126\34\187\37",254),Min=0,Max=10,Default=4});
+lII1I1I111Ill:Toggle({Name=lI1I1ll1llIl("\177\128\125\234\227\200\9\161\179\115\82\211\46\196\242\9\60\12",238),Flag=lI1I1ll1llIl("\96\150\179\153\101\16\82\15\19\181\135",204),Default=true,Callback=function(lII11IlI) 
+ll1l1Il11l1.Visible=lII11IlI end});
+
+lII1I1I111Ill:Button({Name=lI1I1ll1llIl("\163\25\128\62\169\28\115\97\238\205\136\175\54\251\206\93\50\186\20\165\204\45",232),Description=lI1I1ll1llIl("\36\203\71\108\176\223\0\116\211\170\14\79\82\161\217\148\154\64\228\203\83\27\134\75\161\32\219\238\239\80\79\13\108\228\119\91\134\186\58\154\43\24\167\127\54\192\252\188\237\60\193\160\124\58\187\107\130\218\63\10\15\252\59\40\76\144\25\38\231",211),Action=lI1I1ll1llIl("\85\151",15),Callback=function() 
+
+
+
+
+local llIIl1lIlI1I1=l1111II1.pos;
+if not llIIl1lIlI1I1 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\20\202\166\200\178\109\196",79),Content=lI1I1ll1llIl("\214\253\0\83\67\100\168\79\65\147\184\58\158\37\87\224\147\118\134\173\181\247\47\223\164\126\32\170\58\156\207\34\7\72\244\116\49\88\146\97",142),Type=lI1I1ll1llIl("\43\38\212\146",78)});
 return  end;
 
-l1llllI1lll1l.freecam:Set(false);
-l1IlI1Illl(l1lllI11I1 - Vector3.new(0,3,0)) end});
+lllIIlllIIlIl.freecam:Set(false);
+llI11I1IIII(llIIl1lIlI1I1 - Vector3.new(0,3,0)) end});
 
 
-lI11I1l1(l11l1Il1lll("\249\153\112",84),UDim2.new(1,- 130,1,- 200),50,function() 
-local l1Ill11IllI1=ll1IIllII1.pos;
-if l1Ill11IllI1 then 
-l1llllI1lll1l.freecam:Set(false);
-l1IlI1Illl(l1Ill11IllI1 - Vector3.new(0,3,0)) end end);
-
-
-
+lI1I1II1I(lI1I1ll1llIl("\67\172\0",168),UDim2.new(1,- 130,1,- 200),50,function() 
+local llIIllIl1=l1111II1.pos;
+if llIIllIl1 then 
+lllIIlllIIlIl.freecam:Set(false);
+llI11I1IIII(llIIllIl1 - Vector3.new(0,3,0)) end end);
 
 
 
 
 
-local ll1IlII1l=lll1l1lII111I:Section(l11l1Il1lll("\112\148\53\185\252\156\118\126\199\48\64\76",26));
-local lllIl11I1;
-local function lIlI1I1lI1II1() 
-if not lllIl11I1 then 
-lllIl11I1={mode=lllI1llI.CameraMode,min=lllI1llI.CameraMinZoomDistance,max=lllI1llI.CameraMaxZoomDistance} end end;
-
-
-local function l1Illl1Il() 
-if lllIl11I1 then 
-lllI1llI.CameraMode=lllIl11I1.mode;
-lllI1llI.CameraMinZoomDistance=lllIl11I1.min;
-lllI1llI.CameraMaxZoomDistance=(l1IIlll1I11l.unlockZoom and 2000) or lllIl11I1.max;
-lllIl11I1=nil end end;
-
-
-ll1IlII1l:Toggle({Name=l11l1Il1lll("\212\232\75\156\198\150\53\71\249\240\76\224\32\170\238\203\109\121",208),Description=l11l1Il1lll("\167\93\241\110\42\29\102\52\155\111\22\66\87\172\132\136\27\254\12\221\161\158\69\95\72\227\186\160\86\228\90\30\227\125\209\78\11\114\134\239\103\154\111\17\221\84\241\194\112\137\62\251\129\170\54\72\233\18\76\65\172\200\52\122\203\25\175\37\63\72\166\248\93\162\193\197\48\251\5\224\77\184\4\146\230\203",218),Flag=l11l1Il1lll("\236\127\61\242\46\15\148\117\24\1\231",236),Callback=function(lIlI1llI1lI) 
 
 
 
-
-if lIlI1llI1lI then 
-lIlI1I1lI1II1() else 
-
-l1Illl1Il() end end});
-
-
-
-ll1IlII1l:Segmented({Name=l11l1Il1lll("\138\76\84\225\5\237\188\78\203\117\71\252\78\189\81\31\34\241",95),Flag=l11l1Il1lll("\129\115\34\13\241\126",18),Options={l11l1Il1lll("\26\6\43\227\250\110\158",189),l11l1Il1lll("\19\58\183\69\236\123\201\250",216)},Default=l11l1Il1lll("\146\3\244\170\171\118\230",129),Callback=function() 
-if l1IIlll1I11l.thirdPerson then 
-l1Illl1Il();
-lIlI1I1lI1II1() end end});
+local ll1IIIIIlI11I=llIlII1l11I:Section(lI1I1ll1llIl("\57\135\51\70\86\32\126\145\205\146\250\38",233));
+local ll1llIIIlIl;
+local function ll1l1l1IIlll1() 
+if not ll1llIIIlIl then 
+ll1llIIIlIl={mode=ll1lI1IIII1.CameraMode,min=ll1lI1IIII1.CameraMinZoomDistance,max=ll1lI1IIII1.CameraMaxZoomDistance} end end;
 
 
-ll1IlII1l:Slider({Name=l11l1Il1lll("\58\45\46\135\96\3\15\238",255),Flag=l11l1Il1lll("\221\138\158\73\74\227\12\95\163\82",77),Min=4,Max=30,Default=12,Suffix=l11l1Il1lll("\125\176\24\3\88\167",230)});
-ll1IlII1l:Slider({Name=l11l1Il1lll("\39\86\181\15\157\214\199\26\65\176\67\111\123\138\1",249),Flag=l11l1Il1lll("\164\178\59\232\127\250\176\156\167\165",72),Min=0,Max=5,Increment=0.5,Default=2,Suffix=l11l1Il1lll("\121\118\96\150\21\141",67)});
-local lIl11IlII;
-ll1IlII1l:Toggle({Name=l11l1Il1lll("\166\120\239\65\41\214\116\203\75\57\30\144\217\130\111\50\63\201",165),Description=l11l1Il1lll("\138\23\21\167\172\31\213\217\240\8\4\243\227\186\44\167\22\165\131\33\142\122\13\67\46\183\172\46\212\143\157\91\128\56\120\132\87\236\102\34\94\52\56\129\114\2\2\171\112\200\232\19\224\87\165\161\143\89\72",231),Flag=l11l1Il1lll("\163\90\13\1\241\59\177\172\23\211\114",34),Callback=function(lIllIIl1lll) 
+local function lI1ll11ll() 
+if ll1llIIIlIl then 
+ll1lI1IIII1.CameraMode=ll1llIIIlIl.mode;
+ll1lI1IIII1.CameraMinZoomDistance=ll1llIIIlIl.min;
+ll1lI1IIII1.CameraMaxZoomDistance=(lll1l11Il1ll1.unlockZoom and 2000) or ll1llIIIlIl.max;
+ll1llIIIlIl=nil end end;
+
+
+ll1IIIIIlI11I:Toggle({Name=lI1I1ll1llIl("\184\230\165\252\55\195\175\5\40\185\45\208\222\57\12\23\1\119",16),Description=lI1I1ll1llIl("\1\41\223\152\209\170\38\192\9\205\228\63\127\179\90\198\221\170\2\43\122\41\229\75\58\161\104\253\126\219\132\48\69\73\191\184\240\197\6\219\245\56\93\172\245\75\47\204\246\221\48\13\26\29\150\92\91\144\158\28\132\55\234\84\109\109\129\211\196\255\102\140\207\0\51\184\24\228\219\46\11\236\10\100\61\124",78),Flag=lI1I1ll1llIl("\166\80\42\95\53\220\76\147\88\104\255",207),Callback=function(ll11I1Il) 
 
 
 
 
-if lIllIIl1lll then 
-if l1IIlll1I11l.thirdPerson then 
-l1llllI1lll1l.thirdPerson:Set(false) end;
+if ll11I1Il then 
+ll1l1l1IIlll1() else 
 
-lIl11IlII=lIl11IlII or lllI1llI.CameraMode;
-lllI1llI.CameraMode=Enum.CameraMode.LockFirstPerson elseif lIl11IlII then 
-
-lllI1llI.CameraMode=lIl11IlII;
-lIl11IlII=nil end end});
+lI1ll11ll() end end});
 
 
 
-llIIIIII1:OnUnload(function() 
-if lIl11IlII then 
-lllI1llI.CameraMode=lIl11IlII end end);
+ll1IIIIIlI11I:Segmented({Name=lI1I1ll1llIl("\70\80\171\223\151\219\70\250\197\2\2\129\77\167\62\201\238\237",30),Flag=lI1I1ll1llIl("\182\120\62\82\37\25",223),Options={lI1I1ll1llIl("\253\165\246\172\97\202\248",80),lI1I1ll1llIl("\113\192\188\232\141\120\220\227",63)},Default=lI1I1ll1llIl("\92\45\84\155\62\44\228",129),Callback=function() 
+if lll1l11Il1ll1.thirdPerson then 
+lI1ll11ll();
+ll1l1l1IIlll1() end end});
+
+
+ll1IIIIIlI11I:Slider({Name=lI1I1ll1llIl("\82\189\149\152\119\15\172\210",220),Flag=lI1I1ll1llIl("\191\195\42\174\140\125\68\217\70\137",2),Min=4,Max=30,Default=12,Suffix=lI1I1ll1llIl("\226\187\70\8\71\56",206)});
+ll1IIIIIlI11I:Slider({Name=lI1I1ll1llIl("\106\156\46\12\223\203\76\217\54\103\152\186\185\85\15",131),Flag=lI1I1ll1llIl("\241\205\28\11\154\18\190\40\223\234",85),Min=0,Max=5,Increment=0.5,Default=2,Suffix=lI1I1ll1llIl("\214\7\50\57\210\178",60)});
+local lIllIllIlI1;
+ll1IIIIIlI11I:Toggle({Name=lI1I1ll1llIl("\96\55\220\207\223\96\77\28\11\199\117\25\131\138\27\152\57\166",139),Description=lI1I1ll1llIl("\65\169\222\152\243\93\185\222\21\59\152\83\28\7\150\200\253\27\104\30\49\184\1\68\203\164\48\174\43\82\167\212\139\134\179\187\200\46\138\165\59\71\164\33\141\255\56\68\27\246\195\44\95\149\105\38\234\202\84",31),Flag=lI1I1ll1llIl("\19\181\192\59\254\192\31\119\24\124\160",106),Callback=function(l11III11) 
+
+
+
+
+if l11III11 then 
+if lll1l11Il1ll1.thirdPerson then 
+lllIIlllIIlIl.thirdPerson:Set(false) end;
+
+lIllIllIlI1=lIllIllIlI1 or ll1lI1IIII1.CameraMode;
+ll1lI1IIII1.CameraMode=Enum.CameraMode.LockFirstPerson elseif lIllIllIlI1 then 
+
+ll1lI1IIII1.CameraMode=lIllIllIlI1;
+lIllIllIlI1=nil end end});
+
+
+
+l111II11I:OnUnload(function() 
+if lIllIllIlI1 then 
+ll1lI1IIII1.CameraMode=lIllIllIlI1 end end);
 
 
 
 
 
-local ll111IIlI1=lll1l1lII111I:Section(l11l1Il1lll("\232\199\39\178\245\235\68\161\11",228));
-ll111IIlI1:Toggle({Name=l11l1Il1lll("\235\14\190\34\108\28\229\250\88\166\221\195",154),Description=l11l1Il1lll("\61\37\48\150\115\12\76\228\119\202\177\82\76\153\165\133\135\70\78\15\244\174\252\122\251\89\77\236\122\158\76\25\43\138\157\84\147\40\45\223\25\224\199\96\206\45\201\143\190\103",255),Flag=l11l1Il1lll("\185\20\159\231\210",11)});
-ll111IIlI1:Slider({Name=l11l1Il1lll("\46\173\71\96\124\207\6\138\129\43\206",49),Flag=l11l1Il1lll("\146\17\174\191\40\231\116\246\181\96",70),Min=1,Max=30,Default=6});
-ll111IIlI1:Slider({Name=l11l1Il1lll("\139\28\232\67\245\226\150\81\162\27\244\183\187\122",73),Flag=l11l1Il1lll("\203\124\136\35\213\166\187\107\69\238\27\90\93",41),Min=6,Max=60,Default=18,Suffix=l11l1Il1lll("\64\228\105\215\168\5",37)});
-ll111IIlI1:Slider({Name=l11l1Il1lll("\38\72\120\137\141\119\197\148\233\16\149\54",141),Flag=l11l1Il1lll("\41\164\47\119\66\180\240\66\174\253\208",155),Min=- 10,Max=30,Default=5,Suffix=l11l1Il1lll("\68\207\104\254\188\143",90)});
-local lI1I1Ill11I1=lI11IIlIIIllI(l11l1Il1lll("\118\86\143\142\56",158),{Size=UDim2.new(1,0,0,0),BackgroundColor3=Color3.new(0,0,0),BorderSizePixel=0,ZIndex=0,Visible=false,Parent=llIIIIII1.Gui});
-local l1I11II1ll11=lI11IIlIIIllI(l11l1Il1lll("\163\97\62\63\192",2),{AnchorPoint=Vector2.new(0,1),Position=UDim2.new(0,0,1,0),Size=UDim2.new(1,0,0,0),BackgroundColor3=Color3.new(0,0,0),BorderSizePixel=0,ZIndex=0,Visible=false,Parent=llIIIIII1.Gui});
-local function lIIIIl1IIll() 
-local llIl11II11=(l1IIlll1I11l.barSize or 12) / 100;
-for llIII1III1I11,lIlll1l1 in ipairs({lI1I1Ill11I1,l1I11II1ll11}) do 
-lIlll1l1.Visible=l1IIlll1I11l.cinemaBars == true;
-llIIIIII1.Tween(lIlll1l1,nil,{Size=UDim2.new(1,0,(l1IIlll1I11l.cinemaBars and llIl11II11) or 0,0)}) end end;
+local ll1lIIII1l=llIlII1l11I:Section(lI1I1ll1llIl("\225\193\60\56\110\10\210\102\100",174));
+ll1lIIII1l:Toggle({Name=lI1I1ll1llIl("\68\1\204\110\75\233\134\22\136\201\176\89",194),Description=lI1I1ll1llIl("\225\201\63\56\113\10\134\96\105\173\132\95\223\19\250\99\123\74\161\193\150\136\22\254\197\30\24\129\9\244\51\223\247\166\82\122\17\110\167\27\7\135\178\45\221\39\86\169\130\107",174),Flag=lI1I1ll1llIl("\106\79\173\138\1",213)});
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\146\13\168\205\54\80\237\20\106\52\65",89),Flag=lI1I1ll1llIl("\130\29\184\221\198\211\254\17\90\5",105),Min=1,Max=30,Default=6});
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\198\54\243\192\23\127\189\18\181\204\47\226\249\5",51),Flag=lI1I1ll1llIl("\249\250\28\53\62\244\146\214\189\101\63\10\198",59),Min=6,Max=60,Default=18,Suffix=lI1I1ll1llIl("\255\242\129\93\233\246",65)});
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\58\174\208\33\254\176\18\96\2\116\166\19",106),Flag=lI1I1ll1llIl("\212\229\67\218\106\56\147\173\181\80\55",151),Min=- 10,Max=30,Default=5,Suffix=lI1I1ll1llIl("\90\168\135\64\77\208",4)});
+local l1lI111ll=lllII1lI1I1I(lI1I1ll1llIl("\96\182\151\113\131",236),{Size=UDim2.new(1,0,0,0),BackgroundColor3=Color3.new(0,0,0),BorderSizePixel=0,ZIndex=0,Visible=false,Parent=l111II11I.Gui});
+local lllI11l1Il1l=lllII1lI1I1I(lI1I1ll1llIl("\72\11\70\34\231",224),{AnchorPoint=Vector2.new(0,1),Position=UDim2.new(0,0,1,0),Size=UDim2.new(1,0,0,0),BackgroundColor3=Color3.new(0,0,0),BorderSizePixel=0,ZIndex=0,Visible=false,Parent=l111II11I.Gui});
+local function ll11lIll() 
+local llI11lllIlI=(lll1l11Il1ll1.barSize or 12) / 100;
+for l111III1,l1lllIll in ipairs({l1lI111ll,lllI11l1Il1l}) do 
+l1lllIll.Visible=lll1l11Il1ll1.cinemaBars == true;
+l111II11I.Tween(l1lllIll,nil,{Size=UDim2.new(1,0,(lll1l11Il1ll1.cinemaBars and llI11lllIlI) or 0,0)}) end end;
 
 
-ll111IIlI1:Toggle({Name=l11l1Il1lll("\71\199\36\143\44\99\70\145\242\15\183\248\234\44",137),Description=l11l1Il1lll("\154\228\249\6\131\31\64\165\72\26\148\158\84\235\85\134\70\3\109\150\76\189\164\35\218\99\189\76\106\173\166\16\153\135\149\113\226",195),Flag=l11l1Il1lll("\163\94\211\103\65\247\48\163\43\25",133),Callback=lIIIIl1IIll});
-ll111IIlI1:Slider({Name=l11l1Il1lll("\31\162\30\86\79\189\30\150",230),Flag=l11l1Il1lll("\135\114\45\1\204\113\209",2),Min=4,Max=25,Default=12,Suffix=l11l1Il1lll("\173",252),Callback=lIIIIl1IIll});
-ll111IIlI1:Slider({Name=l11l1Il1lll("\254\66\225\243\110\149\100\167\249\168\122",6),Description=l11l1Il1lll("\173\85\64\6\227\188\252\116\231\90\65\162\220\9\21\50\43\208\222\123\193\44\34\204\85\227\136\116\129\60\133\130\188\117\96\226\5\84\95\27\218\126\119\214\13",111),Flag=l11l1Il1lll("\94\194\97\66\245\24\176",134),Min=- 30,Max=30,Default=0,Suffix=l11l1Il1lll("\98\231",229)});
+ll1lIIII1l:Toggle({Name=lI1I1ll1llIl("\158\22\164\193\47\17\234\13\108\113\71\185\15\38",89),Description=lI1I1ll1llIl("\137\10\78\128\171\50\225\39\72\168\143\60\36\38\255\234\53\141\186\112\100\176\37\129\250\49\70\14\250\128\44\92\202\41\34\247\202",180),Flag=lI1I1ll1llIl("\137\129\152\121\10\168\255\17\183\142",221),Callback=ll11lIll});
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\59\213\115\25\128\134\19\142",195),Flag=lI1I1ll1llIl("\181\112\63\156\36\142\207",54),Min=4,Max=25,Default=12,Suffix=lI1I1ll1llIl("\138",49),Callback=ll11lIll});
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\97\73\191\184\241\138\6\251\238\45\9",46),Description=lI1I1ll1llIl("\36\192\240\122\207\101\90\239\220\180\91\109\209\236\182\123\98\165\110\231\45\213\132\119\78\77\242\187\236\153\6\235\245\32\16\158\233\77\57\128\225\208\45\89\0",134),Flag=lI1I1ll1llIl("\69\165\155\72\143\253\171",236),Min=- 30,Max=30,Default=0,Suffix=lI1I1ll1llIl("\248\168",13)});
 
-local l1IlIll1;
+local lIlllIlll1111;
 pcall(function() 
-l1IlIll1=UserSettings():GetService(l11l1Il1lll("\126\93\172\37\95\107\221\45\187\34\112\68\147\129\70\164",100)) end);
+lIlllIlll1111=UserSettings():GetService(lI1I1ll1llIl("\242\18\56\173\58\165\215\37\33\253\22\121\58\117\177\12",70)) end);
 
-local ll11111I1II1=l1IlIll1 and l1IlIll1.MouseSensitivity;
-if l1IlIll1 then 
-ll111IIlI1:Slider({Name=l11l1Il1lll("\103\157\49\174\234\221\38\104\208\45\92\75\161\50\146\103\192\53",26),Description=l11l1Il1lll("\40\248\106\130\170\23\225\86\153\190\130\85\9\4\252\172\181\85\236\18\72\243\16\220\90\90\45\200\220\121\205\200\47\194\29\230\222\119\149\98\182\152\234\125\102\241\24\1\68\175\200\50\113\201\55\161\44",37),Flag=l11l1Il1lll("\248\255\52\148\13\20\179",212),Min=10,Max=400,Default=math.floor((ll11111I1II1 or 1) * 100),Increment=5,Suffix=l11l1Il1lll("\109",60),Callback=function(ll1I1IlIl11) 
-
-
+local lI1l1111=lIlllIlll1111 and lIlllIlll1111.MouseSensitivity;
+if lIlllIlll1111 then 
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\196\32\16\154\239\69\122\211\247\214\49\68\7\18\192\118\67\136",102),Description=lI1I1ll1llIl("\242\116\68\213\143\2\130\44\22\64\110\105\214\226\142\250\47\153\194\69\45\166\51\166\213\100\1\244\3\127\127\94\181\14\115\241\187\34\182\88\121\166\198\129\121\23\170\151\30\163\166\37\84\220\84\155\227",196),Flag=lI1I1ll1llIl("\194\74\196\67\107\146\173",168),Min=10,Max=400,Default=math.floor((lI1l1111 or 1) * 100),Increment=5,Suffix=lI1I1ll1llIl("\111",52),Callback=function(lI1lIIl1l) 
 
 
 
@@ -5327,303 +5329,305 @@ ll111IIlI1:Slider({Name=l11l1Il1lll("\103\157\49\174\234\221\38\104\208\45\92\75
 
 
 
-l1IlIll1.MouseSensitivity=ll1I1IlIl11 / 100 end}) end;
+
+
+lIlllIlll1111.MouseSensitivity=lI1lIIl1l / 100 end}) end;
 
 
 
-llIIIIII1:OnUnload(function() 
-if l1IlIll1 and ll11111I1II1 then 
-l1IlIll1.MouseSensitivity=ll11111I1II1 end end);
+l111II11I:OnUnload(function() 
+if lIlllIlll1111 and lI1l1111 then 
+lIlllIlll1111.MouseSensitivity=lI1l1111 end end);
 
 
 
-ll111IIlI1:Toggle({Name=l11l1Il1lll("\146\57\189\179\210\19\98\197\105\99\77\182\54",27),Description=l11l1Il1lll("\7\143\103\207\115\35\82\215\63\131\108\121\154\40\37\232\221\12\254\29\194\223\135\81\68\191\19\160\173\88\149\73\80\252\11\163\70\10\38\184\213\96\130\215\152\208\75\170\237\113\143\116\241\213\176\109\96\203\101\79\71\189\117\117\102\204\35\143\50\34\83\150\245\15\184\248\226\58\182",201),Flag=l11l1Il1lll("\242\121\253\154\153\75\187",91)});
-ll111IIlI1:Slider({Name=l11l1Il1lll("\208\65\186\71\165\237\197\22\49\199\48\112\127\183\49",9),Flag=l11l1Il1lll("\68\77\248\36\223\88\18\16\199\222\110\135\199",168),Min=15,Max=150,Default=50,Suffix=l11l1Il1lll("\230\37\185\235\210\15",27)});
-local ll1lllll1lI=0;
+ll1lIIII1l:Toggle({Name=lI1I1ll1llIl("\58\118\55\2\134\28\60\243\145\77\176\5\105",128),Description=lI1I1ll1llIl("\53\149\171\169\68\32\15\56\228\71\154\5\219\36\33\202\143\118\82\123\213\252\250\158\127\155\229\60\236\116\177\75\34\230\199\197\49\73\123\87\206\100\116\171\217\28\143\136\191\75\99\18\230\246\141\226\91\239\147\19\6\145\81\183\212\214\239\233\5\33\14\121\174\75\78\132\163\54\178",188),Flag=lI1I1ll1llIl("\35\254\189\11\162\3\68",182)});
+ll1lIIII1l:Slider({Name=lI1I1ll1llIl("\47\108\206\58\75\150\162\9\213\52\87\161\109\120\142",178),Flag=lI1I1ll1llIl("\82\171\134\88\137\230\177\239\63\146\180\125\61",236),Min=15,Max=150,Default=50,Suffix=lI1I1ll1llIl("\14\42\115\26\198\64",192)});
+local l1lII1lII=0;
 
-local l1II1Illl=lll1l1lII111I:Section(l11l1Il1lll("\194\239\86\139\204\150\44\64\244\231",208));
-local ll1I1l11l;
-local function l1IlIl11() 
-if not l1IIlll1I11l.photoMode then 
-if ll1I1l11l then 
-ll1I1l11l:Destroy();
-ll1I1l11l=nil end;
+local ll1lIlIll1I=llIlII1l11I:Section(lI1I1ll1llIl("\177\3\134\36\161\28\115\107\170\220",232));
+local lIlllI1III;
+local function l1llIll11I111() 
+if not lll1l11Il1ll1.photoMode then 
+if lIlllI1III then 
+lIlllI1III:Destroy();
+lIlllI1III=nil end;
 
 return  end;
 
-if not ll1I1l11l then 
-ll1I1l11l=lI11IIlIIIllI(l11l1Il1lll("\85\202\37\109\112\144\35\172\157\219\54\158\52\84\68\141\130\43",65),{Name=llIIlI1Il:GenerateGUID(false),Parent=workspace.CurrentCamera}) end;
+if not lIlllI1III then 
+lIlllI1III=lllII1lI1I1I(lI1I1ll1llIl("\13\225\161\157\75\80\255\125\239\157\98\40\31\198\173\240\186\96",243),{Name=llII1lIII1:GenerateGUID(false),Parent=workspace.CurrentCamera}) end;
 
-ll1I1l11l.FocusDistance=l1IIlll1I11l.photoFocus or 20;
-ll1I1l11l.InFocusRadius=10;
-ll1I1l11l.FarIntensity=(l1IIlll1I11l.photoBlur or 40) / 100;
-ll1I1l11l.NearIntensity=(l1IIlll1I11l.photoBlur or 40) / 200 end;
+lIlllI1III.FocusDistance=lll1l11Il1ll1.photoFocus or 20;
+lIlllI1III.InFocusRadius=10;
+lIlllI1III.FarIntensity=(lll1l11Il1ll1.photoBlur or 40) / 100;
+lIlllI1III.NearIntensity=(lll1l11Il1ll1.photoBlur or 40) / 200 end;
 
-local ll11lIl11I1I1=false;
-l1II1Illl:Toggle({Name=l11l1Il1lll("\5\203\224\246\26\219\41\1\176\73",178),Description=l11l1Il1lll("\106\247\245\71\140\63\245\249\208\104\100\147\131\154\12\131\48\130\109\193\110\143\41\106\14\161\164\3\176\243\248\123\168\18\28\177\254\28\148\213\245\3\15\188\84\99\104\203\27\170\157\32\128\46\49\71\126\244\162\49\145\158\144\18\138\61\120\131\80\231\98\62\27\54\56\211\117\2\76\231\124\199\190\23",7),Flag=l11l1Il1lll("\96\143\34\134\147\11\205\150\12",85),Callback=function(llll11ll) 
-
-
+local l1lIl1Ill1=false;
+ll1lIlIll1I:Toggle({Name=lI1I1ll1llIl("\18\224\156\201\174\220\52\30\223\242",95),Description=lI1I1ll1llIl("\182\61\95\173\120\113\218\234\133\255\55\199\29\222\101\159\44\168\199\43\90\1\6\121\123\118\151\87\46\247\209\103\180\24\118\155\202\146\123\6\160\212\28\168\138\103\65\151\71\128\247\10\116\96\222\148\203\227\145\37\79\218\249\78\214\119\82\233\164\169\77\45\78\33\235\7\107\70\37\251\96\237\148\125",234),Flag=lI1I1ll1llIl("\137\92\238\205\28\34\134\15\179",67),Callback=function(lII1I1IllllI) 
 
 
-l1IlIl11();
-if llll11ll then 
-ll11lIl11I1I1=not l1IIlll1I11l.hideUi;
-if ll11lIl11I1I1 then 
-l1llllI1lll1l.hideUi:Set(true) end;
+
+
+l1llIll11I111();
+if lII1I1IllllI then 
+l1lIl1Ill1=not lll1l11Il1ll1.hideUi;
+if l1lIl1Ill1 then 
+lllIIlllIIlIl.hideUi:Set(true) end;
 
 task.delay(0.3,function() 
-if l1IIlll1I11l.photoMode then 
-llIIIIII1.Gui.Enabled=false end end) else 
+if lll1l11Il1ll1.photoMode then 
+l111II11I.Gui.Enabled=false end end) else 
 
 
 
-llIIIIII1.Gui.Enabled=true;
-if ll11lIl11I1I1 then 
-l1llllI1lll1l.hideUi:Set(false) end end end});
-
-
-
-
-l1II1Illl:Slider({Name=l11l1Il1lll("\62\152\215\213\25\95\181\78\120\122\136\25\155\143",12),Flag=l11l1Il1lll("\8\159\219\212\5\57\190\68\126\125",12),Min=2,Max=100,Default=20,Suffix=l11l1Il1lll("\192\167\106\70\233\24",78),Callback=l1IlIl11});
-l1II1Illl:Slider({Name=l11l1Il1lll("\211\78\182\242\255\45\170\31\26\90\250\24\157\199\208",193),Flag=l11l1Il1lll("\9\77\91\183\62\92\108\223\52",99),Min=0,Max=100,Default=40,Suffix=l11l1Il1lll("\241",234),Callback=l1IlIl11});
-lI11l11IIl(llIl11lIIl1I1.InputBegan:Connect(function(ll1I1IlIlI1) 
-if (l1IIlll1I11l.photoMode and (not llIIIIII1.Gui.Enabled)) and ((ll1I1IlIlI1.UserInputType == Enum.UserInputType.Touch) or (ll1I1IlIlI1.UserInputType == Enum.UserInputType.MouseButton1)) then 
-l1llllI1lll1l.photoMode:Set(false) end end));
-
-
-llIIIIII1:OnUnload(function() 
-if ll1I1l11l then 
-ll1I1l11l:Destroy() end;
-
-llIIIIII1.Gui.Enabled=true end);
-
-
-local l111l11IIlll1=lll1l1lII111I:Section(l11l1Il1lll("\131\108\167\165\9\155\139\133\110\248",126));
-local l11l1I1I1l=false;
-l111l11IIlll1:Toggle({Name=l11l1Il1lll("\138\130\163\118\125\167\17\78\83\172",61),Description=l11l1Il1lll("\60\13\191\0\2\134\207\243\66\181\126\15\42\105\132\13\224\177\48\209\114\254\79\124\183\181\89\217\130\149\100\156\112\53\128\101\226\106\124\12\42\50\201\108\50\11\244\109\193\146\20\255\79\212\191\198\18\112\246\237\168\165\1\224\94\2\229\15\210\70\16\61\130\195\102\128",232),Flag=l11l1Il1lll("\75\223\157\134\94\115\254\4\160",76)});
+l111II11I.Gui.Enabled=true;
+if l1lIl1Ill1 then 
+lllIIlllIIlIl.hideUi:Set(false) end end end});
 
 
 
 
-l111l11IIlll1:Slider({Name=l11l1Il1lll("\149\62\164\248\194\92\121\196\42\126\4\188\39\136\131\223\34",27),Flag=l11l1Il1lll("\188\72\238\89\115\224\4\193\76\14",149),Min=0,Max=4,Increment=0.25,Default=1.75,Suffix=l11l1Il1lll("\20\191\24\142\236\223",10)});
+ll1lIlIll1I:Slider({Name=lI1I1ll1llIl("\15\235\178\156\80\63\253\82\245\140\111\34\57\197",243),Flag=lI1I1ll1llIl("\141\247\69\48\205\214\209\39\90\2",121),Min=2,Max=100,Default=20,Suffix=lI1I1ll1llIl("\1\216\93\229\234\15",40),Callback=l1llIll11I111});
+ll1lIlIll1I:Slider({Name=lI1I1ll1llIl("\247\125\17\227\173\162\85\48\69\55\174\69\115\92\119",170),Flag=lI1I1ll1llIl("\27\123\161\19\48\171\169\34\183",162),Min=0,Max=100,Default=40,Suffix=lI1I1ll1llIl("\24",185),Callback=l1llIll11I111});
+lIl11lIIl(l1IIl1lll1l.InputBegan:Connect(function(l1ll1l11IlII1) 
+if (lll1l11Il1ll1.photoMode and (not l111II11I.Gui.Enabled)) and ((l1ll1l11IlII1.UserInputType == Enum.UserInputType.Touch) or (l1ll1l11IlII1.UserInputType == Enum.UserInputType.MouseButton1)) then 
+lllIIlllIIlIl.photoMode:Set(false) end end));
 
-local l1l1Il11=RaycastParams.new();
-l1l1Il11.FilterType=Enum.RaycastFilterType.Exclude;
-lIII1l1l:BindToRenderStep(ll11ll1lllI,ll1lI111II,function(l11111I1IllIl) 
-local l1IllIlll=workspace.CurrentCamera;
-local ll1lI1IIIl1I=lllI1llI.Character;
-local lIIII1lI1,llllIllIl=l1llll1lI1I1l(),lIl1I1lI1Il();
-if (not l1IllIlll) or l1IIlll1I11l.freecam then 
+
+l111II11I:OnUnload(function() 
+if lIlllI1III then 
+lIlllI1III:Destroy() end;
+
+l111II11I.Gui.Enabled=true end);
+
+
+local lI11IlI11ll1I=llIlII1l11I:Section(lI1I1ll1llIl("\246\245\198\229\97\167\94\3\249\211",117));
+local l1lI1I11lIl=false;
+lI11IlI11ll1I:Toggle({Name=lI1I1ll1llIl("\213\144\103\42\46\128\167\250\186\127",43),Description=lI1I1ll1llIl("\30\23\245\205\193\82\133\52\87\115\26\15\244\123\127\130\226\171\90\28\81\42\229\91\130\83\61\249\92\231\159\115\18\47\202\168\225\190\54\203\255\52\173\108\236\89\15\226\195\136\62\50\108\0\213\33\39\150\146\13\118\215\250\79\124\24\175\194\145\146\90\250\151\5\2\128",94),Flag=lI1I1ll1llIl("\17\0\122\59\85\144\22\50\240",127)});
+
+
+
+
+lI11IlI11ll1I:Slider({Name=lI1I1ll1llIl("\40\63\136\21\170\144\218\235\241\19\35\2\119\170\26\68\159",87),Flag=lI1I1ll1llIl("\129\0\185\223\253\230\232\7\90\21",105),Min=0,Max=4,Increment=0.25,Default=1.75,Suffix=lI1I1ll1llIl("\81\136\237\85\58\223",120)});
+
+local llIlll11lI111=RaycastParams.new();
+llIlll11lI111.FilterType=Enum.RaycastFilterType.Exclude;
+lII1llIIIIlI:BindToRenderStep(ll1IIl1IIII,l1lIllll1lI,function(llI1I1llIl) 
+local llIII1l1Il1=workspace.CurrentCamera;
+local l11l1II1=ll1lI1IIII1.Character;
+local lIlI1l11,lllIIl1lII1I1=l11l1IlI1I(),l1lI11Il111ll();
+if (not llIII1l1Il1) or lll1l11Il1ll1.freecam then 
 return  end;
 
 
-if (l1IIlll1I11l.topDown and llllIllIl) and (not l1IIlll1I11l.orbit) then 
-local lI11l1Il1llI=llllIllIl.Position;
-l1IllIlll.CFrame=CFrame.lookAt(lI11l1Il1llI + Vector3.new(0,l1IIlll1I11l.topDownHeight or 50,0.01),lI11l1Il1llI) end;
+if (lll1l11Il1ll1.topDown and lllIIl1lII1I1) and (not lll1l11Il1ll1.orbit) then 
+local lllI1Il1Il1=lllIIl1lII1I1.Position;
+llIII1l1Il1.CFrame=CFrame.lookAt(lllI1Il1Il1 + Vector3.new(0,lll1l11Il1ll1.topDownHeight or 50,0.01),lllI1Il1Il1) end;
 
 
-if l1IIlll1I11l.orbit and llllIllIl then 
-ll1lllll1lI=ll1lllll1lI + (((l1IIlll1I11l.orbitSpeed or 6) * 0.05) * l11111I1IllIl);
-local lI11lI1l1,l1I1lIIl1l1=l1IIlll1I11l.orbitDistance or 18,l1IIlll1I11l.orbitHeight or 5;
-local lll1llII1I=llllIllIl.Position + Vector3.new(0,1.5,0);
-l1IllIlll.CFrame=CFrame.lookAt(lll1llII1I + Vector3.new(math.cos(ll1lllll1lI) * lI11lI1l1,l1I1lIIl1l1,math.sin(ll1lllll1lI) * lI11lI1l1),lll1llII1I) end;
+if lll1l11Il1ll1.orbit and lllIIl1lII1I1 then 
+l1lII1lII=l1lII1lII + (((lll1l11Il1ll1.orbitSpeed or 6) * 0.05) * llI1I1llIl);
+local lllIIIl1lI,llIllI11Ill1=lll1l11Il1ll1.orbitDistance or 18,lll1l11Il1ll1.orbitHeight or 5;
+local lI1lI1ll=lllIIl1lII1I1.Position + Vector3.new(0,1.5,0);
+llIII1l1Il1.CFrame=CFrame.lookAt(lI1lI1ll + Vector3.new(math.cos(l1lII1lII) * lllIIIl1lI,llIllI11Ill1,math.sin(l1lII1lII) * lllIIIl1lI),lI1lI1ll) end;
 
 
-if ((l1IIlll1I11l.thirdPerson and ll1lI1IIIl1I) and (not l1IIlll1I11l.orbit)) and (not l1IIlll1I11l.topDown) then 
-if l1IIlll1I11l.tpMode == l11l1Il1lll("\5\142\18\123\74\136\128\41",139) then 
-local l1lII1I1llllI=l1IllIlll.CFrame;
-local l11Illl111=((l1lII1I1llllI.RightVector * l1IIlll1I11l.tpShoulder) + (l1lII1I1llllI.UpVector * 0.6)) - (l1lII1I1llllI.LookVector * l1IIlll1I11l.tpDistance);
-l1l1Il11.FilterDescendantsInstances={ll1lI1IIIl1I};
-local llIl11lll1I=workspace:Raycast(l1lII1I1llllI.Position,l11Illl111,l1l1Il11);
-local l1lllll11lIlI=(llIl11lll1I and (l11Illl111.Unit * math.max(llIl11lll1I.Distance - 0.6,0))) or l11Illl111;
-l1IllIlll.CFrame=l1lII1I1llllI + l1lllll11lIlI else 
+if ((lll1l11Il1ll1.thirdPerson and l11l1II1) and (not lll1l11Il1ll1.orbit)) and (not lll1l11Il1ll1.topDown) then 
+if lll1l11Il1ll1.tpMode == lI1I1ll1llIl("\197\224\17\41\38\212\158\215",59) then 
+local lI11llII1111=llIII1l1Il1.CFrame;
+local lIIlIl111=((lI11llII1111.RightVector * lll1l11Il1ll1.tpShoulder) + (lI11llII1111.UpVector * 0.6)) - (lI11llII1111.LookVector * lll1l11Il1ll1.tpDistance);
+llIlll11lI111.FilterDescendantsInstances={l11l1II1};
+local llIlIIIll=workspace:Raycast(lI11llII1111.Position,lIIlIl111,llIlll11lI111);
+local llllIIIlI=(llIlIIIll and (lIIlIl111.Unit * math.max(llIlIIIll.Distance - 0.6,0))) or lIIlIl111;
+llIII1l1Il1.CFrame=lI11llII1111 + llllIIIlI else 
 
-lllI1llI.CameraMode=Enum.CameraMode.Classic;
-if lllI1llI.CameraMaxZoomDistance < l1IIlll1I11l.tpDistance then 
-lllI1llI.CameraMaxZoomDistance=l1IIlll1I11l.tpDistance end;
+ll1lI1IIII1.CameraMode=Enum.CameraMode.Classic;
+if ll1lI1IIII1.CameraMaxZoomDistance < lll1l11Il1ll1.tpDistance then 
+ll1lI1IIII1.CameraMaxZoomDistance=lll1l11Il1ll1.tpDistance end;
 
-lllI1llI.CameraMinZoomDistance=math.min(l1IIlll1I11l.tpDistance,lllI1llI.CameraMaxZoomDistance) end;
+ll1lI1IIII1.CameraMinZoomDistance=math.min(lll1l11Il1ll1.tpDistance,ll1lI1IIII1.CameraMaxZoomDistance) end;
 
-for lI11l1IIlll1,l1lIIII11I in ipairs(ll1lI1IIIl1I:GetDescendants()) do 
-if l1lIIII11I:IsA(l11l1Il1lll("\92\133\142\54\241\236\254\31",159)) and (l1lIIII11I.LocalTransparencyModifier > 0) then 
-l1lIIII11I.LocalTransparencyModifier=0 end end end;
-
-
-
-
-if ((l1IIlll1I11l.shiftLock and lIIII1lI1) and llllIllIl) and (not l1IIlll1I11l.fly) then 
-l11l1I1I1l=true;
-lIIII1lI1.AutoRotate=false;
-lIIII1lI1.CameraOffset=Vector3.new(l1IIlll1I11l.lockOffset or 1.75,0,0);
-local llIIll1II1l=l1IllIlll.CFrame.LookVector;
-if Vector3.new(llIIll1II1l.X,0,llIIll1II1l.Z).Magnitude > 0.01 then 
-llllIllIl.CFrame=CFrame.lookAt(llllIllIl.Position,llllIllIl.Position + Vector3.new(llIIll1II1l.X,0,llIIll1II1l.Z)) end;
-
-if not llIl11lIIl1I1.TouchEnabled then 
-llIl11lIIl1I1.MouseBehavior=(lI11II1llI1._visible and Enum.MouseBehavior.Default) or Enum.MouseBehavior.LockCenter end elseif l11l1I1I1l then 
-
-
-l11l1I1I1l=false;
-if lIIII1lI1 then 
-lIIII1lI1.AutoRotate=true;
-lIIII1lI1.CameraOffset=Vector3.zero end;
-
-llIl11lIIl1I1.MouseBehavior=Enum.MouseBehavior.Default end;
-
-if (l1IIlll1I11l.camTilt or 0) ~= 0 then 
-l1IllIlll.CFrame=l1IllIlll.CFrame * CFrame.Angles(0,0,math.rad(l1IIlll1I11l.camTilt)) end;
-
-
-if lllI1111I then 
-lIll1IlIl=true;
-l1IllIlll.FieldOfView=l1IIlll1I11l.zoomFov or 20 elseif lIll1IlIl then 
-
-lIll1IlIl=false;
-l1IllIlll.FieldOfView=l1IIlll1I11l.fov or lI11lllIIIIl.fov end end);
-
-
-llIIIIII1:OnUnload(function() 
-lIII1l1l:UnbindFromRenderStep(ll11ll1lllI);
-l1Illl1Il();
-local lIII1lII11l=l1llll1lI1I1l();
-if lIII1lII11l and l11l1I1I1l then 
-lIII1lII11l.AutoRotate=true;
-lIII1lII11l.CameraOffset=Vector3.zero end end) end;
+for lll11lII11I,lIlI1IlI in ipairs(l11l1II1:GetDescendants()) do 
+if lIlI1IlI:IsA(lI1I1ll1llIl("\160\137\224\184\241\61\139\165",255)) and (lIlI1IlI.LocalTransparencyModifier > 0) then 
+lIlI1IlI.LocalTransparencyModifier=0 end end end;
 
 
 
+
+if ((lll1l11Il1ll1.shiftLock and lIlI1l11) and lllIIl1lII1I1) and (not lll1l11Il1ll1.fly) then 
+l1lI1I11lIl=true;
+lIlI1l11.AutoRotate=false;
+lIlI1l11.CameraOffset=Vector3.new(lll1l11Il1ll1.lockOffset or 1.75,0,0);
+local lllllIll1l1l=llIII1l1Il1.CFrame.LookVector;
+if Vector3.new(lllllIll1l1l.X,0,lllllIll1l1l.Z).Magnitude > 0.01 then 
+lllIIl1lII1I1.CFrame=CFrame.lookAt(lllIIl1lII1I1.Position,lllIIl1lII1I1.Position + Vector3.new(lllllIll1l1l.X,0,lllllIll1l1l.Z)) end;
+
+if not l1IIl1lll1l.TouchEnabled then 
+l1IIl1lll1l.MouseBehavior=(l1l1Ill1._visible and Enum.MouseBehavior.Default) or Enum.MouseBehavior.LockCenter end elseif l1lI1I11lIl then 
+
+
+l1lI1I11lIl=false;
+if lIlI1l11 then 
+lIlI1l11.AutoRotate=true;
+lIlI1l11.CameraOffset=Vector3.zero end;
+
+l1IIl1lll1l.MouseBehavior=Enum.MouseBehavior.Default end;
+
+if (lll1l11Il1ll1.camTilt or 0) ~= 0 then 
+llIII1l1Il1.CFrame=llIII1l1Il1.CFrame * CFrame.Angles(0,0,math.rad(lll1l11Il1ll1.camTilt)) end;
+
+
+if llIlI1lIlIlI then 
+ll1l111II=true;
+llIII1l1Il1.FieldOfView=lll1l11Il1ll1.zoomFov or 20 elseif ll1l111II then 
+
+ll1l111II=false;
+llIII1l1Il1.FieldOfView=lll1l11Il1ll1.fov or lII1lllI.fov end end);
+
+
+l111II11I:OnUnload(function() 
+lII1llIIIIlI:UnbindFromRenderStep(ll1IIl1IIII);
+lI1ll11ll();
+local lI11Il1l1I1Il=l11l1IlI1I();
+if lI11Il1l1I1Il and l1lI1I11lIl then 
+lI11Il1l1I1Il.AutoRotate=true;
+lI11Il1l1I1Il.CameraOffset=Vector3.zero end end) end;
 
 
 
 
 
-local ll1lIlIlIIll1=lI11II1llI1:Tab({Name=l11l1Il1lll("\219\79\206\173",75),Icon=l11l1Il1lll("\3\221\222\128",239),Hint=l11l1Il1lll("\157\113\126\240\24\82\82\27\221\121\119\206\13",79)});
-local lI1I1111=ll1lIlIlIIll1:Section(l11l1Il1lll("\83\119\235\3\169\48\2",152));
-lI1I1111:Toggle({Name=l11l1Il1lll("\241\202\26\10\240\26\65\65",30),Description=l11l1Il1lll("\6\194\146\181\104\47\230\18\79\30\82\206\107\113\197\28\248\49\123\50\170\246\85\171\194\192\46",60),Flag=l11l1Il1lll("\49\201\121\219\253\96\137",21),Default=true});
-lI1I1111:Toggle({Name=l11l1Il1lll("\148\86\123\109\213\9\161\132\59\197\98",50),Description=l11l1Il1lll("\228\99\247\65\111\162\182\91\208\131\212\122\254\43\96\141\99\226\45\58\31\207\54\132\103\59\1\240\117\203\212",107),Flag=l11l1Il1lll("\108\230\40\41\190\97\254\108\41\26",182)});
+
+
+
+local l1III111lII1=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\200\101\17\251",154),Icon=lI1I1ll1llIl("\216\117\1\235",170),Hint=lI1I1ll1llIl("\116\132\174\44\148\43\84\224\134\119\141\225\160",198)});
+local llIl1ll11=l1III111lII1:Section(lI1I1ll1llIl("\5\173\77\111\99\159\213",251));
+llIl1ll11:Toggle({Name=lI1I1ll1llIl("\202\157\90\238\146\8\35\188",66),Description=lI1I1ll1llIl("\3\170\12\113\160\192\137\113\235\225\222\1\174\174\98\95\157\57\133\246\66\57\26\232\134\223\162",201),Flag=lI1I1ll1llIl("\91\118\114\165\246\159\230",13),Default=true});
+llIl1ll11:Toggle({Name=lI1I1ll1llIl("\108\218\110\27\210\178\171\94\16\72\59",169),Description=lI1I1ll1llIl("\103\249\152\103\35\62\201\229\194\181\46\222\240\220\165\112\224\120\66\252\211\211\73\58\117\13\251\84\123\188\145",42),Flag=lI1I1ll1llIl("\70\148\169\48\175\33\80\175\155\118",198)});
 
 do 
-local lII1Il11IlI=lI11IIlIIIllI(l11l1Il1lll("\205\79\114\164\139\50\201\149\159\105",125),{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.new(0,0,0),Text=l11l1Il1lll("",85),AutoButtonColor=false,Visible=false,ZIndex=50,Parent=llIIIIII1.Gui});
-l11I1llI1({Parent=lII1Il11IlI,Text=l11l1Il1lll("\167\112\230\222\187\115\81\238\73\21\6\132\129\46\100\251\6\230\41\1\102\251\228\80\156\133\193\51",59),Font=Enum.Font.GothamBold,TextSize=14,Color=l11l1Il1lll("\98\250\23\109\93\71\209",97),Align=Enum.TextXAlignment.Center,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(1,0,0,30),ZIndex=51});
-lI1I1111:Toggle({Name=l11l1Il1lll("\60\165\7\118\177\91\224\118",198),Description=l11l1Il1lll("\39\248\67\203\187\204\82\89\4\228\182\188\66\171\64\86\225\60\219\74\21\57\134\218\123\135\111\33\212\75\247\142\82\188\31\251\156\163\54\120\228\5\90\18\167\202\96\106\193\14\165\107\111\84\239\247\80\227\214\205\32\251\23\250\85\181\76\146\230\140\2\3\192\115\108\119\151\61\145\140",74),Flag=l11l1Il1lll("\129\113\246\111\35\146\119",165),Callback=function(llIlIIIIll) 
+local llllI11III=lllII1lI1I1I(lI1I1ll1llIl("\177\201\186\76\88\117\190\193\148\237",250),{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.new(0,0,0),Text=lI1I1ll1llIl("",73),AutoButtonColor=false,Visible=false,ZIndex=50,Parent=l111II11I.Gui});
+lI11I11IlllI({Parent=llllI11III,Text=lI1I1ll1llIl("\231\158\101\12\87\175\207\144\217\20\67\14\83\79\157\10\166\104\202\243\170\7\90\14\108\228\100\89",11),Font=Enum.Font.GothamBold,TextSize=14,Color=lI1I1ll1llIl("\36\196\207\123\200\108\126",150),Align=Enum.TextXAlignment.Center,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(1,0,0,30),ZIndex=51});
+llIl1ll11:Toggle({Name=lI1I1ll1llIl("\138\161\58\195\195\175\66\113",231),Description=lI1I1ll1llIl("\88\83\222\83\157\160\2\38\35\255\154\211\166\220\45\25\222\183\70\210\115\21\214\165\188\92\99\78\48\252\90\193\109\87\194\35\250\143\38\71\67\222\182\189\131\125\205\229\62\5\120\179\73\56\255\200\215\120\90\98\4\140\122\117\170\158\81\138\192\224\82\124\103\232\192\152\243\74\252\195",39),Flag=lI1I1ll1llIl("\71\162\157\81\137\245\186",236),Callback=function(l1lI1I1ll11ll) 
 
 
 
 
-lII1Il11IlI.Visible=llIlIIIIll;
-pcall(lIII1l1l.Set3dRenderingEnabled,lIII1l1l,not llIlIIIIll);
-if type(setfpscap) == l11l1Il1lll("\207\128\234\16\149\39\63\180",179) then 
-pcall(setfpscap,(llIlIIIIll and 15) or (l1IIlll1I11l.fpsCap or 240)) end;
+llllI11III.Visible=l1lI1I1ll11ll;
+pcall(lII1llIIIIlI.Set3dRenderingEnabled,lII1llIIIIlI,not l1lI1I1ll11ll);
+if type(setfpscap) == lI1I1ll1llIl("\3\40\129\160\33\174\29\66",181) then 
+pcall(setfpscap,(l1lI1I1ll11ll and 15) or (lll1l11Il1ll1.fpsCap or 240)) end;
 
-if llIlIIIIll then 
-lI11II1llI1:SetVisible(false) end end});
-
-
-
-lII1Il11IlI.MouseButton1Click:Connect(function() 
-l1llllI1lll1l.afkMode:Set(false) end);
-
-llIIIIII1:OnUnload(function() 
-pcall(lIII1l1l.Set3dRenderingEnabled,lIII1l1l,true) end) end;
+if l1lI1I1ll11ll then 
+l1l1Ill1:SetVisible(false) end end});
 
 
 
-lI11l11IIl(lllI1llI.Idled:Connect(function() 
-if l1IIlll1I11l.antiAfk then 
-lI1I11I1111Il:CaptureController();
-lI1I11I1111Il:ClickButton2(Vector2.new()) end end));
+llllI11III.MouseButton1Click:Connect(function() 
+lllIIlllIIlIl.afkMode:Set(false) end);
+
+l111II11I:OnUnload(function() 
+pcall(lII1llIIIIlI.Set3dRenderingEnabled,lII1llIIIIlI,true) end) end;
 
 
-lI11l11IIl(llII1l1I.ErrorMessageChanged:Connect(function() 
-if l1IIlll1I11l.autoRejoin then 
+
+lIl11lIIl(ll1lI1IIII1.Idled:Connect(function() 
+if lll1l11Il1ll1.antiAfk then 
+l1IIllIIIIl1:CaptureController();
+l1IIllIIIIl1:ClickButton2(Vector2.new()) end end));
+
+
+lIl11lIIl(l11lI1IIIllI1.ErrorMessageChanged:Connect(function() 
+if lll1l11Il1ll1.autoRejoin then 
 task.wait(2);
-lIl1I1Ill:Teleport(game.PlaceId,lllI1llI) end end));
+lIl11Il111:Teleport(game.PlaceId,ll1lI1IIII1) end end));
 
 
 
-lI1I1111:Button({Name=l11l1Il1lll("\86\203\32\133\40\108\18\139\244\93\163\252\234",137),Description=l11l1Il1lll("\13\197\208\118\193\62\41\217\79\227\218\62\206\40\215\131\189\124\45\240\5\92\78\79",223),Action=l11l1Il1lll("\210\209\20\124\196\37",46),Callback=function() 
-
-
-
-
-if (# ll11I11l1lll1:GetPlayers()) <= 1 then 
-lIl1I1Ill:Teleport(game.PlaceId,lllI1llI) else 
-
-lIl1I1Ill:TeleportToPlaceInstance(game.PlaceId,game.JobId,lllI1llI) end end});
+llIl1ll11:Button({Name=lI1I1ll1llIl("\240\77\57\114\8\242\25\98\190\133\247\118\204",191),Description=lI1I1ll1llIl("\241\73\62\120\65\239\92\99\173\146\243\63\158\182\100\65\65\176\131\254\133\77\251\245",191),Action=lI1I1ll1llIl("\212\1\60\19\239\159",76),Callback=function() 
 
 
 
 
-local function lllIlll11l1(lIII1l1111,llII11lIl1l1I) 
-local l1III1II,lI1l1lllllIIl=pcall(function() 
-return llIIlI1Il:JSONDecode(game:HttpGet(l11l1Il1lll("\24\16\218\211\110\33\104\101\202\82\209\195\127\202\70\204\130\184\113\75\163\8\88\87\18\213\61\57\251\21\169\54\99\107",222) .. (game.PlaceId .. l11l1Il1lll("\135\116\33\2\204\202\147\100\116\14\236\101\196\211\99\167\75\216\134\148\101\77\245\2\185\243\104\196\91\12\252\1\165\78\16\109\171\191\49",220)))) end);
+if (# lllIlllIllI1I:GetPlayers()) <= 1 then 
+lIl11Il111:Teleport(game.PlaceId,ll1lI1IIII1) else 
 
-if ((not l1III1II) or (type(lI1l1lllllIIl) ~= l11l1Il1lll("\128\223\56\150\20",121))) or (type(lI1l1lllllIIl.data) ~= l11l1Il1lll("\85\254\7\165\173",113)) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\99\162\223\100\121\212\98\186\38\106",117),Content=l11l1Il1lll("\243\203\27\15\185\53\32\126\205\20\153\146\108\208\156\6\0\103\187\129\59\206\133\218\17\138\63\34\242\20\208\97\41\164\47\36\156\82\9\68",30),Type=l11l1Il1lll("\168\33\110\105\222",118)});
+lIl11Il111:TeleportToPlaceInstance(game.PlaceId,game.JobId,ll1lI1IIII1) end end});
+
+
+
+
+local function l1l111lll111I(llIl1lI11IIl,lII11I1ll) 
+local ll1lIIl1,l1ll1Il1l=pcall(function() 
+return llII1lIII1:JSONDecode(game:HttpGet(lI1I1ll1llIl("\174\204\58\252\233\90\36\122\126\181\12\60\224\225\59\164\20\68\177\132\196\115\244\168\134\18\192\230\100\94\212\62\149\183",107) .. (game.PlaceId .. lI1I1ll1llIl("\90\175\215\58\252\245\8\118\68\67\187\5\51\128\166\104\182\35\80\172\181\146\142\240\169\158\31\132\172\63\89\174\56\149\230\85\91\64\170",106)))) end);
+
+if ((not ll1lIIl1) or (type(l1ll1Il1l) ~= lI1I1ll1llIl("\174\26\49\249\172",164))) or (type(l1ll1Il1l.data) ~= lI1I1ll1llIl("\250\152\197\163\103",96)) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\45\108\37\105\183\17\123\133\174\59",144),Content=lI1I1ll1llIl("\37\235\195\176\66\63\56\19\186\92\118\161\41\247\121\221\246\103\67\94\160\196\253\215\70\226\240\49\87\211\53\90\63\132\247\219\39\88\17\41",172),Type=lI1I1ll1llIl("\87\42\208\162\225",62)});
 return  end;
 
-local l1IIlIIII11II={};
-for lll1I11lI1II,lI1Il1ll1I1I in ipairs(lI1l1lllllIIl.data) do 
-if (lI1Il1ll1I1I.id ~= game.JobId) and ((lI1Il1ll1I1I.playing or 0) < (lI1Il1ll1I1I.maxPlayers or 0)) then 
-table.insert(l1IIlIIII11II,lI1Il1ll1I1I) end end;
+local lI1111lI1={};
+for ll11lII1I,llIlII1llll in ipairs(l1ll1Il1l.data) do 
+if (llIlII1llll.id ~= game.JobId) and ((llIlII1llll.playing or 0) < (llIlII1llll.maxPlayers or 0)) then 
+table.insert(lI1111lI1,llIlII1llll) end end;
 
 
-if (# l1IIlIIII11II) == 0 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\225\194\107\105\38\36\129\103\223\210",240),Content=l11l1Il1lll("\174\187\62\92\249\3\82\72\29\204\124\115\242\84\183\54\98\50\235\241\78\219\193\197\56\189\248\168",78),Type=l11l1Il1lll("\131\223\40\148\24\92\69",121)});
+if (# lI1111lI1) == 0 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\40\102\204\97\74\139\245\15\154\44",178),Content=lI1I1ll1llIl("\129\254\197\119\201\253\50\249\45\224\74\49\252\128\221\49\45\119\16\218\126\37\161\148\8\113\206\234",81),Type=lI1I1ll1llIl("\81\165\132\114\143\255\184",236)});
 return  end;
 
-local l1lI11ll;
-if llII11lIl1l1I then 
-table.sort(l1IIlIIII11II,function(lll1IIll1I1l,l11III11) 
-return (lll1IIll1I1l.ping or 9999) < (l11III11.ping or 9999) end);
+local lIllI1lIIll;
+if lII11I1ll then 
+table.sort(lI1111lI1,function(lI1lI1I1II1Il,lIl1I1Illl1l) 
+return (lI1lI1I1II1Il.ping or 9999) < (lIl1I1Illl1l.ping or 9999) end);
 
-l1lI11ll=l1IIlIIII11II[1];
-llIIIIII1:Notify({Title=l11l1Il1lll("\134\70\125\116\144\9\228\134\59\220",50),Content=l11l1Il1lll("\3\117\83\238\240\89\170\177\212\63\184\66\224\89\165\7\138\254\135\0\0\201\58\33\99\130\63\132\153\52\130\218",173) .. (tostring(l1lI11ll.ping or l11l1Il1lll("\27",26)) .. l11l1Il1lll("\109\190\239\175\2\234\122",246)),Type=l11l1Il1lll("\208\104\78\253",151)});
-lIl1I1Ill:TeleportToPlaceInstance(game.PlaceId,l1lI11ll.id,lllI1llI);
-return  elseif lIII1l1111 then 
+lIllI1lIIll=lI1111lI1[1];
+l111II11I:Notify({Title=lI1I1ll1llIl("\86\88\189\149\16\149\114\164\85\104",213),Content=lI1I1ll1llIl("\161\252\39\137\182\7\34\247\49\164\199\120\22\15\29\112\40\87\243\7\38\247\210\103\166\25\96\158\143\130\58\77",34) .. (tostring(lIllI1lIIll.ping or lI1I1ll1llIl("\202",234)) .. lI1I1ll1llIl("\210\117\145\164\253\181\120",254)),Type=lI1I1ll1llIl("\140\194\164\87",250)});
+lIl11Il111:TeleportToPlaceInstance(game.PlaceId,lIllI1lIIll.id,ll1lI1IIII1);
+return  elseif llIl1lI11IIl then 
 
-table.sort(l1IIlIIII11II,function(l1l1l1lll1,lIIl11I1I1ll) 
-return l1l1l1lll1.playing < lIIl11I1I1ll.playing end);
+table.sort(lI1111lI1,function(llIII1IIl,l1lIlIllIl) 
+return llIII1IIl.playing < l1lIlIllIl.playing end);
 
-l1lI11ll=l1IIlIIII11II[1] else 
+lIllI1lIIll=lI1111lI1[1] else 
 
-l1lI11ll=l1IIlIIII11II[math.random(1,# l1IIlIIII11II)] end;
+lIllI1lIIll=lI1111lI1[math.random(1,# lI1111lI1)] end;
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\55\217\110\253\189\142\230\179\26\243",90),Content=l11l1Il1lll("\26\45\129\110\249\97\59\88\35\119\154\106\33\16\244\109\128\197\17\228\72\159",200) .. (l1lI11ll.playing .. l11l1Il1lll("\182\86\209\175\159\73\87\232\183\235\250",75)),Type=l11l1Il1lll("\39\250\235\108",207)});
-lIl1I1Ill:TeleportToPlaceInstance(game.PlaceId,l1lI11ll.id,lllI1llI) end;
+l111II11I:Notify({Title=lI1I1ll1llIl("\97\61\208\187\246\169\54\215\248\33",62),Content=lI1I1ll1llIl("\23\144\35\74\171\158\121\196\238\241\214\61\143\163\114\57\237\56\147\224\58\64",217) .. (lIllI1lIIll.playing .. lI1I1ll1llIl("\87\193\193\78\212\113\120\131\236\230\28",150)),Type=lI1I1ll1llIl("\107\102\148\210",14)});
+lIl11Il111:TeleportToPlaceInstance(game.PlaceId,lIllI1lIIll.id,ll1lI1IIII1) end;
 
-lI1I1111:Button({Name=l11l1Il1lll("\113\82\251\25\86\180\17\215\111\98",96),Description=l11l1Il1lll("\232\216\96\129\147\39\145\91\233\244\126\149\50\186\130\188\50\116\220\13\85\83\179",224),Action=l11l1Il1lll("\253\44\95",82),Callback=function() 
-lllIlll11l1(false) end});
+llIl1ll11:Button({Name=lI1I1ll1llIl("\205\140\197\73\151\49\91\229\206\91",112),Description=lI1I1ll1llIl("\177\184\8\157\126\81\22\96\123\158\229\136\227\41\135\213\75\52\180\49\184\197\52",215),Action=lI1I1ll1llIl("\249\84\169",184),Callback=function() 
+l1l111lll111I(false) end});
 
-lI1I1111:Button({Name=l11l1Il1lll("\91\10\69\124\182\170\50\195\219\141\28\149\62\63\146",124),Description=l11l1Il1lll("\116\235\244\93\225\217\196\46\249\3\229\66\186\7\160\245\218\84\30\198\35\107\121\169",191),Action=l11l1Il1lll("\55\140\37\56",198),Callback=function() 
-lllIlll11l1(true) end});
+llIl1ll11:Button({Name=lI1I1ll1llIl("\77\4\86\211\30\166\136\121\1\216\76\226\248\25\44",240),Description=lI1I1ll1llIl("\96\228\234\43\89\135\9\77\102\193\251\204\50\88\26\116\206\59\64\144\155\21\148\42",84),Action=lI1I1ll1llIl("\220\59\15\2",92),Callback=function() 
+l1l111lll111I(true) end});
 
-lI1I1111:Button({Name=l11l1Il1lll("\135\86\12\6\165\27\189\176\3\156\111\238\170\138\163\169",34),Description=l11l1Il1lll("\36\219\196\141\49\41\52\254\41\197\221\112\232\91\199\214\169\77\73\251\65\185\164\78\153\106\71\229\11\189\81\70\62\253\227\100",239),Action=l11l1Il1lll("\194\136\205\254",252),Callback=function() 
-lllIlll11l1(false,true) end});
+llIl1ll11:Button({Name=lI1I1ll1llIl("\251\17\178\141\19\95\192\69\241\168\13\57\56\198\158\215",3),Description=lI1I1ll1llIl("\56\247\11\99\115\111\190\26\119\226\168\61\187\17\88\240\149\129\102\245\227\223\14\170\231\109\82\200\56\151\238\64\34\17\236\138",126),Action=lI1I1ll1llIl("\221\62\228\97",118),Callback=function() 
+l1l111lll111I(false,true) end});
 
-if type(setclipboard) == l11l1Il1lll("\98\219\36\137\53\107\93\150",137) then 
-lI1I1111:Button({Name=l11l1Il1lll("\151\49\202\99\177\184\109\161\175\95\246\138\154\102\229\46",89),Description=l11l1Il1lll("\80\150\14\182\137\118\219\108\185\75\100\240\172\63\216\130\133\115\130\32\124\146\109\178\99\53\19\46\121\131\101\56\19\183\120\218\173\21\230\2\202\175\152\70\76\21",69),Action=l11l1Il1lll("\97\88\249\22",96),Callback=function() 
-
-
+if type(setclipboard) == lI1I1ll1llIl("\233\164\203\59\137\188\120\37",17) then 
+llIl1ll11:Button({Name=lI1I1ll1llIl("\85\187\150\149\54\11\160\222\4\235\176\102\75\218\81\156",220),Description=lI1I1ll1llIl("\178\137\224\169\196\124\144\191\59\86\175\115\155\232\51\7\7\236\140\63\17\152\38\97\225\200\88\205\78\116\142\189\177\40\22\69\32\31\173\209\72\114\211\69\251\130",255),Action=lI1I1ll1llIl("\252\142\229\49",33),Callback=function() 
 
 
-setclipboard(string.format(l11l1Il1lll("\135\118\240\71\118\177\119\214\106\47\24\198\192\132\120\105\114\243\104\222\217\118\141\64\221\169\191\82\79\254\14\84\226\30\135\86\73\250\23\178\54\24\62\196\230\87\145\192\211\34\100\252\239\82\163\60\170\255\146\37\125\155\109\51\5\164\127\203",165),game.PlaceId,game.JobId));
-llIIIIII1:Notify({Title=l11l1Il1lll("\163\157\200\57\133\27",120),Content=l11l1Il1lll("\115\10\29\237\49\173\163\24\239\102\249\254\159\79\245\4\231\245\157\124\244\92\16\153\122\207\77\44\9\205\215\127\55",35)}) end}) end;
+
+
+setclipboard(string.format(lI1I1ll1llIl("\208\16\0\138\87\147\47\196\209\237\0\75\10\104\163\71\5\181\184\51\152\52\85\178\134\75\135\255\165\242\53\154\245\56\119\155\40\152\207\32\13\26\230\73\44\123\138\46\36\228\244\81\174\16\123\142\177\157\42\72\87\151\86\253\210\66\15\134",86),game.PlaceId,game.JobId));
+l111II11I:Notify({Title=lI1I1ll1llIl("\204\190\213\49\152\177",17),Content=lI1I1ll1llIl("\255\115\27\230\234\163\89\55\66\35\250\7\118\90\37\248\107\172\155\119\79\82\138\182\247\138\110\213\224\56\7\99\187",170)}) end}) end;
 
 
 
 
 do 
-local l1I11IIIl111=ll1lIlIlIIll1:Section(l11l1Il1lll("\167\105\222\77\45\30\150\194\139\117\48",202));
-local lI1I1l1l1=l1I11IIIl111:Paragraph(l11l1Il1lll("\212\220\23\96\141\56\114\104\171\38\158",46),l11l1Il1lll("\172\187\127\87\228\5\80\20\19\141",78));
+local lIIIIl11I11=l1III111lII1:Section(lI1I1ll1llIl("\150\41\80\174\159\146\202\252\181\197\49",218));
+local l11ll1IlI1l1=lIIIIl11I11:Paragraph(lI1I1ll1llIl("\143\159\232\96\158\163\115\86\68\189\209",247),lI1I1ll1llIl("\234\43\23\248\15\127\56\9\244\85",108));
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-local l1I1IIIlI1=math.floor(workspace.DistributedGameTime);
-local llII1llIllI1l=l11l1Il1lll("\115\137",223);
+while l111II11I.Window == l1l1Ill1 do 
+local lIIlllIl1l1I=math.floor(workspace.DistributedGameTime);
+local l1llI1lI11l11=lI1I1ll1llIl("\132\73",19);
 pcall(function() 
-llII1llIllI1l=string.format(l11l1Il1lll("\156\174\202\93\90",93),math.floor(l11l111Il1l.Network.ServerStatsItem[l11l1Il1lll("\61\167\156\51\142\94\12\72\105",87)]:GetValue())) end);
+l1llI1lI11l11=string.format(lI1I1ll1llIl("\112\9\159\254\86",133),math.floor(ll1l1I1Il1.Network.ServerStatsItem[lI1I1ll1llIl("\149\58\141\33\30\156\103\122\153",216)]:GetValue())) end);
 
-lI1I1l1l1:Set(llIll1ll,string.format(l11l1Il1lll("\94\184\172\58\212\143\143\91\204\50\119\199\90\190\53\148\201\100\125\163\104\3\11\171\60\213\232\82\76\153\165\230\187\68\13\70\245\181\252\62\185\4\92\239\20\238\89\23\61\193\157\54\133\109\108\105\142\166\136\65\139\60\211\131\188\52\40\240",143),# ll11I11l1lll1:GetPlayers(),ll11I11l1lll1.MaxPlayers,llII1llIllI1l,math.floor(l1I1IIIlI1 / 3600),math.floor((l1I1IIIlI1 % 3600) / 60),game.PlaceId,((string.sub(game.JobId,1,8) ~= l11l1Il1lll("",78)) and (string.sub(game.JobId,1,8) .. l11l1Il1lll("\246\30\220",153))) or l11l1Il1lll("\129\179\12\219\138\153",144)));
+l11ll1IlI1l1:Set(lII1lIII,string.format(lI1I1ll1llIl("\187\255\47\158\186\27\54\247\96\168\141\125\30\64\74\215\236\3\254\39\38\247\210\103\240\15\50\200\40\71\58\69\158\195\78\226\155\97\5\146\21\222\230\21\80\16\230\148\216\166\222\114\11\153\181\229\2\60\82\219\175\162\76\32\89\115\171\84",34),# lllIlllIllI1I:GetPlayers(),lllIlllIllI1I.MaxPlayers,l1llI1lI11l11,math.floor(lIIlllIl1l1I / 3600),math.floor((lIIlllIl1l1I % 3600) / 60),game.PlaceId,((string.sub(game.JobId,1,8) ~= lI1I1ll1llIl("",50)) and (string.sub(game.JobId,1,8) .. lI1I1ll1llIl("\67\171\15",168))) or lI1I1ll1llIl("\110\171\31\96\139\191",185)));
 
 
 
@@ -5631,66 +5635,66 @@ lI1I1l1l1:Set(llIll1ll,string.format(l11l1Il1lll("\94\184\172\58\212\143\143\91\
 task.wait(2) end end);
 
 
-if type(setclipboard) == l11l1Il1lll("\111\32\10\240\117\199\223\20",19) then 
-l1I11IIIl111:Button({Name=l11l1Il1lll("\10\153\136\59\126\141\16\68\104\129\143\115\232\201",103),Action=l11l1Il1lll("\163\157\200\41",120),Callback=function() 
+if type(setclipboard) == lI1I1ll1llIl("\49\228\163\44\185\29\69\190",182) then 
+lIIIIl11I11:Button({Name=lI1I1ll1llIl("\174\0\170\205\146\243\235\6\73\4\103\232\36\97",105),Action=lI1I1ll1llIl("\68\174\141\6",230),Callback=function() 
 setclipboard(game.JobId);
-llIIIIII1:Notify({Title=l11l1Il1lll("\19\200\125\219\217\98",21),Content=l11l1Il1lll("\53\211\95\8\51\238\149\66\173\149\45\192\1\225\254\58\143\41\168\156\230\111\105\210\9\71\91\162\35\122\46",187)}) end});
+l111II11I:Notify({Title=lI1I1ll1llIl("\241\183\82\36\118\63",190),Content=lI1I1ll1llIl("\153\14\81\147\188\33\225\1\98\228\159\111\198\254\177\135\35\148\166\103\105\160\61\145\230\54\9\13\228\133\97",180)}) end});
 
-l1I11IIIl111:Button({Name=l11l1Il1lll("\136\161\89\206\24\77\241\5\173\7\8\57\244\228",132),Action=l11l1Il1lll("\120\81\73\222",116),Callback=function() 
-setclipboard(l11l1Il1lll("\17\126\94\128\154\29\242\174\231\16\186\92\14\169\64\30\134\194\180\3\22\186\2\22\97\154\24\177\195",157) .. game.PlaceId);
-llIIIIII1:Notify({Title=l11l1Il1lll("\131\189\40\217\101\251",88),Content=l11l1Il1lll("\143\70\9\53\186\227\104\153\208\158\208\84\168\245\78\216\33\184\225\178\42\124\221\46\91\76\166\54\106\110\158",188)}) end}) end end;
-
-
-
-
-local lIIl1lI11I=ll1lIlIlIIll1:Section(l11l1Il1lll("\231\98\131\47\207\150",41));
-local l1llIlI11l1I={};
-lIIl1lI11I:Toggle({Name=l11l1Il1lll("\104\125\186\150\109\204\150\151\24\195\25\31",142),Description=l11l1Il1lll("\218\169\177\66\223\30\83\233\20\211\72\16\118\250\218\121\201\198\39\193\68\235\254\105\158\41\169\157\230\109\107\223\89\70\88\170\33\109",131),Flag=l11l1Il1lll("\37\186\248\227\121\173",246),Callback=function(l1111II11I1II) 
+lIIIIl11I11:Button({Name=lI1I1ll1llIl("\93\6\71\198\82\164\154\96\68\139\69\249\224\23",240),Action=lI1I1ll1llIl("\146\52\137\57",216),Callback=function() 
+setclipboard(lI1I1ll1llIl("\103\37\81\168\14\111\184\228\58\184\13\58\160\143\140\120\240\185\155\11\162\168\40\92\220\50\143\247\77",145) .. game.PlaceId);
+l111II11I:Notify({Title=lI1I1ll1llIl("\234\11\129\160\102\91",19),Content=lI1I1ll1llIl("\141\10\78\128\249\63\168\38\77\228\159\111\198\254\177\135\35\148\166\103\105\160\61\145\230\54\9\13\228\133\97",180)}) end}) end end;
 
 
 
 
-pcall(l1lIl1lI.SetCoreGuiEnabled,l1lIl1lI,Enum.CoreGuiType.All,not l1111II11I1II);
-local lI1IlllIllII=lllI1llI:FindFirstChildOfClass(l11l1Il1lll("\105\38\11\201\204\149\90\52\57",221));
-if l1111II11I1II and lI1IlllIllII then 
-for l1IIII11,lII11lII1lI1 in ipairs(lI1IlllIllII:GetChildren()) do 
-if lII11lII1lI1:IsA(l11l1Il1lll("\118\176\237\247\0\165\51\11\173",194)) and lII11lII1lI1.Enabled then 
-lII11lII1lI1.Enabled=false;
-table.insert(l1llIlI11l1I,lII11lII1lI1) end end else 
+local lI1III11I1=l1III111lII1:Section(lI1I1ll1llIl("\57\183\154\80\71\215",4));
+local lI1llIl1II={};
+lI1III11I1:Toggle({Name=lI1I1ll1llIl("\141\37\70\189\218\135\139\248\190\131\11\190",218),Description=lI1I1ll1llIl("\253\165\242\190\124\131\232\206\243\110\236\94\78\250\209\214\14\42\100\29\199\86\101\174\153\20\109\211\254\77\64\80\254\202\155\150\66\240",80),Flag=lI1I1ll1llIl("\125\213\182\77\127\89",10),Callback=function(l1l11lIl1l11) 
 
 
 
-for llI1IIlI1l,l1IIIl11llI1I in ipairs(l1llIlI11l1I) do 
-if l1IIIl11llI1I.Parent then 
-l1IIIl11llI1I.Enabled=true end end;
+
+pcall(l1IllII1l.SetCoreGuiEnabled,l1IllII1l,Enum.CoreGuiType.All,not l1l11lIl1l11);
+local lIlIlIllI1=ll1lI1IIII1:FindFirstChildOfClass(lI1I1ll1llIl("\183\77\124\230\88\246\189\117\91",6));
+if l1l11lIl1l11 and lIlIlIllI1 then 
+for l111l1I11lII,l1lIIl1I1Illl in ipairs(lIlIlIllI1:GetChildren()) do 
+if l1lIIl1I1Illl:IsA(lI1I1ll1llIl("\198\206\13\54\128\25\133\201\35",69)) and l1lIIl1I1Illl.Enabled then 
+l1lIIl1I1Illl.Enabled=false;
+table.insert(lI1llIl1II,l1lIIl1I1Illl) end end else 
 
 
-l1llIlI11l1I={} end end});
+
+for lllII1II1I,lIII1lIIIll in ipairs(lI1llIl1II) do 
+if lIII1lIIIll.Parent then 
+lIII1lIIIll.Enabled=true end end;
+
+
+lI1llIl1II={} end end});
 
 
 
-lIIl1lI11I:Toggle({Name=l11l1Il1lll("\62\135\14\3\173\73\17\145\128\249\49\23\168",214),Description=l11l1Il1lll("\58\14\189\58\112\54\152\32\133\144\104\206\145\2\89\56\131\153\45\143\131\239\18\139\53\32\189\16\233\113\140\252\58\34\217\87\22\20",48),Flag=l11l1Il1lll("\122\194\202\103\255\83\208\132",39)});
+lI1III11I1:Toggle({Name=lI1I1ll1llIl("\246\233\221\230\116\234\87\30\186\213\201\72\50",117),Description=lI1I1ll1llIl("\130\97\114\153\244\201\228\63\144\175\79\45\180\42\151\140\59\22\2\76\103\48\78\148\0\63\250\147\44\185\66\104\130\141\214\116\18\171",253),Flag=lI1I1ll1llIl("\189\205\149\234\35\254\206\15",32)});
 
 do 
-local l1ll111lI111I;
+local lI11l1lIllIl;
 pcall(function() 
-l1ll111lI111I=UserSettings():GetService(l11l1Il1lll("\245\231\59\1\138\74\26\31\174\6\184\162\53\218\99\224",14)) end);
+lI11l1lIllIl=UserSettings():GetService(lI1I1ll1llIl("\15\11\3\30\80\56\64\133\38\40\235\199\44\185\5\111",109)) end);
 
-local lI1l1l1I1=l1ll111lI111I and l1ll111lI111I.MasterVolume;
-if l1ll111lI111I and lI1l1l1I1 then 
-lIIl1lI11I:Slider({Name=l11l1Il1lll("\245\198\116\122\99\32\206\99\197\207\109",240),Flag=l11l1Il1lll("\71\117\179\150\27\196\155\143\16\134",142),Min=0,Max=100,Default=math.floor(lI1l1l1I1 * 100),Suffix=l11l1Il1lll("\229",110),Callback=function(lIl11lIIIIIII) 
-
-
+local l1IllIIIIIlI1=lI11l1lIllIl and lI11l1lIllIl.MasterVolume;
+if lI11l1lIllIl and l1IllIIIIIlI1 then 
+lI1III11I1:Slider({Name=lI1I1ll1llIl("\1\197\251\217\102\71\16\107\207\118\86",140),Flag=lI1I1ll1llIl("\60\66\179\18\25\246\217\50\184\25",146),Min=0,Max=100,Default=math.floor(l1IllIIIIIlI1 * 100),Suffix=lI1I1ll1llIl("\14",7),Callback=function(llI1I1IIlIl1) 
 
 
 
 
 
-l1ll111lI111I.MasterVolume=lIl11lIIIIIII / 100 end});
 
 
-llIIIIII1:OnUnload(function() 
-l1ll111lI111I.MasterVolume=lI1l1l1I1 end) end end;
+lI11l1lIllIl.MasterVolume=llI1I1IIlIl1 / 100 end});
+
+
+l111II11I:OnUnload(function() 
+lI11l1lIllIl.MasterVolume=l1IllIIIIIlI1 end) end end;
 
 
 
@@ -5698,46 +5702,46 @@ l1ll111lI111I.MasterVolume=lI1l1l1I1 end) end end;
 
 
 do 
-local llIII1l11II=ll1lIlIlIIll1:Section(l11l1Il1lll("\135\59\201\105\248\189\108\232\178\11\228\157\155",89));
-local l1IIl1l1II=llIII1l11II:Paragraph(l11l1Il1lll("\255\198\32\164\184\249\85\187\27\174\235\222",228),l11l1Il1lll("\199\106\155\40\165\251\172\111\47\145\107",25));
-local lIl1IlIl,l1111Il1II11l,lllIlII1II,l1lIl1lI1=0,0,0,0;
-local lI1lIII1l11I;
-local function l1lIll1ll(lIlII1lIlll) 
-local ll1I1lI111l=lIlII1lIlll:WaitForChild(l11l1Il1lll("\65\47\23\33\55\152\100\53",237),10);
-if not ll1I1lI111l then 
+local l1l1I1Ill111=l1III111lII1:Section(lI1I1ll1llIl("\177\141\97\238\170\196\8\239\180\117\92\203\46",238));
+local lll1IlIlll1l=l1l1I1Ill111:Paragraph(lI1I1ll1llIl("\134\144\107\30\19\200\19\172\132\88\66\193",222),lI1I1ll1llIl("\81\188\210\143\245\85\247\214\85\121\207",31));
+local l1IIlIl1ll1lI,lII1l1lI,l11II1I111II,ll1111l1lII1=0,0,0,0;
+local lll1ll1Il1;
+local function lIlIlIIllI111(l111I1I11) 
+local l1lIllIlllI=l111I1I11:WaitForChild(lI1I1ll1llIl("\202\253\31\92\13\100\175\11",142),10);
+if not l1lIllIlllI then 
 return  end;
 
-ll1I1lI111l.StateChanged:Connect(function(lIllIIl1I,llI11Ill11IlI) 
-if llI11Ill11IlI == Enum.HumanoidStateType.Jumping then 
-l1111Il1II11l=l1111Il1II11l + 1 end end);
+l1lIllIlllI.StateChanged:Connect(function(lllII1ll,l11lIlIl) 
+if l11lIlIl == Enum.HumanoidStateType.Jumping then 
+lII1l1lI=lII1l1lI + 1 end end);
 
 
-ll1I1lI111l.Died:Connect(function() 
-lllIlII1II=lllIlII1II + 1 end);
+l1lIllIlllI.Died:Connect(function() 
+l11II1I111II=l11II1I111II + 1 end);
 
-lI1lIII1l11I=nil end;
+lll1ll1Il1=nil end;
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(l1lIll1ll));
-if lllI1llI.Character then 
-task.spawn(l1lIll1ll,lllI1llI.Character) end;
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(lIlIlIIllI111));
+if ll1lI1IIII1.Character then 
+task.spawn(lIlIlIIllI111,ll1lI1IIII1.Character) end;
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-local llll1lIl1=lIl1I1lI1Il();
-if llll1lIl1 then 
-local llIlIIIl=llll1lIl1.Position;
-if lI1lIII1l11I then 
-local lllIl11l=(llIlIIIl - lI1lIII1l11I).Magnitude;
-if lllIl11l < 200 then 
-lIl1IlIl=lIl1IlIl + lllIl11l end end;
+while l111II11I.Window == l1l1Ill1 do 
+local lllI1llII1Il=l1lI11Il111ll();
+if lllI1llII1Il then 
+local l1ll11I1Ill=lllI1llII1Il.Position;
+if lll1ll1Il1 then 
+local lIllIlIlII=(l1ll11I1Ill - lll1ll1Il1).Magnitude;
+if lIllIlIlII < 200 then 
+l1IIlIl1ll1lI=l1IIlIl1ll1lI + lIllIlIlII end end;
 
 
-lI1lIII1l11I=llIlIIIl;
-local ll1lI11l=llll1lIl1.AssemblyLinearVelocity;
-l1lIl1lI1=math.max(l1lIl1lI1,Vector3.new(ll1lI11l.X,0,ll1lI11l.Z).Magnitude) end;
+lll1ll1Il1=l1ll11I1Ill;
+local l1lIlII1IllIl=lllI1llII1Il.AssemblyLinearVelocity;
+ll1111l1lII1=math.max(ll1111l1lII1,Vector3.new(l1lIlII1IllIl.X,0,l1lIlII1IllIl.Z).Magnitude) end;
 
-local ll1IIII1=math.floor(os.clock() - l11I1llI1lI);
-l1IIl1l1II:Set(l11l1Il1lll("\66\206\84\61\70\223\192\104\106\44\59\205",203),string.format(l11l1Il1lll("\105\202\97\115\188\81\160\59\48\97\190\177\89\150\135\138\143\100\188\166\104\173\39\183\225\218\29\118\141\110\100\58\174\55\153\146\207\94\174\6\93\84\157\195\120\191\167\170\175\68\92\70\136\65\21\151\200\231\126\86\169\11\87\184\74\67\236\130\51\196\36\224\160\97\171\167\93\158\131\202\126\231\115\53",134),math.floor(ll1IIII1 / 3600),math.floor((ll1IIII1 % 3600) / 60),tostring(math.floor(lIl1IlIl)),l1111Il1II11l,lllIlII1II,math.floor(l1lIl1lI1)));
+local lI1I1I1lIII=math.floor(os.clock() - l11I111IlI);
+lll1IlIlll1l:Set(lI1I1ll1llIl("\174\176\175\127\87\74\40\243\166\132\80\125",205),string.format(lI1I1ll1llIl("\227\24\0\138\77\241\46\216\162\173\66\15\7\102\230\79\229\86\253\127\185\45\73\180\147\118\129\232\243\190\37\223\164\101\56\171\62\254\224\37\15\24\225\61\102\79\198\111\133\54\157\31\153\1\123\148\186\139\34\72\87\155\86\29\64\17\13\251\66\228\170\3\50\45\215\153\131\238\98\143\20\213\178\108",86),math.floor(lI1I1I1lIII / 3600),math.floor((lI1I1I1lIII % 3600) / 60),tostring(math.floor(l1IIlIl1ll1lI)),lII1l1lI,l11II1I111II,math.floor(ll1111l1lII1)));
 
 
 
@@ -5748,59 +5752,59 @@ task.wait(0.5) end end) end;
 
 
 do 
-local llII11l1l=ll1lIlIlIIll1:Section(l11l1Il1lll("\100\15\41\201\218\55\157\221\33\206\88\240",205));
-local l1I11I1lI=game:GetService(l11l1Il1lll("\90\53\15\46\61\164\104\35\22\254\126\199",237));
-local lIl1llIII=lI11IIlIIIllI(l11l1Il1lll("\35\11\219\205\121",222),{Name=llIIlI1Il:GenerateGUID(false),Looped=true,Volume=0.5,Parent=l1I11I1lI});
-local llIIlll1I111=llII11l1l:Input({Name=l11l1Il1lll("\128\10\225\128\135\47\220\30",145),Placeholder=l11l1Il1lll("\213\105\74\188\188\23\250\97\254\162\142\57\43\143\120",245),Numeric=true});
-llII11l1l:Button({Name=l11l1Il1lll("\253\95\221\223",22),Description=l11l1Il1lll("\244\208\213\94\168\227\79\141\120\191\241\161\120\63\216\51",244),Action=l11l1Il1lll("\192\238\73\185",8),Callback=function() 
-local lIIIl1II1I1I=tostring(llIIlll1I111:Get()):gsub(l11l1Il1lll("\37\179",69),l11l1Il1lll("",44));
-if lIIIl1II1I1I == l11l1Il1lll("",31) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\207\226\90\166\240",192),Content=l11l1Il1lll("\33\160\94\239\147\130\243\54\81\174\64\29\17\144\69\131\144\126\220\115\227\161\118\230",233),Type=l11l1Il1lll("\201\101\111\221\40\67\75",63)});
+local lI1111111=l1III111lII1:Section(lI1I1ll1llIl("\191\109\145\228\176\187\38\147\182\104\40\189",254));
+local l1II111II111I=game:GetService(lI1I1ll1llIl("\69\103\139\178\174\99\30\87\63\237\178\140",187));
+local lIl1l1Il1=lllII1lI1I1I(lI1I1ll1llIl("\166\51\71\166\110",234),{Name=llII1lIII1:GenerateGUID(false),Looped=true,Volume=0.5,Parent=l1II111II111I});
+local ll11llI1l1l1=lI1111111:Input({Name=lI1I1ll1llIl("\255\188\243\182\125\131\210\233",80),Placeholder=lI1I1ll1llIl("\191\214\129\194\183\232\149\83\194\245\43\10\247\111\215",237),Numeric=true});
+lI1111111:Button({Name=lI1I1ll1llIl("\205\83\235\157",25),Description=lI1I1ll1llIl("\232\15\49\166\93\189\213\53\82\240\7\108\33\59\191\11",70),Action=lI1I1ll1llIl("\79\45\84\145",129),Callback=function() 
+local lI1II1l1l1l1=tostring(ll11llI1l1l1:Get()):gsub(lI1I1ll1llIl("\131\0",108),lI1I1ll1llIl("",167));
+if lI1II1l1l1l1 == lI1I1ll1llIl("",17) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\144\10\185\205\33",89),Content=lI1I1ll1llIl("\239\101\119\160\139\83\128\198\230\69\99\88\175\222\223\206\126\187\213\28\27\144\5\246",212),Type=lI1I1ll1llIl("\77\121\116\162\222\151\234",13)});
 return  end;
 
-lIl1llIII:Stop();
-lIl1llIII.SoundId=l11l1Il1lll("\107\196\176\19\253\93\224\178\135\80\23\76\190",55) .. lIIIl1II1I1I;
-lIl1llIII:Play();
+lIl1l1Il1:Stop();
+lIl1l1Il1.SoundId=lI1I1ll1llIl("\196\214\254\237\5\114\10\99\163\15\25\202\246",124) .. lI1II1l1l1l1;
+lIl1l1Il1:Play();
 task.delay(2,function() 
-if lIl1llIII.IsPlaying and (lIl1llIII.TimeLength == 0) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\125\81\157\138\62",158),Content=l11l1Il1lll("\32\86\187\14\209\211\215\12\8\176\5\109\97\139\27\221\144\110\198\101\0\70\60\248\184\59\149\148\153\6\197\40\49\254\74\232\120\36\227\60\36\223\106\27\72\253\112\183\171\24\239\78\175",249),Type=l11l1Il1lll("\247\243\106\158\41\177\139",24)}) end end) end});
+if lIl1l1Il1.IsPlaying and (lIl1l1Il1.TimeLength == 0) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\187\1\53\37\213",60),Content=lI1I1ll1llIl("\178\108\87\40\134\176\234\131\115\212\179\49\224\103\255\31\34\180\202\195\55\69\33\87\227\127\35\168\152\10\193\202\163\4\102\78\175\199\158\243\95\187\220\7\73\145\20\181\217\194\227\232\88",44),Type=lI1I1ll1llIl("\165\153\112\3\90\213\17",222)}) end end) end});
 
 
 
-llII11l1l:Button({Name=l11l1Il1lll("\11\163\251\176",44),Action=l11l1Il1lll("\229\114\242\94",107),Callback=function() 
-lIl1llIII:Stop() end});
+lI1111111:Button({Name=lI1I1ll1llIl("\1\204\172\221",79),Action=lI1I1ll1llIl("\178\31\134\32",232),Callback=function() 
+lIl1l1Il1:Stop() end});
 
-llII11l1l:Slider({Name=l11l1Il1lll("\0\166\239\239\79\228\34\172\236\193\19\118",246),Flag=l11l1Il1lll("\169\27\249\67\226\148\157\84\164\2\240",73),Min=0,Max=100,Default=50,Suffix=l11l1Il1lll("\19",235),Callback=function(llI11IIIll) 
-lIl1llIII.Volume=llI11IIIll / 100 end});
+lI1111111:Slider({Name=lI1I1ll1llIl("\50\84\38\225\78\197\81\116\241\74\231\129",225),Flag=lI1I1ll1llIl("\223\45\80\100\18\250\102\109\190\138\20",175),Min=0,Max=100,Default=50,Suffix=lI1I1ll1llIl("\139",64),Callback=function(l1lIlI1lI) 
+lIl1l1Il1.Volume=l1lIlI1lI / 100 end});
 
-llII11l1l:Slider({Name=l11l1Il1lll("\171\151\13\132\32",180),Flag=l11l1Il1lll("\77\71\139\121\195\111\37\28\209\207",184),Min=50,Max=200,Default=100,Increment=5,Suffix=l11l1Il1lll("\36",81),Callback=function(lIlIl11lI1) 
-lIl1llIII.PlaybackSpeed=lIlIl11lI1 / 100 end});
+lI1111111:Slider({Name=lI1I1ll1llIl("\133\21\102\139\130",202),Flag=lI1I1ll1llIl("\179\220\132\150\81\211\210\57\2\131",48),Min=50,Max=200,Default=100,Increment=5,Suffix=lI1I1ll1llIl("\100",72),Callback=function(lllIlIl1I1) 
+lIl1l1Il1.PlaybackSpeed=lllIlIl1I1 / 100 end});
 
-llIIIIII1:OnUnload(function() 
-lIl1llIII:Destroy() end) end;
+l111II11I:OnUnload(function() 
+lIl1l1Il1:Destroy() end) end;
 
 
 
 
 do 
-local ll1lI11II11l1=game:GetService(l11l1Il1lll("\75\234\94\66\137\117\200\122\30\20\219\215\80\122\41\43\202\86\206",166));
-local lIllllIll=ll1lIlIlIIll1:Section(l11l1Il1lll("\175\43\211\42\3\87\102\172\158\33\198",105));
-local lll1lII1I=llIIIIII1.Folder .. l11l1Il1lll("\36\101\140\14\154\159\36\220\103\9\87\62\176\188\46\217",68);
-local l1lIlI1l1l=llIIIIII1:ReadJSON(lll1lII1I) or {};
-local l1I1I111lI11l={};
-local function l1llI1l1Il() 
-local llII1I1I1l1l1={};
-for lI1lII1lll1ll,ll1llllll in ipairs(l1I1I111lI11l) do 
-table.insert(llII1I1I1l1l1,{key=ll1llllll.key,x=ll1llllll.frame.Position.X.Offset,y=ll1llllll.frame.Position.Y.Offset}) end;
+local l11l111IIl11l=game:GetService(lI1I1ll1llIl("\19\165\208\44\15\1\6\92\53\83\171\3\2\248\219\38\178\25\96",90));
+local l1llIlI1llIIl=l1III111lII1:Section(lI1I1ll1llIl("\97\238\250\101\27\134\21\92\41\202\229",84));
+local lll1IIIIl1I11=l111II11I.Folder .. lI1I1ll1llIl("\210\244\79\61\192\229\202\48\64\31\118\150\119\70\152\133",121);
+local lII1Il1I=l111II11I:ReadJSON(lll1IIIIl1I11) or {};
+local llI1I1I1={};
+local function lIIIlIllI11l() 
+local lI1llIIII={};
+for lllI11II111l,l1IIIIll1IlI in ipairs(llI1I1I1) do 
+table.insert(lI1llIIII,{key=l1IIIIll1IlI.key,x=l1IIIIll1IlI.frame.Position.X.Offset,y=l1IIIIll1IlI.frame.Position.Y.Offset}) end;
 
-llIIIIII1:WriteJSON(lll1lII1I,llII1I1I1l1l1) end;
+l111II11I:WriteJSON(lll1IIIIl1I11,lI1llIIII) end;
 
-local function lIIllI1IIII(llIIIll1IIl1I,lIIIlIl1,lII1ll11l) 
-local llI1IlIIl1ll1=Enum.KeyCode[llIIIll1IIl1I];
-if not llI1IlIIl1ll1 then 
+local function ll11l1l1(lIIIlIIIll1I1,l1l1l1ll1II,l1Il1Il1II) 
+local ll11I1l11=Enum.KeyCode[lIIIlIIIll1I1];
+if not ll11I1l11 then 
 return false end;
 
-local l11llIl1Il1I=lI11IIlIIIllI(l11l1Il1lll("\109\227\208\102\172\59\209\146\161\122",23),{Size=UDim2.new(0,54,0,54),Position=UDim2.new(0,lIIIlIl1 or (120 + ((# l1I1I111lI11l) * 62)),0,lII1ll11l or 140),Text=llIIIll1IIl1I,Font=Enum.Font.GothamBold,TextSize=(((# llIIIll1IIl1I) > 2) and 11) or 18,AutoButtonColor=false,BackgroundTransparency=0.15,Parent=llIIIIII1.Gui});
+local l1lllll1=lllII1lI1I1I(lI1I1ll1llIl("\79\6\230\67\77\172\129\243\122\210",210),{Size=UDim2.new(0,54,0,54),Position=UDim2.new(0,l1l1l1ll1II or (120 + ((# llI1I1I1) * 62)),0,l1Il1Il1II or 140),Text=lIIIlIIIll1I1,Font=Enum.Font.GothamBold,TextSize=(((# lIIIlIIIll1I1) > 2) and 11) or 18,AutoButtonColor=false,BackgroundTransparency=0.15,Parent=l111II11I.Gui});
 
 
 
@@ -5810,117 +5814,117 @@ local l11llIl1Il1I=lI11IIlIIIllI(l11l1Il1lll("\109\227\208\102\172\59\209\146\16
 
 
 
-llIllI11I1I(l11llIl1Il1I,l11l1Il1lll("\70\253\95\192\159\174\73\78\251\7\140\173\89\212\118\29",58),l11l1Il1lll("\146\163\11\235\119\253\179\141\172\179",72));
-llIllI11I1I(l11llIl1Il1I,l11l1Il1lll("\122\145\149\87\146\242\240\52\187\69",175),l11l1Il1lll("\244\32\76\71\187\47",82));
-l1llIIIIIl11(l11llIl1Il1I,16);
-llIIIIII1.Stroke(l11llIl1Il1I);
-local lII1Ill1=lI11IIlIIIllI(l11l1Il1lll("\109\254\167\131\75\83\244",76),{Parent=l11llIl1Il1I});
-local lIllIIII1lI={key=llIIIll1IIl1I,frame=l11llIl1Il1I};
-local function l1lI11Ill1IlI() 
-local l1I1I1l1=workspace.CurrentCamera;
-local l1lI11II1lIl=(l1I1I1l1 and l1I1I1l1.ViewportSize) or Vector2.new(800,600);
-local lI1lIIlIlIII=math.clamp(l11llIl1Il1I.Position.X.Offset,8,math.max(8,l1lI11II1lIl.X - 62));
-local l1I1Il1l1III=math.clamp(l11llIl1Il1I.Position.Y.Offset,8,math.max(8,l1lI11II1lIl.Y - 62));
-llIIIIII1.Tween(l11llIl1Il1I,nil,{Position=UDim2.new(0,lI1lIIlIlIII,0,l1I1Il1l1III)}) end;
+lI11ll1lIIlII(l1lllll1,lI1I1ll1llIl("\153\194\61\156\168\107\90\178\59\152\209\7\6\31\232\214",18),lI1I1ll1llIl("\57\98\221\124\72\139\186\18\155\56",178));
+lI11ll1lIIlII(l1lllll1,lI1I1ll1llIl("\138\204\143\139\113\236\215\34\19\216",48),lI1I1ll1llIl("\251\251\229\41\89\13",141));
+lIlll1ll1l1I1(l1lllll1,16);
+l111II11I.Stroke(l1lllll1);
+local l1I1l1IIl11I=lllII1lI1I1I(lI1I1ll1llIl("\142\234\13\148\174\117\80",18),{Parent=l1lllll1});
+local ll1Il1l1ll1={key=lIIIlIIIll1I1,frame=l1lllll1};
+local function l1I1l111ll1I() 
+local lI1II1111l=workspace.CurrentCamera;
+local ll1lIIII11l=(lI1II1111l and lI1II1111l.ViewportSize) or Vector2.new(800,600);
+local lIll1IlI1I=math.clamp(l1lllll1.Position.X.Offset,8,math.max(8,ll1lIIII11l.X - 62));
+local ll1llIII1111l=math.clamp(l1lllll1.Position.Y.Offset,8,math.max(8,ll1lIIII11l.Y - 62));
+l111II11I.Tween(l1lllll1,nil,{Position=UDim2.new(0,lIll1IlI1I,0,ll1llIII1111l)}) end;
 
-llIIIIII1.Draggable(l11llIl1Il1I,l11llIl1Il1I,function(ll11II11) 
-if ll11II11 then 
-l1lI11Ill1IlI();
-task.delay(0.2,l1llI1l1Il) end end);
-
-
-task.defer(l1lI11Ill1IlI);
-l11llIl1Il1I.InputBegan:Connect(function(lIlIIIl1IlI) 
-if (lIlIIIl1IlI.UserInputType == Enum.UserInputType.Touch) or (lIlIIIl1IlI.UserInputType == Enum.UserInputType.MouseButton1) then 
-llIIIIII1.Press(lII1Ill1);
-pcall(ll1lI11II11l1.SendKeyEvent,ll1lI11II11l1,true,llI1IlIIl1ll1,false,game) end end);
+l111II11I.Draggable(l1lllll1,l1lllll1,function(ll11I11I) 
+if ll11I11I then 
+l1I1l111ll1I();
+task.delay(0.2,lIIIlIllI11l) end end);
 
 
-l11llIl1Il1I.InputEnded:Connect(function(llI1ll1IIlI11) 
-if (llI1ll1IIlI11.UserInputType == Enum.UserInputType.Touch) or (llI1ll1IIlI11.UserInputType == Enum.UserInputType.MouseButton1) then 
-pcall(ll1lI11II11l1.SendKeyEvent,ll1lI11II11l1,false,llI1IlIIl1ll1,false,game) end end);
+task.defer(l1I1l111ll1I);
+l1lllll1.InputBegan:Connect(function(lIIl1llIII1l) 
+if (lIIl1llIII1l.UserInputType == Enum.UserInputType.Touch) or (lIIl1llIII1l.UserInputType == Enum.UserInputType.MouseButton1) then 
+l111II11I.Press(l1I1l1IIl11I);
+pcall(l11l111IIl11l.SendKeyEvent,l11l111IIl11l,true,ll11I1l11,false,game) end end);
 
 
-l11llIl1Il1I.Visible=l1IIlll1I11l.keyButtons ~= false;
-table.insert(l1I1I111lI11l,lIllIIII1lI);
+l1lllll1.InputEnded:Connect(function(lI1l1ll1111I) 
+if (lI1l1ll1111I.UserInputType == Enum.UserInputType.Touch) or (lI1l1ll1111I.UserInputType == Enum.UserInputType.MouseButton1) then 
+pcall(l11l111IIl11l.SendKeyEvent,l11l111IIl11l,false,ll11I1l11,false,game) end end);
+
+
+l1lllll1.Visible=lll1l11Il1ll1.keyButtons ~= false;
+table.insert(llI1I1I1,ll1Il1l1ll1);
 return true end;
 
-local l1lIl11IIII=lIllllIll:Input({Name=l11l1Il1lll("\146\224\237",195),Placeholder=l11l1Il1lll("\62\82\217\33\228\250\49\148\56\219\177\102\190\140\25\238\141\154\37\183\23\36\149\38\134\41",52)});
-lIllllIll:Button({Name=l11l1Il1lll("\164\119\59\114\206\110\205\158\102\233\72\223\151\178",2),Description=l11l1Il1lll("\110\241\233\64\225\204\140\41\172\18\252\93\160\78\170\232\142\7\14\209\52\120\114\251\61\158\153\54\126\142\7\83\109\151\152\32\129\249\228\2\138\102\3\183\87\160\197\226\252\53\42\227\88\9\92\140\1\179\170\7\158\103\250\163\222\168\180\24\228",191),Action=l11l1Il1lll("\152\225\240",195),Callback=function() 
+local l1lIll111I=l1llIlI1llIIl:Input({Name=lI1I1ll1llIl("\78\233\155",26),Placeholder=lI1I1ll1llIl("\178\29\13\233\1\180\219\92\98\4\215\155\215\152\110\198\1\213\177\63\242\106\31\174\156\246",22)});
+l1llIlI1llIIl:Button({Name=lI1I1ll1llIl("\102\133\185\127\150\33\67\224\144\109\150\249\188\245",198),Description=lI1I1ll1llIl("\213\200\59\16\213\6\242\46\207\236\242\35\89\89\98\174\53\94\156\161\0\146\44\28\190\96\119\136\167\153\239\53\150\174\10\48\245\51\154\197\41\88\13\9\110\119\13\164\7\44\248\147\44\163\66\107\130\141\132\121\71\176\210\5\229\145\102\72\208",85),Action=lI1I1ll1llIl("\230\5\57",70),Callback=function() 
 
 
 
 
-local lllII1II1ll1=l1lIl11IIII:Get():gsub(l11l1Il1lll("\110\61",4),l11l1Il1lll("",145));
-if (# lllII1II1ll1) == 1 then 
-lllII1II1ll1=lllII1II1ll1:upper() end;
+local l1l11I1Ill=l1lIll111I:Get():gsub(lI1I1ll1llIl("\112\30",133),lI1I1ll1llIl("",216));
+if (# l1l11I1Ill) == 1 then 
+l1l11I1Ill=l1l11I1Ill:upper() end;
 
-local l11I11Illl={[l11l1Il1lll("\33",65)]=l11l1Il1lll("\218\18\143\45",197),[l11l1Il1lll("\145",229)]=l11l1Il1lll("\63\10\203",222),[l11l1Il1lll("\118",122)]=l11l1Il1lll("\45\82\91",99),[l11l1Il1lll("\59",124)]=l11l1Il1lll("\0\196\126\254\77",106),[l11l1Il1lll("\64",249)]=l11l1Il1lll("\38\59\235\193",206),[l11l1Il1lll("\164",193)]=l11l1Il1lll("\103\246\19\172",113),[l11l1Il1lll("\214",78)]=l11l1Il1lll("\211\251\96",24),[l11l1Il1lll("\74",198)]=l11l1Il1lll("\151\11\252\79\239",73),[l11l1Il1lll("\12",185)]=l11l1Il1lll("\151\174\30\215\151",144),[l11l1Il1lll("\105",254)]=l11l1Il1lll("\72\255\99\59",219)};
-lllII1II1ll1=l11I11Illl[lllII1II1ll1] or lllII1II1ll1;
-if lIIllI1IIII(lllII1II1ll1) then 
-l1llI1l1Il();
-l1lIl11IIII:Set(l11l1Il1lll("",116),true);
-llIIIIII1:Notify({Title=l11l1Il1lll("\195\130\221\176\56\58\181\67\20\16",252),Content=lllII1II1ll1 .. l11l1Il1lll("\130\214\109\139\214\34\159\31\196\224\121\151\96\182\152\232\115\105\192\8\75\83\179\202\62",224)}) else 
+local l1I11lI1={[lI1I1ll1llIl("\65",120)]=lI1I1ll1llIl("\200\29\113\2",143),[lI1I1ll1llIl("\43",100)]=lI1I1ll1llIl("\213\214\195",173),[lI1I1ll1llIl("\232",164)]=lI1I1ll1llIl("\11\118\26",193),[lI1I1ll1llIl("\233",164)]=lI1I1ll1llIl("\98\0\236\217\207",155),[lI1I1ll1llIl("\61",179)]=lI1I1ll1llIl("\192\11\35\14",76),[lI1I1ll1llIl("\251",32)]=lI1I1ll1llIl("\116\49\212\168",62),[lI1I1ll1llIl("\29",7)]=lI1I1ll1llIl("\57\1\14",93),[lI1I1ll1llIl("\185",96)]=lI1I1ll1llIl("\237\172\225\186\124",80),[lI1I1ll1llIl("\97",227)]=lI1I1ll1llIl("\10\120\2\240\73",209),[lI1I1ll1llIl("\100",217)]=lI1I1ll1llIl("\105\136\179\58",198)};
+l1l11I1Ill=l1I11lI1[l1l11I1Ill] or l1l11I1Ill;
+if ll11l1l1(l1l11I1Ill) then 
+lIIIlIllI11l();
+l1lIll111I:Set(lI1I1ll1llIl("",133),true);
+l111II11I:Notify({Title=lI1I1ll1llIl("\154\62\128\96\92\185\122\96\145\231",216),Content=l1l11I1Ill .. lI1I1ll1llIl("\145\90\189\4\123\136\192\212\90\27\86\216\82\170\143\45\64\197\80\231\230\25\44\33\160",184)}) else 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\73\114\208\111\113\83\165\43\143\156",64),Content=l11l1Il1lll("\251",247) .. (lllII1II1ll1 .. l11l1Il1lll("\233\238\64\196\86\13\228\72\169\7\15\53\227\175\111\150\214\219\151\7\220\232\89\216\29\251\180\134\38\63\253\34\77\90\154\63\113\108\196\104\135\53\36\99\138\142\66\178\181",132)),Type=l11l1Il1lll("\231\6\191\28\21\168\69",213)}) end end});
-
-
-
-lIllllIll:Toggle({Name=l11l1Il1lll("\247\102\133\61\129\137\183\97\17\237\0\77\76\80\203\121",41),Flag=l11l1Il1lll("\233\242\80\141\230\210\37\176\14\1",192),Default=true,Callback=function(l1l11lll11llI) 
-for l1I111lI1l,lIl111l1lIl in ipairs(l1I1I111lI11l) do 
-lIl111l1lIl.frame.Visible=l1l11lll11llI end end});
+l111II11I:Notify({Title=lI1I1ll1llIl("\141\65\111\28\164\196\139\243\85\245",12),Content=lI1I1ll1llIl("\168",189) .. (l1l11I1Ill .. lI1I1ll1llIl("\215\237\118\64\171\112\150\188\11\72\29\249\158\105\83\145\40\24\161\131\97\213\107\44\191\244\230\74\91\25\1\229\179\153\108\123\204\81\246\220\101\58\118\239\183\200\190\117\139",37)),Type=lI1I1ll1llIl("\237\90\97\187\96\237\118",228)}) end end});
 
 
-lIllllIll:Button({Name=l11l1Il1lll("\107\0\25\236\103\187\224\11\234\122\173\181\147\69\245\9\252\161\144\124\239\93",35),Action=l11l1Il1lll("\136\162\76\214\74",132),Danger=true,Callback=function() 
-for ll1llIIIII,llllI11ll in ipairs(l1I1I111lI11l) do 
-llllI11ll.frame:Destroy() end;
 
-l1I1I111lI11l={};
-l1llI1l1Il() end});
+l1llIlI1llIIl:Toggle({Name=lI1I1ll1llIl("\114\195\70\231\174\23\59\61\174\155\210\187\118\60\5\206",40),Flag=lI1I1ll1llIl("\233\45\74\63\116\200\109\94\149\164",159),Default=true,Callback=function(lIlI1IlIlI) 
+for lIlIllI1lll1l,llII1l1Ill11 in ipairs(llI1I1I1) do 
+llII1l1Ill11.frame.Visible=lIlI1IlIlI end end});
 
-for ll1l1Il11I1l1,l11IlIIIl in ipairs(l1lIlI1l1l) do 
-lIIllI1IIII(l11IlIIIl.key,l11IlIIIl.x,l11IlIIIl.y) end end;
+
+l1llIlI1llIIl:Button({Name=lI1I1ll1llIl("\249\226\124\236\120\5\166\213\206\68\115\118\4\229\25\115\174\131\245\124\208\163",135),Action=lI1I1ll1llIl("\62\115\207\165\80",249),Danger=true,Callback=function() 
+for lll11II1,l11lllII in ipairs(llI1I1I1) do 
+l11lllII.frame:Destroy() end;
+
+llI1I1I1={};
+lIIIlIllI11l() end});
+
+for lIllIlllI1II,lI1l1Il1IlI in ipairs(lII1Il1I) do 
+ll11l1l1(lI1l1Il1IlI.key,lI1l1Il1IlI.x,lI1l1Il1IlI.y) end end;
 
 
 
 
 
 do 
-local lIIIllIIl1Il=ll1lIlIlIIll1:Section(l11l1Il1lll("\40\177\81\108\122\142\22\142\141\33\196",49));
-local lI1Il1llIl=setmetatable({},{__mode=l11l1Il1lll("\146",215)});
-local function lllI1II11II(l1ll1ll11lIl) 
-if not l1ll1ll11lIl:IsA(l11l1Il1lll("\21\193\144\138\108\134\61\42\157\108\238\100\53\12\50",162)) then 
+local l1111IIl11Ill=l1III111lII1:Section(lI1I1ll1llIl("\143\74\98\89\180\208\156\243\83\244\221",12));
+local llIIl1l1l=setmetatable({},{__mode=lI1I1ll1llIl("\237",43)});
+local function lII1IlII111(lllI1III) 
+if not lllI1III:IsA(lI1I1ll1llIl("\138\138\137\148\254\180\196\20\140\157\109\92\168\39\150",237)) then 
 return  end;
 
-if l1IIlll1I11l.instantPrompts then 
-if lI1Il1llIl[l1ll1ll11lIl] == nil then 
-lI1Il1llIl[l1ll1ll11lIl]=l1ll1ll11lIl.HoldDuration end;
+if lll1l11Il1ll1.instantPrompts then 
+if llIIl1l1l[lllI1III] == nil then 
+llIIl1l1l[lllI1III]=lllI1III.HoldDuration end;
 
-l1ll1ll11lIl.HoldDuration=0 elseif lI1Il1llIl[l1ll1ll11lIl] ~= nil then 
+lllI1III.HoldDuration=0 elseif llIIl1l1l[lllI1III] ~= nil then 
 
-l1ll1ll11lIl.HoldDuration=lI1Il1llIl[l1ll1ll11lIl];
-lI1Il1llIl[l1ll1ll11lIl]=nil end end;
-
-
-lIIIllIIl1Il:Toggle({Name=l11l1Il1lll("\13\128\121\222\96\44\6\152\56\129\97\60\42\254\102\222",201),Description=l11l1Il1lll("\36\179\188\11\203\115\181\164\151\183\182\83\67\90\204\91\235\67\59\129\35\207\107\34\67\220\194\143\117\125\44\233\102\219\200\118\237\30\211\159\176\77\78\251\65\164\162\88\205\103\70\230\2\183",71),Flag=l11l1Il1lll("\52\173\31\2\93\186\16\163\194\203\3\19\169\40",230),Callback=function() 
+lllI1III.HoldDuration=llIIl1l1l[lllI1III];
+llIIl1l1l[lllI1III]=nil end end;
 
 
-
-
-for l1llI11IlII,l1l11I1l1 in ipairs(workspace:GetDescendants()) do 
-lllI1II11II(l1l11I1l1) end end});
+l1111IIl11Ill:Toggle({Name=lI1I1ll1llIl("\215\135\196\75\147\45\15\173\200\69\221\117\124\157\189\176",112),Description=lI1I1ll1llIl("\15\45\214\148\214\166\38\221\14\210\246\63\127\179\90\208\192\189\81\62\62\58\248\91\58\185\98\227\105\148\154\98\77\69\162\169\240\203\64\230\233\40\14\151\189\77\52\211\230\217\44\89\31\2",78),Flag=lI1I1ll1llIl("\31\70\173\136\139\126\239\149\219\11\156\185\119\76",219),Callback=function() 
 
 
 
-lI11l11IIl(workspace.DescendantAdded:Connect(function(l1IlI1l1) 
-if l1IIlll1I11l.instantPrompts then 
-lllI1II11II(l1IlI1l1) end end));
+
+for lIIIll1Il1l1I,lI1l11III11I1 in ipairs(workspace:GetDescendants()) do 
+lII1IlII111(lI1l11III11I1) end end});
 
 
-llIIIIII1:OnUnload(function() 
-for lll1II11l1II,l1lIIlII in pairs(lI1Il1llIl) do 
-if lll1II11l1II.Parent then 
-lll1II11l1II.HoldDuration=l1lIIlII end end end) end;
+
+lIl11lIIl(workspace.DescendantAdded:Connect(function(llllIl1l1l) 
+if lll1l11Il1ll1.instantPrompts then 
+lII1IlII111(llllIl1l1l) end end));
+
+
+l111II11I:OnUnload(function() 
+for ll1ll11l111I,l1lIlI1I11 in pairs(llIIl1l1l) do 
+if ll1ll11l111I.Parent then 
+ll1ll11l111I.HoldDuration=l1lIlI1I11 end end end) end;
 
 
 
@@ -5929,47 +5933,47 @@ lll1II11l1II.HoldDuration=l1lIIlII end end end) end;
 
 
 do 
-local l1lIII1lllI1l=game:GetService(l11l1Il1lll("\48\223\95\10\35\253\217\66\135\197\49\199\108\239\254\123\145\35\175",187));
-local llI1l1Il1=ll1lIlIlIIll1:Section(l11l1Il1lll("\245\57\152\20\40\79\154\130\70\184\250\224",138));
-local llllI1lIIlII;
-llI1l1Il1:Toggle({Name=l11l1Il1lll("\228\38\107\125\197\40\152\151\39\55\153\25",66),Description=l11l1Il1lll("\72\243\75\139\138\181\85\80\181\161\120\226\118\215\109\77\255\31\236\61\7\62\182\242\106\134\145\146\21\74\225\237\65\143\124\188\240\213\106\126\149\55\71\75\166\123\137\107\218\57\204\18\123\12\153\155\64\189",58),Flag=l11l1Il1lll("\100\134\203\221\6\71\253\253\79",226),Keybind=Enum.KeyCode.K});
+local l11I1ll1111l=game:GetService(lI1I1ll1llIl("\184\240\181\219\23\146\167\84\95\203\44\148\211\13\0\21\249\140\197",0));
+local llIllIl1Il1I=l1III111lII1:Section(lI1I1ll1llIl("\246\4\25\128\77\183\38\217\225\227\23\79",86));
+local llII1lI1l1;
+llIllIl1Il1I:Toggle({Name=lI1I1ll1llIl("\35\29\230\114\99\72\138\38\36\234\216\77",110),Description=lI1I1ll1llIl("\38\7\1\188\149\32\78\155\101\191\56\131\118\203\123\111\145\171\230\106\24\75\109\249\186\152\17\51\245\86\247\143\111\59\118\203\175\192\177\117\133\233\199\234\102\167\95\9\244\205\134\69\36\57\2\208\80\99",93),Flag=lI1I1ll1llIl("\16\142\237\79\29\192\199\215\53",120),Keybind=Enum.KeyCode.K});
 
 
 
 
 
-llI1l1Il1:Slider({Name=l11l1Il1lll("\58\73\93\160\58\109\32\218\35\164\109\109\83\159\250\69\173",99),Flag=l11l1Il1lll("\230\31\86\81\174\249\117\106\193",98),Min=1,Max=30,Default=10});
-llI1l1Il1:Segmented({Name=l11l1Il1lll("\11\203\141\179\113\47\224\3",60),Flag=l11l1Il1lll("\71\144\53\168\243\235\110\126\199\38",26),Options={l11l1Il1lll("\251\82\26\20\207\205",204),l11l1Il1lll("\59\7\234\124\189\174\80\251\88\232\176",36)},Default=l11l1Il1lll("\226\122\139\61\45\221",241)});
-llI1l1Il1:Button({Name=l11l1Il1lll("\37\234\140\137\53\250\4\61\132\99\216",146),Description=l11l1Il1lll("\239\223\201\7\231\232\0\155\52\190\247\171\42\104\217\34\89\75\233\35\112\111\144\41\157\51\107\16\153\131\72\180\240\251\43\231\27\18\175\173\20\147\148\208\24\26\162\84",244),Action=l11l1Il1lll("\141\42\143\157",102),Callback=function() 
+llIllIl1Il1I:Slider({Name=lI1I1ll1llIl("\140\253\140\123\214\230\119\251\104\253\26\39\247\195\193\58\59",81),Flag=lI1I1ll1llIl("\241\20\106\14\122\158\8\85\142",143),Min=1,Max=30,Default=10});
+llIllIl1Il1I:Segmented({Name=lI1I1ll1llIl("\150\16\123\139\129\208\123\17",202),Flag=lI1I1ll1llIl("\73\231\234\38\18\164\9\77\52\193",84),Options={lI1I1ll1llIl("\90\177\15\45\246\189",163),lI1I1ll1llIl("\199\56\238\100\232\80\74\227\210\199\38",118)},Default=lI1I1ll1llIl("\69\129\184\136\99\3",204)});
+llIllIl1Il1I:Button({Name=lI1I1ll1llIl("\175\200\182\99\141\4\135\232\109\208\126",97),Description=lI1I1ll1llIl("\105\190\26\36\141\162\222\103\3\88\38\19\253\130\95\78\223\74\186\128\26\37\110\213\138\213\186\40\206\9\206\248\118\218\120\68\241\216\177\81\35\117\69\232\79\112\164\120",185),Action=lI1I1ll1llIl("\86\17\237\167",171),Callback=function() 
 
 
 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\153\34\96\47\170\252\93\174\200\197\44\165",172),Content=l11l1Il1lll("\4\229\62\99\137\83\2\74\254\99\179\178\76\240\123\163\163\152\87\176\6\171\255\183\120\237\89\22\148\125\192\86\3\68\200\204\111\59\38\106\192\92\209\195\98\144\29\141",254),Type=l11l1Il1lll("\236\29\89\93",98)});
-lI11II1llI1:SetVisible(false);
-local lIlI1l11I;
-lIlI1l11I=llIl11lIIl1I1.InputBegan:Connect(function(l1l1I1lI1111) 
-if (l1l1I1lI1111.UserInputType == Enum.UserInputType.Touch) or (l1l1I1lI1111.UserInputType == Enum.UserInputType.MouseButton1) then 
-lIlI1l11I:Disconnect();
-llllI1lIIlII=Vector2.new(l1l1I1lI1111.Position.X,l1l1I1lI1111.Position.Y) + llII1l1I:GetGuiInset();
-l1llllI1lll1l.clickWhere:Set(l11l1Il1lll("\49\182\70\98\109\139\85\137\148\33\222",49));
+l111II11I:Notify({Title=lI1I1ll1llIl("\164\168\27\44\245\36\158\197\57\19\3\30",53),Content=lI1I1ll1llIl("\93\165\97\9\151\183\60\219\53\72\161\120\58\148\228\245\250\56\136\186\120\111\225\38\147\198\43\92\2\249\127\32\90\196\23\38\241\159\88\251\11\119\131\137\148\116\66\27",179),Type=lI1I1ll1llIl("\118\47\83\135",129)});
+l1l1Ill1:SetVisible(false);
+local l1IlI111I11I;
+l1IlI111I11I=l1IIl1lll1l.InputBegan:Connect(function(lll1IlllIIII) 
+if (lll1IlllIIII.UserInputType == Enum.UserInputType.Touch) or (lll1IlllIIII.UserInputType == Enum.UserInputType.MouseButton1) then 
+l1IlI111I11I:Disconnect();
+llII1lI1l1=Vector2.new(lll1IlllIIII.Position.X,lll1IlllIIII.Position.Y) + l11lI1IIIllI1:GetGuiInset();
+lllIIlllIIlIl.clickWhere:Set(lI1I1ll1llIl("\190\240\164\196\7\151\235\110\65\212\45",0));
 task.wait(0.3);
-lI11II1llI1:SetVisible(true);
-llIIIIII1:Notify({Title=l11l1Il1lll("\95\145\137\60\129\238\224\2\154\45\13\160",159),Content=string.format(l11l1Il1lll("\205\20\18\167\1\126\109\157\28\162\200\51\218\46\64\66\34\244\232\39\159",31),math.floor(llllI1lIIlII.X),math.floor(llllI1lIIlII.Y))}) end end) end});
+l1l1Ill1:SetVisible(true);
+l111II11I:Notify({Title=lI1I1ll1llIl("\99\93\166\178\163\136\74\230\228\42\24\141",46),Content=string.format(lI1I1ll1llIl("\152\195\1\179\223\122\68\193\64\136\162\25\46\96\175\145\151\227\219\51\65",2),math.floor(llII1lI1l1.X),math.floor(llII1lI1l1.Y))}) end end) end});
 
 
 
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if l1IIlll1I11l.autoClick and (not lI11II1llI1._visible) then 
-local lI111IlIl1lI=workspace.CurrentCamera;
-local lIIllII1lIl=(((l1IIlll1I11l.clickWhere == l11l1Il1lll("\57\83\121\139\156\51\141\130\240\24\137",141)) and llllI1lIIlII) or (lI111IlIl1lI and (lI111IlIl1lI.ViewportSize / 2))) or Vector2.zero;
+while l111II11I.Window == l1l1Ill1 do 
+if lll1l11Il1ll1.autoClick and (not l1l1Ill1._visible) then 
+local lI1lIIIll1I=workspace.CurrentCamera;
+local llIl1lI1I1=(((lll1l11Il1ll1.clickWhere == lI1I1ll1llIl("\151\104\94\212\56\128\186\19\34\23\246",38)) and llII1lI1l1) or (lI1lIIIll1I and (lI1lIIIll1I.ViewportSize / 2))) or Vector2.zero;
 pcall(function() 
-l1lIII1lllI1l:SendMouseButtonEvent(lIIllII1lIl.X,lIIllII1lIl.Y,0,true,game,0);
-l1lIII1lllI1l:SendMouseButtonEvent(lIIllII1lIl.X,lIIllII1lIl.Y,0,false,game,0) end);
+l11I1ll1111l:SendMouseButtonEvent(llIl1lI1I1.X,llIl1lI1I1.Y,0,true,game,0);
+l11I1ll1111l:SendMouseButtonEvent(llIl1lI1I1.X,llIl1lI1I1.Y,0,false,game,0) end);
 
-task.wait(1 / math.max(l1IIlll1I11l.clickRate or 10,1)) else 
+task.wait(1 / math.max(lll1l11Il1ll1.clickRate or 10,1)) else 
 
 task.wait(0.2) end end end) end;
 
@@ -5983,10 +5987,10 @@ task.wait(0.2) end end end) end;
 
 
 do 
-local l11I1Il11II1I=llIIIIII1.Folder .. l11l1Il1lll("\173\243\70\172\248\136\59\172\15\28",192);
-local llIl1l1lll=llIIIIII1:ReadJSON(l11I1Il11II1I) or {};
-local l1lI1IllII=llIIIIII1.IconIds;
-local l1IIII1ll11I1={{id=l11l1Il1lll("\207\185\157",147),icon=l1lI1IllII.plane,short=l11l1Il1lll("\139\31\69",118),flag=l11l1Il1lll("\86\78\241",168)},{id=l11l1Il1lll("\151\9\235\94\167\30",247),icon=l1lI1IllII.ghost,short=l11l1Il1lll("\24\18\208\87",20),flag=l11l1Il1lll("\10\161\73\230\136\210",233)},{id=l11l1Il1lll("\47\164\189\7\221\127\248",71),icon=l1lI1IllII.video,short=l11l1Il1lll("\38\210\146",130),flag=l11l1Il1lll("\84\85\252\250\160\183\76",112)},{id=l11l1Il1lll("\237\86\89\179\17\168\190\88\214\104",95),icon=l1lI1IllII.user,short=l11l1Il1lll("\118\225\187",162),flag=l11l1Il1lll("\116\92\151\225\73\155\242\232\46\172\2",174)},{id=l11l1Il1lll("\234\141\157\101\229\126\44\133\101\253",163),icon=l1lI1IllII.crosshair,short=l11l1Il1lll("\231\225\10\156",228),flag=l11l1Il1lll("\37\142\20\104\82\160\138\56\178",139)},{id=l11l1Il1lll("\19\46\129\99\251\47\40\29\46\50\153\96\33\18",200),icon=l1lI1IllII[l11l1Il1lll("\38\47\217\26\200\195\126",4)],short=l11l1Il1lll("\61\134",71),flag=l11l1Il1lll("\68\67\248\52\192",168)},{id=l11l1Il1lll("\193\2\191\226\65\212\36\89\245\0\167",114),icon=l1lI1IllII.walk,short=l11l1Il1lll("\22\190\73\34",17),flag=l11l1Il1lll("\185\50\108\81\205\40\191",118)},{id=l11l1Il1lll("\94\193\37\135\97\42\90\151\253\75\252",137),icon=l1lI1IllII[l11l1Il1lll("\255\28\80\95\232\194\122",98)],short=l11l1Il1lll("\115\217\215\111",7),hold=function(lI1lIll1) 
+local lII1lI1IIll11=l111II11I.Folder .. lI1I1ll1llIl("\154\233\48\16\110\185\72\47\197\198",101);
+local l11llIIl1l=l111II11I:ReadJSON(lII1lI1IIll11) or {};
+local lIl1lI1I=l111II11I.IconIds;
+local l11I1111={{id=lI1I1ll1llIl("\225\13\36",70),icon=lIl1lI1I.plane,short=lI1I1ll1llIl("\223\24\184",35),flag=lI1I1ll1llIl("\67\128\251",58)},{id=lI1I1ll1llIl("\184\27\37\32\223\177",60),icon=lIl1lI1I.ghost,short=lI1I1ll1llIl("\185\148\143\92",205),flag=lI1I1ll1llIl("\232\11\53\16\239\129",76)},{id=lI1I1ll1llIl("\251\45\143\225\1\49\19",57),icon=lIl1lI1I.video,short=lI1I1ll1llIl("\169\10\14",148),flag=lI1I1ll1llIl("\244\202\39\72\16\26\219",158)},{id=lI1I1ll1llIl("\56\1\202\39\79\172\151\4\138\194",194),icon=lIl1lI1I.user,short=lI1I1ll1llIl("\142\13\174",57),flag=lI1I1ll1llIl("\210\44\31\238\2\65\58\85\169\20\61",108)},{id=lI1I1ll1llIl("\85\140\191\154\114\81\83\40\25\176",204),icon=lIl1lI1I.crosshair,short=lI1I1ll1llIl("\75\142\190\52",230),flag=lI1I1ll1llIl("\200\255\72\213\106\60\153\167\185",151)},{id=lI1I1ll1llIl("\152\155\232\112\213\240\98\65\94\189\211\226\131\88",247),icon=lIl1lI1I[lI1I1ll1llIl("\182\194\46\218\191\112\91",18)],short=lI1I1ll1llIl("\246\120",191),flag=lI1I1ll1llIl("\17\60\159\151\37",181)},{id=lI1I1ll1llIl("\223\198\65\131\26\111\198\163\163\100\24",167),icon=lIl1lI1I.walk,short=lI1I1ll1llIl("\45\154\191\126",4),flag=lI1I1ll1llIl("\170\200\135\168\83\239\208",48)},{id=lI1I1ll1llIl("\35\219\110\84\211\199\1\132\58\172\23",195),icon=lIl1lI1I[lI1I1ll1llIl("\252\151\97\33\119\201\165",43)],short=lI1I1ll1llIl("\80\228\44\232",116),hold=function(l11IllII) 
 
 
 
@@ -5995,13 +5999,13 @@ local l1IIII1ll11I1={{id=l11l1Il1lll("\207\185\157",147),icon=l1lI1IllII.plane,s
 
 
 
-ll1I11l1I(lI1lIll1) end},{id=l11l1Il1lll("\104\243\193\113\133\110\214\135\184\113",23),icon=l1lI1IllII.download,short=l11l1Il1lll("\199\95\172\31",25),press=function() 
+lll11111I1(l11IllII) end},{id=lI1I1ll1llIl("\206\180\220\11\166\229\116\90\203\58",1),icon=lIl1lI1I.download,short=lI1I1ll1llIl("\213\37\0\57",76),press=function() 
 
 
-l1Il1111I1l1() end},{id=l11l1Il1lll("\1\241\39\32\150\27\11\5\236\119",254),icon=l1lI1IllII.upload,short=l11l1Il1lll("\228\72\5\52",220),press=function() 
+l1111IlI() end},{id=lI1I1ll1llIl("\147\125\26\94\42\92\181\158\90\115",223),icon=lIl1lI1I.upload,short=lI1I1ll1llIl("\26\219\231\232",156),press=function() 
 
 
-ll11Il1lllIIl() end},{id=l11l1Il1lll("\206\115\201\211\24",38),icon=l1lI1IllII.gauge,short=l11l1Il1lll("\87\254\15\175\5",137),flag=l11l1Il1lll("\202\186\143\85\77\40\243",93)},{id=l11l1Il1lll("\152\1\243\176\182\118\241\79\20\148\111\215\65",129),icon=l1lI1IllII[l11l1Il1lll("\82\231\16\79\74\80\203\121\57\235\10",97)],short=l11l1Il1lll("\19\179\69\226",119),flag=l11l1Il1lll("\121\137\43\184\137\43\210",85)},{id=l11l1Il1lll("\168\65\65\15\243\175\181\124\225\66",111),icon=l1lI1IllII.sun,short=l11l1Il1lll("\149\47\207\122\154",247),flag=l11l1Il1lll("\235\102\176\170\14\246\125\228\168\128",54)},{id=l11l1Il1lll("\48\166\71\89\15\158\9\161",33),icon=l1lI1IllII.cloud,short=l11l1Il1lll("\191\141\143",127),flag=l11l1Il1lll("\40\124\86\132\32\130\155",83)},{id=l11l1Il1lll("\232\99\108\205\94\169\52\122\85",135),icon=l1lI1IllII[l11l1Il1lll("\67\69\251\0\68\235\67\214\103\122\236",96)],short=l11l1Il1lll("\69\201\104\228",58),flag=l11l1Il1lll("\133\59\222\101\54\67\126\179",105)},{id=l11l1Il1lll("\110\8\59\208\201\123\136",205),icon=l1lI1IllII.anchor,short=l11l1Il1lll("\110\57\162\245",251),flag=l11l1Il1lll("\238\168\155\176\169\27\232",109)},{id=l11l1Il1lll("\87\211\73\33\70\207\201\114\122\46\49\209",203),icon=l1lI1IllII.pointer,short=l11l1Il1lll("\163\91\212\97\7",165),flag=l11l1Il1lll("\40\131\140\45\29\146\28\85\117",103)},{id=l11l1Il1lll("\146\191\6\251\188\198\124\240\68\87",128),icon=l1lI1IllII.camera,short=l11l1Il1lll("\22\158\2\74\121",155),flag=l11l1Il1lll("\132\214\53\142\30\127\77\140\132",121)},{id=l11l1Il1lll("\72\123\252\21\224\56\13\37\247\167\108\182",152),icon=l1lI1IllII[l11l1Il1lll("\142\151\108\186\55\44\150",164)],short=l11l1Il1lll("\179\183\61\162",180),flag=l11l1Il1lll("\51\55\253\98\253\211",20)},{id=l11l1Il1lll("\201\252\110\153\51\182\142\164\119",24),icon=l1lI1IllII[l11l1Il1lll("\36\156\112\43\117\231",1)],short=l11l1Il1lll("\148\13\186\191\239",102),flag=l11l1Il1lll("\92\173\217\203\38\178\6\226\81",210)},{id=l11l1Il1lll("\126\10\16\163\124\177\164\15",35),icon=l1lI1IllII.heart,short=l11l1Il1lll("\22\160\81",1),flag=l11l1Il1lll("\23\232\9\159\179\2\231",53)},{id=l11l1Il1lll("\132\77\226\114\203",234),icon=l1lI1IllII[l11l1Il1lll("\227\15\164\23\16\162\15\17\129\223\249\11",213)],short=l11l1Il1lll("\153\55\54\139\157",231),press=function() 
+ll111ll1l() end},{id=lI1I1ll1llIl("\14\143\47\65\166",217),icon=lIl1lI1I.gauge,short=lI1I1ll1llIl("\104\19\59\146\171",242),flag=lI1I1ll1llIl("\209\88\54\120\5\211\87",191)},{id=lI1I1ll1llIl("\208\58\135\176\125\38\189\46\214\194\43\17\26",35),icon=lIl1lI1I[lI1I1ll1llIl("\101\140\179\138\116\30\81\52\87\174\131",204)],short=lI1I1ll1llIl("\28\193\235\252",156),flag=lI1I1ll1llIl("\124\210\180\98\95\93\170",10)},{id=lI1I1ll1llIl("\225\20\49\179\31\182\211\39\26\236",70),icon=lIl1lI1I.sun,short=lI1I1ll1llIl("\131\216\162\80\233",81),flag=lI1I1ll1llIl("\252\205\202\64\53\107\4\199\93\121",173)},{id=lI1I1ll1llIl("\119\93\116\44\129\224\131\252",252),icon=lIl1lI1I.cloud,short=lI1I1ll1llIl("\71\49\220",171),flag=lI1I1ll1llIl("\139\34\49\210\216\95\202",148)},{id=lI1I1ll1llIl("\91\206\231\58\169\116\240\84\61",100),icon=lIl1lI1I[lI1I1ll1llIl("\0\153\27\191\57\145\236\237\41\81\19",104)],short=lI1I1ll1llIl("\156\42\158\235",89),flag=lI1I1ll1llIl("\84\233\134\103\29\49\214\174",42)},{id=lI1I1ll1llIl("\12\65\143\55\15\229\192",130),icon=lIl1lI1I.anchor,short=lI1I1ll1llIl("\193\11\222\226",51),flag=lI1I1ll1llIl("\57\91\22\15\194\111\94",176)},{id=lI1I1ll1llIl("\164\217\182\87\58\99\166\220\152\232\91\229",250),icon=lIl1lI1I.pointer,short=lI1I1ll1llIl("\129\68\58\126\10",223),flag=lI1I1ll1llIl("\67\221\167\242\162\112\208\242\48",63)},{id=lI1I1ll1llIl("\2\16\237\153\220\27\155\48\19\212",94),icon=lIl1lI1I.camera,short=lI1I1ll1llIl("\82\64\189\233\172",14),flag=lI1I1ll1llIl("\105\188\14\45\252\130\38\175\19",163)},{id=lI1I1ll1llIl("\82\81\66\201\247\254\140\77\208\173\10\58",45),icon=lIl1lI1I[lI1I1ll1llIl("\66\152\184\114\146\34\92",198)],short=lI1I1ll1llIl("\1\205\149\172",243),flag=lI1I1ll1llIl("\81\157\37\28\230\198",131)},{id=lI1I1ll1llIl("\50\57\151\26\173\217\212\232\247",87),icon=lIl1lI1I[lI1I1ll1llIl("\94\32\235\85\50\81",226)],short=lI1I1ll1llIl("\95\70\168\149\153",187),flag=lI1I1ll1llIl("\143\246\24\5\9\233\137\217\92",75)},{id=lI1I1ll1llIl("\54\148\253\0\51\195\202\209",120),icon=lIl1lI1I.heart,short=lI1I1ll1llIl("\24\78\49",193),flag=lI1I1ll1llIl("\82\243\150\69\37\52\223",42)},{id=lI1I1ll1llIl("\122\234\237\44\26",84),icon=lIl1lI1I[lI1I1ll1llIl("\6\37\246\214\41\179\79\127\130\141\149\119",165)],short=lI1I1ll1llIl("\122\202\205\12\58",84),press=function() 
 
 
 
@@ -6015,15 +6019,15 @@ ll11Il1lllIIl() end},{id=l11l1Il1lll("\206\115\201\211\24",38),icon=l1lI1IllII.g
 
 
 
-if l11IlII11l1 then 
-l11IlII11l1() end end},{id=l11l1Il1lll("\183\176\184\30\161\168\191\91",127),icon=l1lI1IllII.search,short=l11l1Il1lll("\100\204\53",113),flag=l11l1Il1lll("\252\85\56\189\96",183)},{id=l11l1Il1lll("\105\157\63\185\247\156\116\126\197\47\78\91",26),icon=l1lI1IllII[l11l1Il1lll("\11\111\90\149\136\83",157)],short=l11l1Il1lll("\236\94\166\27\7",241),flag=l11l1Il1lll("\93\166\206\96\115\246\46\179\48",117)},{id=l11l1Il1lll("\11\59\252\108\136\146\104\247\84\211\221",20),icon=l1lI1IllII.eye,short=l11l1Il1lll("\64\1\203\200",190),hold=function(l1IlI1IIl) 
+if lI1Il11Il1 then 
+lI1Il11Il1() end end},{id=lI1I1ll1llIl("\56\143\252\77\126\233\253\228",120),icon=lIl1lI1I.search,short=lI1I1ll1llIl("\222\228\17",183),flag=lI1I1ll1llIl("\108\183\97\102\141",179)},{id=lI1I1ll1llIl("\175\137\240\175\206\124\139\180\107\91\160\42",255),icon=lIl1lI1I[lI1I1ll1llIl("\148\253\30\9\27\244",75)],short=lI1I1ll1llIl("\216\125\17\250\229",138),flag=lI1I1ll1llIl("\111\169\208\143\238\108\245\208\2",31)},{id=lI1I1ll1llIl("\117\137\231\19\122\104\226\154\215\167\215",58),icon=lIl1lI1I.eye,short=lI1I1ll1llIl("\217\1\212\226",51),hold=function(lI11IIl1Il11I) 
 
 
 
 
 
-if lIllIlI111l then 
-lIllIlI111l(l1IlI1IIl) end end},{id=l11l1Il1lll("\168\70\72\6\235\184",111),icon=l1lI1IllII.snowflake,short=l11l1Il1lll("\224\164\40\123\76\153",123),flag=l11l1Il1lll("\157\140\28\130\50\63",180)},{id=l11l1Il1lll("\18\177\14\31\72\244\7\146\221\193\28\2",230),icon=l1lI1IllII[l11l1Il1lll("\160\168\13\222\151\147\44\140\39",144)],short=l11l1Il1lll("\166\231\6\250\117",243),flag=l11l1Il1lll("\180\172\123\238\92",148)},{id=l11l1Il1lll("\38\24\188\77\31\99\209\21\181\191\40",32),icon=l1lI1IllII[l11l1Il1lll("\122\108\171\40\159\215\53\40",84)],short=l11l1Il1lll("\219\28\13\175\110",199),flag=l11l1Il1lll("\180\72\248\80\80\227\40\199\68\10",149)},{id=l11l1Il1lll("\188\177\179\29\248\205\132\100\233",127),icon=l1lI1IllII[l11l1Il1lll("\155\51\40\135\95\234",199)],short=l11l1Il1lll("\174\121\253",59),flag=l11l1Il1lll("\155\205\219\51",227)},{id=l11l1Il1lll("\138\63\117\98\201",118),icon=l1lI1IllII.feather,short=l11l1Il1lll("\55\203\36\150\153",53),flag=l11l1Il1lll("\158\201\221\39\180",227)},{id=l11l1Il1lll("\46\107\70\156\201\68\177\232\253\5",157),icon=l1lI1IllII.mountain,short=l11l1Il1lll("\242\67\188\244\250",225),flag=l11l1Il1lll("\158\219\246\12\58\187\68\28\98",13)},{id=l11l1Il1lll("\131\77\224\112\136\227\56\107\178\82\11\23\247",234),icon=l1lI1IllII.waves,short=l11l1Il1lll("\230\78\161\252\234",225),flag=l11l1Il1lll("\126\59\14\37\43\160\108\61\11",237)},{id=l11l1Il1lll("\163\147\71\78\189\242\169\234\76\218\78",94),icon=l1lI1IllII.wind,short=l11l1Il1lll("\135\9\243\87",89),flag=l11l1Il1lll("\203\64\29\13",204)},{id=l11l1Il1lll("\34\191\92\23",33),icon=l1lI1IllII.loader,short=l11l1Il1lll("\170\22\33\156",215),flag=l11l1Il1lll("\126\227\53\40",182)},{id=l11l1Il1lll("\5\128\126\195\44\36\30\209\63\136",201),icon=l1lI1IllII.shield,short=l11l1Il1lll("\5\167\59\75",139),flag=l11l1Il1lll("\5\160\94\227\167\206\251\54\22",233)},{id=l11l1Il1lll("\154\7\147\250\195\30\11",11),icon=l1lI1IllII.flashlight,short=l11l1Il1lll("\142\150\36\223",128),flag=l11l1Il1lll("\232\79\164\30\164\240\220",9)},{id=l11l1Il1lll("\189\218\52\158\69\225\231\116\214\48\180\139\177",243),icon=l1lI1IllII.compass,short=l11l1Il1lll("\67\149\157",143),flag=l11l1Il1lll("\205\105\88\214\1\185\75",151)},{id=l11l1Il1lll("\83\131\18\178\155\55\198\97\241",69),icon=l1lI1IllII.timer,short=l11l1Il1lll("\82\223\64\27",219),flag=l11l1Il1lll("\242\75\170\217\223\46\161\249\236",209)},{id=l11l1Il1lll("\84\146\17\167\156\57\192\118\185\94\101\191\165",69),icon=l1lI1IllII.wand,short=l11l1Il1lll("\60\136\203\252",28),flag=l11l1Il1lll("\73\211\88\121\243\24",134)},{id=l11l1Il1lll("\136\45\159\130\201\55\143",102),icon=l1lI1IllII.move,short=l11l1Il1lll("\219\26\30\151\100\62\55",15),press=function() 
+if l1II11lIII1l then 
+l1II11lIII1l(lI11IIl1Il11I) end end},{id=lI1I1ll1llIl("\32\106\139\137\128\101",203),icon=lIl1lI1I.snowflake,short=lI1I1ll1llIl("\33\243\216\90\231\65",134),flag=lI1I1ll1llIl("\108\58\51\217\189\204",61)},{id=lI1I1ll1llIl("\113\59\117\54\230\3\120\76\108\238\123\209",208),icon=lIl1lI1I[lI1I1ll1llIl("\236\134\195\94\134\38\86\238\214",112)],short=lI1I1ll1llIl("\192\131\231\17\169",17),flag=lI1I1ll1llIl("\253\202\32\68\7",158)},{id=lI1I1ll1llIl("\2\203\227\222\42\84\95\109\207\118\67",140),icon=lIl1lI1I[lI1I1ll1llIl("\108\253\72\59\229\141\219\36",137)],short=lI1I1ll1llIl("\100\130\107\81\90",251),flag=lI1I1ll1llIl("\77\139\4\43\239\218\115\174\11\104",147)},{id=lI1I1ll1llIl("\105\38\224\73\102\9\109\248\117",226),icon=lIl1lI1I[lI1I1ll1llIl("\48\45\194\152\194\191",78)],short=lI1I1ll1llIl("\191\126\125",22),flag=lI1I1ll1llIl("\80\176\204\253",47)},{id=lI1I1ll1llIl("\194\209\38\7\144",85),icon=lIl1lI1I.feather,short=lI1I1ll1llIl("\137\245\174\203\7",32),flag=lI1I1ll1llIl("\78\136\24\45\230",147)},{id=lI1I1ll1llIl("\30\229\189\133\3\124\245\82\235\154",243),icon=lIl1lI1I.mountain,short=lI1I1ll1llIl("\25\52\47\33\85",109),flag=lI1I1ll1llIl("\221\106\111\169\186\31\136\197\164",212)},{id=lI1I1ll1llIl("\21\41\222\150\131\164\104\143\16\192\233\122\207",78),icon=lIl1lI1I.waves,short=lI1I1ll1llIl("\85\137\231\184\211",31),flag=lI1I1ll1llIl("\98\76\139\182\23\160\35\80\161",197)},{id=lI1I1ll1llIl("\149\83\127\81\230\216\145\167\91\242\193",12),icon=lIl1lI1I.wind,short=lI1I1ll1llIl("\204\150\252\37",1),flag=lI1I1ll1llIl("\248\208\88\206",167)},{id=lI1I1ll1llIl("\242\91\192\126",168),icon=lIl1lI1I.loader,short=lI1I1ll1llIl("\33\200\170\3",111),flag=lI1I1ll1llIl("\229\36\15\2",92)},{id=lI1I1ll1llIl("\3\38\198\148\142\173\106\198\9\198",78),icon=lIl1lI1I.shield,short=lI1I1ll1llIl("\102\221\180\77",42),flag=lI1I1ll1llIl("\200\10\133\160\69\83\208\53\129",19)},{id=lI1I1ll1llIl("\219\48\227\123\232\70\4",118),icon=lIl1lI1I.flashlight,short=lI1I1ll1llIl("\25\44\242\195",133),flag=lI1I1ll1llIl("\70\234\237\49\28\129\15",84)},{id=lI1I1ll1llIl("\166\119\146\160\183\244\33\145\247\103\36\170\58",254),icon=lIl1lI1I.compass,short=lI1I1ll1llIl("\0\142\42",201),flag=lI1I1ll1llIl("\78\244\195\49\6\148\31",68)},{id=lI1I1ll1llIl("\150\56\77\168\141\129\158\246\179",218),icon=lIl1lI1I.timer,short=lI1I1ll1llIl("\38\209\47\72",126),flag=lI1I1ll1llIl("\102\89\144\163\18\150\54\95\162",197)},{id=lI1I1ll1llIl("\63\118\162\2\47\134\183\35\229\56\77\183\150",162),icon=lIl1lI1I.wand,short=lI1I1ll1llIl("\22\7\253\177",78),flag=lI1I1ll1llIl("\209\28\86\151\181\172",186)},{id=lI1I1ll1llIl("\163\198\45\8\31\243\112",91),icon=lIl1lI1I.move,short=lI1I1ll1llIl("\208\243\28\55\160\36\153",85),press=function() 
 
 
 
@@ -6041,73 +6045,73 @@ lIllIlI111l(l1IlI1IIl) end end},{id=l11l1Il1lll("\168\70\72\6\235\184",111),icon
 
 
 
-local lll1lI1Il1III=lIl1I1lI1Il();
-if lll1lI1Il1III then 
-lll1lI1Il1III.AssemblyLinearVelocity=Vector3.zero;
-lll1lI1Il1III.CFrame=lll1lI1Il1III.CFrame + Vector3.new(0,6,0) end end},{id=l11l1Il1lll("\3\138\102\41\57\232\107",1),icon=l1lI1IllII[l11l1Il1lll("\20\211\75\12\51\239\221\38\138\194",187)],short=l11l1Il1lll("\167\70\60\39\193",18),press=function() 
+local lI11111I=l1lI11Il111ll();
+if lI11111I then 
+lI11111I.AssemblyLinearVelocity=Vector3.zero;
+lI11111I.CFrame=lI11111I.CFrame + Vector3.new(0,6,0) end end},{id=lI1I1ll1llIl("\164\17\53\60\215\182\193",60),icon=lIl1lI1I[lI1I1ll1llIl("\116\29\232\190\191\83\35\56\58\227",171)],short=lI1I1ll1llIl("\28\124\52\74\150",160),press=function() 
 
 
 
-local lII1llIlI1lI=l1llll1lI1I1l();
-if lII1llIlI1lI then 
-lII1llIlI1lI.Health=0 end end},{id=l11l1Il1lll("\10\178\254\175\99\113",44),icon=l1lI1IllII[l11l1Il1lll("\236\24\154\111\5\184",197)],short=l11l1Il1lll("\42\178\254\239\35\49",12),press=function() 
+local l1lllIl1IlIlI=l11l1IlI1I();
+if l1lllIl1IlIlI then 
+l1lllIl1IlIlI.Health=0 end end},{id=lI1I1ll1llIl("\5\244\167\32\164\26",182),icon=lIl1lI1I[lI1I1ll1llIl("\106\139\177\209\111\31",204)],short=lI1I1ll1llIl("\104\93\76\131\254\183",13),press=function() 
 
 
 
-lIl1I1Ill:Teleport(game.PlaceId,lllI1llI) end},{id=l11l1Il1lll("\54\190\83\108",49),icon=l1lI1IllII.hand,short=l11l1Il1lll("\165\166\15\154",176),press=function() 
+lIl11Il111:Teleport(game.PlaceId,ll1lI1IIII1) end},{id=lI1I1ll1llIl("\66\76\137\182",197),icon=lIl1lI1I.hand,short=lI1I1ll1llIl("\77\121\112\233",45),press=function() 
 
 
-if llI1IlIIl then 
-llI1IlIIl(l11l1Il1lll("\67\141\58\190",42)) end end},{id=l11l1Il1lll("\134\182\7\236\182",128),icon=l1lI1IllII.music,short=l11l1Il1lll("\100\150\19\161\73",101),press=function() 
+if lIllIllIllll1 then 
+lIllIllIllll1(lI1I1ll1llIl("\229\57\85\104",175)) end end},{id=lI1I1ll1llIl("\21\186\23\163\219",88),icon=lIl1lI1I.music,short=lI1I1ll1llIl("\217\126\196\167\71",25),press=function() 
 
 
 
-if llI1IlIIl then 
-llI1IlIIl(l11l1Il1lll("\178\39\179\141\163",43)) end end}};
+if lIllIllIllll1 then 
+lIllIllIllll1(lI1I1ll1llIl("\161\188\1\32\176",53)) end end}};
 
 
 
-local lIIlI1IIIl={};
-for ll11IllII,ll1IllI1II11I in ipairs(l1IIII1ll11I1) do 
-lIIlI1IIIl[ll1IllI1II11I.id]=ll1IllI1II11I end;
+local l1lI11I1I={};
+for lIlI1I11l,l111I11llll in ipairs(l11I1111) do 
+l1lI11I1I[l111I11llll.id]=l111I11llll end;
 
-local ll1I1I1l={l11l1Il1lll("\118\72\151",158),l11l1Il1lll("\37\1\234\123\177\186",36),l11l1Il1lll("\82\236\31\191\50\115\47",153),l11l1Il1lll("\67\245\9\242\172\3\240\97\230\180",53),l11l1Il1lll("\243\200\7\0\182\123\115\111\129\22\140\137\62\208",30),l11l1Il1lll("\1\210\100\209\215\38\145\83\223\159",21),l11l1Il1lll("\5\217\101\248\67\44\186\164\36\215",106)};
-local l1I1111II1lll={};
-for llI1ll11I1,llll11II in ipairs(((type(llIl1l1lll.items) == l11l1Il1lll("\80\239\8\166\68",169)) and llIl1l1lll.items) or ll1I1I1l) do 
-if lIIlI1IIIl[llll11II] then 
-table.insert(l1I1111II1lll,llll11II) end end;
+local l11Il1ll={lI1I1ll1llIl("\124\247\202",68),lI1I1ll1llIl("\247\27\162\149\90\95",3),lI1I1ll1llIl("\72\11\66\42\225\178\134",224),lI1I1ll1llIl("\152\161\106\135\239\204\247\100\234\98",98),lI1I1ll1llIl("\69\136\191\159\109\81\75\34\22\190\131\90\91\215",204),lI1I1ll1llIl("\83\189\218\158\234\28\234\208\13\50",31),lI1I1ll1llIl("\171\46\26\214\194\3\221\119\23\144",132)};
+local lIlI1I1l1llI={};
+for lII1Il1IlI,lIlI11lI1II in ipairs(((type(l11llIIl1l.items) == lI1I1ll1llIl("\50\197\244\208\35",140)) and l11llIIl1l.items) or l11Il1ll) do 
+if l1lI11I1I[lIlI11lI1II] then 
+table.insert(lIlI1I1l1llI,lIlI11lI1II) end end;
 
 
-local llIIIllIIll1l=tonumber(llIl1l1lll.maxSlots) or 10;
-local lII1I1ll1ll11={Small=40,Normal=48,Large=58};
-local llI1lI1IIII1,lI1lI1lI1IIll,lI1lII1lll=8,7,22;
-local lIIII11l=Color3.new(1,1,1);
+local l1lIl111=tonumber(l11llIIl1l.maxSlots) or 10;
+local l111IlIIl1={Small=40,Normal=48,Large=58};
+local lll1IIIII11II,lllII1lI11,l11IlI11l1l11=8,7,22;
+local lIlll1I11Il1=Color3.new(1,1,1);
 
 
-local lIlIIl11III11=lI11IIlIIIllI(l11l1Il1lll("\134\160\57\221\101",88),{Size=UDim2.new(0,62,0,200),BackgroundTransparency=0.45,Visible=false,ClipsDescendants=true,Parent=llIIIIII1.Gui});
-llIllI11I1I(lIlIIl11III11,l11l1Il1lll("\155\7\235\89\169\28\170\243\192\16\46\204\61\114\110\232",247),l11l1Il1lll("\68\247\110\53\17\206\58\158\103\49",219));
-local l1l1Il1IlllI=l1llIIIIIl11(lIlIIl11III11,31);
-local lI1l1l1ll1lI=lI11IIlIIIllI(l11l1Il1lll("\139\33\125\107\201",118),{Size=UDim2.new(1,0,1,0),BackgroundColor3=lIIII11l,BackgroundTransparency=0,Parent=lIlIIl11III11});
-l1llIIIIIl11(lI1l1l1ll1lI,31);
-lI11IIlIIIllI(l11l1Il1lll("\208\58\120\64\164\207\125\123\202\8",98),{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.86),NumberSequenceKeypoint.new(0.35,0.95),NumberSequenceKeypoint.new(1,1)}),Parent=lI1l1l1ll1lI});
+local l1Il1Ill1l1=lllII1lI1I1I(lI1I1ll1llIl("\27\141\43\73\167",217),{Size=UDim2.new(0,62,0,200),BackgroundTransparency=0.45,Visible=false,ClipsDescendants=true,Parent=l111II11I.Gui});
+lI11ll1lIIlII(l1Il1Ill1l1,lI1I1ll1llIl("\143\46\153\255\53\18\1\225\113\37\118\135\33\42\245\136",73),lI1I1ll1llIl("\228\185\77\71\93\178\196\128\151\80",11));
+local lllIll11I11=lIlll1ll1l1I1(l1Il1Ill1l1,31);
+local lI1l1111II=lllII1lI1I1I(lI1I1ll1llIl("\0\74\175\97\127",235),{Size=UDim2.new(1,0,1,0),BackgroundColor3=lIlll1I11Il1,BackgroundTransparency=0,Parent=l1Il1Ill1l1});
+lIlll1ll1l1I1(lI1l1111II,31);
+lllII1lI1I1I(lI1I1ll1llIl("\147\109\81\78\167\213\150\226\84\239",12),{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.86),NumberSequenceKeypoint.new(0.35,0.95),NumberSequenceKeypoint.new(1,1)}),Parent=lI1l1111II});
 
 
 
 
-local llI11Il1l1I=lI11IIlIIIllI(l11l1Il1lll("\5\205\29\55\143\84\12\15",254),{Color=lIIII11l,Transparency=0.72,Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=lIlIIl11III11});
-lI11IIlIIIllI(l11l1Il1lll("\65\215\61\168\48\118\43\237\239\75",153),{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.1),NumberSequenceKeypoint.new(1,0.75)}),Parent=llI11Il1l1I});
+local lIII11I11ll1=lllII1lI1I1I(lI1I1ll1llIl("\51\205\229\168\84\62\116\2",172),{Color=lIlll1I11Il1,Transparency=0.72,Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=l1Il1Ill1l1});
+lllII1lI1I1I(lI1I1ll1llIl("\242\40\26\173\28\160\211\37\28\236",70),{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.1),NumberSequenceKeypoint.new(1,0.75)}),Parent=lIII11I11ll1});
 
 
 
 
 
 
-local l1lI1lIIl1lll=lI11IIlIIIllI(l11l1Il1lll("\213\90\189\221\234\58\161\238\235\64",209),{Size=UDim2.new(1,0,0,lI1lII1lll),Text=l11l1Il1lll("",236),AutoButtonColor=false,BackgroundTransparency=1,ZIndex=4,Parent=lIlIIl11III11});
-local lI11I1I1l1=lI11IIlIIIllI(l11l1Il1lll("\120\246\252\94\164",191),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,1),Size=UDim2.new(0,20,0,4),BackgroundColor3=lIIII11l,BackgroundTransparency=0.55,ZIndex=4,Parent=l1lI1lIIl1lll});
-l1llIIIIIl11(lI11I1I1l1,2);
-local lIl1I1IlII1l=lI11IIlIIIllI(l11l1Il1lll("\184\34\212\158\157\51\132\40\49\178",161),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,22,0,22),BackgroundTransparency=1,Image=l1lI1IllII.menu,ImageColor3=lIIII11l,Visible=false,ZIndex=4,Parent=l1lI1lIIl1lll});
+local llIl11ll11I1=lllII1lI1I1I(lI1I1ll1llIl("\134\93\59\89\19\249\93\149\68\105",207),{Size=UDim2.new(1,0,0,l11IlI11l1l11),Text=lI1I1ll1llIl("",4),AutoButtonColor=false,BackgroundTransparency=1,ZIndex=4,Parent=l1Il1Ill1l1});
+local ll1l1l1l11l=lllII1lI1I1I(lI1I1ll1llIl("\3\15\238\206\80",149),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,1),Size=UDim2.new(0,20,0,4),BackgroundColor3=lIlll1I11Il1,BackgroundTransparency=0.55,ZIndex=4,Parent=llIl11ll11I1});
+lIlll1ll1l1I1(ll1l1l1l11l,2);
+local l1IlIlllI=lllII1lI1I1I(lI1I1ll1llIl("\147\22\50\242\172\15\176\26\115\184",164),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,22,0,22),BackgroundTransparency=1,Image=lIl1lI1I.menu,ImageColor3=lIlll1I11Il1,Visible=false,ZIndex=4,Parent=llIl11ll11I1});
 
-local l111II1I1II=lI11IIlIIIllI(l11l1Il1lll("\218\185\136\175\181\27\228\191\135\81\239\67\33\147",109),{Position=UDim2.new(0,0,0,lI1lII1lll),Size=UDim2.new(1,0,1,- lI1lII1lll),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,ElasticBehavior=Enum.ElasticBehavior.Always,ScrollingDirection=Enum.ScrollingDirection.Y,CanvasSize=UDim2.new(),Parent=lIlIIl11III11});
+local llI1lI111l1=lllII1lI1I1I(lI1I1ll1llIl("\76\34\71\135\33\41\238\213\90\153\24\101\143\181",129),{Position=UDim2.new(0,0,0,l11IlI11l1l11),Size=UDim2.new(1,0,1,- l11IlI11l1l11),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,ElasticBehavior=Enum.ElasticBehavior.Always,ScrollingDirection=Enum.ScrollingDirection.Y,CanvasSize=UDim2.new(),Parent=l1Il1Ill1l1});
 
 
 
@@ -6118,210 +6122,210 @@ local l111II1I1II=lI11IIlIIIllI(l11l1Il1lll("\218\185\136\175\181\27\228\191\135
 
 
 
-local l111111IIlI1l=lI11IIlIIIllI(l11l1Il1lll("\94\71\165\30\139\158\28\201\113\8\81\100",68),{Padding=UDim.new(0,lI1lI1lI1IIll),SortOrder=Enum.SortOrder.LayoutOrder,HorizontalAlignment=Enum.HorizontalAlignment.Center,VerticalAlignment=Enum.VerticalAlignment.Top,Parent=l111II1I1II});
-local lIlIllI1ll111=lI11IIlIIIllI(l11l1Il1lll("\224\10\127\67\177\63\141\96\211",82),{PaddingBottom=UDim.new(0,lI1lI1lI1IIll),Parent=l111II1I1II});
+local l1II1I1II1ll=lllII1lI1I1I(lI1I1ll1llIl("\127\194\207\44\10\135\45\73\63\203\227\200",84),{Padding=UDim.new(0,lllII1lI11),SortOrder=Enum.SortOrder.LayoutOrder,HorizontalAlignment=Enum.HorizontalAlignment.Center,VerticalAlignment=Enum.VerticalAlignment.Top,Parent=llI1lI111l1});
+local l1I11III1=lllII1lI1I1I(lI1I1ll1llIl("\95\226\51\196\253\119\232\102\1",116),{PaddingBottom=UDim.new(0,lllII1lI11),Parent=llI1lI111l1});
 
-local lI11l1l11l=llIl1l1lll.folded == true;
-local llll1llIll1I={};
-local lI1I1lIl1I,l1III1l11lI=62,200;
+local lIII1IlII1=l11llIIl1l.folded == true;
+local l1l111lIII1I={};
+local ll1lIIllIll11,lllI1Ill111=62,200;
 
-local function lIll1111ll1l() 
-local lIlll1lIl=workspace.CurrentCamera;
-local ll1IIII1l=(lIlll1lIl and lIlll1lIl.ViewportSize) or Vector2.new(800,600);
-local lI1III1ll,lll1lIllIIIl=llII1l1I:GetGuiInset();
-return ll1IIII1l,lI1III1ll,lll1lIllIIIl end;
+local function lIIlII11IlIl() 
+local lI1l1IIlIIl11=workspace.CurrentCamera;
+local l1IIII1ll=(lI1l1IIlIIl11 and lI1l1IIlIIl11.ViewportSize) or Vector2.new(800,600);
+local l111lI1I,lllllI111lll1=l11lI1IIIllI1:GetGuiInset();
+return l1IIII1ll,l111lI1I,lllllI111lll1 end;
 
-local function llI1lI11I1II1(l11I1I1l11lI,l1111IIll11l) 
-local lI1ll1I1I,ll1llII11ll1=lIll1111ll1l();
-local ll111ll11ll1l,ll1l11I1=llI1lI1IIII1,math.max(llI1lI1IIII1,ll1llII11ll1.Y * 0.5);
-l11I1I1l11lI=math.clamp(l11I1I1l11lI,ll111ll11ll1l,math.max(ll111ll11ll1l,(lI1ll1I1I.X - lI1I1lIl1I) - llI1lI1IIII1));
-l1111IIll11l=math.clamp(l1111IIll11l,ll1l11I1,math.max(ll1l11I1,(lI1ll1I1I.Y - l1III1l11lI) - llI1lI1IIII1));
-return l11I1I1l11lI,l1111IIll11l end;
+local function ll1I11I1I(lllI1lIlI,l1I1l1lll11I) 
+local llIII1l11Il11,llII11lIl11=lIIlII11IlIl();
+local llIl1l1l,lI1lllIl11l=lll1IIIII11II,math.max(lll1IIIII11II,llII11lIl11.Y * 0.5);
+lllI1lIlI=math.clamp(lllI1lIlI,llIl1l1l,math.max(llIl1l1l,(llIII1l11Il11.X - ll1lIIllIll11) - lll1IIIII11II));
+l1I1l1lll11I=math.clamp(l1I1l1lll11I,lI1lllIl11l,math.max(lI1lllIl11l,(llIII1l11Il11.Y - lllI1Ill111) - lll1IIIII11II));
+return lllI1lIlI,l1I1l1lll11I end;
 
-local function l1I1lII1Il() 
-local lIlII1lI11I=lIll1111ll1l();
-llIIIIII1:WriteJSON(l11I1Il11II1I,{fx=lIlIIl11III11.Position.X.Offset / lIlII1lI11I.X,fy=lIlIIl11III11.Position.Y.Offset / lIlII1lI11I.Y,folded=lI11l1l11l,items=l1I1111II1lll,maxSlots=llIIIllIIll1l}) end;
+local function l11IlI1l() 
+local l1lIl1l11lll1=lIIlII11IlIl();
+l111II11I:WriteJSON(lII1lI1IIll11,{fx=l1Il1Ill1l1.Position.X.Offset / l1lIl1l11lll1.X,fy=l1Il1Ill1l1.Position.Y.Offset / l1lIl1l11lll1.Y,folded=lIII1IlII1,items=lIlI1I1l1llI,maxSlots=l1lIl111}) end;
 
-local function ll111l1II(l11I1lI111l1l) 
-local lIIII1IIl,lIlIIIlIIl=llI1lI11I1II1(lIlIIl11III11.Position.X.Offset,lIlIIl11III11.Position.Y.Offset);
-if l11I1lI111l1l then 
-lIlIIl11III11.Position=UDim2.new(0,lIIII1IIl,0,lIlIIIlIIl) else 
+local function llIIII1l1ll(lI1lIIlIIl) 
+local lIl111lI,lIlIlIIIlIl=ll1I11I1I(l1Il1Ill1l1.Position.X.Offset,l1Il1Ill1l1.Position.Y.Offset);
+if lI1lIIlIIl then 
+l1Il1Ill1l1.Position=UDim2.new(0,lIl111lI,0,lIlIlIIIlIl) else 
 
-llIIIIII1.Tween(lIlIIl11III11,TweenInfo.new(0.3,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Position=UDim2.new(0,lIIII1IIl,0,lIlIIIlIIl)}) end end;
+l111II11I.Tween(l1Il1Ill1l1,TweenInfo.new(0.3,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Position=UDim2.new(0,lIl111lI,0,lIlIlIIIlIl)}) end end;
 
 
 
-local function llIl1IlI1lIl(lll111ll1IlII) 
-local lllIll1I,lllI111l,llIll1IllI=lIll1111ll1l();
-local ll1lIlIl1l1l=lII1I1ll1ll11[l1IIlll1I11l.dockSize or l11l1Il1lll("\74\193\56\135\32\110",137)] or 48;
-local l1IllIlIll1=l1IIlll1I11l.dockLabels ~= false;
-local ll1l111llll11=ll1lIlIl1l1l + ((l1IllIlIll1 and 13) or 0);
-local lII1l11I111=l1IIlll1I11l.dockLayout == l11l1Il1lll("\72\152\15\171\150\57\220\118\248\70",69);
-local llll1I111l=0;
-for ll1lII11l111l,ll111lIl1Ill in ipairs(llll1llIll1I) do 
-if ll111lIl1Ill.holder.Visible then 
-llll1I111l=llll1I111l + 1 end;
+local function l1Il1l1I1Il(llII1I1IIl) 
+local l1l1IIlI,lll1IlII,lI1III1II1Il1=lIIlII11IlIl();
+local lllllllIlI=l111IlIIl1[lll1l11Il1ll1.dockSize or lI1I1ll1llIl("\200\11\36\17\231\157",76)] or 48;
+local l1l1l11l=lll1l11Il1ll1.dockLabels ~= false;
+local lIIlIll1lI1=lllllllIlI + ((l1l1l11l and 13) or 0);
+local l11l1llI11II=lll1l11Il1ll1.dockLayout == lI1I1ll1llIl("\66\196\17\204\227\124\239\124\7\232",116);
+local lll1I1Ill=0;
+for ll1Ill1IIl,lIII1lII in ipairs(l1l111lIII1I) do 
+if lIII1lII.holder.Visible then 
+lll1I1Ill=lll1I1Ill + 1 end;
 
-ll111lIl1Ill.holder.Size=UDim2.new(0,ll1lIlIl1l1l,0,ll1l111llll11);
-ll111lIl1Ill.circle.Size=UDim2.new(0,ll1lIlIl1l1l,0,ll1lIlIl1l1l);
-ll111lIl1Ill.circleCorner.CornerRadius=UDim.new(0.5,0);
-ll111lIl1Ill.fillCorner.CornerRadius=UDim.new(0.5,0);
-ll111lIl1Ill.icon.Size=UDim2.new(0,math.floor(ll1lIlIl1l1l * 0.46),0,math.floor(ll1lIlIl1l1l * 0.46));
-ll111lIl1Ill.name.Visible=l1IllIlIll1 end;
+lIII1lII.holder.Size=UDim2.new(0,lllllllIlI,0,lIIlIll1lI1);
+lIII1lII.circle.Size=UDim2.new(0,lllllllIlI,0,lllllllIlI);
+lIII1lII.circleCorner.CornerRadius=UDim.new(0.5,0);
+lIII1lII.fillCorner.CornerRadius=UDim.new(0.5,0);
+lIII1lII.icon.Size=UDim2.new(0,math.floor(lllllllIlI * 0.46),0,math.floor(lllllllIlI * 0.46));
+lIII1lII.name.Visible=l1l1l11l end;
 
-l111111IIlI1l.FillDirection=(lII1l11I111 and Enum.FillDirection.Horizontal) or Enum.FillDirection.Vertical;
-l111111IIlI1l.VerticalAlignment=(lII1l11I111 and Enum.VerticalAlignment.Center) or Enum.VerticalAlignment.Top;
-l111II1I1II.ScrollingDirection=(lII1l11I111 and Enum.ScrollingDirection.X) or Enum.ScrollingDirection.Y;
-local llIIlIl1I=ll1lIlIl1l1l + (lI1lI1lI1IIll * 2);
-local llI1lI1II11l,lII11III1Il;
-if lI11l1l11l or (llll1I111l == 0) then 
-l111II1I1II.Visible,lI11I1I1l1.Visible,lIl1I1IlII1l.Visible=false,false,true;
-l1lI1lIIl1lll.Size=UDim2.new(1,0,1,0);
-llI1lI1II11l,lII11III1Il=48,48;
-l1l1Il1IlllI.CornerRadius=UDim.new(0,24) else 
+l1II1I1II1ll.FillDirection=(l11l1llI11II and Enum.FillDirection.Horizontal) or Enum.FillDirection.Vertical;
+l1II1I1II1ll.VerticalAlignment=(l11l1llI11II and Enum.VerticalAlignment.Center) or Enum.VerticalAlignment.Top;
+llI1lI111l1.ScrollingDirection=(l11l1llI11II and Enum.ScrollingDirection.X) or Enum.ScrollingDirection.Y;
+local llllll111I1l1=lllllllIlI + (lllII1lI11 * 2);
+local lI1III11l,l1I11lll;
+if lIII1IlII1 or (lll1I1Ill == 0) then 
+llI1lI111l1.Visible,ll1l1l1l11l.Visible,l1IlIlllI.Visible=false,false,true;
+llIl11ll11I1.Size=UDim2.new(1,0,1,0);
+lI1III11l,l1I11lll=48,48;
+lllIll11I11.CornerRadius=UDim.new(0,24) else 
 
-l111II1I1II.Visible,lI11I1I1l1.Visible,lIl1I1IlII1l.Visible=true,true,false;
-if lII1l11I111 then 
-local lIlIIIl11=((llll1I111l * ll1lIlIl1l1l) + ((llll1I111l - 1) * lI1lI1lI1IIll)) + (lI1lI1lI1IIll * 2);
-local lIIlIII11I1=((lllIll1I.X - lllI111l.X) - llIll1IllI.X) - (llI1lI1IIII1 * 2);
-llI1lI1II11l=math.min(lIlIIIl11,lIIlIII11I1);
-lII11III1Il=(lI1lII1lll + ll1l111llll11) + lI1lI1lI1IIll;
-l111II1I1II.CanvasSize=UDim2.new(0,lIlIIIl11,0,0);
-lIlIllI1ll111.PaddingLeft,lIlIllI1ll111.PaddingRight,lIlIllI1ll111.PaddingBottom=UDim.new(0,lI1lI1lI1IIll),UDim.new(0,lI1lI1lI1IIll),UDim.new(0,0) else 
+llI1lI111l1.Visible,ll1l1l1l11l.Visible,l1IlIlllI.Visible=true,true,false;
+if l11l1llI11II then 
+local l1llI11IIl=((lll1I1Ill * lllllllIlI) + ((lll1I1Ill - 1) * lllII1lI11)) + (lllII1lI11 * 2);
+local lII111Il=((l1l1IIlI.X - lll1IlII.X) - lI1III1II1Il1.X) - (lll1IIIII11II * 2);
+lI1III11l=math.min(l1llI11IIl,lII111Il);
+l1I11lll=(l11IlI11l1l11 + lIIlIll1lI1) + lllII1lI11;
+llI1lI111l1.CanvasSize=UDim2.new(0,l1llI11IIl,0,0);
+l1I11III1.PaddingLeft,l1I11III1.PaddingRight,l1I11III1.PaddingBottom=UDim.new(0,lllII1lI11),UDim.new(0,lllII1lI11),UDim.new(0,0) else 
 
-local l1IIIll1=((llll1I111l * ll1l111llll11) + ((llll1I111l - 1) * lI1lI1lI1IIll)) + lI1lI1lI1IIll;
-local l1IllII1I1I=(((lllIll1I.Y - lllI111l.Y) - llIll1IllI.Y) - (llI1lI1IIII1 * 2)) - lI1lII1lll;
-llI1lI1II11l=llIIlIl1I;
-lII11III1Il=lI1lII1lll + math.min(l1IIIll1,l1IllII1I1I);
-l111II1I1II.CanvasSize=UDim2.new(0,0,0,l1IIIll1);
-lIlIllI1ll111.PaddingLeft,lIlIllI1ll111.PaddingRight,lIlIllI1ll111.PaddingBottom=UDim.new(0,0),UDim.new(0,0),UDim.new(0,lI1lI1lI1IIll) end;
+local l1lIII1lllIII=((lll1I1Ill * lIIlIll1lI1) + ((lll1I1Ill - 1) * lllII1lI11)) + lllII1lI11;
+local l1I1l1l111Ill=(((l1l1IIlI.Y - lll1IlII.Y) - lI1III1II1Il1.Y) - (lll1IIIII11II * 2)) - l11IlI11l1l11;
+lI1III11l=llllll111I1l1;
+l1I11lll=l11IlI11l1l11 + math.min(l1lIII1lllIII,l1I1l1l111Ill);
+llI1lI111l1.CanvasSize=UDim2.new(0,0,0,l1lIII1lllIII);
+l1I11III1.PaddingLeft,l1I11III1.PaddingRight,l1I11III1.PaddingBottom=UDim.new(0,0),UDim.new(0,0),UDim.new(0,lllII1lI11) end;
 
-l1lI1lIIl1lll.Size=UDim2.new(1,0,0,lI1lII1lll);
-l1l1Il1IlllI.CornerRadius=UDim.new(0,math.floor(llIIlIl1I / 2)) end;
+llIl11ll11I1.Size=UDim2.new(1,0,0,l11IlI11l1l11);
+lllIll11I11.CornerRadius=UDim.new(0,math.floor(llllll111I1l1 / 2)) end;
 
-lI1l1l1ll1lI:FindFirstChildOfClass(l11l1Il1lll("\254\231\10\184\234\228\85\186",228)).CornerRadius=l1l1Il1IlllI.CornerRadius;
-lI1I1lIl1I,l1III1l11lI=llI1lI1II11l,lII11III1Il;
-lIlIIl11III11.BackgroundTransparency=1 - ((l1IIlll1I11l.dockOpacity or 55) / 100);
-if lll111ll1IlII then 
-lIlIIl11III11.Size=UDim2.new(0,llI1lI1II11l,0,lII11III1Il) else 
+lI1l1111II:FindFirstChildOfClass(lI1I1ll1llIl("\231\17\96\98\3\194\108\115",175)).CornerRadius=lllIll11I11.CornerRadius;
+ll1lIIllIll11,lllI1Ill111=lI1III11l,l1I11lll;
+l1Il1Ill1l1.BackgroundTransparency=1 - ((lll1l11Il1ll1.dockOpacity or 55) / 100);
+if llII1I1IIl then 
+l1Il1Ill1l1.Size=UDim2.new(0,lI1III11l,0,l1I11lll) else 
 
-llIIIIII1.Tween(lIlIIl11III11,TweenInfo.new(0.28,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Size=UDim2.new(0,llI1lI1II11l,0,lII11III1Il)}) end;
+l111II11I.Tween(l1Il1Ill1l1,TweenInfo.new(0.28,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Size=UDim2.new(0,lI1III11l,0,l1I11lll)}) end;
 
-ll111l1II(lll111ll1IlII) end;
+llIIII1l1ll(llII1I1IIl) end;
 
 
 
-local function l11llIl11l(llll11lIIII1I,lIIIlIllI11I) 
-local l1l11l11lI1=lI11IIlIIIllI(l11l1Il1lll("\232\6\12\206\52",47),{BackgroundTransparency=1,LayoutOrder=lIIIlIllI11I,Parent=l111II1I1II});
-local lIlll1lI1ll=lI11IIlIIIllI(l11l1Il1lll("\108\210\140\148\104\74\229\19\164\160",76),{Text=l11l1Il1lll("",173),AutoButtonColor=false,BackgroundColor3=lIIII11l,BackgroundTransparency=0.9,Parent=l1l11l11lI1});
-local lllIIIIll11I=l1llIIIIIl11(lIlll1lI1ll,24);
-lI11IIlIIIllI(l11l1Il1lll("\76\227\217\36\59\168\86\4",253),{Color=lIIII11l,Transparency=0.82,Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=lIlll1lI1ll});
-local l1lII1lII=lI11IIlIIIllI(l11l1Il1lll("\123\209\109\123\249",134),{Size=UDim2.new(1,0,1,0),BackgroundColor3=lIIII11l,BackgroundTransparency=1,Parent=lIlll1lI1ll});
-local lI11III1=l1llIIIIIl11(l1lII1lII,24);
-llIIIIII1.AccentGradient(l1lII1lII,45);
-local lIllIl1llI=lI11IIlIIIllI(l11l1Il1lll("\231\25\12\196\52\81\125\185\44\154",47),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),BackgroundTransparency=1,Image=llll11lIIII1I.icon or l11l1Il1lll("",236),ImageColor3=lIIII11l,ScaleType=Enum.ScaleType.Fit,ZIndex=2,Parent=lIlll1lI1ll});
-local l11I1lIlIlI=lI11IIlIIIllI(l11l1Il1lll("\108\210\140\148\102\94\243\2\167",76),{BackgroundTransparency=1,Text=llll11lIIII1I.short,Font=Enum.Font.GothamBold,TextSize=9,TextColor3=lIIII11l,TextTransparency=0.25,AnchorPoint=Vector2.new(0.5,1),Position=UDim2.new(0.5,0,1,0),Size=UDim2.new(1,8,0,11),Parent=l1l11l11lI1});
-local l1IIIIIlI=lI11IIlIIIllI(l11l1Il1lll("\145\39\217\73\224\174\151",73),{Parent=lIlll1lI1ll});
-lIlll1lI1ll.InputBegan:Connect(function(lIllIIll) 
-if (lIllIIll.UserInputType ~= Enum.UserInputType.Touch) and (lIllIIll.UserInputType ~= Enum.UserInputType.MouseButton1) then 
+local function lII1lIl11lI11(ll1I1Il1I11I1,ll1llIIIIII) 
+local l1l1ll11I=lllII1lI1I1I(lI1I1ll1llIl("\35\94\35\213\255",122),{BackgroundTransparency=1,LayoutOrder=ll1llIIIIII,Parent=llI1lI111l1});
+local lIIl1111I=lllII1lI1I1I(lI1I1ll1llIl("\58\124\63\91\160\6\63\233\222\85",128),{Text=lI1I1ll1llIl("",43),AutoButtonColor=false,BackgroundColor3=lIlll1I11Il1,BackgroundTransparency=0.9,Parent=l1l1ll11I});
+local ll11IlIIIl=lIlll1ll1l1I1(lIIl1111I,24);
+lllII1lI1I1I(lI1I1ll1llIl("\92\141\66\93\145\176\50\158",179),{Color=lIlll1I11Il1,Transparency=0.82,Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=lIIl1111I});
+local l1111Il1I1ll1=lllII1lI1I1I(lI1I1ll1llIl("\64\10\239\161\191",171),{Size=UDim2.new(1,0,1,0),BackgroundColor3=lIlll1I11Il1,BackgroundTransparency=1,Parent=lIIl1111I});
+local l1I1IlllIl=lIlll1ll1l1I1(l1111Il1I1ll1,24);
+l111II11I.AccentGradient(l1111Il1I1ll1,45);
+local l11l1I1I1II=lllII1lI1I1I(lI1I1ll1llIl("\12\16\238\196\80\235\115\110\159\180",149),{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),BackgroundTransparency=1,Image=ll1I1Il1I11I1.icon or lI1I1ll1llIl("",98),ImageColor3=lIlll1I11Il1,ScaleType=Enum.ScaleType.Fit,ZIndex=2,Parent=lIIl1111I});
+local llIl1lllllI1=lllII1lI1I1I(lI1I1ll1llIl("\91\52\93\172\49\52\245\174\33",145),{BackgroundTransparency=1,Text=ll1I1Il1I11I1.short,Font=Enum.Font.GothamBold,TextSize=9,TextColor3=lIlll1I11Il1,TextTransparency=0.25,AnchorPoint=Vector2.new(0.5,1),Position=UDim2.new(0.5,0,1,0),Size=UDim2.new(1,8,0,11),Parent=l1l1ll11I});
+local lIllII1l1=lllII1lI1I1I(lI1I1ll1llIl("\208\244\28\0\148\11\183",85),{Parent=lIIl1111I});
+lIIl1111I.InputBegan:Connect(function(lIl1IIIl1lI1) 
+if (lIl1IIIl1lI1.UserInputType ~= Enum.UserInputType.Touch) and (lIl1IIIl1lI1.UserInputType ~= Enum.UserInputType.MouseButton1) then 
 return  end;
 
-llIIIIII1.Tween(l1IIIIIlI,TweenInfo.new(0.08),{Scale=0.88});
-if llll11lIIII1I.flag and l1llllI1lll1l[llll11lIIII1I.flag] then 
-l1llllI1lll1l[llll11lIIII1I.flag]:Set(not l1llllI1lll1l[llll11lIIII1I.flag].Value) elseif llll11lIIII1I.press then 
+l111II11I.Tween(lIllII1l1,TweenInfo.new(0.08),{Scale=0.88});
+if ll1I1Il1I11I1.flag and lllIIlllIIlIl[ll1I1Il1I11I1.flag] then 
+lllIIlllIIlIl[ll1I1Il1I11I1.flag]:Set(not lllIIlllIIlIl[ll1I1Il1I11I1.flag].Value) elseif ll1I1Il1I11I1.press then 
 
-llll11lIIII1I.press() elseif llll11lIIII1I.hold then 
+ll1I1Il1I11I1.press() elseif ll1I1Il1I11I1.hold then 
 
-llll11lIIII1I.hold(true) end end);
+ll1I1Il1I11I1.hold(true) end end);
 
 
-lIlll1lI1ll.InputEnded:Connect(function(ll11II1I1IlIl) 
-if (ll11II1I1IlIl.UserInputType ~= Enum.UserInputType.Touch) and (ll11II1I1IlIl.UserInputType ~= Enum.UserInputType.MouseButton1) then 
+lIIl1111I.InputEnded:Connect(function(lIllIllI11) 
+if (lIllIllI11.UserInputType ~= Enum.UserInputType.Touch) and (lIllIllI11.UserInputType ~= Enum.UserInputType.MouseButton1) then 
 return  end;
 
-llIIIIII1.Tween(l1IIIIIlI,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Scale=1});
-if llll11lIIII1I.hold then 
-llll11lIIII1I.hold(false) end end);
+l111II11I.Tween(lIllII1l1,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Scale=1});
+if ll1I1Il1I11I1.hold then 
+ll1I1Il1I11I1.hold(false) end end);
 
 
-local lllll111l1lI={id=llll11lIIII1I.id,item=llll11lIIII1I,holder=l1l11l11lI1,circle=lIlll1lI1ll,circleCorner=lllIIIIll11I,fill=l1lII1lII,fillCorner=lI11III1,icon=lIllIl1llI,name=l11I1lIlIlI,on=nil};
-table.insert(llll1llIll1I,lllll111l1lI);
-return lllll111l1lI end;
+local l11ll11ll1={id=ll1I1Il1I11I1.id,item=ll1I1Il1I11I1,holder=l1l1ll11I,circle=lIIl1111I,circleCorner=ll11IlIIIl,fill=l1111Il1I1ll1,fillCorner=l1I1IlllIl,icon=l11l1I1I1II,name=llIl1lllllI1,on=nil};
+table.insert(l1l111lIII1I,l11ll11ll1);
+return l11ll11ll1 end;
 
-for lI1ll11lI1l11,lIIl1IIll in ipairs(l1IIII1ll11I1) do 
-l11llIl11l(lIIl1IIll,lI1ll11lI1l11) end;
-
-
-local function l1lII1l1I() 
-local lI111l1I={};
-for ll11IIIl111ll,l11111I1I11 in ipairs(l1I1111II1lll) do 
-lI111l1I[l11111I1I11]=ll11IIIl111ll end;
-
-for lI1IllIII1II1,ll11ll1Il1I11 in ipairs(llll1llIll1I) do 
-ll11ll1Il1I11.holder.Visible=lI111l1I[ll11ll1Il1I11.id] ~= nil;
-ll11ll1Il1I11.holder.LayoutOrder=lI111l1I[ll11ll1Il1I11.id] or 999 end;
-
-llIl1IlI1lIl(false) end;
+for lllI1lI1Il1,l1ll11ll in ipairs(l11I1111) do 
+lII1lIl11lI11(l1ll11ll,lllI1lI1Il1) end;
 
 
+local function lI11IIlI() 
+local lll1Ill1I1I1I={};
+for l11IIlIIl,lIl1lII1IIIIl in ipairs(lIlI1I1l1llI) do 
+lll1Ill1I1I1I[lIl1lII1IIIIl]=l11IIlIIl end;
 
-local lI111I1III1I,llIll1II1l1II,llI1Il1l11Ill,lIlIlIIIlIl,l1Ill11l11;
-l1lI1lIIl1lll.InputBegan:Connect(function(ll1lllIll) 
-if (ll1lllIll.UserInputType ~= Enum.UserInputType.Touch) and (ll1lllIll.UserInputType ~= Enum.UserInputType.MouseButton1) then 
+for lIlI11l1,ll1lIl11llll in ipairs(l1l111lIII1I) do 
+ll1lIl11llll.holder.Visible=lll1Ill1I1I1I[ll1lIl11llll.id] ~= nil;
+ll1lIl11llll.holder.LayoutOrder=lll1Ill1I1I1I[ll1lIl11llll.id] or 999 end;
+
+l1Il1l1I1Il(false) end;
+
+
+
+local l1l1lI1Il1II,llIII1l11,ll1llIIIlI,l11lllll1IIl,l1IlIII1I;
+llIl11ll11I1.InputBegan:Connect(function(l1I1I1lll) 
+if (l1I1I1lll.UserInputType ~= Enum.UserInputType.Touch) and (l1I1I1lll.UserInputType ~= Enum.UserInputType.MouseButton1) then 
 return  end;
 
-lI111I1III1I,lIlIlIIIlIl=ll1lllIll,false;
-llIll1II1l1II=Vector2.new(ll1lllIll.Position.X,ll1lllIll.Position.Y);
-llI1Il1l11Ill=Vector2.new(lIlIIl11III11.Position.X.Offset,lIlIIl11III11.Position.Y.Offset);
-l1Ill11l11=llI1Il1l11Ill end);
+l1l1lI1Il1II,l11lllll1IIl=l1I1I1lll,false;
+llIII1l11=Vector2.new(l1I1I1lll.Position.X,l1I1I1lll.Position.Y);
+ll1llIIIlI=Vector2.new(l1Il1Ill1l1.Position.X.Offset,l1Il1Ill1l1.Position.Y.Offset);
+l1IlIII1I=ll1llIIIlI end);
 
-lI11l11IIl(llIl11lIIl1I1.InputChanged:Connect(function(lIlI1111Il) 
-if not lI111I1III1I then 
+lIl11lIIl(l1IIl1lll1l.InputChanged:Connect(function(lll1I1I1I) 
+if not l1l1lI1Il1II then 
 return  end;
 
-if (lIlI1111Il == lI111I1III1I) or ((lI111I1III1I.UserInputType == Enum.UserInputType.MouseButton1) and (lIlI1111Il.UserInputType == Enum.UserInputType.MouseMovement)) then 
-local lIlIIllI=Vector2.new(lIlI1111Il.Position.X,lIlI1111Il.Position.Y) - llIll1II1l1II;
-if (lIlIIllI.Magnitude > 6) and (not l1IIlll1I11l.dockLocked) then 
-lIlIlIIIlIl=true end;
+if (lll1I1I1I == l1l1lI1Il1II) or ((l1l1lI1Il1II.UserInputType == Enum.UserInputType.MouseButton1) and (lll1I1I1I.UserInputType == Enum.UserInputType.MouseMovement)) then 
+local lllIll1I11II=Vector2.new(lll1I1I1I.Position.X,lll1I1I1I.Position.Y) - llIII1l11;
+if (lllIll1I11II.Magnitude > 6) and (not lll1l11Il1ll1.dockLocked) then 
+l11lllll1IIl=true end;
 
-if lIlIlIIIlIl then 
-l1Ill11l11=Vector2.new(llI1lI11I1II1(llI1Il1l11Ill.X + lIlIIllI.X,llI1Il1l11Ill.Y + lIlIIllI.Y)) end end end));
+if l11lllll1IIl then 
+l1IlIII1I=Vector2.new(ll1I11I1I(ll1llIIIlI.X + lllIll1I11II.X,ll1llIIIlI.Y + lllIll1I11II.Y)) end end end));
 
 
 
-lI11l11IIl(llIl11lIIl1I1.InputEnded:Connect(function(llll11l111Ill) 
-if (not lI111I1III1I) or ((llll11l111Ill ~= lI111I1III1I) and (llll11l111Ill.UserInputType ~= Enum.UserInputType.MouseButton1)) then 
+lIl11lIIl(l1IIl1lll1l.InputEnded:Connect(function(l1ll1lIl) 
+if (not l1l1lI1Il1II) or ((l1ll1lIl ~= l1l1lI1Il1II) and (l1ll1lIl.UserInputType ~= Enum.UserInputType.MouseButton1)) then 
 return  end;
 
-lI111I1III1I=nil;
-if lIlIlIIIlIl then 
-ll111l1II(false);
-l1I1lII1Il() else 
+l1l1lI1Il1II=nil;
+if l11lllll1IIl then 
+llIIII1l1ll(false);
+l11IlI1l() else 
 
-lI11l1l11l=not lI11l1l11l;
-llIl1IlI1lIl(false);
-task.delay(0.3,l1I1lII1Il) end end));
+lIII1IlII1=not lIII1IlII1;
+l1Il1l1I1Il(false);
+task.delay(0.3,l11IlI1l) end end));
 
 
-lI11l11IIl(lIII1l1l.RenderStepped:Connect(function(llllI111Il1l1) 
-if (lI111I1III1I and lIlIlIIIlIl) and l1Ill11l11 then 
-local lll11l11=Vector2.new(lIlIIl11III11.Position.X.Offset,lIlIIl11III11.Position.Y.Offset);
-local l111llI11l=lll11l11:Lerp(l1Ill11l11,math.min(llllI111Il1l1 * 22,1));
-lIlIIl11III11.Position=UDim2.new(0,l111llI11l.X,0,l111llI11l.Y) end end));
+lIl11lIIl(lII1llIIIIlI.RenderStepped:Connect(function(l1l1l11Il1) 
+if (l1l1lI1Il1II and l11lllll1IIl) and l1IlIII1I then 
+local lIIIl1l1ll111=Vector2.new(l1Il1Ill1l1.Position.X.Offset,l1Il1Ill1l1.Position.Y.Offset);
+local l1IIll1lI1=lIIIl1l1ll111:Lerp(l1IlIII1I,math.min(l1l1l11Il1 * 22,1));
+l1Il1Ill1l1.Position=UDim2.new(0,l1IIll1lI1.X,0,l1IIll1lI1.Y) end end));
 
 
 
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if lIlIIl11III11.Visible and (not lI11l1l11l) then 
-for lllI1I11III,lIIl1l111lI in ipairs(llll1llIll1I) do 
-if lIIl1l111lI.holder.Visible and lIIl1l111lI.item.flag then 
-local l1l1IlI11IIl=l1IIlll1I11l[lIIl1l111lI.item.flag] == true;
-if lIIl1l111lI.on ~= l1l1IlI11IIl then 
-lIIl1l111lI.on=l1l1IlI11IIl;
-llIIIIII1.Tween(lIIl1l111lI.fill,nil,{BackgroundTransparency=(l1l1IlI11IIl and 0) or 1});
-llIIIIII1.Tween(lIIl1l111lI.icon,nil,{ImageColor3=(l1l1IlI11IIl and llIIIIII1.Theme.OnAccent) or lIIII11l}) end end end end;
+while l111II11I.Window == l1l1Ill1 do 
+if l1Il1Ill1l1.Visible and (not lIII1IlII1) then 
+for ll1IIl1l11llI,lIlIlI11 in ipairs(l1l111lIII1I) do 
+if lIlIlI11.holder.Visible and lIlIlI11.item.flag then 
+local ll1lIl1Ill11=lll1l11Il1ll1[lIlIlI11.item.flag] == true;
+if lIlIlI11.on ~= ll1lIl1Ill11 then 
+lIlIlI11.on=ll1lIl1Ill11;
+l111II11I.Tween(lIlIlI11.fill,nil,{BackgroundTransparency=(ll1lIl1Ill11 and 0) or 1});
+l111II11I.Tween(lIlIlI11.icon,nil,{ImageColor3=(ll1lIl1Ill11 and l111II11I.Theme.OnAccent) or lIlll1I11Il1}) end end end end;
 
 
 
@@ -6330,141 +6334,141 @@ task.wait(0.15) end end);
 
 
 
-local function lIlll1Il() 
-local l1I1lI1lI1l=workspace.CurrentCamera;
-if l1I1lI1lI1l then 
-lI11l11IIl(l1I1lI1lI1l:GetPropertyChangedSignal(l11l1Il1lll("\111\12\17\244\97\177\178\30\213\127\247\187",35)):Connect(function() 
-llIl1IlI1lIl(true) end)) end end;
+local function lII1I11I11I1() 
+local lI1l11IlIlI=workspace.CurrentCamera;
+if lI1l11IlIlI then 
+lIl11lIIl(lI1l11IlIlI:GetPropertyChangedSignal(lI1I1ll1llIl("\83\84\170\148\5\136\32\184\105\113\124\169",213)):Connect(function() 
+l1Il1l1I1Il(true) end)) end end;
 
 
 
-lIlll1Il();
-lI11l11IIl(workspace:GetPropertyChangedSignal(l11l1Il1lll("\85\211\79\60\3\194\209\88\120\40\49\209\80",203)):Connect(lIlll1Il));
+lII1I11I11I1();
+lIl11lIIl(workspace:GetPropertyChangedSignal(lI1I1ll1llIl("\186\65\243\203\22\1\157\40\183\37\219\238\235",67)):Connect(lII1I11I11I1));
 
-local lI1Il11I1l=ll1lIlIlIIll1:Section(l11l1Il1lll("\233\66\29\3\193\159\112\132\40\43\218\68\152\206\127\139\35",204));
-lI1Il11I1l:Toggle({Name=l11l1Il1lll("\167\51\180\141\173\44\100\216\26\64\71\176\113\122\111\201\45",43),Description=l11l1Il1lll("\67\194\43\153\50\34\80\141\229\91\186\247\235\127\170\4\84\77\185\8\148\215\204\70\65\155\87\104\111\207\1\146\129\110\194\107\15\70\126\189\209\59\218\217\149\16\147\47\120\254\78\251\97\114\235\60\97\139\106\73\14\224\121\190",137),Flag=l11l1Il1lll("\49\204\236\233",178),Default=llII1lIlIll1l,Callback=function(l1lI1lI1ll) 
-
-
-
-
-
-lIlIIl11III11.Visible=l1lI1lI1ll;
-if l1lI1lI1ll then 
-llIl1IlI1lIl(true) end end});
+local l1ll1II1l=l1III111lII1:Section(lI1I1ll1llIl("\187\62\42\230\210\19\192\11\101\129\165\143\38\21\80\36\17",148));
+l1ll1II1l:Toggle({Name=lI1I1ll1llIl("\187\62\42\230\210\19\192\11\101\129\165\143\38\21\80\36\17",148),Description=lI1I1ll1llIl("\190\88\224\202\0\79\139\30\162\60\209\242\249\80\84\11\41\183\114\91\134\186\55\213\102\124\188\109\125\192\255\189\252\116\137\184\125\43\165\46\214\220\49\92\7\255\109\32\5\196\5\40\243\159\80\175\70\108\129\204\156\111\7\81",67),Flag=lI1I1ll1llIl("\233\96\217\191",9),Default=lIIIlllIl1l,Callback=function(lllll1I1I1l11) 
 
 
 
 
-local llI11l1Il1I1=lI1Il11I1l:Custom();
-lIlIl11lIII(llI11l1Il1I1,6);
-local l1lllIIII;
-local function lII1lIIl11(l1l11I111I,lll1lIl1lI1I,l1ll1l11IIl) 
-local l11l11l1IlII=lI11IIlIIIllI(l11l1Il1lll("\134\134\95\190\8",110),{Size=UDim2.new(1,0,0,44),LayoutOrder=lll1lIl1lI1I,Parent=llI11l1Il1I1});
-llIllI11I1I(l11l11l1IlII,l11l1Il1lll("\244\103\254\69\97\190\170\14\215\129\183\108\253\49\50\217",107),l11l1Il1lll("\224\120\107\199\10",135));
-l1llIIIIIl11(l11l11l1IlII,12);
-llIIIIII1.Stroke(l11l11l1IlII);
-local l1I11l1II=lI11IIlIIIllI(l11l1Il1lll("\81\250\181\103\175\147\16\229\142\130",108),{BackgroundTransparency=1,Image=l1l11I111I.icon or l11l1Il1lll("",10),Size=UDim2.new(0,18,0,18),Position=UDim2.new(0,12,0.5,- 9),Parent=l11l11l1IlII});
-llIllI11I1I(l1I11l1II,l11l1Il1lll("\248\98\148\222\221\252\74\230\251\108\201",225),l11l1Il1lll("\241\36\78\247\242\82",245));
-l11I1llI1({Parent=l11l11l1IlII,Text=l1l11I111I.id,Font=Enum.Font.GothamBold,TextSize=13,Position=UDim2.new(0,40,0,0),Size=UDim2.new(1,(- 40) - ((# l1ll1l11IIl) * 40),1,0)});
-for lI1IlII1Il,lll11Il1IlI1 in ipairs(l1ll1l11IIl) do 
-local llI1ll1l=lI11IIlIIIllI(l11l1Il1lll("\229\106\141\205\250\202\81\254\251\112",225),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,34,0,34),Position=UDim2.new(1,(- 6) - (((# l1ll1l11IIl) - lI1IlII1Il) * 38),0.5,0),Text=l11l1Il1lll("",44),AutoButtonColor=false,Parent=l11l11l1IlII});
-llIllI11I1I(llI1ll1l,l11l1Il1lll("\83\206\54\114\127\173\42\159\154\218\25\149\29\93\80\219",65),(lll11Il1IlI1.accent and l11l1Il1lll("\65\113\251\21\174\43",152)) or l11l1Il1lll("\7\171\72\252\112\49\231",217));
-l1llIIIIIl11(llI1ll1l,10);
-local lII1I1I1lIIlI=lI11IIlIIIllI(l11l1Il1lll("\240\136\149\100\244\18\33\136\99\250",163),{BackgroundTransparency=1,Image=lll11Il1IlI1.icon,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,16,0,16),Parent=llI1ll1l});
-llIllI11I1I(lII1I1I1lIIlI,l11l1Il1lll("\66\99\136\16\157\169\63\196\103\21\23",68),(lll11Il1IlI1.accent and l11l1Il1lll("\93\105\248\28\64\83\175\219",80)) or l11l1Il1lll("\34\186\87\45\29\135\17",33));
-local lIll1II1l1=lI11IIlIIIllI(l11l1Il1lll("\236\131\185\83\72\11\248",93),{Parent=llI1ll1l});
-llI1ll1l.MouseButton1Click:Connect(function() 
-llIIIIII1.Press(lIll1II1l1);
-lll11Il1IlI1.fn() end) end end;
+
+l1Il1Ill1l1.Visible=lllll1I1I1l11;
+if lllll1I1I1l11 then 
+l1Il1l1I1Il(true) end end});
 
 
 
-local function lllIl1II1II() 
-l1lII1l1I();
-l1I1lII1Il();
-l1lllIIII() end;
 
-function l1lllIIII() 
-for ll1IIll1I1II,l1I11111lII in ipairs(llI11l1Il1I1:GetChildren()) do 
-if l1I11111lII:IsA(l11l1Il1lll("\71\103\241\63\162\53\9\43\230",152)) then 
-l1I11111lII:Destroy() end end;
-
-
-l11I1llI1({Parent=llI11l1Il1I1,Text=string.format(l11l1Il1lll("\25\29\141\98\160\91\227\203\25\103\217\253\212\86\161\74\180\226\71\160\53\235\252\171\142\152\61\220",216),# l1I1111II1lll,llIIIllIIll1l),Font=Enum.Font.GothamBold,TextSize=10,Color=l11l1Il1lll("\182\139\13\130\44",180),Size=UDim2.new(1,0,0,18),Order=0});
-for lIIllIl1IIl,lIlllI11I in ipairs(l1I1111II1lll) do 
-lII1lIIl11(lIIlI1IIIl[lIlllI11I],lIIllIl1IIl,{{icon=l1lI1IllII[l11l1Il1lll("\33\63\140\121\33\9\255\50\213\194",0)],fn=function() 
-
-if lIIllIl1IIl > 1 then 
-l1I1111II1lll[lIIllIl1IIl],l1I1111II1lll[lIIllIl1IIl - 1]=l1I1111II1lll[lIIllIl1IIl - 1],l1I1111II1lll[lIIllIl1IIl];
-lllIl1II1II() end end},{icon=l1lI1IllII[l11l1Il1lll("\7\166\79\252\147\205\252\117\21\160\66\23",233)],fn=function() 
-
-
-
-if lIIllIl1IIl < (# l1I1111II1lll) then 
-l1I1111II1lll[lIIllIl1IIl],l1I1111II1lll[lIIllIl1IIl + 1]=l1I1111II1lll[lIIllIl1IIl + 1],l1I1111II1lll[lIIllIl1IIl];
-lllIl1II1II() end end},{icon=l1lI1IllII.x,fn=function() 
+local llIIIIII1ll1=l1ll1II1l:Custom();
+l1IlIll1I(llIIIIII1ll1,6);
+local ll1lI1IlIIIIl;
+local function l1II1I1IIIl(l1Illl11l1,llII1l1Il1l11,l1IIl1llI1lI) 
+local l1l1Il1I=lllII1lI1I1I(lI1I1ll1llIl("\32\246\215\177\67",172),{Size=UDim2.new(1,0,0,44),LayoutOrder=llII1l1Il1l11,Parent=llIIIIII1ll1});
+lI11ll1lIIlII(l1l1Il1I,lI1I1ll1llIl("\45\80\38\19\186\135\88\94\195\75\217\155\30\47\60\135",241),lI1I1ll1llIl("\194\201\66\198\26",167));
+lIlll1ll1l1I1(l1l1Il1I,12);
+l111II11I.Stroke(l1l1Il1I);
+local l1l11I111=lllII1lI1I1I(lI1I1ll1llIl("\102\28\100\223\120\121\150\137\8\131",177),{BackgroundTransparency=1,Image=l1Illl11l1.icon or lI1I1ll1llIl("",199),Size=UDim2.new(0,18,0,18),Position=UDim2.new(0,12,0.5,- 9),Parent=l1l1Il1I});
+lI11ll1lIIlII(l1l11I111,lI1I1ll1llIl("\172\176\14\36\176\4\157\192\53\10\85",53),lI1I1ll1llIl("\195\235\17\88\13\127",142));
+lI11I11IlllI({Parent=l1l1Il1I,Text=l1Illl11l1.id,Font=Enum.Font.GothamBold,TextSize=13,Position=UDim2.new(0,40,0,0),Size=UDim2.new(1,(- 40) - ((# l1IIl1llI1lI) * 40),1,0)});
+for lI1I11lII,l11llIll111 in ipairs(l1IIl1llI1lI) do 
+local llll1l1l1l=lllII1lI1I1I(lI1I1ll1llIl("\113\137\250\12\24\53\254\129\212\173",58),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,34,0,34),Position=UDim2.new(1,(- 6) - (((# l1IIl1llI1lI) - lI1I11lII) * 38),0.5,0),Text=lI1I1ll1llIl("",31),AutoButtonColor=false,Parent=l1l1Il1I});
+lI11ll1lIIlII(llll1l1l1l,lI1I1ll1llIl("\180\21\37\39\209\179\192\162\100\207\32\202\245\124\243\59",60),(l11llIll111.accent and lI1I1ll1llIl("\26\64\189\18\33\237",146)) or lI1I1ll1llIl("\41\45\52\234\150\218\168",77));
+lIlll1ll1l1I1(llll1l1l1l,10);
+local l1I1111l=lllII1lI1I1I(lI1I1ll1llIl("\27\21\227\138\214\119\151\61\18\221",94),{BackgroundTransparency=1,Image=l11llIll111.icon,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Size=UDim2.new(0,16,0,16),Parent=llll1l1l1l});
+lI11ll1lIIlII(l1I1111l,lI1I1ll1llIl("\184\22\120\199\187\111\65\88\177\219\196",248),(l11llIll111.accent and lI1I1ll1llIl("\24\255\140\44\174\17\68\164",182)) or lI1I1ll1llIl("\213\17\52\40\227\137\203",76));
+local llIll11l11=lllII1lI1I1I(lI1I1ll1llIl("\46\74\237\116\78\149\176",178),{Parent=llll1l1l1l});
+llll1l1l1l.MouseButton1Click:Connect(function() 
+l111II11I.Press(llIll11l11);
+l11llIll111.fn() end) end end;
 
 
 
-table.remove(l1I1111II1lll,lIIllIl1IIl);
-lllIl1II1II() end}}) end;
+local function lIlIII1I() 
+lI11IIlI();
+l11IlI1l();
+ll1lI1IlIIIIl() end;
+
+function ll1lI1IlIIIIl() 
+for llIlIl1Il,lIIll111lIl in ipairs(llIIIIII1ll1:GetChildren()) do 
+if lIIll111lIl:IsA(lI1I1ll1llIl("\157\14\58\218\171\41\180\27\98",164)) then 
+lIIll111lIl:Destroy() end end;
+
+
+lI11I11IlllI({Parent=llIIIIII1ll1,Text=string.format(lI1I1ll1llIl("\79\155\179\190\54\37\128\244\33\235\227\199\142\147\1\205\226\68\121\92\163\149\159\148\182\20\39\230",220),# lIlI1I1l1llI,l1lIl111),Font=Enum.Font.GothamBold,TextSize=10,Color=lI1I1ll1llIl("\232\25\118\157\190",186),Size=UDim2.new(1,0,0,18),Order=0});
+for lII1lllI1I1I,l1lIIlIlIlIlI in ipairs(lIlI1I1l1llI) do 
+l1II1I1IIIl(l1lI11I1I[l1lIIlIlIlIlI],lII1lllI1I1I,{{icon=lIl1lI1I[lI1I1ll1llIl("\18\147\252\86\44\195\192\153\43\89",120)],fn=function() 
+
+if lII1lllI1I1I > 1 then 
+lIlI1I1l1llI[lII1lllI1I1I],lIlI1I1l1llI[lII1lllI1I1I - 1]=lIlI1I1l1llI[lII1lllI1I1I - 1],lIlI1I1l1llI[lII1lllI1I1I];
+lIlIII1I() end end},{icon=lIl1lI1I[lI1I1ll1llIl("\230\100\7\238\200\207\68\120\127\12\233\89",154)],fn=function() 
 
 
 
-l11I1llI1({Parent=llI11l1Il1I1,Text=(((# l1I1111II1lll) >= llIIIllIIll1l) and l11l1Il1lll("\149\32\214\146\248\86\214\10\114\171\86\246\17\82\160\31\129\63\183\12\5\224\99\255\132\65\164\15\129\173\128\56\99\206\60\106\125\31\232\75\76\190\41\150\30\70\17",129)) or l11l1Il1lll("\33\54\124\240\52\176\172\236\61\36\146",248),Font=Enum.Font.GothamBold,TextSize=10,Color=l11l1Il1lll("\216\22\187\167\81",114),Size=UDim2.new(1,0,0,22),Order=500});
-local lI1llI1lI={};
-for llIIllIlII,l1II1Il11l11l in ipairs(l1I1111II1lll) do 
-lI1llI1lI[l1II1Il11l11l]=true end;
+if lII1lllI1I1I < (# lIlI1I1l1llI) then 
+lIlI1I1l1llI[lII1lllI1I1I],lIlI1I1l1llI[lII1lllI1I1I + 1]=lIlI1I1l1llI[lII1lllI1I1I + 1],lIlI1I1l1llI[lII1lllI1I1I];
+lIlIII1I() end end},{icon=lIl1lI1I.x,fn=function() 
 
-local lIIIlI1IIIl11=0;
-for l1II1I1llI,llll1I11Il11 in ipairs(l1IIII1ll11I1) do 
-if not lI1llI1lI[llll1I11Il11.id] then 
-lIIIlI1IIIl11=lIIIlI1IIIl11 + 1;
-lII1lIIl11(llll1I11Il11,500 + lIIIlI1IIIl11,{{icon=l1lI1IllII.plus,accent=true,fn=function() 
 
-if (# l1I1111II1lll) >= llIIIllIIll1l then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\146\9\158\229\134\5\22\251\63\112\120\143",11),Content=l11l1Il1lll("\98\71\229\15\198\74\92\57\130\213\124\155\199\41\223\31\239\224\56\130\33\182\159\173\50\74\216\7\3\69\173\192\100\113\134",168),Type=l11l1Il1lll("\234\98\222\216\21\250\67",38)});
+
+table.remove(lIlI1I1l1llI,lII1lllI1I1I);
+lIlIII1I() end}}) end;
+
+
+
+lI11I11IlllI({Parent=llIIIIII1ll1,Text=(((# lIlI1I1l1llI) >= l1lIl111) and lI1I1ll1llIl("\41\160\25\127\18\73\93\212\249\180\217\4\205\133\165\236\253\95\152\225\15\63\200\33\47\30\107\157\93\26\197\235\31\142\51\71\151\192\163\85\199\225\230\36\130\145\84",233)) or lI1I1ll1llIl("\248\48\133\217\103\96\137\111\217\203\53",3),Font=Enum.Font.GothamBold,TextSize=10,Color=lI1I1ll1llIl("\40\89\54\221\254",122),Size=UDim2.new(1,0,0,22),Order=500});
+local l1lllIIl={};
+for lI1I1I1II11I,ll1I1Ill111l in ipairs(lIlI1I1l1llI) do 
+l1lllIIl[ll1I1Ill111l]=true end;
+
+local ll11IIll=0;
+for ll1l1Ill11,l1l1IIII1 in ipairs(l11I1111) do 
+if not l1lllIIl[l1l1IIII1.id] then 
+ll11IIll=ll11IIll + 1;
+l1II1I1IIIl(l1l1IIII1,500 + ll11IIll,{{icon=lIl1lI1I.plus,accent=true,fn=function() 
+
+if (# lIlI1I1l1llI) >= l1lIl111 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\121\176\9\111\194\185\141\36\9\68\41\20",185),Content=lI1I1ll1llIl("\64\157\238\130\231\41\201\192\75\37\164\55\186\207\40\84\13\26\51\47\64\181\10\52\187\250\32\171\94\99\186\139\134\107\77",15),Type=lI1I1ll1llIl("\106\222\120\10\235\222\185",153)});
 return  end;
 
-table.insert(l1I1111II1lll,llll1I11Il11.id);
-lllIl1II1II() end}}) end end end;
+table.insert(lIlI1I1l1llI,l1l1IIII1.id);
+lIlIII1I() end}}) end end end;
 
 
 
 
 
-lI1Il11I1l:Slider({Name=l11l1Il1lll("\77\115\224\80\179\51\3\60\225",152),Flag=l11l1Il1lll("\13\90\167\88\236\111\104\201\26\169\41\29",115),Min=4,Max=24,Default=llIIIllIIll1l,Callback=function(l11II111l) 
-llIIIllIIll1l=l11II111l;
-while (# l1I1111II1lll) > llIIIllIIll1l do 
-table.remove(l1I1111II1lll) end;
+l1ll1II1l:Slider({Name=lI1I1ll1llIl("\102\50\246\7\108\69\106\227\118",226),Flag=lI1I1ll1llIl("\185\16\169\207\15\17\230\55\99\62\81\171",89),Min=4,Max=24,Default=l1lIl111,Callback=function(lI1llI11lII1l) 
+l1lIl111=lI1llI11lII1l;
+while (# lIlI1I1l1llI) > l1lIl111 do 
+table.remove(lIlI1I1l1llI) end;
 
-lllIl1II1II() end});
+lIlIII1I() end});
 
-l1lllIIII();
-lI1Il11I1l:Segmented({Name=l11l1Il1lll("\117\4\13\236\100\170",35),Flag=l11l1Il1lll("\233\124\191\173\32\229\109\236\181\128",54),Options={l11l1Il1lll("\71\202\39\109\113\188\36\134",65),l11l1Il1lll("\108\147\46\162\226\211\104\111\212\47",26)},Default=l11l1Il1lll("\79\207\248\36\32\164\92\13",253),Callback=function() 
-llIl1IlI1lIl(false) end});
+ll1lI1IlIIIIl();
+l1ll1II1l:Segmented({Name=lI1I1ll1llIl("\179\192\172\103\216\17",97),Flag=lI1I1ll1llIl("\57\144\41\79\142\145\103\139\250\165",217),Options={lI1I1ll1llIl("\80\129\164\136\111\18\94\43",204),lI1I1ll1llIl("\230\182\245\134\88\220\229\41\16\151",64)},Default=lI1I1ll1llIl("\103\222\43\148\247\15\15\24",56),Callback=function() 
+l1Il1l1I1Il(false) end});
 
-lI1Il11I1l:Segmented({Name=l11l1Il1lll("\34\7\76\164\15\145\172\219\27\29\188",248),Flag=l11l1Il1lll("\109\217\219\105\205\87\207\147",39),Options={l11l1Il1lll("\218\184\133\127\237",147),l11l1Il1lll("\22\184\230\173\107\115",44),l11l1Il1lll("\156\70\255\85\89",149)},Default=l11l1Il1lll("\76\120\219\34\114\74",64),Callback=function() 
-llIl1IlI1lIl(false) end});
+l1ll1II1l:Segmented({Name=lI1I1ll1llIl("\52\93\170\136\133\126\187\182\192\30\148",219),Flag=lI1I1ll1llIl("\33\18\236\200\102\206\104\105",149),Options={lI1I1ll1llIl("\245\41\23\240\10",108),lI1I1ll1llIl("\148\151\148\129\246\181",237),lI1I1ll1llIl("\26\245\212\203\51",156)},Default=lI1I1ll1llIl("\213\216\51\190\31\124",183),Callback=function() 
+l1Il1l1I1Il(false) end});
 
-lI1Il11I1l:Toggle({Name=l11l1Il1lll("\82\215\42\94\8\163\52\120\97\194\57",81),Flag=l11l1Il1lll("\57\172\15\29\112\181\6\150\220\215",230),Default=true,Callback=function() 
-llIl1IlI1lIl(false) end});
+l1ll1II1l:Toggle({Name=lI1I1ll1llIl("\110\183\5\115\194\188\159\102\10\93\54",185),Flag=lI1I1ll1llIl("\111\28\205\108\115\168\135\18\137\223",194),Default=true,Callback=function() 
+l1Il1l1I1Il(false) end});
 
-lI1Il11I1l:Slider({Name=l11l1Il1lll("\25\200\220\96\146\109\56\194\87\242",223),Description=l11l1Il1lll("\21\106\99\134\3\222\137\57\134\149\1\91\119\174\144\57\137\146\232\18\146\61",67),Flag=l11l1Il1lll("\214\200\122\116\12\38\192\108\217\214\113",240),Min=15,Max=95,Default=55,Suffix=l11l1Il1lll("\52",65),Callback=function() 
-llIl1IlI1lIl(true) end});
+l1ll1II1l:Slider({Name=lI1I1ll1llIl("\16\253\172\60\190\84\94\185\140\156",182),Description=lI1I1ll1llIl("\62\247\21\104\33\59\191\12\119\242\161\42\172\6\79\162\194\143\126\252\176\216",126),Flag=lI1I1ll1llIl("\78\71\85\183\232\249\156\83\236\201\54",29),Min=15,Max=95,Default=55,Suffix=lI1I1ll1llIl("\103",95),Callback=function() 
+l1Il1l1I1Il(true) end});
 
-lI1Il11I1l:Toggle({Name=l11l1Il1lll("\183\145\26\140\104\42\143\75\241\99\61\239\36",180),Description=l11l1Il1lll("\205\16\18\163\82\45\120\131\28\230\140\61\205\101\69\64\124\187\160\99\211\152\149\21\142\118\60\144\95\249\114\51\26\100\63\138\33\12\15\232\112\194\173\28\250",31),Flag=l11l1Il1lll("\181\0\246\178\148\112\230\65\81\154",129)});
-lI1Il11I1l:Button({Name=l11l1Il1lll("\18\210\78\231\216\54\150\45\186\129",5),Description=l11l1Il1lll("\91\203\233\59\105\179\82\65\4\239\8\242\174\15\229\122\253\250\159\164\190\18\161\241\149\121\251\77\32\146\119\198",253),Action=l11l1Il1lll("\185\139\122\242\44",164),Callback=function() 
-lI11l1l11l=false;
-local l11IlIlIl1=lIll1111ll1l();
-lIlIIl11III11.Position=UDim2.new(0,l11IlIlIl1.X,0,l11IlIlIl1.Y * 0.2);
-llIl1IlI1lIl(false);
-task.delay(0.35,l1I1lII1Il) end});
+l1ll1II1l:Toggle({Name=lI1I1ll1llIl("\110\199\176\246\193\108\214\226\50\3\104\252\80",63),Description=lI1I1ll1llIl("\173\253\184\239\33\195\175\5\36\235\45\159\205\55\94\2\28\118\42\15\128\22\34\243\214\27\189\18\127\139\137\145\122\73\85\198\82\162\152\110\72\207\76\254\250",16),Flag=lI1I1ll1llIl("\83\158\142\4\161\59\169\91\103\108",214)});
+l1ll1II1l:Button({Name=lI1I1ll1llIl("\155\97\34\12\215\191\125\212\101\19",115),Description=lI1I1ll1llIl("\132\217\45\231\186\20\100\117\109\188\4\121\225\166\46\163\2\8\187\152\141\117\183\229\220\10\151\166\111\91\220\63",107),Action=lI1I1ll1llIl("\72\93\85\201\163",45),Callback=function() 
+lIII1IlII1=false;
+local l11II111lIII=lIIlII11IlIl();
+l1Il1Ill1l1.Position=UDim2.new(0,l11II111lIII.X,0,l11II111lIII.Y * 0.2);
+l1Il1l1I1Il(false);
+task.delay(0.35,l11IlI1l) end});
 
 
-local l1I1l11l=lIll1111ll1l();
-lIlIIl11III11.Position=UDim2.new(0,(llIl1l1lll.fx or 1) * l1I1l11l.X,0,(llIl1l1lll.fy or 0.2) * l1I1l11l.Y);
-l1lII1l1I() end;
+local l1l1lI111=lIIlII11IlIl();
+l1Il1Ill1l1.Position=UDim2.new(0,(l11llIIl1l.fx or 1) * l1l1lI111.X,0,(l11llIIl1l.fy or 0.2) * l1l1lI111.Y);
+lI11IIlI() end;
 
 
 
@@ -6472,63 +6476,63 @@ l1lII1l1I() end;
 
 
 do 
-local ll1IIlll=llII1ll111:Section(l11l1Il1lll("\9\38\189\93\160\90\255\216",216));
-ll1IIlll:Input({Name=l11l1Il1lll("\123\162\194\199\38",210),Description=l11l1Il1lll("\74\58\9\254\96\142\195\31\230\71\207\175\146\73\65\183\185\160\250\68\159\30\67\229\15\216\1\94\53\244\208\120\157\153\100\214\70\233",19),Flag=l11l1Il1lll("\172\230\212\29\160\3\21\73",211),Placeholder=l11l1Il1lll("\55\177\83\244\61\114\225\32\36\140\113",217)});
-ll1IIlll:Toggle({Name=l11l1Il1lll("\252\55\74\79\245\30\183\94",82),Description=l11l1Il1lll("\58\167\133\55\220\111\69\73\96\184\180\99\115\74\220\55\136\52\61\142\77\190\120\55\10\39\53\154\111\10\76\228\123\204\173\17\250\93\165\177\135\64\69\67\229\181\185\114\251\22\92\235\109\202\84\24\61\193\147\51\175\40\58\206\75\166\219\122\129\57\214\198\190\120\108\250\20\79\79",87),Flag=l11l1Il1lll("\8\128\12\41\162",214),Callback=function(l1ll11I111l) 
-if not l1ll11I111l then 
-for lIlII111111I,l1lllIIllI in pairs(_G.__nocEspLabels or {}) do 
-l1lllIIllI:Destroy() end;
+local l1llIl1l1=lIl11l1lI1l:Section(lI1I1ll1llIl("\72\255\108\221\206\89\109\116",8));
+l1llIl1l1:Input({Name=lI1I1ll1llIl("\136\69\123\89\181",12),Description=lI1I1ll1llIl("\22\2\210\254\68\151\113\25\250\169\164\93\51\76\57\188\5\120\1\100\187\39\209\131\115\86\10\140\180\241\136\83\193\161\127\22\98\240",133),Flag=lI1I1ll1llIl("\151\107\19\131\208\1\172\178",239),Placeholder=lI1I1ll1llIl("\200\232\120\237\34\64\229\220\199\91\39",135)});
+l1llIl1l1:Toggle({Name=lI1I1ll1llIl("\91\76\167\192\211\190\101\207",30),Description=lI1I1ll1llIl("\186\85\236\220\1\14\201\4\184\36\199\188\72\199\27\41\104\166\116\69\144\255\52\154\50\91\166\101\116\135\171\186\251\62\132\186\103\60\233\60\159\220\54\92\30\248\126\44\91\196\21\32\240\203\88\181\5\125\192\204\180\101\29\80\203\84\178\145\92\88\218\11\230\228\31\37\47\194\136",67),Flag=lI1I1ll1llIl("\187\218\135\176\92",48),Callback=function(lIIlIl1lIl111) 
+if not lIIlIl1lIl111 then 
+for lll1ll1lll1ll,llII1111 in pairs(_G.__nocEspLabels or {}) do 
+llII1111:Destroy() end;
 
 _G.__nocEspLabels={} end end});
 
 
-ll1IIlll:Slider({Name=l11l1Il1lll("\164\12\245\169\236\6\134\14\5\160\73\239",177),Flag=l11l1Il1lll("\228\76\181\251\201\33\178\255",209),Min=50,Max=5000,Default=800,Increment=50,Suffix=l11l1Il1lll("\25\22\0\246\117\173",35)});
-ll1IIlll:ColorPicker({Name=l11l1Il1lll("\60\89\122\208\138\72\177\238\226",157),Flag=l11l1Il1lll("\236\169\138\131\182\27\226\163",109),Default=Color3.fromRGB(255,214,90)});
-local l1lIllIl1l={};
-_G.__nocEspLabels=l1lIllIl1l;
-local function ll1l1I1II(llI1IlIIl1II) 
-local ll1llII1II1=lI11IIlIIIllI(l11l1Il1lll("\180\47\177\130\164\99\100\201\29\98\65\170",43),{Size=UDim2.new(0,140,0,30),AlwaysOnTop=true,LightInfluence=0,Adornee=llI1IlIIl1II,Parent=llIIIIII1.Gui});
-local lI11l11II=lI11IIlIIIllI(l11l1Il1lll("\157\255\194\116\85\214\47\116\76",45),{BackgroundTransparency=1,Size=UDim2.new(1,0,1,0),Font=Enum.Font.GothamBold,TextSize=12,TextStrokeTransparency=0.4,Parent=ll1llII1II1});
-return ll1llII1II1,lI11l11II end;
+l1llIl1l1:Slider({Name=lI1I1ll1llIl("\83\91\174\252\174\89\8\81\40\234\178\140",187),Flag=lI1I1ll1llIl("\151\107\19\159\208\2\174\164",239),Min=50,Max=5000,Default=800,Increment=50,Suffix=lI1I1ll1llIl("\203\224\58\146\187\26",34)});
+l1llIl1l1:ColorPicker({Name=lI1I1ll1llIl("\99\11\254\140\217\47\71\26\11",139),Flag=lI1I1ll1llIl("\183\75\51\110\62\224\70\147",207),Default=Color3.fromRGB(255,214,90)});
+local lI1I1ll1Il111={};
+_G.__nocEspLabels=lI1I1ll1Il111;
+local function l1lIl1lllI(ll1Il11I1) 
+local lllII11lI1lll=lllII1lI1I1I(lI1I1ll1llIl("\240\177\78\33\113\52\247\77\115\150\120\230",190),{Size=UDim2.new(0,140,0,30),AlwaysOnTop=true,LightInfluence=0,Adornee=ll1Il11I1,Parent=l111II11I.Gui});
+local lllIIIIIIl=lllII1lI1I1I(lI1I1ll1llIl("\145\41\90\172\182\129\136\240\183",218),{BackgroundTransparency=1,Size=UDim2.new(1,0,1,0),Font=Enum.Font.GothamBold,TextSize=12,TextStrokeTransparency=0.4,Parent=lllII11lI1lll});
+return lllII11lI1lll,lllIIIIIIl end;
 
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if l1IIlll1I11l.espOn then 
-local lIIlII1Il={};
-for lll1l1I11lI11 in string.gmatch(string.lower(l1IIlll1I11l.espNames or l11l1Il1lll("",132)),l11l1Il1lll("\185\169\101\242\216",160)) do 
-lll1l1I11lI11=lll1l1I11lI11:gsub(l11l1Il1lll("\119\80\119\216",51),l11l1Il1lll("",150)):gsub(l11l1Il1lll("\244\28\190\253",129),l11l1Il1lll("",181));
-if lll1l1I11lI11 ~= l11l1Il1lll("",168) then 
-table.insert(lIIlII1Il,lll1l1I11lI11) end end;
+while l111II11I.Window == l1l1Ill1 do 
+if lll1l11Il1ll1.espOn then 
+local lI1IIII1lll={};
+for lI11IlIll1 in string.gmatch(string.lower(lll1l11Il1ll1.espNames or lI1I1ll1llIl("",35)),lI1I1ll1llIl("\65\102\10\241\252",45)) do 
+lI11IlIll1=lI11IlIll1:gsub(lI1I1ll1llIl("\69\70\237\28",210),lI1I1ll1llIl("",61)):gsub(lI1I1ll1llIl("\151\43\8\41",175),lI1I1ll1llIl("",162));
+if lI11IlIll1 ~= lI1I1ll1llIl("",194) then 
+table.insert(lI1IIII1lll,lI11IlIll1) end end;
 
 
-local lI1111lI111=lIl1I1lI1Il();
-local l1IllIIl={};
-if lI1111lI111 and ((# lIIlII1Il) > 0) then 
-local lIl1lI11I=(l1llllI1lll1l.espColor and l1llllI1lll1l.espColor:GetColor()) or Color3.new(1,1,0);
-local l1II1IllllII=0;
-for lIIllIIlIl,lII1lIl1l11l in ipairs(workspace:GetDescendants()) do 
-if l1II1IllllII >= 150 then 
+local lIII1I111Il11=l1lI11Il111ll();
+local l1ll1Il11={};
+if lIII1I111Il11 and ((# lI1IIII1lll) > 0) then 
+local lIlllIlI1=(lllIIlllIIlIl.espColor and lllIIlllIIlIl.espColor:GetColor()) or Color3.new(1,1,0);
+local l1I1IlIIIII=0;
+for llllIIII1llII,l1Il1lI1I11I in ipairs(workspace:GetDescendants()) do 
+if l1I1IlIIIII >= 150 then 
 break end;
 
-if (lII1lIl1l11l:IsA(l11l1Il1lll("\70\207\57\143\17\99\64\140",137)) or lII1lIl1l11l:IsA(l11l1Il1lll("\217\3\168\62\4",170))) and (not ll11I11l1lll1:GetPlayerFromCharacter(lII1lIl1l11l)) then 
-local l1IllI11l1ll=string.lower(lII1lIl1l11l.Name);
-for l1lI1II11,lIIIl1l11lll1 in ipairs(lIIlII1Il) do 
-if string.find(l1IllI11l1ll,lIIIl1l11lll1,1,true) then 
-local lIIllIlI1llIl=(lII1lIl1l11l:IsA(l11l1Il1lll("\100\26\96\150\13",51)) and (lII1lIl1l11l.PrimaryPart or lII1lIl1l11l:FindFirstChildWhichIsA(l11l1Il1lll("\139\251\201\101\73\214\63\101",45)))) or lII1lIl1l11l;
-local l11IIlll=lIIllIlI1llIl and lIIllIlI1llIl:FindFirstAncestorOfClass(l11l1Il1lll("\188\32\209\156\148",161));
-if lIIllIlI1llIl and (not (l11IIlll and ll11I11l1lll1:GetPlayerFromCharacter(l11IIlll))) then 
-local lIl1I1lII11ll=(lIIllIlI1llIl.Position - lI1111lI111.Position).Magnitude;
-if lIl1I1lII11ll <= (l1IIlll1I11l.espRange or 800) then 
-l1II1IllllII=l1II1IllllII + 1;
-l1IllIIl[lIIllIlI1llIl]=true;
-local lIlllIIlI=l1lIllIl1l[lIIllIlI1llIl];
-if not lIlllIIlI then 
-local l1l1l1lIl1l,ll11ll1l1I1l=ll1l1I1II(lIIllIlI1llIl);
-lIlllIIlI={bb=l1l1l1lIl1l,t=ll11ll1l1I1l};
-l1lIllIl1l[lIIllIlI1llIl]=lIlllIIlI end;
+if (l1Il1lI1I11I:IsA(lI1I1ll1llIl("\39\60\156\166\5\166\0\88",181)) or l1Il1lI1I11I:IsA(lI1I1ll1llIl("\55\180\151\80\69",4))) and (not lllIlllIllI1I:GetPlayerFromCharacter(l1Il1lI1I11I)) then 
+local l1II1lII11lll=string.lower(l1Il1lI1I11I.Name);
+for lll1111lIII,ll1IlI1II1 in ipairs(lI1IIII1lll) do 
+if string.find(l1II1lII11lll,ll1IlI1II1,1,true) then 
+local lI111lII1=(l1Il1lI1I11I:IsA(lI1I1ll1llIl("\98\30\97\221\113",177)) and (l1Il1lI1I11I.PrimaryPart or l1Il1lI1I11I:FindFirstChildWhichIsA(lI1I1ll1llIl("\105\50\253\66\79\72\119\227",226)))) or l1Il1lI1I11I;
+local ll11lI1II111=lI111lII1 and lI111lII1:FindFirstAncestorOfClass(lI1I1ll1llIl("\134\136\21\134\194",231));
+if lI111lII1 and (not (ll11lI1II111 and lllIlllIllI1I:GetPlayerFromCharacter(ll11lI1II111))) then 
+local l1IIllIIII=(lI111lII1.Position - lIII1I111Il11.Position).Magnitude;
+if l1IIllIIII <= (lll1l11Il1ll1.espRange or 800) then 
+l1I1IlIIIII=l1I1IlIIIII + 1;
+l1ll1Il11[lI111lII1]=true;
+local llllIllIII1l=lI1I1ll1Il111[lI111lII1];
+if not llllIllIII1l then 
+local llll1ll1,lI1Il111II1I1=l1lIl1lllI(lI111lII1);
+llllIllIII1l={bb=llll1ll1,t=lI1Il111II1I1};
+lI1I1ll1Il111[lI111lII1]=llllIllIII1l end;
 
-lIlllIIlI.t.TextColor3=lIl1lI11I;
-lIlllIIlI.t.Text=string.format(l11l1Il1lll("\181\183\46\193\10\91\2\78\160",62),lII1lIl1l11l.Name,math.floor(lIl1I1lII11ll)) end end;
+llllIllIII1l.t.TextColor3=lIlllIlI1;
+llllIllIII1l.t.Text=string.format(lI1I1ll1llIl("\179\251\94\158\253\144\222\193\164",59),l1Il1lI1I11I.Name,math.floor(l1IIllIIII)) end end;
 
 
 break end end end end end;
@@ -6537,10 +6541,10 @@ break end end end end end;
 
 
 
-for ll1I1IIl11I1,lllllIlll in pairs(l1lIllIl1l) do 
-if not l1IllIIl[ll1I1IIl11I1] then 
-lllllIlll.bb:Destroy();
-l1lIllIl1l[ll1I1IIl11I1]=nil end end;
+for llIIll1llIl,lIl1lI1II1I in pairs(lI1I1ll1Il111) do 
+if not l1ll1Il11[llIIll1llIl] then 
+lIl1lI1II1I.bb:Destroy();
+lI1I1ll1Il111[llIIll1llIl]=nil end end;
 
 
 task.wait(0.5) else 
@@ -6548,8 +6552,8 @@ task.wait(0.5) else
 task.wait(1) end end;
 
 
-for ll1IllI11I11,lI1I1IlII1Il1 in pairs(l1lIllIl1l) do 
-lI1I1IlII1Il1.bb:Destroy() end end) end;
+for lllllllIIllI,lIIll1lllIIl in pairs(lI1I1ll1Il111) do 
+lIIll1lllIIl.bb:Destroy() end end) end;
 
 
 
@@ -6559,47 +6563,47 @@ lI1I1IlII1Il1.bb:Destroy() end end) end;
 
 
 do 
-local lllII1IlI=game:GetService(l11l1Il1lll("\100\78\235\235\182\183\77\198\94\82\253\20\253\78\18\57\197\210\123",112));
-local lIlIllIII=ll1lIlIlIIll1:Section(l11l1Il1lll("\52\68\87\177\62\62\114\207\37\185\63\122\83\142",99));
-local lI1IIllIII1I=lIlIllIII:Paragraph(l11l1Il1lll("\197\225\73\154\25\9\162\71\168\158\193\228",196),l11l1Il1lll("\36\3\184\0\34\138\223\247\16\19\229\15\7\110\148\17\224\166\57\192\32\235\68\109\242\160\24\210\134\209\114\207\50\55\156\116\255\97\47\88\109\119\153\125\54\21\226\63\203\215\1\227\0\211\165\131\87\7\224\240\182\246\79\224\66\79\233\12\220\86\92\47\205\194\101\139\157\102\229\94\240\178\74\149\35\176\158\172\50\102\222\30\74\88\225\219\127\34\219\52\191\63\50\24\208\242\89\163\242\223\113\173\5\2\93\177\20\140\172\193\6\71\174\54\119\126\193\59\152\135\104\211\145\2\89\56\150\158\36\198\157\225\95",232));
-local l1ll1llIl,lIIIllllI1,lI1llllll1,l11IllIIlIlI={},false,0,{};
-local ll11ll1l=llIIIIII1.Folder .. (l11l1Il1lll("\34\254\61\37\158\107\231\44",182) .. (tostring(game.PlaceId) .. l11l1Il1lll("\128\30\30\204\63",47)));
-local function l111IIl1IlllI(lI1I1I11Ill11) 
-local l1Il1IlIII=lllI1llI:FindFirstChildOfClass(l11l1Il1lll("\185\217\37\202\68\252\215\111\159",243));
-if not l1Il1IlIII then 
+local ll1lllIIlIlI=game:GetService(lI1I1ll1llIl("\124\65\68\168\210\232\145\121\235\205\58\23\184\6\188\45\221\253\244",29));
+local ll1I1ll1l1II1=l1III111lII1:Section(lI1I1ll1llIl("\44\138\10\162\33\156\236\225\45\86\21\107\167\97",104));
+local lI1llI11Ill1=ll1I1ll1l1II1:Paragraph(lI1I1ll1llIl("\169\78\61\242\92\231\136\111\18\33\199\185",6),lI1I1ll1llIl("\118\73\162\253\209\142\69\224\245\37\81\223\233\76\63\206\178\204\35\93\83\15\222\122\23\150\140\2\136\115\185\16\96\125\134\201\140\229\53\207\136\65\45\173\24\183\201\96\25\253\27\126\115\119\191\20\50\177\180\32\184\84\68\191\144\133\115\241\175\210\70\184\168\116\81\219\115\196\206\1\34\88\208\136\208\84\132\59\87\208\202\78\196\122\42\132\173\232\65\9\76\59\168\15\181\68\109\243\92\253\218\114\87\40\199\172\231\168\54\214\227\113\250\102\249\92\74\228\202\205\114\46\98\6\195\47\115\168\144\22\115\195\244",46));
+local lIIlI1IlI,lllI11Il1,l1I11l11,ll1IIIlI1={},false,0,{};
+local lIlIIIl1l=l111II11I.Folder .. (lI1I1ll1llIl("\141\197\51\62\113\4\213\32",174) .. (tostring(game.PlaceId) .. lI1I1ll1llIl("\220\114\145\226\189",254)));
+local function lIllIll1l1I(lIII1lIIlI) 
+local ll1lIl1l1I=ll1lI1IIII1:FindFirstChildOfClass(lI1I1ll1llIl("\198\56\7\21\243\147\8\66\131",92));
+if not ll1lIl1l1I then 
 return nil end;
 
-for lllll1lIlIl1l,ll111IlIl1l in ipairs(l1Il1IlIII:GetGuiObjectsAtPosition(lI1I1I11Ill11.X,lI1I1I11Ill11.Y)) do 
-if ll111IlIl1l:IsA(l11l1Il1lll("\142\3\17\128\171\10\129\217\240",231)) and (not ll111IlIl1l:IsDescendantOf(llIIIIII1.Gui)) then 
-return ll111IlIl1l end end end;
+for llIlIlI1lIlI,l1I11lllI in ipairs(ll1lIl1l1I:GetGuiObjectsAtPosition(lIII1lIIlI.X,lIII1lIIlI.Y)) do 
+if l1I11lllI:IsA(lI1I1ll1llIl("\253\110\90\183\156\23\133\55\88",196)) and (not l1I11lllI:IsDescendantOf(l111II11I.Gui)) then 
+return l1I11lllI end end end;
 
 
 
-local function lI1l11I11(llIIlII1llI) 
-local lIIlIl1l1lIIl={};
-local ll1l1llIIlII=llIIlII1llI;
-local l11l1II1=lllI1llI:FindFirstChildOfClass(l11l1Il1lll("\146\187\8\246\182\148\86\234\73",128));
-while ll1l1llIIlII and (ll1l1llIIlII ~= l11l1II1) do 
-table.insert(lIIlIl1l1lIIl,1,ll1l1llIIlII.Name);
-ll1l1llIIlII=ll1l1llIIlII.Parent end;
+local function l1IIIlI11l(l1Il1l1I111I1) 
+local l11IIIII1={};
+local l1IIl1III11lI=l1Il1l1I111I1;
+local l11II1I1I=ll1lI1IIII1:FindFirstChildOfClass(lI1I1ll1llIl("\222\149\198\182\103\33\44\200\248",96));
+while l1IIl1III11lI and (l1IIl1III11lI ~= l11II1I1I) do 
+table.insert(l11IIIII1,1,l1IIl1III11lI.Name);
+l1IIl1III11lI=l1IIl1III11lI.Parent end;
 
-return table.concat(lIIlIl1l1lIIl,l11l1Il1lll("\207",120)) end;
+return table.concat(l11IIIII1,lI1I1ll1llIl("\249",28)) end;
 
-local function l11Il11IllIl(l1ll11Il1l) 
-local llI111lI1=lllI1llI:FindFirstChildOfClass(l11l1Il1lll("\48\30\89\169\5\141\203\221\27",248));
-for llII11I11lII in string.gmatch(l1ll11Il1l,l11l1Il1lll("\93\200\34\3\93",219)) do 
-llI111lI1=llI111lI1 and llI111lI1:FindFirstChild(llII11I11lII) end;
+local function l1llIlI1l(l11Il1IIlI) 
+local lI1II1I11IlI=ll1lI1IIII1:FindFirstChildOfClass(lI1I1ll1llIl("\47\77\52\241\72\151\96\110\244",225));
+for lIIIIIl11 in string.gmatch(l11Il1IIlI,lI1I1ll1llIl("\13\202\137\241\125",156)) do 
+lI1II1I11IlI=lI1II1I11IlI and lI1II1I11IlI:FindFirstChild(lIIIIIl11) end;
 
-return llI111lI1 end;
+return lI1II1I11IlI end;
 
-local function lIl11I11l1I1(ll1lI1Ill1) 
+local function ll11IIlIlIlI(ll1llII1l) 
 if getconnections then 
-for lI1II1l1I,lIII1lIl in ipairs({l11l1Il1lll("\68\144\203\219\51\74\224\251\64",226),l11l1Il1lll("\160\28\137\149\41\230\129\23\84\123\176\194\14\199\158\153\22",86),l11l1Il1lll("\51\43\40\128\100\47\25\255\109\201\166\67\202\65\242\168",255)}) do 
-local lllI11l1I=getconnections(ll1lI1Ill1[lIII1lIl]);
-if (# lllI11l1I) > 0 then 
-for l1lII1lI,llI1111I in ipairs(lllI11l1I) do 
+for l1llI1l1I11I,llIl1Il1Illl in ipairs({lI1I1ll1llIl("\64\232\125\217\152\125\74\65\202",8),lI1I1ll1llIl("\127\55\215\190\246\153\99\203\227\62\227\62\206\88\3\243\201",62),lI1I1ll1llIl("\151\151\147\159\242\155\216\20\129\162\113\2\129\56\149\242",237)}) do 
+local llll1Ill1l=getconnections(ll1llII1l[llIl1Il1Illl]);
+if (# llll1Ill1l) > 0 then 
+for l1IlI1111,llIIlIl11IIl in ipairs(llll1Ill1l) do 
 pcall(function() 
-llI1111I:Fire() end) end;
+llIIlIl11IIl:Fire() end) end;
 
 
 return  end end end end;
@@ -6607,94 +6611,94 @@ return  end end end end;
 
 
 
-local function llllllIlIII1() 
-lIIIllllI1=false;
-for l11II1I1lII,lllIIl1l in ipairs(l11IllIIlIlI) do 
-lllIIl1l:Disconnect() end;
+local function ll1lIllI() 
+lllI11Il1=false;
+for lll11Il1Il,l1I1I1IlIIl in ipairs(ll1IIIlI1) do 
+l1I1I1IlIIl:Disconnect() end;
 
-l11IllIIlIlI={};
-llIIIIII1:WriteJSON(ll11ll1l,l1ll1llIl);
-lI1IIllIII1I:Set((# l1ll1llIl) .. l11l1Il1lll("\176\241\92\165\32\188\188\202\103\116\198\61\119\67\181",8),l11l1Il1lll("\103\173\26\158\236\140\16\4\215\115\107\122\140\56\212\153\37\49\153\69\24\72\135\139\117\241\234\242\25\154\61\78\160\67\172\105\221\226\118\34\177\29",10)) end;
+ll1IIIlI1={};
+l111II11I:WriteJSON(lIlIIIl1l,lIIlI1IlI);
+lI1llI11Ill1:Set((# lIIlI1IlI) .. lI1I1ll1llIl("\233\119\37\12\211\236\57\201\99\27\225\190\190\69\47",115),lI1I1ll1llIl("\53\229\192\185\66\113\121\8\232\27\103\189\96\240\49\223\183\121\67\2\246\245\238\135\10\217\230\53\21\146\24\8\50\203\182\206\51\95\95\110\206\53",172)) end;
 
-lIlIllIII:Button({Name=l11l1Il1lll("\171\192\215\44\163\250\160\5\230\37\185\241\198",227),Action=l11l1Il1lll("\155\240\199",211),Callback=function() 
-if lIIIllllI1 then 
-llllllIlIII1();
+ll1I1ll1l1II1:Button({Name=lI1I1ll1llIl("\201\210\34\188\12\116\246\203\210\107\23\162\193",183),Action=lI1I1ll1llIl("\228\209\229",124),Callback=function() 
+if lllI11Il1 then 
+ll1lIllI();
 return  end;
 
-l1ll1llIl,lIIIllllI1,lI1llllll1={},true,os.clock();
-lI1IIllIII1I:Set(l11l1Il1lll("\171\35\11\189\92\234\140\200\233\122\99\237",215),l11l1Il1lll("\92\6\84\48\189\174\44\210\219\156\12\147\60\53\142\75\184\120\38\160\58\45\148\116\24\78\226\114\161\185\94\168\124\230\180\208\104\74\2\248\169\186\57\230\79\91\233\118\152\64\28\5\196\159\117\136\37\43\135",124));
-table.insert(l11IllIIlIlI,llIl11lIIl1I1.InputBegan:Connect(function(llII1lI1I11II) 
-local lI1llIIIl=os.clock() - lI1llllll1;
-if llII1lI1I11II.UserInputType == Enum.UserInputType.Keyboard then 
-table.insert(l1ll1llIl,{t=lI1llIIIl,key=llII1lI1I11II.KeyCode.Name}) elseif (llII1lI1I11II.UserInputType == Enum.UserInputType.Touch) or (llII1lI1I11II.UserInputType == Enum.UserInputType.MouseButton1) then 
+lIIlI1IlI,lllI11Il1,l1I11l11={},true,os.clock();
+lI1llI11Ill1:Set(lI1I1ll1llIl("\124\60\100\0\208\87\98\179\150\85\55\142",192),lI1I1ll1llIl("\62\9\6\188\128\40\80\149\101\31\250\215\65\200\124\127\218\183\180\44\7\75\40\243\166\205\84\118\220\68\172\220\94\41\38\156\149\204\190\127\215\249\143\226\114\230\91\2\186\207\206\73\57\57\9\207\91\104\241",93));
+table.insert(ll1IIIlI1,l1IIl1lll1l.InputBegan:Connect(function(ll1IIIIl) 
+local lIII11IlIIl1l=os.clock() - l1I11l11;
+if ll1IIIIl.UserInputType == Enum.UserInputType.Keyboard then 
+table.insert(lIIlI1IlI,{t=lIII11IlIIl1l,key=ll1IIIIl.KeyCode.Name}) elseif (ll1IIIIl.UserInputType == Enum.UserInputType.Touch) or (ll1IIIIl.UserInputType == Enum.UserInputType.MouseButton1) then 
 
-local lIl1lll1l=l111IIl1IlllI(Vector2.new(llII1lI1I11II.Position.X,llII1lI1I11II.Position.Y));
-if lIl1lll1l then 
-table.insert(l1ll1llIl,{t=lI1llIIIl,button=lI1l11I11(lIl1lll1l),label=(lIl1lll1l:IsA(l11l1Il1lll("\33\230\151\150\87\238\80\58\155\98",146)) and lIl1lll1l.Text) or lIl1lll1l.Name}) end end;
-
-
-lI1IIllIII1I:Set(l11l1Il1lll("\6\187\89\245\99\54\235\38\38\209\43\71\72",217) .. ((# l1ll1llIl) .. l11l1Il1lll("\164\111\200\78\8\47",186)),l11l1Il1lll("\84\115\232\80\146\58\15\39\224\227\25\158\196\215\40\65\176\245\64\165\62\239\248\215\108\114\135",152)) end)) end});
+local lIIIIl1I=lIllIll1l1I(Vector2.new(ll1IIIIl.Position.X,ll1IIIIl.Position.Y));
+if lIIIIl1I then 
+table.insert(lIIlI1IlI,{t=lIII11IlIIl1l,button=l1IIIlI11l(lIIIIl1I),label=(lIIIIl1I:IsA(lI1I1ll1llIl("\98\81\126\120\180\244\155\227\37\133",252)) and lIIIIl1I.Text) or lIIIIl1I.Name}) end end;
 
 
-lIlIllIII:Toggle({Name=l11l1Il1lll("\78\120\198\63\51\84\180\47\140\147\193",64),Flag=l11l1Il1lll("\59\135\30\124\73\160\138\52\169",139),Default=true});
-lIlIllIII:Slider({Name=l11l1Il1lll("\34\226\29\190\189\31\162\97\249\191\159\164",53),Flag=l11l1Il1lll("\164\23\27\176\177\45\133\211\251\0",231),Min=25,Max=400,Default=100,Increment=25,Suffix=l11l1Il1lll("\232",118)});
-local lII1lI1lI=false;
-lIlIllIII:Toggle({Name=l11l1Il1lll("\4\131\13\98\71\149",139),Description=l11l1Il1lll("\235\210\216\94\251\186\89\151\45\165\180\173\107\124\195\40\11\6\162\50\125\122\195\104\143\40\109\94\157\207\86\191\242\242\60\231\36\21\175\168\88\133\209\208\6\30\168\7\98\125\201\24\150\195",244),Flag=l11l1Il1lll("\20\107\73\130\134\119\177\224\233",157),Callback=function(l1lI1Il111l) 
-if (not l1lI1Il111l) or lII1lI1lI then 
+lI1llI11Ill1:Set(lI1I1ll1llIl("\135\25\113\135\152\148\115\11\172\157\64\233\223",202) .. ((# lIIlI1IlI) .. lI1I1ll1llIl("\50\75\182\200\131\136",30)),lI1I1ll1llIl("\46\57\54\172\165\220\174\111\39\9\159\242\66\214\107\18\170\191\190\89\41\9\57\255\75\120\1",77)) end)) end});
+
+
+ll1I1ll1l1II1:Toggle({Name=lI1I1ll1llIl("\217\83\61\216\138\194\63\85\103\18\215",138),Flag=lI1I1ll1llIl("\43\89\173\126\117\172\228\186\233",235),Default=true});
+ll1I1ll1l1II1:Slider({Name=lI1I1ll1llIl("\128\93\51\65\48\245\9\146\91\98\244\103",207),Flag=lI1I1ll1llIl("\91\9\253\206\197\3\43\96\12\192",155),Min=25,Max=400,Default=100,Increment=25,Suffix=lI1I1ll1llIl("\162",102)});
+local l1Il1ll1Il=false;
+ll1I1ll1l1II1:Toggle({Name=lI1I1ll1llIl("\159\42\138\248\51\25",73),Description=lI1I1ll1llIl("\123\63\239\94\108\9\124\248\112\254\194\117\91\67\216\186\187\203\117\210\234\41\6\39\242\83\59\198\205\144\45\77\98\31\203\39\115\166\138\7\197\222\167\72\118\97\179\149\146\240\30\248\193\80",226),Flag=lI1I1ll1llIl("\22\98\221\101\64\169\185\6\140",178),Callback=function(lII1111l1lIl1) 
+if (not lII1111l1lIl1) or l1Il1ll1Il then 
 return  end;
 
-if (# l1ll1llIl) == 0 then 
-l1ll1llIl=llIIIIII1:ReadJSON(ll11ll1l) or {} end;
+if (# lIIlI1IlI) == 0 then 
+lIIlI1IlI=l111II11I:ReadJSON(lIlIIIl1l) or {} end;
 
-if (# l1ll1llIl) == 0 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\184\98\12\16\250",18),Content=l11l1Il1lll("\124\145\142\76\163\249\188\58\233\27\25\161\172\17\213\208\247\22\14\167\15",175),Type=l11l1Il1lll("\245\246\91\161\250\200\54",192)});
-l1llllI1lll1l.macroPlay:Set(false);
+if (# lIIlI1IlI) == 0 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\102\50\237\85\112",226),Content=lI1I1ll1llIl("\217\194\82\204\28\100\198\181\226\101\18\94\51\19\249\151\82\101\210\71\176",167),Type=lI1I1ll1llIl("\202\62\152\234\11\62\25",57)});
+lllIIlllIIlIl.macroPlay:Set(false);
 return  end;
 
-lII1lI1lI=true;
+l1Il1ll1Il=true;
 task.spawn(function() 
 repeat 
-local ll1I1I1l1Ill=os.clock();
-for lllI1I11lI,l1111IllIllI in ipairs(l1ll1llIl) do 
-if not l1IIlll1I11l.macroPlay then 
+local llIIIIlIIlI1l=os.clock();
+for ll1Il111IIll,l1lII11llll in ipairs(lIIlI1IlI) do 
+if not lll1l11Il1ll1.macroPlay then 
 break end;
 
-local lI1IIl111l1=l1111IllIllI.t / ((l1IIlll1I11l.macroSpeed or 100) / 100);
-while l1IIlll1I11l.macroPlay and ((os.clock() - ll1I1I1l1Ill) < lI1IIl111l1) do 
+local lII11I1I=l1lII11llll.t / ((lll1l11Il1ll1.macroSpeed or 100) / 100);
+while lll1l11Il1ll1.macroPlay and ((os.clock() - llIIIIlIIlI1l) < lII11I1I) do 
 task.wait() end;
 
-if l1111IllIllI.key and Enum.KeyCode[l1111IllIllI.key] then 
+if l1lII11llll.key and Enum.KeyCode[l1lII11llll.key] then 
 pcall(function() 
-lllII1IlI:SendKeyEvent(true,Enum.KeyCode[l1111IllIllI.key],false,game);
+ll1lllIIlIlI:SendKeyEvent(true,Enum.KeyCode[l1lII11llll.key],false,game);
 task.wait(0.05);
-lllII1IlI:SendKeyEvent(false,Enum.KeyCode[l1111IllIllI.key],false,game) end) elseif l1111IllIllI.button then 
+ll1lllIIlIlI:SendKeyEvent(false,Enum.KeyCode[l1lII11llll.key],false,game) end) elseif l1lII11llll.button then 
 
 
-local l1ll11Il=l11Il11IllIl(l1111IllIllI.button);
-if l1ll11Il then 
-lIl11I11l1I1(l1ll11Il) end end;
+local l1IIl1II1II11=l1llIlI1l(l1lII11llll.button);
+if l1IIl1II1II11 then 
+ll11IIlIlIlI(l1IIl1II1II11) end end;
 
 
-lI1IIllIII1I:Set(l11l1Il1lll("\203\67\56\158\111\215\108\40\9\148\111\84\49\46\40\254\121\150",183) .. (lllI1I11lI .. (l11l1Il1lll("\109",0) .. (# l1ll1llIl))),(l1111IllIllI.label or l1111IllIllI.key) or l11l1Il1lll("",140)) end;
+lI1llI11Ill1:Set(lI1I1ll1llIl("\208\237\2\81\2\114\175\1\64\193\31\232\221\55\78\165\130\56",142) .. (ll1Il111IIll .. (lI1I1ll1llIl("\72",134) .. (# lIIlI1IlI))),(l1lII11llll.label or l1lII11llll.key) or lI1I1ll1llIl("",77)) end;
 
-task.wait(0.3) until (not l1IIlll1I11l.macroPlay) or (not l1IIlll1I11l.macroLoop);
+task.wait(0.3) until (not lll1l11Il1ll1.macroPlay) or (not lll1l11Il1ll1.macroLoop);
 
-lII1lI1lI=false;
-if l1llllI1lll1l.macroPlay and l1IIlll1I11l.macroPlay then 
-l1llllI1lll1l.macroPlay:Set(false) end;
+l1Il1ll1Il=false;
+if lllIIlllIIlIl.macroPlay and lll1l11Il1ll1.macroPlay then 
+lllIIlllIIlIl.macroPlay:Set(false) end;
 
-lI1IIllIII1I:Set((# l1ll1llIl) .. l11l1Il1lll("\152\68\0\5\218\204",204),l11l1Il1lll("\198\9\188\55\9\53\182\237\108\157\214\193\45\78\240\176",170)) end) end});
+lI1llI11Ill1:Set((# lIIlI1IlI) .. lI1I1ll1llIl("\245\158\75\118\213\68",5),lI1I1ll1llIl("\176\141\98\241\162\210\70\169\174\111\84\204\53\129\254\78",238)) end) end});
 
 
-local ll1ll1I11I=llIIIIII1:ReadJSON(ll11ll1l);
-if (type(ll1ll1I11I) == l11l1Il1lll("\129\98\13\14\240",18)) and ((# ll1ll1I11I) > 0) then 
-l1ll1llIl=ll1ll1I11I;
-lI1IIllIII1I:Set((# l1ll1llIl) .. l11l1Il1lll("\41\197\204\103\238\77\149\133\191\82\88\247\65\171\163\89\153\114\64\251\29\238\66\7\35\241",39),l11l1Il1lll("\16\61\140\75\106\121\150\151\52\218\175\246\26\219\54\27\186\12\229\111\134",122)) end;
+local ll1I1lIl=l111II11I:ReadJSON(lIlIIIl1l);
+if (type(ll1I1lIl) == lI1I1ll1llIl("\31\38\179\47\171",71)) and ((# ll1I1lIl) > 0) then 
+lIIlI1IlI=ll1I1lIl;
+lI1llI11Ill1:Set((# lIIlI1IlI) .. lI1I1ll1llIl("\170\187\162\89\55\90\125\227\68\107\74\103\181\97\221\158\58\76\78\197\164\185\138\65\216\232",189),lI1I1ll1llIl("\13\245\81\57\129\106\249\103\215\145\62\72\69\240\169\240\135\4\216\253\109",227)) end;
 
-if (makefolder and isfolder) and llIIIIII1.CanSave then 
+if (makefolder and isfolder) and l111II11I.CanSave then 
 pcall(function() 
-if not isfolder(llIIIIII1.Folder .. l11l1Il1lll("\191\169\111\96\207\20\84",62)) then 
-makefolder(llIIIIII1.Folder .. l11l1Il1lll("\2\222\93\69\254\11\199",150)) end end) end end;
+if not isfolder(l111II11I.Folder .. lI1I1ll1llIl("\173\37\82\30\115\211\106",159)) then 
+makefolder(l111II11I.Folder .. lI1I1ll1llIl("\176\172\212\11\191\170\116",1)) end end) end end;
 
 
 
@@ -6705,30 +6709,30 @@ makefolder(llIIIIII1.Folder .. l11l1Il1lll("\2\222\93\69\254\11\199",150)) end e
 
 
 do 
-local lIl1IllIlIl1I=ll1lIlIlIIll1:Section(l11l1Il1lll("\48\26\87\190\5\223\237\196\23\21\173\44\35\62\165\38\131\129\39\210\148\70",248));
-lIl1IllIlIl1I:Paragraph(l11l1Il1lll("\99\65\190",100),l11l1Il1lll("\48\168\200\51\142\74\12\85\109\187\191\39\145\142\153\9\159\51\42\194\71\241\96\118\17\51\51\201\33\14\4\234\119\200\173\30\174\93\224\178\154\93\67\4\226\253\62\157\27\22\113\236\106\219\82\4\63\208\212\124\143\62\108\73\191\20\136\69\139\44\205\137\161\127\126\163\147\187\174\27\231\115\111\130\9\187\55\126\81\235\246\19\35\43\62\107\154\9\248\75\238\59\151\202\128\84\61\194\34\105\121\251\32\130\216\32\59\146\26\65\48\196\182\54\196\253\172\2\141\102\24\160\71\248\132\210\235\122",87));
-lIl1IllIlIl1I:Input({Name=l11l1Il1lll("\35\91\184\18\158\221\201\72\52\141\105",249),Flag=l11l1Il1lll("\35\33\198\92\237\216\124",4),Placeholder=l11l1Il1lll("\138\131\61\223\128\188\94\208\36\59\171\83\239\109\200\166\49\40\148\16\2\6\232\64\167\167\10\232\127\224\183\139\237\249\71\161",160)});
-lIl1IllIlIl1I:Toggle({Name=l11l1Il1lll("\126\29\97\157\65\170\185\41\213\105\243\64\99\175\177\30\221\197\155\113\177\53\41\137\109\243\105",51),Flag=l11l1Il1lll("\241\73\39\153\69\199\102\45",183),Default=true});
-local lllIIIllII=(((syn and syn.request) or (http and http.request)) or http_request) or request;
-local function ll1111II1(llIlI1lll1) 
-local l1ll11IlIIlIl=l1IIlll1I11l.hookUrl or l11l1Il1lll("",130);
-if (not lllIIIllII) or (not l1ll11IlIIlIl:match(l11l1Il1lll("\190\154\204\36\144\12\54\7\221\188\124\168\166\184\60\229\20\11\187\67\31\157\216\189\76\20\166\66\92\103\129\22\239\165\61\210\104\240\67\99\161\232",120))) then 
+local llII1l11I=l1III111lII1:Section(lI1I1ll1llIl("\53\53\128\173\48\231\19\64\191\138\146\159\183\241\233\9\134\174\112\65\161\126",181));
+llII1l11I:Paragraph(lI1I1ll1llIl("\142\75\97",12),lI1I1ll1llIl("\118\15\53\169\77\97\142\168\62\144\56\64\226\131\123\150\249\180\215\120\132\186\98\107\162\56\148\174\114\3\6\245\113\47\80\132\109\54\226\207\73\182\4\99\145\240\28\130\253\17\12\22\169\144\80\89\204\91\243\155\28\51\110\86\121\51\245\95\200\7\207\244\114\212\121\68\96\54\76\4\1\116\18\184\74\112\181\99\226\96\209\244\240\166\188\244\156\238\133\81\173\208\21\55\211\191\122\37\209\228\219\100\70\5\37\218\120\89\152\156\67\207\17\81\87\112\46\157\203\193\229\58\132\211\6\47\184\81",161));
+llII1l11I:Input({Name=lI1I1ll1llIl("\193\237\28\52\37\223\144\133\156\86\29",59),Flag=lI1I1ll1llIl("\246\134\216\84\167\49\23",112),Placeholder=lI1I1ll1llIl("\153\15\109\208\173\22\1\27\186\192\132\156\93\241\223\99\2\132\4\255\47\204\247\171\57\92\5\103\173\124\64\142\254\117\215\110",248)});
+llII1l11I:Toggle({Name=lI1I1ll1llIl("\177\108\83\50\134\181\246\148\121\212\253\59\236\96\229\93\50\180\201\222\118\74\102\20\193\110\103",44),Flag=lI1I1ll1llIl("\243\216\46\184\53\121\181\143",183),Default=true});
+local l11IlIlII=(((syn and syn.request) or (http and http.request)) or http_request) or request;
+local function l1lIlIl111l1I(ll11Illl) 
+local lIIIll11I1=lll1l11Il1ll1.hookUrl or lI1I1ll1llIl("",165);
+if (not l11IlIlII) or (not lIIIll11I1:match(lI1I1ll1llIl("\165\235\74\227\223\10\111\200\90\135\151\63\175\190\39\47\15\122\189\4\48\155\161\114\235\47\77\181\213\129\154\252\244\212\59\149\167\118\90\172\38\211",50))) then 
 return false end;
 
-local l1111Il1=pcall(lllIIIllII,{Url=l1ll11IlIIlIl,Method=l11l1Il1lll("\53\220\140\134",130),Headers={[l11l1Il1lll("\154\9\230\70\171\0\177\171\250\13\29\198",247)]=l11l1Il1lll("\192\111\149\37\33\204\84\206\205\97\132\101\203\145\189\118",241)},Body=llIIlI1Il:JSONEncode({username=l11l1Il1lll("\147\12\175\162\233\6\170\54",102),content=llIlI1lll1})});
+local l1lIIl11l1lI1=pcall(l11IlIlII,{Url=lIIIll11I1,Method=lI1I1ll1llIl("\202\247\245\120",173),Headers={[lI1I1ll1llIl("\220\174\219\28\168\171\115\22\233\38\154\225",1)]=lI1I1ll1llIl("\67\216\163\241\136\127\216\229\50\24\111\188\84\35\249\202",63)},Body=llII1lIII1:JSONEncode({username=lI1I1ll1llIl("\8\119\141\88\79\178\197\144",235),content=ll11Illl})});
 
 
 
 
 
-return l1111Il1 end;
+return l1lIIl11l1lI1 end;
 
-lIl1IllIlIl1I:Button({Name=l11l1Il1lll("\56\11\231\115\248\190\21\251\92",36),Action=l11l1Il1lll("\159\171\90\195",132),Callback=function() 
-llIIIIII1:Notify({Title=l11l1Il1lll("\253\140\135\96\254\44\36",163),Content=(ll1111II1(l11l1Il1lll("\47\207\153\38\226\11\151\23\85\102\176\214\13\191\242\233\41\227\10\4\83\185\68",118) .. llIll1ll) and l11l1Il1lll("\237\97\115\199\111\13\111\163\60\133\99\146\55\129\48\116\14\151\133\66\191\243\249\55\231",63)) or l11l1Il1lll("\113\72\236\243\167\184\6\251\16\81\237\14\212\1\92\27\202\210\106\132\147\50\217\90\160\229\125\146\40\176\131\163\50\82\235\51\13",112),Type=l11l1Il1lll("\100\253\58\41",182)}) end});
+llII1l11I:Button({Name=lI1I1ll1llIl("\24\86\128\35\95\253\192\68\209",130),Action=lI1I1ll1llIl("\133\62\138\52",216),Callback=function() 
+l111II11I:Notify({Title=lI1I1ll1llIl("\81\68\140\176\10\133\38",197),Content=(l1lIlIl111l1I(lI1I1ll1llIl("\73\27\148\163\64\47\197\224\247\122\29\88\65\232\92\98\175\215\231\97\209\189\54",135) .. lII1lIII) and lI1I1ll1llIl("\174\250\68\48\140\176\253\44\74\18\110\152\100\90\130\153\77\140\50\85\92\110\107\152\145",121)) or lI1I1ll1llIl("\129\103\6\81\37\18\254\133\27\100\196\93\250\222\86\7\58\221\160\198\241\120\193\4\139\240\116\225\102\15\233\223\130\125\1\81\79",223),Type=lI1I1ll1llIl("\212\49\140\235",57)}) end});
 
-lI11l11IIl(llII1l1I.ErrorMessageChanged:Connect(function(l1lllll1IIl) 
-if (l1IIlll1I11l.hookKick and l1lllll1IIl) and (l1lllll1IIl ~= l11l1Il1lll("",108)) then 
-ll1111II1(l11l1Il1lll("\60\190\157\124\217\66\236\111\208\117\75\253\0\160\64\5\58\241\233\35\151\207\211\214\9",95) .. (llIll1ll .. (l11l1Il1lll("\151\19",22) .. tostring(l1lllll1IIl)))) end end)) end;
+lIl11lIIl(l11lI1IIIllI1.ErrorMessageChanged:Connect(function(lIIIl1ll1ll) 
+if (lll1l11Il1ll1.hookKick and lIIIl1ll1ll) and (lIIIl1ll1ll ~= lI1I1ll1llIl("",87)) then 
+l1lIlIl111l1I(lI1I1ll1llIl("\173\139\197\119\133\154\247\79\228\124\217\187\124\78\75\183\171\228\145\8\235\247\40\22\221",209) .. (lII1lIII .. (lI1I1ll1llIl("\115\164",243) .. tostring(lIIIl1ll1ll)))) end end)) end;
 
 
 
@@ -6742,392 +6746,392 @@ ll1111II1(l11l1Il1lll("\60\190\157\124\217\66\236\111\208\117\75\253\0\160\64\5\
 
 
 do 
-local l11l1l1l=lI11II1llI1:Tab({Name=l11l1Il1lll("\142\38\158\128\217\38",102),Icon=llIIIIII1.IconIds.globe,Hint=l11l1Il1lll("\215\99\60\229\56\127\129\107\10\23\236\101\171\234\3\237\77\167\176\152\95\92\4",236)});
-local l111I11lll11=l11l1l1l:Section(l11l1Il1lll("",146));
-l111I11lll11:Paragraph(l11l1Il1lll("\197\239\88\139\131\217\53\71\245\240\8\176\60\174\229\221\112\100\137\44\114\72\241\44\133\151",208),l11l1Il1lll("\159\57\184\236\150\31\121\194\44\123\80\243\34\143\158\154\57\136\17\119\6\143\141\58\183\226\241\67\134\22\1\190\6\2\133\219\182\47\16\185\95\16\118\211\13\171\164\41\150\111\233\20\38\181\170\14\203\197\155\116\255\126\35\130\103\228\108\61\2\217\39\204\122\117\9\252\119\203\221\31\248\82\145\238\135\66\76\246\248\177\189\76\223\77\0\235\8\210\13\10\57\243\217\120\197\149\37\221\69\174\243\114\151\50\243\206\128\96\124\151\89\86\68\170\63\50\32\217\47\162\109\127\88\152\181\71\168\236\132\55\174\25\30\26\254\54\145\239\223\9\23\251\45\100\118\202\81\141\136\37\209\214\11\81\100\252\144\61\204\135\253\28\143\43\112\174\89\233\51",27));
+local l1ll1Ill11=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\88\66\195\85\139\242",39),Icon=l111II11I.IconIds.globe,Hint=lI1I1ll1llIl("\37\191\171\96\75\147\81\132\231\29\51\14\245\209\204\162\159\123\7\221\204\80\212",20)});
+local lllIll11111l1=l1ll1Ill11:Section(lI1I1ll1llIl("",85));
+lllIll11111l1:Paragraph(lI1I1ll1llIl("\69\144\226\153\177\35\157\201\14\53\241\51\162\193\63\17\16\27\51\62\64\178\89\34\254\210",15),lI1I1ll1llIl("\131\151\147\158\183\186\193\9\144\163\107\19\166\54\140\188\5\6\26\229\199\42\85\145\43\26\234\131\66\207\115\120\218\172\174\105\87\74\40\242\163\136\77\51\201\82\246\143\42\33\34\134\231\208\178\101\215\189\192\244\123\167\81\4\251\202\199\79\35\124\31\135\70\45\178\156\243\114\207\185\68\92\26\252\198\231\148\93\228\201\38\12\155\20\242\45\212\252\166\56\88\22\97\179\57\13\158\189\1\215\33\84\171\124\56\220\193\133\228\124\197\174\31\42\187\107\210\223\51\12\70\13\121\61\13\140\20\52\191\215\42\160\12\60\194\184\154\125\30\172\207\80\177\156\109\10\149\84\250\227\13\120\32\227\133\153\168\118\48\31\198\252\75\210\34\8\229\167\248",237));
 
 
-local l1ll11111Ill=l11l1l1l:Section(l11l1Il1lll("\56\168\129\63\207\122\12\73\96\167",87));
-local lII1l1l1Il111={R15={Wave=507770239,Point=507770453,Cheer=507770677,Laugh=507770818,Dance=507771019,[l11l1Il1lll("\102\86\231\12\86\230\3",96)]=507776043,[l11l1Il1lll("\185\2\162\181\57\148\55",70)]=507777268},R6={Wave=128777973,Point=128853357,Cheer=129423030,Laugh=129423131,Dance=182435998,[l11l1Il1lll("\244\38\67\241\249\6\240",245)]=182436842,[l11l1Il1lll("\162\87\195\157\179\60\6",59)]=182436935}};
+local lI1ll1ll1=l1ll1Ill11:Section(lI1I1ll1llIl("\51\246\11\96\50\111\191\16\57\226",126));
+local lI11IIl1I1I1={R15={Wave=507770239,Point=507770453,Cheer=507770677,Laugh=507770818,Dance=507771019,[lI1I1ll1llIl("\118\57\204\174\246\251\36",62)]=507776043,[lI1I1ll1llIl("\127\34\16\180\138\25\38",242)]=507777268},R6={Wave=128777973,Point=128853357,Cheer=129423030,Laugh=129423131,Dance=182435998,[lI1I1ll1llIl("\223\130\112\212\234\121\71",82)]=182436842,[lI1I1ll1llIl("\93\181\15\58\246\239\122",163)]=182436935}};
 
 
 
-local l11lI1II;
-local function l1I1I11II1() 
-if l11lI1II then 
-l11lI1II:Stop(0.2);
-l11lI1II=nil end end;
+local l1lIIlIIlII1;
+local function l111l11I1II() 
+if l1lIIlIIlII1 then 
+l1lIIlIIlII1:Stop(0.2);
+l1lIIlIIlII1=nil end end;
 
 
-local function llII11l1111(lIl111I1l1,ll1lllII) 
-local llll1ll1=l1llll1lI1I1l();
-if not llll1ll1 then 
+local function l1llllIllIl(l11lllIl1IIII,lIlIl111l1) 
+local llllIllll=l11l1IlI1I();
+if not llllIllll then 
 return false end;
 
-l1I1I11II1();
-local l1IIIlII1l=llll1ll1:FindFirstChildOfClass(l11l1Il1lll("\97\185\52\143\109\194\61\144",101)) or llll1ll1;
-local lIlllIlI1Il=Instance.new(l11l1Il1lll("\170\128\96\250\57\62\153\103\198",164));
-lIlllIlI1Il.AnimationId=l11l1Il1lll("\70\156\98\219\66\1\7\220\200\123\223\102\103",185) .. tostring(lIl111I1l1);
-local lI11II11,lIl1l11ll1Il=pcall(l1IIIlII1l.LoadAnimation,l1IIIlII1l,lIlllIlI1Il);
-if (not lI11II11) or (not lIl1l11ll1Il) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\95\138\148\62\192\249\229\4\151",159),Content=l11l1Il1lll("\80\244\93\223\216\189\72\82\248\2\187\171\90\213\36\77\251\25\160\63\6\107\226\171\105\156\222\214\101\68\250\190\93\147\41\185\184\223\110\122\199\34\76\86\176\41\202",58),Type=l11l1Il1lll("\238\164\166\77\216\80\71",131)});
+l111l11I1II();
+local llIIlIl1IlI1l=llllIllll:FindFirstChildOfClass(lI1I1ll1llIl("\167\246\7\1\27\244\132\199",75)) or llllIllll;
+local l11I111I1I11=Instance.new(lI1I1ll1llIl("\87\186\143\129\119\21\166\216\4",220));
+l11I111I1I11.AnimationId=lI1I1ll1llIl("\136\186\190\109\4\74\40\244\188\137\5\60\138",205) .. tostring(l11lllIl1IIII);
+local l1111l1IIIl1,lIIl1llll=pcall(llIIlIl1IlI1l.LoadAnimation,llIIlIl1IlI1l,l11I111I1I11);
+if (not l1111l1IIIl1) or (not lIIl1llll) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\255\167\254\178\115\215\242\194\239",80),Content=lI1I1ll1llIl("\230\48\66\121\81\205\103\104\166\134\5\138\193\174\6\119\109\189\223\153\239\27\237\145\23\56\128\23\254\223\216\164\235\23\118\31\49\175\1\64\153\166\50\183\43\82\232",175),Type=lI1I1ll1llIl("\218\78\232\154\27\46\41",41)});
 return false end;
 
-lIl1l11ll1Il.Priority=Enum.AnimationPriority.Action;
-lIl1l11ll1Il.Looped=ll1lllII;
-lIl1l11ll1Il:Play(0.15,1,(l1IIlll1I11l.animPlaySpeed or 100) / 100);
-l11lI1II=lIl1l11ll1Il;
+lIIl1llll.Priority=Enum.AnimationPriority.Action;
+lIIl1llll.Looped=lIlIl111l1;
+lIIl1llll:Play(0.15,1,(lll1l11Il1ll1.animPlaySpeed or 100) / 100);
+l1lIIlIIlII1=lIIl1llll;
 return true end;
 
-function llI1IlIIl(lIII1IlIl1I1l) 
-local llIlllll11I1=l1llll1lI1I1l();
-local ll11lIlIl1=((llIlllll11I1 and (llIlllll11I1.RigType == Enum.HumanoidRigType.R6)) and l11l1Il1lll("\70\168",153)) or l11l1Il1lll("\43\59\31",157);
-local l1lllllIIIII1=lII1l1l1Il111[ll11lIlIl1][lIII1IlIl1I1l];
-if l1lllllIIIII1 then 
-llII11l1111(l1lllllIIIII1,lIII1IlIl1I1l:find(l11l1Il1lll("\196\213\16\112\200",46)) ~= nil) end end;
+function lIllIllIllll1(llIlIlllI) 
+local lII1llII111=l11l1IlI1I();
+local llIIIl1Il=((lII1llII111 and (lII1llII111.RigType == Enum.HumanoidRigType.R6)) and lI1I1ll1llIl("\64\14",30)) or lI1I1ll1llIl("\88\121\99",61);
+local l11lI1IIlIl=lI11IIl1I1I1[llIIIl1Il][llIlIlllI];
+if l11lI1IIlIl then 
+l1llllIllIl(l11lI1IIlIl,llIlIlllI:find(lI1I1ll1llIl("\82\181\136\143\115",220)) ~= nil) end end;
 
 
 
-local l11IIIIll1I1=l1ll11111Ill:Custom();
-lI11IIlIIIllI(l11l1Il1lll("\231\238\94\109\42\50\237\110\201\205\125\148",240),{CellSize=UDim2.new(0.25,- 5,0,40),CellPadding=UDim2.new(0,6,0,6),SortOrder=Enum.SortOrder.LayoutOrder,Parent=l11IIIIll1I1});
-for llI1111I1,ll1lIl1lll1 in ipairs({l11l1Il1lll("\247\245\40\22",14),l11l1Il1lll("\117\188\246\252\17",194),l11l1Il1lll("\210\71\176\252\234",193),l11l1Il1lll("\156\101\187\164\21",126),l11l1Il1lll("\15\47\199\84\221",4),l11l1Il1lll("\205\187\148\163\188\87\191",109),l11l1Il1lll("\45\84\170\80\196\46\35",115),l11l1Il1lll("\145\163\6\255",128)}) do 
-local l11I1l1l1Il1I=lI11IIlIIIllI(l11l1Il1lll("\28\194\156\164\88\122\245\3\84\80",60),{Text=ll1lIl1lll1,Font=Enum.Font.GothamBold,TextSize=12,AutoButtonColor=false,LayoutOrder=llI1111I1,Parent=l11IIIIll1I1});
-llIllI11I1I(l11I1l1l1Il1I,l11l1Il1lll("\138\70\7\59\253\253\110\130\213\218\250\72\228\245\82\203",188),((ll1lIl1lll1 == l11l1Il1lll("\74\49\59\211",3)) and l11l1Il1lll("\64\59\23\246\117",19)) or l11l1Il1lll("\168\139\11\129\41\57\133",180));
-llIllI11I1I(l11I1l1l1Il1I,l11l1Il1lll("\189\208\60\199\98\225\252\117\132\117",243),((ll1lIl1lll1 == l11l1Il1lll("\6\215\224\242",178)) and l11l1Il1lll("\18\138\103\61\13\247\97",17)) or l11l1Il1lll("\182\146\49\219",160));
-l1llIIIIIl11(l11I1l1l1Il1I,10);
-llIIIIII1.Stroke(l11I1l1l1Il1I);
-local l11I111111l=lI11IIlIIIllI(l11l1Il1lll("\49\245\79\232\185\144\163",90),{Parent=l11I1l1l1Il1I});
-l11I1l1l1Il1I.MouseButton1Click:Connect(function() 
-llIIIIII1.Press(l11I111111l);
-if ll1lIl1lll1 == l11l1Il1lll("\58\65\171\67",115) then 
-l1I1I11II1() else 
+local lllIl1I1l1I=lI1ll1ll1:Custom();
+lllII1lI1I1I(lI1I1ll1llIl("\138\200\178\90\228\225\11\26\132\240\95\48",65),{CellSize=UDim2.new(0.25,- 5,0,40),CellPadding=UDim2.new(0,6,0,6),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lllIl1I1l1I});
+for ll11l11lIl,lIIl111llI in ipairs({lI1I1ll1llIl("\33\149\176\169",188),lI1I1ll1llIl("\194\215\43\67\7",158),lI1I1ll1llIl("\30\151\47\65\176",217),lI1I1ll1llIl("\86\218\230\50\225",100),lI1I1ll1llIl("\205\37\255\202\6",51),lI1I1ll1llIl("\182\121\13\174\212\76\251",239),lI1I1ll1llIl("\198\233\28\94\6\43\245",142),lI1I1ll1llIl("\57\191\172\117",20)}) do 
+local llIIl111Ill1=lllII1lI1I1I(lI1I1ll1llIl("\227\20\21\155\47\161\62\196\237\230",86),{Text=lIIl111llI,Font=Enum.Font.GothamBold,TextSize=12,AutoButtonColor=false,LayoutOrder=ll11l11lIl,Parent=lllIl1I1l1I});
+lI11ll1lIIlII(llIIl111Ill1,lI1I1ll1llIl("\67\234\106\219\137\110\81\81\192\189\196\128\78\220\249\110",8),((lIIl111llI == lI1I1ll1llIl("\62\155\53\68",233)) and lI1I1ll1llIl("\187\118\145\232\167",254)) or lI1I1ll1llIl("\113\93\160\187\226\136\67",46));
+lI11ll1lIIlII(llIIl111Ill1,lI1I1ll1llIl("\153\42\130\224\17\15\2\251\109\114",73),((lIIl111llI == lI1I1ll1llIl("\172\213\186\120",97)) and lI1I1ll1llIl("\134\9\112\188\143\136\110",202)) or lI1I1ll1llIl("\106\44\111\43",208));
+lIlll1ll1l1I1(llIIl111Ill1,10);
+l111II11I.Stroke(llIIl111Ill1);
+local lllIlIIll1l1=lllII1lI1I1I(lI1I1ll1llIl("\204\29\178\186\114\35\172",35),{Parent=llIIl111Ill1});
+llIIl111Ill1.MouseButton1Click:Connect(function() 
+l111II11I.Press(lllIlIIll1l1);
+if lIIl111llI == lI1I1ll1llIl("\86\248\141\104",26) then 
+l111l11I1II() else 
 
-llI1IlIIl(ll1lIl1lll1) end end) end;
-
-
-
-l1ll11111Ill:Slider({Name=l11l1Il1lll("\245\16\243\87\208\134\139\71\79\191\22\185\173\74\209",57),Flag=l11l1Il1lll("\79\154\132\78\129\241\253\34\154\6\29\167\186",175),Min=25,Max=300,Default=100,Increment=5,Suffix=l11l1Il1lll("\197",78),Callback=function(l11lll1l) 
-if l11lI1II then 
-l11lI1II:AdjustSpeed(l11lll1l / 100) end end});
-
-
-l1ll11111Ill:Toggle({Name=l11l1Il1lll("\227\51\66\226\188\81\170\55\167\186\243\32\116\216\59\116",245),Description=l11l1Il1lll("\179\40\185\157\230\120\109\222\89\68\90\170\60\127\116\195\41\184\109\127\69\220\230\68\166\251\132\50\178\78\9\85\163\70\138\239\202\7",43),Flag=l11l1Il1lll("\41\201\141\189\73\123\238\7\116\80\116\200\126\127",60),Default=true});
-local lI1l111lII1I1=l1ll11111Ill:Input({Name=l11l1Il1lll("\248\139\157\110\240\42\41\133\104\182\68\26",163),Placeholder=l11l1Il1lll("\67\121\208\111\99\83\179\51\137\145\152\49\142\22\97\73\134\142\54\177\163\223\37",64),Numeric=true});
-l1ll11111Ill:Toggle({Name=l11l1Il1lll("\225\92\211\214\44\141\64",22),Flag=l11l1Il1lll("\21\80\179\23\189\221\205\24",249),Default=true});
-l1ll11111Ill:Button({Name=l11l1Il1lll("\201\74\41\139\46\207\107\47\3\213\217\138\126\51",183),Description=l11l1Il1lll("\192\168\111\122\206\91\78\94\237\60\114\38\213\43\161\49\32\87\150\242\95\170\244\238\56\177\66\86\117\160\68\155\209\215\78\23\178\123\101\111\205\30\157\130\41\132\146\12\82\52\167\156\56\217\215\136\20\132\108\126\142\2\164\124\34\164\28\114\200\18",62),Action=l11l1Il1lll("\201\70\107\169",125),Callback=function() 
-local lllllllI=tostring(lI1l111lII1I1:Get()):gsub(l11l1Il1lll("\80\199",146),l11l1Il1lll("",235));
-if lllllllI ~= l11l1Il1lll("",39) then 
-llII11l1111(lllllllI,l1IIlll1I11l.animLoop ~= false) end end});
-
-
-lI11l11IIl(lIII1l1l.Heartbeat:Connect(function() 
-if l11lI1II and l1IIlll1I11l.animStopOnMove then 
-local ll11111I=l1llll1lI1I1l();
-if ll11111I and (ll11111I.MoveDirection.Magnitude > 0.1) then 
-l1I1I11II1() end end end));
+lIllIllIllll1(lIIl111llI) end end) end;
 
 
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(function() 
-l11lI1II=nil end));
+lI1ll1ll1:Slider({Name=lI1I1ll1llIl("\47\119\46\66\131\7\34\242\223\27\170\16\123\137\138",128),Flag=lI1I1ll1llIl("\26\57\136\30\142\220\215\253\193\8\102\8\117",87),Min=25,Max=300,Default=100,Increment=5,Suffix=lI1I1ll1llIl("\204",83),Callback=function(lll1lIIl1Il) 
+if l1lIIlIIlII1 then 
+l1lIIlIIlII1:AdjustSpeed(lll1lIIl1Il / 100) end end});
+
+
+lI1ll1ll1:Toggle({Name=lI1I1ll1llIl("\9\143\188\101\105\180\57\157\248\116\47\76\251\142\57\82",36),Description=lI1I1ll1llIl("\4\165\45\131\142\40\22\1\78\120\41\70\143\18\63\244\222\85\249\1\109\204\157\155\113\7\23\222\1\227\130\98\84\139\94\241\226\23",72),Flag=lI1I1ll1llIl("\31\103\62\114\129\23\52\157\142\37\132\31\88\185",144),Default=true});
+local lI111lIlII1I=lI1ll1ll1:Input({Name=lI1I1ll1llIl("\192\101\224\93\15\232\215\203\64\121\78\43",136),Placeholder=lI1I1ll1llIl("\10\9\136\67\94\53\196\248\235\43\19\28\111\213\116\80\143\190\14\157\126\121\114",103),Numeric=true});
+lI1ll1ll1:Toggle({Name=lI1I1ll1llIl("\231\188\97\215\191\192\241",98),Flag=lI1I1ll1llIl("\186\153\232\126\242\191\121\84",247),Default=true});
+lI1ll1ll1:Button({Name=lI1I1ll1llIl("\5\144\243\17\74\17\244\140\38\82\154\46\16\231",74),Description=lI1I1ll1llIl("\109\179\11\125\145\240\151\112\79\94\43\88\164\154\66\89\141\76\242\149\0\33\45\192\154\211\251\40\228\17\135\243\124\204\42\16\237\144\188\65\111\124\4\252\88\53\177\100\255\47\195\187\103\82\14\166\182\230\213\0\223\179\103\20\143\191\120\117\151\185",185),Action=lI1I1ll1llIl("\214\148\111\53",43),Callback=function() 
+local lIIII1Il1ll=tostring(lI111lIlII1I:Get()):gsub(lI1I1ll1llIl("\51\76",187),lI1I1ll1llIl("",183));
+if lIIII1Il1ll ~= lI1I1ll1llIl("",137) then 
+l1llllIllIl(lIIII1Il1ll,lll1l11Il1ll1.animLoop ~= false) end end});
+
+
+lIl11lIIl(lII1llIIIIlI.Heartbeat:Connect(function() 
+if l1lIIlIIlII1 and lll1l11Il1ll1.animStopOnMove then 
+local llIII1IIIl11I=l11l1IlI1I();
+if llIII1IIIl11I and (llIII1IIIl11I.MoveDirection.Magnitude > 0.1) then 
+l111l11I1II() end end end));
 
 
 
-local lI1l11lllll1=l11l1l1l:Section(l11l1Il1lll("\9\5\57\245",189));
-lI1l11lllll1:Toggle({Name=l11l1Il1lll("\232\6\8\198\43\120\60\171\38\133\157",47),Description=l11l1Il1lll("\204\65\166\14\178\162\203\23\100\221\117\122\112\190\55\139\151\202\63\136\81\65\86\129\141\51\133\228\225\11\216\27\10\167\71\235\149\203\253\54\93\239\89\16\19\154\69\171\244\45\206\123\229\167\103",9),Flag=l11l1Il1lll("\93\76\92\194\114\127\240\23\171\50",116)});
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(function() 
+l1lIIlIIlII1=nil end));
+
+
+
+local ll1ll11I1IIl=l1ll1Ill11:Section(lI1I1ll1llIl("\77\208\121\1",153));
+ll1ll11I1IIl:Toggle({Name=lI1I1ll1llIl("\75\253\95\49\232\197\142\36\48\114\16",137),Description=lI1I1ll1llIl("\194\167\186\88\52\9\36\255\80\111\15\96\253\102\192\141\121\76\67\222\247\234\153\73\217\225\127\30\108\243\15\61\196\193\219\61\83\96\18\222\41\29\163\138\30\130\114\173\26\107\114\173\195\140\232",189),Flag=lI1I1ll1llIl("\49\227\168\42\183\17\122\191\145\141",182)});
 task.spawn(function() 
-local lllI1ll11lIII=false;
-while llIIIIII1.Window == lI11II1llI1 do 
-local lI1l11Il=l1llll1lI1I1l();
-local l1ll11II11=lI1l11Il and lI1l11Il:FindFirstChildOfClass(l11l1Il1lll("\90\112\176\42\137\142\47\42",84));
-if l1ll11II11 and (l1IIlll1I11l.freezePose or lllI1ll11lIII) then 
-for l111lIll1lI,ll11lIIIlI in ipairs(l1ll11II11:GetPlayingAnimationTracks()) do 
-ll11lIIIlI:AdjustSpeed((l1IIlll1I11l.freezePose and 0) or 1) end;
+local l111lllll=false;
+while l111II11I.Window == l1l1Ill1 do 
+local l1lII1l1IIIl=l11l1IlI1I();
+local lIllI11l1=l1lII1l1IIIl and l1lII1l1IIIl:FindFirstChildOfClass(lI1I1ll1llIl("\119\6\247\209\203\36\52\119",155));
+if lIllI11l1 and (lll1l11Il1ll1.freezePose or l111lllll) then 
+for lllIlIIl11l,l1lI1IllI11l1 in ipairs(lIllI11l1:GetPlayingAnimationTracks()) do 
+l1lI1IllI11l1:AdjustSpeed((lll1l11Il1ll1.freezePose and 0) or 1) end;
 
-lllI1ll11lIII=l1IIlll1I11l.freezePose == true end;
+l111lllll=lll1l11Il1ll1.freezePose == true end;
 
 task.wait(0.1) end end);
 
 
 
 
-local lIl1111I=l11l1l1l:Section(l11l1Il1lll("\205\69\101\188\186",125));
-lIl1111I:Button({Name=l11l1Il1lll("\12\107\79\233\233\23\172\253\204\119\169\13\227\90\161",173),Description=l11l1Il1lll("\140\1\230\78\242\226\151\78\180\29\236\249\172\112\234\70\20\151\116\154\72\29\23\218\129\125\132\42\35\223\84\217\207\46\139\62\129\141\188\123\84\175\93\78\80\90\215\111\52\234\18\191\113\117\35\229\228\31\164\197\196\32\162\233\164\71\190\67",73),Action=l11l1Il1lll("\132\14\240\128\152",145),Callback=function() 
-local l11lIIl1l,l1lIlII1IIl=lllI1llI.Character,lllI1llI:FindFirstChildOfClass(l11l1Il1lll("\201\239\10\156\8\11\179\67",196));
-if (not l11lIIl1l) or (not l1lIlII1IIl) then 
+local l1I111II1lIl=l1ll1Ill11:Section(lI1I1ll1llIl("\114\171\153\112\149",236));
+l1I111II1lIl:Button({Name=lI1I1ll1llIl("\99\181\131\117\150\177\190\203\54\219\167\122\38\175\34",236),Description=lI1I1ll1llIl("\169\4\133\52\189\28\123\114\171\203\158\175\54\252\196\17\113\178\23\224\199\35\251\230\94\107\54\124\185\19\58\142\170\107\168\4\14\179\144\135\139\185\239\216\10\150\185\120\17\207\49\133\190\11\15\25\251\201\214\83\158\44\12\254\129\66\221\57",232),Action=lI1I1ll1llIl("\123\56\98\54\226",208),Callback=function() 
+local lIIl1IlIl1I,l1lI1l1l1111l=ll1lI1IIII1.Character,ll1lI1IIII1:FindFirstChildOfClass(lI1I1ll1llIl("\9\6\146\8\94\33\197\255",103));
+if (not lIIl1IlIl1I) or (not l1lI1l1l1111l) then 
 return  end;
 
-local ll111lIllII1l=0;
-for ll1I1I1lIIlIl,lIIllI11lI1l in ipairs(l1lIlII1IIl:GetChildren()) do 
-if lIIllI11lI1l:IsA(l11l1Il1lll("\144\179\19\135",250)) then 
-lIIllI11lI1l.Parent=l11lIIl1l;
-ll111lIllII1l=ll111lIllII1l + 1 end end;
+local l1lI11lll11lI=0;
+for l1l1lllIll,l1llIIIII1lI in ipairs(l1lI1l1l1111l:GetChildren()) do 
+if l1llIIIII1lI:IsA(lI1I1ll1llIl("\79\12\241\91",210)) then 
+l1llIIIII1lI.Parent=lIIl1IlIl1I;
+l1lI11lll11lI=l1lI11lll11lI + 1 end end;
 
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\178\89\194\146\165",59),Content=ll111lIllII1l .. l11l1Il1lll("\62\144\146\60\205\254\172\14\136\51\1\162\94\235\129\136",159)}) end});
+l111II11I:Notify({Title=lI1I1ll1llIl("\202\134\216\83\129",112),Content=l1lI11lll11lI .. lI1I1ll1llIl("\218\47\28\218\197\80\145\125\7\129\175\188\70\36\75\121",132)}) end});
 
-lIl1111I:Button({Name=l11l1Il1lll("\34\18\173\127\119\121\142\35\131\194\41\215\145\22",48),Action=l11l1Il1lll("\87\121\204\62\102\79\161",64),Callback=function() 
-local l1lIllI1I1I1=l1llll1lI1I1l();
-if l1lIllI1I1I1 then 
-l1lIllI1I1I1:UnequipTools() end end});
-
-
+l1I111II1lIl:Button({Name=lI1I1ll1llIl("\59\50\165\99\186\207\41\24\17\72\114\42\64\165",71),Action=lI1I1ll1llIl("\208\98\7\233\207\201\90",154),Callback=function() 
+local lllI11I1l1I11=l11l1IlI1I();
+if lllI11I1l1I11 then 
+lllI11I1l1I11:UnequipTools() end end});
 
 
-local lIllllI1l=l11l1l1l:Section(l11l1Il1lll("\83\143\44\134",85));
-local llI1IIll=lIllllI1l:Input({Name=l11l1Il1lll("\168\118\44\33\196\108\209",2),Placeholder=l11l1Il1lll("\185\10\140\131\108\215\155\14\69\96\182\154\35\204\215\142\18\195\63\55\165",86)});
-local l11IIlllIIlI=0;
-lIllllI1l:Button({Name=l11l1Il1lll("\197\67\211\170\198\88\74\187\250\173\181\87",75),Description=l11l1Il1lll("\61\213\212\144\49\52\40\187\96\216\152\118\246\91\149\145\191\73\88\180\18\237\175\67\216\114\8\243\29\238\92\9\59\186\173\76\159\216\156\214\76\229\235\67\153\59\245\230\219\118\61\199\32\93",239),Action=l11l1Il1lll("\250\159\180\68",77),Callback=function() 
-local l1lI1Ill11l1=llI1IIll:Get();
-if (l1lI1Ill11l1 == l11l1Il1lll("",224)) or ((os.clock() - l11IIlllIIlI) < 2) then 
+
+
+local ll11Illll=l1ll1Ill11:Section(lI1I1ll1llIl("\229\44\23\232",108));
+local lIIlIl11lll=ll11Illll:Input({Name=lI1I1ll1llIl("\156\62\138\51\95\171\107",216),Placeholder=lI1I1ll1llIl("\222\82\147\64\57\224\110\229\131\112\94\53\200\182\191\147\117\155\224\52\240",244)});
+local l11111111I11=0;
+ll11Illll:Button({Name=lI1I1ll1llIl("\101\81\104\104\214\245\128\183\41\131\194\17",252),Description=lI1I1ll1llIl("\72\86\184\32\222\249\34\68\27\246\195\57\89\137\105\38\234\202\84\132\29\32\133\188\163\124\83\92\50\92\160\158\78\57\129\124\240\149\86\41\55\203\176\204\182\105\137\17\206\245\49\247\111\16",55),Action=lI1I1ll1llIl("\141\204\153\155",48),Callback=function() 
+local l11II1II1IlI1=lIIlIl11lll:Get();
+if (l11II1II1IlI1 == lI1I1ll1llIl("",18)) or ((os.clock() - l11111111I11) < 2) then 
 return  end;
 
-l11IIlllIIlI=os.clock();
-local l1IlIll1II=pcall(function() 
-local lI111IllIl1l=game:GetService(l11l1Il1lll("\182\146\49\219\176\238\16\139\19\55\170\70\233\124\201",160));
-local llllllI1l11l=lI111IllIl1l:FindFirstChild(l11l1Il1lll("\97\166\215\214\22\179\5\224\90\169\0\136",210)) and lI111IllIl1l.TextChannels:FindFirstChild(l11l1Il1lll("\108\198\197\116\164\195\201\57\184\10",191));
-if llllllI1l11l then 
-llllllI1l11l:SendAsync(l1lI1Ill11l1) else 
+l11111111I11=os.clock();
+local l1II1ll1I1I=pcall(function() 
+local lI1I1Il11l1=game:GetService(lI1I1ll1llIl("\222\78\155\81\90\251\96\252\181\97\68\42\207\178\250",244));
+local lIl1Il1llII=lI1I1Il11l1:FindFirstChild(lI1I1ll1llIl("\86\173\203\137\194\84\248\223\21\50\141\0",31)) and lI1I1Il11l1.TextChannels:FindFirstChild(lI1I1ll1llIl("\237\163\205\15\136\203\2\41\188\19",33));
+if lIl1Il1llII then 
+lIl1Il1llII:SendAsync(l11II1II1IlI1) else 
 
-game:GetService(l11l1Il1lll("\127\214\76\74\229\7\213\87\5\48\205\199\98\153\214\221\216",150)).DefaultChatSystemChatEvents.SayMessageRequest:FireServer(l1lI1Ill11l1,l11l1Il1lll("\223\8\17",31)) end end);
-
-
-if l1IlIll1II then 
-llI1IIll:Set(l11l1Il1lll("",192),true) else 
-
-llIIIIII1:Notify({Title=l11l1Il1lll("\195\250\121\132",24),Content=l11l1Il1lll("\186\92\68\16\177\186\189\118\236\17\75\162\125\214\84\2\126\192\212\119\143\106\56\139\88\229\203\119\158\58\133\146\166\113\45\238\20\78\79\90\206\115\54",111),Type=l11l1Il1lll("\67\159\104\212\88\28\5",185)}) end end});
+game:GetService(lI1I1ll1llIl("\191\10\170\216\219\227\239\0\90\5\70\188\2\87\134\188\56",105)).DefaultChatSystemChatEvents.SayMessageRequest:FireServer(l11II1II1IlI1,lI1I1ll1llIl("\170\171\61",199)) end end);
 
 
+if l1II1ll1I1I then 
+lIIlIl11lll:Set(lI1I1ll1llIl("",20),true) else 
 
-llIIIIII1:OnUnload(l1I1I11II1) end;
+l111II11I:Notify({Title=lI1I1ll1llIl("\40\47\176\55",71),Content=lI1I1ll1llIl("\54\0\251\110\99\76\135\34\34\166\206\31\190\12\123\148\242\156\107\9\93\156\2\255\150\82\78\202\93\224\170\4\42\45\146\144\198\184\117\206\0\196\179",110),Type=lI1I1ll1llIl("\73\40\101\49\251\77\124",208)}) end end});
 
 
 
-
-
-
-local lI1II11lII=lI11II1llI1:Tab({Name=l11l1Il1lll("\187\34\112\68\147\129\70\164",156),Hint=l11l1Il1lll("\227\197\24\6\185\123\104\100\205\7\148\143\63\132\144\6\86\125\189\150",30),Settings=true});
-local llll1Il1I=lI1II11lII:Section(l11l1Il1lll("\13\142\109\223\43",119));
-
-local l1I111lI1I1l=llll1Il1I:Custom();
-lI11IIlIIIllI(l11l1Il1lll("\247\254\78\157\218\34\253\94\249\253\109\132",224),{CellSize=UDim2.new(1 / 3,- 5,0,70),CellPadding=UDim2.new(0,7,0,7),SortOrder=Enum.SortOrder.LayoutOrder,Parent=l1I111lI1I1l});
+l111II11I:OnUnload(l111l11I1II) end;
 
 
 
 
 
-local llllII1Il1I={};
-local function lI1111Il() 
-for llIllI1I,llllllIlIIlIl in pairs(llllII1Il1I) do 
-local l1Illlll1=llIllI1I == llIIIIII1.ThemeName;
-llllllIlIIlIl.ring.Color=(l1Illlll1 and llIIIIII1.Theme.Accent) or llIIIIII1.Theme.Stroke;
-llllllIlIIlIl.ring.Thickness=(l1Illlll1 and 2) or 1;
-llllllIlIIlIl.check.Visible=l1Illlll1 end end;
 
+local l1II111I=l1l1Ill1:Tab({Name=lI1I1ll1llIl("\249\205\194\40\78\103\26\195",157),Hint=lI1I1ll1llIl("\108\0\99\173\9\5\136\181\125\139\34\77\177\208\122\129\249\184\198\61",161),Settings=true});
+local l11Il1IIlII1I=l1II111I:Section(lI1I1ll1llIl("\70\80\167\192\150",30));
 
-for ll1lIIl1,l1111lII1 in ipairs(llIIIIII1.ThemeOrder) do 
-local l1111l1l=llIIIIII1.Themes[l1111lII1];
-local ll11I1lI=lI11IIlIIIllI(l11l1Il1lll("\225\38\87\86\151\46\144\122\219\34",82),{Text=l11l1Il1lll("",36),AutoButtonColor=false,BackgroundColor3=l1111l1l.Background,LayoutOrder=ll1lIIl1,Parent=l1I111lI1I1l});
-l1llIIIIIl11(ll11I1lI,12);
-local lll1l111l11=lI11IIlIIIllI(l11l1Il1lll("\61\142\215\196\8\0\202\50",28),{Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=ll11I1lI});
-local ll1l1IIl=lI11IIlIIIllI(l11l1Il1lll("\118\181\204\127\121",117),{Size=UDim2.new(0,34,0,8),Position=UDim2.new(0,12,0,14),BackgroundColor3=Color3.new(1,1,1),Parent=ll11I1lI});
-l1llIIIIIl11(ll1l1IIl,4);
-lI11IIlIIIllI(l11l1Il1lll("\220\156\163\97\224\74\89\159\120\210",147),{Color=ColorSequence.new(l1111l1l.Accent,l1111l1l.Accent2),Parent=ll1l1IIl});
-local ll11Il11lllI=lI11IIlIIIllI(l11l1Il1lll("\72\166\172\46\212",143),{Size=UDim2.new(0,18,0,8),Position=UDim2.new(0,50,0,14),BackgroundColor3=l1111l1l.Surface,Parent=ll11I1lI});
-l1llIIIIIl11(ll11Il11lllI,4);
-lI11IIlIIIllI(l11l1Il1lll("\197\74\173\237\212\62\167\15\24",193),{BackgroundTransparency=1,Text=l1111lII1,Font=Enum.Font.GothamBold,TextSize=13,TextColor3=l1111l1l.Text,TextXAlignment=Enum.TextXAlignment.Left,Position=UDim2.new(0,12,0,34),Size=UDim2.new(1,- 24,0,18),Parent=ll11I1lI});
-local l11lI11lIIlII=lI11IIlIIIllI(l11l1Il1lll("\92\2\92\100\150\174\35\210\151",124),{BackgroundTransparency=1,Text=l11l1Il1lll("\71\207\140",66),Font=Enum.Font.GothamBold,TextSize=14,TextColor3=l1111l1l.Accent,Position=UDim2.new(1,- 28,0,8),Size=UDim2.new(0,20,0,20),Visible=false,Parent=ll11I1lI});
-local ll1II1ll1=lI11IIlIIIllI(l11l1Il1lll("\33\119\137\25\144\222\199",249),{Parent=ll11I1lI});
-ll11I1lI.MouseButton1Click:Connect(function() 
-llIIIIII1.Press(ll1II1ll1);
-llIIIIII1:SetTheme(l1111lII1);
-lI1111Il();
-ll1l1I11Il11l();
-lI11II1llI1:_queueSave() end);
-
-llllII1Il1I[l1111lII1]={ring=lll1l111l11,check=l11lI11lIIlII} end;
+local lIll1lIIIlIlI=l11Il1IIlII1I:Custom();
+lllII1lI1I1I(lI1I1ll1llIl("\94\58\233\117\86\173\169\22\156\195\183\76",194),{CellSize=UDim2.new(1 / 3,- 5,0,70),CellPadding=UDim2.new(0,7,0,7),SortOrder=Enum.SortOrder.LayoutOrder,Parent=lIll1lIIIlIlI});
 
 
 
-local ll11IlII1Ill=llll1Il1I:Custom(52);
-local l1IIIl1llIl=lI11IIlIIIllI(l11l1Il1lll("\216\22\28\190\68",31),{Size=UDim2.new(1,0,1,0),Parent=ll11IlII1Ill});
-llIllI11I1I(l1IIIl1llIl,l11l1Il1lll("\18\229\45\40\154\73\8\31\227\119\159\169\0\235\102\176",254),l11l1Il1lll("\13\209\207\117\128\46\41",223));
-l1llIIIIIl11(l1IIIl1llIl,12);
-llIIIIII1.Stroke(l1IIIl1llIl);
-l11I1llI1({Parent=l1IIIl1llIl,Text=l11l1Il1lll("\8\118\71\182\47\154\208\217\57\138\18\124",83),Font=Enum.Font.GothamBold,TextSize=13,Position=UDim2.new(0,14,0,0),Size=UDim2.new(0.4,0,1,0)});
-local llIlI1IIlII=lI11IIlIIIllI(l11l1Il1lll("\43\129\29\11\169",214),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,0,0,36),AutomaticSize=Enum.AutomaticSize.X,Position=UDim2.new(1,- 8,0.5,0),BackgroundTransparency=1,Parent=l1IIIl1llIl});
-lIlIl11lIII(llIlI1IIlII,2,true);
-local l1l111llI1={};
-for l1lI11I111Il,lIlllI11 in ipairs(llIIIIII1.Swatches) do 
-local l1l1lIlll1I=lI11IIlIIIllI(l11l1Il1lll("\145\86\7\6\199\30\160\170\11\210",34),{Size=UDim2.new(0,36,0,36),Text=l11l1Il1lll("",211),BackgroundTransparency=1,LayoutOrder=l1lI11I111Il,Parent=llIlI1IIlII});
-l1llIIIIIl11(l1l1lIlll1I,18);
-local lllll1l1lI=lI11IIlIIIllI(l11l1Il1lll("\59\253\254\151\99\50\55\254",239),{Thickness=2,Transparency=1,Color=Color3.new(1,1,1),Parent=l1l1lIlll1I});
-local l1Illll1IlI=lI11IIlIIIllI(l11l1Il1lll("\182\144\41\205\149",104),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,22,0,22),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=lIlllI11[2],Parent=l1l1lIlll1I});
-l1llIIIIIl11(l1Illll1IlI,11);
-l1l1lIlll1I.MouseButton1Click:Connect(function() 
-llIIIIII1:SetAccent(lIlllI11[2]);
-for lI1llll1,ll111l1I1I1ll in ipairs(l1l111llI1) do 
-ll111l1I1I1ll.Transparency=1 end;
-
-lllll1l1lI.Transparency=0;
-lI1111Il();
-ll1l1I11Il11l();
-lI11II1llI1:_queueSave() end);
-
-table.insert(l1l111llI1,lllll1l1lI) end;
 
 
-local ll1I1I111=lI1II11lII:Section(l11l1Il1lll("\23\59\182\84\239\104",216));
-ll1I1I111:Toggle({Name=l11l1Il1lll("\170\31\157\149\63\132\152\12\79\127",86),Description=l11l1Il1lll("\104\91\92\138\124\114\210\23\173\48\124\96\236\237\94\180\223\203\45\247\232\235\94\173\4\180\170\144\54\0\206\60\104\62\187\34\155\142\96\47\145\3\92\0\168\158\50\204\236\252\6\130\22\14\240\74\228\146\214\176\53\33",116),Flag=l11l1Il1lll("\65\151\69\221\93\19\17\219",185),Callback=function(lIIIl111l) 
-lI11II1llI1:SetGlass(lIIIl111l,(l1IIlll1I11l.ui_glassStrength or 70) / 100) end});
+local lll111lII1I={};
+local function l111I11Ill1II() 
+for lI1IllII11l,l11IlI11I in pairs(lll111lII1I) do 
+local lll1IIl11lI1=lI1IllII11l == l111II11I.ThemeName;
+l11IlI11I.ring.Color=(lll1IIl11lI1 and l111II11I.Theme.Accent) or l111II11I.Theme.Stroke;
+l11IlI11I.ring.Thickness=(lll1IIl11lI1 and 2) or 1;
+l11IlI11I.check.Visible=lll1IIl11lI1 end end;
 
-ll1I1I111:Slider({Name=l11l1Il1lll("\151\104\175\176\14\155\148\158\127\246\50\33\152\108",126),Flag=l11l1Il1lll("\204\163\181\87\69\6\238\178\131\83\255\87\82\225\22\218",93),Min=30,Max=100,Default=70,Suffix=l11l1Il1lll("\75",239),Callback=function(l1111ll1lI1l) 
-if l1IIlll1I11l.ui_glass then 
-lI11II1llI1:SetGlass(true,l1111ll1lI1l / 100) end end});
+
+for ll11IllI1,llIlI11l1lII in ipairs(l111II11I.ThemeOrder) do 
+local l11111lllI1=l111II11I.Themes[llIlI11l1lII];
+local l1l1lIIIlI1lI=lllII1lI1I1I(lI1I1ll1llIl("\214\237\10\73\33\126\178\27\72\143",142),{Text=lI1I1ll1llIl("",249),AutoButtonColor=false,BackgroundColor3=l11111lllI1.Background,LayoutOrder=ll11IllI1,Parent=lIll1lIIIlIlI});
+lIlll1ll1l1I1(l1l1lIIIlI1lI,12);
+local llI1Ill1III=lllII1lI1I1I(lI1I1ll1llIl("\36\178\202\84\44\195\197\209",120),{Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Parent=l1l1lIIIlI1lI});
+local l111IllIlI=lllII1lI1I1I(lI1I1ll1llIl("\119\201\56\141\251",56),{Size=UDim2.new(0,34,0,8),Position=UDim2.new(0,12,0,14),BackgroundColor3=Color3.new(1,1,1),Parent=l1l1lIIIlI1lI});
+lIlll1ll1l1I1(l111IllIlI,4);
+lllII1lI1I1I(lI1I1ll1llIl("\99\125\65\126\151\229\134\242\36\159",252),{Color=ColorSequence.new(l11111lllI1.Accent,l11111lllI1.Accent2),Parent=l111IllIlI});
+local lI1111IlII1Il=lllII1lI1I1I(lI1I1ll1llIl("\219\77\235\137\103",25),{Size=UDim2.new(0,18,0,8),Position=UDim2.new(0,50,0,14),BackgroundColor3=l11111lllI1.Surface,Parent=l1l1lIIIlI1lI});
+lIlll1ll1l1I1(lI1111IlII1Il,4);
+lllII1lI1I1I(lI1I1ll1llIl("\235\132\237\60\161\196\5\62\177",33),{BackgroundTransparency=1,Text=llIlI11l1lII,Font=Enum.Font.GothamBold,TextSize=13,TextColor3=l11111lllI1.Text,TextXAlignment=Enum.TextXAlignment.Left,Position=UDim2.new(0,12,0,34),Size=UDim2.new(1,- 24,0,18),Parent=l1l1lIIIlI1lI});
+local l11II1Il1lll=lllII1lI1I1I(lI1I1ll1llIl("\59\84\61\12\145\148\85\78\193",241),{BackgroundTransparency=1,Text=lI1I1ll1llIl("\8\116\101",221),Font=Enum.Font.GothamBold,TextSize=14,TextColor3=l11111lllI1.Accent,Position=UDim2.new(1,- 28,0,8),Size=UDim2.new(0,20,0,20),Visible=false,Parent=l1l1lIIIlI1lI});
+local lI11I1lIl=lllII1lI1I1I(lI1I1ll1llIl("\175\18\32\214\200\79\212",132),{Parent=l1l1lIIIlI1lI});
+l1l1lIIIlI1lI.MouseButton1Click:Connect(function() 
+l111II11I.Press(lI11I1lIl);
+l111II11I:SetTheme(llIlI11l1lII);
+l111I11Ill1II();
+lIll1l1I1();
+l1l1Ill1:_queueSave() end);
+
+lll111lII1I[llIlI11l1lII]={ring=llI1Ill1III,check=l11II1Il1lll} end;
 
 
-ll1I1I111:Slider({Name=l11l1Il1lll("\62\83\116\132\150\32\141\158\240\22\158\43\24\175",141),Flag=l11l1Il1lll("\252\179\165\175\169\22\238\184\148\110",109),Min=60,Max=100,Default=97,Suffix=l11l1Il1lll("\83",171),Callback=function(ll11llI1ll) 
-lI11II1llI1:SetOpacity(ll11llI1ll / 100) end});
 
-local ll11lll1I={Small=0.88,Normal=1,Large=1.1};
-ll1I1I111:Segmented({Name=l11l1Il1lll("\193\37\236\40\1\54\243",170),Flag=l11l1Il1lll("\21\254\66\209\175\23\254\71",37),Options={l11l1Il1lll("\45\41\60\159\109",255),l11l1Il1lll("\183\202\198\46\176\242",227),l11l1Il1lll("\50\37\47\148\100",255)},Default=l11l1Il1lll("\58\227\94\214\169\128",74),Callback=function(lllllI1lll1lI) 
-lI11II1llI1:SetScale(ll11lll1I[lllllI1lll1lI] or 1) end});
+local lIlII1Il111I=l11Il1IIlII1I:Custom(52);
+local llIlllll1=lllII1lI1I1I(lI1I1ll1llIl("\131\143\110\78\208",21),{Size=UDim2.new(1,0,1,0),Parent=lIlII1Il111I});
+lI11ll1lIIlII(llIlllll1,lI1I1ll1llIl("\135\45\65\179\157\146\133\224\181\199\29\152\163\118\71\244",218),lI1I1ll1llIl("\152\198\28\161\158\106\64",2));
+lIlll1ll1l1I1(llIlllll1,12);
+l111II11I.Stroke(llIlllll1);
+lI11I11IlllI({Parent=llIlllll1,Text=lI1I1ll1llIl("\42\112\173\2\49\157\229\52\170\32\77\170",162),Font=Enum.Font.GothamBold,TextSize=13,Position=UDim2.new(0,14,0,0),Size=UDim2.new(0.4,0,1,0)});
+local ll1111II=lllII1lI1I1I(lI1I1ll1llIl("\240\154\127\81\79",27),{AnchorPoint=Vector2.new(1,0.5),Size=UDim2.new(0,0,0,36),AutomaticSize=Enum.AutomaticSize.X,Position=UDim2.new(1,- 8,0.5,0),BackgroundTransparency=1,Parent=llIlllll1});
+l1IlIll1I(ll1111II,2,true);
+local lll1I1IIllIIl={};
+for lIl1IllI1I,llI1l1II1lI in ipairs(l111II11I.Swatches) do 
+local l11Il11l1I=lllII1lI1I1I(lI1I1ll1llIl("\171\196\173\124\239\16\211\239\114\209",97),{Size=UDim2.new(0,36,0,36),Text=lI1I1ll1llIl("",208),BackgroundTransparency=1,LayoutOrder=lIl1IllI1I,Parent=ll1111II});
+lIlll1ll1l1I1(l11Il11l1I,18);
+local ll11l1lI1I=lllII1lI1I1I(lI1I1ll1llIl("\48\20\188\183\39\168\25\73",181),{Thickness=2,Transparency=1,Color=Color3.new(1,1,1),Parent=l11Il11l1I});
+local lIlll1II11Ill=lllII1lI1I1I(lI1I1ll1llIl("\45\53\176\46\171",71),{AnchorPoint=Vector2.new(0.5,0.5),Size=UDim2.new(0,22,0,22),Position=UDim2.new(0.5,0,0.5,0),BackgroundColor3=llI1l1II1lI[2],Parent=l11Il11l1I});
+lIlll1ll1l1I1(lIlll1II11Ill,11);
+l11Il11l1I.MouseButton1Click:Connect(function() 
+l111II11I:SetAccent(llI1l1II1lI[2]);
+for l1ll1ll1llII,lI1l1111ll1l in ipairs(lll1I1IIllIIl) do 
+lI1l1111ll1l.Transparency=1 end;
 
-ll1I1I111:Toggle({Name=l11l1Il1lll("\50\230\14\185\187\20\237\103\231\190\218\162\181\2\255",53),Description=l11l1Il1lll("\107\250\237\80\141\126\161\254\219\36\122\210\44\72\12\169\60\142\97\220\42\206\49\110\75\212\128\70\191\232",7),Flag=l11l1Il1lll("\76\12\43\225\125\171\178",35),Callback=function(lII1111I1111) 
-lI11II1llI1:SetBlur(lII1111I1111) end});
+ll11l1lI1I.Transparency=0;
+l111I11Ill1II();
+lIll1l1I1();
+l1l1Ill1:_queueSave() end);
 
-ll1I1I111:Segmented({Name=l11l1Il1lll("\82\243\73\88\220\118\209\71\4\11\192\131\110\114\35\47",166),Flag=l11l1Il1lll("\23\30\150\92\26\98\148",32),Options={l11l1Il1lll("\228\98\34\4",220),l11l1Il1lll("\91\51\29\40\45",237)},Default=l11l1Il1lll("\202\115\235\170",91),Callback=function(lII1l1Ill1l) 
-lI11II1llI1:SetButtonSide(lII1l1Ill1l) end});
+table.insert(lll1I1IIllIIl,ll11l1lI1I) end;
 
-ll1I1I111:Toggle({Name=l11l1Il1lll("\47\130\37\56\190\91\243\51\49\231\45\38\147\79",198),Description=l11l1Il1lll("\106\236\248\19\160\206\207\46\183\18\168\81\161\2\170\244\142\7\1\204\38\113\101\251\42\143\155\46\59\141\85\66\118\150\146\38\198\229\172\31\145\35\72\160\79\231\139\196\225\35",191),Flag=l11l1Il1lll("\235\13\34\161\64\100\98\137\22\177",31)});
+
+local lII1IIII=l1II111I:Section(lI1I1ll1llIl("\140\202\48\147\160\110",18));
+lII1IIII:Toggle({Name=lI1I1ll1llIl("\113\88\103\127\133\161\131\248\37\128",252),Description=lI1I1ll1llIl("\33\253\134\96\69\132\59\46\254\192\89\131\8\114\137\167\182\109\23\29\49\29\183\148\87\100\143\19\210\159\25\47\33\152\161\200\162\120\137\22\194\243\121\163\76\1\229\223\197\90\60\104\15\248\25\115\183\130\243\51\209\190",111),Flag=lI1I1ll1llIl("\247\225\45\90\15\106\181\28",142),Callback=function(lIl111l1I1lI) 
+l1l1Ill1:SetGlass(lIl111l1I1lI,(lll1l11Il1ll1.ui_glassStrength or 70) / 100) end});
+
+lII1IIII:Slider({Name=lI1I1ll1llIl("\78\168\112\90\144\255\42\143\52\93\160\107\110\136",179),Flag=lI1I1ll1llIl("\110\94\158\52\146\241\37\23\33\236\145\40\95\139\61\41",55),Min=30,Max=100,Default=70,Suffix=lI1I1ll1llIl("\23",62),Callback=function(l1lllIIllII1l) 
+if lll1l11Il1ll1.ui_glass then 
+l1l1Ill1:SetGlass(true,l1lllIIllII1l / 100) end end});
+
+
+lII1IIII:Slider({Name=lI1I1ll1llIl("\2\4\209\247\74\192\34\19\250\169\181\85\51\80",133),Flag=lI1I1ll1llIl("\115\141\137\147\118\16\92\46\14\162",204),Min=60,Max=100,Default=97,Suffix=lI1I1ll1llIl("\80",165),Callback=function(ll1I1Il1I) 
+l1l1Ill1:SetOpacity(ll1I1Il1I / 100) end});
+
+local ll11II11I={Small=0.88,Normal=1,Large=1.1};
+lII1IIII:Segmented({Name=lI1I1ll1llIl("\179\77\22\47\207\171\250",44),Flag=lI1I1ll1llIl("\147\109\105\47\197\176\243\130",44),Options={lI1I1ll1llIl("\1\21\227\129\223",94),lI1I1ll1llIl("\120\7\236\209\203\60",155),lI1I1ll1llIl("\67\48\87\191\24",145)},Default=lI1I1ll1llIl("\108\71\160\176\226\135",46),Callback=function(lI1l11ll1I) 
+l1l1Ill1:SetScale(ll11II11I[lI1l11ll1I] or 1) end});
+
+lII1IIII:Toggle({Name=lI1I1ll1llIl("\87\221\177\67\77\66\181\208\229\151\14\229\211\60\23",10),Description=lI1I1ll1llIl("\233\235\100\241\125\64\242\220\199\8\52\124\12\249\25\115\190\159\232\125\218\240\98\76\87\248\206\232\159\89",135),Flag=lI1I1ll1llIl("\107\0\104\221\30\182\137",240),Callback=function(lII1lll11) 
+l1l1Ill1:SetBlur(lII1lll11) end});
+
+lII1IIII:Segmented({Name=lI1I1ll1llIl("\217\248\27\50\106\210\142\209\189\107\63\73\208\246\125\222",59),Flag=lI1I1ll1llIl("\98\184\82\252\100\208\143",246),Options={lI1I1ll1llIl("\131\244\131\108",81),lI1I1ll1llIl("\84\17\233\164\174",171)},Default=lI1I1ll1llIl("\94\157\229\153",15),Callback=function(l11llIIl1Il) 
+l1l1Ill1:SetButtonSide(l11llIIl1Il) end});
+
+lII1IIII:Toggle({Name=lI1I1ll1llIl("\233\162\151\57\13\214\226\7\212\127\17\237\164\164",114),Description=lI1I1ll1llIl("\99\153\136\79\140\55\169\85\108\124\210\222\140\231\41\157\135\18\49\176\10\168\195\96\17\225\1\97\54\104\246\11\63\227\162\58\170\28\10\164\138\141\50\239\162\194\8\173\168\118",214),Flag=lI1I1ll1llIl("\51\81\145\126\123\137\229\183\246\35",235)});
 task.spawn(function() 
-while llIIIIII1.Window == lI11II1llI1 do 
-if l1IIlll1I11l.ui_rainbow then 
-llIIIIII1:SetAccent(Color3.fromHSV((os.clock() / 20) % 1,0.6,1),true);
+while l111II11I.Window == l1l1Ill1 do 
+if lll1l11Il1ll1.ui_rainbow then 
+l111II11I:SetAccent(Color3.fromHSV((os.clock() / 20) % 1,0.6,1),true);
 task.wait(0.1) else 
 
 task.wait(1) end end end);
 
 
 
-ll1I1I111:Toggle({Name=l11l1Il1lll("\43\64\71\183\62\108\101\138\32\179\44\106\67\142\240\88\233\250\202\115\173\15\5\84\181\14",99),Description=l11l1Il1lll("\185\32\187\212\230\106\105\194\85\5\90\172\50\114\105\218\106\246\62\110\83\153\241\11\168\251\192\115\178\7\29\83\186\7\143\174\213\24\4\169\45\37\123\133\23\222\137\36\134\147\27\91\100\165\213\37\204\130\164\20\128\35\53",43),Flag=l11l1Il1lll("\108\207\151\0\235\93\241\169\156\81\108\15\253",55)});
-ll1I1I111:Toggle({Name=l11l1Il1lll("\139\92\11\27\227\2\183\191\16\213\115\229\171",34),Description=l11l1Il1lll("\65\250\40\50\128\97\180\115\47\4\147\38\157\120\119\45\245\102\194\150\8\252\77\221\151\151\14\75\252\235\183\175\67",182),Flag=l11l1Il1lll("\37\43\183\110\255\123\53\30\59",200),Default=true,Callback=function(ll11II1Ill11l) 
-lI11II1llI1.Settings.notifications=ll11II1Ill11l end});
+lII1IIII:Toggle({Name=lI1I1ll1llIl("\96\61\209\185\252\169\115\159\241\52\236\123\248\70\15\227\130\199\60\125\111\10\211\97\100\169",62),Description=lI1I1ll1llIl("\186\58\84\242\42\118\150\252\199\179\32\136\188\5\44\167\105\236\209\40\31\5\14\53\58\77\186\87\60\240\216\46\185\29\96\200\153\132\123\23\191\147\1\161\153\41\76\217\5\137\244\29\40\57\170\155\222\180\222\48\14\212\240",234),Flag=lI1I1ll1llIl("\95\65\105\174\194\250\137\95\247\216\14\15\153",29)});
+lII1IIII:Toggle({Name=lI1I1ll1llIl("\200\151\122\37\60\201\168\244\173\125\206\247\32",43),Description=lI1I1ll1llIl("\153\21\102\156\134\149\58\21\164\195\67\178\143\122\5\192\77\137\236\88\46\40\227\155\220\176\222\63\14\201\229\66\219",202),Flag=lI1I1ll1llIl("\174\158\222\125\209\164\127\66\75",247),Default=true,Callback=function(l1IIl1lllIIIl) 
+l1l1Ill1.Settings.notifications=l1IIl1lllIIIl end});
 
-ll1I1I111:Keybind({Name=l11l1Il1lll("\179\161\179\6\161\134\137\114",127),Flag=l11l1Il1lll("\76\35\53\221\204\137\104\10\53\222",221),Default=Enum.KeyCode.RightShift,Changed=function(l1l1llI11) 
-if Enum.KeyCode[l1l1llI11] then 
-lI11II1llI1.ToggleKey=Enum.KeyCode[l1l1llI11] end end});
-
-
-
-
-local llII1I1lI=lI1II11lII:Section(l11l1Il1lll("\225\216\103\137\218\33\145\79\242\253\126\153\44\186\159",224));
-if llIIIIII1.CanSave then 
-local l11lllIIIlI1=llII1I1lI:Input({Name=l11l1Il1lll("\150\36\162\248\223\16\112\139\39\116\73\182",27),Placeholder=l11l1Il1lll("\117\201\42\220\220\1\208\155\7\94\115\142\158",85)});
-local lllIlI11I1lI1=llII1I1lI:Dropdown({Name=l11l1Il1lll("\88\21\75\118\179\163\36",124),Options=lI11II1llI1:ListConfigs()});
-llII1I1lI:Button({Name=l11l1Il1lll("\135\77\250\126\136\252\36\36\163\90\19\23",234),Description=l11l1Il1lll("\69\199\75\43\21\140\192\109\124\55\45\131\66\219\212\126\143\88\202\222\163\114\81\238\27\21\176\91\200\125\48\244\23\171\56",203),Action=l11l1Il1lll("\99\69\152\134",158),Callback=function() 
-local lIIIl1l1II=l11lllIIIlI1:Get();
-if lIIIl1l1II == l11l1Il1lll("",202) then 
-lIIIl1l1II=lllIlI11I1lI1:Get() or (l11l1Il1lll("\145\13\234\143\129\99\240\122",145) .. ((# lI11II1llI1:ListConfigs()) + 1)) end;
-
-lIIIl1l1II=string.gsub(lIIIl1l1II,l11l1Il1lll("\249\233\44\152\150\53\148\18\223\207",224),l11l1Il1lll("",50));
-lI11II1llI1:SaveConfig(lIIIl1l1II);
-lllIlI11I1lI1:Refresh(lI11II1llI1:ListConfigs());
-lllIlI11I1lI1:Set(lIIIl1l1II,true);
-llIIIIII1:Notify({Title=l11l1Il1lll("\160\144\39\198\153\3\89\56\145\150\63\202\151",104),Content=lIIIl1l1II}) end});
-
-llII1I1lI:Button({Name=l11l1Il1lll("\108\123\191\151\109\219\133\149\27\138\32\51",142),Action=l11l1Il1lll("\119\81\88\195",116),Callback=function() 
-local l1I1Il11I=lllIlI11I1lI1:Get();
-if l1I1Il11I and lI11II1llI1:LoadConfig(l1I1Il11I) then 
-lI1111Il();
-llIIIIII1:Notify({Title=l11l1Il1lll("\146\165\6\233\186\138\116\191\76\93\153\116\197\91",128),Content=l1I1Il11I}) end end});
-
-
-llII1I1lI:Button({Name=l11l1Il1lll("\218\1\17\182\85\104\44\155\11\169\142\59\194\107",31),Action=l11l1Il1lll("\205\191\150\165\173\18",109),Danger=true,Callback=function() 
-local lI11l1IIIl1l=lllIlI11I1lI1:Get();
-if lI11l1IIIl1l then 
-lI11II1llI1:Confirm(l11l1Il1lll("\48\91\182\31\133\215\130",249) .. (lI11l1IIIl1l .. l11l1Il1lll("\102",119)),l11l1Il1lll("\13\109\125\144\81\142\146\37\192\159\1\91\54\171\156\39\197\213\230\22\193\60\53\183\89\240\120\202\168",67),l11l1Il1lll("\122\225\241\86\181\200",191),function() 
-lI11II1llI1:DeleteConfig(lI11l1IIIl1l);
-lllIlI11I1lI1:Refresh(lI11II1llI1:ListConfigs()) end) end end}) else 
+lII1IIII:Keybind({Name=lI1I1ll1llIl("\244\17\175\140\19\68\204\82",3),Flag=lI1I1ll1llIl("\79\113\89\161\210\151\248\11\240\212",13),Default=Enum.KeyCode.RightShift,Changed=function(llllI11ll11Il) 
+if Enum.KeyCode[llllI11ll11Il] then 
+l1l1Ill1.ToggleKey=Enum.KeyCode[llllI11ll11Il] end end});
 
 
 
 
-llII1I1lI:Paragraph(l11l1Il1lll("\182\114\41\59\203\108\148\215\119\242\27\223\216\189\80\90\252\15\174\160\89\222",2),l11l1Il1lll("\242\158\4\77\54\185\141\46\202\128\240\28\147\110\51\187\88\161\105\142\241\62\44\143\92\69\18\234\125\187\179\70\166\101\226\254\133\89\161\31\224\187\131\96\161\92\85\137\115\210\29\43\7\207\205\59\109\44\57\198\17\199\207\127\198\68\216\144\246\104\93\238\73\93\177\81\143",123)) end;
+local l11lIlll=l1II111I:Section(lI1I1ll1llIl("\242\84\183\6\119\139\206\132\108\6\81\214\30\166\136",184));
+if l111II11I.CanSave then 
+local llIlIIII=l11lIlll:Input({Name=lI1I1ll1llIl("\225\73\182\6\119\128\139\212\112\8\90\218",184),Placeholder=lI1I1ll1llIl("\48\67\216\189\5\240\112\21\228\172\191\82\32",133)});
+local lIII1IlIIlll=l11lIlll:Dropdown({Name=lI1I1ll1llIl("\49\153\6\182\39\208\251",104),Options=l1l1Ill1:ListConfigs()});
+l11lIlll:Button({Name=lI1I1ll1llIl("\126\206\108\17\210\176\188\91\25\72\57\237",169),Description=lI1I1ll1llIl("\136\150\247\118\205\240\115\82\87\170\218\173\130\73\253\245\34\9\150\67\91\46\194\241\240\104\71\21\104\207\57\95\154\186\4",247),Action=lI1I1ll1llIl("\153\10\85\128",180),Callback=function() 
+local l111lIII11l1=llIlIIII:Get();
+if l111lIII11l1 == lI1I1ll1llIl("",231) then 
+l111lIII11l1=lIII1IlIIlll:Get() or (lI1I1ll1llIl("\250\218\217\58\78\101\24\144",157) .. ((# l1l1Ill1:ListConfigs()) + 1)) end;
+
+l111lIII11l1=string.gsub(l111lIII11l1,lI1I1ll1llIl("\166\193\15\51\135\227\155\105\112\44",121),lI1I1ll1llIl("",164));
+l1l1Ill1:SaveConfig(l111lIII11l1);
+lIII1IlIIlll:Refresh(l1l1Ill1:ListConfigs());
+lIII1IlIIlll:Set(l111lIII11l1,true);
+l111II11I:Notify({Title=lI1I1ll1llIl("\254\171\232\137\75\223\238\125\2\154\239\69\58",64),Content=l111lIII11l1}) end});
+
+l11lIlll:Button({Name=lI1I1ll1llIl("\53\219\96\93\211\159\27\132\48\161\82\121",195),Action=lI1I1ll1llIl("\54\55\39\232",77),Callback=function() 
+local lIll1lI111Il1=lIII1IlIIlll:Get();
+if lIll1lI111Il1 and l1l1Ill1:LoadConfig(lIll1lI111Il1) then 
+l111I11Ill1II();
+l111II11I:Notify({Title=lI1I1ll1llIl("\250\218\217\58\78\101\24\144\105\82\174\135\16\131",157),Content=lIll1lI111Il1}) end end});
 
 
-local lIIl1lIl1lI11=lI1II11lII:Section(l11l1Il1lll("\212\1\160\183\65",114));
-lIIl1lIl1lI11:Paragraph(l11l1Il1lll("\181\177\58\179\29\8\174\125\184",180) .. llIIIIII1.Version,l11l1Il1lll("\117\161\246\228\4\191\17\94\166\169\21\135\220\178\70\52\187\79\118\34\150\19\165\128\51\201\127\187\81\99\163\185\101\220\136\156\37\136\60\63\150\93\255\127\61\14\106\123\150\98\2\7\231\122\132\175\26\232\12\200\171\158\83\78\11\189\255\129\64\255\64\87\234\123\207\11\11\61\208\222\53\140\33\98\193\83\225\199\102\204\35\172\134\226\28\1\203\28\75\90\172\197\115\62\199\16\181\46\118\72\171\232\92\167\202\130\60\168\68\250\70\185\0\130\168\217\24\15\192\39\122\113\145\42\150\146\33\102\220\7\87\107\131\137\120\209\230\241\30\219\43\30\160\69\227\117\219\172\126\29\160\95\16\17\236\31\173\254\2\208\101\167\248\191\128\169\20\238\138\194\102\235\65\43\144\37\140\87\45\13\192\206\197\117\58\37\192\121\148\202\118\253\95\206\139\240\6\89\224\23\239\163\21\220\101\67\241\75\191\123\27\41\228\253\96\129\159\209\36\69\180\237\80\149\48\167\184\210\105\111\220\32\74\2\188\54\148\97\199\63\133\25\100\73\214\134\74\165\250\255\0\165\0\80",194));
-lIIl1lIl1lI11:Button({Name=l11l1Il1lll("\29\15\57\228\251\104\132\129\247\18\100",189),Description=l11l1Il1lll("\132\183\26\238\99\175\185\142\167\165\16\251\187\143\127\248\0\93\158\118\128\94\34\12\146\213\124\114\44\32\196\124\144\214\96\133\16\199\137\186",72),Action=l11l1Il1lll("\105\214\79\82\254\11\205",150),Danger=true,Callback=function() 
-lI11II1llI1:Confirm(l11l1Il1lll("\246\194\106\107\49\57\216\47\196\202\109\192\119\250\181\231",240),l11l1Il1lll("\80\233\78\197\139\252\67\77\240\17\182\226\83\222\101\90\225\30\169\123\7\42\240\171\100\157\219\146\55\78\249\241\82\153\47\235\236\212\99\59\216\38\65\87\251",58),l11l1Il1lll("\81\134\60\54\199\84\253",242),function() 
-llIIIIII1:Unload() end) end});
+l11lIlll:Button({Name=lI1I1ll1llIl("\6\45\222\152\215\174\38\223\21\206\251\118\209\97",78),Action=lI1I1ll1llIl("\78\45\58\217\179\204",61),Danger=true,Callback=function() 
+local lIIII1lIl=lIII1IlIIlll:Get();
+if lIIII1lIl then 
+l1l1Ill1:Confirm(lI1I1ll1llIl("\15\86\130\34\11\236\133",130) .. (lIIII1lIl .. lI1I1ll1llIl("\105",251)),lI1I1ll1llIl("\134\80\42\94\113\252\91\142\77\110\253\102\174\151\111\88\78\136\177\248\193\110\220\252\52\1\100\247\16",207),lI1I1ll1llIl("\239\226\125\230\122\5",135),function() 
+l1l1Ill1:DeleteConfig(lIIII1lIl);
+lIII1IlIIlll:Refresh(l1l1Ill1:ListConfigs()) end) end end}) else 
 
 
+
+
+l11lIlll:Paragraph(lI1I1ll1llIl("\137\153\144\133\249\190\141\9\134\163\56\71\229\54\148\253\3\4\23\254\139\44",237),lI1I1ll1llIl("\130\124\79\95\246\196\247\146\73\254\247\42\11\211\2\73\40\131\226\156\49\67\22\115\223\59\85\156\133\6\130\116\22\71\105\44\133\228\155\227\35\133\196\22\121\161\36\187\195\48\86\249\7\114\55\7\174\18\62\240\233\58\190\13\54\166\147\130\54\21\167\210\74\163\182\103\23",28)) end;
+
+
+local ll1IllIl1ll1l=l1II111I:Section(lI1I1ll1llIl("\203\170\185\73\51",189));
+ll1IllIl1ll1l:Paragraph(lI1I1ll1llIl("\144\230\180\171\103\209\245\8\65",48) .. l111II11I.Version,lI1I1ll1llIl("\43\37\136\5\191\196\211\164\240\13\106\1\117\226\73\110\133\171\40\227\45\72\167\154\133\141\224\253\216\51\140\163\59\88\182\61\222\243\62\5\0\249\128\57\84\158\101\97\232\198\92\198\28\97\198\181\172\108\83\78\34\14\188\148\85\57\129\96\251\132\2\45\60\223\176\141\162\109\223\4\139\232\127\163\122\8\227\221\208\8\60\106\15\178\51\27\149\152\245\123\215\190\113\4\81\180\202\232\159\88\164\242\34\3\148\67\71\51\134\224\240\61\95\4\33\201\119\85\158\163\4\144\42\81\84\104\119\194\163\129\254\59\140\211\70\53\184\48\165\128\41\4\22\1\124\51\82\252\81\7\254\219\46\176\23\100\175\196\148\116\26\225\145\47\143\179\106\74\212\3\157\240\3\49\38\161\211\209\164\157\47\20\155\241\68\196\123\2\214\176\160\89\32\72\34\160\9\131\94\115\177\98\174\135\103\89\71\143\160\189\146\121\203\231\62\5\33\240\95\62\182\215\198\49\79\97\81\194\102\117\162\132\20\195\199\173\86\123\113\187\218\159\237\89\185\220\20\33\132\30\187\222\194\170",87));
+ll1IllIl1ll1l:Button({Name=lI1I1ll1llIl("\63\50\146\7\172\223\207\164\213\45\74",87),Description=lI1I1ll1llIl("\194\33\20\2\229\193\42\65\143\57\58\241\209\90\207\15\38\139\176\154\38\16\81\35\90\169\150\88\70\213\84\235\214\0\46\41\150\169\218\181",92),Action=lI1I1ll1llIl("\146\113\85\88\164\206\246",28),Danger=true,Callback=function() 
+l1l1Ill1:Confirm(lI1I1ll1llIl("\125\145\50\13\193\192\80\139\98\96\155\252\141\101\50\26",131),lI1I1ll1llIl("\63\102\188\9\44\201\160\33\160\62\91\248\156\133\139\225\174\209\59\215\160\127\83\231\52\146\246\72\24\21\247\138\61\86\157\103\11\225\192\23\200\9\108\141\244",162),lI1I1ll1llIl("\110\77\69\168\213\230\132",29),function() 
+l111II11I:Unload() end) end});
 
 
 
 
 
-local llII1II11={};
-local function lI1II11l1(lI1l1I111) 
-for l1lI1IIlIl,lIIIlll1I in ipairs(llII1II11) do 
-lIIIlll1I:Disconnect() end;
 
-llII1II11={};
-l1IIIIll1={};
-l11ll1II11l,l1lIIIIl1IllI,l1IlII11l1I=nil,nil,nil;
-lIllIll1111ll,lI1llI1Il1II=false,false;
-local lIl1Ill11lIII=lI1l1I111:WaitForChild(l11l1Il1lll("\97\15\55\193\215\120\132\213",205),10);
-if not lIl1Ill11lIII then 
+
+local llIl1ll1={};
+local function l1II1I1II(ll1l1I1I1) 
+for lII1l1lII1Il,lII1Ill1 in ipairs(llIl1ll1) do 
+lII1Ill1:Disconnect() end;
+
+llIl1ll1={};
+ll11IIlIl={};
+llllIIll,llIIlIllIlIl,lIIII111ll=nil,nil,nil;
+l11IIlI1lI,l111I1lIl=false,false;
+local ll1I1lll1I11l=ll1l1I1I1:WaitForChild(lI1I1ll1llIl("\85\202\103\5\236\223\183\64",153),10);
+if not ll1I1lll1I11l then 
 return  end;
 
-if not l1IIlll1I11l.speedOn then 
-lI11lllIIIIl.walkSpeed=lIl1Ill11lIII.WalkSpeed end;
+if not lll1l11Il1ll1.speedOn then 
+lII1lllI.walkSpeed=ll1I1lll1I11l.WalkSpeed end;
 
-if (not l1IIlll1I11l.jumpOn) and lIl1Ill11lIII.UseJumpPower then 
-lI11lllIIIIl.jumpPower=lIl1Ill11lIII.JumpPower end;
+if (not lll1l11Il1ll1.jumpOn) and ll1I1lll1I11l.UseJumpPower then 
+lII1lllI.jumpPower=ll1I1lll1I11l.JumpPower end;
 
-lllIIllll1I();
-table.insert(llII1II11,lIl1Ill11lIII:GetPropertyChangedSignal(l11l1Il1lll("\250\82\208\205\95\148\81\198\132",22)):Connect(function() 
-local l1I1I1lI=l1l1I1I111(l11l1Il1lll("\37\150\24\107\66",139),l1IIlll1I11l.speed);
-if (l1IIlll1I11l.speedOn and (l1IIlll1I11l.speedMode == l11l1Il1lll("\238\131\0\95\120\179\156\47",123))) and (lIl1Ill11lIII.WalkSpeed ~= l1I1I1lI) then 
-lIl1Ill11lIII.WalkSpeed=l1I1I1lI end end));
-
-
-table.insert(llII1II11,lIl1Ill11lIII:GetPropertyChangedSignal(l11l1Il1lll("\155\26\248\169\136\112\242\79\70",129)):Connect(function() 
-local l1l1l11IllI1=l1l1I1I111(l11l1Il1lll("\195\143\183\80",77),l1IIlll1I11l.jump);
-if l1IIlll1I11l.jumpOn and (lIl1Ill11lIII.JumpPower ~= l1l1l11IllI1) then 
-lIl1Ill11lIII.JumpPower=l1l1l11IllI1 end end));
+ll1I11l11lI();
+table.insert(llIl1ll1,ll1I1lll1I11l:GetPropertyChangedSignal(lI1I1ll1llIl("\210\220\35\8\166\23\183\41\222",85)):Connect(function() 
+local llll111Il1l=lII1ll1IIll1(lI1I1ll1llIl("\93\41\98\10\198",192),lll1l11Il1ll1.speed);
+if (lll1l11Il1ll1.speedOn and (lll1l11Il1ll1.speedMode == lI1I1ll1llIl("\179\162\12\146\48\95\95\96",215))) and (ll1I1lll1I11l.WalkSpeed ~= llll111Il1l) then 
+ll1I1lll1I11l.WalkSpeed=llll111Il1l end end));
 
 
-if l1IIlll1I11l.freeze then 
-local l11lIIllll=lI1l1I111:WaitForChild(l11l1Il1lll("\198\33\32\162\95\18\21\159\59\185\183\22\238\127\231\162",15),5);
-if l11lIIllll then 
-l11lIIllll.Anchored=true end end end;
+table.insert(llIl1ll1,ll1I1lll1I11l:GetPropertyChangedSignal(lI1I1ll1llIl("\24\13\239\157\227\84\129\58\5",94)):Connect(function() 
+local l1l11Il11Il1=lII1ll1IIll1(lI1I1ll1llIl("\0\190\174\117",20),lll1l11Il1ll1.jump);
+if lll1l11Il1ll1.jumpOn and (ll1I1lll1I11l.JumpPower ~= l1l11Il11Il1) then 
+ll1I1lll1I11l.JumpPower=l1l11Il11Il1 end end));
+
+
+if lll1l11Il1ll1.freeze then 
+local lIIl1IlIl=ll1l1I1I1:WaitForChild(lI1I1ll1llIl("\163\230\35\134\177\6\44\179\23\163\205\44\42\1\24\97",34),5);
+if lIIl1IlIl then 
+lIIl1IlIl.Anchored=true end end end;
 
 
 
-lI11l11IIl(lllI1llI.CharacterAdded:Connect(lI1II11l1));
-if lllI1llI.Character then 
-task.spawn(lI1II11l1,lllI1llI.Character) end;
+lIl11lIIl(ll1lI1IIII1.CharacterAdded:Connect(l1II1I1II));
+if ll1lI1IIII1.Character then 
+task.spawn(l1II1I1II,ll1lI1IIII1.Character) end;
 
 
 
 task.spawn(function() 
-local ll111l1l1IIl=l1llII1Il .. (l11l1Il1lll("\114\220\55\64\88\187\38\53\99\207\39\143\50\45",81) .. (tostring(game.GameId) .. l11l1Il1lll("\199\217\49\210",243)));
-local lI1IlI1lIl11,lI1ll1IIII1I=pcall(game.HttpGet,game,ll111l1l1IIl);
-if (((not lI1IlI1lIl11) or (type(lI1ll1IIII1I) ~= l11l1Il1lll("\67\179\223\123\114\193",117))) or (lI1ll1IIII1I == l11l1Il1lll("",67))) or string.find(lI1ll1IIII1I,l11l1Il1lll("\39\17\4\247",99)) then 
-ll1ll11lIIII:Set(l11l1Il1lll("\156\168\89\210\140\146\116\131\53\98\142\111\226\47\40\16\43\36\201\104\50\11\244\63\217\215\12",144),l11l1Il1lll("\92\52\19\54\60\133\126\48\12\183\123\199\173\2\231\80\220\185\202\71\70\21\246\225\181\81\232\64\69\241\10\215\91\31\116\128\254\118\128\212\96\254\121\184\140",237) .. game.GameId);
+local l1I1I1l1IIlI1=lI1lIIIII1I .. (lI1I1ll1llIl("\49\43\192\148\211\191\117\128\0\192\240\122\206\43",78) .. (tostring(game.GameId) .. lI1I1ll1llIl("\40\136\163\157",204)));
+local l1l11111l,lIll1lIlIl=pcall(game.HttpGet,game,ll1l1lllIIl11(l1I1I1l1IIlI1));
+if (((not l1l11111l) or (type(lIll1lIlIl) ~= lI1I1ll1llIl("\185\124\100\149\233\142",253))) or (lIll1lIlIl == lI1I1ll1llIl("",182))) or string.find(lIll1lIlIl,lI1I1ll1llIl("\132\204\214\216",237)) then 
+llIIll111II1I:Set(lI1I1ll1llIl("\156\151\34\0\92\223\3\179\146\17\75\192\95\180\254\24\43\59\146\154\194\166\99\143\30\196\233",222),lI1I1ll1llIl("\55\6\122\43\68\174\10\48\247\151\39\182\31\100\163\150\151\107\67\186\222\30\162\225\110\81\212\81\151\247\14\49\48\237\221\157\134\157\52\20\155\222\101\137\62",127) .. game.GameId);
 return  end;
 
-local l1I1Ill11l,l1II11III1=loadstring(lI1ll1IIII1I);
-if not l1I1Ill11l then 
-ll1ll11lIIII:Set(l11l1Il1lll("\182\145\29\146\36\63\192\94\249\126\56\229\46\127\133\104\75\2\230\118\188",180),tostring(l1II11III1));
+local llI1I11l1,l1lI1II1ll1=loadstring(lIll1lIlIl);
+if not llI1I11l1 then 
+llIIll111II1I:Set(lI1I1ll1llIl("\127\55\198\184\255\190\54\217\246\56\225\106\233\20\30\255\130\196\61\60\103",62),tostring(l1lI1II1ll1));
 return  end;
 
-local llIlI1III,lIlIlIIlIllI1=pcall(l1I1Ill11l);
-if llIlI1III and (type(lIlIlIIlIllI1) == l11l1Il1lll("\163\70\17\17\241\2\187\176",34)) then 
-local lI1l1lIIl11,lIIl1ll11l=pcall(lIlIlIIlIllI1,{UI=llIIIIII1,Window=lI11II1llI1,Tab=l11lI1111I11,Flags=l1IIlll1I11l,Options=l1llllI1lll1l,getHumanoid=l1llll1lI1I1l,getRoot=lIl1I1lI1Il,teleportTo=l1IlI1Illl});
+local l11lI11Il1II1,lllI1Il1lI1=pcall(llI1I11l1);
+if l11lI11Il1II1 and (type(lllI1Il1lI1) == lI1I1ll1llIl("\27\106\196\167\86\121\81\170",249)) then 
+local lIIllIII1l,lIII1IllIlI=pcall(lllI1Il1lI1,{UI=l111II11I,Window=l1l1Ill1,Tab=l11IIIII,Flags=lll1l11Il1ll1,Options=lllIIlllIIlIl,getHumanoid=l11l1IlI1I,getRoot=l1lI11Il111ll,teleportTo=llI11I1IIII});
 
 
 
@@ -7137,82 +7141,82 @@ local lI1l1lIIl11,lIIl1ll11l=pcall(lIlIlIIlIllI1,{UI=llIIIIII1,Window=lI11II1llI
 
 
 
-if lI1l1lIIl11 then 
-ll1ll11lIIII:Set(l11l1Il1lll("\104\188\251\231\9\174\84\18\171\189\24\142\220",194),llIll1ll .. l11l1Il1lll("\130\209\108\142\199\51\195\90\243\178\121\130\37\255\142\173\126\104\206\81",224));
-llIIIIII1:Notify({Title=l11l1Il1lll("\254\171\135\85\9\10\242\165\165\75\232",93),Content=llIll1ll .. l11l1Il1lll("\219\152\28\134\60\47\146\93\235\55\56\239\43\59\148\99\69",180)}) else 
+if lIIllIII1l then 
+llIIll111II1I:Set(lI1I1ll1llIl("\191\119\7\184\221\9\233\173\100\70\213\70\138",239),lII1lIII .. lI1I1ll1llIl("\86\146\163\173\66\52\93\50\249\11\130\87\124\179\99\237\138\107\65\114",188));
+l111II11I:Notify({Title=lI1I1ll1llIl("\253\122\94\144\201\14\158\60\67\88\99",196),Content=lII1lIII .. lI1I1ll1llIl("\210\126\135\236\167\238\36\154\164\49\33\160\44\144\207\52\76",254)}) else 
 
-ll1ll11lIIII:Set(l11l1Il1lll("\22\49\253\114\196\223\32\253\74\197\155\146",20),tostring(lIIl1ll11l)) end else 
-
-
-ll1ll11lIIII:Set(l11l1Il1lll("\182\145\29\146\36\63\192\93\234\101\59\242",180),tostring(lIlIlIIlIllI1)) end end);
+llIIll111II1I:Set(lI1I1ll1llIl("\20\251\69\108\191\106\169\110\196\154\113\78",227),tostring(lIII1IllIlI)) end else 
 
 
-
-llIIIIII1:OnUnload(function() 
-for l1I1I1I1l1lII,llIlllIl1IlI in ipairs(llII1II11) do 
-llIlllIl1IlI:Disconnect() end;
-
-lIIIIIlIll();
-if l1IIlll1I11l.freecam then 
-lIIllI1lI1() end;
-
-ll11lII11();
-l1IIlll1I11l.fullbright,l1IIlll1I11l.noFog,l1IIlll1I11l.timeOn=false,false,false;
-llIIll1l();
-workspace.Gravity=lI11lllIIIIl.gravity;
-lllI1llI.CameraMaxZoomDistance=lI11lllIIIIl.maxZoom;
-if l1IIlll1I11l.hideUi then 
-pcall(l1lIl1lI.SetCoreGuiEnabled,l1lIl1lI,Enum.CoreGuiType.All,true);
-for lllI1I1111,lII1IIIl in ipairs(l1llIlI11l1I) do 
-if lII1IIIl.Parent then 
-lII1IIIl.Enabled=true end end end;
+llIIll111II1I:Set(lI1I1ll1llIl("\191\119\134\248\191\254\118\154\165\99\34\189",254),tostring(lllI1Il1lI1)) end end);
 
 
 
-local ll11I1Il=workspace.CurrentCamera;
-if ll11I1Il then 
-ll11I1Il.FieldOfView=lI11lllIIIIl.fov end;
+l111II11I:OnUnload(function() 
+for llI1111lll,l1I1I1II1l in ipairs(llIl1ll1) do 
+l1I1I1II1l:Disconnect() end;
 
-local ll1I1lII1I=lIl1I1lI1Il();
-if ll1I1lII1I and l1IIlll1I11l.freeze then 
-ll1I1lII1I.Anchored=false end;
+lII1IllI11l();
+if lll1l11Il1ll1.freecam then 
+l11111I1Ill1l() end;
 
-local l1IlI1lI1l=l1llll1lI1I1l();
-if l1IlI1lI1l then 
-l1IlI1lI1l.WalkSpeed=lI11lllIIIIl.walkSpeed;
-if l1IlI1lI1l.UseJumpPower then 
-l1IlI1lI1l.JumpPower=lI11lllIIIIl.jumpPower end end end);
+l1llIl1lII();
+lll1l11Il1ll1.fullbright,lll1l11Il1ll1.noFog,lll1l11Il1ll1.timeOn=false,false,false;
+l11ll1I1IlI();
+workspace.Gravity=lII1lllI.gravity;
+ll1lI1IIII1.CameraMaxZoomDistance=lII1lllI.maxZoom;
+if lll1l11Il1ll1.hideUi then 
+pcall(l1IllII1l.SetCoreGuiEnabled,l1IllII1l,Enum.CoreGuiType.All,true);
+for lll11IlI1Il,l11llllIl1III in ipairs(lI1llIl1II) do 
+if l11llllIl1III.Parent then 
+l11llllIl1III.Enabled=true end end end;
 
 
+
+local lI1l11Ill1=workspace.CurrentCamera;
+if lI1l11Ill1 then 
+lI1l11Ill1.FieldOfView=lII1lllI.fov end;
+
+local lIlIIll11I11l=l1lI11Il111ll();
+if lIlIIll11I11l and lll1l11Il1ll1.freeze then 
+lIlIIll11I11l.Anchored=false end;
+
+local lIllI1lI=l11l1IlI1I();
+if lIllI1lI then 
+lIllI1lI.WalkSpeed=lII1lllI.walkSpeed;
+if lIllI1lI.UseJumpPower then 
+lIllI1lI.JumpPower=lII1lllI.jumpPower end end end);
 
 
 
 
-local lll1III1l1={l11l1Il1lll("\224\122\244",91),l11l1Il1lll("\15\176\70\101\97\159",49),l11l1Il1lll("\131\146\45\197\148\32\82",104),l11l1Il1lll("\206\123\135\58\238\140",41),l11l1Il1lll("\16\75\82\137\36\115\112",99),l11l1Il1lll("\55\213\108\196\213\114\155\125\199",21),l11l1Il1lll("\120\150\152\54\219\232",159),l11l1Il1lll("\237\71\56\166\126",183),l11l1Il1lll("\250\247\43\144\9\22\171",212),l11l1Il1lll("\79\7\97\150\2\175\189",51),l11l1Il1lll("\202\219\61\184\219\230\89\171\3",228),l11l1Il1lll("\153\2\64\79\185\143\35\206\229\250",140),l11l1Il1lll("\204\95\29\18\206\239\116\149\56\33\199",204),l11l1Il1lll("\3\239\4\180\168\42\237\113\226",53),l11l1Il1lll("\245\97\228\179",91),l11l1Il1lll("\74\58\3\222",221),l11l1Il1lll("\181\166\15\229\90\250\177\136",72),l11l1Il1lll("\128\219\55\199\64\224\228\74\132\41\176\158\178\127",243),l11l1Il1lll("\66\193\94\79\248",150),l11l1Il1lll("\10\37\45\164\96\1\7",255),l11l1Il1lll("\61\101\112\188\46\130",83),l11l1Il1lll("\162\66\254\66\93\241\12\243\93\62\63\193\205\127",149),l11l1Il1lll("\91\238\199\98",23),l11l1Il1lll("\161\58\164\250\211",27),l11l1Il1lll("\41\197\209\127\162\33\37\198\91",223),l11l1Il1lll("\60\173\24\31\122\184\13\157\215",230),l11l1Il1lll("\98\249\120\60\26\217\31\158\100\37",219),l11l1Il1lll("\233\129\207\221\53\43\164",252),l11l1Il1lll("\7\5\218\198\111\76\38\38\198",222),l11l1Il1lll("\218\203\205\72\223\251\76\147",244),l11l1Il1lll("\46\197\201\97\142\33",223),l11l1Il1lll("\229\64\165\221\247\40\171",193),l11l1Il1lll("\46\213\129\181\96\106\209\24\72\91",60),l11l1Il1lll("\199\26\27\202\34\116\126\183\44",47),l11l1Il1lll("\87\75\138\174\50\191\226",158),l11l1Il1lll("\116\220\37\86\118",65),l11l1Il1lll("\93\67\235\18\223\127\16\57\219",168),l11l1Il1lll("\165\165\8\255\163\138\116",128),l11l1Il1lll("\215\131\4\93\125\144\154\42\205\186\234\55\132\47\36\178",123),l11l1Il1lll("\196\36\131\15\103\97\153\143\64",138)};
+
+
+local l11I11llIlll={lI1I1ll1llIl("\208\216\255",124),lI1I1ll1llIl("\73\142\190\51\148\52",198),lI1I1ll1llIl("\86\156\231\29\62\15\228",58),lI1I1ll1llIl("\144\173\171\124\56\87",205),lI1I1ll1llIl("\223\218\224\198\3\108\31",124),lI1I1ll1llIl("\28\37\128\5\183\196\207\203\252",87),lI1I1ll1llIl("\7\153\12\181\52\217",104),lI1I1ll1llIl("\2\73\174\168\154",219),lI1I1ll1llIl("\22\216\223\120\204\120\97",150),lI1I1ll1llIl("\77\117\244\102\237\129\107",7),lI1I1ll1llIl("\19\237\151\34\114\128\32\34\224",111),lI1I1ll1llIl("\251\205\210\67\4\105\31\201\91\121",173),lI1I1ll1llIl("\139\201\188\122\201\53\194\233\110\208\100",97),lI1I1ll1llIl("\141\225\190\249\38\175\180\14\42",16),lI1I1ll1llIl("\72\96\200\94",23),lI1I1ll1llIl("\118\252\139\118",26),lI1I1ll1llIl("\99\128\177\153\76\4\82\55",204),lI1I1ll1llIl("\130\169\34\183\47\78\178\164\144\135\254\173\213\47",199),lI1I1ll1llIl("\110\249\107\217\154",8),lI1I1ll1llIl("\134\121\19\154\208\0\162",239),lI1I1ll1llIl("\175\211\10\152\160\117",18),lI1I1ll1llIl("\164\113\85\92\183\214\225\182\94\207\230\36\13\155",28),lI1I1ll1llIl("\235\44\254\217",51),lI1I1ll1llIl("\248\173\220\12\168",1),lI1I1ll1llIl("\120\48\73\180\62\57\254\166\47",145),lI1I1ll1llIl("\63\71\3\22\244\111\82\163\134",176),lI1I1ll1llIl("\165\36\188\18\66\185\180\145\131\233",200),lI1I1ll1llIl("\46\119\14\213\82\113\178",209),lI1I1ll1llIl("\122\238\78\49\224\247\207\56\52",137),lI1I1ll1llIl("\183\61\202\243\221\17\87\14",123),lI1I1ll1llIl("\26\170\183\119\86\223",20),lI1I1ll1llIl("\189\107\33\45\204\232\119",115),lI1I1ll1llIl("\80\26\251\217\208\53\11\106\26\193",155),lI1I1ll1llIl("\171\166\68\20\80\34\228\67\130",206),lI1I1ll1llIl("\13\164\167\72\86\215\68",20),lI1I1ll1llIl("\42\98\21\215\83",209),lI1I1ll1llIl("\90\144\142\29\130\4\166\81\123",214),lI1I1ll1llIl("\101\122\147\205\147\231\35",14),lI1I1ll1llIl("\62\100\12\251\86\89\184\106\233\64\212\144\119\65\90\188",209),lI1I1ll1llIl("\13\119\197\176\77\93\81\160\202",249)};
 
 
 
 
 do 
-local llI1I1I1lIl1=lI11II1llI1:_configPath(l11l1Il1lll("\26\11\141\8\187\187\22\221",52));
-local lIl1II1I=llIIIIII1:ReadJSON(llI1I1I1lIl1);
-if ((type(lIl1II1I) == l11l1Il1lll("\29\183\186\14\219",71)) and (type(lIl1II1I.flags) == l11l1Il1lll("\69\238\23\85\93",97))) and (not lIl1II1I.flags.ui_restoreAll) then 
-for l11IIl1I1l1l1,l11I1ll1l1II in ipairs(lll1III1l1) do 
-lIl1II1I.flags[l11I1ll1l1II]=nil end;
+local ll1lllIIl1l1=l1l1Ill1:_configPath(lI1I1ll1llIl("\84\233\134\103\57\49\204\160",42));
+local ll1lI1IIl1=l111II11I:ReadJSON(ll1lllIIl1l1);
+if ((type(ll1lI1IIl1) == lI1I1ll1llIl("\207\246\67\223\123",151)) and (type(ll1lI1IIl1.flags) == lI1I1ll1llIl("\1\189\208\36\239",106))) and (not ll1lI1IIl1.flags.ui_restoreAll) then 
+for lIl1IllII1l,lllIIIII in ipairs(l11I11llIlll) do 
+ll1lI1IIl1.flags[lllIIIII]=nil end;
 
-llIIIIII1:WriteJSON(llI1I1I1lIl1,lIl1II1I) end end;
+l111II11I:WriteJSON(ll1lllIIl1l1,ll1lI1IIl1) end end;
 
 
 
-if lI11II1llI1:LoadConfig(l11l1Il1lll("\21\75\174\21\130\211\212\13",249)) then 
-lI1111Il();
+if l1l1Ill1:LoadConfig(lI1I1ll1llIl("\247\33\18\3\229\128\57\82",92)) then 
+l111I11Ill1II();
 task.delay(1.6,function() 
-llIIIIII1:Notify({Title=l11l1Il1lll("\81\243\97\61\25\209\48\203\107\52\7\248",219),Content=l11l1Il1lll("\84\252\41\52\204\119\245\117\37\16\158\32\136\127\35\51\243\100\223\150\29\230\65\147\156\139\79\71\248\255\233",182)}) end) else 
+l111II11I:Notify({Title=lI1I1ll1llIl("\188\246\34\132\176\4\32\247\39\173\193\51",34),Content=lI1I1ll1llIl("\226\172\139\37\79\202\244\81\208\120\82\251\175\164\78\44\69\52\253\7\126\91\96\183\105\227\131\124\95\68\132",114)}) end) else 
 
 
-lI1111Il();
+l111I11Ill1II();
 task.delay(1.6,function() 
-llIIIIII1:Notify({Title=l11l1Il1lll("\167\250\7\231\116\220\222\95",243),Content=(llII1lIlIll1l and l11l1Il1lll("\109\43\26\144\221\143\120\97\54\203\98\211\200\111\140\85\137\152\175\84\77\248\3\17\180\88\157\106\69\242\23\226\54\24\106\227\225\104\138\143",221)) or l11l1Il1lll("\212\127\234\182\130\111\189\2\239\161\196\123\232\74\85\137\54\199\83\42\70\223\205\116\110\54\116\215\89\219\128\103\131\88\216\208",91)}) end) end;
+l111II11I:Notify({Title=lI1I1ll1llIl("\27\179\209\60\63\34\212\160",74),Content=(lIIIlllIl1l and lI1I1ll1llIl("\86\169\195\221\245\84\252\145\29\59\142\18\170\217\216\227\178\26\118\25\101\163\7\1\159\168\113\171\39\68\163\212\141\154\179\174\201\51\142\255",31)) or lI1I1ll1llIl("\131\50\158\40\74\159\102\125\152\253\247\247\59\135\190\30\97\170\39\148\142\47\22\11\25\106\103\91\138\22\107\240\212\85\172\78",216)}) end) end;
 
 
 
@@ -7221,81 +7225,81 @@ llIIIIII1:Notify({Title=l11l1Il1lll("\167\250\7\231\116\220\222\95",243),Content
 
 
 
-local lIl11lIlIll11={[9774451882]={name=l11l1Il1lll("\169\15\254\66\65\96\64\145\181\8\240",105),file=l11l1Il1lll("\99\97\218\41\160\59\111\23\239\246\93\167\204\193\61\190\19\1\103\178\18\150\232\207\23\73\181\42\98",136)},[10771421858]={name=l11l1Il1lll("\79\65\167\80\172\202\3\248\68\38\119\88",68),file=l11l1Il1lll("\190\48\110\111\220\48\167\108\100\91\144\231\114\184\231\246\60\176\4\88\80\161\5",118)},[1202096104]={name=l11l1Il1lll("\142\19\163\185\247\18\161\32\100",102),file=l11l1Il1lll("\107\244\166\105\186\171\2\168\152\158\102\248\51\44\149\123\220\41\40\5\219",108)}};
+local lllllIll={[9774451882]={name=lI1I1ll1llIl("\159\121\23\101\113\206\123\168\111\64\212",207),file=lI1I1ll1llIl("\117\135\164\149\118\5\76\104\23\186\135\93\118\196\93\249\133\7\25\46\196\168\203\176\111\133\15\208\248",204)},[10771421858]={name=lI1I1ll1llIl("\174\4\13\162\237\19\242\56\74\165\133\180",148),file=lI1I1ll1llIl("\85\167\132\117\150\229\172\136\62\148\189\97\22\176\33\148\247\39\14\66\250\148\46",236)},[1202096104]={name=lI1I1ll1llIl("\214\92\45\215\241\230\111\6\79",154),file=lI1I1ll1llIl("\53\199\228\213\54\69\12\40\201\107\92\154\130\5\148\43\66\26\106\121\151",140)}};
 
 
 
 
 do 
-local l1lIllII11I=lIl11lIlIll11[game.GameId];
-local l1IIII1lIll=l11lI1111I11:Section(l11l1Il1lll("\167\181\115\86\173\24\84\72\84\211\120",78));
-local function l11llI11() 
+local lll1lII1lI1=lllllIll[game.GameId];
+local ll1I1l11II1=l11IIIII:Section(lI1I1ll1llIl("\117\57\207\168\179\168\117\205\254\33\249",62));
+local function lIl1lII1IIlI() 
 if getgenv then 
 getgenv().NOCTURNE_SKIP_GAME=true end;
 
-llIIIIII1:Notify({Title=l11l1Il1lll("\141\16\228\141\129\97\242\122",145) .. l1lIllII11I.name,Content=l11l1Il1lll("\159\18\221\252\195\28\9\186\58\96\103\195\5\150\137\57\134\155\8\80\99\242\213\25\220\155\164\61\174\13\4\143\100\200\88\142\231\43\36\146\87\69\0\236\49\189\175\7\227\54\239\191\149\87\251",11),Type=l11l1Il1lll("\192\120\126\205",135)});
+l111II11I:Notify({Title=lI1I1ll1llIl("\230\100\98\161\144\29\134\136",212) .. lll1lII1lI1.name,Content=lI1I1ll1llIl("\108\152\162\10\63\48\230\148\216\166\141\119\27\209\252\84\149\113\23\230\191\254\26\23\94\61\174\105\80\106\81\194\87\194\167\56\91\71\203\188\245\195\106\216\175\58\26\106\240\28\48\201\201\219\116",58),Type=lI1I1ll1llIl("\184\53\159\47",216)});
 task.delay(0.8,function() 
-local lIl1I11lllll,l1ll1IlI1IllI=pcall(function() 
-loadstring(game:HttpGet(l1llII1Il .. l1lIllII11I.file))() end);
+local lIIIllIII,l111l1111lII=pcall(function() 
+loadstring(game:HttpGet(ll1l1lllIIl11(lI1lIIIII1I .. lll1lII1lI1.file)))() end);
 
-if not lIl1I11lllll then 
-warn(l11l1Il1lll("\27\249\114\193\248\67\160\12\156\183\234\119\104\234\24\1\67\164\223\123\108\210\98\180\40\115\86\229\253\13\237",5) .. tostring(l1ll1IlI1IllI)) end end) end;
+if not lIIIllIII then 
+warn(lI1I1ll1llIl("\97\213\252\54\61\182\35\150\243\233\166\235\23\108\10\55\185\8\81\140\169\39\225\46\71\173\154\121\130\171\255",68) .. tostring(l111l1111lII)) end end) end;
 
 
 
-if l1lIllII11I then 
-l1IIII1lIll:Paragraph(l1lIllII11I.name .. l11l1Il1lll("\153\111\91\178\15\184\68\15\34\245\239\111\148",151),l11l1Il1lll("\242\158\4\77\54\187\148\38\204\213\236\18\146\110\57\174\69\166\114\217\232\108\11\180\122\49\33\209\95\155\224\25\229\100\228\174\130\28\184\10\237\176\196\117\238\92\16\147\98\136",123));
-l1IIII1lIll:Button({Name=l11l1Il1lll("\213\73\41\150\46",183) .. l1lIllII11I.name,Action=l11l1Il1lll("\24\195\109\255",106),Callback=l11llI11}) else 
+if lll1lII1lI1 then 
+ll1I1l11II1:Paragraph(lll1lII1lI1.name .. lI1I1ll1llIl("\254\192\132\223\83\245\218\36\13\138\11\188\43",48),lI1I1ll1llIl("\159\143\24\144\142\167\71\121\103\232\219\156\242\28\240\197\8\119\142\4\176\144\248\203\209\44\86\63\95\137\73\82\136\181\56\179\58\0\171\149\134\141\179\187\206\46\217\184\111\25",231));
+ll1I1l11II1:Button({Name=lI1I1ll1llIl("\43\206\252\123\157",134) .. lll1lII1lI1.name,Action=lI1I1ll1llIl("\57\179\211\44",106),Callback=lIl1lII1IIlI}) else 
 
-l1IIII1lIll:Paragraph(l11l1Il1lll("\218\113\218\61\176\255\167\40\114\220\55\64\88\187\117\99\97\218",25),l11l1Il1lll("\241\52\70\178\223\74\163\39\173\255\154\116\118\151\32\112\75\178\125\141\98\211\104\194\14\99\94\152\201\83\181\228\176\5\191\27\24\161\71\82\138\213\244\14\28\180\89\20\100\219\93\129\128\55\199\102\252\10\105\177\167\103\207\132\145\99\205\38\52\131\34\245\104\55\31\96\61\158\127\52\3\227\113\219\226",245)) end;
+ll1I1l11II1:Paragraph(lI1I1ll1llIl("\4\132\131\2\56\190\36\232\213\39\4\245\22\101\127\94\191\15",52),lI1I1ll1llIl("\10\64\133\103\60\229\196\66\193\9\34\140\181\224\103\20\80\38\94\184\129\92\47\135\66\245\134\96\106\36\210\160\139\177\124\206\251\206\224\55\230\99\12\246\223\195\94\48\127\79\190\116\99\184\128\227\112\156\177\73\68\16\168\192\234\151\14\243\215\44\69\144\4\65\39\152\254\233\56\80\24\119\210\110\1",130)) end;
 
-l1IIII1lIll:Toggle({Name=l11l1Il1lll("\244\54\91\77\248\55\139\111\208\108\139\26\101\73\214\152\70\161\246\226\17\184",82),Description=l11l1Il1lll("\153\22\152\224\213\76\17\179\60\37\115\130\28\155\199\57\134\153\26\80\54\175\150\57\192\133\240\83\128\59\36\181\91\231\105\199\229\45\41\151\64\69\3\235\116\176\224\30\238\115\255\187\214\85\166\75\230\187\129",11),Flag=l11l1Il1lll("\85\139\110\213\118\19\15\205\242\124\151\32\56\219",185)});
-if (l1lIllII11I and l1IIlll1I11l.autoGameScript) and (not (getgenv and getgenv().NOCTURNE_SKIP_GAME)) then 
-l11llI11() end end;
+ll1I1l11II1:Toggle({Name=lI1I1ll1llIl("\90\66\181\60\211\252\57\5\22\184\132\44\92\137\105\50\232\213\88\211\26\115",55),Description=lI1I1ll1llIl("\32\65\32\22\174\213\67\67\200\15\253\149\31\37\105\199\223\206\162\102\141\22\196\233\116\207\126\68\227\197\170\75\34\112\17\241\94\116\187\103\244\47\205\188\119\78\14\160\183\228\135\77\173\236\52\91\146\241\79",241),Flag=lI1I1ll1llIl("\48\174\13\175\249\45\227\241\45\106\37\118\162\23",88)});
+if (lll1lII1lI1 and lll1l11Il1ll1.autoGameScript) and (not (getgenv and getgenv().NOCTURNE_SKIP_GAME)) then 
+lIl1lII1IIlI() end end;
 
 
 
 
 do 
-local l1IIll11I11=ll1lIlIlIIll1:Section(l11l1Il1lll("\200\251\43\177\13\8\224\176\23\135\199",212));
-l1IIll11I11:Toggle({Name=l11l1Il1lll("\250\98\40\31\219\203\193\118\61\42\252\117\136\206\101\244\93\199\155\146\94",220),Description=l11l1Il1lll("\165\143\60\177\163\239\14\186\80\16\173\74\31\134\210\180\66\31\166\95\83\105\131\95\167\183\44\144\116\250\64\109\162\168\11\203\134\146\45\207\30\13\171\84\197\93\18\61\98\36\157\110\33\18\226\63\193\213\25\249\78\159\174\145\18\78\237\236\166\186\71",176),Flag=l11l1Il1lll("\230\118\185\182\35\234\64\230\172\145\78\188\31\255",54),Default=true});
-l1IIll11I11:Toggle({Name=l11l1Il1lll("\98\162\222\103\113\195\98\179\60\110\85\160\250\91\164\242\203\50\175\66\170\22\191\3\154\248\197",117),Description=l11l1Il1lll("\45\80\70\173\34\62\116\194\35\246\12\107\66\147\181\72\165\252\199\56\164\28\80\91\184\2\221\195\199\15\23\180\121\119\113\147\29\159\153\106\196\151\14\85\54\179\155\107\192\155\164\7\137\43\112\180\83\241\61\221\227\62\51\158\75",99),Flag=l11l1Il1lll("\107\32\39\214\92\219\230\107\148\91",3),Default=true});
-local lll11l1lIl1lI=((syn and syn.queue_on_teleport) or queue_on_teleport) or (fluxus and fluxus.queue_on_teleport);
-local lIlIIIlIII11=false;
-lI11l11IIl(lllI1llI.OnTeleport:Connect(function(l11II11l) 
-if (((l11II11l ~= Enum.TeleportState.Started) or lIlIIIlIII11) or (not l1IIlll1I11l.keepOnTeleport)) or (not lll11l1lIl1lI) then 
+local lI111I11Ill1l=l1III111lII1:Section(lI1I1ll1llIl("\226\94\171\22\123\158\206\156\113\25\68",184));
+lI111I11Ill1l:Toggle({Name=lI1I1ll1llIl("\56\13\26\243\134\45\29\145\35\9\234\209\21\211\119\96\159\168\169\126\3",93),Description=lI1I1ll1llIl("\178\196\167\86\58\121\165\192\219\241\91\253\192\16\59\203\85\180\221\56\170\255\8\37\12\118\186\71\43\140\169\50\181\35\80\172\159\132\198\181\149\236\29\163\154\75\123\130\117\143\230\9\24\4\233\197\42\84\143\46\17\169\199\78\133\5\118\139\191\172\108",250),Flag=lI1I1ll1llIl("\49\158\182\101\6\173\5\157\250\49\22\3\228\149",36),Default=true});
+lI111I11Ill1l:Toggle({Name=lI1I1ll1llIl("\128\157\113\24\94\222\86\190\130\69\66\143\78\248\227\19\41\45\192\221\133\235\107\206\4\211\242",222),Description=lI1I1ll1llIl("\99\132\159\1\158\116\190\88\103\40\179\200\151\228\102\140\203\8\62\180\24\182\154\33\28\252\66\64\50\120\164\16\119\227\168\63\161\21\83\240\128\137\113\246\227\196\8\239\174\111\29\203\53\129\186\14\55\15\162\158\214\73\128\58\5",214),Flag=lI1I1ll1llIl("\232\221\213\89\58\124\43\193\71\96",173),Default=true});
+local lI1IIllII=((syn and syn.queue_on_teleport) or queue_on_teleport) or (fluxus and fluxus.queue_on_teleport);
+local lIlI1I11II=false;
+lIl11lIIl(ll1lI1IIII1.OnTeleport:Connect(function(lIll1IIlll11) 
+if (((lIll1IIlll11 ~= Enum.TeleportState.Started) or lIlI1I11II) or (not lll1l11Il1ll1.keepOnTeleport)) or (not lI1IIllII) then 
 return  end;
 
-lIlIIIlIII11=true;
-local llIl1I11I1Il={};
-if l1IIlll1I11l.resumeFarm then 
-for llII1III,l1IlI1II in ipairs({l11l1Il1lll("\183\19\137\225\229\0\12\184\50",11),l11l1Il1lll("\185\63\217\104\254\130\110\169\184",89)}) do 
-if l1IIlll1I11l[l1IlI1II] then 
-table.insert(llIl1I11I1Il,string.format(l11l1Il1lll("\168\98",54),l1IlI1II)) end end end;
+lIlI1I11II=true;
+local lIl1lI11ll={};
+if lll1l11Il1ll1.resumeFarm then 
+for l11lI11Ill1l,llIl1I1IlI in ipairs({lI1I1ll1llIl("\190\244\129\71\206\233\46\24\150",65),lI1I1ll1llIl("\154\80\78\221\66\196\230\17\59",22)}) do 
+if lll1l11Il1ll1[llIl1I1IlI] then 
+table.insert(lIl1lI11ll,string.format(lI1I1ll1llIl("\7\217",63),llIl1I1IlI)) end end end;
 
 
 
-pcall(lll11l1lIl1lI,string.format(l11l1Il1lll("\164\3\141\235\199\24\69\175\56\118\127\205\6\159\137\62\142\223\77\75\120\168\156\39\137\146\229\30\132\116\25\169\122\233\124\202\227\40\109\210\25\17\21\240\122\240\183\11\239\98\165\236\223\28\178\14\253\178\129\125\247\6\25\212\88\233\126\26\51\254\235\94\70\23\17\240\100\243\229\42\219\22\214\219\165\97\21\231\6\84\160\64\213\124\121\244\17\238\58\15\43\233\191\115\141\209\196\4\180\234\168\15\183\127\228\182\159",11),table.concat(llIl1I11I1Il,l11l1Il1lll("\172",24)),l1llII1Il .. l11l1Il1lll("\147\145\202\57\144\11\127\7\156\136\58\171\246\228\15\170\94\14\189\65",120))) end));
+pcall(lI1IIllII,string.format(lI1I1ll1llIl("\176\173\66\24\66\63\166\91\134\82\118\177\74\229\147\116\26\113\130\184\253\175\127\211\183\54\236\98\232\14\35\227\238\199\51\57\102\15\142\38\39\181\156\12\118\138\173\65\123\76\234\159\218\219\81\250\195\22\8\129\27\252\99\158\204\199\49\105\54\89\136\42\120\179\152\12\168\9\127\224\207\56\153\168\160\230\118\147\184\112\41\188\57\134\195\62\5\64\245\124\46\78\220\7\51\245\205\120\184\16\50\197\163\209\43\69\26",206),table.concat(lIl1lI11ll,lI1I1ll1llIl("\167",66)),lI1lIIIII1I .. lI1I1ll1llIl("\105\91\84\197\167\237\158\15\219\226\60\7\112\229\76\57\132\196\195\61",45))) end));
 
 
 
 
 
-if not lll11l1lIl1lI then 
-l1IIll11I11:Paragraph(l11l1Il1lll("\124\72\237\191\176\163\81\255\95\80\252\5\212\15\20\61\208\210",112),l11l1Il1lll("\69\199\60\106\56\186\61\143\151\203\46\149\3\18\65\137\143\120\209\169\249\26\144\15\1\238\89\233\147\203\226\44\2\239\84\26\10\144\22\185\244\42\223\118\244\162\109\186\181\12\171",65)) end;
+if not lI1IIllII then 
+lI111I11Ill1l:Paragraph(lI1I1ll1llIl("\120\91\114\44\133\244\159\231\37\153\215\0\61\243\41\173\212\33",252),lI1I1ll1llIl("\223\155\71\244\159\44\29\146\6\89\54\215\232\160\41\84\21\36\202\55\94\140\176\18\144\124\65\171\120\121\138\241\152\179\47\132\173\6\54\164\101\184\199\52\31\16\5\103\47\80\240",66)) end;
 
-local l1I1I11I11l=(getgenv and getgenv()) or {};
-if type(l1I1I11I11l.NOCTURNE_RESUME) == l11l1Il1lll("\18\215\79\18\51",187) then 
-local lI11lIIl1=l1I1I11I11l.NOCTURNE_RESUME;
-l1I1I11I11l.NOCTURNE_RESUME=nil;
+local l1IIll1Il=(getgenv and getgenv()) or {};
+if type(l1IIll1Il.NOCTURNE_RESUME) == lI1I1ll1llIl("\141\85\227\213\22",67) then 
+local l1I1l1111Il=l1IIll1Il.NOCTURNE_RESUME;
+l1IIll1Il.NOCTURNE_RESUME=nil;
 task.delay(3,function() 
-for l1lII1l11,llIIlI111Il1l in ipairs(lI11lIIl1) do 
-if l1llllI1lll1l[llIIlI111Il1l] then 
-l1llllI1lll1l[llIIlI111Il1l]:Set(true) end end;
+for l11I1lIl111I,lI1IllIllllll in ipairs(l1I1l1111Il) do 
+if lllIIlllIIlIl[lI1IllIllllll] then 
+lllIIlllIIlIl[lI1IllIllllll]:Set(true) end end;
 
 
-if (# lI11lIIl1) > 0 then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\59\179\171\23\211\123\241",71),Content=l11l1Il1lll("\18\62\138\100\54\2\177\106\208\146\15\248\69\205\169\200\75\72\236\191\175\179\71\251\16\77\238\6\158",0),Type=l11l1Il1lll("\65\82\250\252\166\165\82",112)}) end end) end end;
+if (# l1I1l1111Il) > 0 then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\69\180\126\250\96\209\142",246),Content=lI1I1ll1llIl("\134\33\221\247\239\20\27\16\121\228\102\65\134\173\60\219\63\87\187\44\118\133\237\161\185\59\135\191\61",123),Type=lI1I1ll1llIl("\136\246\93\244\202\10\38",50)}) end end) end end;
 
 
 
@@ -7303,25 +7307,25 @@ llIIIIII1:Notify({Title=l11l1Il1lll("\59\179\171\23\211\123\241",71),Content=l11
 
 
 do 
-local lllllIl1ll1=lI1II11lII:Section(l11l1Il1lll("\253\86\206\139\107\133\89\198\192\164\108\86\254\14\67\73",22));
-local l1lllIlIll1=l11l1Il1lll("\119\99\197\37\143",136) .. tostring(game.GameId);
-local ll11I1l1I1l=llIIIIII1:ReadJSON(lI11II1llI1:_configPath(l1lllIlIll1)) ~= nil;
-local l111lI11=lllllIl1ll1:Paragraph((ll11I1l1I1l and l11l1Il1lll("\57\155\21\21\236\67\21\142\197\180\54\18\190\11\22\90\141\17\169\165\57\192",214)) or l11l1Il1lll("\191\32\149\137\138\26\150\47\32\254\92\245\99\114\246\32\40\140\37\14\9\226\112",161),l11l1Il1lll("\211\213\8\118\141\50\120\111\175\99\143\131\206\38\129\29\68\4\157\134\41\175\238\228\10\128\92\0\163\86\84\151\200\253\45\83\170\74\26\31\221\12\162\186\37\154\36\196\185\112\166\227\28\206\147\133\32\255\51\39\136\36\251\109\108\84\202\59\136\114\119\54\242\98\200\150\11\252\65\221\149\146\75\81\189\226\168\191\13\217\83\79\226\68\221\87\78",46));
-lllllIl1ll1:Toggle({Name=l11l1Il1lll("\33\226\105\205\225\26\253\67\221\234\158\88\64\20\189\166\177\74\232\21\79\166\18\192\76\9\63\212",37),Flag=l11l1Il1lll("\28\92\155\67\196\124\87\251\27\163",115),Default=true});
-lllllIl1ll1:Button({Name=l11l1Il1lll("\200\255\47\162\72\10\178\189\11\146\192\128\12\16\163\7\127\102\128\4\216\141\49\197\109",212),Action=l11l1Il1lll("\171\22\66\69",140),Callback=function() 
-lI11II1llI1:SaveConfig(l1lllIlIll1);
-l111lI11:Set(l11l1Il1lll("\253\126\113\209\94\185\52\123\91\164\245\82\178\141\205\107\169\20\237\65\171\26",135),l11l1Il1lll("\35\3\190\69\20\193\156\209\22\87\165\64\18\98\130\95\183\186\61\222\32\230\67\125\242\173\22\214\141\214",232) .. (llIll1ll .. l11l1Il1lll("\90",249)));
-llIIIIII1:Notify({Title=l11l1Il1lll("\48\229\120\209\169\2\178\81\216\188\143\84",37),Content=llIll1ll}) end});
+local l1III1l1l1l=l1II111I:Section(lI1I1ll1llIl("\194\29\113\64\118\173\4\68\203\183\35\166\61\69\178\135",143));
+local ll1lI1II1Il=lI1I1ll1llIl("\224\32\16\154\194",102) .. tostring(game.GameId);
+local l1l1IllI1l1=l111II11I:ReadJSON(l1l1Ill1:_configPath(ll1lI1II1Il)) ~= nil;
+local ll1l11lII1I=l1III1l1l1l:Paragraph((l1l1IllI1l1 and lI1I1ll1llIl("\25\167\19\103\242\135\143\121\250\225\221\9\190\229\102\27\205\45\143\247\7\36",201)) or lI1I1ll1llIl("\48\102\119\111\160\6\40\136\181\107\175\31\92\252\138\140\135\234\231\200\3\158\174",144),lI1I1ll1llIl("\217\74\149\64\57\234\110\253\148\36\85\41\212\163\250\137\110\155\224\48\253\119\248\86\49\231\134\202\57\83\47\3\194\98\112\229\158\18\140\205\230\75\120\80\191\159\223\208\83\239\219\85\8\150\5\183\155\216\233\237\18\33\0\121\230\75\87\141\188\42\225\36\73\165\146\60\145\249\186\201\63\141\182\103\105\186\62\141\182\62\9\5\248\193\38\67\196",244));
+l1III1l1l1l:Toggle({Name=lI1I1ll1llIl("\30\116\1\199\32\105\168\154\25\63\222\172\75\99\30\163\206\156\224\31\238\149\7\25\136\28\191\192",193),Flag=lI1I1ll1llIl("\56\166\37\100\183\146\169\117\242\164",201),Default=true});
+l1III1l1l1l:Button({Name=lI1I1ll1llIl("\181\101\64\57\134\161\237\130\105\222\231\117\239\108\227\24\34\252\207\223\118\70\110\26\207",44),Action=lI1I1ll1llIl("\61\120\49\74",128),Callback=function() 
+l1l1Ill1:SaveConfig(ll1lI1II1Il);
+ll1l11lII1I:Set(lI1I1ll1llIl("\54\0\122\46\1\187\24\60\254\151\41\178\13\48\183\196\130\106\6\190\212\24",127),lI1I1ll1llIl("\246\13\116\157\190\238\42\60\79\99\18\184\142\93\102\135\66\244\151\102\106\41\213\176\139\185\97\206\241\137",186) .. (lII1lIII .. lI1I1ll1llIl("\136",108)));
+l111II11I:Notify({Title=lI1I1ll1llIl("\186\154\147\111\2\189\157\3\164\139\106\71",221),Content=lII1lIII}) end});
 
-lllllIl1ll1:Button({Name=l11l1Il1lll("\98\19\129\219\226\57\85\191\65\28\119\211\6\175\189\63\145\117\189\94\116\169\182\30\205",251),Action=l11l1Il1lll("\175\139\101\242\44\47",164),Danger=true,Callback=function() 
-lI11II1llI1:DeleteConfig(l1lllIlIll1);
-l111lI11:Set(l11l1Il1lll("\64\187\237\51\195\152\143\30\157\118\62\141\76\190\97\62\23\55\125\148\96\0\9",143),l11l1Il1lll("\234\17\1\198\37\120\120\245",47)) end});
+l1III1l1l1l:Button({Name=lI1I1ll1llIl("\89\218\102\1\246\213\254\80\39\120\22\184\90\116\186\110\170\124\154\164\96\69\93\177\171",153),Action=lI1I1ll1llIl("\91\36\89\141\57\32",129),Danger=true,Callback=function() 
+l1l1Ill1:DeleteConfig(ll1lI1II1Il);
+ll1l11lII1I:Set(lI1I1ll1llIl("\124\183\131\253\131\73\250\228\63\71\151\12\92\96\210\252\235\59\19\26\96\209\124",47),lI1I1ll1llIl("\223\210\45\182\10\117\178\202",183)) end});
 
-if ll11I1l1I1l and l1IIlll1I11l.ui_perGame then 
+if l1l1IllI1l1 and lll1l11Il1ll1.ui_perGame then 
 task.delay(0.5,function() 
-lI11II1llI1:LoadConfig(l1lllIlIll1);
-lI1111Il();
-llIIIIII1:Notify({Title=l11l1Il1lll("\100\140\127\201\84\6\66\196\206\126\129\44\44",185),Content=l11l1Il1lll("\195\2\185\6\21\168\69\1\201\220\245\18\89",213) .. llIll1ll}) end) end end;
+l1l1Ill1:LoadConfig(ll1lI1II1Il);
+l111I11Ill1II();
+l111II11I:Notify({Title=lI1I1ll1llIl("\121\150\20\58\230\203\25\183\9\121\138\137\158",147),Content=lI1I1ll1llIl("\145\173\70\9\74\37\225\92\199\71\114\237\29",206) .. lII1lIII}) end) end end;
 
 
 
@@ -7331,79 +7335,79 @@ llIIIIII1:Notify({Title=l11l1Il1lll("\100\140\127\201\84\6\66\196\206\126\129\44
 
 
 
-local lII1llIl11I1I={fly=3,noclip=3,tapTp=3,tpTool=3,invisible=3,swim=3,grapple=3,respawnAtDeath=3,quickLoadOnDeath=3,speedOn=2,wallClimb=2,airWalk=2,godMode=2,waterWalk=2,gravityOn=2,patrol=1,jumpOn=1,infJump=1,doubleJump=1,spin=1,bhop=1,glide=1,instantPrompts=1,autoClick=1,freeze=1,edgeJump=0,autoWalk=0,antiFling=0,antiRagdoll=0,macroPlay=1,vehFly=3,vehBoost=2,vehNoclip=2,vehBrake=1,vehStable=1,vehUpright=1};
+local llll1I1Il11={fly=3,noclip=3,tapTp=3,tpTool=3,invisible=3,swim=3,grapple=3,respawnAtDeath=3,quickLoadOnDeath=3,speedOn=2,wallClimb=2,airWalk=2,godMode=2,waterWalk=2,gravityOn=2,patrol=1,jumpOn=1,infJump=1,doubleJump=1,spin=1,bhop=1,glide=1,instantPrompts=1,autoClick=1,freeze=1,edgeJump=0,autoWalk=0,antiFling=0,antiRagdoll=0,macroPlay=1,vehFly=3,vehBoost=2,vehNoclip=2,vehBrake=1,vehStable=1,vehUpright=1};
 
 
 
 
 
 
-local function lIlI1IllllII() 
-local ll11lIII11,l11lllII1ll1l=0,{};
-for lII1Illll111I,lllIIllI in pairs(lII1llIl11I1I) do 
-if (l1IIlll1I11l[lII1Illll111I] == true) and (lllIIllI > 0) then 
-local l1lIll11III=lllIIllI;
-if (lII1Illll111I == l11l1Il1lll("\97\119\220\26\71\121\175",80)) and l1IIlll1I11l.safeLimits then 
-l1lIll11III=0 end;
+local function l1II11II() 
+local l1llIIl1l1IIl,lIlIIIl1=0,{};
+for ll1I1l1I1lII,llllI1llI1I1 in pairs(llll1I1Il11) do 
+if (lll1l11Il1ll1[ll1I1l1I1lII] == true) and (llllI1llI1I1 > 0) then 
+local lll11ll1IIll=llllI1llI1I1;
+if (ll1I1l1I1lII == lI1I1ll1llIl("\68\129\136\10\137\27\164",214)) and lll1l11Il1ll1.safeLimits then 
+lll11ll1IIll=0 end;
 
-ll11lIII11=ll11lIII11 + l1lIll11III;
-if l1lIll11III >= 2 then 
-local l1l1I1IIlII=l1llllI1lll1l[lII1Illll111I];
-table.insert(l11lllII1ll1l,(l1l1I1IIlII and l1l1I1IIlII.Name) or lII1Illll111I) end end end;
+l1llIIl1l1IIl=l1llIIl1l1IIl + lll11ll1IIll;
+if lll11ll1IIll >= 2 then 
+local l1l1lll1Il1l1=lllIIlllIIlIl[ll1I1l1I1lII];
+table.insert(lIlIIIl1,(l1l1lll1Il1l1 and l1l1lll1Il1l1.Name) or ll1I1l1I1lII) end end end;
 
 
 
-local lIII1lll1Il1=((ll11lIII11 == 0) and l11l1Il1lll("\179\12\162\179",70)) or (((ll11lIII11 <= 2) and l11l1Il1lll("\142\184\30",128)) or (((ll11lIII11 <= 5) and l11l1Il1lll("\157\97\170\170\8\214",126)) or l11l1Il1lll("\179\151\30\143",180)));
-return lIII1lll1Il1,ll11lIII11,l11lllII1ll1l end;
+local l1l1l1lIllIl=((l1llIIl1l1IIl == 0) and lI1I1ll1llIl("\176\230\185\250",16)) or (((l1llIIl1l1IIl <= 2) and lI1I1ll1llIl("\14\39\197",78)) or (((l1llIIl1l1IIl <= 5) and lI1I1ll1llIl("\40\73\38\209\239\237",122)) or lI1I1ll1llIl("\38\112\32\71",128)));
+return l1l1l1lIllIl,l1llIIl1l1IIl,lIlIIIl1 end;
 
-local lll11l111lI={None=Color3.fromRGB(140,150,168),Low=Color3.fromRGB(61,220,151),Medium=Color3.fromRGB(255,181,71),High=Color3.fromRGB(255,92,110)};
+local llI111IIIIll1={None=Color3.fromRGB(140,150,168),Low=Color3.fromRGB(61,220,151),Medium=Color3.fromRGB(255,181,71),High=Color3.fromRGB(255,92,110)};
 task.spawn(function() 
-local lI1Illll;
-while llIIIIII1.Window == lI11II1llI1 do 
-local llI111ll1Il,llI1l1llI,l1l1Il1lI1=lIlI1IllllII();
-lIl1l11I.Text=string.upper(llI111ll1Il);
-lIl1l11I.TextColor3=lll11l111lI[llI111ll1Il];
-if (llI111ll1Il == l11l1Il1lll("\99\71\174\63",100)) and (lI1Illll ~= l11l1Il1lll("\35\7\238\127",36)) then 
-llIIIIII1:Notify({Title=l11l1Il1lll("\123\19\41\203\131\55\165\216\39\223",205),Content=l11l1Il1lll("\219\5\14\170\1\121\99\203\10\182\135\38\148\46",31) .. (table.concat(l1l1Il1lI1,l11l1Il1lll("\220\194",104),1,math.min(# l1l1Il1lI1,4)) .. l11l1Il1lll("\167\245\180\114\239\71\83\218\98\211\79\32\21\140\204\111\57\36\56\207\17\209\198\108\200",147)),Type=l11l1Il1lll("\158\212\54\221\72\224\247",243)}) end;
+local l1Il1II11I1;
+while l111II11I.Window == l1l1Ill1 do 
+local l1lI1lI1,lIIIIlI1111Il,ll11l1lllIllI=l1II11II();
+l1II1Il1I.Text=string.upper(l1lI1lI1);
+l1II1Il1I.TextColor3=llI111IIIIll1[l1lI1lI1];
+if (l1lI1lI1 == lI1I1ll1llIl("\101\198\125\28",169)) and (l1Il1II11I1 ~= lI1I1ll1llIl("\125\245\149\96",42)) then 
+l111II11I:Notify({Title=lI1I1ll1llIl("\40\178\128\94\19\131\121\241\145\28",4),Content=lI1I1ll1llIl("\144\140\76\106\133\67\237\220\121\56\57\200\253\137",5) .. (table.concat(ll11l1lllIllI,lI1I1ll1llIl("\179\225",1),1,math.min(# ll11l1lllIllI,4)) .. lI1I1ll1llIl("\44\232\227\156\239\85\250\145\15\34\147\29\173\144\223\240\178\25\111\1\49\163\15\71\197",31)),Type=lI1I1ll1llIl("\16\192\239\113\212\106\29",134)}) end;
 
-lI1Illll=llI111ll1Il;
+l1Il1II11I1=l1lI1lI1;
 task.wait(0.5) end end);
 
 
 
 
-local l111II1I111I={dock=true,antiAfk=true,keyButtons=true,freecamHint=true,invisPeek=true,godLowEscape=true,macroLoop=true,keepOnTeleport=true,resumeFarm=true,hookKick=true,animStopOnMove=true,animLoop=true,dockLabels=true,dockLocked=true};
+local lIIlIII1I11Il={dock=true,antiAfk=true,keyButtons=true,freecamHint=true,invisPeek=true,godLowEscape=true,macroLoop=true,keepOnTeleport=true,resumeFarm=true,hookKick=true,animStopOnMove=true,animLoop=true,dockLabels=true,dockLocked=true};
 
 
 
 
-function l11IlII11l1() 
-l11I11111I1l=l11I11111I1l + 1;
-for lI11l11IlII,lIl1Ill1 in pairs(l1llllI1lll1l) do 
-if (((lIl1Ill1.Type == l11l1Il1lll("\237\138\147\100\253\59",163)) and (lIl1Ill1.Value == true)) and (not l111II1I111I[lI11l11IlII])) and (string.sub(lI11l11IlII,1,3) ~= l11l1Il1lll("\29\174\219",28)) then 
-pcall(lIl1Ill1.Set,lIl1Ill1,false) end end;
+function lI1Il11Il1() 
+l11Il11lI1111=l11Il11lI1111 + 1;
+for lllI1IlIIIll,lIlIlllI1I in pairs(lllIIlllIIlIl) do 
+if (((lIlIlllI1I.Type == lI1I1ll1llIl("\2\251\193\203\58\68",156)) and (lIlIlllI1I.Value == true)) and (not lIIlIII1I11Il[lllI1IlIIIll])) and (string.sub(lllI1IlIIIll,1,3) ~= lI1I1ll1llIl("\115\141\137",204)) then 
+pcall(lIlIlllI1I.Set,lIlIlllI1I,false) end end;
 
 
-local l11lIlllll1I,llII1I1l1I1l=l1llll1lI1I1l(),lIl1I1lI1Il();
-if l11lIlllll1I then 
-l11lIlllll1I.PlatformStand=false;
-if llII1I1l1I1l then 
-llII1I1l1I1l.Anchored=false;
-llII1I1l1I1l.AssemblyLinearVelocity=Vector3.zero;
-l11lIlllll1I:MoveTo(llII1I1l1I1l.Position) end end;
+local lIIll1lI,l1IlII1IllII=l11l1IlI1I(),l1lI11Il111ll();
+if lIIll1lI then 
+lIIll1lI.PlatformStand=false;
+if l1IlII1IllII then 
+l1IlII1IllII.Anchored=false;
+l1IlII1IllII.AssemblyLinearVelocity=Vector3.zero;
+lIIll1lI:MoveTo(l1IlII1IllII.Position) end end;
 
 
-workspace.Gravity=lI11lllIIIIl.gravity;
-lI11II1llI1:SetVisible(false);
-llIIIIII1:Notify({Title=l11l1Il1lll("\48\19\86\185\3",248),Content=l11l1Il1lll("\244\121\144\203\193\203\77\227\250\121\218\51\162\178\173\110\103\159\36\71\76\239\44\117\113\137\56\143\97\96\83\155\250\15\161\246\184\49\170\24\25\95\182\84",225),Type=l11l1Il1lll("\124\111\155\25\145\132\55",68),Force=true}) end;
+workspace.Gravity=lII1lllI.gravity;
+l1l1Ill1:SetVisible(false);
+l111II11I:Notify({Title=lI1I1ll1llIl("\23\224\211\86\190",166),Content=lI1I1ll1llIl("\210\39\232\125\244\64\2\249\204\207\114\52\112\75\201\105\97\225\156\17\121\132\163\79\103\31\176\200\211\153\87\252\220\81\25\128\77\186\37\194\239\233\30\19",118),Type=lI1I1ll1llIl("\69\57\208\163\250\181\113",62),Force=true}) end;
 
-local l111I111lII=l11lIIIl11:Section(l11l1Il1lll("\152\175\79\210\76\83",132));
-l111I111lII:Paragraph(l11l1Il1lll("\74\254\167\107\234\178\20\243\142\156",108),l11l1Il1lll("\249\91\217\134\94\173\103\232\192\182\127\87\234\14\23\85\83\131\117\121\233\6\228\48\113\54\234\163\78\147\200\221\62\243\244\233\91\228\58\172\244\221\29\118\204\41\123\127\253\58\131\131\206\116\133\16\68\77\152\134\125\189\226\235\25\134\14\3\191\4\21\145\197\186\126\35\172\69\30\25\221\23\185\164\50\199\36\246\166\97\188\186\9\211\142\132\106\179\51\32\138\36\253\109\96\27\208\54\205\127\54\42\179",22));
-l111I111lII:Keybind({Name=l11l1Il1lll("\177\62\203\224\235",177),Description=l11l1Il1lll("\18\163\63\112\69\220\240\93\172\231\221\115\167\11\17\78\163\20\152\174\201\10\3\251\56\107\112\195\25\151\132\47\213\214\25\86\115\252\152\46\199\128\164\91\128\34\35\181\22\233\115\142\242\36\32\219\93\10\23\232\56",155),Flag=l11l1Il1lll("\197\34\65\75\182\16\129\119",82),Default=Enum.KeyCode.P,Callback=function() 
-l11IlII11l1() end});
+local l1IllllII1=ll1l1lIIll1:Section(lI1I1ll1llIl("\169\185\160\105\3\64",205));
+l1IllllII1:Paragraph(lI1I1ll1llIl("\148\77\101\87\230\220\154\243\95\233",12),lI1I1ll1llIl("\63\123\171\71\13\160\150\28\229\46\67\188\157\133\202\250\181\131\39\152\186\107\21\164\52\142\246\72\25\24\245\146\56\19\134\40\8\169\203\88\209\5\97\157\187\162\102\16\27\58\17\162\157\25\116\196\65\245\132\109\106\54\223\164\223\166\124\194\236\137\228\101\224\34\66\200\219\206\67\54\59\23\235\69\97\170\213\226\99\217\160\81\94\88\179\203\236\211\65\225\217\105\12\153\69\67\44\221\186\244\43\69\85",162));
+l1IllllII1:Keybind({Name=lI1I1ll1llIl("\58\170\173\108\90",20),Description=lI1I1ll1llIl("\99\132\159\1\158\116\175\70\103\122\139\157\133\238\39\155\210\19\56\255\18\162\220\96\19\246\6\45\59\114\178\26\36\177\185\39\168\84\71\181\140\157\50\181\162\199\21\160\231\110\83\159\41\140\255\64\54\23\225\134\154",214),Flag=lI1I1ll1llIl("\229\93\60\193\201\251\63\92",138),Default=Enum.KeyCode.P,Callback=function() 
+lI1Il11Il1() end});
 
-l111I111lII:Button({Name=l11l1Il1lll("\148\15\228\67\226\226\156\87\166",73),Description=l11l1Il1lll("\33\184\79\248\152\214\250\49\31\168\21\22\30\153\73\234\183\54\219\104\240\177\118\173\179\95\231\136\139\100\181\46\43\206\100\197\115\47\19\212\125\207\120\60\54\234\37\194\221\26\254\95\223",233),Action=l11l1Il1lll("\189\18\146\143\47",86),Danger=true,Callback=function() 
-l11IlII11l1() end});
+l1IllllII1:Button({Name=lI1I1ll1llIl("\139\194\48\158\172\57\91\168\34",18),Description=lI1I1ll1llIl("\87\78\167\223\138\143\94\246\217\22\77\128\11\178\102\144\225\224\19\79\2\104\178\10\85\193\191\62\158\47\26\180\157\56\140\226\161\246\55\147\251\49\32\170\35\129\138\56\11\12\246\120\45",30),Action=lI1I1ll1llIl("\249\5\159\160\96",19),Danger=true,Callback=function() 
+lI1Il11Il1() end});
 
 
 
@@ -7411,155 +7415,155 @@ l11IlII11l1() end});
 
 
 do 
-local function ll11IlllI1l(l11ll1Il1ll) 
-return string.lower(tostring(l11ll1Il1ll):gsub(l11l1Il1lll("\235\250\75\20\248\40\90",30),l11l1Il1lll("\185",131)):gsub(l11l1Il1lll("\136\64\151",22),l11l1Il1lll("\201",243)):gsub(l11l1Il1lll("\3\227",230),l11l1Il1lll("",8)):gsub(l11l1Il1lll("\139\138",228),l11l1Il1lll("",158))) end;
+local function l1lI1IlI1lI(llIlIll11Il) 
+return string.lower(tostring(llIlIll11Il):gsub(lI1I1ll1llIl("\225\69\22\130\204\16\172",196),lI1I1ll1llIl("\121",227)):gsub(lI1I1ll1llIl("\140\23\218",19),lI1I1ll1llIl("\153",3)):gsub(lI1I1ll1llIl("\200\116",92),lI1I1ll1llIl("",108)):gsub(lI1I1ll1llIl("\82\188",126),lI1I1ll1llIl("",199))) end;
 
 
-local function llll1IIlIl1II(llIIIII1II,lI1III1111) 
-local lIIIlll111=ll11IlllI1l(llIIIII1II);
-if lIIIlll111 == l11l1Il1lll("",127) then 
+local function lIIIIIIlI1II(l11ll111llI,l1lI11lII1) 
+local l1IIIlIl1=l1lI1IlI1lI(l11ll111llI);
+if l1IIIlIl1 == lI1I1ll1llIl("",88) then 
 return nil end;
 
-local llllI1ll1II1,lIlll1Il1lI;
-for lll1llll1I,l11llIl1lIl1 in pairs(l1llllI1lll1l) do 
-if ((lI1III1111[l11llIl1lIl1.Type] and l11llIl1lIl1.Name) and (l11llIl1lIl1.Name ~= l11l1Il1lll("",229))) and (string.sub(lll1llll1I,1,3) ~= l11l1Il1lll("\174\183\70",148)) then 
-local l1Il1II1=ll11IlllI1l(l11llIl1lIl1.Name);
-local ll11lIl11Il;
-if (l1Il1II1 == lIIIlll111) or (ll11IlllI1l(lll1llll1I) == lIIIlll111) then 
-ll11lIl11Il=100 elseif string.sub(l1Il1II1,1,# lIIIlll111) == lIIIlll111 then 
+local lI1lIl1IlII,llI1Il1lI;
+for l11IllIII,l1Ill1I1l in pairs(lllIIlllIIlIl) do 
+if ((l1lI11lII1[l1Ill1I1l.Type] and l1Ill1I1l.Name) and (l1Ill1I1l.Name ~= lI1I1ll1llIl("",198))) and (string.sub(l11IllIII,1,3) ~= lI1I1ll1llIl("\52\162\22",72)) then 
+local l1llII11=l1lI1IlI1lI(l1Ill1I1l.Name);
+local ll1l11ll;
+if (l1llII11 == l1IIIlIl1) or (l1lI1IlI1lI(l11IllIII) == l1IIIlIl1) then 
+ll1l11ll=100 elseif string.sub(l1llII11,1,# l1IIIlIl1) == l1IIIlIl1 then 
 
-ll11lIl11Il=80 - ((# l1Il1II1) * 0.1) elseif string.find(l1Il1II1,lIIIlll111,1,true) then 
+ll1l11ll=80 - ((# l1llII11) * 0.1) elseif string.find(l1llII11,l1IIIlIl1,1,true) then 
 
-ll11lIl11Il=60 - ((# l1Il1II1) * 0.1) else 
+ll1l11ll=60 - ((# l1llII11) * 0.1) else 
 
-local ll111lIIlll1I=0;
-for llIIllI1l in string.gmatch(lIIIlll111,l11l1Il1lll("\231\132\66",128)) do 
-if string.find(l1Il1II1,llIIllI1l,1,true) then 
-ll111lIIlll1I=ll111lIIlll1I + 1 end end;
-
-
-ll11lIl11Il=((ll111lIIlll1I > 0) and ((ll111lIIlll1I * 15) - ((# l1Il1II1) * 0.1))) or nil end;
-
-if ll11lIl11Il and ((not lIlll1Il1lI) or (ll11lIl11Il > lIlll1Il1lI)) then 
-llllI1ll1II1,lIlll1Il1lI=l11llIl1lIl1,ll11lIl11Il end end end;
+local lIll1I1lIl=0;
+for lIII11lIl1 in string.gmatch(l1IIIlIl1,lI1I1ll1llIl("\26\50\62",161)) do 
+if string.find(l1llII11,lIII11lIl1,1,true) then 
+lIll1I1lIl=lIll1I1lIl + 1 end end;
 
 
+ll1l11ll=((lIll1I1lIl > 0) and ((lIll1I1lIl * 15) - ((# l1llII11) * 0.1))) or nil end;
 
-return llllI1ll1II1 end;
+if ll1l11ll and ((not llI1Il1lI) or (ll1l11ll > llI1Il1lI)) then 
+lI1lIl1IlII,llI1Il1lI=l1Ill1I1l,ll1l11ll end end end;
 
-local function llIIlIIll1(lIIll1II,llll1Il1I1) 
-local llII1lI1I11=lIl1I1lI1Il();
-if (not llII1lI1I11) or (lIIll1II == l11l1Il1lll("",25)) then 
+
+
+return lI1lIl1IlII end;
+
+local function l1lIIlI1(ll1II111Il,lI11l11l1l1) 
+local l1I1I1lIl=l1lI11Il111ll();
+if (not l1I1I1lIl) or (ll1II111Il == lI1I1ll1llIl("",79)) then 
 return false end;
 
-local lI1ll1II1llII,ll1IIlII11lI;
-for ll11I1I1Illll,l1Il1lIlIl1 in ipairs(workspace:GetDescendants()) do 
-if (l1Il1lIlIl1:IsA(l11l1Il1lll("\108\149\158\70\129\252\238\47",175)) and string.find(string.lower(l1Il1lIlIl1.Name),lIIll1II,1,true)) and (not l1Il1lIlIl1:IsDescendantOf(lllI1llI.Character)) then 
-local l1IIIlIlIl1I=l1Il1lIlIl1:FindFirstAncestorOfClass(l11l1Il1lll("\157\107\170\166\17",126));
-if not (l1IIIlIlIl1I and ll11I11l1lll1:GetPlayerFromCharacter(l1IIIlIlIl1I)) then 
-local llI1l1Illl=(l1Il1lIlIl1.Position - llII1lI1I11.Position).Magnitude;
-if (not ll1IIlII11lI) or (llI1l1Illl < ll1IIlII11lI) then 
-lI1ll1II1llII,ll1IIlII11lI=l1Il1lIlIl1,llI1l1Illl end end end end;
+local l1llll11,lI1IIlllI111l;
+for lIlIlIlII1I,l11l1lIIl1Il in ipairs(workspace:GetDescendants()) do 
+if (l11l1lIIl1Il:IsA(lI1I1ll1llIl("\100\57\221\201\234\33\89\1",139)) and string.find(string.lower(l11l1lIIl1Il.Name),ll1II111Il,1,true)) and (not l11l1lIIl1Il:IsDescendantOf(ll1lI1IIII1.Character)) then 
+local ll1IlIIl=l11l1lIIl1Il:FindFirstAncestorOfClass(lI1I1ll1llIl("\187\27\34\41\218",60));
+if not (ll1IlIIl and lllIlllIllI1I:GetPlayerFromCharacter(ll1IlIIl)) then 
+local llIlI1II=(l11l1lIIl1Il.Position - l1I1I1lIl.Position).Magnitude;
+if (not lI1IIlllI111l) or (llIlI1II < lI1IIlllI111l) then 
+l1llll11,lI1IIlllI111l=l11l1lIIl1Il,llIlI1II end end end end;
 
 
 
 
-if lI1ll1II1llII then 
-l1IlI1Illl(lI1ll1II1llII.Position + Vector3.new(0,lI1ll1II1llII.Size.Y / 2,0),llll1Il1I1);
-return true,lI1ll1II1llII.Name,ll1IIlII11lI end;
+if l1llll11 then 
+llI11I1IIII(l1llll11.Position + Vector3.new(0,l1llll11.Size.Y / 2,0),lI11l11l1l1);
+return true,l1llll11.Name,lI1IIlllI111l end;
 
 return false end;
 
 
-local lllI111l1111={help=function() 
+local l1l1II1Illl={help=function() 
 
-return l11l1Il1lll("\180\128\193\106\192\25\96\81\210\37\238\255\229\250\24\239\72\82\232\226\199\207\207\232\7\18\173\15\71\54\209\189\119\242\54\223\99\243\69\120\242\168\31\217\195\52\182\207\36\50\200\99\248\106\47\12\98\149\94\47\36\7\253\116\128\193\16\255\80\159\14\95\18\73\240\248\171\162\1\77\135\2\236\1\201\15\190\239\130\208\102\139\147\132\6\31\233\252\110\153\51\182\142\164\119\39\123\200\3\70\160\193\121\97\136\130\103\111\110\93\232\248\64\161\179\100\230\255\8\29\72",120) end,panic=function() 
-
-
-l11IlII11l1();
-return l11l1Il1lll("\123\79\167\62\123\48\144\45\158\34\118\73\142\135\72\185\252\190\54\161\14",100) end,night=function() 
+return lI1I1ll1llIl("\93\182\104\19\195\185\53\130\102\250\121\44\124\140\242\245\161\100\193\27\164\111\186\59\147\205\58\92\94\160\59\135\158\196\31\38\224\211\80\171\70\119\136\138\218\194\220\21\205\4\225\154\91\74\218\95\182\74\201\124\61\209\151\206\233\119\57\6\211\191\219\12\38\22\231\171\178\84\107\215\238\180\69\120\170\47\75\188\150\143\113\88\10\18\108\165\128\74\199\224\48\22\155\247\67\120\108\27\154\48\74\27\16\215\33\251\68\207\27\142\60\167\87\114\42\50\12\197\225\43\225",179) end,panic=function() 
 
 
-l1llllI1lll1l.timeOn:Set(true);
-l1llllI1lll1l.clockTime:Set(0);
-return l11l1Il1lll("\58\221\192\134\49\191\218\9\41\216\209\101\246\74",239) end,day=function() 
+lI1Il11Il1();
+return lI1I1ll1llIl("\169\85\239\208\16\85\201\14\160\45\204\229\254\24\82\11\110\228\126\79\133",67) end,night=function() 
 
 
-l1llllI1lll1l.timeOn:Set(true);
-l1llllI1lll1l.clockTime:Set(14);
-return l11l1Il1lll("\244\219\21\245\0\93\74\122\18\67\248\230",56) end,rejoin=function() 
+lllIIlllIIlIl.timeOn:Set(true);
+lllIIlllIIlIl.clockTime:Set(0);
+return lI1I1ll1llIl("\83\168\144\26\61\70\92\178\50\86\171\202\155\143",230) end,day=function() 
 
 
-lIl1I1Ill:Teleport(game.PlaceId,lllI1llI);
-return l11l1Il1lll("\187\208\46\220\72\224\249\116\145\104\243\192",243) end,hop=function() 
+lllIIlllIIlIl.timeOn:Set(true);
+lllIIlllIIlIl.clockTime:Set(14);
+return lI1I1ll1llIl("\230\49\78\104\81\78\143\147\235\131\16\154",175) end,rejoin=function() 
 
 
-lllIlll11l1(false);
-return l11l1Il1lll("\81\201\184\2\231\64\226\230\157\81\95\21\244\175\175\53\167\24",55) end};
+lIl11Il111:Teleport(game.PlaceId,ll1lI1IIII1);
+return lI1I1ll1llIl("\103\104\181\156\236\121\203\178\77\6\24\242",229) end,hop=function() 
+
+
+l1l111lll111I(false);
+return lI1I1ll1llIl("\238\43\6\236\15\127\56\7\169\30\33\227\172\49\162\86\56\250",108) end};
 
 
 
-local function l111II1l1(lI11l1111l) 
-local ll1Il111I=ll11IlllI1l(lI11l1111l);
-if ll1Il111I == l11l1Il1lll("",245) then 
+local function lll1l11l1I(lIlllI1l111l) 
+local llI1llIl1I=l1lI1IlI1lI(lIlllI1l111l);
+if llI1llIl1I == lI1I1ll1llIl("",77) then 
 return nil end;
 
-local llIl11IllI,lll1lII1=string.match(ll1Il111I,l11l1Il1lll("\166\95\17\115\193\214\116\212\161\166\71\221\81\78",140));
-if lllI111l1111[llIl11IllI] and (lll1lII1 == l11l1Il1lll("",224)) then 
-return lllI111l1111[llIl11IllI]() end;
+local lIl1IIlIllII1,llllIl1l1I=string.match(llI1llIl1I,lI1I1ll1llIl("\147\103\223\199\121\73\75\231\53\105\27\194\100\97",73));
+if l1l1II1Illl[lIl1IIlIllII1] and (llllIl1l1I == lI1I1ll1llIl("",182)) then 
+return l1l1II1Illl[lIl1IIlIllII1]() end;
 
-if ((llIl11IllI == l11l1Il1lll("\76\199",76)) or (llIl11IllI == l11l1Il1lll("\214\96\129\214",225))) or (llIl11IllI == l11l1Il1lll("\99\255\22\177",153)) then 
-local llll1IIlIl,l1l1lIII,llIl1ll11lIl=llIIlIIll1(lll1lII1,((llIl11IllI == l11l1Il1lll("\179\15\230\65",73)) and l11l1Il1lll("\158\244\200\56",211)) or (((llIl11IllI == l11l1Il1lll("\45\117",67)) and l11l1Il1lll("\223\72\206\186\135\66\81",75)) or nil));
-return (llll1IIlIl and string.format(l11l1Il1lll("\195\65\163\4\166\162\198\23\49\138\38\57\48\250\33\202\135\202\47\158\2\27",9),l1l1lIII,math.floor(llIl1ll11lIl))) or (l11l1Il1lll("\39\85\110\136\144\57\202\209\238\22\144\39\8\246\16",141) .. (lll1lII1 .. l11l1Il1lll("\235",45))) end;
-
-
-local lIII1I11Il=tonumber(string.match(ll1Il111I,l11l1Il1lll("\172\11\231\85\228\230\153\93\63\144\112\125\50\246\96\153\222\154",9)));
-local llIl1I1I1=ll1Il111I:gsub(l11l1Il1lll("\151\212\51\58\110\105\132\107\155\135\38\223\21\203\214\253\81\29\173",240),l11l1Il1lll("",192));
-local l1ll1ll1ll1l=string.match(llIl1I1I1,l11l1Il1lll("\156\150\220\108\255\119\100",163)) or string.match(llIl1I1I1,l11l1Il1lll("\161\111\148\68\30\58\143\159",186));
-if l1ll1ll1ll1l then 
-llIl1I1I1=llIl1I1I1:gsub(l11l1Il1lll("\72\128",214) .. (l1ll1ll1ll1l .. l11l1Il1lll("\249",102)),l11l1Il1lll("",118)) end;
-
-if lIII1I11Il then 
-
-local l1lII1I1I1=llll1IIlIl1II(llIl1I1I1,{Slider=true});
-if l1lII1I1I1 then 
-l1lII1I1I1:Set(lIII1I11Il);
-
-local lI1IIll1=llll1IIlIl1II(llIl1I1I1,{Toggle=true});
-if lI1IIll1 and (not lI1IIll1.Value) then 
-lI1IIll1:Set(true) end;
-
-return l1lII1I1I1.Name .. (l11l1Il1lll("\0\53\219\112\44",101) .. tostring(l1lII1I1I1.Value)) end end;
+if ((lIl1IIlIllII1 == lI1I1ll1llIl("\210\52",108)) or (lIl1IIlIllII1 == lI1I1ll1llIl("\226\99\22\247",154))) or (lIl1IIlIllII1 == lI1I1ll1llIl("\38\186\21\171",88)) then 
+local l1I11IlIIllI,l1Il11I1lll11,l1lIll1IIl11=l1lIIlI1(llllIl1l1I,((lIl1IIlIllII1 == lI1I1ll1llIl("\41\72\27\20",176)) and lI1I1ll1llIl("\21\233\159\214",95)) or (((lIl1IIlIllII1 == lI1I1ll1llIl("\227\33",118)) and lI1I1ll1llIl("\134\255\150\108\220\251\35",81)) or nil));
+return (l1I11IlIIllI and string.format(lI1I1ll1llIl("\17\251\207\194\49\1\123\24\138\46\112\229\209\86\133\136\181\80\99\88\181\152",156),l1Il11I1lll11,math.floor(l1lIll1IIl11))) or (lI1I1ll1llIl("\21\24\117\251\87\62\241\132\220\57\78\104\21\140\43",119) .. (llllIl1l1I .. lI1I1ll1llIl("\0",46))) end;
 
 
-local lII11lIl111=llll1IIlIl1II(llIl1I1I1,{Toggle=true});
-if lII11lIl111 then 
-local lI1IlIlll=(l1ll1ll1ll1l == l11l1Il1lll("\70\20",205)) or ((l1ll1ll1ll1l == nil) and (not lII11lIl111.Value));
-lII11lIl111:Set(lI1IlIlll);
-return lII11lIl111.Name .. (l11l1Il1lll("\100\12\140\56\33",201) .. ((lI1IlIlll and l11l1Il1lll("\134\56",199)) or l11l1Il1lll("\75\154\58",26))) end;
+local llI1IlIlIIl1=tonumber(string.match(llI1llIl1I,lI1I1ll1llIl("\90\189\206\114\20\136\98\100\165\152\20\199\68\41\195\167\232\44",111)));
+local ll1IIl1l1l=llI1llIl1I:gsub(lI1I1ll1llIl("\174\212\27\134\67\63\195\176\233\45\93\2\100\24\243\212\72\61\133",167),lI1I1ll1llIl("",75));
+local l11I1II11=string.match(ll1IIl1l1l,lI1I1ll1llIl("\79\27\94\243\137\96\25",93)) or string.match(ll1IIl1l1l,lI1I1ll1llIl("\19\71\46\99\144\231\198\179",252));
+if l11I1II11 then 
+ll1IIl1l1l=ll1IIl1l1l:gsub(lI1I1ll1llIl("\26\18",161) .. (l11I1II11 .. lI1I1ll1llIl("\145",101)),lI1I1ll1llIl("",223)) end;
 
-local ll1IlllI1ll=llll1IIlIl1II(llIl1I1I1,{Segmented=true});
-if ll1IlllI1ll then 
-return ll1IlllI1ll.Name .. (l11l1Il1lll("\210\103",156) .. table.concat(ll1IlllI1ll.Options or {},l11l1Il1lll("\192\56\189",165))) end;
+if llI1IlIlIIl1 then 
 
-return l11l1Il1lll("\0\135\110\196\38\54\82\223\52\155\53\45\48\254\113\132\148\42\227\74\212\210\138\77\77\239\69\175\167\93\149\95\92\239\7\186\77\7\33\182",201) end;
+local lllIIIIlIIIl=lIIIIIIlI1II(ll1IIl1l1l,{Slider=true});
+if lllIIIIlIIIl then 
+lllIIIIlIIIl:Set(llI1IlIlIIl1);
+
+local lIIl1Il1=lIIIIIIlI1II(ll1IIl1l1l,{Toggle=true});
+if lIIl1Il1 and (not lIIl1Il1.Value) then 
+lIIl1Il1:Set(true) end;
+
+return lllIIIIlIIIl.Name .. (lI1I1ll1llIl("\50\218\68\63\211",30) .. tostring(lllIIIIlIIIl.Value)) end end;
 
 
-local l1Il1I1IIIl=l11lIIIl11:Section(l11l1Il1lll("\106\21\55\205\216\121\137\145\34\214\79",205));
-local l11IIIl1I=l1Il1I1IIIl:Label(l11l1Il1lll("\90\173\189\38\145\156\220\24\134\59\53\131\80\250\53\55\16\32\125\131\115\8\31\248\57\227\166\6\235\92\171\230\186\70\84\89\177\187\176\98\169\14\8\162\220\9\21\2\46\132\222\123\132\62\56\139\251\49\136\124\135\41\205\146\238\214\186\163\22\82\88",143));
-local lIII1lI1Illll;
-lIII1lI1Illll=l1Il1I1IIIl:Input({Name=l11l1Il1lll("\139\72\9\61\251\225\101",188),Placeholder=l11l1Il1lll("\63\6\51\176\177\55\209\129\196\55\13\241\244\67\177\38\229\186\212\105\126\223\57\63\14\249",189),Callback=function(llIII1IIl) 
-if llIII1IIl == l11l1Il1lll("",85) then 
+local ll1l1lIl=lIIIIIIlI1II(ll1IIl1l1l,{Toggle=true});
+if ll1l1lIl then 
+local ll1I1llIll=(l11I1II11 == lI1I1ll1llIl("\5\6",93)) or ((l11I1II11 == nil) and (not ll1l1lIl.Value));
+ll1l1lIl:Set(ll1I1llIll);
+return ll1l1lIl.Name .. (lI1I1ll1llIl("\159\3\19\218\205",33) .. ((ll1I1llIll and lI1I1ll1llIl("\101\197",116)) or lI1I1ll1llIl("\18\121\204",249))) end;
+
+local lIII11111I11=lIIIIIIlI1II(ll1IIl1l1l,{Segmented=true});
+if lIII11111I11 then 
+return lIII11111I11.Name .. (lI1I1ll1llIl("\159\189",117) .. table.concat(lIII11111I11.Options or {},lI1I1ll1llIl("\229\210\47",21))) end;
+
+return lI1I1ll1llIl("\85\242\93\238\217\120\110\51\219\189\183\171\122\194\239\131\161\95\240\64\11\188\214\193\66\41\39\9\205\65\43\184\137\26\116\208\178\73\93\26",24) end;
+
+
+local lI1IIlIl11l=ll1l1lIIll1:Section(lI1I1ll1llIl("\236\158\232\85\252\219\19\75\143\14\168",49));
+local llIlIIll1=lI1IIlIl11l:Label(lI1I1ll1llIl("\222\82\147\64\57\242\33\235\137\105\91\61\200\181\191\134\116\223\179\37\251\102\226\75\118\209\200\216\51\83\33\87\254\121\122\255\217\21\141\209\230\28\38\28\4\6\223\243\74\187\208\29\12\144\5\248\116\3\166\226\31\102\7\99\234\169\148\197\190\60\165",244));
+local lIIl1IIllI;
+lIIl1IIllI=lI1IIlIl11l:Input({Name=lI1I1ll1llIl("\52\222\192\66\204\122\110",150),Placeholder=lI1I1ll1llIl("\76\231\250\101\65\195\77\8\50\212\182\223\46\84\12\115\150\59\93\156\142\11\133\118\24\26",84),Callback=function(lIII1lIl1) 
+if lIII1lIl1 == lI1I1ll1llIl("",204) then 
 return  end;
 
 task.defer(function() 
-lIII1lI1Illll:Set(l11l1Il1lll("",211),true) end);
+lIIl1IIllI:Set(lI1I1ll1llIl("",96),true) end);
 
-local lI11l1llll111,llI1l1Ill1=pcall(l111II1l1,llIII1IIl);
-llI1l1Ill1=(lI11l1llll111 and llI1l1Ill1) or (l11l1Il1lll("\156\20\250\93\188\84\229",247) .. tostring(llI1l1Ill1));
-if llI1l1Ill1 then 
-l11IIIl1I:Set(llI1l1Ill1);
-llIIIIII1:Notify({Title=l11l1Il1lll("\211\237\69\173\49\161\248",8),Content=llI1l1Ill1}) end end});
+local lll11ll1IlII1,lI1II1lIl=pcall(lll1l11l1I,lIII1lIl1);
+lI1II1lIl=(lll11ll1IlII1 and lI1II1lIl) or (lI1I1ll1llIl("\171\235\181\192\16\201\235",0) .. tostring(lI1II1lIl));
+if lI1II1lIl then 
+llIlIIll1:Set(lI1II1lIl);
+l111II11I:Notify({Title=lI1I1ll1llIl("\1\231\158\208\160\146\61",95),Content=lI1II1lIl}) end end});
 
 
-getgenv().NocturneCommand=l111II1l1 end end)(...)
+getgenv().NocturneCommand=lll1l11l1I end end)(...)
