@@ -1533,6 +1533,9 @@ local function installRemoteHook()
 		return false
 	end
 	local old
+	-- IMPORTANT: nothing in here may make a namecall (obj:Method()) before old() runs: that would
+	-- change the current namecall method and the game's FireServer would turn into a different call.
+	-- So only plain function calls here; naming and serializing happen later in task.defer.
 	local handler = function(self, ...)
 		if RL.on then
 			local m = X.getnamecallmethod()
@@ -1540,17 +1543,16 @@ local function installRemoteHook()
 				local fromMe = X.checkcaller and X.checkcaller()
 				if not fromMe or RL.mine then
 					local args = table.pack(...)
-					local okS, info = pcall(function()
-						local parts = {}
-						for i = 1, math.min(args.n, 8) do
-							parts[i] = ser(args[i], 2)
-						end
-						local caller = X.getcallingscript and X.getcallingscript()
-						return { self:GetFullName(), m, table.concat(parts, ", "), caller and caller:GetFullName() or (fromMe and "executor" or "?") }
+					local caller = X.getcallingscript and X.getcallingscript()
+					task.defer(function()
+						pcall(function()
+							local parts = {}
+							for i = 1, math.min(args.n, 8) do
+								parts[i] = ser(args[i], 2)
+							end
+							rlAdd(self:GetFullName(), m, table.concat(parts, ", "), caller and caller:GetFullName() or (fromMe and "executor" or "?"))
+						end)
 					end)
-					if okS then
-						rlAdd(info[1], info[2], info[3], info[4])
-					end
 				end
 			end
 		end
