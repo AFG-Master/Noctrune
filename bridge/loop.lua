@@ -504,8 +504,56 @@ local function findButton(target)
 	return best
 end
 
-function B.tapAt(x, y)
+-- Never press anything paid: Robux prices, Buy/Purchase, gamepasses, premium.
+local PAID_WORDS = { "robux", "r%$", "purchase", "gamepass", "premium", "buy", "price", "devproduct", "starterpack", "starter pack" }
+local function looksPaid(o)
+	local function check(x)
+		local t = string.lower(x.Name .. " " .. ((x:IsA("TextLabel") or x:IsA("TextButton")) and x.Text or ""))
+		for _, w in ipairs(PAID_WORDS) do
+			if t:find(w) then
+				return true
+			end
+		end
+		if x:IsA("ImageLabel") or x:IsA("ImageButton") then
+			-- Roblox's Robux icon
+			if tostring(x.Image):find("robux", 1, true) then
+				return true
+			end
+		end
+		return false
+	end
+	if check(o) then
+		return true
+	end
+	for _, d in ipairs(o:GetDescendants()) do
+		if d:IsA("GuiObject") and check(d) then
+			return true
+		end
+	end
+	return false
+end
+B.looksPaid = looksPaid
+
+-- The button a tap at screen point (x, y) would hit (tap coordinates, i.e. with B.tapOffset).
+function B.buttonAt(x, y)
+	local pg = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local p = Vector2.new(x, y) - B.tapOffset
+	for _, yy in ipairs({ p.Y, p.Y - GuiService:GetGuiInset().Y }) do
+		for _, o in ipairs(pg:GetGuiObjectsAtPosition(p.X, yy)) do
+			if o:IsA("GuiButton") and guiShown(o) then
+				return o
+			end
+		end
+	end
+	return nil
+end
+
+function B.tapAt(x, y, force)
 	assert(VIM, "No VirtualInputManager")
+	local hit = B.buttonAt(x, y)
+	if hit and looksPaid(hit) and not force then
+		error("Refused: that tap would hit a paid button (" .. shortPath(hit) .. ")", 2)
+	end
 	VIM:SendMouseButtonEvent(x, y, 0, true, game, 0)
 	task.wait(0.05)
 	VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
@@ -517,6 +565,9 @@ function B.press(target, method)
 	local btn = findButton(target)
 	if not btn then
 		return "No visible button matches " .. tostring(target)
+	end
+	if looksPaid(btn) then
+		return "Refused: " .. shortPath(btn) .. " looks like a paid (Robux) button"
 	end
 	if method ~= "tap" and X.firesignal and X.getconnections then
 		local fired = 0
@@ -1966,7 +2017,7 @@ function B.teach(seconds, text)
 					local tl = best:FindFirstChildWhichIsA("TextLabel", true)
 					label = tl and tl.Text or ""
 				end
-				add("tap", { path = shortPath(best), text = cleanStr(label:gsub("<[^>]->", ""):sub(1, 40)) })
+				add("tap", { path = shortPath(best), text = cleanStr(label:gsub("<[^>]->", ""):sub(1, 40)), paid = looksPaid(best) })
 			end
 		elseif ut == Enum.UserInputType.Keyboard and not processed then
 			add("key", { key = input.KeyCode.Name })
@@ -1988,6 +2039,11 @@ function B.teach(seconds, text)
 	installRemoteHook()
 	RL.on = true
 	local lastPos
+	do
+		local vr0 = myVehicleRoot()
+		local r0 = vr0 or (myRoot())
+		lastPos = r0 and r0.Position
+	end
 	local sg, f, body = makeCard(60, true)
 	cardGui = sg
 	local done = false
@@ -2034,7 +2090,11 @@ function B.teach(seconds, text)
 			flushMove()
 			if e.kind == "tap" then
 				table.insert(tl, ("%5.1fs tap %q  %s"):format(e.t, e.text, e.path))
-				table.insert(code, ("B.press(%q)  -- %s"):format(e.path, e.text))
+				if e.paid then
+					table.insert(code, ("-- skipped a paid button: %s"):format(e.path))
+				else
+					table.insert(code, ("B.press(%q)  -- %s"):format(e.path, e.text))
+				end
 			elseif e.kind == "prompt" then
 				table.insert(tl, ("%5.1fs prompt %s  %s"):format(e.t, e.text, e.path))
 				table.insert(code, ("B.prompt(%q)"):format(e.path))
