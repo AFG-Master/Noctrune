@@ -1,5 +1,5 @@
 --[[
-	Roblox Bridge loop v3 (for Delta)
+	Roblox Bridge loop v4 (for Delta)
 	Lets Claude run scripts in your game through your Cloudflare Worker,
 	plus a helper kit (getgenv().B) that Claude's tools use.
 
@@ -11,7 +11,7 @@
 	Everything here only reads or acts on your own client.
 ]]
 
-local LOOP_VERSION = "3.0"
+local LOOP_VERSION = "4.0"
 local DEFAULT_LOOP_URL = "https://raw.githubusercontent.com/AFG-Master/Noctrune/main/bridge/loop.lua"
 
 local genv = getgenv()
@@ -1761,7 +1761,7 @@ function B.mapData(range, opts)
 	local params = OverlapParams.new()
 	params.FilterType = Enum.RaycastFilterType.Exclude
 	params.FilterDescendantsInstances = { char, vmodel }
-	params.MaxParts = opts.maxParts or 3500
+	params.MaxParts = opts.maxParts or 4000
 	local parts = workspace:GetPartBoundsInBox(CFrame.new(center), Vector3.new(range * 2, opts.height or 160, range * 2), params)
 	local list, marks, seenModel = {}, {}, {}
 	local players = 0
@@ -1770,7 +1770,7 @@ function B.mapData(range, opts)
 		local plr = model and Players:GetPlayerFromCharacter(model)
 		if plr then
 			players = players + 1
-		elseif p.Transparency < 0.95 or p.CanCollide then
+		elseif (p.Transparency < 0.95 or p.CanCollide) and (p.Size.X > 1.5 or p.Size.Z > 1.5) and #list < (opts.maxDrawn or 1500) then
 			local cf, s = p.CFrame, p.Size / 2
 			local a, b, c = cf.RightVector * s.X, cf.UpVector * s.Y, cf.LookVector * s.Z
 			local top = p.Position.Y + math.abs(a.Y) + math.abs(b.Y) + math.abs(c.Y)
@@ -2673,7 +2673,9 @@ function B.signature()
 	table.sort(remotes)
 	table.sort(tops)
 	table.sort(modules)
-	return { placeVersion = game.PlaceVersion, game = gameName, remotes = remotes, tops = tops, counts = counts, modules = modules }
+	local okH, hashes = pcall(B.scriptHashes)
+	return { placeVersion = game.PlaceVersion, game = gameName, remotes = remotes, tops = tops, counts = counts, modules = modules,
+		hashes = okH and hashes or nil }
 end
 
 -- Settings backup ------------------------------------------------------------------------
@@ -3106,7 +3108,7 @@ do
 		local m = Instance.new("Frame")
 		m.Name = "Menu"
 		m.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
-		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 246 or 196)
+		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 296 or 246)
 		local ap = holder.AbsolutePosition
 		local vp = workspace.CurrentCamera.ViewportSize
 		m.Position = UDim2.new(0, math.clamp(ap.X, 4, vp.X - 204), 0, math.clamp(ap.Y + 42, 4, vp.Y - m.Size.Y.Offset - 4))
@@ -3143,6 +3145,14 @@ do
 				end)
 			end)
 		end)
+		item("Status page link", nil, function()
+			if X.setclipboard then
+				X.setclipboard(BRIDGE_URL .. "/dash")
+				notify("Link copied. Paste it in Safari.")
+			else
+				notify("Can't copy here: no clipboard function")
+			end
+		end)
 		item("Hide until rejoin", nil, function()
 			holder.Visible = false
 		end)
@@ -3166,6 +3176,346 @@ do
 	table.insert(loopConns, { Disconnect = function()
 		sg:Destroy()
 	end })
+end
+
+
+--------------------------------------------------------------------------------
+-- Bridge v4 kit
+--------------------------------------------------------------------------------
+
+-- Event timeline: died, respawned, got in/out of a seat, popups, errors, kicks, teleports.
+-- Kept across rejoins in a file; new events go to the Worker with the next status poll.
+local EV = genv.BridgeEvents or { list = {}, unsent = {} }
+genv.BridgeEvents = EV
+local EVENT_FILE = "bridge_events.json"
+local function event(kind, text)
+	local e = { t = os.time(), k = kind, x = cleanStr(tostring(text or "")):sub(1, 200) }
+	table.insert(EV.list, e)
+	if #EV.list > 300 then
+		table.remove(EV.list, 1)
+	end
+	table.insert(EV.unsent, e)
+	if #EV.unsent > 60 then
+		table.remove(EV.unsent, 1)
+	end
+end
+B.event = event
+function B.events(n)
+	n = n or 40
+	local out = {}
+	for i = math.max(1, #EV.list - n + 1), #EV.list do
+		local e = EV.list[i]
+		table.insert(out, ("%s  %-9s %s"):format(os.date("%H:%M:%S", e.t), e.k, e.x))
+	end
+	return #out > 0 and table.concat(out, "\n") or "(no events yet)"
+end
+if X.isfile and X.readfile and #EV.list == 0 then
+	pcall(function()
+		if X.isfile(EVENT_FILE) then
+			local saved = HttpService:JSONDecode(X.readfile(EVENT_FILE))
+			for _, e in ipairs(saved) do
+				table.insert(EV.list, e)
+			end
+		end
+	end)
+end
+do
+	local myToken = SESSION
+	EV.token = myToken
+	local function hookChar(char)
+		local hum = char:WaitForChild("Humanoid", 10)
+		if not hum or EV.token ~= myToken then
+			return
+		end
+		table.insert(loopConns, hum.Died:Connect(function()
+			local r = char:FindFirstChild("HumanoidRootPart")
+			event("died", r and ("at %.0f, %.0f, %.0f"):format(r.Position.X, r.Position.Y, r.Position.Z) or "")
+		end))
+		table.insert(loopConns, hum.Seated:Connect(function(on, seat)
+			if on and seat then
+				local m = seat:FindFirstAncestorOfClass("Model")
+				event("seated", m and m.Name or seat.Name)
+			else
+				event("unseated", "")
+			end
+		end))
+		local lowWarned = false
+		table.insert(loopConns, hum.HealthChanged:Connect(function(h)
+			if h > 0 and h < hum.MaxHealth * 0.25 and not lowWarned then
+				lowWarned = true
+				event("lowhealth", ("%.0f / %.0f"):format(h, hum.MaxHealth))
+			elseif h >= hum.MaxHealth * 0.5 then
+				lowWarned = false
+			end
+		end))
+	end
+	if LocalPlayer.Character then
+		task.spawn(hookChar, LocalPlayer.Character)
+	end
+	table.insert(loopConns, LocalPlayer.CharacterAdded:Connect(function(c)
+		event("spawned", "")
+		task.spawn(hookChar, c)
+	end))
+	table.insert(loopConns, LocalPlayer.OnTeleport:Connect(function(state, placeId)
+		if state == Enum.TeleportState.Started then
+			event("teleport", "to place " .. tostring(placeId))
+			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
+		end
+	end))
+	table.insert(loopConns, GuiService.ErrorMessageChanged:Connect(function()
+		local m = GuiService:GetErrorMessage()
+		if m and m ~= "" then
+			event("kicked", m)
+			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
+		end
+	end))
+	event("joined", (gameName or tostring(game.PlaceId)) .. " · server " .. game.JobId:sub(1, 8))
+	-- Popups appearing/closing and stuck detection, checked every 3 s.
+	task.spawn(function()
+		local lastPop = ""
+		local stillSince, lastPos = nil, nil
+		while running and EV.token == myToken do
+			local okP, pops = pcall(function()
+				return B.popups and B.popups() or {}
+			end)
+			local title = (okP and #pops > 0) and pops[1].title or ""
+			if title ~= lastPop then
+				if title ~= "" then
+					event("popup", ('"%s"%s'):format(title, pops[1].paid and " (paid offer)" or ""))
+				else
+					event("popupgone", lastPop)
+				end
+				lastPop = title
+			end
+			-- Stuck: a job is running, I'm trying to move (or driving), but my position isn't changing.
+			local nJobs = 0
+			for _ in pairs(genv.BridgeJobs or {}) do
+				nJobs = nJobs + 1
+			end
+			local vr = myVehicleRoot()
+			local root = vr or (myRoot())
+			local _, ch = myRoot()
+			local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+			local trying = hum and (hum.MoveDirection.Magnitude > 0.1 or (vr and math.abs((vr.Parent and vr.Parent:GetAttribute("Throttle")) or 0) > 0.1))
+			if root and nJobs > 0 and trying then
+				if lastPos and (root.Position - lastPos).Magnitude < 2 then
+					stillSince = stillSince or os.clock()
+					if os.clock() - stillSince > 15 then
+						event("stuck", ("no progress for 15 s at %.0f, %.0f, %.0f"):format(root.Position.X, root.Position.Y, root.Position.Z))
+						stillSince = os.clock() + 45
+					end
+				else
+					stillSince = nil
+				end
+			else
+				stillSince = nil
+			end
+			lastPos = root and root.Position
+			task.wait(3)
+		end
+	end)
+	-- Errors become events too (counted, not every line).
+	local lastCount = #EC.recent
+	task.spawn(function()
+		while running and EV.token == myToken do
+			if #EC.recent > lastCount then
+				local e = EC.recent[#EC.recent]
+				event("error", ("%d new · %s"):format(#EC.recent - lastCount, e.msg:sub(1, 120)))
+				lastCount = #EC.recent
+			end
+			pcall(X.writefile, EVENT_FILE, HttpService:JSONEncode(EV.list))
+			task.wait(10)
+		end
+	end)
+end
+
+-- Metrics: FPS, memory, ping and my own leaderstats every 15 s (plus custom tracks).
+local MT = genv.BridgeMetrics or { tracks = {} }
+genv.BridgeMetrics = MT
+-- B.track("speed", function() return root.AssemblyLinearVelocity.Magnitude end)
+function B.track(name, fn)
+	MT.tracks[name] = fn
+	return "Tracking " .. name
+end
+function B.untrack(name)
+	MT.tracks[name] = nil
+	return "Stopped tracking " .. name
+end
+do
+	local frames, since = 0, os.clock()
+	table.insert(loopConns, RunService.RenderStepped:Connect(function()
+		frames = frames + 1
+	end))
+	function B.sample()
+		local now = os.clock()
+		local fps = frames / math.max(0.001, now - since)
+		frames, since = 0, now
+		local s = { fps = math.floor(fps * 10) / 10, mem = math.floor(Stats:GetTotalMemoryUsageMb()), ping = math.floor(LocalPlayer:GetNetworkPing() * 1000) }
+		local ls = LocalPlayer:FindFirstChild("leaderstats")
+		if ls then
+			for _, v in ipairs(ls:GetChildren()) do
+				if v:IsA("IntValue") or v:IsA("NumberValue") then
+					s["ls:" .. cleanStr(v.Name)] = v.Value
+				elseif v:IsA("StringValue") then
+					local n = tonumber((v.Value:gsub("[,%$%s]", "")))
+					if n then
+						s["ls:" .. cleanStr(v.Name)] = n
+					end
+				end
+			end
+		end
+		for name, fn in pairs(MT.tracks) do
+			local ok, v = pcall(fn)
+			if ok and type(v) == "number" and v == v then
+				s[name] = v
+			end
+		end
+		MT.last = s
+		return s
+	end
+end
+
+-- Camera picture data: rays through a grid of the screen, coloured like the hit surface.
+function B.cameraData(w, h)
+	w, h = w or 160, h or 90
+	local cam = workspace.CurrentCamera
+	local vp = cam.ViewportSize
+	local rp = RaycastParams.new()
+	rp.FilterType = Enum.RaycastFilterType.Exclude
+	rp.FilterDescendantsInstances = {}
+	local sun = game:GetService("Lighting"):GetSunDirection()
+	local terrain = workspace.Terrain
+	local hex = table.create and table.create(h) or {}
+	local maxD = 1500
+	for y = 0, h - 1 do
+		local row = table.create and table.create(w) or {}
+		for x = 0, w - 1 do
+			local ray = cam:ViewportPointToRay((x + 0.5) / w * vp.X, (y + 0.5) / h * vp.Y)
+			local hit = workspace:Raycast(ray.Origin, ray.Direction * maxD, rp)
+			local r, g, b
+			if hit then
+				local c
+				if hit.Instance == terrain then
+					if hit.Material == Enum.Material.Water then
+						c = terrain.WaterColor
+					else
+						local ok, mc = pcall(terrain.GetMaterialColor, terrain, hit.Material)
+						c = ok and mc or Color3.fromRGB(90, 110, 70)
+					end
+				else
+					c = hit.Instance.Color
+					if hit.Instance.Transparency > 0.6 then
+						c = c:Lerp(Color3.fromRGB(150, 180, 210), 0.5)
+					end
+				end
+				local light = 0.45 + 0.55 * math.max(0, hit.Normal:Dot(sun))
+				local fog = math.clamp(hit.Distance / maxD, 0, 1) ^ 1.5
+				r = (c.R * light) * (1 - fog) + 0.62 * fog
+				g = (c.G * light) * (1 - fog) + 0.72 * fog
+				b = (c.B * light) * (1 - fog) + 0.85 * fog
+			else
+				local t = y / h
+				r, g, b = 0.45 + 0.2 * t, 0.62 + 0.15 * t, 0.9
+			end
+			row[x + 1] = string.format("%02x%02x%02x", math.clamp(r * 255, 0, 255), math.clamp(g * 255, 0, 255), math.clamp(b * 255, 0, 255))
+		end
+		hex[y + 1] = table.concat(row)
+		if y % 6 == 5 then
+			task.wait()
+		end
+	end
+	return { w = w, h = h, px = table.concat(hex), vw = math.floor(vp.X), vh = math.floor(vp.Y), ui = B.uiData({ hub = false }) }
+end
+
+-- Script change tracker: hashes of the game's client scripts, and their source for later diffs.
+local function scriptHash(s)
+	local gsh = getfenv(0).getscripthash or genv.getscripthash
+	if gsh then
+		local ok, h = pcall(gsh, s)
+		if ok and h then
+			return tostring(h)
+		end
+	end
+	local gsb = getfenv(0).getscriptbytecode or genv.getscriptbytecode
+	if gsb then
+		local ok, bc = pcall(gsb, s)
+		if ok and type(bc) == "string" then
+			local h = #bc
+			for i = 1, #bc, 7 do
+				h = (h * 31 + bc:byte(i)) % 4294967296
+			end
+			return ("%x-%d"):format(h, #bc)
+		end
+	end
+	return nil
+end
+B.scriptHash = scriptHash
+
+local function gameScripts(filter)
+	filter = filter and filter:lower() or nil
+	local list, seen = {}, {}
+	local function add(s)
+		if typeof(s) == "Instance" and not seen[s] and (s:IsA("LocalScript") or s:IsA("ModuleScript")) then
+			seen[s] = true
+			local p = shortPath(s)
+			if not filter or p:lower():find(filter, 1, true) then
+				table.insert(list, s)
+			end
+		end
+	end
+	if X.getloadedmodules then
+		for _, s in ipairs(X.getloadedmodules()) do
+			add(s)
+		end
+	end
+	if X.getrunningscripts then
+		for _, s in ipairs(X.getrunningscripts()) do
+			add(s)
+		end
+	end
+	return list
+end
+
+function B.scriptHashes(filter)
+	local out = {}
+	for i, s in ipairs(gameScripts(filter)) do
+		local h = scriptHash(s)
+		if h then
+			out[shortPath(s)] = h
+		end
+		if i % 200 == 0 then
+			task.wait()
+		end
+	end
+	return out
+end
+
+-- Sources of scripts (all matching filter, or exact paths), for the Worker to keep or diff.
+function B.scriptSources(filter, paths, maxN)
+	local out, n = {}, 0
+	local targets = {}
+	if paths then
+		for _, p in ipairs(paths) do
+			local s = B.get(p)
+			if s then
+				table.insert(targets, s)
+			end
+		end
+	else
+		targets = gameScripts(filter)
+	end
+	for _, s in ipairs(targets) do
+		if n >= (maxN or 40) then
+			break
+		end
+		local ok, src = pcall(sourceOf, s)
+		if ok and type(src) == "string" then
+			n = n + 1
+			table.insert(out, { path = shortPath(s), hash = scriptHash(s) or "", src = cleanStr(src):sub(1, 150000) })
+		end
+		task.wait()
+	end
+	return out
 end
 
 --------------------------------------------------------------------------------
@@ -3283,6 +3633,41 @@ local function runJob(job)
 		end
 	end
 
+	-- Persistent jobs restart from the top after I die/respawn (and the Worker re-sends them after a rejoin).
+	if job.persist == 1 or job.persist == true then
+		local restarts = 0
+		local conn
+		conn = LocalPlayer.CharacterAdded:Connect(function(char)
+			if entry.stopped or restarts >= 20 then
+				conn:Disconnect()
+				return
+			end
+			restarts = restarts + 1
+			for _, f in ipairs(entry.stopFns) do
+				pcall(f)
+			end
+			entry.stopFns = {}
+			pcall(task.cancel, entry.thread)
+			capture("[restarting after respawn] ", restarts)
+			char:WaitForChild("HumanoidRootPart", 15)
+			task.wait(2)
+			finished = false
+			entry.thread = task.spawn(function()
+				local results = table.pack(xpcall(fn, function(e)
+					return debug.traceback(tostring(e), 2)
+				end))
+				ok = results[1]
+				if not ok then
+					err = results[2]
+				end
+				finished = true
+			end)
+		end)
+		table.insert(entry.stopFns, function()
+			conn:Disconnect()
+		end)
+	end
+
 	local started = tick()
 	while not finished and tick() - started < 5 do
 		task.wait(0.1)
@@ -3345,6 +3730,7 @@ task.spawn(function()
 
 	local lastInfo, lastJob = tick(), 0
 	local res = first
+	local lpFails, lpOff = 0, genv.BRIDGE_NO_LONGPOLL == true
 	while running do
 		if res then
 			for _, job in ipairs(res.jobs or {}) do
@@ -3359,22 +3745,51 @@ task.spawn(function()
 			end
 		end
 
-		-- Poll fast right after Claude sends something, slower when idle.
-		task.wait((tick() - lastJob < 120) and 0.5 or 2)
+		-- Long poll: the Worker holds the request until a job arrives (up to 12 s), so jobs start at once.
+		-- If long polls keep failing, fall back to short polls (fast after a job, slower when idle).
+		if lpOff or not res then
+			task.wait((tick() - lastJob < 120) and 0.5 or 2)
+		else
+			task.wait(0.05)
+		end
 		if not running then
 			break
 		end
 
 		local body = { ping = true, version = LOOP_VERSION, session = SESSION, player = LocalPlayer.Name }
+		if not lpOff then
+			body.wait = 12
+		end
 		if tick() - lastInfo > 15 then
 			body.info = gameInfo()
 			lastInfo = tick()
+			local okS, sample = pcall(B.sample)
+			if okS then
+				body.metrics = sample
+			end
+		end
+		local sentEvents = #EV.unsent
+		if sentEvents > 0 then
+			body.events = EV.unsent
 		end
 		local errs = takeErrors()
 		if errs then
 			body.errors = errs
 		end
 		res = post("poll", body)
+		if res then
+			lpFails = 0
+			if sentEvents > 0 then
+				for _ = 1, sentEvents do
+					table.remove(EV.unsent, 1)
+				end
+			end
+		elseif not lpOff then
+			lpFails = lpFails + 1
+			if lpFails >= 3 then
+				lpOff = true
+			end
+		end
 		if res and errs and res.errorsSaved then
 			confirmErrors(#errs)
 		end
