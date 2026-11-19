@@ -3562,7 +3562,7 @@ function B.scriptHashes(filter)
 		if h then
 			out[shortPath(s)] = h
 		end
-		if i % 200 == 0 then
+		if i % 20 == 0 then
 			task.wait()
 		end
 	end
