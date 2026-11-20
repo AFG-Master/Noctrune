@@ -3177,6 +3177,201 @@ do
 		return table.concat(parts, "\n")
 	end
 
+	-- Chat with Claude: quick replies + text box. Claude's messages pop the panel open.
+	local DEFAULT_REPLIES = { "Done", "Wrong", "Skip", "Try again", "Stop" }
+	local chat = { since = 0, lines = {}, replies = DEFAULT_REPLIES, render = function() end }
+	local function chatFetch()
+		local res = post("chat", { player = LocalPlayer.Name, since = chat.since })
+		if res and type(res.lines) == "table" then
+			for _, l in ipairs(res.lines) do
+				table.insert(chat.lines, l)
+				chat.since = math.max(chat.since, tonumber(l.id) or 0)
+			end
+			while #chat.lines > 40 do
+				table.remove(chat.lines, 1)
+			end
+			return #res.lines > 0
+		end
+		return false
+	end
+	local function chatSend(t)
+		if t == "" then
+			return
+		end
+		if t == "Stop" then
+			B.stopAll("owner said stop in chat")
+		end
+		table.insert(chat.lines, { id = 0, who = "me", text = t, pending = true })
+		chat.render()
+		task.spawn(function()
+			local res = post("inbox", cleanAll({ kind = "chat", text = t, player = LocalPlayer.Name, place = game.PlaceId, game = gameName }))
+			if not (res and res.ok) then
+				notify("Couldn't send, try again")
+			end
+			chatFetch()
+			for i = #chat.lines, 1, -1 do
+				if chat.lines[i].pending then
+					table.remove(chat.lines, i)
+				end
+			end
+			chat.render()
+		end)
+	end
+	local function openChat()
+		if chat.gui and chat.gui.Parent then
+			chat.render()
+			return
+		end
+		local cg = Instance.new("ScreenGui")
+		cg.Name = "BridgeChat"
+		cg.IgnoreGuiInset = true
+		cg.ResetOnSpawn = false
+		cg.DisplayOrder = 1e6
+		cg.Parent = hudParent()
+		chat.gui = cg
+		local f = Instance.new("Frame")
+		f.AnchorPoint = Vector2.new(0.5, 0)
+		f.Position = UDim2.new(0.5, 0, 0, 8)
+		f.Size = UDim2.new(0, 420, 0, 292)
+		f.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+		f.BackgroundTransparency = 0.04
+		f.Parent = cg
+		Instance.new("UICorner", f).CornerRadius = UDim.new(0, 16)
+		local st = Instance.new("UIStroke", f)
+		st.Color = Color3.fromRGB(140, 110, 255)
+		st.Thickness = 1.5
+		local title = Instance.new("TextLabel")
+		title.BackgroundTransparency = 1
+		title.Position = UDim2.new(0, 14, 0, 8)
+		title.Size = UDim2.new(1, -60, 0, 20)
+		title.Font = Enum.Font.GothamBold
+		title.TextSize = 14
+		title.TextColor3 = Color3.fromRGB(170, 150, 255)
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.Text = "CHAT WITH CLAUDE"
+		title.Parent = f
+		local x = cardButton(f, "X", 420 - 44, 6, 36)
+		x.Size = UDim2.new(0, 36, 0, 26)
+		x.TextSize = 14
+		x.Activated:Connect(function()
+			cg:Destroy()
+		end)
+		local list = Instance.new("ScrollingFrame")
+		list.Position = UDim2.new(0, 10, 0, 34)
+		list.Size = UDim2.new(1, -20, 0, 136)
+		list.BackgroundTransparency = 1
+		list.BorderSizePixel = 0
+		list.ScrollBarThickness = 4
+		list.AutomaticCanvasSize = Enum.AutomaticSize.Y
+		list.CanvasSize = UDim2.new()
+		list.Parent = f
+		local lay = Instance.new("UIListLayout", list)
+		lay.Padding = UDim.new(0, 4)
+		lay.SortOrder = Enum.SortOrder.LayoutOrder
+		local quick = Instance.new("Frame")
+		quick.BackgroundTransparency = 1
+		quick.Position = UDim2.new(0, 10, 0, 176)
+		quick.Size = UDim2.new(1, -20, 0, 50)
+		quick.Parent = f
+		local box = Instance.new("TextBox")
+		box.Position = UDim2.new(0, 10, 0, 234)
+		box.Size = UDim2.new(1, -110, 0, 46)
+		box.BackgroundColor3 = Color3.fromRGB(30, 30, 44)
+		box.TextColor3 = Color3.new(1, 1, 1)
+		box.PlaceholderText = "Message Claude..."
+		box.Text = ""
+		box.ClearTextOnFocus = false
+		box.TextWrapped = true
+		box.Font = Enum.Font.Gotham
+		box.TextSize = 15
+		box.Parent = f
+		Instance.new("UICorner", box).CornerRadius = UDim.new(0, 12)
+		local send = cardButton(f, "Send", 420 - 94, 234, 84, Color3.fromRGB(110, 85, 220))
+		send.Activated:Connect(function()
+			local t = box.Text
+			box.Text = ""
+			chatSend(t)
+		end)
+		chat.render = function()
+			if not (cg.Parent and list.Parent) then
+				return
+			end
+			for _, c in ipairs(list:GetChildren()) do
+				if c:IsA("TextLabel") then
+					c:Destroy()
+				end
+			end
+			for i, l in ipairs(chat.lines) do
+				local lbl = Instance.new("TextLabel")
+				lbl.LayoutOrder = i
+				lbl.BackgroundTransparency = 1
+				lbl.Size = UDim2.new(1, -8, 0, 0)
+				lbl.AutomaticSize = Enum.AutomaticSize.Y
+				lbl.Font = l.who == "claude" and Enum.Font.GothamMedium or Enum.Font.Gotham
+				lbl.TextSize = 14
+				lbl.TextWrapped = true
+				lbl.TextXAlignment = l.who == "claude" and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right
+				lbl.TextColor3 = l.who == "claude" and Color3.fromRGB(200, 185, 255) or Color3.fromRGB(235, 235, 240)
+				lbl.Text = (l.who == "claude" and "Claude: " or "") .. tostring(l.text) .. (l.pending and "  ..." or "")
+				lbl.Parent = list
+			end
+			if #chat.lines == 0 then
+				local lbl = Instance.new("TextLabel")
+				lbl.BackgroundTransparency = 1
+				lbl.Size = UDim2.new(1, 0, 0, 40)
+				lbl.Font = Enum.Font.Gotham
+				lbl.TextSize = 14
+				lbl.TextColor3 = Color3.fromRGB(150, 150, 165)
+				lbl.Text = "Messages here go straight to Claude (top priority)."
+				lbl.Parent = list
+			end
+			task.defer(function()
+				list.CanvasPosition = Vector2.new(0, math.max(0, list.AbsoluteCanvasSize.Y - list.AbsoluteSize.Y))
+			end)
+			for _, c in ipairs(quick:GetChildren()) do
+				c:Destroy()
+			end
+			local n = #chat.replies
+			local w = math.floor((400 - (n - 1) * 6) / math.max(n, 1))
+			for i, r in ipairs(chat.replies) do
+				local col = (r == "Done" and Color3.fromRGB(60, 150, 95)) or ((r == "Stop" or r == "Wrong") and Color3.fromRGB(170, 65, 75)) or nil
+				local b = cardButton(quick, r, (i - 1) * (w + 6), 2, w, col)
+				b.TextSize = 14
+				b.TextScaled = #r > 10
+				b.Activated:Connect(function()
+					chat.replies = DEFAULT_REPLIES
+					chatSend(r)
+				end)
+			end
+		end
+		chatFetch()
+		chat.render()
+		task.spawn(function()
+			while running and cg.Parent do
+				task.wait(3)
+				if cg.Parent and chatFetch() then
+					chat.render()
+				end
+			end
+		end)
+	end
+	-- Claude's side: a message (with optional quick replies) opens the chat on screen.
+	function B.chatPush(d)
+		d = type(d) == "table" and d or { text = tostring(d) }
+		if type(d.buttons) == "table" and #d.buttons > 0 then
+			chat.replies = d.buttons
+		end
+		if chat.gui and chat.gui.Parent then
+			chatFetch()
+			chat.render()
+		else
+			openChat()
+		end
+		notify("Claude: " .. tostring(d.text or ""):sub(1, 80))
+		return "shown"
+	end
+	B.openChat = openChat
+
 	openMenu = function()
 		if sg:FindFirstChild("Menu") then
 			sg.Menu:Destroy()
@@ -3189,7 +3384,7 @@ do
 		local m = Instance.new("Frame")
 		m.Name = "Menu"
 		m.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
-		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 346 or 296)
+		m.Size = UDim2.new(0, 200, 0, nJobs > 0 and 396 or 346)
 		local ap = holder.AbsolutePosition
 		local vp = workspace.CurrentCamera.ViewportSize
 		m.Position = UDim2.new(0, math.clamp(ap.X, 4, vp.X - 204), 0, math.clamp(ap.Y + 42, 4, vp.Y - m.Size.Y.Offset - 4))
@@ -3212,7 +3407,10 @@ do
 				B.stopAll("owner tapped stop")
 			end)
 		end
-		item("Note to Claude", Color3.fromRGB(110, 85, 220), function()
+		item("Chat with Claude", Color3.fromRGB(110, 85, 220), function()
+			openChat()
+		end)
+		item("Note to Claude", nil, function()
 			typeCard("Note to Claude (bug, idea, anything). Claude reads these next session.", function(t)
 				if t ~= "" then
 					sendInbox("note", t)
