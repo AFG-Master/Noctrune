@@ -1,5 +1,5 @@
 -- -- NOCTURNE · Cultivation Unbound · protected build. Copying or reselling is not allowed.
-return (function(...) local lI111II1l={};local l1lIIlllIlII={127,102,110,3,93,92,98,153,26,64,178,237,217,82,254,185};local function llIllII1III(l111lllI11I1,l11II111lIll) local lIIllllII=l111lllI11I1..l11II111lIll;local l1lI11IIl1I=lI111II1l[lIIllllII];if l1lI11IIl1I then return l1lI11IIl1I end;l1lI11IIl1I={};for lIl1II1IIII11=1,#l111lllI11I1 do local lIIIlI11I=string.byte(l111lllI11I1,lIl1II1IIII11);l1lI11IIl1I[lIl1II1IIII11]=string.char(bit32.bxor(bit32.bxor(lIIIlI11I,l1lIIlllIlII[((lIl1II1IIII11-1+l11II111lIll)%16)+1]),((lIl1II1IIII11-1)*7+l11II111lIll)%256)) end;l1lI11IIl1I=table.concat(l1lI11IIl1I);lI111II1l[lIIllllII]=l1lI11IIl1I;return l1lI11IIl1I end;
+return (function(...) local lI111llIll1ll={};local llIIl111={30,118,233,151,93,96,140,130,241,93,71,158,241,184,63,174};local function lI1Il1ll(l11I1II1I,l1lIllII) local lIII1IllI1llI=l11I1II1I..l1lIllII;local llllllI11ll1=lI111llIll1ll[lIII1IllI1llI];if llllllI11ll1 then return llllllI11ll1 end;llllllI11ll1={};for l1llII1IIlI1=1,#l11I1II1I do local lIll1ll1lIlI=string.byte(l11I1II1I,l1llII1IIlI1);llllllI11ll1[l1llII1IIlI1]=string.char(bit32.bxor(bit32.bxor(lIll1ll1lIlI,llIIl111[((l1llII1IIlI1-1+l1lIllII)%16)+1]),((l1llII1IIlI1-1)*7+l1lIllII)%256)) end;llllllI11ll1=table.concat(llllllI11ll1);lI111llIll1ll[lIII1IllI1llI]=llllllI11ll1;return llllllI11ll1 end;
 
 
 
@@ -10,21 +10,21 @@ return (function(...) local lI111II1l={};local l1lIIlllIlII={127,102,110,3,93,92
 
 
 
-local l1lI1IlIII=llIllII1III("\129\118\46\23\228\8\69\138\245\231\155\133\198\15\230\96\44\240\191\132\2\176\153\90\89\66\57\85\69\56\129\247\164\13\59\1\176\127\71\164\212\210\169\249\174\200\29\139\205\192\159\185\34\205\247\52\62\56\19\104\114\68\171\8\93\177\181\203\190\16\5\171\168\165\216\158\147\200\55\230\245\39\107",169);
-local function lII1l11IlI1I(lIlII1lllIlIl) 
-return lIlII1lllIlIl .. (llIllII1III("\41\181\56\211",251) .. tostring(math.floor(os.clock() * 1000))) end;
+local lIII1llI111l1=lI1Il1ll("\108\83\141\239\190\121\2\187\149\16\127\213\170\81\77\91\225\245\60\92\56\161\62\139\25\149\253\37\9\134\202\172\9\40\152\249\170\78\128\21\116\229\141\169\194\86\118\48\128\133\92\33\24\220\16\165\254\111\87\216\254\250\224\147\48\20\150\179\228\97\194\26\72\210\188\78\127\150\156\93\184\162\104",89);
+local function l1II1IlIl(l11lII1IlIll) 
+return l11lII1IlIll .. (lI1Il1ll("\154\177\11\70",39) .. tostring(math.floor(os.clock() * 1000))) end;
 
-local l11IlII11=loadstring(game:HttpGet(lII1l11IlI1I(l1lI1IlIII)))();
+local lllIlIllII=loadstring(game:HttpGet(l1II1IlIl(lIII1llI111l1)))();
 
-local ll11I1lIlI1I1=game:GetService(llIllII1III("\79\198\131\100\106\108\7",77));
-local lIl1l11ll=game:GetService(llIllII1III("\80\58\228\172\132\10\221\132\74\85\99\18\94\93\121\127\247",24));
-local lI1llI1l11=game:GetService(llIllII1III("\128\250\10\99\88\203\122\41\28\4",200));
-local ll1IlIlll1lI=game:GetService(llIllII1III("\183\107\210\135\101\55\109\252\95\2\240\224\246\132\204\192\1",150));
-local l11l1111l=ll11I1lIlI1I1.LocalPlayer;
-local lII1I11lll111=lIl1l11ll:WaitForChild(llIllII1III("\12\36\60\50\120\121\89\140\27\64\170\213\43\188\2\84\172",48),30);
-local l1I1lIl111lll,l1l1l11IIlIl=l11IlII11.Flags,l11IlII11.Options;
+local lIII1I1lI1I1=game:GetService(lI1Il1ll("\141\231\100\150\51\75\204",44));
+local lIll1lII=game:GetService(lI1Il1ll("\195\61\75\209\165\92\104\136\144\235\139\191\98\25\120\240\100",63));
+local lIlIl111lII1=game:GetService(lI1Il1ll("\102\130\191\103\88\69\230\250\38\118",163));
+local l11I1llII1=game:GetService(lI1Il1ll("\189\254\107\14\196\0\242\250\134\44\50\214\183\245\20\132\43",224));
+local lII1I1l1lIII=lIII1I1lI1I1.LocalPlayer;
+local llIlllI1IllIl=lIll1lII:WaitForChild(lI1Il1ll("\183\130\69\59\20\133\28\176\254\110\22\238\235\237\231\151\55",169),30);
+local lIlII111,lI1l1Il11l1l=lllIlIllII.Flags,lllIlIllII.Options;
 
-local l1lIl1II111Il=l11IlII11:CreateWindow({Name=llIllII1III("\231\13\89\115\2\160\228\32",233),Tag=llIllII1III("\11\185\157\9\161\242\26\25\21\117\83\59\121\130\4\108\141\210\229",250),ConfigFolder=llIllII1III("\93\225\185\90\39\5\130\50\111\214\197\239\182\221\218\231\0\128",135),Theme=llIllII1III("\39\8\67\164\63\101\130\237",52),SplashText=llIllII1III("\226\75\100\154\215\237\84\182\149\124\119\158\225\185\164\182\87\219\155\46\123\125\225\73\19\247\239",55)});
+local ll11lllllllI1=lllIlIllII:CreateWindow({Name=lI1Il1ll("\170\200\26\107\56\177\3\177",185),Tag=lI1Il1ll("\22\158\25\72\54\175\193\23\12\239\255\235\73\65\147\232\176\21\129",237),ConfigFolder=lI1Il1ll("\119\130\189\64\84\65\241\231\44\124\63\154\55\130\28\144\234\35",163),Theme=lI1Il1ll("\32\110\244\102\164\129\120\70",112),SplashText=lI1Il1ll("\185\224\185\175\100\5\126\183\66\221\167\89\53\249\216\24\12\112\198\155\200\149\203\72\196\86\63",119)});
 
 
 
@@ -32,260 +32,260 @@ local l1lIl1II111Il=l11IlII11:CreateWindow({Name=llIllII1III("\231\13\89\115\2\1
 
 
 if getgenv then 
-getgenv().NOCTURNE_CU={UI=l11IlII11,Flags=l1I1lIl111lll,Options=l1l1l11IIlIl} end;
+getgenv().NOCTURNE_CU={UI=lllIlIllII,Flags=lIlII111,Options=lI1l1Il11l1l} end;
 
-local function llI11I1l() 
-return l11IlII11.Window == l1lIl1II111Il end;
-
-
+local function llI1I11l11() 
+return lllIlIllII.Window == ll11lllllllI1 end;
 
 
 
-local ll1ll1IlII1II={qi=0,layers=0,kills=0,killSilver=0,herbs=0,chests=0,orbs=0,orbQi=0,quests=0,coins=0,breaks=0,silver0=l11l1111l:GetAttribute(llIllII1III("\35\69\143\179\161\192",142)) or 0,t0=os.clock()};
 
-local llII11l1lIl1={last={},busy=false,resting=false,skip=setmetatable({},{__mode=llIllII1III("\221",91)}),status=llIllII1III("\117\30\177\190",114)};
 
-local function ll11111lI1IIl() 
-local llI1IIIlllll=l11l1111l.Character;
-local l1lII1lll1I=llI1IIIlllll and llI1IIIlllll:FindFirstChildOfClass(llIllII1III("\6\177\200\63\112\76\58\146",215));
-local lllllIIl1l11=llI1IIIlllll and llI1IIIlllll:FindFirstChild(llIllII1III("\17\34\29\225\84\8\245\188\183\126\219\156\119\88\122\26",4));
-if (l1lII1lll1I and lllllIIl1l11) and (l1lII1lll1I.Health > 0) then 
-return llI1IIIlllll,l1lII1lll1I,lllllIIl1l11 end;
+local l11llIII1I1={qi=0,layers=0,kills=0,killSilver=0,herbs=0,chests=0,orbs=0,orbQi=0,quests=0,coins=0,breaks=0,silver0=lII1I1l1lIII:GetAttribute(lI1Il1ll("\189\232\123\228\52\1",240)) or 0,t0=os.clock()};
 
-return nil end;
+local ll11lII111l1l={last={},busy=false,resting=false,skip=setmetatable({},{__mode=lI1Il1ll("\82",100)}),status=lI1Il1ll("\76\255\105\201",157)};
 
-local function lIlIll1l() 
-local l1I11Il1I,l1lIIlIll111I=ll11111lI1IIl();
-return (l1lIIlIll111I and (l1lIIlIll111I.Health / math.max(1,l1lIIlIll111I.MaxHealth))) or 0 end;
-
-local function lI1I1Il1lIl() 
-local l11lIlll=l11l1111l.Character;
-if not l11lIlll then 
-return nil end;
-
-local l1llIII1IIll1,lllIlIIll11=l11lIlll:FindFirstChild(llIllII1III("\70\98\93\227\181\166\140\89\198\134\106\55",112)),l11lIlll:FindFirstChild(llIllII1III("\119\199\165\123\93\123\234\72\1\204\251",167));
-if l1llIII1IIll1 and l1llIII1IIll1.Value then 
-return llIllII1III("\51\118",88) end;
-
-if lllIlIIll11 and lllIlIIll11.Value then 
-return llIllII1III("\178\227\39\92",46) end;
+local function llI11I1I1() 
+local lllIll11=lII1I1l1lIII.Character;
+local l11llll1l=lllIll11 and lllIll11:FindFirstChildOfClass(lI1Il1ll("\41\189\198\108\18\192\240\232",207));
+local lIll11III1=lllIll11 and lllIll11:FindFirstChild(lI1Il1ll("\252\194\4\110\211\92\212\96\5\174\215\31\13\169\187\215",233));
+if (l11llll1l and lIll11III1) and (l11llll1l.Health > 0) then 
+return lllIll11,l11llll1l,lIll11III1 end;
 
 return nil end;
 
-local function lIIll1II() 
-local lI11l1111l=l11l1111l.Character;
-local llIl1l1I=lI11l1111l and lI11l1111l:FindFirstChild(llIllII1III("\234\198\133\167\4\151\246\33\62\32\93\111\116",249));
-if llIl1l1I and lI1I1Il1lIl() then 
-llIl1l1I:Fire();
+local function lllIIIIl() 
+local l11IlIII1,l1I1l1Il=llI11I1I1();
+return (l1I1l1Il and (l1I1l1Il.Health / math.max(1,l1I1l1Il.MaxHealth))) or 0 end;
+
+local function ll1l1l11lll1() 
+local lII1lll1111I1=lII1I1l1lIII.Character;
+if not lII1lll1111I1 then 
+return nil end;
+
+local l1III11I1,lI1II11l111ll=lII1lll1111I1:FindFirstChild(lI1Il1ll("\67\124\40\163\129\94\53\110\245\2\188\194",134)),lII1lll1111I1:FindFirstChild(lI1Il1ll("\39\114\199\103\162\155\127\77\62\167\129",112));
+if l1III11I1 and l1III11I1.Value then 
+return lI1Il1ll("\69\94",105) end;
+
+if lI1II11l111ll and lI1II11l111ll.Value then 
+return lI1Il1ll("\59\157\149\90",168) end;
+
+return nil end;
+
+local function l1Ill1lIII() 
+local lll1lllllI11I=lII1I1l1lIII.Character;
+local llIIIIlI11l1I=lll1lllllI11I and lll1lllllI11I:FindFirstChild(lI1Il1ll("\74\95\177\171\210\79\69\159\228\77\212\75\227",68));
+if llIIIIlI11l1I and ll1l1l11lll1() then 
+llIIIIlI11l1I:Fire();
 task.wait(0.35) end end;
 
 
-local function l1ll1lIlll(ll111II1) 
-local lllI111l=l11l1111l.Character;
-local ll1I1Il1=lllI111l and lllI111l:FindFirstChild(llIllII1III("\198\117\197\170\99\74\109\18\173\190\134\97\206\130",76));
-if ll1I1Il1 and (lI1I1Il1lIl() ~= ll111II1) then 
-if lI1I1Il1lIl() then 
-lIIll1II() end;
+local function ll11II1ll1lI(lI1l1I11) 
+local lI1Il11I1II=lII1I1l1lIII.Character;
+local llll11llIlIl1=lI1Il11I1II and lI1Il11I1II:FindFirstChild(lI1Il1ll("\134\219\89\89\153\200\76\219\85\225\157\44\72\138",87));
+if llll11llIlIl1 and (ll1l1l11lll1() ~= lI1l1I11) then 
+if ll1l1l11lll1() then 
+l1Ill1lIII() end;
 
-ll1I1Il1:Fire(ll111II1) end end;
+llll11llIlIl1:Fire(lI1l1I11) end end;
 
 
 
-local function lI1I11lIl1Il(ll1IlIII) 
-local l111IIlIIlI,lI11l11l111ll,l11lIII1=ll11111lI1IIl();
-if not l11lIII1 then 
+local function lIlll1I11Ill(lII111I1I111l) 
+local lI1ll11lII1I,l1IIII11III,lII1IIII=llI11I1I1();
+if not lII1IIII then 
 return false end;
 
-if lI1I1Il1lIl() then 
-lIIll1II() end;
+if ll1l1l11lll1() then 
+l1Ill1lIII() end;
 
-l11lIII1.AssemblyLinearVelocity=Vector3.zero;
-l11lIII1.CFrame=((typeof(ll1IlIII) == llIllII1III("\74\164\200\230\90\247",73)) and ll1IlIII) or CFrame.new(ll1IlIII);
+lII1IIII.AssemblyLinearVelocity=Vector3.zero;
+lII1IIII.CFrame=((typeof(lII111I1I111l) == lI1Il1ll("\238\157\39\190\11\108",92)) and lII111I1I111l) or CFrame.new(lII111I1I111l);
 return true end;
 
-local function lIlIIIII1ll(l1Il1II1Ill1) 
-if not (l1Il1II1Ill1 and l1Il1II1Ill1.Enabled) then 
+local function l1lllI1l(l111lII1Il1) 
+if not (l111lII1Il1 and l111lII1Il1.Enabled) then 
 return false end;
 
-l1Il1II1Ill1:InputHoldBegin();
-task.wait(l1Il1II1Ill1.HoldDuration + 0.35);
-l1Il1II1Ill1:InputHoldEnd();
+l111lII1Il1:InputHoldBegin();
+task.wait(l111lII1Il1.HoldDuration + 0.35);
+l111lII1Il1:InputHoldEnd();
 return true end;
 
-local function l1IllllI11I1(llII11llI1l,llIll1ll) 
-if llII11llI1l and getconnections then 
-for lI1IlIl1I,ll1llII1lII1l in ipairs(getconnections(llII11llI1l[llIll1ll or llIllII1III("\163\11\176\77\27\1\134\34\98\166\181\155\139\227\236\225\21",119)])) do 
-task.spawn(pcall,ll1llII1lII1l.Function) end end end;
+local function lIIl1IIll(lI1I11111l,l1111111I) 
+if lI1I11111l and getconnections then 
+for lIllI111I,lIlI11lII in ipairs(getconnections(lI1I11111l[l1111111I or lI1Il1ll("\136\208\125\104\152\217\188\51\165\247\149\76\79\147\160\95\94",71)])) do 
+task.spawn(pcall,lIlI11lII.Function) end end end;
 
 
 
 
 
-if lII1I11lll111 then 
-lII1I11lll111.UpdateClient.OnClientEvent:Connect(function(l1lIl1II) 
-if type(l1lIl1II) ~= llIllII1III("\152\235\175\167\153",130) then 
+if llIlllI1IllIl then 
+llIlllI1IllIl.UpdateClient.OnClientEvent:Connect(function(llIl1I1IlIl11) 
+if type(llIl1I1IlIl11) ~= lI1Il1ll("\5\154\32\121\230",78) then 
 return  end;
 
-local lI1llll1l1=llII11l1lIl1.last;
-if lI1llll1l1.qi and l1lIl1II.qi then 
-if ((l1lIl1II.layer or 0) > (lI1llll1l1.layer or 0)) or ((l1lIl1II.realm or 0) > (lI1llll1l1.realm or 0)) then 
-ll1ll1IlII1II.layers=ll1ll1IlII1II.layers + 1;
-ll1ll1IlII1II.qi=(ll1ll1IlII1II.qi + math.max(0,(lI1llll1l1.maxQi or 0) - lI1llll1l1.qi)) + l1lIl1II.qi elseif l1lIl1II.qi > lI1llll1l1.qi then 
+local l1Il1lllllI1l=ll11lII111l1l.last;
+if l1Il1lllllI1l.qi and llIl1I1IlIl11.qi then 
+if ((llIl1I1IlIl11.layer or 0) > (l1Il1lllllI1l.layer or 0)) or ((llIl1I1IlIl11.realm or 0) > (l1Il1lllllI1l.realm or 0)) then 
+l11llIII1I1.layers=l11llIII1I1.layers + 1;
+l11llIII1I1.qi=(l11llIII1I1.qi + math.max(0,(l1Il1lllllI1l.maxQi or 0) - l1Il1lllllI1l.qi)) + llIl1I1IlIl11.qi elseif llIl1I1IlIl11.qi > l1Il1lllllI1l.qi then 
 
-ll1ll1IlII1II.qi=ll1ll1IlII1II.qi + (l1lIl1II.qi - lI1llll1l1.qi) end end;
-
-
-llII11l1lIl1.last=l1lIl1II end);
-
-lII1I11lll111.NpcKillSilver.OnClientEvent:Connect(function(lII111II11) 
-if type(lII111II11) == llIllII1III("\88\78\214\108\43\243",219) then 
-ll1ll1IlII1II.kills=ll1ll1IlII1II.kills + 1;
-ll1ll1IlII1II.killSilver=ll1ll1IlII1II.killSilver + lII111II11 end end);
+l11llIII1I1.qi=l11llIII1I1.qi + (llIl1I1IlIl11.qi - l1Il1lllllI1l.qi) end end;
 
 
-lII1I11lll111.OrbBonusGranted.OnClientEvent:Connect(function(l111I1l11) 
-ll1ll1IlII1II.orbs=ll1ll1IlII1II.orbs + 1;
-ll1ll1IlII1II.orbQi=ll1ll1IlII1II.orbQi + (tonumber(l111I1l11) or 0) end);
+ll11lII111l1l.last=llIl1I1IlIl11 end);
 
-lII1I11lll111.QuestRewardToast.OnClientEvent:Connect(function() 
-ll1ll1IlII1II.quests=ll1ll1IlII1II.quests + 1 end);
-
-lII1I11lll111.CoinCollected.OnClientEvent:Connect(function() 
-ll1ll1IlII1II.coins=ll1ll1IlII1II.coins + 1 end) end;
+llIlllI1IllIl.NpcKillSilver.OnClientEvent:Connect(function(llI1I1IIlIlI1) 
+if type(llI1I1IIlIlI1) == lI1Il1ll("\5\107\160\149\119\85",130) then 
+l11llIII1I1.kills=l11llIII1I1.kills + 1;
+l11llIII1I1.killSilver=l11llIII1I1.killSilver + llI1I1IIlIlI1 end end);
 
 
+llIlllI1IllIl.OrbBonusGranted.OnClientEvent:Connect(function(l1I1lll11) 
+l11llIII1I1.orbs=l11llIII1I1.orbs + 1;
+l11llIII1I1.orbQi=l11llIII1I1.orbQi + (tonumber(l1I1lll11) or 0) end);
+
+llIlllI1IllIl.QuestRewardToast.OnClientEvent:Connect(function() 
+l11llIII1I1.quests=l11llIII1I1.quests + 1 end);
+
+llIlllI1IllIl.CoinCollected.OnClientEvent:Connect(function() 
+l11llIII1I1.coins=l11llIII1I1.coins + 1 end) end;
 
 
 
 
-local llIlllIlIll1I=l1lIl1II111Il:Tab({Name=llIllII1III("\175\134\210\61",180),Icon=llIllII1III("\161\77\23\34",137),Hint=llIllII1III("\69\67\115\238\4\68\249\226\239\137\56\40\64\172\103\22\234\189",186)});
-local llIllIIll=l1lIl1II111Il:Tab({Name=llIllII1III("\10\11\214\68\24\252\179\235\122",21),Icon=llIllII1III("\144\135\226\175",129),Hint=llIllII1III("\167\64\23\42\10\64\65\155\50\180\183\92\43\18\136\50\110\203\196\207\191\215\198",79)});
-local l1IlIl11l1I=l1lIl1II111Il:Tab({Name=llIllII1III("\184\43\118\213\202\204",173),Icon=llIllII1III("\217\205\193\187\228",192),Hint=llIllII1III("\17\11\248\98\18\182\226\140\7\223\129\89\76\34\68\80\70\119\116\227",5)});
-local lII11ll1l11=l1lIl1II111Il:Tab({Name=llIllII1III("\248\55\127\84\35\129",233),Icon=llIllII1III("\145\199\33\115\182",232),Hint=llIllII1III("\248\235\255\99\37\217\210\158\17\174\162\79\74\73\53\113\93\125",245)});
-local l1ll1lllIl=l1lIl1II111Il:Tab({Name=llIllII1III("\155\180\188\163\225\224\202\12",176),Icon=llIllII1III("\70\10\232\181\237\118\222\148",40),Hint=llIllII1III("\247\131\3\100\106\11\82\75\129\102\235",78)});
-local l1llllll=l1lIl1II111Il:Tab({Name=llIllII1III("\219\32\40\73",47),Icon=llIllII1III("\52\62\3\227",4),Hint=llIllII1III("\93\35\245\0\9\119\43\55\100\213\64\31\208\193\241\113\210\189\96",238)});
-local lIIlI1lI1I1=l1lIl1II111Il:Tab({Name=llIllII1III("\187\233\197\73\225\170\156\158",90),Hint=llIllII1III("\135\69\168\238\4\20\86\219\48\56\235\12\23\50\33\38\50\221\77\30",182),Settings=true});
-
-local l1llI1lII=llIlllIlIll1I:Section(llIllII1III("\106\107\153\19\168\85\12",101));
-local ll11lI1l1=l1llI1lII:Paragraph(llIllII1III("\165\143\26\186\253",27),llIllII1III("\129\52\150\246\119\58\55\83\124\99\88\169\20\64\252\247\203\241\0\71\199\138\188\207\155\147\142",12));
 
 
+local lI1I11l11I1l1=ll11lllllllI1:Tab({Name=lI1Il1ll("\177\0\106\166",129),Icon=lI1Il1ll("\226\224\136\35",6),Hint=lI1Il1ll("\73\168\163\87\1\103\130\236\38\80\4\172\101\208\226\96\230\54",147)});
+local l1111I11I111=ll11lllllllI1:Tab({Name=lI1Il1ll("\29\68\203\182\104\117\135\135\236",64),Icon=lI1Il1ll("\3\214\255\16",227),Hint=lI1Il1ll("\212\9\93\43\62\32\245\158\137\59\231\94\42\200\187\103\93\162\142\238\75\87\146",229)});
+local l1I1IlIIIl=ll11lllllllI1:Tab({Name=lI1Il1ll("\222\83\69\139\16\65",104),Icon=lI1Il1ll("\3\183\36\129\234",221),Hint=lI1Il1ll("\70\4\133\208\2\127\150\160\209\119\98\183\230\255\109\180\241\152\9\113",16)});
+local l1IlIlI111l=ll11lllllllI1:Tab({Name=lI1Il1ll("\68\133\100\8\184\172",117),Icon=lI1Il1ll("\221\185\34\65\138",160),Hint=lI1Il1ll("\159\212\82\1\197\224\86\226\151\54\113\241\176\228\108\229\58\66",208)});
+local lIlIll11llI=ll11lllllllI1:Tab({Name=lI1Il1ll("\177\62\169\9\127\6\98\167",93),Icon=lI1Il1ll("\209\186\4\30\173\212\155\19",39),Hint=lI1Il1ll("\42\192\233\230\23\154\61\69\238\140\72",42)});
+local lll11lI1ll1=ll11lllllllI1:Tab({Name=lI1Il1ll("\38\119\190\148",130),Icon=lI1Il1ll("\144\194\86\236",12),Hint=lI1Il1ll("\52\36\200\222\220\127\103\191\141\186\59\187\70\108\23\110\187\154\93",36)});
+local l11I1I1I1IlI1=ll11lllllllI1:Tab({Name=lI1Il1ll("\20\180\220\111\68\182\190\224",49),Hint=lI1Il1ll("\4\160\206\14\57\232\166\205\36\83\145\246\190\99\73\241\145\24\107\158",33),Settings=true});
+
+local lll11lIl1=lI1I11l11I1l1:Section(lI1Il1ll("\234\119\98\176\252\188\35",72));
+local lIII1I1l=lll11lIl1:Paragraph(lI1Il1ll("\206\11\120\35\186",218),lI1Il1ll("\17\74\250\245\93\104\38\170\52\108\19\148\226\24\105\211\219\239\108\100\237\216\173\54\179\28\37",199));
 
 
-local l1lIllI11=15;
+
+
+local l111ll11IlI=15;
 do 
-local lI1lIIlll=llIlllIlIll1I:Section(llIllII1III("\50\30\60\204\122\102\137\202\228",36));
-lI1lIIlll:Toggle({Name=llIllII1III("\147\245\205\65\88\85\158\143\173",106),Description=llIllII1III("\78\208\223\201\248\218\195\247\28\157\101\211\145\161\92\180\249\58\40\10\63\102\113\106\151\26\21\255\91\115\176\18\83\189\184\250\215\241\181\215\56\161\215\39\62\80\36\159\216\14\87\106\73\27\69\86\182\49\53\136\239\192\87\227\181\141\203\136\240\134\129\186\67\132\241\22\91\35\192\115\36\255\254\24\40\46\38\33\219\68\1\253\142\187\101\199\149\109\110\104\88\183\188\134\125\164\132\108\59\67\231\94\4\198\204\228\200\206\210\3\231\61\123\142\143\157\26\230\241\92\74\74\55\81\21\125\156\68\163\87\13\55\128\120\54\135\190\220\173\253\165\242\18\149\204\43\156\160\111\198\208\48\39\54\89\120\112\64\189\100\74\172\190\206\182\4\85\129\154\164\220\156\203",191),Flag=llIllII1III("\36\14\49\51\99\110",48)});
-lI1lIIlll:Segmented({Name=llIllII1III("\244\150\159\189\67\168\254",163),Flag=llIllII1III("\251\152\137\171\68\203\152\2\85",147),Options={llIllII1III("\235\228\105\237",75),llIllII1III("\29\133\209\46\42\45",13),llIllII1III("\154\243\213\69",106)},Default=llIllII1III("\107\72\148\120",116)});
-lI1lIIlll:Toggle({Name=llIllII1III("\234\220\249\16\58\42\201\155\173\81\167\252\53\54\70\41\108\117\32\149\4\82\161\1\48\178",228),Description=llIllII1III("\214\77\12\242\253\251\135\131\45\15\248\103\4\238\177\207\9\219\128\13\94\108\11\69\76\62\99\255\164\88\82\13\154\43\110\208\143\150\160\236\206\224\74\135\52\219\144\171\60\243",205),Flag=llIllII1III("\227\243\226\124\206\129",58),Default=true});
+local llIl1IIII=lI1I11l11I1l1:Section(lI1Il1ll("\15\238\237\8\77\102\213\49\244",211));
+llIl1IIII:Toggle({Name=lI1Il1ll("\46\233\253\135\92\14\196\181\228",5),Description=lI1Il1ll("\241\123\101\176\181\182\59\178\236\136\71\111\174\161\9\81\38\145\242\115\82\10\169\47\135\239\55\163\100\83\229\215\172\22\2\131\218\157\77\146\8\116\245\155\1\144\113\122\7\165\205\19\36\119\221\19\166\196\23\20\208\224\2\230\138\38\113\241\189\234\121\255\51\17\211\170\100\35\149\150\251\84\164\97\69\66\254\100\203\177\35\33\177\155\48\2\106\198\212\17\213\219\68\195\77\113\166\208\4\3\178\187\219\109\86\157\165\162\202\70\247\200\89\18\176\189\79\99\78\247\240\51\122\61\237\56\108\81\129\235\50\55\213\157\233\44\100\165\192\145\125\183\2\96\238\119\163\128\58\3\47\155\157\79\84\20\136\5\141\177\104\16\129\14\227\225\138\42\0\221\177\240\83",72),Flag=lI1Il1ll("\74\215\138\56\78\142",143)});
+llIl1IIII:Segmented({Name=lI1Il1ll("\9\222\171\240\108\231\41",26),Flag=lI1Il1ll("\162\164\90\74\51\141\156\47\78",148),Options={lI1Il1ll("\216\100\247\47",45),lI1Il1ll("\54\24\218\188\152\0",41),lI1Il1ll("\22\248\197\60",195)},Default=lI1Il1ll("\251\228\10\19",228)});
+llIl1IIII:Toggle({Name=lI1Il1ll("\6\72\8\175\105\157\246\118\252\119\2\224\239\184\30\20\192\193\209\10\151\37\126\236\129\84",203),Description=lI1Il1ll("\252\55\15\116\222\218\18\215\193\74\199\91\58\173\211\67\67\161\163\139\93\77\158\241\160\155\92\227\154\59\16\129\176\81\45\86\172\183\53\120\34\165\117\123\10\152\242\39\54\137",213),Flag=lI1Il1ll("\96\33\222\246\20\226",226),Default=true});
 
-local llIlll1l111=llIlllIlIll1I:Section(llIllII1III("\223\160\70\80\27\152\62\109\159\137\212\179\237\218\248\7\144\203\157",136));
-llIlll1l111:Toggle({Name=llIllII1III("\117\19\35\237\62\117\185\176",138),Description=llIllII1III("\48\241\98\62\224\171\155\17\179\220\71\90\20\22\93\86\52\138\251\170\82\17\10\129\112\120\162\215\195\183\241\163\229\26\138\155\219\141\165\41\147\188\58\33\116\53\124\103\92\228\10\67\165\180\56\160\2\77\207\229\176\218\128\141\132\32\166\254\112\106\76\221\116\156\28\27\17",6),Flag=llIllII1III("\2\56\70\177\56\122",52)});
-llIlll1l111:Dropdown({Name=llIllII1III("\88\245\167\67\110\4\139\35\116\220",135),Flag=llIllII1III("\114\141\253\223\66\240\95",89),Options={llIllII1III("\180\154\21\170\231\53\3\65\49\106\77",27),llIllII1III("\187\201\237\121\241\162\106\105\131\248\237\168\157\81\198\128",74),llIllII1III("\25\114\88\218\144\209\25\24",234)},Default=llIllII1III("\43\6\78\180\35\99\204\235\212\76\244",52)});
-llIlll1l111:Toggle({Name=llIllII1III("\208\233\158\199\197\70\240\103\42\225",225),Description=llIllII1III("\35\8\73\190\57\55\152\224\208\1\243\87\133\133\156\190\155\152\163\83\250\225\21\95\109\197\52\63\239\252\6\46\32\51\96\195\90\22\251\198\230\33\140\153\100\97\125\16\249\148\159\114\202\148\121\120\54\254\66\13\213\220\225\137\199\142",52),Flag=llIllII1III("\143\75\249\180\98\40\13\167\47\15\192",134)});
-llIlll1l111:Toggle({Name=llIllII1III("\199\222\95\17\30\147\159\157\195\156",107),Description=llIllII1III("\148\15\71\173\188\254\192\139\252\142\45\161\204\63\37\92\143\149\197\3\95\44\72\28\10\53\250\37\97\202\197\215\86\230\167\221\137\159\230\174\144\160\77\142\161\41\86\96\255\105\114\227\240\28\105\50\37\94\210\89\5\249\242\183\107\207\145\105\106\122\78\3\232\222\42\232\136\110\49\79\141\86\29\206\212\235\128\159\137\174\186\116\48\199\147\152\26\227\174\29\86\81\33\35\90\111\132\64\178\78\11\35\163\122\115\185\171\207\167\248\167\158\62\159\212\57\50\145\16\190\130\46\59\49\68\67\124\88\175\50\88\250\224\198\72\90\83\153\139\175\199\152\211\254\41\164\227\5\92\88\159\105\35\16\31\94\121\44\27\61\138\67\96\148\130\252\123\243\190\97\63\129\234\182\228\141\82\223\133\42\43\112\234\4",141),Flag=llIllII1III("\137\224\214\140\162\42\183",248)});
-llIlll1l111:Toggle({Name=llIllII1III("\88\37\231\0\68\103\43\39\33\198\14\15\152\193\169\98\210\179\102\123\112",238),Description=llIllII1III("\254\207\9\252\111\119\202\169\135\12\173\150\80\9\65\49\76\23\99\148\251\169\88\88\48\159\48\109\181\190\218\161\252\233\228\80\136\210\32\135\162\97\144\240\50\105\53\81\123\55\24\185\21\82\174\184\198\185\21\90\134\154\188\203\155\199\207\62\166\238\64\40\76\206\113\152\4\29\25\103\89\17\34\207\32\98\146\152\241\89\241\186\98\48\198\174\132\168\162\67\138\148\109\70\50\245\4\42\242\232\251\150\121\46\31\245\22\71\254\173\145\49\220\129\83\74\40\1\71\75\153\48\230\182\66\44\16\133\100\25\195\137\217\188\214\194\228\64\44\103\207\140\176\21\167\168\35\60\77\62\41\110\110\208\30\82\191\28\38\239\68\87\163\161\189\204\185\231\220\33\131\194\46\107\5\60\149\209\71\10\45\75\73\30\79\165\106\98\130\236\208\83\164\76\159\140\216\243\152\135\254",244),Flag=llIllII1III("\252\201\137\53\53\19\240",241)});
-llIlll1l111:Slider({Name=llIllII1III("\29\247\186\131\15\226\143\91\83\83\46\27\69\126\135\184\174\80\21\50\153\54",25),Flag=llIllII1III("\155\243\7\32\52\70\13",14),Min=3,Max=12,Increment=1,Default=6,Suffix=llIllII1III("\166\74\95",63)});
-llIlll1l111:Toggle({Name=llIllII1III("\212\181\156\189\22\219\152\23\86\100\229",147),Description=llIllII1III("\228\133\140\173\85\252\244\9\67\73\155\121\43\224\19\13\126\103\85\39\217\94\24\214\194\234\102\255\185\116\51\102\232\182\163\218\96\213\158\114\37\50\187\89\6\196\237\162\153\211\125\3\229\44\46\254\163\138\31\214\155\85",163),Flag=llIllII1III("\238\110\240\186\102\110",92),Default=true});
-llIlll1l111:Slider({Name=llIllII1III("\178\249\32\33\116\32\112\127\91\179",30),Description=llIllII1III("\86\58\248\165\157\6\206\132\92\17\68\9\17\92\121\126\247\187\93\80\28\151\40\32\210\196\196\191\245\222\252\13\145\159\193\142\185\32\176\176\39\52\49\42\116\107",24),Flag=llIllII1III("\51\67\83\200\139\192\35\13",234),Min=15,Max=80,Increment=5,Default=35,Suffix=llIllII1III("\80",172)});
-llIlll1l111:Slider({Name=llIllII1III("\150\5\181\230\35\121\76\39\122\115\97\158\9\82",28),Description=llIllII1III("\49\24\39\128\60\102\142\152\227\67\251\165\39\109\128\235\233\179\161\66\205\146\120\8\97\238\4\43\227\232\246\154\121\127\29\245\73\19\188\186\128\49\193\134\67\92\122\78\24\18\201",36),Flag=llIllII1III("\139\232\222\238\7\114\41\233\144\157",227),Min=3,Max=13,Increment=1,Default=6,Suffix=llIllII1III("\70\234\255",223)}) end;
+local lI1l1l1IIIlI=lI1I11l11I1l1:Section(lI1Il1ll("\211\158\5\34\167\162\84\94\105\202\245\54\73\6\173\40\156\245\62",128));
+lI1l1l1IIIlI:Toggle({Name=lI1Il1ll("\48\176\219\215\15\146\8\112",58),Description=lI1Il1ll("\33\102\45\90\217\127\17\129\199\87\37\219\157\195\120\118\229\253\180\46\171\5\128\17\36\179\160\86\74\34\148\163\52\77\5\255\34\153\239\121\231\119\24\224\189\160\25\7\205\147\133\7\156\96\114\240\150\70\205\36\121\15\165\141\21\55\105\154\73\190\198\77\0\151\254\26\24",235),Flag=lI1Il1ll("\129\176\227\71\183\122",102)});
+lI1l1l1IIIlI:Dropdown({Name=lI1Il1ll("\19\66\19\178\105\135\235\112\230\50",203),Flag=lI1Il1ll("\158\79\86\51\137\141\68",149),Options={lI1Il1ll("\37\144\230\31\36\204\153\208\117\122\185",17),lI1Il1ll("\183\130\69\59\20\133\28\176\248\115\88\200\252\229\249\144",169),lI1Il1ll("\104\117\119\124\9\175\171\94",116)},Default=lI1Il1ll("\159\234\107\139\63\77\159\169\88\102\142",44)});
+lI1l1l1IIIlI:Toggle({Name=lI1Il1ll("\162\4\135\16\123\185\130\76\150\115",77),Description=lI1Il1ll("\62\216\248\26\14\215\36\59\224\243\230\96\235\76\87\133\166\104\114\151\205\225\73\164\125\23\1\232\97\213\173\117\61\227\145\39\45\118\199\221\22\211\153\110\202\104\54\171\132\36\78\182\189\212\101\3\166\236\183\218\91\245\138\18\90\222",227),Flag=lI1Il1ll("\190\240\79\68\159\231\93\245\78\251\152",87)});
+lI1l1l1IIIlI:Toggle({Name=lI1Il1ll("\229\18\85\171\237\197\108\76\150\232",51),Description=lI1Il1ll("\128\219\8\39\193\231\201\102\120\223\254\182\36\182\189\142\91\97\138\169\2\85\33\241\238\36\9\18\169\99\157\229\130\242\40\87\244\198\175\3\20\177\222\217\73\160\14\114\235\157\253\137\109\101\0\159\129\15\33\110\141\16\234\133\127\27\222\227\23\227\199\110\108\143\249\255\96\231\41\29\217\162\82\100\137\146\233\242\237\63\73\67\248\110\203\170\78\119\161\151\43\8\104\142\222\254\151\151\90\199\83\49\183\142\124\83\182\182\206\85\3\207\205\168\220\80\170\163\4\106\205\164\70\40\77\174\248\9\124\37\176\115\120\20\156\174\28\51\214\214\174\117\55\239\218\147\43\172\4\106\75\125\172\154\98\7\48\129\159\44\25\20\136\29\218\238\111\7\49\11\162\248\131\27\64\220\161\232\13\195\51\66\254\208",34),Flag=lI1Il1ll("\182\96\59\123\230\112\177",154)});
+lI1l1l1IIIlI:Toggle({Name=lI1Il1ll("\124\94\141\234\29\198\83\224\178\51\24\159\181\45\105\68\246\200\12\113\41",105),Description=lI1Il1ll("\147\111\104\136\136\167\70\162\103\14\72\241\110\144\186\58\33\183\194\32\60\121\212\147\16\157\213\74\203\103\33\170\209\9\69\228\175\194\108\76\130\163\181\215\76\176\142\26\86\215\249\77\82\66\226\179\38\123\48\189\56\131\7\128\246\103\46\202\193\190\76\35\172\204\148\127\186\4\98\236\52\177\131\123\103\50\158\211\81\91\20\157\28\233\189\37\41\200\3\247\173\132\33\13\146\183\161\13\140\49\64\221\212\78\126\129\209\87\178\166\113\115\121\230\109\211\147\74\42\235\248\68\1\102\206\39\240\135\129\126\253\16\34\183\187\98\69\244\235\183\67\71\144\23\66\143\93\229\182\53\4\142\207\100\57\66\243\215\6\45\97\112\221\120\6\135\148\7\61\213\196\210\98\96\229\254\176\54\249\19\150\0\36\190\174\81\13\50\142\231\48\81\65\171\33\149\163\120\245\39\95",83),Flag=lI1Il1ll("\213\142\50\76\133\198\52",160)});
+lI1l1l1IIIlI:Slider({Name=lI1Il1ll("\161\22\65\219\81\160\166\43\64\130\211\100\57\79\229\131\18\113\46\74\199\116",123),Flag=lI1Il1ll("\225\208\129\35\21\195\169",6),Min=3,Max=12,Increment=1,Default=6,Suffix=lI1Il1ll("\13\40\161",220)});
+lI1l1l1IIIlI:Toggle({Name=lI1Il1ll("\160\245\56\72\77\148\40\149\247\126\6",185),Description=lI1Il1ll("\17\93\217\220\30\43\192\88\212\122\75\186\217\14\41\163\171\159\32\118\146\233\172\103\181\249\150\28\107\154\233\72\93\46\246\171\43\66\42\163\50\193\171\154\244\42\23\140\204\171\72\18\174\155\154\15\148\25\111\245\137\187",215),Flag=lI1Il1ll("\250\68\198\199\66\49",174),Default=true});
+lI1l1l1IIIlI:Slider({Name=lI1Il1ll("\23\118\34\187\121\130\22\137\235\48",219),Description=lI1Il1ll("\109\110\146\158\1\181\187\127\30\59\225\112\134\186\78\60\236\207\23\75\96\196\221\187\144\206\65\230\66\56\171\207\106\11\171\181\229\83\69\203\229\94\212\83\227\141",100),Flag=lI1Il1ll("\54\224\171\242\122\231\18\77",26),Min=15,Max=80,Increment=5,Default=35,Suffix=lI1Il1ll("\187",128)});
+lI1l1l1IIIlI:Slider({Name=lI1Il1ll("\58\47\175\165\197\42\125\146\238\191\36\65\245\156",52),Description=lI1Il1ll("\185\20\181\181\101\7\215\191\236\253\138\43\69\195\169\234\33\159\51\87\212\147\65\47\142\144\85\165\161\102\63\123\177\51\207\192\80\50\165\221\15\79\112\200\33\242\147\143\16\190\27",206),Flag=lI1Il1ll("\126\212\102\168\222\87\36\204\227\6",173),Min=3,Max=13,Increment=1,Default=6,Suffix=lI1Il1ll("\74\28\113",230)}) end;
 
 
-local function llIII1IIl11I(ll1Illl1lI) 
-if ((not ll1Illl1lI:IsA(llIllII1III("\50\165\230\88\67",45))) or ll11I1lIlI1I1:GetPlayerFromCharacter(ll1Illl1lI)) or ll1Illl1lI:GetAttribute(llIllII1III("\44\226\98\1\203\213\233\137\204\213",188)) then 
+local function l11II1Il(lI1I1lIl) 
+if ((not lI1I1lIl:IsA(lI1Il1ll("\152\36\177\249\147",109))) or lIII1I1lI1I1:GetPlayerFromCharacter(lI1I1lIl)) or lI1I1lIl:GetAttribute(lI1Il1ll("\152\235\173\20\96\147\168\91\80\61",127)) then 
 return nil end;
 
-if ll1Illl1lI:GetAttribute(llIllII1III("\92\242\115\55\229\229\252\188\54\36\3",204)) then 
-return llIllII1III("\142\29\88\123\227\64\53\230\228",185) end;
+if lI1I1lIl:GetAttribute(lI1Il1ll("\228\28\94\40\75\207\110\47\164\205\30",234)) then 
+return lI1Il1ll("\243\200\11\115\41\161\194\103\20",217) end;
 
-if ll1Illl1lI:GetAttribute(llIllII1III("\113\15\3\162\43\103",138)) then 
-return llIllII1III("\226\83\128\134",126) end;
+if lI1I1lIl:GetAttribute(lI1Il1ll("\152\235\185\18\127\140",127)) then 
+return lI1Il1ll("\22\216\226\7",227) end;
 
-if ll1Illl1lI:GetAttribute(llIllII1III("\127\154\185\171\198\139\140\214",143)) or ll1Illl1lI:GetAttribute(llIllII1III("\128\180\131\69\198\131\101\94\116\245\75\42",148)) then 
-return llIllII1III("\51\187\247",199) end;
+if lI1I1lIl:GetAttribute(lI1Il1ll("\39\114\213\115\191\151\127\87",112)) or lI1I1lIl:GetAttribute(lI1Il1ll("\144\152\93\110\61\142\128\93\44\15\154\13",132)) then 
+return lI1Il1ll("\72\175\179",69) end;
 
 return nil end;
 
-local function l1lllI1IIIII(l11IIlIlI1,lI11111IIllI) 
-local l1I1lll1I=llIII1IIl11I(l11IIlIlI1);
-if not l1I1lll1I then 
+local function lI11I11llI(l1IIllIIllII,lIIl1ll1l) 
+local llIllIl1l11=l11II1Il(l1IIllIIllII);
+if not llIllIl1l11 then 
 return false end;
 
-local l1IIIIll111l=l11IIlIlI1:FindFirstChildOfClass(llIllII1III("\70\241\136\127\48\12\250\82",151));
-if not ((l1IIIIll111l and (l1IIIIll111l.Health > 0)) and l11IIlIlI1:FindFirstChild(llIllII1III("\55\191\239\92\65\81\61\103\107\97\133\20\145\91\16\59",45))) then 
+local l1llIIlIl=l1IIllIIllII:FindFirstChildOfClass(lI1Il1ll("\45\245\252\138\18\0\216\163",5));
+if not ((l1llIIlIl and (l1llIIlIl.Health > 0)) and l1IIllIIllII:FindFirstChild(lI1Il1ll("\125\58\245\234\35\68\48\179\19\135\228\153\204\46\11\216",183))) then 
 return false end;
 
-local lI1I11I11=l1I1lIl111lll.k_targets or llIllII1III("\252\91\1\230",39);
-if (lI1I11I11 == llIllII1III("\200\94\246\187",92)) and (l1I1lll1I ~= llIllII1III("\4\8\66",52)) then 
+local lll1l11I1IIlI=lIlII111.k_targets or lI1Il1ll("\167\240\92\83",103);
+if (lll1l11I1IIlI == lI1Il1ll("\164\180\44\56",180)) and (llIllIl1l11 ~= lI1Il1ll("\4\173\131",152)) then 
 return false end;
 
-if (lI1I11I11 == llIllII1III("\212\38\40\89\45\124",47)) and (l1I1lll1I == llIllII1III("\65\37\111",66)) then 
+if (lll1l11I1IIlI == lI1Il1ll("\55\96\43\56\232\152",247)) and (llIllIl1l11 == lI1Il1ll("\132\180\44",180)) then 
 return false end;
 
-if ((l1I1lIl111lll.k_safe ~= false) and (l1I1lll1I ~= llIllII1III("\225\38\41\70\44\109\106\113\141",47))) and ((tonumber(l11IIlIlI1:GetAttribute(llIllII1III("\115\22\166\197\236\101\241",56))) or 0) > ((llII11l1lIl1.last.realm or 1) + 8)) then 
+if ((lIlII111.k_safe ~= false) and (llIllIl1l11 ~= lI1Il1ll("\124\17\223\251\22\229\146\61\46",226))) and ((tonumber(l1IIllIIllII:GetAttribute(lI1Il1ll("\180\26\99\202\88\236\190",123))) or 0) > ((ll11lII111l1l.last.realm or 1) + 8)) then 
 return false end;
 
 return true end;
 
 
-local lIII1Illl1l1,l1IIlllIl1lII={},0;
-local function lll1I1l1ll11I() 
-if (os.clock() - l1IIlllIl1lII) > 3 then 
-l1IIlllIl1lII=os.clock();
-lIII1Illl1l1={};
-for lIl11I1l1,lIIIII11 in ipairs({llIllII1III("\123\83\4\51\174\22\89\180\186\166",121),llIllII1III("\230\164\24\92\142\143\169\218\134\149\227\49\167\231\31",124),llIllII1III("\241\54\57\54\92\93\122\65\189",31)}) do 
-local ll11l11lI111=workspace:FindFirstChild(lIIIII11);
-if ll11l11lI111 then 
-for l1l1IIl1lIIII,l1l111lIl111 in ipairs(ll11l11lI111:GetDescendants()) do 
-if l1l111lIl111:IsA(llIllII1III("\153\75\186\238\12",182)) and l1l111lIl111:FindFirstChildOfClass(llIllII1III("\132\223\128\138\178\51\191\247",162)) then 
-table.insert(lIII1Illl1l1,l1l111lIl111) end end end end end;
+local l11I11II1ll,l11I1I1lI1l={},0;
+local function lIIl11II() 
+if (os.clock() - l11I1I1lI1l) > 3 then 
+l11I1I1lI1l=os.clock();
+l11I11II1ll={};
+for llI1I1ll,ll11Ill1I1llI in ipairs({lI1Il1ll("\239\14\103\35\80\215\73\12\166\206",234),lI1Il1ll("\102\42\132\143\52\77\8\147\30\138\216\124\1\47\26",167),lI1Il1ll("\233\190\53\78\133\225\41\32\90",160)}) do 
+local l1I1111II1l=workspace:FindFirstChild(ll11Ill1I1llI);
+if l1I1111II1l then 
+for llI1Ill1llII,l11I1IIllII in ipairs(l1I1111II1l:GetDescendants()) do 
+if l11I1IIllII:IsA(lI1Il1ll("\216\140\197\122\229",11)) and l11I1IIllII:FindFirstChildOfClass(lI1Il1ll("\221\154\21\10\195\164\144\19",23)) then 
+table.insert(l11I11II1ll,l11I1IIllII) end end end end end;
 
 
 
 
 
-return lIII1Illl1l1 end;
+return l11I11II1ll end;
 
 
 
 
 
 do 
-local ll111I1ll11ll={};
+local ll1l1IIl={};
 pcall(function() 
-ll111I1ll11ll=require(lIl1l11ll:WaitForChild(llIllII1III("\228\201\161\233\224\242\38\129\212\219\132\176",193),10)) end);
+ll1l1IIl=require(lIll1lII:WaitForChild(lI1Il1ll("\86\0\149\137\76\63\45\158\12\161\197\106",151),10)) end);
 
-local function llIlIllIl() 
-local l1II1l1lI1=l11l1111l.Character;
-local l1Ill1l1lllI=l1II1l1lI1 and l1II1l1lI1:FindFirstChild(llIllII1III("\123\197\128\103\94\99\230\66\49\252\234\234\151\49",167));
-if l1Ill1l1lllI and (l1Ill1l1lllI.Value ~= llIllII1III("",223)) then 
-return (ll111I1ll11ll.SWORD_GAP_MAX or 0.56) + 0.02 end;
+local function lIlII1IIII() 
+local lIII1l1lI=lII1I1l1lIII.Character;
+local l1II111I=lIII1l1lI and lIII1l1lI:FindFirstChild(lI1Il1ll("\17\230\196\61\45\103\213\215\50\150\208\95\214\110",195));
+if l1II111I and (l1II111I.Value ~= lI1Il1ll("",239)) then 
+return (ll1l1IIl.SWORD_GAP_MAX or 0.56) + 0.02 end;
 
-return (ll111I1ll11ll.FIST_GAP or 0.48) + 0.02 end;
+return (ll1l1IIl.FIST_GAP or 0.48) + 0.02 end;
 
 task.spawn(function() 
-local lIlIII111l1I=1;
-while llI11I1l() do 
-local lll111I1=false;
-if (l1I1lIl111lll.k_aura or l1I1lIl111lll.k_farm) and lII1I11lll111 then 
-local l1lII1Il1lI,l1lllIIl,l1lII1lIIII11=ll11111lI1IIl();
-if l1lII1lIIII11 then 
-for llllIIIIII1l,l111IIll11 in ipairs(lll1I1l1ll11I()) do 
-if l1lllI1IIIII(l111IIll11,true) and ((l111IIll11.HumanoidRootPart.Position - l1lII1lIIII11.Position).Magnitude <= l1lIllI11) then 
-lII1I11lll111.CombatHit:FireServer(l111IIll11,lIlIII111l1I);
-lll111I1=true end end end end;
+local lIlIllIlIl1l=1;
+while llI1I11l11() do 
+local l1IlI11ll1lI1=false;
+if (lIlII111.k_aura or lIlII111.k_farm) and llIlllI1IllIl then 
+local ll111lIIl1I,lllll111I1,ll1lI1III1Il=llI11I1I1();
+if ll1lI1III1Il then 
+for lI1I1l111IIII,l1lllII111 in ipairs(lIIl11II()) do 
+if lI11I11llI(l1lllII111,true) and ((l1lllII111.HumanoidRootPart.Position - ll1lI1III1Il.Position).Magnitude <= l111ll11IlI) then 
+llIlllI1IllIl.CombatHit:FireServer(l1lllII111,lIlIllIlIl1l);
+l1IlI11ll1lI1=true end end end end;
 
 
 
 
-if lll111I1 then 
-llII11l1lIl1.lastHit=os.clock();
-if lIlIII111l1I >= (ll111I1ll11ll.MAX_COMBO or 4) then 
-lIlIII111l1I=1;
-task.wait((ll111I1ll11ll.STRING_COOLDOWN or 1.2) + 0.05) else 
+if l1IlI11ll1lI1 then 
+ll11lII111l1l.lastHit=os.clock();
+if lIlIllIlIl1l >= (ll1l1IIl.MAX_COMBO or 4) then 
+lIlIllIlIl1l=1;
+task.wait((ll1l1IIl.STRING_COOLDOWN or 1.2) + 0.05) else 
 
-lIlIII111l1I=lIlIII111l1I + 1;
-task.wait(llIlIllIl()) end else 
+lIlIllIlIl1l=lIlIllIlIl1l + 1;
+task.wait(lIlII1IIII()) end else 
 
 
 task.wait(0.1) end end end) end;
@@ -295,111 +295,111 @@ task.wait(0.1) end end end) end;
 
 
 task.spawn(function() 
-while llI11I1l() do 
-if (((l1I1lIl111lll.k_block and (l1I1lIl111lll.k_aura or l1I1lIl111lll.k_farm)) and lII1I11lll111) and ll11111lI1IIl()) and (not llII11l1lIl1.resting) then 
-lII1I11lll111.BlockState:FireServer(true);
-llII11l1lIl1.blocking=true elseif llII11l1lIl1.blocking then 
+while llI1I11l11() do 
+if (((lIlII111.k_block and (lIlII111.k_aura or lIlII111.k_farm)) and llIlllI1IllIl) and llI11I1I1()) and (not ll11lII111l1l.resting) then 
+llIlllI1IllIl.BlockState:FireServer(true);
+ll11lII111l1l.blocking=true elseif ll11lII111l1l.blocking then 
 
-llII11l1lIl1.blocking=false;
-if lII1I11lll111 then 
-lII1I11lll111.BlockState:FireServer(false) end end;
+ll11lII111l1l.blocking=false;
+if llIlllI1IllIl then 
+llIlllI1IllIl.BlockState:FireServer(false) end end;
 
 
 task.wait(0.25) end end);
 
 
 
-local llI1I11l=Vector3.new(- 310,12,298);
-local function l111lII111l1(ll11l1IlIII) 
-local lI11IlI1=l1I1lIl111lll.k_where or llIllII1III("\106\45\31\153\33\112\155\206\221\183\205",154);
-local llll111l1l11,l11l11IlI1lI;
-for l1Illl1II1I,lI1I1I1IIl in ipairs(lll1I1l1ll11I()) do 
-local lIIl11Ill11I=llIII1IIl11I(lI1I1I1IIl);
-local lIII1lIIlll1I=(lI1I1I1IIl:FindFirstAncestor(llIllII1III("\164\170\37\186\247\37\16\51\45\103",11)) and llIllII1III("\2\29\221\209\221\150\149\208\245\9\110",190)) or ((lI1I1I1IIl:FindFirstAncestor(llIllII1III("\156\180\172\194\136\233\201\60\173\237\23\97\64\217\143",160)) and llIllII1III("\234\235\246\100\56\220\147\139\16\184\162\94\78\83\36\112",245)) or llIllII1III("\65\166\169\198\172\175\231\237\13\135",175));
-local l1Il11ll=((lIIl11Ill11I == llIllII1III("\1\20\137\34\106\163\204\209\163",155)) and l1I1lIl111lll.k_worldBoss) or ((lIIl11Ill11I ~= llIllII1III("\151\216\223\246\2\126\34\213\133",227)) and ((lI11IlI1 == llIllII1III("\199\87\82\77\48\90\71\119",63)) or (lI11IlI1 == lIII1lIIlll1I)));
-if (l1Il11ll and l1lllI1IIIII(lI1I1I1IIl)) and ((not llII11l1lIl1.skip[lI1I1I1IIl]) or (os.clock() > llII11l1lIl1.skip[lI1I1I1IIl])) then 
-local l1Illlll11Ill=lI1I1I1IIl.HumanoidRootPart.Position;
-local lIlIl111II1I1=(l1Illlll11Ill - ll11l1IlIII.Position).Magnitude;
+local ll1III11=Vector3.new(- 310,12,298);
+local function l11l1llI11(lI1lI1IllI) 
+local lIIll111=lIlII111.k_where or lI1Il1ll("\213\96\22\207\244\252\169\128\37\10\201",225);
+local l1Il1IIl1l1I,l11II1I11lllI;
+for ll11lII1II1Il,lIlIIIIllIIll in ipairs(lIIl11II()) do 
+local lIIlIll11l=l11II1Il(lIlIIIIllIIll);
+local l1I11lI11I=(lIlIIIIllIIll:FindFirstAncestor(lI1Il1ll("\87\145\111\31\165\171\66\54\120\251",117)) and lI1Il1ll("\217\143\179\131\107\99\77\157\140\66\57",114)) or ((lIlIIIIllIIll:FindFirstAncestor(lI1Il1ll("\55\2\197\187\148\5\156\48\120\243\187\74\112\120\122",41)) and lI1Il1ll("\119\130\189\64\84\65\241\231\42\97\113\172\56\141\3\150",163)) or lI1Il1ll("\194\140\211\115\237\16\33\186\167\100",11));
+local lIll111Il1ll=((lIIlIll11l == lI1Il1ll("\98\0\138\135\73\41\22\132\18",151)) and lIlII111.k_worldBoss) or ((lIIlIll11l ~= lI1Il1ll("\6\151\233\113\8\61\6\239\230",223)) and ((lIIll111 == lI1Il1ll("\96\230\146\58\84\138\171\41",143)) or (lIIll111 == l1I11lI11I)));
+if (lIll111Il1ll and lI11I11llI(lIlIIIIllIIll)) and ((not ll11lII111l1l.skip[lIlIIIIllIIll]) or (os.clock() > ll11lII111l1l.skip[lIlIIIIllIIll])) then 
+local lIllllIl1l1=lIlIIIIllIIll.HumanoidRootPart.Position;
+local ll1IlI1llll1=(lIllllIl1l1 - lI1lI1IllI.Position).Magnitude;
 
-for l111IlIll,llIIl1II11 in ipairs(lll1I1l1ll11I()) do 
-if ((llIIl1II11 ~= lI1I1I1IIl) and l1lllI1IIIII(llIIl1II11)) and ((llIIl1II11.HumanoidRootPart.Position - l1Illlll11Ill).Magnitude < (l1lIllI11 - 3)) then 
-lIlIl111II1I1=lIlIl111II1I1 - 150 end end;
-
-
-if lIIl11Ill11I == llIllII1III("\162\46\150\244\51\43\55\77\106",12) then 
-lIlIl111II1I1=lIlIl111II1I1 - 100000 end;
-
-if (not l11l11IlI1lI) or (lIlIl111II1I1 < l11l11IlI1lI) then 
-llll111l1l11,l11l11IlI1lI=lI1I1I1IIl,lIlIl111II1I1 end end end;
+for ll11111Il,ll1I11ll1I1l in ipairs(lIIl11II()) do 
+if ((ll1I11ll1I1l ~= lIlIIIIllIIll) and lI11I11llI(ll1I11ll1I1l)) and ((ll1I11ll1I1l.HumanoidRootPart.Position - lIllllIl1l1).Magnitude < (l111ll11IlI - 3)) then 
+ll1IlI1llll1=ll1IlI1llll1 - 150 end end;
 
 
+if lIIlIll11l == lI1Il1ll("\42\208\171\251\109\241\53\78\200",26) then 
+ll1IlI1llll1=ll1IlI1llll1 - 100000 end;
 
-return llll111l1l11 end;
-
-local function lI11l1l1IIIlI() 
-local l1lllIIlIII=l11l1111l.Character;
-local lI1llII1llI=l1lllIIlIII and l1lllIIlIII:FindFirstChild(llIllII1III("\218\91\23\244\255\238\145\199\14\11\235\112\14\244",205));
-if ((l1I1lIl111lll.k_draw ~= false) and lI1llII1llI) and (lI1llII1llI.Value == llIllII1III("",20)) then 
-local l11IIl111I=l11l1111l.PlayerGui:FindFirstChild(llIllII1III("\15\112\182\233\193\76\49\95\153\148\157\195\159\155\159\45\187",88));
-local l1lII1lII1=l11IIl111I and l11IIl111I:FindFirstChild(llIllII1III("\61\37\17\247\24\114\136\204\234\95",36));
-if l1lII1lII1 then 
-l1IllllI11I1(l1lII1lII1) end end end;
+if (not l11II1I11lllI) or (ll1IlI1llll1 < l11II1I11lllI) then 
+l1Il1IIl1l1I,l11II1I11lllI=lIlIIIIllIIll,ll1IlI1llll1 end end end;
 
 
 
-local function l1Ill1I1llIl() 
-local lIIlIl1Il,ll1111llIl111,lII1llIl=ll11111lI1IIl();
-if not lII1llIl then 
+return l1Il1IIl1l1I end;
+
+local function llI1llII() 
+local llllIl1II1II=lII1I1l1lIII.Character;
+local l1I11IlI=llllIl1II1II and llllIl1II1II:FindFirstChild(lI1Il1ll("\79\126\16\175\149\71\36\107\214\14\179\213\92\24",134));
+if ((lIlII111.k_draw ~= false) and l1I11IlI) and (l1I11IlI.Value == lI1Il1ll("",248)) then 
+local l1IllI1lII=lII1I1l1lIII.PlayerGui:FindFirstChild(lI1Il1ll("\12\135\233\132\240\42\52\195\211\186\5\30\179\207\174\18\152",239));
+local llII1IIlI1IlI=l1IllI1lII and l1IllI1lII:FindFirstChild(lI1Il1ll("\65\178\176\220\158\186\101\19\74\245",101));
+if llII1IIlI1IlI then 
+lIIl1IIll(llII1IIlI1IlI) end end end;
+
+
+
+local function l1llI1lllII11() 
+local ll111l11IllI1,ll1IIllI,llIlIl1Il1lI1=llI11I1I1();
+if not llIlIl1Il1lI1 then 
 return false end;
 
-if (lIlIll1l() < ((l1I1lIl111lll.k_restHp or 35) / 100)) or (llII11l1lIl1.resting and (lIlIll1l() < 0.9)) then 
-llII11l1lIl1.resting=true;
-if (lII1llIl.Position - llI1I11l).Magnitude > 30 then 
-lI1I11lIl1Il(llI1I11l) end;
+if (lllIIIIl() < ((lIlII111.k_restHp or 35) / 100)) or (ll11lII111l1l.resting and (lllIIIIl() < 0.9)) then 
+ll11lII111l1l.resting=true;
+if (llIlIl1Il1lI1.Position - ll1III11).Magnitude > 30 then 
+lIlll1I11Ill(ll1III11) end;
 
 return false end;
 
-llII11l1lIl1.resting=false;
-local lII1II1l1III=l111lII111l1(lII1llIl);
-if not lII1II1l1III then 
+ll11lII111l1l.resting=false;
+local lllII1I1IlI1l=l11l1llI11(llIlIl1Il1lI1);
+if not lllII1I1IlI1l then 
 return false end;
 
-llII11l1lIl1.busy,llII11l1lIl1.status=true,llIllII1III("\169\176\162\171\248\225\223\88",176) .. lII1II1l1III.Name;
-lI11l1l1IIIlI();
-local l1I1III1111l,l11lIlIlll=lII1II1l1III:FindFirstChildOfClass(llIllII1III("\33\43\183\49\127\133\219\219",53)),lII1II1l1III.HumanoidRootPart;
-local llIlllI1IlI1,lIl1lIll1=os.clock(),l1I1III1111l.Health;
-while (((llI11I1l() and l1I1lIl111lll.k_farm) and (l1I1III1111l.Health > 0)) and lII1II1l1III.Parent) and (lIlIll1l() >= ((l1I1lIl111lll.k_restHp or 35) / 100)) do 
-local lIlllI1lI1llI=l11lIlIlll.CFrame * CFrame.new(0,2,math.clamp(l1I1lIl111lll.k_standOff or 6,3,13));
-local l1111I11l1,l1IIIIlIl1IlI,lII1Il1Il1I=ll11111lI1IIl();
-if not lII1Il1Il1I then 
+ll11lII111l1l.busy,ll11lII111l1l.status=true,lI1Il1ll("\51\78\202\198\4\101\222\23",215) .. lllII1I1IlI1l.Name;
+llI1llII();
+local ll1lllIIII11,llI1Il1I=lllII1I1IlI1l:FindFirstChildOfClass(lI1Il1ll("\239\68\37\218\227\23\16\151",209)),lllII1I1IlI1l.HumanoidRootPart;
+local ll1IIII1lI,llIIl1lIlI=os.clock(),ll1lllIIII11.Health;
+while (((llI1I11l11() and lIlII111.k_farm) and (ll1lllIIII11.Health > 0)) and lllII1I1IlI1l.Parent) and (lllIIIIl() >= ((lIlII111.k_restHp or 35) / 100)) do 
+local l1l1l11l1=llI1Il1I.CFrame * CFrame.new(0,2,math.clamp(lIlII111.k_standOff or 6,3,13));
+local l1I1IllI1I1ll,l11Ill11,l1l1ll1II=llI11I1I1();
+if not l1l1ll1II then 
 break end;
 
-if l1I1lIl111lll.k_under then 
+if lIlII111.k_under then 
 
-for llll111Il,lI111lI1Il1lI in ipairs(l1111I11l1:GetDescendants()) do 
-if lI111lI1Il1lI:IsA(llIllII1III("\30\91\110\126\124\173\52\87",50)) then 
-lI111lI1Il1lI.CanCollide=false end end;
-
-
-lII1Il1Il1I.Anchored=true;
-lII1Il1Il1I.CFrame=CFrame.new(l11lIlIlll.Position - Vector3.new(0,math.clamp(l1I1lIl111lll.k_depth or 6,3,12),0));
-llII11l1lIl1.under=true elseif (lII1Il1Il1I.Position - l11lIlIlll.Position).Magnitude > (l1lIllI11 - 3) then 
-
-lI1I11lIl1Il(CFrame.lookAt(lIlllI1lI1llI.Position,l11lIlIlll.Position)) end;
+for l1Il1I1IIll11,l11l11ll1II in ipairs(l1I1IllI1I1ll:GetDescendants()) do 
+if l11l11ll1II:IsA(lI1Il1ll("\207\90\198\90\214\136\61\78",124)) then 
+l11l11ll1II.CanCollide=false end end;
 
 
-if ((os.clock() - llIlllI1IlI1) > 8) and (l1I1III1111l.Health >= lIl1lIll1) then 
-llII11l1lIl1.skip[lII1II1l1III]=os.clock() + 60;
+l1l1ll1II.Anchored=true;
+l1l1ll1II.CFrame=CFrame.new(llI1Il1I.Position - Vector3.new(0,math.clamp(lIlII111.k_depth or 6,3,12),0));
+ll11lII111l1l.under=true elseif (l1l1ll1II.Position - llI1Il1I.Position).Magnitude > (l111ll11IlI - 3) then 
+
+lIlll1I11Ill(CFrame.lookAt(l1l1l11l1.Position,llI1Il1I.Position)) end;
+
+
+if ((os.clock() - ll1IIII1lI) > 8) and (ll1lllIIII11.Health >= llIIl1lIlI) then 
+ll11lII111l1l.skip[lllII1I1IlI1l]=os.clock() + 60;
 break end;
 
 task.wait(0.1) end;
 
-if llII11l1lIl1.under then 
-llII11l1lIl1.under=false;
-local lI1lI1IIIIIlI,llII11ll,llllIl11Illl1=ll11111lI1IIl();
-if llllIl11Illl1 then 
-llllIl11Illl1.CFrame=CFrame.new(l11lIlIlll.Position + Vector3.new(0,4,0));
-llllIl11Illl1.Anchored=false end end;
+if ll11lII111l1l.under then 
+ll11lII111l1l.under=false;
+local lllll1lll1I,l1IlI1I1I,l111l1II=llI11I1I1();
+if l111l1II then 
+l111l1II.CFrame=CFrame.new(llI1Il1I.Position + Vector3.new(0,4,0));
+l111l1II.Anchored=false end end;
 
 
 return true end;
@@ -409,85 +409,85 @@ return true end;
 
 
 do 
-local l111Ill111lIl=llIllIIll:Section(llIllII1III("\0\214\63\98\142\221\215\82",54));
-l111Ill111lIl:Toggle({Name=llIllII1III("\169\249\197\82\168\167\142\129\136\243\139\154\184\73",90),Description=llIllII1III("\123\9\198\245\247\210\220\204\17\180\122\41\241\173\135\12\174\155\19\66\93\22\93\19\96\140\251\235\71\21\20\144\119\127\227\202\211\188\165\206\225\16\135\207\209\144\172\101\207\188\3\32\39\42\56\102\68\183\94\3\176\245\44\166\21\95\195\178\172\219\137\134\132\50\175\233\61\109\71\194\41",206),Flag=llIllII1III("\177\208\16\66\92\208\98",200)});
-l111Ill111lIl:Segmented({Name=llIllII1III("\176\102\239\178\126",134),Flag=llIllII1III("\74\120\144\113\254\191",116),Options={llIllII1III("\95\237",151),llIllII1III("\252\91\17\247",39),llIllII1III("\201\192\229\120\218\138\122\121\121",58)},Default=llIllII1III("\21\221",38)});
-l111Ill111lIl:Slider({Name=llIllII1III("\117\168\10\78\178\250\56\161\21\12\134\179\161\192\156",86),Flag=llIllII1III("\170\125\27\43\131",137),Min=1,Max=30,Increment=1,Default=5,Suffix=llIllII1III("\9\115\115\254",117)});
-l111Ill111lIl:Toggle({Name=llIllII1III("\228\149\252\195\56\236\244\56\38\95\195\155\158\19\22\1\84\87\23\53\200\57",179),Description=llIllII1III("\152\207\129\142\172\51\164\231\27\44\69\210\40\48\19\8\92\121\21\20\63\201\72\35\130\211\239\104\184\182\110\123\131\248\168\235\136\78\215\154\102\69\127\250\8\76\225\226\242\159\46\123\1\249\106\23\241\172\141\20\152\135\91\88\105\14\4",162),Flag=llIllII1III("\92\213\184\146\129\155\192\179",109)});
-local l1I1lllIl1I,l111Il1IIl={},{};
-for l11l1llIIIl,l1llIlI1l in ipairs((workspace:FindFirstChild(llIllII1III("\74\75\150\4\88\188\243\43\182\5\76\135\160\176\209\144",85)) or Instance.new(llIllII1III("\102\24\1\62\195\46",35))):GetChildren()) do 
-table.insert(l1I1lllIl1I,l1llIlI1l.Name) end;
+local lllIII11=l1111I11I111:Section(lI1Il1ll("\81\33\112\230\119\201\221\66",155));
+lllIII11:Toggle({Name=lI1Il1ll("\212\5\245\148\108\60\244\187\225\98\227\61\75\220",245),Description=lI1Il1ll("\62\245\196\171\31\95\216\216\128\75\129\14\126\240\142\74\139\103\49\28\149\155\89\103\113\147\0\236\200\104\29\214\178\3\161\148\59\49\161\154\240\111\252\40\94\205\165\35\42\192\161\254\175\167\60\18\85\232\37\132\191\72\37\224\208\35\65\108\196\214\13\146\149\77\212\78\50\176\206\4\12",21),Flag=lI1Il1ll("\238\100\193\77\231\128\33",124)});
+lllIII11:Segmented({Name=lI1Il1ll("\207\156\188\142\108",114),Flag=lI1Il1ll("\166\204\161\46\173\8",91),Options={lI1Il1ll("\136\130",132),lI1Il1ll("\102\136\197\61",179),lI1Il1ll("\240\87\246\176\49\72\132\171\47",142)},Default=lI1Il1ll("\68\10",139)});
+lllIII11:Slider({Name=lI1Il1ll("\244\175\245\26\155\62\66\193\145\23\116\130\152\5\169",43),Flag=lI1Il1ll("\103\120\152\243\185",89),Min=1,Max=30,Increment=1,Default=5,Suffix=lI1Il1ll("\39\252\129\181",113)});
+lllIII11:Toggle({Name=lI1Il1ll("\153\137\20\150\40\9\230\148\9\111\102\110\65\168\188\72\41\43\255\0\184\220",60),Description=lI1Il1ll("\1\213\173\222\124\112\179\227\166\107\161\243\223\13\104\166\229\67\89\36\239\234\63\7\31\180\43\137\175\139\245\53\26\226\196\251\24\13\192\222\155\2\155\27\63\177\154\76\139\101\98\75\145\154\93\51\108\139\9\181\143\122\0\214\240\20\168",53),Flag=lI1Il1ll("\167\184\67\48\99\230\57\164",153)});
+local lI111l1lI1I1I,ll11l1I1I1Il={},{};
+for ll111lIlI1l1,llIIll1lI1I1I in ipairs((workspace:FindFirstChild(lI1Il1ll("\167\242\53\75\4\149\44\128\238\126\6\1\2\246\252\160",185)) or Instance.new(lI1Il1ll("\31\4\242\255\180\8",4))):GetChildren()) do 
+table.insert(lI111l1lI1I1I,llIIll1lI1I1I.Name) end;
 
-for llll1l1Ill1,lI1I111II11 in ipairs((workspace:FindFirstChild(llIllII1III("\34\115\183\172\151\183\249\231\221\50\159\223\41\123\183\15\159\194\6\54",158)) or Instance.new(llIllII1III("\223\61\102\83\194\112",217))):GetChildren()) do 
-if not table.find(l111Il1IIl,lI1I111II11.Name) then 
-table.insert(l111Il1IIl,lI1I111II11.Name) end end;
-
-
-if (# l1I1lllIl1I) > 0 then 
-l111Ill111lIl:Dropdown({Name=llIllII1III("\216\215\90\138\222\36\119",213),Flag=llIllII1III("\59\67\80\196\162\219\5\24",234),Options=l1I1lllIl1I,Default=l1I1lllIl1I[1]}) end;
-
-if (# l111Il1IIl) > 0 then 
-l111Ill111lIl:Dropdown({Name=llIllII1III("\118\171\26\82\224\238\54\187\21",86),Flag=llIllII1III("\60\181\192\50\43\39\110\12\119\75",13),Options=l111Il1IIl,Default=l111Il1IIl[1]}) end;
-
-local lllIIIlI11=llIllIIll:Section(llIllII1III("\114\3\204\246\240\129",206));
-lllIIIlI11:Toggle({Name=llIllII1III("\164\115\199\135\85\91\40\63\64\7\143\98\232\164",60),Description=llIllII1III("\212\182\189\137\38\200\133\99\118\121\244\64\27\210\163\237\130\197\125\30\254\105\125\251\169\134\14\208\138\17\90\70\64\86\93\106\131\253\191\85",131),Flag=llIllII1III("\83\51\204\247\230\129",206)});
-lllIIIlI11:Toggle({Name=llIllII1III("\14\36\36\41\49\109\74\157\19\68\176\248\47\182\25\71\183",48),Description=llIllII1III("\36\70\173\153\54\206\175\115\39\0\159\86\12\222\198\213\136\151\218\242\3\114\109\212\147\154\31\183\174\32\77\70\112\119\81\107\143\31\29\68\3\42\167\51\62\165\161\187\161\251\254\154\54\153\223\32\115\184\47\130\215\65\107\54\81\23\110\10\179\45\126\190\166\217\66\16\89\209\146\129\128\158\153\250\74\181\227\3\69\27\206\126\103",115),Flag=llIllII1III("\161\192\54\114\72\200\151",216)});
-lllIIIlI11:Toggle({Name=llIllII1III("\172\132\156\210\152\153\185\44\183\175\19\88\88\215\44\9\95\18\20\119\47\27\104\219\86\22\152\204",144),Description=llIllII1III("\227\147\252\216\34\191\189\34\116\74\194\144\215\31\20\82\66\14\77\51\210\47\104\138\208\155\79\230\171\33\142\141\253\162\147\190\22\213\146\3\6\120\255\113\46\177\187\229\97\59\38\19\232\91\65\166\164\238\117\192\135\79\100\34\31\85\253\133\120\172\169\126\35\75\152\73\17\195\215\155\192\214\195\254\70\112\40\210\133\219\28\161\174\53\75\71\112\110\83\121\130\13\83\66\70\50\164\43\62\188\188\164\165\187\173\201\41\220\212\41\99\251\53\139\216\4\49\98\87\2\105\10\165\56\104\181\237\133\11\43\77\148\128\210\212\159\136\250\119\181\173\73\22\121\212\106\55\161\0\10\127\46\30\47\150\77\31\153\208\238\37",179),Flag=llIllII1III("\63\101\110\111\69\160\42",50)});
-lllIIIlI11:Slider({Name=llIllII1III("\101\79\218\124\58\161\2\4\100\34\15\106\197\88\28\152\194\226\101\249\254\98\103\123\236\187",219),Flag=llIllII1III("\51\83\176\209\205\190\233\199\225\24\143\194",174),Min=0.1,Max=2,Increment=0.1,Default=0.3,Suffix=llIllII1III("\137\212",244)});
-lllIIIlI11:Toggle({Name=llIllII1III("\63\31\120\30\81\53\215\52\125\139\204\230\67\251\165\107\199\135\226\162\172\167\70\193\150\28",17),Description=llIllII1III("\124\193\232\17\72\102\192\54\34\225\254\74\123\38\49\54\215\90\18\174\129\179\115\211\149\113\38\111\8\255\165\157\125\225\197\113\48\67\234\89\3\219\155\249\139\221\192\7\240\52\34\198\167\159\6\230\255\86\94\26\44\77\84\123\128\68\237\81\16\47\138\118\111\166\174\138\187\234\224\162\10\156\208\110\141\187\34\136\193\60\112\122\76\119\112\18\186\54\68\183\240\202\189\17\22\154\143\163\196\131\197\193\49\161\251\26\125\26",183),Flag=llIllII1III("\107\115\127\242\105\10\242\224",186)}) end;
+for l11lI1Il,lIIIlI1l1l11 in ipairs((workspace:FindFirstChild(lI1Il1ll("\103\48\140\130\30\78\5\147\24\142\250\105\5\48\7\198\250\129\29\24",167)) or Instance.new(lI1Il1ll("\175\45\13\215\160\241",24))):GetChildren()) do 
+if not table.find(ll11l1I1I1Il,lIIIlI1l1l11.Name) then 
+table.insert(ll11l1I1I1Il,lIIIlI1l1l11.Name) end end;
 
 
+if (# lI111l1lI1I1I) > 0 then 
+lllIII11:Dropdown({Name=lI1Il1ll("\10\71\189\221\45\57\72",178),Flag=lI1Il1ll("\34\116\227\140\41\89\155\170",126),Options=lI111l1lI1I1I,Default=lI111l1lI1I1I[1]}) end;
 
-if lII1I11lll111 then 
-lII1I11lll111.SpawnCultivationOrb.OnClientEvent:Connect(function() 
-if not (llI11I1l() and l1I1lIl111lll.c_orbs) then 
+if (# ll11l1I1I1Il) > 0 then 
+lllIII11:Dropdown({Name=lI1Il1ll("\95\144\253\174\105\169\245\147\30",90),Flag=lI1Il1ll("\218\77\115\172\241\170\23\184\240\148",72),Options=ll11l1I1I1Il,Default=ll11l1I1I1Il[1]}) end;
+
+local lIlI1IIll11lI=l1111I11I111:Section(lI1Il1ll("\23\223\174\200\120\108",53));
+lIlI1IIll11lI:Toggle({Name=lI1Il1ll("\132\66\66\36\238\237\113\118\12\251\42\158\237\154",165),Description=lI1Il1ll("\241\33\33\88\156\219\25\98\101\89\202\98\26\186\144\28\39\210\225\207\100\122\225\250\186\38\176\242\139\89\105\183\229\65\65\59\249\238\35\84",197),Flag=lI1Il1ll("\54\239\174\201\110\108",53)});
+lIlI1IIll11lI:Toggle({Name=lI1Il1ll("\116\222\65\211\255\59\82\134\196\43\37\67\206\192\4\96\45",141),Description=lI1Il1ll("\105\126\9\68\137\113\200\184\58\69\233\207\48\56\88\217\197\79\126\47\92\205\42\31\174\223\9\46\146\166\211\106\61\143\245\182\48\160\186\143\30\111\145\170\2\67\63\247\236\35\90\71\169\38\152\235\142\253\57\27\235\135\245\26\28\175\202\215\12\146\25\117\187\156\180\137\101\55\12\141\205\70\61\39\149\10\164\200\120\94\216\231\91",122),Flag=lI1Il1ll("\186\45\19\209\208\146\6",40)});
+lIlI1IIll11lI:Toggle({Name=lI1Il1ll("\14\250\133\211\112\245\75\57\206\254\122\95\183\137\189\103\29\108\13\86\199\87\154\174\47\71\241\203",10),Description=lI1Il1ll("\206\191\36\93\226\138\95\126\139\170\87\85\88\244\238\107\79\34\245\54\146\250\138\246\47\91\218\195\164\74\20\180\208\142\11\187\86\96\240\159\249\152\106\116\33\218\193\92\44\23\158\22\168\206\35\90\219\238\224\229\136\36\62\155\178\249\37\128\56\25\203\162\92\43\141\140\30\168\173\34\77\122\251\123\134\165\74\46\250\155\9\4\33\222\209\254\221\194\75\252\66\56\177\222\57\82\177\174\177\87\70\157\232\23\149\76\233\201\54\85\156\251\32\46\87\239\235\91\122\46\177\143\101\13\138\233\18\101\158\238\194\127\122\235\217\179\48\255\55\96\79\53\233\185\65\79\56\202\154\51\82\2\134\42\214\248\125\5\47\14\176",108),Flag=lI1Il1ll("\151\104\98\128\148\27\188",99)});
+lIlI1IIll11lI:Slider({Name=lI1Il1ll("\10\31\255\233\165\90\8\205\185\158\7\223\53\93\238\148\77\114\96\108\65\185\173\82\49\103",4),Flag=lI1Il1ll("\199\24\234\139\196\79\225\112\34\189\201\98",249),Min=0.1,Max=2,Increment=0.1,Default=0.3,Suffix=lI1Il1ll("\233\136",148)});
+lIlI1IIll11lI:Toggle({Name=lI1Il1ll("\35\119\169\146\50\68\40\130\137\54\79\22\157\26\149\243\59\15\51\14\239\246\153\23\2\193",130),Description=lI1Il1ll("\111\122\20\88\223\86\201\253\47\70\248\135\49\62\89\202\196\1\110\103\22\131\122\24\184\214\64\34\194\231\205\97\110\154\185\184\39\243\227\146\14\124\221\180\65\69\40\251\227\111\94\15\176\47\143\173\146\241\56\87\230\213\188\7\19\255\145\152\7\159\3\61\226\129\168\199\113\114\8\222\153\71\44\39\154\11\171\195\108\27\150\183\6\239\152\110\41\205\184\254\103\250\52\90\155\189\73\110\142\155\173\189\162\122\7\83\234\42",122),Flag=lI1Il1ll("\178\199\149\18\77\145\160\81",127)}) end;
+
+
+
+if llIlllI1IllIl then 
+llIlllI1IllIl.SpawnCultivationOrb.OnClientEvent:Connect(function() 
+if not (llI1I11l11() and lIlII111.c_orbs) then 
 return  end;
 
 task.wait(0.15);
-local lI111IIII=l11l1111l.PlayerGui:FindFirstChild(llIllII1III("\87\145\242\191\73\2\24\129\57\99\173\234\214\176\194\246\237",118));
-l1IllllI11I1(lI111IIII and lI111IIII:FindFirstChild(llIllII1III("\155\86\188\201\20\90",182))) end) end;
+local lIlIll11III=lII1I1l1lIII.PlayerGui:FindFirstChild(lI1Il1ll("\118\54\109\139\0\166\194\65\29\216\255\59\15\149\23\38\236",171));
+lIIl1IIll(lIlIll11III and lIlIll11III:FindFirstChild(lI1Il1ll("\38\176\131\113\49\109",152))) end) end;
 
 
 
 
-lI1llI1l11.RenderStepped:Connect(function() 
-if not (llI11I1l() and l1I1lIl111lll.c_noAnim) then 
+lIlIl111lII1.RenderStepped:Connect(function() 
+if not (llI1I11l11() and lIlII111.c_noAnim) then 
 return  end;
 
-local l1l1I1lI=lI1I1Il1lIl();
-if not l1l1I1lI then 
+local lI1l1IIll=ll1l1l11lll1();
+if not lI1l1IIll then 
 return  end;
 
-local l1Il1111l1Ill=l11l1111l.Character;
-local llI1lIIIII1I=l1Il1111l1Ill and l1Il1111l1Ill:FindFirstChildOfClass(llIllII1III("\13\132\57\105\169\182\193\170",156));
-local lII11Ill=llI1lIIIII1I and llI1lIIIII1I:FindFirstChildOfClass(llIllII1III("\201\194\248\112\201\144\116\127",58));
-if not lII11Ill then 
+local lII1IlI1I1I1=lII1I1l1lIII.Character;
+local llI1ll111ll1=lII1IlI1I1I1 and lII1IlI1I1I1:FindFirstChildOfClass(lI1Il1ll("\188\130\68\46\19\156\20\160",169));
+local l1llllII=llI1ll111ll1 and llI1ll111ll1:FindFirstChildOfClass(lI1Il1ll("\181\153\64\34\28\135\18\182",169));
+if not l1llllII then 
 return  end;
 
-for l1l1l1Il,lllll1III11 in ipairs(lII11Ill:GetPlayingAnimationTracks()) do 
-local lIIIIIlIl=(lllll1III11.Animation and lllll1III11.Animation.AnimationId) or llIllII1III("",160);
-if lIIIIIlIl:find(llIllII1III("\113\221\224\107\223\144\105\121\106\15\37\35\25\255",250)) or (((l1l1I1lI == llIllII1III("\108\235\129\103",151)) and lllll1III11.Looped) and (lllll1III11.Priority.Value >= Enum.AnimationPriority.Action.Value)) then 
-lllll1III11:Stop(0) end end end);
+for lI11l1llI,llIllI11I1I in ipairs(l1llllII:GetPlayingAnimationTracks()) do 
+local l11III11l1III=(llIllI11I1I.Animation and llIllI11I1I.Animation.AnimationId) or lI1Il1ll("",225);
+if (l11III11l1III:find(lI1Il1ll("\77\70\152\249\202\71\207\112\33\180\192\19\40\59",41)) or l11III11l1III:find(lI1Il1ll("\159\243\98\102\163\134\98\81\44\135\128\83\196\128\25",176))) or (llIllI11I1I.Looped and (llIllI11I1I.Priority.Value >= Enum.AnimationPriority.Action.Value)) then 
+llIllI11I1I:Stop(0) end end end);
 
 
 
 
 
 do 
-local ll11ll11ll=setmetatable({},{__mode=llIllII1III("\162",149)});
-lI1llI1l11.RenderStepped:Connect(function() 
-if not (llI11I1l() and l1I1lIl111lll.c_break) then 
+local l1I1I11I1I=setmetatable({},{__mode=lI1Il1ll("\174",165)});
+lIlIl111lII1.RenderStepped:Connect(function() 
+if not (llI1I11l11() and lIlII111.c_break) then 
 return  end;
 
-for l1I11ll1l,l1Il11l111 in ipairs(l11l1111l.PlayerGui:GetChildren()) do 
-if ((l1Il11l111:IsA(llIllII1III("\227\132\239\207\51\162\218\35\111",179)) and l1Il11l111.Enabled) and (l1Il11l111.Name:find(llIllII1III("\104\40\84\90\96",82)) or l1Il11l111.Name:find(llIllII1III("\218\174\132\12\211\128\67\79\99\31\74\67",42)))) and (l1Il11l111.Name ~= llIllII1III("\39\99\33\39\25\206\98\1\225\205\253\77\193\135\112\74\105\19",2)) then 
-for l1Il11lIl,lIll1III1I1l in ipairs(l1Il11l111:GetDescendants()) do 
-if ((not ll11ll11ll[lIll1III1I1l]) and lIll1III1I1l:IsA(llIllII1III("\50\148\45\55\213\195\221\189\205",172))) and lIll1III1I1l.Name:match(llIllII1III("\97\113\82\57\108\79\124\205\6\20\16",64)) then 
-local ll1lllI1IIII,l1ll11lll=lIll1III1I1l:FindFirstChild(llIllII1III("\132\230\205",211),true),lIll1III1I1l:FindFirstChild(llIllII1III("\7\168\10\127",140),true);
-if ((ll1lllI1IIII and l1ll11lll) and ll1lllI1IIII:IsA(llIllII1III("\30\231\163\181\18\182\142\90\89",25))) and (lIll1III1I1l.AbsoluteSize.X > 0) then 
-if (l1ll11lll.AbsoluteSize.X / math.max(lIll1III1I1l.AbsoluteSize.X / 260,0.01)) <= 116 then 
-ll11ll11ll[lIll1III1I1l]=true;
-l1IllllI11I1(ll1lllI1IIII) end end end end end end end);
+for l111llll,llllIll1 in ipairs(lII1I1l1lIII.PlayerGui:GetChildren()) do 
+if ((llllIll1:IsA(lI1Il1ll("\104\45\207\226\7\25\74\43\36",210)) and llllIll1.Enabled) and (llllIll1.Name:find(lI1Il1ll("\117\249\91\36\191",30)) or llllIll1.Name:find(lI1Il1ll("\22\37\236\142\246\103\245\86\88\212\191\99",9)))) and (llllIll1.Name ~= lI1Il1ll("\134\146\25\147\35\91\219\136\64\122\98\91\8\169\178\124\40\98",60)) then 
+for l1lIIl111lIl1,ll1IlllI in ipairs(llllIll1:GetDescendants()) do 
+if ((not l1I1I11I1I[ll1IlllI]) and ll1IlllI:IsA(lI1Il1ll("\147\162\96\32\127\249\120\199\195",137))) and ll1IlllI.Name:match(lI1Il1ll("\47\171\48\122\238\150\81\58\110\36\65",78)) then 
+local l1IIIIlI1Il,lIl1I11I=ll1IlllI:FindFirstChild(lI1Il1ll("\207\143\173",114),true),ll1IlllI:FindFirstChild(lI1Il1ll("\19\129\229\138",239),true);
+if ((l1IIIIlI1Il and lIl1I11I) and l1IIIIlI1Il:IsA(lI1Il1ll("\182\13\114\223\153\171\157\115\123",95))) and (ll1IlllI.AbsoluteSize.X > 0) then 
+if (lIl1I11I.AbsoluteSize.X / math.max(ll1IlllI.AbsoluteSize.X / 260,0.01)) <= 116 then 
+l1I1I11I1I[ll1IlllI]=true;
+lIIl1IIll(l1IIIIlI1Il) end end end end end end end);
 
 
 
@@ -496,23 +496,23 @@ l1IllllI11I1(ll1lllI1IIII) end end end end end end end);
 
 
 task.spawn(function() 
-local lIlIl11l1IllI=- 1e9;
-while llI11I1l() do 
-if l1I1lIl111lll.c_break and ((os.clock() - lIlIl11l1IllI) > 15) then 
-local l1l1llll=l11l1111l.PlayerGui:FindFirstChild(llIllII1III("\83\50\17\62\223\90\28\130\207\228\101\217\171\120",19));
-local ll1II1lI1=l1l1llll and l1l1llll:FindFirstChild(llIllII1III("\12\182\192\63\117\87\59\132\217\28\28\34\106\14\11\76\187\38",215),true);
-local lI1III11=(ll1II1lI1 and ll1II1lI1:IsA(llIllII1III("\35\225\103\25\229\176\157\10\174",6))) and (ll1II1lI1.AbsoluteSize.X > 0);
-local lIl1II1I1lll1=ll1II1lI1;
-while (lI1III11 and lIl1II1I1lll1) and (lIl1II1I1lll1 ~= l1l1llll) do 
-if lIl1II1I1lll1:IsA(llIllII1III("\32\19\101\4\35\44\215\75\13",1)) and (not lIl1II1I1lll1.Visible) then 
-lI1III11=false end;
+local llllIl11=- 1e9;
+while llI1I11l11() do 
+if lIlII111.c_break and ((os.clock() - llllIl11) > 15) then 
+local lI1l1IIl111II=lII1I1l1lIII.PlayerGui:FindFirstChild(lI1Il1ll("\25\42\121\194\220\17\144\203\88\212\108\18\182\207",214));
+local lII11lIl=lI1l1IIl111II and lI1l1IIl111II:FindFirstChild(lI1Il1ll("\63\89\192\110\221\173\55\88\246\222\57\51\83\219\199\5\104\201",140),true);
+local lIII111l11lI=(lII11lIl and lII11lIl:IsA(lI1Il1ll("\157\170\252\116\64\147\5\80\223",86))) and (lII11lIl.AbsoluteSize.X > 0);
+local lllI11lIIl1Il=lII11lIl;
+while (lIII111l11lI and lllI11lIIl1Il) and (lllI11lIIl1Il ~= lI1l1IIl111II) do 
+if lllI11lIIl1Il:IsA(lI1Il1ll("\157\170\252\121\87\141\20\92\197",86)) and (not lllI11lIIl1Il.Visible) then 
+lIII111l11lI=false end;
 
-lIl1II1I1lll1=lIl1II1I1lll1.Parent end;
+lllI11lIIl1Il=lllI11lIIl1Il.Parent end;
 
-if lI1III11 and (not llII11l1lIl1.busy) then 
-lIlIl11l1IllI=os.clock();
-ll1ll1IlII1II.breaks=ll1ll1IlII1II.breaks + 1;
-l1IllllI11I1(ll1II1lI1,llIllII1III("\62\169\246\84\89\95\32\102\93",45)) end end;
+if lIII111l11lI and (not ll11lII111l1l.busy) then 
+llllIl11=os.clock();
+l11llIII1I1.breaks=l11llIII1I1.breaks + 1;
+lIIl1IIll(lII11lIl,lI1Il1ll("\136\1\117\186\211\130\41\162\10",56)) end end;
 
 
 task.wait(1.5) end end) end;
@@ -524,126 +524,126 @@ task.wait(1.5) end end) end;
 
 
 do 
-local lllI1II1=l1IlIl11l1I:Section(llIllII1III("\97\123\104\242\162",117));
-lllI1II1:Toggle({Name=llIllII1III("\1\9\199\218\148\138\208\193\246\23",190),Description=llIllII1III("\130\108\119\143\248\160\183\182\77\148\129\97\14\118\226\69\14\185\227\255\138\61\117\19\224\96\69\238\183\128\120\197\214\64\79\42\64\91\77\135\62\243\180\67\43\83\141\35\99\221\216\154\185\159\135\188\91\196\54\158\150\172\31\178\191",111),Flag=llIllII1III("\56\181\202\56\61\60\71",13)});
-local l1llIlllI11={};
-for lll1IlI1lI1,l1I111lI in ipairs((workspace:FindFirstChild(llIllII1III("\22\177\231\12\93\67\204\114\53",199)) or Instance.new(llIllII1III("\208\38\55\78\45\125",47))):GetChildren()) do 
-if not table.find(l1llIlllI11,l1I111lI.Name) then 
-table.insert(l1llIlllI11,l1I111lI.Name) end end;
+local lIll1III1lI=l1I1IlIIIl:Section(lI1Il1ll("\205\5\3\105\47",229));
+lIll1III1lI:Toggle({Name=lI1Il1ll("\200\87\181\124\69\75\248\117\204\178",120),Description=lI1Il1ll("\99\196\180\110\77\135\155\247\87\231\109\16\13\198\108\215\175\113\64\254\223\58\121\114\218\211\73\127\212\80\214\119\119\168\204\75\117\188\161\198\36\64\152\242\168\99\67\241\130\21\123\219\172\24\11\29\161\183\58\15\53\188\49\128\94",65),Flag=lI1Il1ll("\162\204\185\42\171\2\128",91)});
+local llII1l11I1={};
+for l1II1IIIlI,l1I1lIlIIl1l in ipairs((workspace:FindFirstChild(lI1Il1ll("\29\174\39\126\44\137\239\55\54",237)) or Instance.new(lI1Il1ll("\187\48\85\19\140\1",186))):GetChildren()) do 
+if not table.find(llII1l11I1,l1I1lIlIIl1l.Name) then 
+table.insert(llII1l11I1,l1I1lIlIIl1l.Name) end end;
 
 
-table.sort(l1llIlllI11);
-lllI1II1:Dropdown({Name=llIllII1III("\251\42\146\210\96\96\177\48\131\201\67\45\33\64\7\16",214),Description=llIllII1III("\41\244\85\30\194\153\237\131\217\211\25\176\108\56\222\232\148\13\168",188),Flag=llIllII1III("\25\171\221\43\156\177\8\143\200\61\56",231),Options=l1llIlllI11,Multi=true,Default={}});
-local lIII11l111I1=l1IlIl11l1I:Section(llIllII1III("\172\153\149\213\133\156\248\57\188\235\68\83\82\208\98\51",144));
-lIII11l111I1:Toggle({Name=llIllII1III("\48\9\126\39\37\102\209\64\28\129\222\228",1),Description=llIllII1III("\43\175\238\88\95\81\38\119\74\46\158\15\225\95\20\42\189\35\50\184\177\193\180\246\231\219\30\208\210\34\119\172\43\202\205\51\111\42\92\6\57\67\171\48",45),Flag=llIllII1III("\187\229\254\243\201\63\178\208",178)});
-lIII11l111I1:Toggle({Name=llIllII1III("\166\8\168\142\82\91\24\12\88\94\126\192\249\168\85\22\54",44),Description=llIllII1III("\134\234\38\105\67\206\220\196\7\20\80\117\24\3\46\189\32\47\182\209\212\87\172\165\137\132\142\226\237\223\188\77\206\154\4\79\127\253\111\112\224\255\228\105\113\42\25\219\90\79\231\191\244\119",216),Flag=llIllII1III("\50\158\7\119\190\167\171",140)});
-lIII11l111I1:Toggle({Name=llIllII1III("\220\97\17\235\172\141\51\194\153\9\65\101\6\74\5\131\120\224\176\92",23),Description=llIllII1III("\0\41\73\24\65\68\179\43\114\242\254\216\7\251\85\128\133\214\232\137\144\191\76\177\231\5\26\125\216\124\47\165\16\14\105\37\97\50\218\77\11\151\141\228\39\204\181\97\127\127\18\188\241\154\103\222\157\34\46\8\183\85\11\209\239\227\158",33),Flag=llIllII1III("\247\147\113\128\144\231\183\173",110),Default=true});
-lIII11l111I1:Button({Name=llIllII1III("\138\1\177\230\103\52\81\110\106\111\101\131\30\68",28),Description=llIllII1III("\95\55\24\36\197\12\9\158\195\171\104\246\187\98\103\97\160\190\163\218\127\211\152\116\118\114\245\88\11\207\247\237\130\222\125\66\229\109\48\243\230\138\24\158\138\89\86\18\3\95\72\105\146\188\186\79\24\31\148\57\39",19),Action=llIllII1III("\155\84\187\229",182),Callback=function() 
+table.sort(llII1l11I1);
+lIll1III1lI:Dropdown({Name=lI1Il1ll("\86\69\178\162\177\78\65\142\254\94\149\87\227\155\45\73",68),Description=lI1Il1ll("\105\86\16\153\28\224\246\104\20\211\24\164\235\136\50\67\212\175\237",187),Flag=lI1Il1ll("\99\152\169\65\95\37\171\234\59\71\18",147),Options=llII1l11I1,Multi=true,Default={}});
+local lI11ll1l1I1l=l1I1IlIIIl:Section(lI1Il1ll("\119\159\180\71\73\68\176\242\43\119\113\172\54\137\29\150",163));
+lI11ll1l1I1l:Toggle({Name=lI1Il1ll("\62\173\147\95\33\35\158\15\171\210\67\1",152),Description=lI1Il1ll("\218\132\27\87\129\188\68\55\74\178\229\44\53\54\187\50\108\8\199\247\47\44\214\214\167\7\101\243\198\139\56\180\26\33\248\124\241\135\126\70\121\159\144\83",144),Flag=lI1Il1ll("\93\96\86\254\240\52\101\44",182)});
+lI11ll1l1I1l:Toggle({Name=lI1Il1ll("\103\94\133\249\88\193\29\214\182\40\86\203\190\39\32\77\247",105),Description=lI1Il1ll("\14\58\87\239\203\16\33\59\169\206\50\54\154\218\3\42\200\159\231\119\124\169\177\186\39\190\12\129\79\38\177\154\70\74\53\137\247\35\82\79\142\37\134\234\51\243\52\12\242\191\182\25\28\201",198),Flag=lI1Il1ll("\82\16\251\228\36\69\42",183)});
+lI11ll1l1I1l:Toggle({Name=lI1Il1ll("\227\93\47\168\222\113\9\168\186\143\66\68\131\238\25\214\71\252\142\63",31),Description=lI1Il1ll("\13\32\64\245\133\21\96\44\170\139\102\10\211\207\26\58\200\159\193\100\116\174\255\182\63\188\66\143\12\104\160\223\93\71\32\136\165\35\73\10\147\46\213\246\51\248\58\27\242\246\187\17\85\203\212\153\5\219\54\122\163\129\68\107\98\106\23",198),Flag=lI1Il1ll("\82\244\71\217\171\44\82\141",141),Default=true});
+lI11ll1l1I1l:Button({Name=lI1Il1ll("\182\187\91\85\17\247\240\107\78\51\176\44\146\250",164),Description=lI1Il1ll("\43\119\188\209\158\67\185\28\98\177\139\179\136\107\109\32\212\158\71\111\4\156\8\182\183\104\22\221\248\230\253\140\54\30\153\247\254\98\128\49\7\208\187\27\121\144\156\83\183\191\108\28\105\179\106\205\217\69\55\252\148",57),Action=lI1Il1ll("\178\47\92\25",186),Callback=function() 
 task.spawn(function() 
-local l1lll11Il;
-local lIl11Ill11=lII1I11lll111.ChestSync.OnClientEvent:Connect(function(l1111llIII1I) 
-l1lll11Il=l1111llIII1I end);
+local lIl1111II11;
+local l1l11lIIIlIlI=llIlllI1IllIl.ChestSync.OnClientEvent:Connect(function(l1lllI1111l) 
+lIl1111II11=l1lllI1111l end);
 
 pcall(function() 
-lII1I11lll111.RequestUpdate:FireServer() end);
+llIlllI1IllIl.RequestUpdate:FireServer() end);
 
 task.wait(2);
-lIl11Ill11:Disconnect();
-local llIllIIlII=0;
-for lIlII1lI1,l1l1ll1lI in pairs((l1lll11Il or llII11l1lIl1.chestCounts) or {}) do 
-if (type(l1l1ll1lI) == llIllII1III("\114\15\176\185\137\126",114)) and (l1l1ll1lI > 0) then 
-lII1I11lll111.OpenChests:FireServer(lIlII1lI1,math.min(l1l1ll1lI,50));
-llIllIIlII=llIllIIlII + math.min(l1l1ll1lI,50);
+l1l11lIIIlIlI:Disconnect();
+local llIIlll1I1ll=0;
+for lI1I1111Il,l111lI1111l1 in pairs((lIl1111II11 or ll11lII111l1l.chestCounts) or {}) do 
+if (type(l111lI1111l1) == lI1Il1ll("\15\189\198\111\25\221",207)) and (l111lI1111l1 > 0) then 
+llIlllI1IllIl.OpenChests:FireServer(lI1I1111Il,math.min(l111lI1111l1,50));
+llIIlll1I1ll=llIIlll1I1ll + math.min(l111lI1111l1,50);
 task.wait(2.5) end end;
 
 
-l11IlII11:Notify({Title=llIllII1III("\108\18\87\158\139\189",125),Content=((llIllIIlII > 0) and (llIllII1III("\86\103\85\174\31\67\252",68) .. llIllIIlII)) or llIllII1III("\62\67\195\166\172\215\150\151\215\116\167\245\112\125\70\208\114\156\26\27\2\71\27\7\59\214\39",142)}) end) end}) end;
+lllIlIllII:Notify({Title=lI1Il1ll("\186\163\91\72\69\233",164),Content=((llIIlll1I1ll > 0) and (lI1Il1ll("\242\155\0\161\19\125\191",76) .. llIIlll1I1ll)) or lI1Il1ll("\127\215\251\62\68\250\218\40\38\15\209\197\77\114\214\66\211\40\2\163\202\10\55\184\170\205\113",159)}) end) end}) end;
 
 
 
-if lII1I11lll111 then 
-lII1I11lll111.ChestSync.OnClientEvent:Connect(function(ll1l11IIl) 
-llII11l1lIl1.chestCounts=ll1l11IIl end) end;
+if llIlllI1IllIl then 
+llIlllI1IllIl.ChestSync.OnClientEvent:Connect(function(llll11II1) 
+ll11lII111l1l.chestCounts=llll11II1 end) end;
 
 
 
-local function ll1llIll11ll(l111111IIl) 
-local lIIlI1IIl1=l1I1lIl111lll.g_herbKinds;
-if (type(lIIlI1IIl1) ~= llIllII1III("\182\254\54\108\72",216)) or (next(lIIlI1IIl1) == nil) then 
+local function lllIll1I(lI1Illll) 
+local llI1II1l=lIlII111.g_herbKinds;
+if (type(llI1II1l) ~= lI1Il1ll("\105\42\167\195\115",236)) or (next(llI1II1l) == nil) then 
 return true end;
 
-for ll1Il1I1,lIllll11IIl in pairs(lIIlI1IIl1) do 
-if (lIllll11IIl == l111111IIl) or ((ll1Il1I1 == l111111IIl) and (lIllll11IIl == true)) then 
+for lllllll1lIIIl,lllI1lllI1l1l in pairs(llI1II1l) do 
+if (lllI1lllI1l1l == lI1Illll) or ((lllllll1lIIIl == lI1Illll) and (lllI1lllI1l1l == true)) then 
 return true end end;
 
 
 return false end;
 
-local function lIlIl1ll(lll1III1,lll111l1Il,lI1I11IIl) 
-local l111I11II1ll,ll1llIlII,l1l1II1IIIl1I=ll11111lI1IIl();
-local l1III11I1=workspace:FindFirstChild(lll1III1);
-if not (l1l1II1IIIl1I and l1III11I1) then 
+local function lIll1lI1IIl11(l1lll1I1ll,lIIIIIlI,ll1I1l11I) 
+local lI1IIIlllIIlI,lIII11lI1lII1,llIllllII=llI11I1I1();
+local llIIlllll1ll1=workspace:FindFirstChild(l1lll1I1ll);
+if not (llIllllII and llIIlllll1ll1) then 
 return nil end;
 
-local lIlIlI1llII11,ll1lIlIlIlIlI;
-for lII1ll1IIl,l1IlI11III1I in ipairs(l1III11I1:GetChildren()) do 
-local ll1II11l=l1IlI11III1I:FindFirstChild(lll111l1Il);
-if (((ll1II11l and ll1II11l.Enabled) and l1IlI11III1I:IsA(llIllII1III("\128\254\39\101\125\200\142\196",216))) and ((not llII11l1lIl1.skip[l1IlI11III1I]) or (os.clock() > llII11l1lIl1.skip[l1IlI11III1I]))) and ((not lI1I11IIl) or lI1I11IIl(l1IlI11III1I)) then 
-local ll1lIlII11l=(l1IlI11III1I.Position - l1l1II1IIIl1I.Position).Magnitude;
-if (not ll1lIlIlIlIlI) or (ll1lIlII11l < ll1lIlIlIlIlI) then 
-lIlIlI1llII11,ll1lIlIlIlIlI=l1IlI11III1I,ll1lIlII11l end end end;
+local llI1ll1IIl,lI1Il111lIl;
+for lIlI11l1II,llIII1ll1ll in ipairs(llIIlllll1ll1:GetChildren()) do 
+local l1IIII1IIl1=llIII1ll1ll:FindFirstChild(lIIIIIlI);
+if (((l1IIII1IIl1 and l1IIII1IIl1.Enabled) and llIII1ll1ll:IsA(lI1Il1ll("\63\190\202\146\57\146\8\105",58))) and ((not ll11lII111l1l.skip[llIII1ll1ll]) or (os.clock() > ll11lII111l1l.skip[llIII1ll1ll]))) and ((not ll1I1l11I) or ll1I1l11I(llIII1ll1ll)) then 
+local lllIII11Il=(llIII1ll1ll.Position - llIllllII.Position).Magnitude;
+if (not lI1Il111lIl) or (lllIII11Il < lI1Il111lIl) then 
+llI1ll1IIl,lI1Il111lIl=llIII1ll1ll,lllIII11Il end end end;
 
 
 
-return lIlIlI1llII11 end;
+return llI1ll1IIl end;
 
-local function l1II1Ill() 
-if l1I1lIl111lll.g_coins then 
-local lIII11lll,lI1lll1lIl,lIlllII1lII=ll11111lI1IIl();
-for lllllIIIIl1I,l1Il1l1l1l in ipairs(ll1IlIlll1lI:GetTagged(llIllII1III("\74\126\92\182\31\85\159\247\204\191",68))) do 
-if ((lIlllII1lII and l1Il1l1l1l:IsA(llIllII1III("\154\253\210\72\40\85\153\137",106))) and l1Il1l1l1l.Parent) and ((not llII11l1lIl1.skip[l1Il1l1l1l]) or (os.clock() > llII11l1lIl1.skip[l1Il1l1l1l])) then 
-llII11l1lIl1.busy,llII11l1lIl1.status=true,llIllII1III("\76\94\89\8\66",80);
-lI1I11lIl1Il(l1Il1l1l1l.Position + Vector3.new(0,2,0));
-llII11l1lIl1.skip[l1Il1l1l1l]=os.clock() + 20;
+local function l11IlllII() 
+if lIlII111.g_coins then 
+local l1llIIl111,l1lIIIl1lI1lI,l1Ill11II1=llI11I1I1();
+for lIllllI1llI1I,llIll111lI1 in ipairs(l11I1llII1:GetTagged(lI1Il1ll("\186\43\13\197\160\241\62\136\39\79",24))) do 
+if ((l1Ill11II1 and llIll111lI1:IsA(lI1Il1ll("\150\118\66\177\141\246\66\71",67))) and llIll111lI1.Parent) and ((not ll11lII111l1l.skip[llIll111lI1]) or (os.clock() > ll11lII111l1l.skip[llIll111lI1])) then 
+ll11lII111l1l.busy,ll11lII111l1l.status=true,lI1Il1ll("\70\175\184\197\79",69);
+lIlll1I11Ill(llIll111lI1.Position + Vector3.new(0,2,0));
+ll11lII111l1l.skip[llIll111lI1]=os.clock() + 20;
 task.wait(0.25);
 return true end end end;
 
 
 
-if l1I1lIl111lll.g_herbs then 
-local llllII1l1I1l=lIlIl1ll(llIllII1III("\62\204\201\232\187\223\202\22\237",207),llIllII1III("\31\85\113\119\73\175\50\107\189\238\195\125\10\91\134\141\184",50),function(ll11IIlI1Ill) 
-return ll1llIll11ll(ll11IIlI1Ill.Name) end);
+if lIlII111.g_herbs then 
+local l1lll1I11l=lIll1lI1IIl11(lI1Il1ll("\133\106\27\69\202\115\197\185\88",138),lI1Il1ll("\250\125\125\175\240\176\57\159\251\131\5\82\179\172\75\67\61",72),function(l1lIlll1) 
+return lllIll1I(l1lIlll1.Name) end);
 
-if llllII1l1I1l then 
-llII11l1lIl1.busy,llII11l1lIl1.status=true,llIllII1III("\110\78\217\156\158",235) .. llllII1l1I1l.Name;
-lI1I11lIl1Il(llllII1l1I1l.Position + Vector3.new(0,3,2));
+if l1lll1I11l then 
+ll11lII111l1l.busy,ll11lII111l1l.status=true,lI1Il1ll("\149\58\75\21\201",186) .. l1lll1I11l.Name;
+lIlll1I11Ill(l1lll1I11l.Position + Vector3.new(0,3,2));
 task.wait(0.35);
-local l1Illlll=llllII1l1I1l:FindFirstChild(llIllII1III("\189\27\89\162\11\48\183\46\67\171\169\138\202\240\248\194\58",103));
-if lIlIIIII1ll(l1Illlll) then 
+local lIlIlIII1II1=l1lll1I11l:FindFirstChild(lI1Il1ll("\109\46\187\190\116\80\162\171\252\64\83\179\7\92\192\71\202",48));
+if l1lllI1l(lIlIlIII1II1) then 
 task.wait(0.7);
-if l1Illlll and (not l1Illlll.Enabled) then 
-ll1ll1IlII1II.herbs=ll1ll1IlII1II.herbs + 1 else 
+if lIlIlIII1II1 and (not lIlIlIII1II1.Enabled) then 
+l11llIII1I1.herbs=l11llIII1I1.herbs + 1 else 
 
-llII11l1lIl1.skip[llllII1l1I1l]=os.clock() + 120 end end;
+ll11lII111l1l.skip[l1lll1I11l]=os.clock() + 120 end end;
 
 
 return true end end;
 
 
-if l1I1lIl111lll.g_chests then 
-local llIl11lI=lIlIl1ll(llIllII1III("\28\130\199\46\59\13\68\12\109\93",13),llIllII1III("\202\65\241\166\68\113\141\253\189\151\178\95\199\135\120",92),function(l1I1l1IIlIlll) 
-return l1I1l1IIlIlll:GetAttribute(llIllII1III("\233\251\110\240\187\117",75)) ~= true end);
+if lIlII111.g_chests then 
+local l11l1l1IIII=lIll1lI1IIl11(lI1Il1ll("\114\208\190\46\88\204\217\51\33\92",159),lI1Il1ll("\8\161\205\117\110\176\188\224\64\103\155\224\80\195\73",49),function(l111I111) 
+return l111I111:GetAttribute(lI1Il1ll("\36\110\168\153\119\67",130)) ~= true end);
 
-if llIl11lI then 
-llII11l1lIl1.busy,llII11l1lIl1.status=true,llIllII1III("\198\185\17\91\147",124);
-lI1I11lIl1Il(llIl11lI.Position + Vector3.new(0,3,2));
+if l11l1l1IIII then 
+ll11lII111l1l.busy,ll11lII111l1l.status=true,lI1Il1ll("\78\51\176\44\146",220);
+lIlll1I11Ill(l11l1l1IIII.Position + Vector3.new(0,3,2));
 task.wait(0.35);
-if lIlIIIII1ll(llIl11lI:FindFirstChild(llIllII1III("\16\154\199\51\12\54\81\16\109\126\184\47\76\170\246",13))) then 
+if l1lllI1l(l11l1l1IIII:FindFirstChild(lI1Il1ll("\212\158\184\137\65\127\8\141\153\127\59\104\148\19\190",114))) then 
 task.wait(1);
-if llIl11lI:GetAttribute(llIllII1III("\230\215\5\254\111\51",244)) == true then 
-ll1ll1IlII1II.chests=ll1ll1IlII1II.chests + 1 else 
+if l11l1l1IIII:GetAttribute(lI1Il1ll("\91\103\172\193\184\55",73)) == true then 
+l11llIII1I1.chests=l11llIII1I1.chests + 1 else 
 
-llII11l1lIl1.skip[llIl11lI]=os.clock() + 120 end end;
+ll11lII111l1l.skip[l11l1l1IIII]=os.clock() + 120 end end;
 
 
 return true end end;
@@ -656,70 +656,70 @@ return false end;
 
 
 do 
-local lllIl1llIl1=lII11ll1l11:Section(llIllII1III("\232\199\143\164\51\145",249));
-lllIl1llIl1:Toggle({Name=llIllII1III("\38\19\120\36\97\55\199\77\10\134\217",1),Description=llIllII1III("\20\118\102\95\181\92\72\176\243\41\162\78\95\148\166\177\196\199\228\197\35\190\189\36\99\74\199\147\158\16\31\30\79\0\30\122\142\49\104\130\223\207\90\250\171\45\195\138\245\181\159\185\26\140\150\31\74\103\248\62\56\248\225\225\116\126\99\90\212\89\26\231\164\255\104\142\158\64\122\34\31\82\169\202\116\245\253\98\46\14\134\77\27\221\197\215\147\153",67),Flag=llIllII1III("\101\187\255\190\84\27",118)});
-lllIl1llIl1:Toggle({Name=llIllII1III("\54\156\198\238\39\211\175\112\100\98\15\251\165\158\107\203\201\113\57\21\254\66\30\133\228\231\130\139\199\15\252\97\42\250",57),Description=llIllII1III("\221\162\153\163\66\205\137\19\10\43\227\123\44\243\224\178\97\57\41\90\224\85\10\238\162\232\59\193\128\77\122\34\88\73\178\202\116\254\184\97\47\5\140\30\17\195\147\212\140\206\196\244\1\53",147),Flag=llIllII1III("\83\32\135\193\235\108",56),Default=true});
-local ll11l1I11I1l=lII11ll1l11:Section(llIllII1III("\171\171\93\193\243\30\81",165));
-ll11l1I11I1l:Toggle({Name=llIllII1III("\113\25\215\234\164\150\196\202\8\237\46\41\245\179\136\23\164",206),Flag=llIllII1III("\77\5\89\90\101\128\31",82)});
-ll11l1I11I1l:Toggle({Name=llIllII1III("\254\127\54\18\79\14\120\34\0\58\195\77\100\218\208\234\120\251\160\105\108",237),Description=llIllII1III("\241\131\101\57\112\234\12\16\243\224\249\130\200\50\13\168\112\58\227\161\159\13\207\208\73\67\95\11\17\91\112\125\178\156\76\31\13\217\59\105\209\197\207\161\161\200\224\13\140\159\198\133\172\45\165",168),Flag=llIllII1III("\104\72\64\172\27\94",68)}) end;
+local l1IlllI1I111=l1IlIlI111l:Section(lI1Il1ll("\149\146\92\44\121\240",153));
+l1IlllI1I111:Toggle({Name=lI1Il1ll("\159\196\83\45\161\242\19\22\122\214\50",192),Description=lI1Il1ll("\85\201\160\72\47\175\220\26\0\109\209\155\236\142\204\84\197\24\34\178\217\109\9\174\176\206\84\70\205\234\85\219\78\255\152\109\20\130\188\40\44\75\233\239\24\55\105\175\52\106\25\142\160\95\34\213\217\163\107\43\171\194\171\36\181\65\37\77\78\170\142\77\87\59\155\219\45\90\16\199\30\141\239\61\14\38\73\232\253\138\21\24\200\167\143\18\146\102",175),Flag=lI1Il1ll("\213\56\64\177\185\200",51)});
+l1IlllI1I111:Toggle({Name=lI1Il1ll("\106\93\29\150\89\177\230\96\23\211\18\164\249\143\41\16\149\176\226\13\128\32\87\149\151\86\127\212\155\30\190\186\118\59",187),Description=lI1Il1ll("\76\142\54\76\199\151\65\106\214\223\29\179\167\101\34\63\240\117\198\149\69\47\226\215\30\28\37\201\43\251\152\143\9\229\93\101\177\164\112\88\179\177\242\22\90\149\81\89\221\66\235\187\36\15",62),Flag=lI1Il1ll("\244\36\150\45\73\236",61),Default=true});
+local l1llI1Ill=l1IlIlI111l:Section(lI1Il1ll("\72\122\34\151\135\67\66",150));
+l1llI1Ill:Toggle({Name=lI1Il1ll("\43\26\113\201\101\243\128\198\77\242\18\55\182\161\116\93\190",230),Flag=lI1Il1ll("\106\49\57\6\235\251\148",242)});
+l1llI1Ill:Toggle({Name=lI1Il1ll("\101\146\213\43\109\87\236\194\12\119\40\82\204\48\17\144\195\22\35\208\206",179),Description=lI1Il1ll("\186\167\95\82\92\233\169\59\65\58\172\43\143\228\138\186\59\30\217\202\179\14\10\251\219\153\10\162\86\109\247\143\249\184\118\116\33\218\158\66\35\31\154\8\230\222\103\31\199\187\252\238\128\46\32",164),Flag=lI1Il1ll("\133\168\89\35\28\138",169)}) end;
 
 do 
-local l1l1Il11I1l1;
+local l1l1l11IIl11;
 pcall(function() 
-l1l1Il11I1l1=require(lIl1l11ll:WaitForChild(llIllII1III("\56\247\191\148\99\255\133\65\114\106\9",41),10)) end);
+l1l1l11IIl11=require(lIll1lII:WaitForChild(lI1Il1ll("\216\206\11\24\117\231\214\255\136\199\64",212),10)) end);
 
-local llI1ll1llI1lI={[llIllII1III("\26\34\35\223\68\19\255\136\216\100\192\177\99\104\108\27\189",20)]=true,[llIllII1III("\65\135\200\229\68\178\137\106\139\138\233\168\181\163\86",73)]=true,[llIllII1III("\113\10\234\164\232\107\213\192\87\100\114\20\82\255\184\97\225\180\113\36",40)]=true,[llIllII1III("\129\40\65\254\214\198\161\20\69\201\188\171\220\135\128\208\59\176",87)]=true};
-local lI1ll1IlII,llIIII1I1l1={},{};
-if lII1I11lll111 then 
-lII1I11lll111.QuestDataUpdate.OnClientEvent:Connect(function(lIlI1l1IIl1lI,lIll1lllllIl,l11lIlII11) 
-lI1ll1IlII=((type(lIlI1l1IIl1lI) == llIllII1III("\75\64\66\58\100",64)) and lIlI1l1IIl1lI) or {};
-llIIII1I1l1={};
-for lllIllIlIlIII,lll1lI111llI in pairs(((type(l11lIlII11) == llIllII1III("\152\235\175\167\153",130)) and l11lIlII11) or {}) do 
-llIIII1I1l1[lllIllIlIlIII]=os.clock() + (tonumber(lll1lI111llI) or 0) end end) end;
+local lIIIII11={[lI1Il1ll("\141\212\68\45\239\231\21\83\68\199\37\250\145\194\105\226\74",192)]=true,[lI1Il1ll("\121\222\112\55\176\134\38\48\166\163\192\101\81\146\229",14)]=true,[lI1Il1ll("\158\238\107\155\35\75\198\234\113\110\140\153\2\250\153\98\14\112\240\123",44)]=true,[lI1Il1ll("\66\163\205\199\17\166\24\111\24\62\138\150\102\79\56\156\152\59",74)]=true};
+local l11Il1lIIIII,lI1I11lll1I={},{};
+if llIlllI1IllIl then 
+llIlllI1IllIl.QuestDataUpdate.OnClientEvent:Connect(function(lI1lI1l1ll1,ll1IlllIll1,lII1II1IIIl1) 
+l11Il1lIIIII=((type(lI1lI1l1ll1) == lI1Il1ll("\225\142\26\7\200",23)) and lI1lI1l1ll1) or {};
+lI1I11lll1I={};
+for llIII1IlIl,lI1I1II1I1 in pairs(((type(lII1II1IIIl1) == lI1Il1ll("\90\32\181\190\116",48)) and lII1II1IIIl1) or {}) do 
+lI1I11lll1I[llIII1IlIl]=os.clock() + (tonumber(lI1I1II1I1) or 0) end end) end;
 
 
 
-local function lI1I1lIIIIIl(lIllI1IllI1ll) 
-if not l1I1lIl111lll.q_safe then 
+local function lII1IlIl1(ll1IIllII1) 
+if not lIlII111.q_safe then 
 return true end;
 
-local llI1I11ll1111=tostring(lIllI1IllI1ll.progressLabel or llIllII1III("",137));
-return ((llI1ll1llI1lI[llI1I11ll1111] or (llI1I11ll1111:find(llIllII1III("\195\227\138\206\192\18\247\108",225)) ~= nil)) or (llI1I11ll1111:find(llIllII1III("\15\86\124\114\66",50)) ~= nil)) or (llI1I11ll1111:find(llIllII1III("\58\127\17\23\41\200",18)) ~= nil) end;
+local lllII11lll=tostring(ll1IIllII1.progressLabel or lI1Il1ll("",235));
+return ((lIIIII11[lllII11lll] or (lllII11lll:find(lI1Il1ll("\165\45\77\232\157\91\124\104",79)) ~= nil)) or (lllII11lll:find(lI1Il1ll("\158\151\20\150\40",60)) ~= nil)) or (lllII11lll:find(lI1Il1ll("\227\37\61\71\217\203",197)) ~= nil) end;
 
 task.spawn(function() 
-while llI11I1l() do 
-if (l1I1lIl111lll.q_auto and l1l1Il11I1l1) and lII1I11lll111 then 
+while llI1I11l11() do 
+if (lIlII111.q_auto and l1l1l11IIl11) and llIlllI1IllIl then 
 pcall(function() 
-lII1I11lll111.RequestQuestData:FireServer() end);
+llIlllI1IllIl.RequestQuestData:FireServer() end);
 
 task.wait(2);
-local ll1IlII1IIlIl=0;
-for l1II1lIlI,l111IIlII in pairs(lI1ll1IlII) do 
-if (type(l111IIlII) == llIllII1III("\132\205\1\41\33",14)) and (l111IIlII.status == llIllII1III("\3\92\64\9\59\172",120)) then 
-ll1IlII1IIlIl=ll1IlII1IIlIl + 1 end end;
+local l1lIIIIl=0;
+for lI1I111lIIl,l1lI1I1IIIIl in pairs(l11Il1lIIIII) do 
+if (type(l1lI1I1IIIIl) == lI1Il1ll("\141\51\51\239\176",8)) and (l1lI1I1IIIIl.status == lI1Il1ll("\22\130\236\34\11\205",1)) then 
+l1lIIIIl=l1lIIIIl + 1 end end;
 
 
-local ll11IllI=llII11l1lIl1.last.realm or 1;
-for l11l1IlIIlI,lIl1ll11l1l in pairs(l1l1Il11I1l1.Quests or {}) do 
-if ll1IlII1IIlIl >= 4 then 
+local lIllI1II11lI=ll11lII111l1l.last.realm or 1;
+for lIIIlll1Ill1I,l1l1lI1I in pairs(l1l1l11IIl11.Quests or {}) do 
+if l1lIIIIl >= 4 then 
 break end;
 
-local llIlllll1ll=lI1ll1IlII[l11l1IlIIlI];
-local llll1lIlIllll=(not llIlllll1ll) or ((type(llIlllll1ll) == llIllII1III("\114\216\201\214\189",191)) and (llIlllll1ll.status ~= llIllII1III("\102\101\24\66\87\131",97)));
-if (((llll1lIlIllll and (not lIl1ll11l1l.hidden)) and (ll11IllI >= (lIl1ll11l1l.requiredRealm or 0))) and lI1I1lIIIIIl(lIl1ll11l1l)) and ((not llIIII1I1l1[l11l1IlIIlI]) or (os.clock() > llIIII1I1l1[l11l1IlIIlI])) then 
-lII1I11lll111.AcceptQuest:FireServer(l11l1IlIIlI);
-ll1IlII1IIlIl=ll1IlII1IIlIl + 1;
+local lIl1II11lII=l11Il1lIIIII[lIIIlll1Ill1I];
+local llIlI1l11IIII=(not lIl1II11lII) or ((type(lIl1II11lII) == lI1Il1ll("\121\218\87\211\99",252)) and (lIl1II11lII.status ~= lI1Il1ll("\72\120\122\98\23\175",116)));
+if (((llIlI1l11IIII and (not l1l1lI1I.hidden)) and (lIllI1II11lI >= (l1l1lI1I.requiredRealm or 0))) and lII1IlIl1(l1l1lI1I)) and ((not lI1I11lll1I[lIIIlll1Ill1I]) or (os.clock() > lI1I11lll1I[lIIIlll1Ill1I])) then 
+llIlllI1IllIl.AcceptQuest:FireServer(lIIIlll1Ill1I);
+l1lIIIIl=l1lIIIIl + 1;
 task.wait(1) end end end;
 
 
 
-if (l1I1lIl111lll.q_daily and ((l11l1111l:GetAttribute(llIllII1III("\119\52\131\201\21\29\59\124\12\6\68\169",252)) or 0) > 0)) and lII1I11lll111 then 
-lII1I11lll111.ClaimReward:FireServer(llIllII1III("\164\246\228\214\63",195)) end;
+if (lIlII111.q_daily and ((lII1I1l1lIII:GetAttribute(lI1Il1ll("\199\110\226\61\77\221\179\81\96\129\149\242",45)) or 0) > 0)) and llIlllI1IllIl then 
+llIlllI1IllIl.ClaimReward:FireServer(lI1Il1ll("\16\22\192\163\132",41)) end;
 
-if l1I1lIl111lll.q_play and lII1I11lll111 then 
-for l1I1IIlllI=1,12 do 
+if lIlII111.q_play and llIlllI1IllIl then 
+for l11I1lll=1,12 do 
 pcall(function() 
-lII1I11lll111.ClaimReward:FireServer(llIllII1III("\105\190\235\206\83\235\87\144",89),l1I1IIlllI) end) end end;
+llIlllI1IllIl.ClaimReward:FireServer(lI1Il1ll("\21\159\208\86\205\105\62\160",251),l11I1lll) end) end end;
 
 
 
@@ -732,54 +732,54 @@ task.wait(30) end end) end;
 
 
 do 
-local lIl11l1l={};
-local function ll1l111lIl(lIIl1lII1l1II,llll1l1l1l1ll) 
-if llll1l1l1l1ll then 
-lIl11l1l[lIIl1lII1l1II]=llll1l1l1l1ll end end;
+local l11lII1ll1I={};
+local function ll1IIll1l11l(llIl11IlI1,l1ll1Il1I1II1) 
+if l1ll1Il1I1II1 then 
+l11lII1ll1I[llIl11IlI1]=l1ll1Il1I1II1 end end;
 
 
-local function llll1IIlll(lI1lI1IIlll) 
-if lI1lI1IIlll and lI1lI1IIlll:IsA(llIllII1III("\234\173\130\24\152\229\73\89",26)) then 
-return lI1lI1IIlll.Position end;
+local function l1I1lIII11l(lIIl1I1lIl1) 
+if lIIl1I1lIl1 and lIIl1I1lIl1:IsA(lI1Il1ll("\111\58\166\58\182\232\157\238",220)) then 
+return lIIl1I1lIl1.Position end;
 
-if lI1lI1IIlll and lI1lI1IIlll:IsA(llIllII1III("\93\35\231\0\8",238)) then 
-local llIl1II1I1II,lI1IIl1l1llI=pcall(lI1lI1IIlll.GetPivot,lI1lI1IIlll);
-return (llIl1II1I1II and lI1IIl1l1llI.Position) or nil end;
+if lIIl1I1lIl1 and lIIl1I1lIl1:IsA(lI1Il1ll("\132\13\101\182\201",56)) then 
+local lll1I1I1lI1ll,l1l111l1Il=pcall(lIIl1I1lIl1.GetPivot,lIIl1I1lIl1);
+return (lll1I1I1lI1ll and l1l111l1Il.Position) or nil end;
 
 return nil end;
 
-for lIl111l111lIl,lIl1IlI1IlI in ipairs((workspace:FindFirstChild(llIllII1III("\147\242\209\254\31\154\220\194\143\164\37\132\241\63\54\33",211)) or Instance.new(llIllII1III("\105\21\94\137\154\188",125))):GetChildren()) do 
-ll1l111lIl(llIllII1III("\152\240\58\101\23\137",216) .. lIl1IlI1IlI.Name,llll1IIlll(lIl1IlI1IlI)) end;
+for lIll11Il1l1I,l1l1l1Il1IlI1 in ipairs((workspace:FindFirstChild(lI1Il1ll("\247\194\5\123\212\69\220\112\62\174\214\49\50\166\172\208",233)) or Instance.new(lI1Il1ll("\211\128\20\15\200\185",23))):GetChildren()) do 
+ll1IIll1l11l(lI1Il1ll("\115\116\96\110\91\234",116) .. l1l1l1Il1IlI1.Name,l1I1lIII11l(l1l1l1Il1IlI1)) end;
 
-for l1IIl11lIl1,l1II1I1lI111 in ipairs((workspace:FindFirstChild(llIllII1III("\30\85\121\98\111\185\42\87\177\234\192\89\17\91\133\167\163\196\136\152",50)) or Instance.new(llIllII1III("\145\185\208\255\244\196",177))):GetChildren()) do 
-ll1l111lIl(llIllII1III("\182\107\218\146\32\46\118\251\85\86\131",150) .. l1II1I1lI111.Name,llll1IIlll(l1II1I1lI111)) end;
+for l1I1llI1llllI,l11111l11I in ipairs((workspace:FindFirstChild(lI1Il1ll("\99\228\86\60\144\163\121\91\179\169\244\66\92\136\31\101\222\85\231\166",30)) or Instance.new(lI1Il1ll("\55\148\46\113\230\148",78))):GetChildren()) do 
+ll1IIll1l11l(lI1Il1ll("\22\56\237\150\189\105\242\74\82\155\248",9) .. l11111l11I.Name,l1I1lIII11l(l11111l11I)) end;
 
-for llIIlIllIll,lIlI11lII in ipairs({llIllII1III("\63\145\32\205\138\227\49\185\247\59\63",247),llIllII1III("\22\16\7\22\85\26\7\49\198\69\107\138",255),llIllII1III("\99\161\31\91\175\250\20\176\2\79\139\164\170\198",86),llIllII1III("\167\111\215\135\108\25\124\231\83\4\194\235\240",150),llIllII1III("\80\99\5\76\73\146\95\237\171\113\34\22\137\54",97),llIllII1III("\115\171\17\79\179\217\60\167\19\68\130\171\176",86),llIllII1III("\56\128\42\13\214\197\249\172\218\223\249\22\115\52\200",172),llIllII1III("\154\179\206\242\229\231\55\153\219\54\127\85\58\147\217\17\34\52",177),llIllII1III("\190\38\97\213\202\211\173\198\193\239\7\137\47\223\144",173),llIllII1III("\34\109\85\216\92\54\30\12\15\111\15\30\62",218),llIllII1III("\82\62\243\175\137\8\247\149\74\65\85\20",24),llIllII1III("\162\92\79\101\26\70\68\142\91\248\177\75\60",79),llIllII1III("\43\136\33\219\140\227\48\163\250\61\50\92\41\123\106\112",247),llIllII1III("\173\188\75\196\228\8",165),llIllII1III("\5\226\226\34\109\61\40\43\202",239),llIllII1III("\255\191\227\219\221\16\151\208\45\171\176\41\141",194),llIllII1III("\220\244\243\116\52\59\42\221\83\3\233\151\252\109\201",240)}) do 
+for l1l1Illll1II,l11lllI1ll11 in ipairs({lI1Il1ll("\21\18\220\172\249\35\175\59\70\195\172",25),lI1Il1ll("\225\82\238\185\14\67\151\188\34\46\75\242",142),lI1Il1ll("\220\155\76\103\157\105\48\171\175\92\49\118\231\103",98),lI1Il1ll("\98\208\107\57\175\235\0\45\169\167\196\104\81",14),lI1Il1ll("\26\234\128\192\113\247\103\40\217\189\101\86\188\147",10),lI1Il1ll("\252\161\82\99\145\186\232\172\174\103\8\73\237",82),lI1Il1ll("\84\211\223\22\148\223\108\197\93\57\174\212\8\80\178",232),lI1Il1ll("\104\86\3\134\13\145\230\100\22\211\4\246\224\134\51\23\208\177",187),lI1Il1ll("\228\119\230\68\42\196\169\86\77\177\140\242\66\90\147",29),lI1Il1ll("\107\233\143\40\104\157\188\45\54\74\250\254\15",143),lI1Il1ll("\231\64\63\228\217\9\34\102\193\55\252\141",193),lI1Il1ll("\133\237\143\18\126\150\168\80\112\35\252\238\63",127),lI1Il1ll("\144\92\37\94\254\191\2\98\57\191\60\106\30\141\239\49",181),lI1Il1ll("\58\115\246\118\180\129",112),lI1Il1ll("\182\24\72\231\92\242\190\44\80",123),lI1Il1ll("\198\5\239\171\45\51\224\180\240\76\244\40\90",245),lI1Il1ll("\38\142\22\142\250\109\50\198\4\236\252\172\29\27\212",205)}) do 
 
-ll1l111lIl(lIlI11lII,llll1IIlll(workspace:FindFirstChild(lIlI11lII))) end;
+ll1IIll1l11l(l11lllI1ll11,l1I1lIII11l(workspace:FindFirstChild(l11lllI1ll11))) end;
 
-ll1l111lIl(llIllII1III("\43\227\180\131\126\198\202\70\102\107\28",41),Vector3.new(- 680,40,715));
-local l1ll111II1={};
-for lIl1IIlI1I in pairs(lIl11l1l) do 
-table.insert(l1ll111II1,lIl1IIlI1I) end;
+ll1IIll1l11l(lI1Il1ll("\191\62\87\19\128\7\218\254\122\3\45",186),Vector3.new(- 680,40,715));
+local lI1lI1lI={};
+for ll1IlI111 in pairs(l11lII1ll1I) do 
+table.insert(lI1lI1lI,ll1IlI111) end;
 
-table.sort(l1ll111II1);
-local l1llIll1IlI1l=l1ll1lllIl:Section(llIllII1III("\214\85\74\89\61\76",63));
-l1llIll1IlI1l:Dropdown({Name=llIllII1III("\153\146\91\211\148",149),Flag=llIllII1III("\139\190\144\250\160\156\173",128),Options=l1ll111II1,Default=l1ll111II1[1]});
-l1llIll1IlI1l:Button({Name=llIllII1III("\125\123\118\245\161\69\0\11",117),Action=llIllII1III("\87\40",19),Callback=function() 
-local l1lllI11I11I1=lIl11l1l[l1I1lIl111lll.t_place or llIllII1III("",232)];
-if l1lllI11I11I1 then 
-lI1I11lIl1Il(l1lllI11I11I1 + Vector3.new(0,4,0)) end end});
+table.sort(lI1lI1lI);
+local lII1lIIl11l1l=lIlIll11llI:Section(lI1Il1ll("\219\146\76\116\151\116",98));
+lII1lIIl11l1l:Dropdown({Name=lI1Il1ll("\42\19\148\53\48",246),Flag=lI1Il1ll("\33\112\200\199\12\104\220",215),Options=lI1lI1lI,Default=lI1lI1lI[1]});
+lII1lIIl11l1l:Button({Name=lI1Il1ll("\61\167\141\86\53\108\143\19",152),Action=lI1Il1ll("\217\158",128),Callback=function() 
+local llIl1l11l=l11lII1ll1I[lIlII111.t_place or lI1Il1ll("",207)];
+if llIl1l11l then 
+lIlll1I11Ill(llIl1l11l + Vector3.new(0,4,0)) end end});
 
 
-local ll11lIllI1=l1ll1lllIl:Section(llIllII1III("\200\94\246\187",92));
-ll11lIllI1:Button({Name=llIllII1III("\106\209\153\107\94\124\241\82\70\237\228\186\140\55\48\82\249\107\23\242\186\195\113\217\133\90",167),Action=llIllII1III("\165\208",248),Callback=function() 
-local lI1l1llll=workspace:FindFirstChild(llIllII1III("\151\248\255\214\34\190\194\53\101",195));
-local lIlIl11l=lI1l1llll and lI1l1llll:FindFirstChildWhichIsA(llIllII1III("\83\251\177\75\34",135));
-if lIlIl11l and lIlIl11l:FindFirstChild(llIllII1III("\225\55\119\70\57\157\195\1\21\41\67\31\49\71\160\60",233)) then 
-lI1I11lIl1Il(lIlIl11l.HumanoidRootPart.CFrame * CFrame.new(0,3,10)) else 
+local lIIIIIIII1lI=lIlIll11llI:Section(lI1Il1ll("\89\184\147\103",131));
+lIIIIIIII1lI:Button({Name=lI1Il1ll("\125\231\205\22\117\44\79\211\46\21\152\146\5\59\211\227\206\125\99\175\241\243\47\184\237\130",216),Action=lI1Il1ll("\131\136",153),Callback=function() 
+local ll1IlIll11=workspace:FindFirstChild(lI1Il1ll("\106\112\11\91\205\113\213\174\40",122));
+local l11lII111ll1I=ll1IlIll11 and ll1IlIll11:FindFirstChildWhichIsA(lI1Il1ll("\138\62\76\254\193",177));
+if l11lII111ll1I and l11lII111ll1I:FindFirstChild(lI1Il1ll("\162\154\232\71\171\120\8\75\243\100\221\177\3\55\231\219",102)) then 
+lIlll1I11Ill(l11lII111ll1I.HumanoidRootPart.CFrame * CFrame.new(0,3,10)) else 
 
-l11IlII11:Notify({Title=llIllII1III("\14\56\2\236\94\71\254\183\150\98",4),Content=llIllII1III("\81\110\116\86\82\175\137\127\236\186\112\96\31\128\91\24\219\145\222\137\198",96)}) end end}) end;
+lllIlIllII:Notify({Title=lI1Il1ll("\194\140\211\115\237\16\33\186\167\100",11),Content=lI1Il1ll("\217\110\12\139\238\248\232\148\42\2\221\255\255\106\138\60\83\145\166\84\122",225)}) end end}) end;
 
 
 
@@ -788,109 +788,109 @@ l11IlII11:Notify({Title=llIllII1III("\14\56\2\236\94\71\254\183\150\98",4),Conte
 
 
 do 
-local l1I11111IlI=l1llllll:Section(llIllII1III("\195\107\19\251\179\134\125\194",23));
-l1I11111IlI:Toggle({Name=llIllII1III("\7\102\81\97\214\31\77\83\3\47",83),Flag=llIllII1III("\69\19\2\141\45\97\223\226\210",154)});
-l1I11111IlI:Slider({Name=llIllII1III("\175\234\152\158\168",146),Flag=llIllII1III("\219\54\8\58\77\10\1",15),Min=16,Max=120,Increment=2,Default=40});
-l1I11111IlI:Toggle({Name=llIllII1III("\215\122\51\199\160\154\23\163\166\83\94\87\40",7),Flag=llIllII1III("\145\197\148\149\170\102\211\238\8",146)});
-l1I11111IlI:Toggle({Name=llIllII1III("\210\149\62\55\5\252",242),Description=llIllII1III("\247\150\129\177\6\168\229\20\89\78\220\102\110\246\2\14\124\52\93\98\207\67\8\132\134\232\99\255\172\112\112\102\229\165\237\149\104\208\148\47",163),Flag=llIllII1III("\4\56\78\191\41\123\133\248",52)});
-local l1I1ll1IlIlI=l1llllll:Section(llIllII1III("\241\154\7\83\100\230\114",184));
-l1I1ll1IlIlI:Toggle({Name=llIllII1III("\117\170\10\66\224\213\31\158",86),Description=llIllII1III("\108\254\173\141\156\222\198\172\155\162\69\216\161\17\75\108\228\115\60\234\191\23\107\38\105\24\213\66\81\232\183\246\113\205\194\116\107\114\17",109),Flag=llIllII1III("\53\67\64\203\147",234),Default=true});
-lI1llI1l11.Stepped:Connect(function() 
-if not llI11I1l() then 
+local lllIlII11l1l=lll11lI1ll1:Section(lI1Il1ll("\248\172\247\26\132\53\77\193",43));
+lllIlII11l1l:Toggle({Name=lI1Il1ll("\130\42\185\247\223\10\112\166\160\68",109),Flag=lI1Il1ll("\156\36\177\229\102\3\193\208\228",206)});
+lllIlII11l1l:Slider({Name=lI1Il1ll("\71\103\172\202\185",73),Flag=lI1Il1ll("\169\184\74\47\104\230\9",153),Min=16,Max=120,Increment=2,Default=40});
+lllIlII11l1l:Toggle({Name=lI1Il1ll("\84\145\255\190\39\186\238\152\91\100\136\170\82",90),Flag=lI1Il1ll("\119\64\60\152\147\109\68\18\129",150)});
+lllIlII11l1l:Toggle({Name=lI1Il1ll("\39\52\173\167\200\122",52),Description=lI1Il1ll("\18\193\221\160\60\123\185\213\138\46\162\4\47\30\113\191\153\99\1\115\149\144\84\69\85\136\29\157\237\120\3\215\0\242\177\132\18\3\200\238",37),Flag=lI1Il1ll("\57\200\223\59\62\123\217\195",195)});
+local l1lllIllll=lll11lI1ll1:Section(lI1Il1ll("\246\37\34\88\213\192\31",197));
+l1lllIllll:Toggle({Name=lI1Il1ll("\100\93\5\134\89\129\213\78",187),Description=lI1Il1ll("\72\26\50\23\241\183\191\17\15\195\166\255\89\136\35\78\224\151\67\112\210\126\18\187\253\89\54\101\169\113\191\212\85\41\157\238\6\27\104",242),Flag=lI1Il1ll("\196\196\239\237\138",244),Default=true});
+lIlIl111lII1.Stepped:Connect(function() 
+if not llI1I11l11() then 
 return  end;
 
-local lI1II1IIl1,ll1I111111=ll11111lI1IIl();
-if not ll1I111111 then 
+local l1I1lIlI1,lII1I1I1=llI11I1I1();
+if not lII1I1I1 then 
 return  end;
 
-if (l1I1lIl111lll.m_speedOn and (not lI1I1Il1lIl())) and (ll1I111111.WalkSpeed > 0) then 
-ll1I111111.WalkSpeed=l1I1lIl111lll.m_speed or 40 end;
+if (lIlII111.m_speedOn and (not ll1l1l11lll1())) and (lII1I1I1.WalkSpeed > 0) then 
+lII1I1I1.WalkSpeed=lIlII111.m_speed or 40 end;
 
-if l1I1lIl111lll.m_noclip then 
-for l111l1II1IlI1,l1llIIIIl11l in ipairs(lI1II1IIl1:GetDescendants()) do 
-if l1llIIIIl11l:IsA(llIllII1III("\187\150\163\69\138\230\14\76",164)) then 
-l1llIIIIl11l.CanCollide=false end end end end);
-
-
+if lIlII111.m_noclip then 
+for lIIlI11lIll,lIIl1l1II in ipairs(l1I1lIlI1:GetDescendants()) do 
+if lIIl1l1II:IsA(lI1Il1ll("\140\192\68\23\225\242\4\247",208)) then 
+lIIl1l1II.CanCollide=false end end end end);
 
 
-game:GetService(llIllII1III("\133\244\216\248\63\130\205\195\146\152\46\172\232\56\48\55",211)).JumpRequest:Connect(function() 
-local lIIIIlll,lIl1I1lIIl=ll11111lI1IIl();
-if (llI11I1l() and l1I1lIl111lll.m_infJump) and lIl1I1lIIl then 
-lIl1I1lIIl:ChangeState(Enum.HumanoidStateType.Jumping) end end);
 
 
-l11l1111l.Idled:Connect(function() 
-if llI11I1l() and (l1I1lIl111lll.m_afk ~= false) then 
-local lII1IIII=game:GetService(llIllII1III("\255\43\104\83\34\147\198\48\52\35\94",233));
+game:GetService(lI1Il1ll("\176\0\84\221\112\238\163\48\80\180\196\54\59\78\227\198",123)).JumpRequest:Connect(function() 
+local lIlIlIl11lll,lll11I1l1I=llI11I1I1();
+if (llI1I11l11() and lIlII111.m_infJump) and lll11I1l1I then 
+lll11I1l1I:ChangeState(Enum.HumanoidStateType.Jumping) end end);
+
+
+lII1I1l1lIII.Idled:Connect(function() 
+if llI1I11l11() and (lIlII111.m_afk ~= false) then 
+local lIIl1Illl=game:GetService(lI1Il1ll("\71\242\80\65\214\167\105\106\153\138\247",46));
 pcall(function() 
-lII1IIII:CaptureController();
-lII1IIII:ClickButton2(Vector2.new()) end) end end);
+lIIl1Illl:CaptureController();
+lIIl1Illl:ClickButton2(Vector2.new()) end) end end);
 
 
 
-local l1I1Ill1l=lIIlI1lI1I1:Section(llIllII1III("\139\255\211\68\8\64",106));
-l1I1Ill1l:Button({Name=llIllII1III("\93\75\185\52\83\181\251\143\104\47\123",69),Description=llIllII1III("\212\73\129\155\135\130\144\133\177\86\167\255\8\93\87\210\48\35\229\3\68\115\43\39\100\198\75\22\159\210\236\118\128\168\123\112\52\239\176\189\129",126),Action=llIllII1III("\122\209\134\122\92\124\250",167),Danger=true,Callback=function() 
-l11IlII11:Unload() end}) end;
+local ll111lII1lll1=l11I1I1I1IlI1:Section(lI1Il1ll("\250\97\83\154\245\183",88));
+ll111lII1lll1:Button({Name=lI1Il1ll("\30\58\102\194\199\8\136\159\118\238\75",214),Description=lI1Il1ll("\97\165\147\245\95\31\132\1\80\217\76\200\183\48\78\132\133\47\55\77\156\206\31\99\101\73\192\97\0\191\213\0\117\196\169\222\44\114\164\249\160",85),Action=lI1Il1ll("\129\69\66\63\238\224\40",165),Danger=true,Callback=function() 
+lllIlIllII:Unload() end}) end;
 
 
 
 
 
 
-local function l11l1l1IllIl1(ll11lll1lII) 
-if ll11lll1lII == llIllII1III("\44\171\193\39",215) then 
-local l1I1l1I1l1=workspace:FindFirstChild(llIllII1III("\162\243\55\44\23\55\121\103\93\178\31\95\169\251\55\143\31\66\134\182",30));
-local l1l1I11lIIII=l1I1l1I1l1 and l1I1l1I1l1:FindFirstChild(l1I1lIl111lll.c_bodyZone or llIllII1III("",83));
-return l1l1I11lIIII and l1l1I11lIIII.Position end;
+local function lIII1l1l1l1ll(l1I11l111lIIl) 
+if l1I11l111lIIl == lI1Il1ll("\200\192\161\31",38) then 
+local lIl11lll=workspace:FindFirstChild(lI1Il1ll("\211\116\198\204\96\51\233\203\3\25\100\210\44\248\143\245\78\229\87\54",174));
+local l1I1ll1I1lIl=lIl11lll and lIl11lll:FindFirstChild(lIlII111.c_bodyZone or lI1Il1ll("",54));
+return l1I1ll1I1lIl and l1I1ll1I1lIl.Position end;
 
-local lIll11lIIIl=workspace:FindFirstChild(llIllII1III("\179\210\49\30\255\122\60\226\175\132\5\228\145\95\86\65",243));
-local lll11Il1l1=lIll11lIIIl and lIll11lIIIl:FindFirstChild(l1I1lIl111lll.c_qiZone or llIllII1III("",244));
-return lll11Il1l1 and lll11Il1l1.Position end;
+local lII11lIII1=workspace:FindFirstChild(lI1Il1ll("\158\74\53\99\224\101\187\201\82\33\211\221\13\25\104\45",154));
+local lIIlIlI11ll=lII11lIII1 and lII11lIII1:FindFirstChild(lIlII111.c_qiZone or lI1Il1ll("",239));
+return lIIlIlI11ll and lIIlIlI11ll.Position end;
 
 do 
-local llll1Il1II,lII11I1Il=os.clock(),llIllII1III("\23\240",223);
+local lI1lIIIlII11I,lllI111I1Il=os.clock(),lI1Il1ll("\148\50",93);
 task.spawn(function() 
-while llI11I1l() do 
-local l11III111IlI=false;
-if (l1I1lIl111lll.g_herbs or l1I1lIl111lll.g_chests) or l1I1lIl111lll.g_coins then 
-local lI111IIIlII11,l1IIIll1l1I=pcall(l1II1Ill);
-l11III111IlI=lI111IIIlII11 and l1IIIll1l1I end;
+while llI1I11l11() do 
+local l1lI1I11Il11I=false;
+if (lIlII111.g_herbs or lIlII111.g_chests) or lIlII111.g_coins then 
+local llI11111I1I,lI111II1=pcall(l11IlllII);
+l1lI1I11Il11I=llI11111I1I and lI111II1 end;
 
-if (not l11III111IlI) and l1I1lIl111lll.k_farm then 
-local llll1lll,ll11I1I1=pcall(l1Ill1I1llIl);
-l11III111IlI=llll1lll and ll11I1I1 end;
+if (not l1lI1I11Il11I) and lIlII111.k_farm then 
+local llIl1llI1lll,lIlI1lIlll=pcall(l1llI1lllII11);
+l1lI1I11Il11I=llIl1llI1lll and lIlI1lIlll end;
 
-if l11III111IlI then 
+if l1lI1I11Il11I then 
 task.wait(0.1) else 
 
-local lIlII1Il=llII11l1lIl1.busy;
-llII11l1lIl1.busy=false;
-if (((l1I1lIl111lll.c_train and (not l1I1lIl111lll.c_still)) or llII11l1lIl1.resting) and ll11111lI1IIl()) and (not (llII11l1lIl1.lastHit and ((os.clock() - llII11l1lIl1.lastHit) < 2))) then 
-local l11llI11=l1I1lIl111lll.c_path or llIllII1III("\41\85",202);
-local lllI1Il1Il=((l11llI11 == llIllII1III("\103\62\144\209",252)) and llIllII1III("\228\86\79\67",63)) or llIllII1III("\33\101",174);
-if l11llI11 == llIllII1III("\232\203\20\245\120\57\205\188\144",244) then 
-if (os.clock() - llll1Il1II) > ((l1I1lIl111lll.c_alt or 5) * 60) then 
-lII11I1Il=((lII11I1Il == llIllII1III("\173\211",178)) and llIllII1III("\110\5\73\82",98)) or llIllII1III("\191\45",87);
-llll1Il1II=os.clock() end;
+local ll11I1llIIl=ll11lII111l1l.busy;
+ll11lII111l1l.busy=false;
+if (((lIlII111.c_train and (not lIlII111.c_still)) or ll11lII111l1l.resting) and llI11I1I1()) and (not (ll11lII111l1l.lastHit and ((os.clock() - ll11lII111l1l.lastHit) < 2))) then 
+local lll111IlII=lIlII111.c_path or lI1Il1ll("\37\222",227);
+local l11ll1ll=((lll111IlII == lI1Il1ll("\247\63\5\98",213)) and lI1Il1ll("\24\16\145\47",246)) or lI1Il1ll("\56\18",20);
+if lll111IlII == lI1Il1ll("\228\119\241\73\61\199\177\103\80",29) then 
+if (os.clock() - lI1lIIIlII11I) > ((lIlII111.c_alt or 5) * 60) then 
+lllI111I1Il=((lllI111I1Il == lI1Il1ll("\68\194",141)) and lI1Il1ll("\251\196\58\34",196)) or lI1Il1ll("\5\30",41);
+lI1lIIIlII11I=os.clock() end;
 
-lllI1Il1Il=lII11I1Il end;
+l11ll1ll=lllI111I1Il end;
 
-if llII11l1lIl1.resting then 
-lllI1Il1Il=llIllII1III("\8\30",36) end;
+if ll11lII111l1l.resting then 
+l11ll1ll=lI1Il1ll("\16\161",207) end;
 
-local lII11I1l=((l1I1lIl111lll.c_zoneTp or (lIlII1Il and l1I1lIl111lll.g_return)) and (not llII11l1lIl1.resting)) and l11l1l1IllIl1(lllI1Il1Il);
-local lIl1I1Il1l11,lII1I1lII1lll,lI1Ill1II1l=ll11111lI1IIl();
-if (lII11I1l and lI1Ill1II1l) and ((lI1Ill1II1l.Position - lII11I1l).Magnitude > 25) then 
-lI1I11lIl1Il(lII11I1l + Vector3.new(0,4,0));
+local l1l11III=((lIlII111.c_zoneTp or (ll11I1llIIl and lIlII111.g_return)) and (not ll11lII111l1l.resting)) and lIII1l1l1l1ll(l11ll1ll);
+local lIlI1llI,llIIIl1IIl1,lIlllI1IlI=llI11I1I1();
+if (l1l11III and lIlllI1IlI) and ((lIlllI1IlI.Position - l1l11III).Magnitude > 25) then 
+lIlll1I11Ill(l1l11III + Vector3.new(0,4,0));
 task.wait(0.5) end;
 
-if lI1I1Il1lIl() ~= lllI1Il1Il then 
-l1ll1lIlll(lllI1Il1Il) end;
+if ll1l1l11lll1() ~= l11ll1ll then 
+ll11II1ll1lI(l11ll1ll) end;
 
-llII11l1lIl1.status=(llII11l1lIl1.resting and llIllII1III("\206\191\206\207\229\2\129",210)) or (llIllII1III("\200\168\220\210\226\5\136\36\152",210) .. lllI1Il1Il) elseif not l1I1lIl111lll.c_train then 
+ll11lII111l1l.status=(ll11lII111l1l.resting and lI1Il1ll("\247\5\2\127\53\33\246",229)) or (lI1Il1ll("\90\51\182\187\127\90\184\132\185",48) .. l11ll1ll) elseif not lIlII111.c_train then 
 
-llII11l1lIl1.status=llIllII1III("\145\216\237\104",74) end;
+ll11lII111l1l.status=lI1Il1ll("\28\107\52\46",247) end;
 
 task.wait(1) end end end) end;
 
@@ -900,54 +900,54 @@ task.wait(1) end end end) end;
 
 
 do 
-local lllIIII1l;
+local lIlIII1lI;
 pcall(function() 
-lllIIII1l=require(l11l1111l:WaitForChild(llIllII1III("\153\146\91\201\148\120\1\124\237\67\18\233\252",149)):WaitForChild(llIllII1III("\70\183\58\151\203\19\14\45\84\18\113\79",251))):GetControls() end);
+lIlIII1lI=require(lII1I1l1lIII:WaitForChild(lI1Il1ll("\53\183\36\149\234\155\195\48\7\249\209\175\31",221)):WaitForChild(lI1Il1ll("\30\77\214\139\84\97\187\108\29\167\189\102",80))):GetControls() end);
 
-local function lllll1Il1() 
-local l11II1II,lIlIll1IIIlII,ll1lI1I11=ll11111lI1IIl();
-if not lIlIll1IIIlII then 
+local function llIIlIll11() 
+local lIl1IlI111,l1II1ll11I1lI,ll1ll1IlI=llI11I1I1();
+if not l1II1ll11I1lI then 
 return false end;
 
-local lll1ll1I11I=Vector3.zero;
-if lllIIII1l then 
-local l1l1IlI11l,l111I1lII=pcall(lllIIII1l.GetMoveVector,lllIIII1l);
-if l1l1IlI11l and l111I1lII then 
-lll1ll1I11I=l111I1lII end end;
+local l1IIlIII1l=Vector3.zero;
+if lIlIII1lI then 
+local lIII1ll1,lIl1I11111I=pcall(lIlIII1lI.GetMoveVector,lIlIII1lI);
+if lIII1ll1 and lIl1I11111I then 
+l1IIlIII1l=lIl1I11111I end end;
 
 
-if lll1ll1I11I.Magnitude < 0.1 then 
-lll1ll1I11I=lIlIll1IIIlII.MoveDirection end;
+if l1IIlIII1l.Magnitude < 0.1 then 
+l1IIlIII1l=l1II1ll11I1lI.MoveDirection end;
 
-return lll1ll1I11I.Magnitude > 0.1 end;
+return l1IIlIII1l.Magnitude > 0.1 end;
 
-local l1ll1IIIlI1;
+local ll11lIlI111lI;
 task.spawn(function() 
-local ll11lllI11,l1IlI1lI11l1l=os.clock(),llIllII1III("\83\22",56);
-while llI11I1l() do 
-if (l1I1lIl111lll.c_still and (not llII11l1lIl1.busy)) and (not llII11l1lIl1.resting) then 
-if lllll1Il1() then 
-l1ll1IIIlI1=nil;
-if lI1I1Il1lIl() then 
-local l1llIll1lIlI1=l11l1111l.Character;
-local l1l11I1III1=l1llIll1lIlI1 and l1llIll1lIlI1:FindFirstChild(llIllII1III("\177\203\219\144\142\60\176\228\38\39\49\50\116",248));
-if l1l11I1III1 then 
-l1l11I1III1:Fire() end end else 
+local l1111lIl,lll1Il1I1I1=os.clock(),lI1Il1ll("\134\8",129);
+while llI1I11l11() do 
+if (lIlII111.c_still and (not ll11lII111l1l.busy)) and (not ll11lII111l1l.resting) then 
+if llIIlIll11() then 
+ll11lIlI111lI=nil;
+if ll1l1l11lll1() then 
+local l1l111IllII11=lII1I1l1lIII.Character;
+local ll1Ill1ll1=l1l111IllII11 and l1l111IllII11:FindFirstChild(lI1Il1ll("\30\251\134\215\90\246\70\57\194\168\108\67\183",10));
+if ll1Ill1ll1 then 
+ll1Ill1ll1:Fire() end end else 
 
 
 
-l1ll1IIIlI1=l1ll1IIIlI1 or os.clock();
-if ((os.clock() - l1ll1IIIlI1) >= (l1I1lIl111lll.c_stillDelay or 0.3)) and (not lI1I1Il1lIl()) then 
-local lIllII1l=l1I1lIl111lll.c_path or llIllII1III("\222\248",240);
-local l111IlIIIl1=((lIllII1l == llIllII1III("\6\219\74\2",38)) and llIllII1III("\103\222\112\49",220)) or llIllII1III("\100\232",204);
-if lIllII1l == llIllII1III("\88\190\254\210\85\236\91\129\146",89) then 
-if (os.clock() - ll11lllI11) > ((l1I1lIl111lll.c_alt or 5) * 60) then 
-l1IlI1lI11l1l=((l1IlI1lI11l1l == llIllII1III("\245\29",230)) and llIllII1III("\98\56\41\3",3)) or llIllII1III("\190\184",176);
-ll11lllI11=os.clock() end;
+ll11lIlI111lI=ll11lIlI111lI or os.clock();
+if ((os.clock() - ll11lIlI111lI) >= (lIlII111.c_stillDelay or 0.3)) and (not ll1l1l11lll1()) then 
+local lII1I1lllIl=lIlII111.c_path or lI1Il1ll("\197\254",201);
+local ll11Il11l1=((lII1I1lllIl == lI1Il1ll("\134\104\101\157",83)) and lI1Il1ll("\153\225\25\62",18)) or lI1Il1ll("\230\104",225);
+if lII1I1lllIl == lI1Il1ll("\140\151\1\154\52\71\238\142\76",60) then 
+if (os.clock() - l1111lIl) > ((lIlII111.c_alt or 5) * 60) then 
+lll1Il1I1I1=((lll1Il1I1I1 == lI1Il1ll("\85\142",179)) and lI1Il1ll("\85\206\188\114",65)) or lI1Il1ll("\96\177",191);
+l1111lIl=os.clock() end;
 
-l111IlIIIl1=l1IlI1lI11l1l end;
+ll11Il11l1=lll1Il1I1I1 end;
 
-l1ll1lIlll(l111IlIIIl1) end end end;
+ll11II1ll1lI(ll11Il11l1) end end end;
 
 
 
@@ -958,23 +958,23 @@ task.wait(0.05) end end) end;
 
 
 task.spawn(function() 
-while llI11I1l() do 
-local l1lIl111l1=math.max(1 / 60,(os.clock() - ll1ll1IlII1II.t0) / 60);
-local l1IIll1l1Il1=(l11l1111l:GetAttribute(llIllII1III("\198\104\200\174\114\123",76)) or 0) - ll1ll1IlII1II.silver0;
-local lll1IIl11II=llII11l1lIl1.last;
-ll11lI1l1:Set(llIllII1III("\67\34\14\57\223\67\19",19),(llIllII1III("\250\178\224\250\196\236\136\138\117\191\5\105\13\140\152\144\71\84\94\22\23\64\53\177\60\38\196\114\10\25\224\161\134\132\146\229\225\212\237\76\130\61\195\0\111\251\121\49\228\229\248\116\62\58\31\208\65\79\161\180\151\82\197\140\115\114\32\83\69\255\192\35\167\187\52\51\4\133\74\21\221\152\144\36\6\143\240\253\96\45\215\208\216\29\236\66\136\1\67\62\100\76\124\155\66\26\80\64\143\126\124\127\189\179\163\230\180\235\152\186\69\143\53\101\184\42\152\211\127\100\36\22\163\168\8\171\45\118\186\243\141\12\24\58\188\152\156\208\148\157\248\125\249\235\68\24\24\151\60\38\80\9\15\99\51\86\104\106\149\95\209\211",160)):format(tostring(lll1IIl11II.realmName or llIllII1III("\224",141)),tostring(lll1IIl11II.layer or llIllII1III("\233",111)),ll1ll1IlII1II.qi,ll1ll1IlII1II.qi / l1lIl111l1,ll1ll1IlII1II.layers,ll1ll1IlII1II.breaks,ll1ll1IlII1II.kills,ll1ll1IlII1II.killSilver,ll1ll1IlII1II.herbs,ll1ll1IlII1II.chests,ll1ll1IlII1II.orbs,ll1ll1IlII1II.quests,ll1ll1IlII1II.coins,l1IIll1l1Il1,(l1IIll1l1Il1 / l1lIl111l1) * 60,llII11l1lIl1.status));
+while llI1I11l11() do 
+local lI111l1l1I=math.max(1 / 60,(os.clock() - l11llIII1I1.t0) / 60);
+local l1l11111l=(lII1I1l1lIII:GetAttribute(lI1Il1ll("\186\178\34\61\68\248",180)) or 0) - l11llIII1I1.silver0;
+local l1llII1l1=ll11lII111l1l.last;
+lIII1I1l:Set(lI1Il1ll("\154\7\114\160\204\140\51",56),(lI1Il1ll("\160\19\81\71\121\60\177\37\18\59\212\69\111\140\180\51\29\245\207\171\74\16\140\30\91\130\21\126\104\121\76\130\220\37\35\88\156\132\84\99\101\249\18\44\13\187\213\18\62\196\169\201\99\106\166\255\166\107\240\248\245\50\105\175\169\83\17\110\248\175\121\12\64\191\101\159\230\133\230\54\7\185\129\25\219\95\201\210\135\9\134\92\58\253\192\225\82\32\114\3\153\156\69\52\37\222\1\236\109\190\80\220\231\18\242\219\105\59\161\21\34\43\228\41\90\202\180\112\37\197\149\171\30\120\49\4\74\242\107\223\239\12\52\153\230\57\13\109\201\205\65\210\158\79\149\20\122\247\144\5\10\168\190\222\78\6\209\69\114\155\0\255",229)):format(tostring(l1llII1l1.realmName or lI1Il1ll("\4",210)),tostring(l1llII1l1.layer or lI1Il1ll("\81",112)),l11llIII1I1.qi,l11llIII1I1.qi / lI111l1l1I,l11llIII1I1.layers,l11llIII1I1.breaks,l11llIII1I1.kills,l11llIII1I1.killSilver,l11llIII1I1.herbs,l11llIII1I1.chests,l11llIII1I1.orbs,l11llIII1I1.quests,l11llIII1I1.coins,l1l11111l,(l1l11111l / lI111l1l1I) * 60,ll11lII111l1l.status));
 
 
 task.wait(2) end end);
 
 
 
-l11IlII11:OnUnload(function() 
-for l1Illll1 in pairs(l1I1lIl111lll) do 
-if type(l1I1lIl111lll[l1Illll1]) == llIllII1III("\176\224\11\92\88\216\98",200) then 
-l1I1lIl111lll[l1Illll1]=false end end end);
+lllIlIllII:OnUnload(function() 
+for l11IIII11I1 in pairs(lIlII111) do 
+if type(lIlII111[l11IIII11I1]) == lI1Il1ll("\3\164\29\105\246\119\187",94) then 
+lIlII111[l11IIII11I1]=false end end end);
 
 
 
 
-l1lIl1II111Il:LoadConfig(llIllII1III("\241\178\137\165\69\205\139\19",147)) end)(...)
+ll11lllllllI1:LoadConfig(lI1Il1ll("\28\170\205\152\26\146\12\120",58)) end)(...)
