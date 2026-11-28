@@ -152,7 +152,7 @@ genv.N99_SHOULDBLOCK = function(self, method, item)
 	local n = self.Name
 	if B[n] then return true end
 	-- raw / rotten food hurts you: don't eat it while God Mode is on
-	if n == "RequestConsumeItem" and typeof(item) == "Instance" and ((item.GetAttribute(item, "RestoreHealth") or 0) < 0 or string.find(item.Name, "Rotten")) then
+	if n == "RequestConsumeItem" and typeof(item) == "Instance" and item ~= genv.N99_ALLOWRAW and ((item.GetAttribute(item, "RestoreHealth") or 0) < 0 or string.find(item.Name, "Rotten")) then
 		if genv.N99_RAWNOTE then task.defer(genv.N99_RAWNOTE, item.Name) end
 		return true
 	end
@@ -214,7 +214,7 @@ local bringTab = Window:Tab({ Name = "Bring", Icon = UI.IconIds and UI.IconIds.f
 local worldTab = Window:Tab({ Name = "World", Icon = UI.IconIds and UI.IconIds.compass, Hint = "ESP & teleports" })
 
 local godSec = combat:Section("God mode")
-godSec:Toggle({ Name = "God Mode", Description = "No damage from mobs, arrows, traps, falls, lightning, bats, ram, owl. Never starves. Turns off again.", Flag = "n99_god" })
+godSec:Toggle({ Name = "God Mode", Description = "No damage from mobs, arrows, traps, falls, lightning, bats, ram, owl. Eats before hunger can hurt you. Turns off again.", Flag = "n99_god" })
 
 local aura = combat:Section("Auras (need an axe)")
 aura:Toggle({ Name = "Kill Aura", Description = "Hits every mob in range with your best axe", Flag = "n99_kill" })
@@ -312,7 +312,19 @@ task.spawn(function()
 					if p and (p - r.Position).Magnitude < fd then food, fd = it, (p - r.Position).Magnitude end
 				end
 			end
+			-- backup for God Mode: no safe food anywhere and almost starving -> raw meat (small HP cost beats starving)
+			local emergency = false
+			if not food and Flags.n99_god and hunger < 25 then
+				for _, it in ipairs(Items:GetChildren()) do
+					if (it.GetAttribute(it, "RestoreHunger") or 0) > 0 and not string.find(it.Name, "Rotten") then
+						local p = itemPos(it)
+						if p and (p - r.Position).Magnitude < fd then food, fd = it, (p - r.Position).Magnitude end
+					end
+				end
+				emergency = food ~= nil
+			end
 			if food then
+				if emergency then genv.N99_ALLOWRAW = food end
 				-- the server only lets you eat what is next to you: bring it first
 				if fd > 6 then
 					moveItem(food, r.CFrame * CFrame.new(0, 0, -3))
@@ -322,6 +334,7 @@ task.spawn(function()
 				task.wait(0.1)
 				pcall(function() RE.RequestConsumeItem:InvokeServer(food) end)
 				undrag(food)
+				genv.N99_ALLOWRAW = nil
 				task.wait(0.4)
 				if food.Parent and (LP:GetAttribute("Hunger") or 0) <= hunger then
 					badFood[food] = os.clock() + 20
