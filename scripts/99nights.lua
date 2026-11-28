@@ -63,9 +63,6 @@ for g, list in pairs(GROUPS) do
 	LOOKUP[g] = {}
 	for _, n in ipairs(list) do LOOKUP[g][n] = true end
 end
-local function safeFood(item)
-	return not attached(item) and (item:GetAttribute("RestoreHunger") or 0) > 0 and (item:GetAttribute("RestoreHealth") or 0) >= 0 and not item.Name:find("Rotten")
-end
 -- items still growing on something (berries on a bush) are welded to it: never pull those
 local function attached(item)
 	local w = item:FindFirstChild("ItemWeld", true)
@@ -74,6 +71,9 @@ local function attached(item)
 		if other then return true end
 	end
 	return false
+end
+local function safeFood(item)
+	return not attached(item) and (item:GetAttribute("RestoreHunger") or 0) > 0 and (item:GetAttribute("RestoreHealth") or 0) >= 0 and not item.Name:find("Rotten")
 end
 local function inGroup(item, g)
 	local n = item.Name
