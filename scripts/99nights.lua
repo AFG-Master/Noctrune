@@ -63,6 +63,9 @@ for g, list in pairs(GROUPS) do
 	LOOKUP[g] = {}
 	for _, n in ipairs(list) do LOOKUP[g][n] = true end
 end
+local function safeFood(item)
+	return (item:GetAttribute("RestoreHunger") or 0) > 0 and (item:GetAttribute("RestoreHealth") or 0) >= 0 and not item.Name:find("Rotten")
+end
 local function inGroup(item, g)
 	local n = item.Name
 	if LOOKUP[g][n] then return true end
@@ -135,6 +138,7 @@ local GOD_BLOCK = { ClientTriggerNPCAttack = true }
 local HAZARD_BLOCK = { DamagePlayer = true, CheckLightningDamage = true, HitByBatScream = true, JungleSpikeTrapDamage = true, RamChargePlayer = true, OwlChasePlayer = true, NPCProjectileDamagePlayer = true }
 local genv = getgenv and getgenv() or _G
 genv.N99_FLAGS = Flags
+genv.N99_RAWNOTE = function(n) UI:Notify({ Title = "God Mode", Content = n .. " is raw and would hurt you. Cook it first." }) end
 -- the hook reads these each call, so a reload of the script updates what's blocked
 genv.N99_BLOCK = {}
 for n in pairs(GOD_BLOCK) do genv.N99_BLOCK[n] = true end
@@ -144,10 +148,19 @@ if not genv.N99_HOOK2 and hookmetamethod and getnamecallmethod then
 	local old
 	old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 		local F, B = genv.N99_FLAGS, genv.N99_BLOCK
-		if F and F.n99_god and B and typeof(self) == "Instance" and B[self.Name] then
-			local m = getnamecallmethod()
-			if m == "FireServer" or m == "InvokeServer" then
-				return nil
+		if F and F.n99_god and B and typeof(self) == "Instance" then
+			local n = self.Name
+			if B[n] or n == "RequestConsumeItem" then
+				local m = getnamecallmethod()
+				if m == "FireServer" or m == "InvokeServer" then
+					if B[n] then return nil end
+					-- raw / rotten food hurts you: don't eat it while God Mode is on
+					local item = ...
+					if typeof(item) == "Instance" and ((item:GetAttribute("RestoreHealth") or 0) < 0 or item.Name:find("Rotten")) then
+						if genv.N99_RAWNOTE then task.defer(genv.N99_RAWNOTE, item.Name) end
+						return nil
+					end
+				end
 			end
 		end
 		return old(self, ...)
@@ -203,6 +216,7 @@ aura:Paragraph("Range", "The server stops accepting hits at about 80 studs, so t
 local surv = combat:Section("Survival")
 surv:Toggle({ Name = "Auto Eat", Description = "Eats the nearest food when hunger drops below the line", Flag = "n99_eat" })
 surv:Slider({ Name = "Eat below", Flag = "n99_eatAt", Min = 20, Max = 190, Increment = 5, Default = 100 })
+surv:Toggle({ Name = "Auto Cook", Description = "Cooks raw meat on the campfire (needs the fire lit)", Flag = "n99_cook" })
 surv:Toggle({ Name = "Auto Fuel Campfire", Description = "Drops fuel into the fire when it runs low", Flag = "n99_fuel" })
 surv:Slider({ Name = "Fuel below", Flag = "n99_fuelAt", Min = 20, Max = 600, Increment = 10, Default = 150 })
 
@@ -278,7 +292,13 @@ task.spawn(function()
 		local hunger = LP:GetAttribute("Hunger") or 200
 		local need = (Flags.n99_eat and hunger < (Flags.n99_eatAt or 100)) or (Flags.n99_god and hunger < 60)
 		if r and need then
-			local food = nearest({ "Food" }, r.Position)
+			local food, fd = nil, 1e9
+		for _, it in ipairs(Items:GetChildren()) do
+			if safeFood(it) then
+				local p = itemPos(it)
+				if p and (p - r.Position).Magnitude < fd then food, fd = it, (p - r.Position).Magnitude end
+			end
+		end
 			if food then
 				drag(food)
 				task.wait(0.1)
@@ -300,6 +320,21 @@ task.spawn(function()
 				moveItem(fuel, CFrame.new((inner and inner.Position or firePos()) + Vector3.new(0, 1, 0)))
 				task.wait(0.3)
 				pcall(function() RE.RequestBurnItem:FireServer(fire, fuel) end)
+			end
+		end
+		if r and Flags.n99_cook and fire and (fire:GetAttribute("FuelRemaining") or 0) > 0 then
+			local raw, rd = nil, 1e9
+			for _, it in ipairs(Items:GetChildren()) do
+				if it:GetAttribute("Cookable") then
+					local p = itemPos(it)
+					if p and (p - firePos()).Magnitude < rd then raw, rd = it, (p - firePos()).Magnitude end
+				end
+			end
+			if raw then
+				local inner = fire:FindFirstChild("InnerTouchZone")
+				moveItem(raw, CFrame.new((inner and inner.Position or firePos()) + Vector3.new(0, 1, 0)))
+				task.wait(0.3)
+				pcall(function() RE.RequestCookItem:FireServer(fire, raw) end)
 			end
 		end
 		task.wait(1.5)
