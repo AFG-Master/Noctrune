@@ -282,8 +282,20 @@ task.spawn(function()
 			end
 		end
 		if r and Flags.n99_fuel and fire and (fire:GetAttribute("FuelRemaining") or 999) < (Flags.n99_fuelAt or 150) then
-			local fuel = nearest({ "Fuel" }, firePos())
-			if fuel then moveItem(fuel, CFrame.new(firePos() + Vector3.new(0, 4, 0))) end
+			local fuel
+			local bd = 1e9
+			for _, it in ipairs(Items:GetChildren()) do
+				if it:GetAttribute("BurnFuel") and (it:GetAttribute("Wet") or 0) < 1 and not it.Name:find("Cultist") and not it.Name:find("Corpse") then
+					local p = itemPos(it)
+					if p and (p - firePos()).Magnitude < bd then fuel, bd = it, (p - firePos()).Magnitude end
+				end
+			end
+			if fuel then
+				local inner = fire:FindFirstChild("InnerTouchZone")
+				moveItem(fuel, CFrame.new((inner and inner.Position or firePos()) + Vector3.new(0, 1, 0)))
+				task.wait(0.3)
+				pcall(function() RE.RequestBurnItem:FireServer(fire, fuel) end)
+			end
 		end
 		task.wait(1.5)
 	end
@@ -304,7 +316,11 @@ local function doBring(groups, dest)
 	bringing = true
 	local target
 	if dest == "Campfire" and fire then
-		target = function() return CFrame.new(firePos() + Vector3.new(math.random(-6, 6), 3, math.random(-6, 6))) end
+		-- beside the fire, not in it (items dropped in the middle burn)
+		target = function()
+			local a = math.random() * math.pi * 2
+			return CFrame.new(firePos() + Vector3.new(math.cos(a) * 11, 3, math.sin(a) * 11))
+		end
 	else
 		target = function() local rr = root() return rr and (rr.CFrame * CFrame.new(math.random(-3, 3), 1, -6)) end
 	end
