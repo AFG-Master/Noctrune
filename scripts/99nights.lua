@@ -113,10 +113,13 @@ local held = nil
 local function holdAxe(axe)
 	local ch = LP.Character
 	if not (ch and axe) then return false end
-	if held ~= axe or not ch:FindFirstChild("ToolHandle") then
+	-- what the game says you're holding right now (you may have switched to a gun or the flashlight)
+	local th = ch:FindFirstChild("ToolHandle")
+	local cur = th and th:FindFirstChild("OriginalItem") and th.OriginalItem.Value
+	if cur ~= axe and ch:GetAttribute("Equipped") ~= axe.Name then
 		pcall(function() RE.EquipItemHandle:FireServer("FireAllClients", axe) end)
 		held = axe
-		task.wait(0.3)
+		task.wait(0.35)
 	end
 	return true
 end
@@ -212,28 +215,27 @@ task.spawn(function()
 				local count = 0
 				if Flags.n99_kill then
 					local R = Flags.n99_killR or 80
-					local mobAxe = bestAxe(false) or axe
-					for _, c in ipairs(Chars:GetChildren()) do
+							for _, c in ipairs(Chars:GetChildren()) do
 						if count >= 30 then break end
 						if isMob(c) then
-							local ok, cf = pcall(function() return c:GetPivot() end)
+							local hrp = c:FindFirstChild("HumanoidRootPart")
+						local ok, cf = pcall(function() return hrp and hrp.CFrame or c:GetPivot() end)
 							if ok and (cf.Position - pos).Magnitude <= R then
 								count = count + 1
 								local id = nextId()
-								task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(c, mobAxe, id, cf, false) end)
+								task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(c, axe, id, cf, false) end)
 							end
 						end
 					end
 				end
 				if Flags.n99_chop then
 					local R = Flags.n99_chopR or 80
-					local treeAxe = bestAxe(true) or axe
-					for t, cf in pairs(trees) do
+							for t, cf in pairs(trees) do
 						if count >= 60 then break end
 						if t.Parent and (cf.Position - pos).Magnitude <= R then
 							count = count + 1
 							local id = nextId()
-							task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(t, treeAxe, id, cf, false) end)
+							task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(t, axe, id, cf, false) end)
 						end
 					end
 				end
