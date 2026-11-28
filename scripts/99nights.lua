@@ -91,11 +91,31 @@ local function itemPos(item)
 	local ok, p = pcall(function() return item:GetPivot().Position end)
 	return ok and p or nil
 end
+-- The server only lets you grab items that are near you. For a far item: hop to it, grab it,
+-- hop back carrying it, then drop it at cf (cf must be near where you are standing).
 local function moveItem(item, cf)
-	drag(item)
-	task.wait(0.05)
+	local ch = LP.Character
+	local r = ch and ch:FindFirstChild("HumanoidRootPart")
+	local p = itemPos(item)
+	if not (r and p) then return end
+	local home = r.CFrame
+	if (p - r.Position).Magnitude > 20 then
+		r.CFrame = CFrame.new(p + Vector3.new(0, 4, 3))
+		task.wait(0.35)
+		drag(item)
+		task.wait(0.15)
+		r.CFrame = home
+		local t0 = os.clock()
+		while os.clock() - t0 < 0.35 do
+			pcall(function() item:PivotTo(home * CFrame.new(0, 0, -5)) end)
+			task.wait()
+		end
+	else
+		drag(item)
+		task.wait(0.1)
+	end
 	pcall(function() item:PivotTo(cf) end)
-	task.wait(0.05)
+	task.wait(0.25)
 	undrag(item)
 end
 
@@ -227,8 +247,8 @@ aura:Paragraph("Range", "The server stops accepting hits at about 80 studs, so t
 local surv = combat:Section("Survival")
 surv:Toggle({ Name = "Auto Eat", Description = "Eats the nearest food when hunger drops below the line", Flag = "n99_eat" })
 surv:Slider({ Name = "Eat below", Flag = "n99_eatAt", Min = 20, Max = 190, Increment = 5, Default = 100 })
-surv:Toggle({ Name = "Auto Cook", Description = "Cooks raw meat on the campfire (needs the fire lit)", Flag = "n99_cook" })
-surv:Toggle({ Name = "Auto Fuel Campfire", Description = "Feeds the fire while it is lit and low. Stops if the fire does not take it", Flag = "n99_fuel" })
+surv:Toggle({ Name = "Auto Cook", Description = "While you are at camp: cooks raw meat on the lit fire", Flag = "n99_cook" })
+surv:Toggle({ Name = "Auto Fuel Campfire", Description = "While you are at camp: feeds the fire when it is lit and low", Flag = "n99_fuel" })
 surv:Slider({ Name = "Fuel below", Flag = "n99_fuelAt", Min = 20, Max = 600, Increment = 10, Default = 150 })
 
 ------------------------------------------------------------------
@@ -354,7 +374,8 @@ task.spawn(function()
 			end
 		end
 		local fuelNow = fire and (fire:GetAttribute("FuelRemaining") or 0) or 0
-		if r and Flags.n99_fuel and fire and fuelNow > 0 and fuelNow < (Flags.n99_fuelAt or 150) and os.clock() > fuelPauseUntil then
+		local atCamp = r and fire and (r.Position - firePos()).Magnitude < 40
+	if atCamp and Flags.n99_fuel and fuelNow > 0 and fuelNow < (Flags.n99_fuelAt or 150) and os.clock() > fuelPauseUntil then
 			local fuel
 			local bd = 1e9
 			for _, it in ipairs(Items:GetChildren()) do
@@ -382,7 +403,7 @@ task.spawn(function()
 				end
 			end
 		end
-		if r and Flags.n99_cook and fire and (fire:GetAttribute("FuelRemaining") or 0) > 0 then
+		if atCamp and Flags.n99_cook and (fire:GetAttribute("FuelRemaining") or 0) > 0 then
 			local raw, rd = nil, 1e9
 			for _, it in ipairs(Items:GetChildren()) do
 				if it:GetAttribute("Cookable") then
@@ -431,14 +452,23 @@ local function doBring(groups, dest)
 		end
 	end
 	local max, n = Flags.n99_bringMax or 50, 0
+	local back = nil
+	if dest == "Campfire" and fire then
+		back = r.CFrame
+		r.CFrame = CFrame.new(firePos() + Vector3.new(14, 4, 0))
+		task.wait(0.4)
+	end
 	for _, it in ipairs(list) do
 		if n >= max or not alive then break end
 		local cf = target()
 		if it.Parent and cf then
 			n = n + 1
 			moveItem(it, cf)
-			if n % 5 == 0 then task.wait(0.1) end
 		end
+	end
+	if back then
+		local rr = root()
+		if rr then rr.CFrame = back end
 	end
 	bringing = false
 	notify("Bring", "Brought " .. n .. " item" .. (n == 1 and "" or "s"))
