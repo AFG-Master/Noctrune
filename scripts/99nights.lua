@@ -249,7 +249,8 @@ task.spawn(function()
 						if count >= 30 then break end
 						if isMob(c) then
 							local hrp = c:FindFirstChild("HumanoidRootPart")
-						local ok, cf = pcall(function() return hrp and hrp.CFrame or c:GetPivot() end)
+						-- plain point (no rotation), same reason as trees: keeps the drops on the ground
+						local ok, cf = pcall(function() return CFrame.new(hrp and hrp.Position or c:GetPivot().Position) end)
 							if ok and (cf.Position - pos).Magnitude <= R then
 								count = count + 1
 								local id = nextId()
@@ -270,7 +271,12 @@ task.spawn(function()
 							-- or the server drops the logs under the map
 							local last = hp <= (axe:GetAttribute("WeaponResourceDamage") or 1)
 							if last then felled[t] = true end
-							task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(t, axe, id, cf, last) end)
+							-- a plain (unrotated) point on the trunk, on your side: tree pivots are rotated and below
+							-- the ground, and hitting the pivot makes the server drop the logs under the map
+							local flat = Vector3.new(pos.X - cf.Position.X, 0, pos.Z - cf.Position.Z)
+							local side = flat.Magnitude > 0.1 and flat.Unit * 1.5 or Vector3.zero
+							local hitAt = CFrame.new(cf.Position + Vector3.new(0, 2.5, 0) + side)
+							task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(t, axe, id, hitAt, last) end)
 						end
 					end
 				end
