@@ -430,48 +430,76 @@ bring:Dropdown({ Name = "What", Flag = "n99_bringWhat", Options = GROUP_NAMES, M
 bring:Segmented({ Name = "Bring to", Flag = "n99_bringTo", Options = { "Me", "Campfire" }, Default = "Me" })
 bring:Slider({ Name = "Max per press", Flag = "n99_bringMax", Min = 5, Max = 200, Increment = 5, Default = 50 })
 local bringing = false
+-- Bulk bring: grab a batch of items at once and hold them in rows in front of you for a moment.
+-- (Tested: the server accepts far items pulled this way; it only refuses single quick moves.)
+local function pullBatch(batch, spotFor)
+	for _, it in ipairs(batch) do drag(it) end
+	local t0 = os.clock()
+	while os.clock() - t0 < 0.6 do
+		for k, it in ipairs(batch) do
+			local cf = spotFor(k)
+			if cf then pcall(function() it:PivotTo(cf) end) end
+		end
+		task.wait()
+	end
+	for _, it in ipairs(batch) do undrag(it) end
+end
 local function doBring(groups, dest)
 	if bringing then return end
 	local r = root()
 	if not r then return end
 	bringing = true
-	local target
-	if dest == "Campfire" and fire then
-		-- beside the fire, not in it (items dropped in the middle burn)
-		target = function()
-			local a = math.random() * math.pi * 2
-			return CFrame.new(firePos() + Vector3.new(math.cos(a) * 11, 3, math.sin(a) * 11))
-		end
-	else
-		target = function() local rr = root() return rr and (rr.CFrame * CFrame.new(math.random(-3, 3), 1, -6)) end
-	end
-	local list = {}
-	for _, it in ipairs(Items:GetChildren()) do
-		for _, g in ipairs(groups) do
-			if inGroup(it, g) then list[#list + 1] = it break end
-		end
-	end
-	local max, n = Flags.n99_bringMax or 50, 0
 	local back = nil
 	if dest == "Campfire" and fire then
 		back = r.CFrame
 		r.CFrame = CFrame.new(firePos() + Vector3.new(14, 4, 0))
 		task.wait(0.4)
 	end
-	for _, it in ipairs(list) do
-		if n >= max or not alive then break end
-		local cf = target()
-		if it.Parent and cf then
-			n = n + 1
-			moveItem(it, cf)
+	-- nearest first, up to the amount chosen
+	local list = {}
+	local pos = r.Position
+	for _, it in ipairs(Items:GetChildren()) do
+		for _, g in ipairs(groups) do
+			if inGroup(it, g) then
+				local p = itemPos(it)
+				if p then list[#list + 1] = { it, (p - pos).Magnitude } end
+				break
+			end
 		end
+	end
+	table.sort(list, function(a, b) return a[2] < b[2] end)
+	local max = math.min(Flags.n99_bringMax or 50, #list)
+	local n, BATCH = 0, 15
+	while n < max and alive do
+		local batch = {}
+		for k = n + 1, math.min(n + BATCH, max) do
+			if list[k][1].Parent then batch[#batch + 1] = list[k][1] end
+		end
+		local base = n
+		local rr = root()
+		if not rr or #batch == 0 then break end
+		local origin = rr.CFrame
+		pullBatch(batch, function(k)
+			local idx = base + k
+			if dest == "Campfire" and fire then
+				-- a ring beside the fire (not in it: items dropped in the middle burn)
+				local a = (idx / math.max(max, 1)) * math.pi * 2
+				local rad = 10 + math.floor((idx - 1) / 24) * 3
+				return CFrame.new(firePos() + Vector3.new(math.cos(a) * rad, 3, math.sin(a) * rad))
+			end
+			-- rows in front of you, 5 across
+			local col, row = (idx - 1) % 5, math.floor((idx - 1) / 5)
+			return origin * CFrame.new((col - 2) * 2.5, 1, -(5 + row * 2.5))
+		end)
+		n = n + BATCH
+		task.wait(0.15)
 	end
 	if back then
 		local rr = root()
 		if rr then rr.CFrame = back end
 	end
 	bringing = false
-	notify("Bring", "Brought " .. n .. " item" .. (n == 1 and "" or "s"))
+	notify("Bring", "Brought " .. max .. " item" .. (max == 1 and "" or "s"))
 end
 bring:Button({ Name = "Bring selected", Action = "Bring", Callback = function()
 	local groups = {}
