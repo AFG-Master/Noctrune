@@ -493,6 +493,9 @@ quick:Button({ Name = "Scrap to scrapper", Action = "Go", Callback = function()
 	if not sc then return end
 	task.spawn(function()
 		local n = 0
+		local rr = root()
+		local back = rr and rr.CFrame
+		if rr then rr.CFrame = CFrame.new(sc:GetPivot().Position + Vector3.new(10, 4, 0)) task.wait(0.4) end
 		for _, it in ipairs(Items:GetChildren()) do
 			if n >= (Flags.n99_bringMax or 50) then break end
 			if inGroup(it, "Scrap") then
@@ -501,6 +504,7 @@ quick:Button({ Name = "Scrap to scrapper", Action = "Go", Callback = function()
 				if n % 5 == 0 then task.wait(0.1) end
 			end
 		end
+		if back and root() then root().CFrame = back end
 		notify("Scrap", "Sent " .. n .. " to the scrapper")
 	end)
 end })
@@ -547,6 +551,12 @@ sap:Button({ Name = "Plant saplings", Description = "Uses the saplings lying on 
 			if hit then p = hit.Position end
 			local s = saps[i]
 			if s and s.Parent then
+				-- grab it first if it's far (the server only lets you take items near you)
+				local sp = itemPos(s)
+				if sp and (sp - root().Position).Magnitude > 20 then
+					moveItem(s, root().CFrame * CFrame.new(0, 0, -4))
+					task.wait(0.1)
+				end
 				drag(s)
 				task.wait(0.05)
 				local ok, res = pcall(function() return RE.RequestPlantItem:InvokeServer(s, p) end)
