@@ -91,32 +91,20 @@ local function itemPos(item)
 	local ok, p = pcall(function() return item:GetPivot().Position end)
 	return ok and p or nil
 end
--- The server only lets you grab items that are near you. For a far item: hop to it, grab it,
--- hop back carrying it, then drop it at cf (cf must be near where you are standing).
-local function moveItem(item, cf)
-	local ch = LP.Character
-	local r = ch and ch:FindFirstChild("HumanoidRootPart")
-	local p = itemPos(item)
-	if not (r and p) then return end
-	local home = r.CFrame
-	if (p - r.Position).Magnitude > 20 then
-		r.CFrame = CFrame.new(p + Vector3.new(0, 4, 3))
-		task.wait(0.35)
-		drag(item)
-		task.wait(0.15)
-		r.CFrame = home
-		local t0 = os.clock()
-		while os.clock() - t0 < 0.35 do
-			pcall(function() item:PivotTo(home * CFrame.new(0, 0, -5)) end)
-			task.wait()
-		end
-	else
-		drag(item)
-		task.wait(0.1)
+-- Pull an item to cf (cf must be near you): grab it and hold it there for a moment.
+-- No teleporting you around: the server accepts far items pulled this way.
+local function moveItem(item, cf, hold)
+	drag(item)
+	local t0 = os.clock()
+	while os.clock() - t0 < (hold or 0.6) do
+		pcall(function() item:PivotTo(cf) end)
+		task.wait()
 	end
-	pcall(function() item:PivotTo(cf) end)
-	task.wait(0.25)
 	undrag(item)
+end
+-- Drop an item that is already near you into a zone (fire, workbench) so the game takes it.
+local function feedInto(item, zonePos)
+	moveItem(item, CFrame.new(zonePos), 0.3)
 end
 
 -- best axe in the inventory (any kind: Old/Good/Strong/Ice Axe, Chainsaw...)
@@ -248,7 +236,7 @@ local surv = combat:Section("Survival")
 surv:Toggle({ Name = "Auto Eat", Description = "Eats the nearest food when hunger drops below the line", Flag = "n99_eat" })
 surv:Slider({ Name = "Eat below", Flag = "n99_eatAt", Min = 20, Max = 190, Increment = 5, Default = 100 })
 surv:Toggle({ Name = "Auto Cook", Description = "While you are at camp: cooks raw meat on the lit fire", Flag = "n99_cook" })
-surv:Toggle({ Name = "Auto Fuel Campfire", Description = "While you are at camp: feeds the fire when it is lit and low", Flag = "n99_fuel" })
+surv:Toggle({ Name = "Auto Fuel Campfire", Description = "While you are at camp (near the fire): feeds it when it is lit and low", Flag = "n99_fuel" })
 surv:Slider({ Name = "Fuel below", Flag = "n99_fuelAt", Min = 20, Max = 600, Increment = 10, Default = 150 })
 
 ------------------------------------------------------------------
@@ -374,7 +362,7 @@ task.spawn(function()
 			end
 		end
 		local fuelNow = fire and (fire:GetAttribute("FuelRemaining") or 0) or 0
-		local atCamp = r and fire and (r.Position - firePos()).Magnitude < 40
+		local atCamp = r and fire and (r.Position - firePos()).Magnitude < 30
 	if atCamp and Flags.n99_fuel and fuelNow > 0 and fuelNow < (Flags.n99_fuelAt or 150) and os.clock() > fuelPauseUntil then
 			local fuel
 			local bd = 1e9
@@ -427,7 +415,7 @@ end)
 ------------------------------------------------------------------
 local bring = bringTab:Section("Bring items")
 bring:Dropdown({ Name = "What", Flag = "n99_bringWhat", Options = GROUP_NAMES, Multi = true, Default = { "Logs" } })
-bring:Segmented({ Name = "Bring to", Flag = "n99_bringTo", Options = { "Me", "Campfire" }, Default = "Me" })
+bring:Segmented({ Name = "Bring to", Flag = "n99_bringTo", Options = { "Me", "Campfire", "Workbench" }, Default = "Me" })
 bring:Slider({ Name = "Max per press", Flag = "n99_bringMax", Min = 5, Max = 200, Increment = 5, Default = 50 })
 local bringing = false
 -- Bulk bring: grab a batch of items at once and hold them in rows in front of you for a moment.
@@ -444,20 +432,33 @@ local function pullBatch(batch, spotFor)
 	end
 	for _, it in ipairs(batch) do undrag(it) end
 end
+local function targetZone(dest)
+	local cg = Map:FindFirstChild("Campground")
+	if dest == "Campfire" and fire then
+		local z = fire:FindFirstChild("InnerTouchZone")
+		return (z and z.Position or firePos()) + Vector3.new(0, 1, 0), firePos()
+	elseif dest == "Workbench" and cg and cg:FindFirstChild("CraftingBench") then
+		local z = cg.CraftingBench:FindFirstChild("TouchZone")
+		local p = z and z.Position or cg.CraftingBench:GetPivot().Position
+		return p, p
+	end
+end
 local function doBring(groups, dest)
 	if bringing then return end
 	local r = root()
 	if not r then return end
 	bringing = true
+	local zone, center = targetZone(dest)
 	local back = nil
-	if dest == "Campfire" and fire then
+	if zone then
+		-- stand next to the fire / workbench while feeding it
 		back = r.CFrame
-		r.CFrame = CFrame.new(firePos() + Vector3.new(14, 4, 0))
+		r.CFrame = CFrame.new(center + Vector3.new(12, 4, 0), center)
 		task.wait(0.4)
 	end
 	-- nearest first, up to the amount chosen
 	local list = {}
-	local pos = r.Position
+	local pos = root().Position
 	for _, it in ipairs(Items:GetChildren()) do
 		for _, g in ipairs(groups) do
 			if inGroup(it, g) then
@@ -475,22 +476,24 @@ local function doBring(groups, dest)
 		for k = n + 1, math.min(n + BATCH, max) do
 			if list[k][1].Parent then batch[#batch + 1] = list[k][1] end
 		end
-		local base = n
 		local rr = root()
 		if not rr or #batch == 0 then break end
 		local origin = rr.CFrame
+		local base = n
+		-- 1) everything in this batch comes to you at once, in rows
 		pullBatch(batch, function(k)
-			local idx = base + k
-			if dest == "Campfire" and fire then
-				-- a ring beside the fire (not in it: items dropped in the middle burn)
-				local a = (idx / math.max(max, 1)) * math.pi * 2
-				local rad = 10 + math.floor((idx - 1) / 24) * 3
-				return CFrame.new(firePos() + Vector3.new(math.cos(a) * rad, 3, math.sin(a) * rad))
-			end
-			-- rows in front of you, 5 across
+			local idx = zone and k or (base + k)
 			local col, row = (idx - 1) % 5, math.floor((idx - 1) / 5)
-			return origin * CFrame.new((col - 2) * 2.5, 1, -(5 + row * 2.5))
+			return origin * CFrame.new((col - 2) * 2.5, 1, -(4 + row * 2.5))
 		end)
+		-- 2) fire / workbench: then each one goes in, one after another (no scattering)
+		if zone then
+			for _, it in ipairs(batch) do
+				if not alive then break end
+				if it.Parent then feedInto(it, zone) end
+				task.wait(0.05)
+			end
+		end
 		n = n + BATCH
 		task.wait(0.15)
 	end
@@ -499,7 +502,8 @@ local function doBring(groups, dest)
 		if rr then rr.CFrame = back end
 	end
 	bringing = false
-	notify("Bring", "Brought " .. max .. " item" .. (max == 1 and "" or "s"))
+	local where = zone and (dest == "Campfire" and " into the fire" or " into the workbench") or ""
+	notify("Bring", "Brought " .. max .. " item" .. (max == 1 and "" or "s") .. where)
 end
 bring:Button({ Name = "Bring selected", Action = "Bring", Callback = function()
 	local groups = {}
@@ -512,30 +516,12 @@ bring:Button({ Name = "Bring selected", Action = "Bring", Callback = function()
 	task.spawn(doBring, groups, Flags.n99_bringTo)
 end })
 local quick = bringTab:Section("Quick bring")
-quick:Button({ Name = "Logs to campfire", Action = "Go", Callback = function() task.spawn(doBring, { "Logs" }, "Campfire") end })
-quick:Button({ Name = "All fuel to campfire", Action = "Go", Callback = function() task.spawn(doBring, { "Fuel" }, "Campfire") end })
+quick:Button({ Name = "Logs into campfire", Action = "Go", Callback = function() task.spawn(doBring, { "Logs" }, "Campfire") end })
+quick:Button({ Name = "All fuel into campfire", Action = "Go", Callback = function() task.spawn(doBring, { "Fuel" }, "Campfire") end })
 quick:Button({ Name = "Food to me", Action = "Go", Callback = function() task.spawn(doBring, { "Food", "Healing" }, "Me") end })
 quick:Button({ Name = "Ammo & weapons to me", Action = "Go", Callback = function() task.spawn(doBring, { "Ammo", "Weapons", "Armour" }, "Me") end })
-quick:Button({ Name = "Scrap to scrapper", Action = "Go", Callback = function()
-	local sc = Map.Campground:FindFirstChild("Scrapper")
-	if not sc then return end
-	task.spawn(function()
-		local n = 0
-		local rr = root()
-		local back = rr and rr.CFrame
-		if rr then rr.CFrame = CFrame.new(sc:GetPivot().Position + Vector3.new(10, 4, 0)) task.wait(0.4) end
-		for _, it in ipairs(Items:GetChildren()) do
-			if n >= (Flags.n99_bringMax or 50) then break end
-			if inGroup(it, "Scrap") then
-				n = n + 1
-				moveItem(it, CFrame.new(sc:GetPivot().Position + Vector3.new(0, 6, 0)))
-				if n % 5 == 0 then task.wait(0.1) end
-			end
-		end
-		if back and root() then root().CFrame = back end
-		notify("Scrap", "Sent " .. n .. " to the scrapper")
-	end)
-end })
+quick:Button({ Name = "Scrap into workbench", Action = "Go", Callback = function() task.spawn(doBring, { "Scrap" }, "Workbench") end })
+quick:Button({ Name = "Logs into workbench", Action = "Go", Callback = function() task.spawn(doBring, { "Logs" }, "Workbench") end })
 
 ------------------------------------------------------------------
 -- Saplings: plant the ones on the map in a ring or line around you
