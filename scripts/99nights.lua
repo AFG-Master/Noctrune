@@ -135,18 +135,19 @@ local GOD_BLOCK = { ClientTriggerNPCAttack = true }
 local HAZARD_BLOCK = { DamagePlayer = true, CheckLightningDamage = true, HitByBatScream = true, JungleSpikeTrapDamage = true, RamChargePlayer = true, OwlChasePlayer = true, NPCProjectileDamagePlayer = true }
 local genv = getgenv and getgenv() or _G
 genv.N99_FLAGS = Flags
-if not genv.N99_HOOKED and hookmetamethod and getnamecallmethod then
-	genv.N99_HOOKED = true
+-- the hook reads these each call, so a reload of the script updates what's blocked
+genv.N99_BLOCK = {}
+for n in pairs(GOD_BLOCK) do genv.N99_BLOCK[n] = true end
+for n in pairs(HAZARD_BLOCK) do genv.N99_BLOCK[n] = true end
+if not genv.N99_HOOK2 and hookmetamethod and getnamecallmethod then
+	genv.N99_HOOK2 = true
 	local old
 	old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-		local F = genv.N99_FLAGS
-		if F and F.n99_god and typeof(self) == "Instance" then
+		local F, B = genv.N99_FLAGS, genv.N99_BLOCK
+		if F and F.n99_god and B and typeof(self) == "Instance" and B[self.Name] then
 			local m = getnamecallmethod()
 			if m == "FireServer" or m == "InvokeServer" then
-				local n = self.Name
-				if GOD_BLOCK[n] or HAZARD_BLOCK[n] then
-					return nil
-				end
+				return nil
 			end
 		end
 		return old(self, ...)
