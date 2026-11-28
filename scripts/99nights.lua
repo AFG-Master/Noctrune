@@ -152,20 +152,26 @@ genv.N99_SHOULDBLOCK = function(self, method, item)
 	local n = self.Name
 	if B[n] then return true end
 	-- raw / rotten food hurts you: don't eat it while God Mode is on
-	if n == "RequestConsumeItem" and typeof(item) == "Instance" and ((item:GetAttribute("RestoreHealth") or 0) < 0 or item.Name:find("Rotten")) then
+	if n == "RequestConsumeItem" and typeof(item) == "Instance" and ((item.GetAttribute(item, "RestoreHealth") or 0) < 0 or string.find(item.Name, "Rotten")) then
 		if genv.N99_RAWNOTE then task.defer(genv.N99_RAWNOTE, item.Name) end
 		return true
 	end
 	return false
 end
-if not genv.N99_HOOK3 and hookmetamethod and getnamecallmethod then
-	genv.N99_HOOK3 = true
+if not genv.N99_HOOK4 and hookmetamethod and getnamecallmethod then
+	genv.N99_HOOK4 = true
+	genv.N99_SHOULDBLOCK_OLD = nil
 	local old
 	old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 		local fn = genv.N99_SHOULDBLOCK
 		if fn and typeof(self) == "Instance" then
-			local ok, block = pcall(fn, self, getnamecallmethod(), ...)
-			if ok and block then return nil end
+			local method = getnamecallmethod()
+			if method == "FireServer" or method == "InvokeServer" then
+				local ok, block = pcall(fn, self, method, ...)
+				-- the check itself makes calls, which changes the method name: put it back
+				if setnamecallmethod then setnamecallmethod(method) end
+				if ok and block then return nil end
+			end
 		end
 		return old(self, ...)
 	end))
