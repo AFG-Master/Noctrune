@@ -220,7 +220,7 @@ local surv = combat:Section("Survival")
 surv:Toggle({ Name = "Auto Eat", Description = "Eats the nearest food when hunger drops below the line", Flag = "n99_eat" })
 surv:Slider({ Name = "Eat below", Flag = "n99_eatAt", Min = 20, Max = 190, Increment = 5, Default = 100 })
 surv:Toggle({ Name = "Auto Cook", Description = "Cooks raw meat on the campfire (needs the fire lit)", Flag = "n99_cook" })
-surv:Toggle({ Name = "Auto Fuel Campfire", Description = "Drops fuel into the fire when it runs low", Flag = "n99_fuel" })
+surv:Toggle({ Name = "Auto Fuel Campfire", Description = "Feeds the fire while it is lit and low. Stops if the fire does not take it", Flag = "n99_fuel" })
 surv:Slider({ Name = "Fuel below", Flag = "n99_fuelAt", Min = 20, Max = 600, Increment = 10, Default = 150 })
 
 ------------------------------------------------------------------
@@ -289,6 +289,7 @@ local function nearest(groups, from, maxD)
 	end
 	return best
 end
+local fuelFails, fuelPauseUntil = 0, 0
 task.spawn(function()
 	while alive and UI.Window == Window do
 		local r = root()
@@ -309,7 +310,8 @@ task.spawn(function()
 				undrag(food)
 			end
 		end
-		if r and Flags.n99_fuel and fire and (fire:GetAttribute("FuelRemaining") or 999) < (Flags.n99_fuelAt or 150) then
+		local fuelNow = fire and (fire:GetAttribute("FuelRemaining") or 0) or 0
+		if r and Flags.n99_fuel and fire and fuelNow > 0 and fuelNow < (Flags.n99_fuelAt or 150) and os.clock() > fuelPauseUntil then
 			local fuel
 			local bd = 1e9
 			for _, it in ipairs(Items:GetChildren()) do
@@ -323,6 +325,18 @@ task.spawn(function()
 				moveItem(fuel, CFrame.new((inner and inner.Position or firePos()) + Vector3.new(0, 1, 0)))
 				task.wait(0.3)
 				pcall(function() RE.RequestBurnItem:FireServer(fire, fuel) end)
+				-- make sure the fire really took it, so logs are never thrown away
+				task.wait(1.2)
+				if (fire:GetAttribute("FuelRemaining") or 0) > fuelNow then
+					fuelFails = 0
+				else
+					fuelFails = fuelFails + 1
+					if fuelFails >= 2 then
+						fuelFails = 0
+						fuelPauseUntil = os.clock() + 60
+						notify("Auto Fuel", "The fire isn't taking fuel. Paused for 1 minute.")
+					end
+				end
 			end
 		end
 		if r and Flags.n99_cook and fire and (fire:GetAttribute("FuelRemaining") or 0) > 0 then
