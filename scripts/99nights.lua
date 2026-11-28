@@ -64,11 +64,20 @@ for g, list in pairs(GROUPS) do
 	for _, n in ipairs(list) do LOOKUP[g][n] = true end
 end
 local function safeFood(item)
-	return (item:GetAttribute("RestoreHunger") or 0) > 0 and (item:GetAttribute("RestoreHealth") or 0) >= 0 and not item.Name:find("Rotten")
+	return not attached(item) and (item:GetAttribute("RestoreHunger") or 0) > 0 and (item:GetAttribute("RestoreHealth") or 0) >= 0 and not item.Name:find("Rotten")
+end
+-- items still growing on something (berries on a bush) are welded to it: never pull those
+local function attached(item)
+	local w = item:FindFirstChild("ItemWeld", true)
+	if w and w:IsA("WeldConstraint") then
+		local other = (w.Part1 and not w.Part1:IsDescendantOf(item)) and w.Part1 or ((w.Part0 and not w.Part0:IsDescendantOf(item)) and w.Part0)
+		if other then return true end
+	end
+	return false
 end
 local function inGroup(item, g)
 	local n = item.Name
-	if not LOOKUP[g] then return false end
+	if not LOOKUP[g] or attached(item) then return false end
 	if LOOKUP[g][n] then return true end
 	if g == "Food" then return n:find("Cooked") ~= nil or n:find("Stew") ~= nil end
 	if g == "Pelts" then return n:find("Pelt") ~= nil end
@@ -336,7 +345,7 @@ task.spawn(function()
 			local emergency = false
 			if not food and Flags.n99_god and hunger < 25 then
 				for _, it in ipairs(Items:GetChildren()) do
-					if (it.GetAttribute(it, "RestoreHunger") or 0) > 0 and not string.find(it.Name, "Rotten") then
+					if (it.GetAttribute(it, "RestoreHunger") or 0) > 0 and not attached(it) and not string.find(it.Name, "Rotten") then
 						local p = itemPos(it)
 						if p and (p - r.Position).Magnitude < fd then food, fd = it, (p - r.Position).Magnitude end
 					end
@@ -367,7 +376,7 @@ task.spawn(function()
 			local fuel
 			local bd = 1e9
 			for _, it in ipairs(Items:GetChildren()) do
-				if it:GetAttribute("BurnFuel") and (it:GetAttribute("Wet") or 0) < 1 and not it.Name:find("Cultist") and not it.Name:find("Corpse") then
+				if it:GetAttribute("BurnFuel") and not attached(it) and (it:GetAttribute("Wet") or 0) < 1 and not it.Name:find("Cultist") and not it.Name:find("Corpse") then
 					local p = itemPos(it)
 					if p and (p - firePos()).Magnitude < bd then fuel, bd = it, (p - firePos()).Magnitude end
 				end
@@ -394,7 +403,7 @@ task.spawn(function()
 		if atCamp and Flags.n99_cook and (fire:GetAttribute("FuelRemaining") or 0) > 0 then
 			local raw, rd = nil, 1e9
 			for _, it in ipairs(Items:GetChildren()) do
-				if it:GetAttribute("Cookable") then
+				if it:GetAttribute("Cookable") and not attached(it) then
 					local p = itemPos(it)
 					if p and (p - firePos()).Magnitude < rd then raw, rd = it, (p - firePos()).Magnitude end
 				end
@@ -536,7 +545,7 @@ sap:Button({ Name = "Plant saplings", Description = "Uses the saplings lying on 
 		if not r then return end
 		local center = r.Position
 		local saps = {}
-		for _, it in ipairs(Items:GetChildren()) do if it.Name == "Sapling" then saps[#saps + 1] = it end end
+		for _, it in ipairs(Items:GetChildren()) do if it.Name == "Sapling" and not attached(it) then saps[#saps + 1] = it end end
 		local want = math.min(Flags.n99_sapN or 200, #saps)
 		local gap = Flags.n99_sapGap or 6
 		local shape = Flags.n99_sapShape or "Ring"
