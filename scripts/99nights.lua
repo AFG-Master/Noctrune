@@ -143,25 +143,28 @@ genv.N99_RAWNOTE = function(n) UI:Notify({ Title = "God Mode", Content = n .. " 
 genv.N99_BLOCK = {}
 for n in pairs(GOD_BLOCK) do genv.N99_BLOCK[n] = true end
 for n in pairs(HAZARD_BLOCK) do genv.N99_BLOCK[n] = true end
-if not genv.N99_HOOK2 and hookmetamethod and getnamecallmethod then
-	genv.N99_HOOK2 = true
+-- What God Mode blocks. A reload replaces this function, so new rules apply without a rejoin.
+genv.N99_SHOULDBLOCK = function(self, method, item)
+	local F, B = genv.N99_FLAGS, genv.N99_BLOCK
+	if not (F and F.n99_god and B) then return false end
+	if method ~= "FireServer" and method ~= "InvokeServer" then return false end
+	local n = self.Name
+	if B[n] then return true end
+	-- raw / rotten food hurts you: don't eat it while God Mode is on
+	if n == "RequestConsumeItem" and typeof(item) == "Instance" and ((item:GetAttribute("RestoreHealth") or 0) < 0 or item.Name:find("Rotten")) then
+		if genv.N99_RAWNOTE then task.defer(genv.N99_RAWNOTE, item.Name) end
+		return true
+	end
+	return false
+end
+if not genv.N99_HOOK3 and hookmetamethod and getnamecallmethod then
+	genv.N99_HOOK3 = true
 	local old
 	old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-		local F, B = genv.N99_FLAGS, genv.N99_BLOCK
-		if F and F.n99_god and B and typeof(self) == "Instance" then
-			local n = self.Name
-			if B[n] or n == "RequestConsumeItem" then
-				local m = getnamecallmethod()
-				if m == "FireServer" or m == "InvokeServer" then
-					if B[n] then return nil end
-					-- raw / rotten food hurts you: don't eat it while God Mode is on
-					local item = ...
-					if typeof(item) == "Instance" and ((item:GetAttribute("RestoreHealth") or 0) < 0 or item.Name:find("Rotten")) then
-						if genv.N99_RAWNOTE then task.defer(genv.N99_RAWNOTE, item.Name) end
-						return nil
-					end
-				end
-			end
+		local fn = genv.N99_SHOULDBLOCK
+		if fn and typeof(self) == "Instance" then
+			local ok, block = pcall(fn, self, getnamecallmethod(), ...)
+			if ok and block then return nil end
 		end
 		return old(self, ...)
 	end))
