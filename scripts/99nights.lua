@@ -68,6 +68,7 @@ local function safeFood(item)
 end
 local function inGroup(item, g)
 	local n = item.Name
+	if not LOOKUP[g] then return false end
 	if LOOKUP[g][n] then return true end
 	if g == "Food" then return n:find("Cooked") ~= nil or n:find("Stew") ~= nil end
 	if g == "Pelts" then return n:find("Pelt") ~= nil end
@@ -290,24 +291,35 @@ local function nearest(groups, from, maxD)
 	return best
 end
 local fuelFails, fuelPauseUntil = 0, 0
+local badFood = setmetatable({}, { __mode = "k" })
 task.spawn(function()
 	while alive and UI.Window == Window do
 		local r = root()
 		local hunger = LP:GetAttribute("Hunger") or 200
-		local need = (Flags.n99_eat and hunger < (Flags.n99_eatAt or 100)) or (Flags.n99_god and hunger < 60)
+		local need = (Flags.n99_eat and hunger < (Flags.n99_eatAt or 100)) or (Flags.n99_god and hunger < 100)
 		if r and need then
+			-- nearest safe food that hasn't failed recently
 			local food, fd = nil, 1e9
-		for _, it in ipairs(Items:GetChildren()) do
-			if safeFood(it) then
-				local p = itemPos(it)
-				if p and (p - r.Position).Magnitude < fd then food, fd = it, (p - r.Position).Magnitude end
+			for _, it in ipairs(Items:GetChildren()) do
+				if safeFood(it) and not (badFood[it] and badFood[it] > os.clock()) then
+					local p = itemPos(it)
+					if p and (p - r.Position).Magnitude < fd then food, fd = it, (p - r.Position).Magnitude end
+				end
 			end
-		end
 			if food then
+				-- the server only lets you eat what is next to you: bring it first
+				if fd > 6 then
+					moveItem(food, r.CFrame * CFrame.new(0, 0, -3))
+					task.wait(0.25)
+				end
 				drag(food)
 				task.wait(0.1)
 				pcall(function() RE.RequestConsumeItem:InvokeServer(food) end)
 				undrag(food)
+				task.wait(0.4)
+				if food.Parent and (LP:GetAttribute("Hunger") or 0) <= hunger then
+					badFood[food] = os.clock() + 20
+				end
 			end
 		end
 		local fuelNow = fire and (fire:GetAttribute("FuelRemaining") or 0) or 0
