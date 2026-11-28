@@ -445,7 +445,11 @@ local function doBring(groups, dest)
 end
 bring:Button({ Name = "Bring selected", Action = "Bring", Callback = function()
 	local groups = {}
-	for g, on in pairs(Flags.n99_bringWhat or {}) do if on then groups[#groups + 1] = g end end
+	-- the dropdown gives a list ({"Logs", "Food"}) or a set ({Logs = true}): accept both
+	for k, v in pairs(Flags.n99_bringWhat or {}) do
+		local g = type(k) == "number" and v or (v and k)
+		if type(g) == "string" and GROUPS[g] then groups[#groups + 1] = g end
+	end
 	if #groups == 0 then notify("Bring", "Pick something first") return end
 	task.spawn(doBring, groups, Flags.n99_bringTo)
 end })
