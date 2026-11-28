@@ -114,12 +114,16 @@ local function holdAxe(axe)
 	local ch = LP.Character
 	if not (ch and axe) then return false end
 	-- what the game says you're holding right now (you may have switched to a gun or the flashlight)
-	local th = ch:FindFirstChild("ToolHandle")
-	local cur = th and th:FindFirstChild("OriginalItem") and th.OriginalItem.Value
-	if cur ~= axe and ch:GetAttribute("Equipped") ~= axe.Name then
+	-- the server goes by the "Equipped" item, so switch the same way the hotbar does: unequip, then equip
+	local cur = ch:GetAttribute("Equipped")
+	if cur ~= axe.Name then
+		local inv = LP:FindFirstChild("Inventory")
+		local curItem = cur and inv and inv:FindFirstChild(cur)
+		if curItem then pcall(function() RE.UnequipItemHandle:FireServer("FireAllClients", curItem) end) task.wait(0.2) end
 		pcall(function() RE.EquipItemHandle:FireServer("FireAllClients", axe) end)
 		held = axe
-		task.wait(0.35)
+		task.wait(0.6)
+		return ch:GetAttribute("Equipped") == axe.Name
 	end
 	return true
 end
