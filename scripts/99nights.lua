@@ -181,6 +181,7 @@ end
 -- Tree cache (trees don't move: positions are stored once)
 ------------------------------------------------------------------
 local trees = {}
+local felled = setmetatable({}, { __mode = "k" })
 local function addTree(t)
 	if t:IsA("Model") and t:GetAttribute("Resource") == "Tree" then
 		local ok, p = pcall(function() return t:GetPivot() end)
@@ -261,10 +262,15 @@ task.spawn(function()
 					local R = Flags.n99_chopR or 80
 							for t, cf in pairs(trees) do
 						if count >= 60 then break end
-						if t.Parent and (cf.Position - pos).Magnitude <= R then
+						local hp = t:GetAttribute("Health") or 0
+						if t.Parent and t:IsDescendantOf(Map) and hp > 0 and not felled[t] and (cf.Position - pos).Magnitude <= R then
 							count = count + 1
 							local id = nextId()
-							task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(t, axe, id, cf, false) end)
+							-- the hit that fells the tree must say so (true), like the game does,
+							-- or the server drops the logs under the map
+							local last = hp <= (axe:GetAttribute("WeaponResourceDamage") or 1)
+							if last then felled[t] = true end
+							task.spawn(pcall, function() RE.ToolDamageObject:InvokeServer(t, axe, id, cf, last) end)
 						end
 					end
 				end
