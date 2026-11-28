@@ -30,8 +30,9 @@ end)
 
 local alive = true
 local conns = {}
-local S = { W = nil, want = nil, target = nil, danger = {}, nDanger = 0, guardHit = false, status = "starting", lastOrig = nil }
+local S = { targetId = nil, W = nil, want = nil, target = nil, danger = {}, nDanger = 0, guardHit = false, status = "starting", lastOrig = nil }
 genv.SNKR_S = S
+genv.SNKR_G = G
 
 -- find the game's own client world (holds snakes, food and your prediction state)
 local function findWorld()
@@ -108,17 +109,28 @@ local function pickFood()
 	local p = W and W.pred
 	if not p then S.target = nil return end
 	local hx, hz = p.x, p.z
-	local best, bx, bz = 0, nil, nil
+	local myR = (W.you and W.you.radius) or 1
+	-- keep the current pellet while it's still there and safe (stops zig-zagging)
+	local cur = S.targetId and W.food[S.targetId]
+	if cur and clearance(cur.x, cur.z, myR) > 2 then
+		local dx, dz = cur.x - hx, cur.z - hz
+		if dx * dx + dz * dz < 60 * 60 then S.target = { cur.x, cur.z } return end
+	end
+	local best, bx, bz, bid = 0, nil, nil, nil
 	local lim = arenaR() - 25
-	for _, f in pairs(W.food) do
+	local ca, sa = math.cos(p.angle), math.sin(p.angle)
+	for id, f in pairs(W.food) do
 		local dx, dz = f.x - hx, f.z - hz
 		local d2 = dx * dx + dz * dz
 		if d2 < 110 * 110 and f.x * f.x + f.z * f.z < lim * lim then
-			local sc = (f.v or 1) / (math.sqrt(d2) + 6)
-			if sc > best then best, bx, bz = sc, f.x, f.z end
+			local d = math.sqrt(d2) + 0.01
+			-- pellets ahead are cheaper to reach than ones behind (turning costs time)
+			local ahead = (dx * ca + dz * sa) / d
+			local sc = (f.v or 1) * (1.6 + ahead) / (d + 6)
+			if sc > best and clearance(f.x, f.z, myR) > 2 then best, bx, bz, bid = sc, f.x, f.z, id end
 		end
 	end
-	if bx and clearance(bx, bz, 1) < 3 then bx = nil end
+	S.targetId = bid
 	S.target = bx and { bx, bz } or nil
 end
 
